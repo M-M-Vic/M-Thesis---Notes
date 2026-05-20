@@ -1,0 +1,43 @@
+\begin{tikzpicture}[>=Stealth, line cap=round, line join=round]
+  % --- global axes ---
+  \draw[->] (0,0) -- (8,0) node[below right] {$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left] {$n_2$};
+  
+  % Improved origin label placement (inside the quadrant)
+  \node[above right, xshift=2pt, yshift=2pt] at (0,0) {$(0,0)$};
+
+  % --- NEW: Entry transitions from the origin ---
+  \draw[->] (0,0) -- ++(0:1.2)  node[below] {$\lambda_1$}; % Towards n1 axis
+  \draw[->] (0,0) -- ++(90:1.2) node[right] {$\lambda_2$}; % Up n2 axis
+
+  % --- boundary state (n1,0) ---
+  \coordinate (A) at (6,0);
+  \node[below] at (A) {$(n_1,0)$};
+  \draw[->] (A) -- ++(0:1.2)   node[below] {$\lambda_1$}; 
+  \draw[->] (A) -- ++(90:1.2)  node[right] {$\lambda_2$}; 
+  \draw[->] (A) -- ++(180:1.2) node[below] {$\mu$};      
+  \draw[->,dashed] (A) -- ++(135:1.2) node[left]  {$\gamma_1 n_1$};   
+
+  % --- interior state (n1,n2) ---
+  \coordinate (B) at (6,4);
+  \node[below left] at (B) {$(n_1,n_2)$};
+  \draw[->] (B) -- ++(0:1.2)   node[below] {$\lambda_1$};
+  \draw[->] (B) -- ++(90:1.2)  node[right] {$\lambda_2$};
+  \draw[->] (B) -- ++(180:1.2) node[left] {$\mu$};
+  \draw[->, dashed] (B) -- ++(135:1.2) node[left]  {$\gamma_1 n_1$};
+  \draw[-> ,dashed] (B) -- ++(315:1.2) node[right] {$\gamma_2 n_2$};
+
+  % --- boundary state (0,n2) ---
+  \coordinate (C) at (0,4);
+  \node[left] at (C) {$(0,n_2)$};
+  \draw[->] (C) -- ++(0:1.2)   node[below] {$\lambda_1$};
+  \draw[->] (C) -- ++(90:1.2)  node[right] {$\lambda_2$};
+  \draw[->] (C) -- ++(-90:1.2) node[left]  {$\mu$};  
+  \draw[->,dashed] (C) -- ++(315:1.2) node[right] {$\gamma_2 n_2$};
+
+  % --- "idle" arcs ---
+  \coordinate (idle) at (-1.25,-1.15);
+  \node[below] at (idle) {$\text{idle}$};
+  \draw[->] (idle) to[bend left=45] node[midway, above left] {$\lambda_1+\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45] node[midway, below right] {$\mu$} (idle);
+\end{tikzpicture}
