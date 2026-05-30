@@ -192,220 +192,281 @@ the algebraic factor $\theta_1 y(x-1)$ in the coefficient of $P(x,y)$.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Closed-form solution via the kernel method}
 
-Both fundamental equations~\eqref{eq:B21:fundamental} and~\eqref{eq:C21:fundamental}
-have the structure
+Both fundamental equations have the structure
 \begin{equation}
     D(x,y)\,P(x,y) \;=\; R(x,y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
     \label{eq:exp:algebraic}
 \end{equation}
-where $D(x,y)$ is a polynomial in $x$ and $y$ and $R(x,y)$ does not involve
-$P$ or its derivatives.  This is a \emph{closed-form} relation:
-\begin{equation}
-    P(x,y) \;=\; \frac{R(x,y)\,P_y(y) - \mu x(1-y)\,\pi(0,0)}{D(x,y)},
-    \label{eq:exp:Pxy_general}
-\end{equation}
-provided $D(x,y)\ne0$.  The unknown $P_y(y)$ is determined by requiring
-$P(x,y)$ to be analytic on the unit polydisc: at the zero of $D(\cdot,y)$
-inside $|x|\le1$, the numerator must vanish.
+where $D(x,y)$ is polynomial and $R(x,y)$ does not involve $P$.
+Since there is no derivative of $P$, this yields directly
+$P(x,y) = [R\,P_y - \mu x(1-y)\pi(0,0)]/D$
+once $P_y(y)$ and $\pi(0,0)$ are known.
 
-\subsubsection*{Characteristic roots}
+\subsubsection*{Step 1 — characteristic roots}
 
-For each fixed $y$, the polynomial $D(x,y)=0$ is quadratic in $x$.
-Writing $D$ for each model:
+For each model, the factor $y$ in $D$ cancels and the inner quadratic in $x$ is:
 \begin{align}
     \begin{split}
-        D^{B_2^1}(x,y) &= y\bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)x
-        - (\mu+\gamma_1 y)\bigr],
+        &\text{B$_2^1$:}\quad
+        \lambda_1 x^2 - \bigl(\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr)x + (\mu+\gamma_1 y) = 0,
     \end{split}
-    \label{eq:B21:D} \\
+    \label{eq:B21:quad} \\
     \begin{split}
-        D^{C_2^1}(x,y) &= y\bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\theta_1)x
-        - (\mu+\theta_1)\bigr].
+        &\text{C$_2^1$:}\quad
+        \lambda_1 x^2 - \bigl(\lambda_1+\lambda_2(1-y)+\mu+\theta_1\bigr)x + (\mu+\theta_1) = 0.
     \end{split}
-    \label{eq:C21:D}
+    \label{eq:C21:quad}
 \end{align}
-The inner quadratics are of the same form as in Model~A (Equation~\eqref{eq:A:xstar}),
-but with $\mu$ replaced by $\mu+\gamma_1 y$ (B$_2^1$) or $\mu+\theta_1$ (C$_2^1$).
-Their negative-sign roots inside the unit disc are:
+Both have the same form as Model~A's quadratic~\eqref{eq:A:xstar}, but with
+$\mu$ replaced by $\mu+\gamma_1 y$ (B$_2^1$) or $\mu+\theta_1$ (C$_2^1$).
+By Vieta's formulas, the product of the two roots is
+$(\mu+\gamma_1 y)/\lambda_1$ or $(\mu+\theta_1)/\lambda_1$ respectively.
+The negative-sign (inner) roots are:
 \begin{align}
     \begin{split}
-        x_{B_2^1}^*(y) &= \frac{(\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)
-        - \sqrt{(\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)^2 - 4\lambda_1(\mu+\gamma_1 y)}}
-        {2\lambda_1},
+        x_{B_2^1}^*(y) &= \frac{A_{B}(y) - \sqrt{A_{B}(y)^2 - 4\lambda_1(\mu+\gamma_1 y)}}
+        {2\lambda_1}, \quad A_{B}(y)=\lambda_1+\lambda_2(1-y)+\mu+\gamma_1,
     \end{split}
     \label{eq:B21:xstar} \\
     \begin{split}
-        x_{C_2^1}^*(y) &= \frac{(\lambda_1+\lambda_2(1-y)+\mu+\theta_1)
-        - \sqrt{(\lambda_1+\lambda_2(1-y)+\mu+\theta_1)^2 - 4\lambda_1(\mu+\theta_1)}}
-        {2\lambda_1}.
+        x_{C_2^1}^*(y) &= \frac{A_{C} - \sqrt{A_{C}^2 - 4\lambda_1(\mu+\theta_1)}}
+        {2\lambda_1}, \quad A_{C}=\lambda_1+\lambda_2(1-y)+\mu+\theta_1.
     \end{split}
     \label{eq:C21:xstar}
 \end{align}
+At $y=1$: $x_{B_2^1}^*(1)=1$ and $x_{C_2^1}^*(1)=1$ (both verified by direct
+substitution).  At $\gamma_1=0$ (resp.\ $\theta_1=0$) both roots reduce to
+$x^*(y)$ of Model~A~\eqref{eq:A:xstar}.
 
-At $\gamma_1=0$, $x_{B_2^1}^*(y)\to x^*(y)$
-(Model~A root, Equation~\eqref{eq:A:xstar}).  At $\theta_1=0$,
-$x_{C_2^1}^*(y)\to x^*(y)$ as well.  Both models degenerate to Model~A
-in the limit of vanishing mechanism.
+\subsubsection*{Step 2 — boundary function $P_y(y)$}
 
-\subsubsection*{Boundary function $P_y(y)$}
-
-Setting $x=x^*(y)$ in~\eqref{eq:exp:Pxy_general} and requiring the
-numerator to vanish:
+At $x=x_r^*(y)$ the denominator $D$ vanishes.  For $P$ to be bounded, the
+numerator must also vanish.  Solving for $P_y(y)$:
 \begin{align}
     \begin{split}
-        P_y^{B_2^1}(y) &= \frac{\mu\, x_{B_2^1}^*(y)\,(1-y)\,\pi(0,0)}
-        {(x_{B_2^1}^*(y)-y)\,(\mu+\gamma_1 y)},
+        P_y^{B_2^1}(y) \;&=\;
+        \frac{\mu\, x_{B_2^1}^*(y)\,(1-y)\,\pi(0,0)}
+        {\bigl(x_{B_2^1}^*(y)-y\bigr)\,(\mu+\gamma_1 y)},
     \end{split}
-    \label{eq:B21:Py} \\
+    \label{eq:B21:Py} \\[4pt]
     \begin{split}
-        P_y^{C_2^1}(y) &= \frac{\mu\, x_{C_2^1}^*(y)\,(1-y)\,\pi(0,0)}
-        {x_{C_2^1}^*(y)\,(\mu+\theta_1 y) - y(\mu+\theta_1)}.
+        P_y^{C_2^1}(y) \;&=\;
+        \frac{\mu\, x_{C_2^1}^*(y)\,(1-y)\,\pi(0,0)}
+        {(\mu+\theta_1 y)\,x_{C_2^1}^*(y) - y(\mu+\theta_1)}.
     \end{split}
     \label{eq:C21:Py}
 \end{align}
+Setting $y=0$: using $x_r^*(0)^2 \cdot \lambda_1 = \mu + (\text{mechanism at }y=0)$
+and Vieta's product, one verifies $P_y(0)=\pi(0,0)$ in both cases, confirming
+the boundary condition.
 
-% [Expand: verify Py(0) = pi(0,0) for both models as a sanity check.]
+\subsubsection*{Step 3 — joint PGF}
 
-\subsubsection*{Joint PGF}
-
-Substituting the boundary functions back into~\eqref{eq:exp:algebraic} and
-simplifying the numerator (the cross-terms in $x_{r}^*$ cancel), one obtains:
+Substituting~\eqref{eq:B21:Py} (resp.\ \eqref{eq:C21:Py})
+into~\eqref{eq:exp:algebraic} and simplifying, the factor $(x-x_r^*)$
+cancels between numerator and denominator.
+Denoting $x_r^* = x_{B_2^1}^*$ or $x_{C_2^1}^*$, and
+$x_r^+$ for the corresponding outer root:
 \begin{align}
     \begin{split}
         P_{B_2^1}(x,y) \;&=\;
-        \frac{\mu(1-y)\,\pi(0,0)\,\bigl(x - x_{B_2^1}^*(y)\bigr)}
-        {\bigl(x_{B_2^1}^*(y)-y\bigr)
-         \bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)x - (\mu+\gamma_1 y)\bigr]},
+        \frac{\mu\,\rho(1-\rho)\,(1-y)}
+        {\lambda_1\,\bigl(x_{B_2^1}^*(y)-y\bigr)\,\bigl(x_{B_2^1}^+(y)-x\bigr)},
     \end{split}
     \label{eq:B21:Pxy} \\[8pt]
     \begin{split}
         P_{C_2^1}(x,y) \;&=\;
-        \frac{\mu(\mu+\theta_1)(1-y)\,\pi(0,0)\,\bigl(x - x_{C_2^1}^*(y)\bigr)}
-        {\bigl[x_{C_2^1}^*(y)(\mu+\theta_1 y) - y(\mu+\theta_1)\bigr]
-         \bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\theta_1)x - (\mu+\theta_1)\bigr]}.
+        \frac{\mu(\mu+\theta_1)\,(1-y)\,\pi(0,0)}
+        {\lambda_1\,\bigl(x_{C_2^1}^+(y)-x\bigr)
+         \,\bigl[(\mu+\theta_1 y)\,x_{C_2^1}^*(y)-y(\mu+\theta_1)\bigr]}.
     \end{split}
     \label{eq:C21:Pxy}
 \end{align}
 
-Both are \emph{rational functions} of $x$ and $y$ (given $\pi(0,0)$),
-with the same $(x-x_r^*(y))/(...)$ structure as Model~A
-(Equation~\eqref{eq:A:fundamental}).  At $\gamma_1=0$ (resp.\ $\theta_1=0$)
-the roots and coefficients reduce to those of Model~A, recovering
-$P_A(x,y)$ exactly.
+\textit{Remark.}
+Formula~\eqref{eq:B21:Pxy} is \emph{structurally identical to Model~A}:
+\begin{equation}
+    P_A(x,y) \;=\; \frac{\mu\,\rho(1-\rho)\,(1-y)}
+    {\lambda_1\,(x_A^*(y)-y)\,(x_A^+(y)-x)}.
+    \label{eq:A:Pxy_factored}
+\end{equation}
+The only difference between Models A and B$_2^1$ is in the characteristic
+roots: replacing $\mu\to\mu+\gamma_1 y$ in the quadratic shifts the roots
+from $x_A^*,x_A^+$ to $x_{B_2^1}^*,x_{B_2^1}^+$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Empty-state probabilities}
 
 \subsubsection*{Model B$_2^1$}
-Jockeying conserves the total number of customers, so the diagonal identity
-$P(z,z)=\rho(1-\rho)/(1-\rho z)$ (cf.\ Equation~\eqref{eq:A:Pzz})
-still holds, giving
+
+Jockeying conserves the total number of customers, so the same diagonal
+argument as in Model~A (Equation~\eqref{eq:A:Pzz}) gives
+$P(z,z)=\rho(1-\rho)/(1-\rho z)$, hence
 \begin{equation}
-    \pi(0,0) = \rho(1-\rho), \qquad \pi_0 = 1-\rho.
-    \label{eq:B21:pi00}
+    \pi(0,0) \;=\; \rho(1-\rho), \qquad \pi_0 \;=\; 1-\rho. \label{eq:B21:pi00}
 \end{equation}
 
 \subsubsection*{Model C$_2^1$}
-Abandonment removes customers from the system, breaking conservation.
-Setting $x=y=z$ in~\eqref{eq:C21:fundamental}, the term $\theta_1 y(x-1)$
-does not vanish (since $x-1\ne0$):
+
+Abandonment reduces the load, so conservation breaks and a different argument
+is needed.  Setting $y=1$ in~\eqref{eq:C21:fundamental}: the factor
+$\mu x(1-y)$ on the right vanishes, and $R^{C_2^1}(x,1)=(\mu+\theta_1)(x-1)$.
+The left-hand polynomial in $x$ factors as
+$-\lambda_1(x-1)(x-(\mu+\theta_1)/\lambda_1)$.
+Cancelling $(x-1)$:
 \begin{align}
     \begin{split}
-        &\bigl[(\lambda_1+\lambda_2+\mu)z^2-\mu z-\lambda_1 z^3-\lambda_2 z^3
-        +\theta_1 z(z-1)\bigr]P(z,z) \\
-        &\quad=\quad \mu(z-z)P_y(z) - \mu z(1-z)\pi(0,0),
+        P(x,1) \;=\; \frac{P_y(1)}{1-\rho_C\,x}, \qquad
+        \rho_C \;\equiv\; \frac{\lambda_1}{\mu+\theta_1}.
     \end{split}
-    \label{eq:C21:diag}
+    \label{eq:C21:Px1}
 \end{align}
-which reduces (using $\mu(z-z)=0$ on the right) to
+This is a geometric marginal: Class-1's effective ``service rate'' is
+$\mu+\theta_1$ (completions plus first-customer abandonments).
+Evaluating at $x=1$:
 \begin{align}
     \begin{split}
-        \bigl[-\lambda z^2+(\lambda+\mu+\theta_1)z-(\mu+\theta_1)\bigr]\,P(z,z)/z
-        \;=\; -\mu(1-z)\,\pi(0,0).
+        P(1,1) \;=\; \frac{P_y(1)}{1-\rho_C} \;=\; 1-\pi_0. \label{eq:C21:P11}
     \end{split}
 \end{align}
-Factoring $-\lambda z^2+(\lambda+\mu+\theta_1)z-(\mu+\theta_1)
-= -\lambda(z-1)(z-(\mu+\theta_1)/\lambda)$ and cancelling $(1-z)$:
-\begin{equation}
-    P(z,z) \;=\; \frac{\mu\,\pi(0,0)\,z}{\lambda\bigl(z - (\mu+\theta_1)/\lambda\bigr)}.
-    \label{eq:C21:Pzz}
-\end{equation}
-This is a \emph{closed form} for the diagonal generating function, which
-Model~C$_2$ lacks.  Evaluating at $z=1$:
-\begin{equation}
-    P(1,1) \;=\; \frac{\mu\,\pi(0,0)}{\lambda-(\mu+\theta_1)} \;=\; 1-\pi_0.
-    \label{eq:C21:Pzz_norm}
-\end{equation}
-Combined with the idle balance $(\lambda_1+\lambda_2)\pi_0=\mu\,\pi(0,0)$, these
-two equations give $\pi_0$ and $\pi(0,0)$ in closed form:
+A second relation comes from setting $x=1$ in~\eqref{eq:C21:fundamental}
+and using $D^{C_2^1}(1,y)=\lambda_2 y(1-y)$:
 \begin{align}
     \begin{split}
-        \pi_0 \;=\; \frac{\mu+\theta_1-\lambda}{\mu+\theta_1}, \qquad
-        \pi(0,0) \;=\; \frac{\lambda(\mu+\theta_1-\lambda)}{\mu(\mu+\theta_1)}.
+        \lambda_2\,P(1,y) \;=\; \frac{\mu}{y}\bigl[P_y(y)-\pi(0,0)\bigr].
+    \end{split}
+\end{align}
+Taking $y\to1$ and using~\eqref{eq:C21:P11} and the idle
+balance $\lambda\pi_0=\mu\pi(0,0)$:
+\begin{align}
+    \begin{split}
+        \lambda_2(1-\pi_0) \;=\; \mu\bigl[P_y(1)-\pi(0,0)\bigr]
+        \;=\; \mu\bigl[(1-\pi_0)(1-\rho_C) - \pi(0,0)\bigr].
+    \end{split}
+\end{align}
+Substituting $\pi(0,0)=\lambda\pi_0/\mu$ and solving:
+\begin{align}
+    \begin{split}
+        \pi_0 \;=\; \frac{(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1}
+                        {\mu(\mu+\theta_1)+\lambda_1\theta_1},
+        \qquad
+        \pi(0,0) \;=\; \frac{\lambda\bigl[(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1\bigr]}
+                             {\mu\bigl[\mu(\mu+\theta_1)+\lambda_1\theta_1\bigr]}.
     \end{split}
     \label{eq:C21:pi0_pi00}
 \end{align}
-% [Note: stability requires lambda < mu+theta_1, i.e. rho < 1 + theta_1/mu.
-%  This is a WEAKER condition than rho < 1 — consistent with abandonment
-%  making the system stable for higher loads.]
+At $\theta_1=0$: $\pi_0\to1-\rho$ and $\pi(0,0)\to\rho(1-\rho)$, recovering Model~A. \\
+Stability requires $\pi_0>0$, i.e.\ $(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1>0$,
+a \emph{weaker} condition than $\rho<1$.
+
+% [Note: stability can hold even for λ > μ provided θ₁ is large enough —
+%  abandonment from the head of Queue 1 accelerates the clearance of the
+%  priority queue, stabilising the system at higher offered loads.]
 
 % ─────────────────────────────────────────────────────────────────────────────
-\subsection{Comparison with Models A, B$_2$, and C$_2$}
+\subsection{Main results and comparison}
 
-Table~\ref{tab:experiment_comparison} contrasts the four models.
+\begin{theorem}[Closed-form PGF for Models B$_2^1$ and C$_2^1$]\label{thm:exp}
+Under stability, the joint PGF of the two-class non-preemptive priority queue
+is rational in both experiment models.
+
+\emph{(i) Model B$_2^1$.}  With $\pi(0,0)=\rho(1-\rho)$,
+\begin{equation}
+    P_{B_2^1}(x,y) \;=\;
+    \frac{\mu\,\rho(1-\rho)\,(1-y)}
+    {\lambda_1\,\bigl(x_{B_2^1}^*(y)-y\bigr)\,\bigl(x_{B_2^1}^+(y)-x\bigr)},
+    \label{eq:B21:theorem}
+\end{equation}
+where $x_{B_2^1}^*(y)$ and $x_{B_2^1}^+(y)$ are the two roots
+of~\eqref{eq:B21:quad}.  This has the \emph{same rational form as Model~A},
+differing only in the characteristic roots
+($\mu\to\mu+\gamma_1 y$ in the quadratic).
+
+\emph{(ii) Model C$_2^1$.}  With $\pi(0,0)$ given by~\eqref{eq:C21:pi0_pi00},
+\begin{equation}
+    P_{C_2^1}(x,y) \;=\;
+    \frac{\mu(\mu+\theta_1)\,(1-y)\,\pi(0,0)}
+    {\lambda_1\,\bigl(x_{C_2^1}^+(y)-x\bigr)
+     \,\bigl[(\mu+\theta_1 y)\,x_{C_2^1}^*(y)-y(\mu+\theta_1)\bigr]},
+    \label{eq:C21:theorem}
+\end{equation}
+where $x_{C_2^1}^*(y)$ and $x_{C_2^1}^+(y)$ are the roots of~\eqref{eq:C21:quad}.
+At $\theta_1\to0^+$ the formula recovers Model~A exactly.
+\end{theorem}
+
+Table~\ref{tab:experiment_comparison} summarises the structural differences.
 
 \begin{table}[H]
 \centering
-\caption{Key properties of Models A, B$_2$, B$_2^1$, C$_2$, and C$_2^1$.}
+\caption{Key structural properties across all five models.}
 \label{tab:experiment_comparison}
 \renewcommand{\arraystretch}{1.35}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccccc}
 \hline
-\textbf{Property} & \textbf{A} & \textbf{B$_2$} & \textbf{B$_2^1$}
-                  & \textbf{C$_2$} / \textbf{C$_2^1$} \\
+\textbf{Property}
+ & \textbf{A}
+ & \textbf{B$_2$}
+ & \textbf{B$_2^1$}
+ & \textbf{C$_2$}
+ & \textbf{C$_2^1$} \\
 \hline
-Mechanism rate from $(n_1,n_2)$
+Departure rate
  & ---
  & $\gamma_1 n_1$
- & $\gamma_1\cdot\mathbf{1}_{\{n_1\ge1\}}$
- & $\theta_1 n_1$ / $\theta_1\cdot\mathbf{1}_{\{n_1\ge1\}}$ \\
+ & $\gamma_1\cdot\mathbf{1}_{n_1\ge1}$
+ & $\theta_1 n_1$
+ & $\theta_1\cdot\mathbf{1}_{n_1\ge1}$ \\
 PGF equation type
  & algebraic
- & ODE in $x$
+ & ODE
  & \textbf{algebraic}
- & ODE in $x$ / \textbf{algebraic} \\
-Integrating factor needed
- & no
- & yes
- & \textbf{no}
- & yes / \textbf{no} \\
+ & ODE
+ & \textbf{algebraic} \\
 $P(x,y)$ form
  & rational
- & integral + ${}_1F_1$
+ & integral+${}_1F_1$
  & \textbf{rational}
- & integral + ${}_1F_1$ / \textbf{rational} \\
+ & integral+${}_1F_1$
+ & \textbf{rational} \\
+Same form as Model~A?
+ & \checkmark
+ & $\times$
+ & \textbf{\checkmark}
+ & $\times$
+ & (similar) \\
 $\pi(0,0)$
  & $\rho(1-\rho)$
  & $\rho(1-\rho)$
  & $\rho(1-\rho)$
- & formula / formula \\
+ & \eqref{eq:C2:pi00}
+ & \eqref{eq:C21:pi0_pi00} \\
+$\pi_0$
+ & $1-\rho$
+ & $1-\rho$
+ & $1-\rho$
+ & \eqref{eq:C2:pi0}
+ & \eqref{eq:C21:pi0_pi00} \\
 $P(z,z)$ closed form
  & yes
  & yes
  & yes
- & no / \textbf{yes} \\
-Characteristic root
- & $x^*(y)$
- & $x^*(y)$ [effectively]
- & $x_{B_2^1}^*(y)$
- & --- / $x_{C_2^1}^*(y)$ \\
+ & no
+ & \textbf{via~\eqref{eq:C21:Px1}} \\
+Stability condition
+ & $\rho<1$
+ & $\rho<1$
+ & $\rho<1$
+ & $\lambda_2\mathbb{E}[B_C]<1$
+ & weaker than $\rho<1$ \\
 \hline
 \end{tabular}
 \end{table}
 
-The ``first-customer-only'' assumption converts an ODE into an algebraic
-equation in both cases.  The resulting characteristic roots
-$x_{B_2^1}^*(y)$ and $x_{C_2^1}^*(y)$ have the same form as Model~A's
-$x^*(y)$ but with $\mu$ replaced by $\mu+\gamma_1 y$ and $\mu+\theta_1$
-respectively.  This makes the full closed-form PGF available without
-quadrature, and all performance measures derivable by direct differentiation.
+The ``first-customer-only'' assumption converts both ODEs into algebraic
+equations.  For B$_2^1$, the result is structurally identical to Model~A
+— the only change is $\mu\to\mu+\gamma_1 y$ in the quadratic that defines
+the characteristic root.  For C$_2^1$, the structure is similar but the
+extra factor $(\mu+\theta_1)$ in the numerator and the modified denominator
+reflect the broken conservation.  In both cases all performance measures
+follow by direct differentiation of a rational function, with no quadrature
+required.
