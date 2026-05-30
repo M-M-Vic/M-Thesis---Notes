@@ -1,0 +1,62 @@
+\begin{tikzpicture}[
+  >={Stealth[length=3.2mm,width=2.2mm]},
+  line cap=round,
+  line join=round,
+  line width=0.8pt
+]
+  % global reference axes
+  \draw[->] (0,0) -- (10,0) node[below right] {$n_2$};
+  \draw[->] (0,0) -- (0,10) node[above left] {$n=n_1+n_2$};
+
+  % origin and 45-degree guide: n = n_2 (i.e., y=x)
+  \fill (0,0) circle (1.9pt);
+  \node[below right] at (0,0) {$(0,0)$};
+  \draw[dotted] (0,0) -- (10,10);
+
+  % local rates at origin
+  \draw[->] (0,0) -- ++(90:1.2) node[left] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(45:1.2) node[above] {$\lambda_2$};
+
+  % point on vertical boundary (n2 = 0)
+  \coordinate (V) at (0,4.6);
+  \fill (V) circle (1.9pt);
+  \node[left] at (V) {$(0,n)$};
+  \draw[->] (V) -- ++(90:1.2) node[left] {$\lambda_1$};
+  \draw[->] (V) -- ++(45:1.2) node[above] {$\lambda_2$};
+  \draw[->,dashed] (V) -- ++(0:1.2) node[below] {$\gamma_1 n$};
+  \draw[->] (V) -- ++(-90:1.2) node[right] {$\mu$};
+  % Abandonment for class-1: parallel dotted arrow to the left of mu
+  \draw[->, dotted] (-0.3, 4.6) -- ++(-90:1.2) node[left] {$\theta_1 n$};
+
+  % interior point on the diagonal line (y=x)
+  \coordinate (D) at (6.0,6.0);
+  \fill (D) circle (1.9pt);
+  \node[below right] at (D) {$(n,n)$};
+  \draw[->] (D) -- ++(90:1.2) node[left] {$\lambda_1$};
+  \draw[->] (D) -- ++(45:1.2) node[above] {$\lambda_2$};
+  \draw[->,dashed] (D) -- ++(180:1.0) node[above] {$\gamma_2 n$};
+  \draw[->] (D) -- ++(225:1.0) node[left] {$\mu$};
+  % Abandonment for class-2: parallel dotted arrow below/right of mu
+  \draw[->, dotted] (6.25, 5.75) -- ++(225:1.0) node[right] {$\theta_2 n$};
+
+  % upper interior point
+  \coordinate (U) at (3.0,9.0);
+  \fill (U) circle (1.9pt);
+  \node[below right] at (U) {$(n_2,n)$};
+  \draw[->] (U) -- ++(90:1.1) node[left] {$\lambda_1$};
+  \draw[->] (U) -- ++(45:1.15) node[above] {$\lambda_2$};
+  \draw[->,dashed] (U) -- ++(0:1.2) node[right] {$\gamma_1 (n-n_2)$};
+  \draw[->,dashed] (U) -- ++(180:1.0) node[above] {$\gamma_2 n_2$};
+  \draw[->] (U) -- ++(-90:1.0) node[right] {$\mu$};
+  % Abandonments for both classes
+  \draw[->, dotted] (2.7, 9.0) -- ++(-90:1.0) node[left] {$\theta_1 (n-n_2)$};
+  \draw[->, dotted] (U) -- ++(225:1.0) node[left] {$\theta_2 n_2$};
+
+  % idle / (0,0) arcs
+  \coordinate (idle) at (-1.9,-1.25);
+  \fill (idle) circle (1.6pt);
+  \node[below] at (idle) {$\mathrm{idle}$};
+  \draw[->] (idle) to[bend left=45] node[midway, above left] {$\lambda=\lambda_1+\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45] node[midway, below right] {$\mu$} (idle);
+
+\end{tikzpicture}

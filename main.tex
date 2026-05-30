@@ -15,6 +15,7 @@
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
 
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -112,7 +113,7 @@ The resulting system is the so-called birth-death process and it is equivalent t
 
 In \cite{adan2002queueing}, the formula for $\pi_0$ is derived in various ways: one with a direct approach, one that involves a recursion, and one involving PGF's. Since this document tries to derive PGF's for more complex systems, the latter one will be best suited as an introduction.
 
-Let $L(z)$ be the Laplace-Stiltjes Transform (LST) of the number of customers in the system, i.e., for $|z| \leq 1$ we have:
+Let $L(z)$ be the Laplace-Stieltjes Transform (LST) of the number of customers in the system, i.e., for $|z| \leq 1$ we have:
 \begin{equation}
     L(z) = \mathbb{E}[z^L]=\sum_{n=1}^{\infty} \pi_n z^n.
 \end{equation}
@@ -159,28 +160,94 @@ In their book, they provide closed formulas for both expressions, being as follo
      L_d(z) = \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right] (1-z)},
 \end{align*}
 
-Here, $\rho=\lambda \mathbb{E}[B]$ is the lead of the system and is not necessarily equal to $\frac{\lambda}{\mu}$. Thus:
+Here, $\rho=\lambda \mathbb{E}[B]$ is the load of the system and is not necessarily equal to $\frac{\lambda}{\mu}$. Thus:
 \begin{equation}
 L(z) = \frac{(1-\lambda \mathbb{E}[B]) \widetilde{B}(\lambda(1-z)) \left[ 1 - \widetilde{B}(\lambda(1-z)) \right]}{\lambda \mathbb{E}[V] \left[ \widetilde{B}(\lambda(1-z)) - z \right]}
 \end{equation}
 
-\subsection{\texorpdfstring{$M/M/1+M$}{M/M/1+M} queue}
+\section{Model description: Model X}
 
-\section{Model description: Model B}
+\textit{Note: This section defines the general two-class system equipped with
+\emph{both} jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this
+full model as \emph{Model X}. The simpler variants studied elsewhere in this
+document are recovered as special cases by zeroing the appropriate parameters, as
+summarised below.}
 
-\textit{Note: This section defines a general queueing system with jockeying (Model B). A baseline variant without jockeying (Model A) is simply a special case where $\gamma_1 = \gamma_2 = 0$. Knowing that, it suffices to explain Model B.}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccl}
+        \hline
+        Model & Jockeying & Abandonment & Parameter restriction \\
+        \hline
+        X  & both ($1\!\leftrightarrow\!2$) & both ($1,2$)       & $\gamma_i \geq 0,\ \theta_i \geq 0$ \quad (general) \\
+        A  & none                            & none               & $\gamma_1=\gamma_2=0,\ \theta_1=\theta_2=0$ \\
+        B  & both ($1\!\leftrightarrow\!2$) & none               & $\gamma_i \geq 0,\ \theta_1=\theta_2=0$ \\
+        B2 & $1\!\to\!2$ only                & none               & $\gamma_1 \geq 0,\ \gamma_2=0,\ \theta_1=\theta_2=0$ \\
+        C2 & none                            & class $1$ only     & $\theta_1 \geq 0,\ \theta_2=0,\ \gamma_1=\gamma_2=0$ \\
+        \hline
+    \end{tabular}
+    \caption{Nested family of models. Model X is the parent; Models A, B, B2 and C2
+    are obtained by restricting the jockeying directions and the abandoning classes.}
+    \label{tab:model_family}
+\end{table}
 
-The model discussed in this section $M/M/1$ queueing system with $2$ priority classes, where customers are served on a First-Come, First-Served (FCFS) within their own class and those coming from the priority class (Class-$1$) have non-preemptive priority over those of the non-priority class (Class-$2$), meaning that, when a Class-$2$ customer is in service, that service will not be interrupted by a potential arrival of a Class-$1$ customer. Moreover, we will take into account jockeying, i.e. customers abandoning their queue and moving to the other queue at a rate that depends on the amount of customers in the queue.
+The model discussed in this section is an $M/M/1$ queueing system with $2$ priority
+classes, where customers are served on a First-Come, First-Served (FCFS) basis
+within their own class and those coming from the priority class (Class-$1$) have
+non-preemptive priority over those of the non-priority class (Class-$2$); that is,
+when a Class-$2$ customer is in service, that service will not be interrupted by a
+potential arrival of a Class-$1$ customer. Beyond the basic dynamics, Model X
+incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a
+waiting customer may abandon its own queue and \emph{join the other queue}, at a
+per-customer rate $\gamma_1$ for the direction $1\to2$ and $\gamma_2$ for the
+direction $2\to1$, so the total number of customers is preserved. Second,
+\emph{abandonment} (reneging): a waiting customer may leave the \emph{system
+entirely} at a per-customer rate $\theta_i$, so the total number of customers
+decreases by one. Concretely, each Class-$i$ customer that is waiting in line
+(i.e.\ not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$
+patience clock and abandons the system when it expires; consequently the aggregate
+Class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear
+term $\theta_i n_i$ that appears in the balance equations. This is precisely the
+linear-reneging mechanism of the $M/M/1+M$ queue introduced in the Preliminaries.
 
-This model, being an $M/M/1$ queueing model according to Kendall's notation, features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for Class-$i$, exponentially distributed service times with rate $\mu$, and service capacity of $1$ customer at a time. In addition, customers departing from queue $i$ will move to the other queue at a per-customer rate of $\gamma_i$. 
+\begin{figure}[htbp]
+    \centering
+    \input{figures/queue_diagram.tikz}
+    \caption{Queueing system with two parallel queues.}
+    \label{fig:queue_model}
+\end{figure}
 
-In order to define the stochastic processes that drive this queueing system, it is necessary to introduce the following random variables:
+This model, being an $M/M/1$ queueing model according to Kendall's notation,
+features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for
+Class-$i$, exponentially distributed service times with rate $\mu$, and a service
+capacity of $1$ customer at a time. In addition, a waiting customer of Class-$1$
+jockeys to the class-$2$ queue at per-customer rate $\gamma_1$ and a waiting
+customer of Class-$2$ jockeys to the class-$1$ queue at per-customer rate
+$\gamma_2$ (transfers that conserve the total), while a waiting customer of
+Class-$i$ abandons the system at per-customer rate $\theta_i$ (a true departure
+that reduces the total).
+
+In order to define the stochastic processes that drive this queueing system, it is
+necessary to introduce the following random variables:
 \begin{itemize}
-    \item $\mathcal{I}:$ binary indicator for the server being idle or busy $\mathcal{I}\in \mathbb{B}$
-    \item $N_1, N_2:$ number of customers of class $1$ and $2$, respectively, in their respective queues
-    \item $N:$ total number of customers in the queues;
+    \item $\mathcal{I}:$ binary indicator for the server being idle or busy, $\mathcal{I}\in \mathbb{B}$;
+    \item $N_1, N_2:$ number of customers of class $1$ and $2$, respectively, in their respective queues;
+    \item $N:$ total number of customers in the queues.
 \end{itemize}
-Note that the variables $N_1$, $N_2$ and $N$ count the number of customers in the queues, as opposed to the customers in the system. This definition is convenient given that we have a common service rate for both priority classes, and hence the states of the system are equivalent regardless of the priority class the customer in service comes from. Since having customers in line directly implies that someone is in service, we will denote the idle state as $(0)$ and the rest of the states as the number of people in each queue as the tuple $(n_1,n_2)$, where $n_i$ denotes the number of customers in the queue for class-$i$. This is the most conventional way to define the state space, namely $S$ in such a queueing system. However, we can also look at the total number of customers in the queues, which behaves like a regular $M/M/1$ queueing system and is driven by a much more studied and simple set of dynamics. We can define an alternative state space $\widetilde{S}$ looking at the idle state $(0)$ and the pair $(n_2,n)$ —we could also choose $(n_1,n)$—, which already gives that we will have $(n-n_2)$ Class-$1$ customers in the priority queue. Note that, since $n$ is the total number of customers, we need to add the constraint $n \geq n_2$.
+Note that the variables $N_1$, $N_2$ and $N$ count the number of customers in the
+queues, as opposed to the customers in the system. This definition is convenient
+given that we have a common service rate for both priority classes, and hence the
+states of the system are equivalent regardless of the priority class the customer
+in service comes from. Since having customers in line directly implies that someone
+is in service, we will denote the idle state as $(0)$ and the rest of the states by
+the number of people in each queue as the tuple $(n_1,n_2)$, where $n_i$ denotes the
+number of customers in the queue for class-$i$. This is the most conventional way to
+define the state space, namely $S$, in such a queueing system. However, we can also
+look at the total number of customers in the queues. We can define an alternative
+state space $\widetilde{S}$ using the idle state $(0)$ and the pair $(n_2,n)$ —we
+could also choose $(n_1,n)$—, which gives that we have $(n-n_2)$ Class-$1$ customers
+in the priority queue. Note that, since $n$ is the total number of customers, we
+need the constraint $n \geq n_2$.
 Therefore, we define our state spaces as follows:
 \begin{align}
     \begin{split}
@@ -190,24 +257,41 @@ Therefore, we define our state spaces as follows:
     \begin{split}
         &\widetilde{S} := \{(0)\} \cup \{ (n_2,n) \mid n \geq n_2 \geq 0 \}.
         \label{eq:state_space_stilde}
-    \end{split}    
+    \end{split}
 \end{align}
 
-For these state spaces, we define the limiting —as opposed to time-dependent— probabilities of finding the system in that state in the long run as follows:
+For these state spaces, we define the limiting —as opposed to time-dependent—
+probabilities of finding the system in that state in the long run as follows:
 \begin{itemize}
     \item $\pi_0$ for the idle state $(0)$, which belongs to both spaces $S$ and $\widetilde{S}$;
     \item $\pi(n_1,n_2)$ for states $(n_1,n_2) \in S$, where $n_1,n_2 \geq 0$;
     \item $\widetilde{\pi}(n_2,n)$ for states $(n_2,n) \in \widetilde{S}$, where $n \geq n_2 \geq 0$.
 \end{itemize}
 
-
-Regarding the parameters of the system, the arrival process for each class follows a Poisson process (i.e., the interarrival times are exponentially distributed). By the properties of Poisson processes, the total number of arrivals will also form a Poisson process. Furthermore, we have a common service rate for exponentially distributed service times. We can organize our notation into class-specific parameters (alongside our common service rate) and class-blind totals. 
+Regarding the parameters of the system, the arrival process for each class follows a
+Poisson process (i.e., the interarrival times are exponentially distributed). By the
+properties of Poisson processes, the total number of arrivals will also form a
+Poisson process. Furthermore, we have a common service rate for exponentially
+distributed service times. We can organize our notation into class-specific
+parameters (alongside our common service rate) and class-blind totals.
 For the class-specific metrics and service rate, we define:
 \begin{itemize}
     \item $\lambda_1,\lambda_2$: arrival rates of classes $1$ and $2$, respectively;
     \item $\mu$: service rate of a customer, regardless of their priority class;
     \item $\rho_i=\frac{\lambda_i}{\mu}$: system load of class $i$, for $i\in\{1,2\}$;
-    \item $\gamma_1,\gamma_2$: per-customer jockeying rates departing from the queues of class $1$ and $2$, respectively.
+    \item $\gamma_1$: per-customer rate at which a waiting Class-$1$ customer jockeys
+          from the class-$1$ queue to the class-$2$ queue ($1\to2$);
+    \item $\gamma_2$: per-customer rate at which a waiting Class-$2$ customer jockeys
+          from the class-$2$ queue to the class-$1$ queue ($2\to1$); a jockeying
+          event in either direction transfers a waiting customer between queues and
+          \emph{conserves} the total $n=n_1+n_2$ (Model B2 sets $\gamma_2=0$);
+    \item $\theta_1,\theta_2$: per-customer abandonment (reneging) rates from the
+          class-$1$ and class-$2$ queues, respectively; an abandonment is a true
+          departure from the system and \emph{reduces} the total number of
+          customers by one. Each waiting Class-$i$ customer reneges independently
+          after an $\mathrm{Exp}(\theta_i)$ patience time, so the aggregate
+          Class-$i$ abandonment rate in state $(n_1,n_2)$ is $\theta_i n_i$
+          (Model C2 sets $\theta_2=0$).
 \end{itemize}
 For the aggregate system parameters, we define:
 \begin{itemize}
@@ -215,210 +299,186 @@ For the aggregate system parameters, we define:
     \item $\rho=\frac{\lambda}{\mu}$: total system load.
 \end{itemize}
 
-For stability conditions, we need the system to be able to keep up, on average, with the workload it was assigned. It suffices to set $\rho=\frac{\lambda_1+\lambda_2}{\mu}<1$.
-
-Since the service times are the same for both classes, the total number of customers will behave like a classic $M/M/1$-queue with parameters $\lambda=\lambda_1+\lambda_2$ and $\mu$, it is well known for such a system that the idle —limiting— probability is as follows:
-\begin{align*}
-    \pi_0 = 1-\rho = 1 - \frac{\lambda_1+\lambda_2}{\mu}
-\end{align*}
-And, for our system, this has the following implication:
+\textbf{Stability.}
+In the absence of abandonment ($\theta_1=\theta_2=0$, i.e.\ Models A, B and B2), the
+server must keep up on average with the offered workload, and it suffices to require
 \begin{equation*}
-    \sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty} \pi(n_1,n_2) = 1 - \pi_0 = 1 - (1-\rho)=\rho=\frac{\lambda_1+\lambda_2}{\mu},
+    \rho=\frac{\lambda_1+\lambda_2}{\mu}<1 .
 \end{equation*}
-which will be relevant in our derivations, as we will look at the queue length conditioned on the server being busy.
+Jockeying does not affect this condition, since it merely relocates customers
+without changing their total number. Abandonment changes the picture: when
+\emph{both} $\theta_1>0$ and $\theta_2>0$ (the general Model X), the state-dependent
+departure rate $\mu+\theta_1 n_1+\theta_2 n_2$ grows without bound in every
+direction, so the chain is positive recurrent for \emph{all} $\lambda,\mu>0$. When
+only one class reneges —as in Model C2, where $\theta_1>0$ but $\theta_2=0$—
+abandonment bounds only the priority queue, and stability still imposes a condition
+on the non-abandoning class; this is treated in the dedicated analysis of that
+model.
 
-We also have enough information to derive $\pi(0,0)$. This corresponds to the probability of having exactly $1$ customer in the system (the server is busy, but the queues are empty)—regardless of their class, due to the common service time distribution. This holds for both state spaces $S$ and $\widetilde{S}$:
+\textbf{Computation of $\pi_0$ and $\pi(0,0)$.}
+A relation that holds for Model X \emph{unconditionally} —for any
+$\gamma_i,\theta_i\geq 0$— follows from the cut between the idle state and the set of
+busy states. The only transition into $(0)$ is a service completion from the
+single-customer state $(0,0)$ at rate $\mu$, and the only transition out of $(0)$ is
+an arrival at rate $\lambda=\lambda_1+\lambda_2$; this is exactly the idle balance
+equation $\lambda\pi_0=\mu\,\pi(0,0)$. Consequently,
 \begin{equation}
-    \pi(0,0) = \tpi(0,0) = (1-\rho)\rho.
+    \pi(0,0) \;=\; \frac{\lambda}{\mu}\,\pi_0 \;=\; \rho\,\pi_0 .
+    \label{eq:pi00_general}
 \end{equation}
+Note that neither jockeying nor abandonment can occur from $(0,0)$ (there are no
+waiting customers), so~\eqref{eq:pi00_general} is unaffected by $\gamma_i$ and
+$\theta_i$. What \emph{does} depend on the abandonment parameters is the value of
+$\pi_0$ itself, as we now discuss.
+
+\emph{Models without abandonment (A, B, B2).} When $\theta_1=\theta_2=0$, jockeying
+conserves the total number of customers, so the total-in-system process is a
+constant death-rate birth--death chain with up-rate $\lambda$ and down-rate $\mu$
+—that is, an ordinary $M/M/1$ queue with parameters $\lambda$ and $\mu$. Its idle
+probability is the familiar
+\begin{equation}
+    \pi_0 = 1-\rho = 1-\frac{\lambda_1+\lambda_2}{\mu},
+    \qquad
+    \pi(0,0)=\rho\,\pi_0=(1-\rho)\rho .
+    \label{eq:pi0_noaband}
+\end{equation}
+
+\emph{Models with abandonment (X, C2).} As soon as a true abandonment is present, the
+total number of customers is no longer conserved: the departure rate out of a busy
+state is $\mu+\theta_1 n_1+\theta_2 n_2$, which depends on the \emph{split}
+$(n_1,n_2)$ and not merely on the total $n=n_1+n_2$. Indeed, the states $(n,0)$ and
+$(0,n)$ carry departure rates $\mu+\theta_1 n$ and $\mu+\theta_2 n$, which differ
+whenever $\theta_1\neq\theta_2$ —in particular for Model C2, where $\theta_2=0$.
+Consequently the total-in-system process is not lumpable to a one-dimensional
+birth--death chain, and $\pi_0$ admits no closed form obtained from the marginal
+alone. Instead, $\pi_0$ is determined jointly with the full two-dimensional
+stationary distribution through the normalisation $P(1,1)=1-\pi_0$ of the bivariate
+generating function, as carried out in the analysis sections below —and, for the
+single-class-abandonment case $\theta_2=0$, in the dedicated analysis of Model C2.
+
+In all cases, the mass on the busy states is
+\begin{equation}
+    \sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\pi(n_1,n_2) = 1-\pi_0,
+    \label{eq:busy_mass}
+\end{equation}
+which equals $\rho$ only in the no-abandonment case~\eqref{eq:pi0_noaband}; for
+Models X and C2 one has $1-\pi_0\neq\rho$ in general. This conditioning on a busy
+server will be relevant in our derivations, as we will look at the queue length
+conditioned on the server being busy.
 
 \subsection{Balance equations}
 
 \subsubsection{Balance equations for state space $S$} \label{sec:n1n2_balance_equations}
 
-Diagram. The dashed lines belong only to model B, but not to model A:
+Diagram for the combined model. Dashed arrows correspond to jockeying and dotted arrows to abandonments; both belong only to the generalized model, while the solid arrows are common to all variants:
 \begin{figure}[H]
   \centering
-  \resizebox{0.8\textwidth}{!}{
-    \input{figures/model-ii_diagram.tikz}
+  \resizebox{0.8\textwidth}{!}{%
+    \input{figures/model_c-diagram.tikz}
   }
-  \caption{State transition diagram on state space $S$.}
-  \label{fig:model-i}
+  \caption{State transition diagram on state space $S$ for the model with jockeying ($\gamma_i n_i$, dashed) and abandonments ($\theta_i n_i$, dotted).}
+  \label{fig:diagram-gen}
 \end{figure}
 
-The balance equations:
-\begin{align*}
-        \begin{split}
-        &\left[\lambda_1 + \lambda_2 + \mu + \gamma_1 n_1 + \gamma_2 n_2\right] \pi(n_1,n_2) \\
-        & \quad = \quad \mu \pi(n_1+1,n_2) \\
-        & \quad \quad + \lambda_1 \pi(n_1-1,n_2) \\
-        & \quad \quad + \lambda_2 \pi(n_1,n_2-1) \\
-        & \quad \quad + \gamma_1 (n_1+1)\pi(n_1+1,n_2-1) \\
-        & \quad \quad + \gamma_2 (n_2+1) \pi(n_1-1,n_2+1) 
-    \end{split} 
-    && \text{for} \quad n_1 \geq 1, n_2 \geq 1 \\
-    \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu +  \gamma_2 n_2 \right] \pi(0,n_2) \\
-        & \quad = \quad \lambda_2 \pi(0,n_2-1) \\
-        & \quad \quad + \mu \pi(1,n_2) \\
-        & \quad \quad + \mu  \pi(0,n_2+1)\\
-        & \quad \quad + \gamma_1 \pi(1, n_2-1)
-    \end{split} 
-    && \text{for} \quad n_1=0, n_2\geq 1\\
-    \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n_1 \right] \pi(n_1,0)  \\
-        & \quad = \quad \lambda_1 \pi(n_1-1,0) \\
-        & \quad \quad + \mu \pi(n_1+1, 0) \\
-        & \quad \quad + \gamma_2 \pi(n_1-1,1)
-    \end{split} 
-    && \text{for} \quad n_1 \geq 1, n_2 = 0\\
-    \begin{split}
-        &\left[ \lambda_1 + \lambda_2 + \mu \right] \pi(0,0) \\
-        & \quad = \quad (\lambda_1 + \lambda_2) \pi_0 \\
-        & \quad \quad + \mu \pi(1,0) \\
-        & \quad \quad + \mu \pi(0,1)
-    \end{split} 
-    && \text{for} \quad n_1=0, n_2=0\\
-    \begin{split}
-        (\lambda_1+\lambda_2) \pi_0 = \mu \pi(0,0)
-    \end{split}
-\end{align*}
-
-The set of equations can be simplified by combining the two equations where $\pi_0$ is present:
 \begin{align}
     \begin{split}
-        &\left[\lambda_1 + \lambda_2 + \mu + \gamma_1 n_1 + \gamma_2 n_2\right] \pi(n_1,n_2) \\
+        &\left[\lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 + (\gamma_2 + \theta_2) n_2\right] \pi(n_1,n_2) \\
         & \quad = \quad \mu \pi(n_1+1,n_2) \\
         & \quad \quad + \lambda_1 \pi(n_1-1,n_2) \\
         & \quad \quad + \lambda_2 \pi(n_1,n_2-1) \\
         & \quad \quad + \gamma_1 (n_1+1) \pi(n_1+1,n_2-1) \\
-        & \quad \quad + \gamma_2 (n_2+1) \pi(n_1-1,n_2+1) 
-    \end{split} 
-    && \text{for} \quad n_1 \geq 1, n_2 \geq 1 \label{eq:n1n2_balance_interior}\\
+        & \quad \quad + \gamma_2 (n_2+1) \pi(n_1-1,n_2+1) \\
+        & \quad \quad + \theta_1 (n_1+1) \pi(n_1+1,n_2) \\
+        & \quad \quad + \theta_2 (n_2+1) \pi(n_1,n_2+1)
+    \end{split}
+    && \text{for} \quad n_1 \geq 1, n_2 \geq 1 \label{eq:gen_balance_interior}\\
     \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu +  \gamma_2 n_2 \right] \pi(0,n_2) \\
+        & \left[ \lambda_1 + \lambda_2 + \mu +  (\gamma_2 + \theta_2) n_2 \right] \pi(0,n_2) \\
         & \quad = \quad \lambda_2 \pi(0,n_2-1) \\
         & \quad \quad + \mu \pi(1,n_2) \\
-        & \quad \quad + \mu  \pi(0,n_2+1)\\
-        & \quad \quad + \gamma_1 \pi(1, n_2-1)
-    \end{split} 
-    && \text{for} \quad n_1=0, n_2\geq 1
-    \label{eq:n1n2_balance_y-boundary}\\
+        & \quad \quad + \mu \pi(0,n_2+1) \\
+        & \quad \quad + \gamma_1 \pi(1, n_2-1) \\
+        & \quad \quad + \theta_1 \pi(1, n_2) \\
+        & \quad \quad + \theta_2(n_2+1) \pi(0,n_2+1)
+    \end{split}
+    && \text{for} \quad n_1=0, n_2 \geq 1 \label{eq:gen_balance_y-boundary}\\
     \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n_1 \right] \pi(n_1,0)  \\
+        & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1,0) \\
         & \quad = \quad \lambda_1 \pi(n_1-1,0) \\
         & \quad \quad + \mu \pi(n_1+1, 0) \\
-        & \quad \quad + \gamma_2 \pi(n_1-1,1)
-    \end{split} 
-    && \text{for} \quad n_1 \geq 1, n_2 = 0
-    \label{eq:n1n2_balance_x-boundary}\\
+        & \quad \quad + \gamma_2 \pi(n_1-1, 1) \\
+        & \quad \quad + \theta_1(n_1+1) \pi(n_1+1, 0) \\
+        & \quad \quad + \theta_2 \pi(n_1,1)
+    \end{split}
+    && \text{for} \quad n_1 \geq 1, n_2 = 0 \label{eq:gen_balance_x-boundary}\\
     \begin{split}
-        &\left[ \lambda_1 + \lambda_2 \right] \pi(0,0) \\
-        & \quad = \quad \mu \pi(1,0) \\
-        & \quad \quad + \mu \pi(0,1)
-    \end{split} 
-    && \text{for} \quad n_1=0, n_2=0 \label{eq:n1n2_balance_zero}\\
+        \left[\lambda_1+\lambda_2\right]\pi(0,0) = (\mu+\theta_1)\pi(1,0) + (\mu+\theta_2)\pi(0,1)
+    \end{split} && \label{eq:gen_balance_zero}\\
     \begin{split}
         (\lambda_1+\lambda_2) \pi_0 = \mu \pi(0,0)
-    \end{split}
-    \label{eq:n1n2_balance_idle}
+    \end{split} && \label{eq:gen_balance_idle}
 \end{align}
-
 
 \subsubsection{Balance equations for state space $\widetilde{S}$}
 
 We introduce a new state space $\widetilde{S}$:
 \begin{equation}
     \widetilde{S} := \big\{ (0) \cup \{ (n_2,n) \mid n \geq n_2 \geq 0\}\big\}.
-    \label{eq:state_space}
 \end{equation}
 
-For the sake of readability, we will denote the limiting probabilities associated to this state space with $\tpi(n_2,n)$, for state $(n_2,n)\in \widetilde{S}$. $\widetilde{\pi}$
+For the sake of readability, we will denote the limiting probabilities associated to this state space with $\tpi(n_2,n)$, for state $(n_2,n)\in \widetilde{S}$.
 
 \begin{figure}[H]
   \centering
-  \resizebox{0.8\textwidth}{!}{%  <-- Sets width to 80% of page text
-    \input{figures/diagram_model_b.tikz}
+  \resizebox{0.8\textwidth}{!}{%
+    \input{figures/diagram_jockeying_and_abandonments.tikz}
   }
   \caption{State transition diagram on state space $\widetilde{S}$.}
-  \label{fig:model-i}
 \end{figure}
 
-The balance equations:
-\begin{align*}
-    \begin{split}
-        &\left[\lambda_1 + \lambda_2 + \mu + \gamma_1(n-n_2) + \gamma_2 n_2\right] \tpi(n_2,n) \\
-        & \quad = \quad \lambda_1 \tpi(n_2,n-1) \\
-        & \quad \quad + \lambda_2 \tpi(n_2-1,n-1) \\
-        & \quad \quad + \mu \tpi(n_2, n+1) \\
-        & \quad \quad + \gamma_1 (n-n_2+1) \tpi(n_2 -1 , n) \\
-        & \quad \quad + \gamma_2 (n_2+1) \tpi(n_2+1,n) 
-    \end{split} 
-    && \text{for} \quad n_2 \geq 1, n \geq 1, n_2 \leq n-1 \\
-    \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu +  \gamma_2n\right] \tpi(n,n) \\
-        & \quad = \quad \lambda_2 \tpi(n-1,n-1) \\
-        & \quad \quad + \mu \tpi(n+1,n+1) \\
-        & \quad \quad + \mu \tpi(n,n+1) \\
-        & \quad \quad + \gamma_1 \tpi(n-1, n) 
-    \end{split} 
-    && \text{for} \quad n_2=n, n\geq 1\\
-    \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n \right] \tpi(0,n) \\
-        & \quad = \quad \lambda_1 \tpi(0,n-1) \\
-        & \quad \quad + \mu \tpi(0, n+1) \\
-        & \quad \quad + \gamma_2 \tpi(1,n)
-    \end{split} 
-    && \text{for} \quad n_2=0, n\geq 1\\
-    \begin{split}
-        &\left[ \lambda_1 + \lambda_2 + \mu \right] \tpi(0,0) \\
-        & \quad = \quad (\lambda_1 + \lambda_2) \tpi_0 \\
-        & \quad \quad + \mu \tpi(0,1) \\
-        & \quad \quad + \mu \tpi(1,1)
-    \end{split} 
-    && \text{for} \quad n_2=0, n=0\\
-    \begin{split}
-        (\lambda_1+\lambda_2) \tpi_0 = \mu \tpi(0,0)
-    \end{split}
-\end{align*}
-
-As always, they simplify by combining the balance equations where $\pi_0$ shows up. 
+The balance equations, after combining the equations where $\tpi_0$ shows up, are:
 \begin{align}
     \begin{split}
-        &\left[\lambda_1 + \lambda_2 + \mu + \gamma_1(n-n_2) + \gamma_2 n_2\right] \tpi(n_2,n) \\
+        & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1+\theta_1)(n-n_2) + (\gamma_2+\theta_2) n_2 \right] \tpi(n_2,n) \\
         & \quad = \quad \lambda_1 \tpi(n_2,n-1) \\
         & \quad \quad + \lambda_2 \tpi(n_2-1,n-1) \\
         & \quad \quad + \mu \tpi(n_2, n+1) \\
         & \quad \quad + \gamma_1 (n-n_2+1) \tpi(n_2-1, n) \\
-        & \quad \quad + \gamma_2 (n_2+1) \tpi(n_2+1,n) 
-    \end{split} 
-    && \text{for} \quad n_2 \geq 1, n \geq 1, n_2 \leq n-1 \label{eq:n1n_balance_interior}\\
+        & \quad \quad + \gamma_2 (n_2+1) \tpi(n_2+1,n) \\
+        & \quad \quad + \theta_1 (n+1-n_2) \tpi(n_2, n+1) \\
+        & \quad \quad + \theta_2 (n_2+1) \tpi(n_2+1, n+1)
+    \end{split}
+    && \text{for} \quad 1 \leq n_2 \leq n-1, \; n \geq 2 \label{eq:tilde_balance_interior} \\
     \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu +  \gamma_2n\right] \tpi(n,n) \\
+        & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_2+\theta_2) n \right] \tpi(n,n) \\
         & \quad = \quad \lambda_2 \tpi(n-1,n-1) \\
         & \quad \quad + \mu \tpi(n+1,n+1) \\
         & \quad \quad + \mu \tpi(n,n+1) \\
-        & \quad \quad + \gamma_1 \tpi(n-1, n) 
-    \end{split} 
-    && \text{for} \quad n_2=n, n\geq 1 \label{eq:n1n_balance_diagonal}\\
+        & \quad \quad + \gamma_1 \tpi(n-1, n) \\
+        & \quad \quad + \theta_1 \tpi(n, n+1) \\
+        & \quad \quad + \theta_2 (n+1) \tpi(n+1, n+1)
+    \end{split}
+    && \text{for} \quad n_2=n, \; n \geq 1 \label{eq:tilde_balance_diagonal} \\
     \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n \right] \tpi(0,n) \\
+        & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1+\theta_1) n \right] \tpi(0,n) \\
         & \quad = \quad \lambda_1 \tpi(0,n-1) \\
         & \quad \quad + \mu \tpi(0, n+1) \\
-        & \quad \quad + \gamma_2 \tpi(1,n)
-    \end{split} 
-    && \text{for} \quad n_2=0, n\geq 1 \label{eq:n1n_balance_y-boundary}\\
+        & \quad \quad + \gamma_2 \tpi(1,n) \\
+        & \quad \quad + \theta_1 (n+1) \tpi(0, n+1) \\
+        & \quad \quad + \theta_2 \tpi(1, n+1)
+    \end{split}
+    && \text{for} \quad n_2=0, \; n \geq 1 \label{eq:tilde_balance_y-boundary} \\
     \begin{split}
-        &\left[ \lambda_1 + \lambda_2 \right] \tpi(0,0) \\
-        & \quad = \quad  \mu \tpi(0,1) \\
-        & \quad \quad + \mu \tpi(1,1)
-    \end{split} 
-    && \text{for} \quad n_2=0, n=0 \label{eq:n1n_balance_zero}\\
+        & \left[ \lambda_1 + \lambda_2 \right] \tpi(0,0) \\
+        & \quad = \quad (\mu + \theta_1) \tpi(0,1) + (\mu + \theta_2) \tpi(1,1)
+    \end{split}
+    && \label{eq:tilde_balance_zero} \\
     \begin{split}
         (\lambda_1+\lambda_2) \tpi_0 = \mu \tpi(0,0)
     \end{split}
-    \label{eq:n1n_balance_idle}
+    && \label{eq:tilde_balance_idle}
 \end{align}
+
 
 \subsection{Derivation of equations for (Partial) Probability Generating functions}
 
@@ -462,506 +522,687 @@ These partial transforms are linked to the joint PGF by the following relations:
 \end{equation}
 
 
-[MINE]
-This technique is seen in [cite Cohen] and consists of only transforming a subset of the variables, while maintaining the discrete indices of the rest. In our priority queue, this method comes in handy as it allows us to disregard the priority queue —which is a regular $M/M/1$, a very well-studied system— and focus only on solving the non-trivial PGF that corresponds to the non-priority class. He did develop this for the multi-server case, but here we will only apply it to the single-server system.
-
-Since Cohen wrote about this in the decade of the 1950s, the notation he used differs from the standard and can cause confusion. In addition to the fact that it is not easily available, we will provide in this subsection a more modern take on it by aligning it to the notation used here.
-
-We will now define the Partial Probability Generating Function (PPGF) w.r.t. the second variable $N_2$ joint with the first queue being in state $(n_1)$ as
-\begin{equation*}
-    \widetilde{P}(n_1, y) = \mathbb{E} \left[y^{n_2} \mathbb{1}_{\{ N_1=n_1\}} \right] = \sum_{n_2=0}^{\infty} \pi(n_1,n_2) y^{n_2}.
-\end{equation*}
-Similarly, we can transform w.r.t. the first variable joint with the second queue being at state $(n_2)$
-\begin{equation}
-    \widetilde{P}(x, n_2) = \mathbb{E} \left[x^{n_1} \mathbb{1}_{\{ N_2=n_2\}} \right] = \sum_{n_1=0}^{\infty} \pi(n_1,n_2) x^{n_1}.
-\end{equation}
-
 \subsubsection{Equation for PGF in state space $S$}
 
-The balance equations in Section~\ref{sec:n1n2_balance_equations}. We follow the standard procedure for finding PGF's: multiply every balance equation by $x^{n_1}y^{n_2}$ and add them up across their domain.
-
-Hence, the interior balance equation (Equation \eqref{eq:n1n2_balance_interior}) yields the following expression:
-\begin{align}
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &+ \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1}y^{n_2}\\
-        &+ \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2\pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &\quad = \quad \mu \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1,n_2)x^{n_1}y^{n_2} \\
-        &\quad\quad  + \lambda_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1,n_2)x^{n_1}y^{n_2} \\
-        &\quad\quad + \lambda_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1,n_2-1)x^{n_1}y^{n_2} \\
-        &\quad\quad + \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1)\pi(n_1+1,n_2-1)x^{n_1}y^{n_2} \\
-        &\quad\quad + \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1)\pi(n_1-1,n_2+1)x^{n_1}y^{n_2} \\
-    \end{split} \\
-    \begin{split}
-        &LHS_1+LHS_2+LHS_3 = RHS_1 + RHS_2 + RHS_3 + RHS_4 + RHS_5
-    \end{split}
-\end{align}
-
-We solve the parts individually:
-\begin{align}
+\begin{lemma}[Fundamental equation for the PGF on $S$]\label{lem:gen_fundamental_equation}
+Consider the two-class non-preemptive priority queue on the state space
+$S=\{(n_1,n_2):n_1,n_2\ge 0\}$, with Poisson arrival rates $\lambda_1,\lambda_2$,
+exponential service rate $\mu$, jockeying rates $\gamma_1,\gamma_2$ and abandonment
+rates $\theta_1,\theta_2$, where $n_1$ and $n_2$ count the class-$1$ and class-$2$
+customers \emph{waiting} in the queues. Assume the associated CTMC is positive
+recurrent, so that the stationary distribution $\{\pi(n_1,n_2)\}$ exists and the
+joint PGF
+\[
+    P(x,y)=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\pi(n_1,n_2)\,x^{n_1}y^{n_2}
+\]
+is analytic on the closed unit polydisc $|x|\le 1,\ |y|\le 1$. Then $P(x,y)$,
+together with the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty}\pi(0,n_2)y^{n_2}$,
+satisfies the first-order linear partial differential equation
+\begin{equation}
 \begin{split}
-        &LHS_1 \\
-        &\quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2)x^{n_1}y^{n_2} \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \left[ \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} - \pi(n_1,0) x^{n_1}y^0 \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[
-            \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
-        - 
-             \sum_{n_1=1}^{\infty} \pi(n_1,0) x^n_1
-        \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
-            -\sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}
-        \right] \\
-        & \quad \quad - \; (\lambda_1 + \lambda_2 + \mu) \left[
-             \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} - \pi(0,0)
-        \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu)
-        \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
-            -\sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}
-        \right] \\
-        & \quad \quad - \; (\lambda_1 + \lambda_2 + \mu)\left[
-            \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1}
-            - \pi(0,0)
-        \right]
-        \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ P(x,y) - P_y(y) - P_x(x) + \pi(0,0) \right] \\
-    \end{split}
-    \\
-    \begin{split}
-        & LHS_2 \\ 
-        &= \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty}\gamma_1 n_1 \pi(n_1,n_2)x^{n_1}y^{n_2} \\
-        &= \gamma_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2} \\
-        &= \gamma_1 x \left[
-            \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2)x^{n_1-1}y^{n_2}
-            - \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-        \right] \\
-        &= \quad \gamma_1 x \left[ 
-            \sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2)x^{n_1-1} y^{n_2}
-            - \sum_{n_2=0}^{\infty} 0 \cdot \pi(0,n_2) x^{-1} y^{n_2}
-        \right] \\
-        &\quad   -\gamma_1 x \left[
-            \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-            - 0 \cdot \pi(0,0) x^{-1}
-        \right] \\
-        &= \gamma_1 x \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2)x^{n_1-1} y^{n_2}
-            - \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-        \right] \\
-        &= \gamma_1 x \left[
-            \frac{\partial}{\partial x} P(x,y)
-            - \frac{d}{dx} P_x(x)
-        \right] \\
-    \end{split} \\
-    \begin{split}
-        & LHS_3 \\
-        &\quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-        &\quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \left[ \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} - 0 \cdot \pi(n_1,0) x^{n_1}\right] \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \gamma_2 y\left[ 
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2-1}
-            - \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1}
-        \right] \\
-        & \quad = \quad \gamma_2 y \left[
-            \frac{\partial}{\partial y} P(x,y) - \frac{d}{d y} P_y(y)
-        \right] \\
-    \end{split} \\
-    \begin{split}
-        & RHS_1 \\
-        & \quad = \quad \mu \sum_{n_1=1}^{\infty}\sum_{n_2=1}^{\infty} \pi(n_1+1,n_2)x^{n_1}y^{n_2}\\
-        & \quad = \quad \mu x^{-1} \sum_{n_1=1}^{\infty}\sum_{n_2=1}^{\infty} \pi(n_1+1, n_2) x^{n_1+1} y^{n_2} \\
-        & \quad = \quad \mu x^{-1} \sum_{m=2}^{\infty}\sum_{n_2=1}^{\infty} \pi(m, n_2) x^{m} y^{n_2} \\
-        & \quad = \quad \mu x^{-1} \sum_{m=2}^{\infty} \left[ 
-            \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2} - \pi(m,0) x^m
-        \right] \\
-        & \quad = \quad \mu x^{-1} \left[  \sum_{m=2}^{\infty}\sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
-        - \sum_{m=2}^{\infty} \pi(m, 0) x^{m}
-        \right] \\
-        & \quad = \quad \mu x^{-1} \left[
-            \sum_{m=0}^{\infty}\sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
-            - x \sum_{n_2=0}^{\infty} \pi(1,n_2) y^{n_2}
-            - \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}    
-        \right] \\
-        & \quad \quad - \; \mu x^{-1} \left[
-            \sum_{m=0}^{\infty} \pi(m,0)x^m - x\pi(1,0) - \pi(0,0)
-        \right] \\
-        & \quad = \quad \mu x^{-1} \left[
-            P(x,y) - xP_y(y | n_1=1) - P_y(y) - P_x(x) + x \pi(1,0) + \pi(0,0)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_2 \\
-        & \quad = \quad \lambda_1\sum_{n_1=1}^{\infty}\sum_{n_2=1}^{\infty} \pi(n_1-1,n_2) x^{n_1}y^{n_2} \\
-        & \quad = \quad \lambda_1 x \sum_{n_1=1}^{\infty}\sum_{n_2=1}^{\infty} \pi(n_1-1,n_2) x^{n_1-1}y^{n_2} \\
-        & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty}\sum_{n_2=1}^{\infty} \pi(m,n_2) x^{m}y^{n_2} \\
-        & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty}\left[
-            \sum_{n_2=0}^{\infty} \pi(m,n_2) x^{m}y^{n_2} - \pi(m,0)x^m
-        \right] \\
-        & \quad = \quad \lambda_1 x \left[
-            \sum_{m=0}^{\infty}  \sum_{n_2=0}^{\infty} \pi(m,n_2) x^{m}y^{n_2} 
-            - \sum_{m=0}^{\infty} \pi(m,0)x^m
-        \right] \\
-        & \quad = \quad \lambda_1 x \left[ P(x,y) - P_x(x)  \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_3 \\
-        & \quad = \quad \lambda_2\sum_{n_1=1}^{\infty}\sum_{n_2=1}^{\infty} \pi(n_1,n_2-1) x^{n_1}y^{n_2} \\
-        & \quad = \quad \lambda_2 y \sum_{n_1=1}^{\infty}\sum_{n_2=1}^{\infty} \pi(n_1,n_2-1) x^{n_1}y^{n_2-1} \\
-        & \quad = \quad \lambda_2 y \sum_{n_1=1}^{\infty}\sum_{m=0}^{\infty} \pi(n_1,m) x^{n_1}y^{m} \\
-        & \quad = \quad \lambda_2 y \left[
-            \sum_{n_1=0}^{\infty}\sum_{m=0}^{\infty} \pi(n_1,m) x^{n_1}y^{m} - \sum_{m=0}^{\infty} \pi(0,m) y^m
-        \right] \\
-        & \quad = \quad \lambda_2 y \left[
-            P(x,y) - P_y(y)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_4 \\
-        & \quad = \quad \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty}  (n_1+1)\pi(n_1+1,n_2-1) x^{n_1}y^{n_2} \\
-        & \quad = \quad \gamma_1 y \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} (n_1+1) \pi(n_1+1,m_2) x^{n_1} y^{m_2} \\
-        & \quad = \quad \gamma_1 y \sum_{m_1=2}^{\infty} \sum_{m_2=0}^{\infty} m_1 \pi(m_1,m_2) x^{m_1-1} y^{m_2} \\
-         & \quad = \quad \gamma_1 y \left[ 
-            \sum_{m_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_1 \pi(m_1,m_2) x^{m_1-1} y^{m_2}
-            - \sum_{m_2=0}^{\infty} \pi(1,m_2) y^{m_2}
-         \right] \\
-         & \quad = \quad \gamma_1 y \left[
-            \frac{\partial}{\partial x} P(x,y) - P_y(y | n_1=1)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_5 \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1) \pi(n_1-1,n_2+1) x^{n_1} y^{n_2} \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{m_2=2}^{\infty} m_2 \pi(n_1-1,m_2) x^{n_1} y^{m_2-1} \\
-        & \quad = \quad \gamma_2 \left[
-            \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1-1,m_2) x^{n_1} y^{m_2-1} - \sum_{n_1=1}^{\infty} \pi(n_1-1, 1) x^{n_1}
-        \right] \\
-        & \quad = \quad \gamma_2 x \left[
-            \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1-1,m_2) x^{n_1-1} y^{m_2-1} - \sum_{n_1=1}^{\infty} \pi(n_1-1, 1) x^{n_1-1}
-        \right] \\
-        & \quad = \quad \gamma_2 x \left[ 
-            \sum_{m_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(m_1,m_2) x^{m_1} y^{m_2-1} - \sum_{m_1=0}^{\infty} \pi(m_1,1) x^{m_1}
-        \right] \\
-        & \quad = \quad \gamma_2 x \left[
-            \frac{\partial}{\partial y} P(x,y) - P_x(x | n_2=1)
-        \right]
-    \end{split}
-\end{align}
-Now, we comnine all terms, we group them and we multiply both sides by $xy$ in order to avoid negative exponents on $x$ and $y$, be in on that or subsequent equations:
-\begin{align}
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ 
-            P(x,y) - P_y(y) -P_x(x) + \pi(0,0)
-        \right] \\
-        & + \gamma_1 x \left[ \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x)\right] \\
-        & + \gamma_2 y \left[ \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) \right] \\
-        & \quad = \quad \mu x^{-1} \left[ 
-            P(x,y) - x P_y(y | n_1=1) - P_y(y) - P_x(x) + x \pi(1,0) + \pi(0,0)
-        \right] \\
-        & \quad \quad +\lambda_1 x \left[ P(x,y) - P_x(x) \right] \\
-        & \quad \quad +\lambda_2 y \left[ P(x,y) - P_y(y) \right] \\
-        & \quad \quad + \gamma_1 y \left[ \frac{\partial}{\partial x} P(x,y) - P_y(y | n_1=1) \right] \\
-        & \quad \quad + \gamma_2 x \left[ \frac{\partial}{\partial y} P(x,y) - P_x(x | n_2=1) \right]  
-    \end{split} \nonumber \\
-    \begin{split}
-        &\left[ (\lambda_1+\lambda_2+ \mu) - \mu x^{-1} - \lambda_1 x - \lambda_2 y \right] P(x,y) \\
-        & + \left[ \gamma_1 (x-y) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & + \left[ \gamma_2 (y-x)\right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_2 y \right] P_y(y) \\
-        & \quad \quad + \left[ -(\lambda_1 + \lambda_2 +\mu) + \mu x^{-1} \right] \pi(0,0) \\
-        & \quad \quad + \left[ -\mu -\gamma_1 y \right] P_y(y | n_1=1) \\
-        & \quad \quad + \left[ -\gamma_2 x\right] P_x(x | n_2=1) \\
-        & \quad \quad + \mu \pi(1,0) \\
-        & \quad \quad + \gamma_1 x \frac{d}{dx} P_x(x) \\
-        & \quad \quad + \gamma_2 y \frac{d}{dy} P_y(y)
-    \end{split} \nonumber \\
-    \begin{split}
-        &\left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        & \left[ \gamma_1 xy(x-y) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & \left[ \gamma_2 xy(y-x)\right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
-        & \quad \quad + \left[ -(\lambda_1 + \lambda_2 +\mu)xy + \mu y \right] \pi(0,0) \\
-        & \quad \quad + \left[ -\mu xy -\gamma_1 x y^2 \right] P_y(y | n_1=1) \\
-        & \quad \quad + \left[ - \gamma_2 x^2 y\right] P_x(x | n_2=1) \\
-        & \quad \quad + \mu xy \pi(1,0) \\
-        & \quad \quad + \gamma_1 x^2 y \frac{d}{dx} P_x(x) \\
-        & \quad \quad + \gamma_2 x y^2 \frac{d}{dy} P_y(y)
-    \end{split} \label{eq:n1n2_transform_intertior_relation} \\
-\end{align}
+    & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+    & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
+    & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
+    & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y)\,\pi(0,0).
+\end{split}
+\label{eq:gen_fundamental_equation}
+\end{equation}
+\end{lemma}
 
-Now, we can recreate the equivalent steps for the $x$-boundary balance equation (Equation \eqref{eq:n1n2_balance_x-boundary}):
-\begin{align}
-    \begin{split}
-        & \sum_{n_1=1}^{\infty} (\lambda_1+ \lambda_2 + \mu + \gamma_1 n_1) \pi(n_1, 0) x^{n_1} \\
-        & \quad = \quad \lambda_1 \sum_{n_1=1}^{\infty} \pi(n_1-1,0) x^{n_1} 
-        + \mu \sum_{n_1=1}^{\infty} \pi(n_1+1,0) x^{n_1} + \gamma_2 \sum_{n_1=1}^{\infty} \pi(n_1-1,1)x^{n_1}
-    \end{split} \nonumber  \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu ) \sum_{n_1=1}^{\infty} \pi(n_1,0) x^{n_1}
-        + \gamma_1 x \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1} \\
-        & \quad = \quad \lambda_1 x  \sum_{n_1=1}^{\infty} \pi(n_1-1,0) x^{n_1-1}
-        + \mu x^{-1}  \sum_{n_1=1}^{\infty} \pi(n_1+1,0) x^{n_1+1}
-        + \gamma_2 x  \sum_{n_1=1}^{\infty} \pi(n_1-1,1) x^{n_1-1}
-    \end{split} \nonumber \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu ) \sum_{n_1=1}^{\infty} \pi(n_1,0) x^{n_1}
-        + \gamma_1 x \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1} \\
-        & \quad = \quad \lambda_1 x  \sum_{m=0}^{\infty} \pi(m,0) x^{m}
-        + \mu x^{-1}  \sum_{m=2}^{\infty} \pi(m,0) x^{m}
-        + \gamma_2 x  \sum_{m=0}^{\infty} \pi(m,1) x^{m}
-    \end{split} \nonumber \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu )\left[ \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} - \pi(0,0)\right]
-        + \gamma_1 x \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1} \\
-        & \quad = \quad \lambda_1 x  \sum_{m=0}^{\infty} \pi(m,0) x^{m} \\
-        & \quad \quad + \mu x^{-1} \left[  \sum_{m=0}^{\infty} \pi(m,0) x^{m}- x \pi(1,0) - \pi(0,0)\right] \\
-        & \quad \quad+ \gamma_2 x  \sum_{m=0}^{\infty} \pi(m,1) x^{m}
-    \end{split}\nonumber \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu )\left[ P_x(x) - \pi(0,0)\right]
-        + \gamma_1 x \frac{d}{dx} P_x(x) \\
-        & \quad = \quad \lambda_1 x  P_x(x) \\
-        & \quad \quad + \mu x^{-1} \left[  P_x(x)- x \pi(1,0) - \pi(0,0)\right] \\
-        & \quad \quad+ \gamma_2 x  P_x(x | n_2=1)
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x)
-        + \gamma_1 x \frac{d}{dx} P_x(x) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} \right] \pi(0,0)
-        - \mu \pi(1,0) + \gamma_2 x P_x(x|n_2=1)
-    \end{split}\nonumber  \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x)
-        + \gamma_1 x^2 y \frac{d}{dx} P_x(x) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y \right] \pi(0,0)
-        - \mu xy \pi(1,0) + \gamma_2 x^2 y P_x(x|n_2=1)
-    \end{split} \label{eq:n1n2_transform_x-boundary_relation}
-\end{align}
+\begin{proof}
 
-Again, we replicate the procedure for the $y$-axis balance equation:
-\begin{align}
-    \begin{split}
-        & \sum_{n_2=1}^{\infty} [\lambda_1+\lambda_2+\mu + \gamma_2 n_2] \pi(0,n_2)y^{n_2} \\
-        & \quad = \quad \lambda_2 \sum_{n_2=1}^{\infty} \pi(0,n_2-1) y^{n_2} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(0,n_2+1) y^{n_2} \\
-        & \quad \quad + \gamma_1 \sum_{n_2=1}^{\infty} \pi(1,n_2-1) y^{n_2}
-    \end{split} \nonumber \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{\infty} \pi(0,n_2) y^{n_2}\\ 
-        &+ \gamma_2 y \sum_{n_2=1}^{\infty} n_2 \pi(0,n_2) y^{n_2-1} \\
-        & \quad = \quad \lambda_2 y \sum_{n_2=1}^{\infty} \pi(0,n_2-1) y^{n_2-1} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2} \\
-        & \quad \quad + \mu y^{-1}\sum_{n_2=1}^{\infty} \pi(0,n_2+1) y^{n_2+1} \\
-        & \quad \quad + \gamma_1 y \sum_{n_2=1}^{\infty} \pi(1,n_2-1) y^{n_2-1}
-    \end{split}  \nonumber \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{\infty} \pi(0,n_2) y^{n_2}\\ 
-        &+ \gamma_2 y \sum_{n_2=1}^{\infty} n_2 \pi(0,n_2) y^{n_2-1} \\
-        & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty} \pi(0,m) y^{m} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2} \\
-        & \quad \quad + \mu y^{-1} \sum_{m=2}^{\infty} \pi(0,m) y^m \\
-        & \quad \quad + \gamma_1 y \sum_{m=0}^{\infty} \pi(1,m) y^m
-    \end{split} \nonumber  \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2} - \pi(0,0)\right] \\
-        & + \gamma_2 y \left[ \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1} \right] \\
-        & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty} \pi(0,m) y^m \\
-        & \quad \quad + \mu \left[ \sum_{n_2=0}^{\infty} \pi(1,n_2) y^{n_2} - \pi(1,0) \right] \\
-        & \quad \quad + \mu y^{-1} \left[ \sum_{m=0}^{\infty} \pi(0,m) y^m - y \pi(0,1) - \pi(0,0) \right] \\
-        & \quad \quad + \gamma_1 y \sum_{m=0}^{\infty} \pi(1,m) y^m
-    \end{split} \nonumber  \\
-    \begin{split}
-        &(\lambda_1 + \lambda_2 + \mu) \left[ P_y(y) - \pi(0,0)\right] + \gamma_2 y \frac{d}{d y} P_y(y) \\
-        & \quad = \quad \lambda_2 y P_y(y) \\
-        & \quad \quad+ \mu \left[ P_y(y | n_1=1) - \pi(1,0) \right] \\
-        & \quad \quad + \mu y^{-1} \left[ P_y(y) - y \pi(0,1) - \pi(0,0) \right] \\
-        & \quad \quad + \gamma_1 y P_y(y| n_1=1)
-    \end{split} \nonumber  \\
-    \begin{split}
-        &\left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
-        + \gamma_2 y \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y \right] P_y(y|n_1=1)  - \mu \pi(1,0) - \mu \pi(0,1) + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} \right] \pi(0,0)
-    \end{split} \nonumber  \\
-    \begin{split}
-        &\left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
-        + \gamma_2 y \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y \right] P_y(y|n_1=1)+ \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - (\lambda_1 + \lambda_2)\right] \pi(0,0)
-    \end{split} \nonumber  \\
-    \begin{split}
-        &\left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
-        + \gamma_2 y \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y \right] P_y(y|n_1=1)+ \left[  \mu - \mu y^{-1} \right] \pi(0,0)
-    \end{split}  \nonumber \\
-    \begin{split}
-        &\left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y)
-        + \gamma_2 x y^2 \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ (\mu + \gamma_1 y)xy \right] P_y(y|n_1=1) - \left[  \mu x (1-y) \right] \pi(0,0)
-    \end{split} \label{eq:n1n2_transform_y-boundary_relation}
-\end{align}
+    The balance equations are as defined in Equations~\eqref{eq:gen_balance_interior}, \eqref{eq:gen_balance_y-boundary}, \eqref{eq:gen_balance_x-boundary}, \eqref{eq:gen_balance_zero} and \eqref{eq:gen_balance_idle}. We follow the standard procedure for finding PGF's: multiply every balance equation by $x^{n_1}y^{n_2}$ and add them up across their domain.
+    
+    Hence, the interior balance equation (Equation~\eqref{eq:gen_balance_interior}) yields the following expression:
+    \begin{align}
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} \\
+            &+ \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
+            &+ \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
+            &+ \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
+            &+ \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
+            &\quad = \quad \mu \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1,n_2)x^{n_1}y^{n_2} \\
+            &\quad\quad  + \lambda_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1,n_2)x^{n_1}y^{n_2} \\
+            &\quad\quad + \lambda_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2-1)x^{n_1}y^{n_2} \\
+            &\quad\quad + \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1)\pi(n_1+1,n_2-1)x^{n_1}y^{n_2} \\
+            &\quad\quad + \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1)\pi(n_1-1,n_2+1)x^{n_1}y^{n_2} \\
+            &\quad\quad + \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1)\pi(n_1+1,n_2)x^{n_1}y^{n_2} \\
+            &\quad\quad + \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1)\pi(n_1,n_2+1)x^{n_1}y^{n_2}
+        \end{split} \\
+        \begin{split}
+            & LHS_1 + LHS_2 + LHS_3 + LHS_4 + LHS_5 \\
+            & \quad = \quad RHS_1 + RHS_2 + RHS_3 + RHS_4 + RHS_5 + RHS_6 + RHS_7
+        \end{split}
+    \end{align}
+    
+    We solve the parts individually:
+    \begin{align}
+        \begin{split}
+            & LHS_1 \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2)x^{n_1}y^{n_2} \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \left[ \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} - \pi(n_1,0) x^{n_1} y^0 \right] \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[
+                \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
+                - \sum_{n_1=1}^{\infty} \pi(n_1,0) x^{n_1}
+            \right] \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[
+                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
+                - \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}
+            \right] \\
+            & \quad \quad - \; (\lambda_1 + \lambda_2 + \mu) \left[
+                \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} - \pi(0,0)
+            \right] \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ P(x,y) - P_y(y) - P_x(x) + \pi(0,0) \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_2 \\
+            & \quad = \quad \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \gamma_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2} \\
+            & \quad = \quad \gamma_1 x \left[
+                \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
+                - \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
+            \right] \\
+            & \quad = \quad \gamma_1 x \left[
+                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
+                - \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
+            \right] \\
+            & \quad = \quad \gamma_1 x \left[
+                \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_3 \\
+            & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \left[ \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} - 0 \cdot \pi(n_1,0) x^{n_1} \right] \\
+            & \quad = \quad \gamma_2 y \left[
+                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2-1}
+                - \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1}
+            \right] \\
+            & \quad = \quad \gamma_2 y \left[
+                \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_4 \\
+            & \quad = \quad \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \theta_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2} \\
+            & \quad = \quad \theta_1 x \left[
+                \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
+                - \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
+            \right] \\
+            & \quad = \quad \theta_1 x \left[
+                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
+                - \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
+            \right] \\
+            & \quad = \quad \theta_1 x \left[
+                \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_5 \\
+            & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \theta_2 y \left[
+                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2-1}
+                - \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1}
+            \right] \\
+            & \quad = \quad \theta_2 y \left[
+                \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_1 \\
+            & \quad = \quad \mu \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1, n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \mu x^{-1} \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1, n_2) x^{n_1+1} y^{n_2} \\
+            & \quad = \quad \mu x^{-1} \sum_{m=2}^{\infty} \sum_{n_2=1}^{\infty} \pi(m, n_2) x^{m} y^{n_2} \\
+            & \quad = \quad \mu x^{-1} \sum_{m=2}^{\infty} \left[
+                \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2} - \pi(m, 0) x^m
+            \right] \\
+            & \quad = \quad \mu x^{-1} \left[ \sum_{m=2}^{\infty} \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
+                - \sum_{m=2}^{\infty} \pi(m, 0) x^{m}
+            \right] \\
+            & \quad = \quad \mu x^{-1} \left[
+                \sum_{m=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
+                - x \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2}
+                - \sum_{n_2=0}^{\infty} \pi(0, n_2) y^{n_2}
+            \right] \\
+            & \quad \quad - \; \mu x^{-1} \left[
+                \sum_{m=0}^{\infty} \pi(m, 0) x^{m} - x \pi(1, 0) - \pi(0, 0)
+            \right] \\
+            & \quad = \quad \mu x^{-1} \left[
+                P(x,y) - x P_y(y | n_1=1) - P_y(y) - P_x(x) + x \pi(1, 0) + \pi(0, 0)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_2 \\
+            & \quad = \quad \lambda_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1, n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \lambda_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1, n_2) x^{n_1-1} y^{n_2} \\
+            & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \sum_{n_2=1}^{\infty} \pi(m, n_2) x^{m} y^{n_2} \\
+            & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \left[
+                \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2} - \pi(m, 0) x^m
+            \right] \\
+            & \quad = \quad \lambda_1 x \left[
+                \sum_{m=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
+                - \sum_{m=0}^{\infty} \pi(m, 0) x^m
+            \right] \\
+            & \quad = \quad \lambda_1 x \left[ P(x,y) - P_x(x) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_3 \\
+            & \quad = \quad \lambda_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1, n_2-1) x^{n_1} y^{n_2} \\
+            & \quad = \quad \lambda_2 y \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1, n_2-1) x^{n_1} y^{n_2-1} \\
+            & \quad = \quad \lambda_2 y \sum_{n_1=1}^{\infty} \sum_{m=0}^{\infty} \pi(n_1, m) x^{n_1} y^{m} \\
+            & \quad = \quad \lambda_2 y \left[
+                \sum_{n_1=0}^{\infty} \sum_{m=0}^{\infty} \pi(n_1, m) x^{n_1} y^{m} - \sum_{m=0}^{\infty} \pi(0, m) y^m
+            \right] \\
+            & \quad = \quad \lambda_2 y \left[ P(x,y) - P_y(y) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_4 \\
+            & \quad = \quad \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1) \pi(n_1+1, n_2-1) x^{n_1} y^{n_2} \\
+            & \quad = \quad \gamma_1 y \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} (n_1+1) \pi(n_1+1, m_2) x^{n_1} y^{m_2} \\
+            & \quad = \quad \gamma_1 y \sum_{m_1=2}^{\infty} \sum_{m_2=0}^{\infty} m_1 \pi(m_1, m_2) x^{m_1-1} y^{m_2} \\
+            & \quad = \quad \gamma_1 y \left[
+                \sum_{m_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_1 \pi(m_1, m_2) x^{m_1-1} y^{m_2}
+                - \sum_{m_2=0}^{\infty} \pi(1, m_2) y^{m_2}
+            \right] \\
+            & \quad = \quad \gamma_1 y \left[
+                \frac{\partial}{\partial x} P(x,y) - P_y(y | n_1=1)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_5 \\
+            & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1) \pi(n_1-1, n_2+1) x^{n_1} y^{n_2} \\
+            & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{m_2=2}^{\infty} m_2 \pi(n_1-1, m_2) x^{n_1} y^{m_2-1} \\
+            & \quad = \quad \gamma_2 x \left[
+                \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1-1, m_2) x^{n_1-1} y^{m_2-1}
+                - \sum_{n_1=1}^{\infty} \pi(n_1-1, 1) x^{n_1-1}
+            \right] \\
+            & \quad = \quad \gamma_2 x \left[
+                \sum_{m_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(m_1, m_2) x^{m_1} y^{m_2-1}
+                - \sum_{m_1=0}^{\infty} \pi(m_1, 1) x^{m_1}
+            \right] \\
+            & \quad = \quad \gamma_2 x \left[
+                \frac{\partial}{\partial y} P(x,y) - P_x(x | n_2=1)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_6 \\
+            & \quad = \quad \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1) \pi(n_1+1, n_2) x^{n_1} y^{n_2} \\
+            & \quad = \quad \theta_1 \sum_{m_1=2}^{\infty} \sum_{n_2=1}^{\infty} m_1 \pi(m_1, n_2) x^{m_1-1} y^{n_2} \\
+            & \quad = \quad \theta_1 \left[
+                \sum_{m_1=0}^{\infty} \sum_{n_2=1}^{\infty} m_1 \pi(m_1, n_2) x^{m_1-1} y^{n_2}
+                - \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2}
+            \right] \\
+            & \quad = \quad \theta_1 \left[
+                \sum_{m_1=0}^{\infty} \sum_{n_2=0}^{\infty} m_1 \pi(m_1, n_2) x^{m_1-1} y^{n_2}
+                - \sum_{m_1=0}^{\infty} m_1 \pi(m_1, 0) x^{m_1-1}
+            \right] \\
+            & \quad \quad - \theta_1 \left[
+                \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2}
+                - \pi(1, 0)
+            \right] \\
+            & \quad = \quad \theta_1 \left[
+                \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) - P_y(y | n_1=1) + \pi(1, 0)
+            \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_7 \\
+            & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1) \pi(n_1, n_2+1) x^{n_1} y^{n_2} \\
+            & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{m_2=2}^{\infty} m_2 \pi(n_1, m_2) x^{n_1} y^{m_2-1} \\
+            & \quad = \quad \theta_2 \left[
+                \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1, m_2) x^{n_1} y^{m_2-1}
+                - \sum_{n_1=1}^{\infty} \pi(n_1, 1) x^{n_1}
+            \right] \\
+            & \quad = \quad \theta_2 \left[
+                \sum_{n_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1, m_2) x^{n_1} y^{m_2-1}
+                - \sum_{m_2=0}^{\infty} m_2 \pi(0, m_2) y^{m_2-1}
+            \right] \\
+            & \quad \quad - \theta_2 \left[
+                \sum_{n_1=0}^{\infty} \pi(n_1, 1) x^{n_1}
+                - \pi(0, 1)
+            \right] \\
+            & \quad = \quad \theta_2 \left[
+                \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) - P_x(x | n_2=1) + \pi(0, 1)
+            \right]
+        \end{split}
+    \end{align}
+    
+    Now, we combine all terms, we group them and we multiply both sides by $xy$ in order to avoid negative exponents on $x$ and $y$, be it on that or subsequent equations:
+    \begin{align}
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \left[
+                P(x,y) - P_y(y) - P_x(x) + \pi(0,0)
+            \right] \\
+            & + \gamma_1 x \left[ \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) \right] \\
+            & + \gamma_2 y \left[ \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) \right] \\
+            & + \theta_1 x \left[ \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) \right] \\
+            & + \theta_2 y \left[ \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) \right] \\
+            & \quad = \quad \mu x^{-1} \left[
+                P(x,y) - x P_y(y | n_1=1) - P_y(y) - P_x(x) + x \pi(1,0) + \pi(0,0)
+            \right] \\
+            & \quad \quad + \lambda_1 x \left[ P(x,y) - P_x(x) \right] \\
+            & \quad \quad + \lambda_2 y \left[ P(x,y) - P_y(y) \right] \\
+            & \quad \quad + \gamma_1 y \left[ \frac{\partial}{\partial x} P(x,y) - P_y(y | n_1=1) \right] \\
+            & \quad \quad + \gamma_2 x \left[ \frac{\partial}{\partial y} P(x,y) - P_x(x | n_2=1) \right] \\
+            & \quad \quad + \theta_1 \left[
+                \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) - P_y(y | n_1=1) + \pi(1, 0)
+            \right] \\
+            & \quad \quad + \theta_2 \left[
+                \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) - P_x(x | n_2=1) + \pi(0, 1)
+            \right]
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1+\lambda_2+\mu) - \mu x^{-1} - \lambda_1 x - \lambda_2 y \right] P(x,y) \\
+            & + \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
+            & + \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
+            & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x) \\
+            & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_2 y \right] P_y(y) \\
+            & \quad \quad + \left[ -(\lambda_1 + \lambda_2 + \mu) + \mu x^{-1} \right] \pi(0,0) \\
+            & \quad \quad + \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
+            & \quad \quad + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad \quad - \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
+            & \quad \quad - \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1) \\
+            & \quad \quad + \mu \pi(1,0) \\
+            & \quad \quad + \theta_1 \pi(1,0) \\
+            & \quad \quad + \theta_2 \pi(0,1)
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+            & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
+            & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
+            & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x) \\
+            & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
+            & \quad \quad - \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y \right] \pi(0,0) \\
+            & \quad \quad + xy \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
+            & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad \quad - xy \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
+            & \quad \quad - xy \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1) \\
+            & \quad \quad + (\mu + \theta_1) xy \, \pi(1,0) \\
+            & \quad \quad + \theta_2 xy \, \pi(0,1)
+        \end{split} \label{eq:gen_transform_interior_relation}
+    \end{align}
+    
+    Now, we can recreate the equivalent steps for the $x$-boundary balance equation (Equation~\eqref{eq:gen_balance_x-boundary}):
+    \begin{align}
+        \begin{split}
+            & \sum_{n_1=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1, 0) x^{n_1} \\
+            & \quad = \quad \lambda_1 \sum_{n_1=1}^{\infty} \pi(n_1-1,0) x^{n_1}
+            + \mu \sum_{n_1=1}^{\infty} \pi(n_1+1,0) x^{n_1} \\
+            & \quad \quad + \gamma_2 \sum_{n_1=1}^{\infty} \pi(n_1-1, 1) x^{n_1}
+            + \theta_1 \sum_{n_1=1}^{\infty} (n_1+1) \pi(n_1+1, 0) x^{n_1}
+            + \theta_2 \sum_{n_1=1}^{\infty} \pi(n_1, 1) x^{n_1}
+        \end{split} \nonumber \\
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \pi(n_1, 0) x^{n_1}
+            + (\gamma_1 + \theta_1) x \sum_{n_1=1}^{\infty} n_1 \pi(n_1, 0) x^{n_1-1} \\
+            & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \pi(m, 0) x^{m}
+            + \mu x^{-1} \sum_{m=2}^{\infty} \pi(m, 0) x^{m} \\
+            & \quad \quad + \gamma_2 x \sum_{m=0}^{\infty} \pi(m, 1) x^{m}
+            + \theta_1 \sum_{m=2}^{\infty} m \pi(m, 0) x^{m-1}
+            + \theta_2 \sum_{m=1}^{\infty} \pi(m, 1) x^{m}
+        \end{split} \nonumber \\
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_1=0}^{\infty} \pi(n_1, 0) x^{n_1} - \pi(0,0) \right]
+            + (\gamma_1 + \theta_1) x \sum_{n_1=0}^{\infty} n_1 \pi(n_1, 0) x^{n_1-1} \\
+            & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \pi(m, 0) x^{m} \\
+            & \quad \quad + \mu x^{-1} \left[ \sum_{m=0}^{\infty} \pi(m, 0) x^{m} - x \pi(1, 0) - \pi(0,0) \right] \\
+            & \quad \quad + \gamma_2 x \sum_{m=0}^{\infty} \pi(m, 1) x^{m} \\
+            & \quad \quad + \theta_1 \left[ \sum_{m=0}^{\infty} m \pi(m, 0) x^{m-1} - \pi(1, 0) \right] \\
+            & \quad \quad + \theta_2 \left[ \sum_{m=0}^{\infty} \pi(m, 1) x^{m} - \pi(0, 1) \right]
+        \end{split} \nonumber \\
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \left[ P_x(x) - \pi(0,0) \right]
+            + (\gamma_1 + \theta_1) x \frac{d}{dx} P_x(x) \\
+            & \quad = \quad \lambda_1 x P_x(x)
+            + \mu x^{-1} \left[ P_x(x) - x \pi(1, 0) - \pi(0, 0) \right] \\
+            & \quad \quad + \gamma_2 x P_x(x | n_2=1)
+            + \theta_1 \left[ \frac{d}{dx} P_x(x) - \pi(1, 0) \right]
+            + \theta_2 \left[ P_x(x | n_2=1) - \pi(0, 1) \right]
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x)
+            + \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
+            & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} \right] \pi(0,0)
+            - (\mu + \theta_1) \pi(1, 0)
+            - \theta_2 \pi(0, 1) \\
+            & \quad \quad + \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1)
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x)
+            + xy \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
+            & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y \right] \pi(0,0) \\
+            & \quad \quad - (\mu + \theta_1) xy \, \pi(1, 0) \\
+            & \quad \quad - \theta_2 xy \, \pi(0, 1) \\
+            & \quad \quad + xy \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1)
+        \end{split} \label{eq:gen_transform_x-boundary_relation}
+    \end{align}
+    
+    Again, we replicate the procedure for the $y$-boundary balance equation (Equation~\eqref{eq:gen_balance_y-boundary}):
+    \begin{align}
+        \begin{split}
+            & \sum_{n_2=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_2 + \theta_2) n_2 \right] \pi(0, n_2) y^{n_2} \\
+            & \quad = \quad \lambda_2 \sum_{n_2=1}^{\infty} \pi(0, n_2-1) y^{n_2} \\
+            & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
+            & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(0, n_2+1) y^{n_2} \\
+            & \quad \quad + \gamma_1 \sum_{n_2=1}^{\infty} \pi(1, n_2-1) y^{n_2} \\
+            & \quad \quad + \theta_1 \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
+            & \quad \quad + \theta_2 \sum_{n_2=1}^{\infty} (n_2+1) \pi(0, n_2+1) y^{n_2}
+        \end{split} \nonumber \\
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{\infty} \pi(0, n_2) y^{n_2} \\
+            & + (\gamma_2 + \theta_2) y \sum_{n_2=1}^{\infty} n_2 \pi(0, n_2) y^{n_2-1} \\
+            & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty} \pi(0, m) y^{m} \\
+            & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
+            & \quad \quad + \mu y^{-1} \sum_{m=2}^{\infty} \pi(0, m) y^{m} \\
+            & \quad \quad + \gamma_1 y \sum_{m=0}^{\infty} \pi(1, m) y^{m} \\
+            & \quad \quad + \theta_1 \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
+            & \quad \quad + \theta_2 \sum_{m=2}^{\infty} m \pi(0, m) y^{m-1}
+        \end{split} \nonumber \\
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_2=0}^{\infty} \pi(0, n_2) y^{n_2} - \pi(0,0) \right] \\
+            & + (\gamma_2 + \theta_2) y \sum_{n_2=0}^{\infty} n_2 \pi(0, n_2) y^{n_2-1} \\
+            & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty} \pi(0, m) y^{m} \\
+            & \quad \quad + \mu \left[ \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2} - \pi(1, 0) \right] \\
+            & \quad \quad + \mu y^{-1} \left[ \sum_{m=0}^{\infty} \pi(0, m) y^{m} - y \pi(0, 1) - \pi(0, 0) \right] \\
+            & \quad \quad + \gamma_1 y \sum_{m=0}^{\infty} \pi(1, m) y^{m} \\
+            & \quad \quad + \theta_1 \left[ \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2} - \pi(1, 0) \right] \\
+            & \quad \quad + \theta_2 \left[ \sum_{m=0}^{\infty} m \pi(0, m) y^{m-1} - \pi(0, 1) \right]
+        \end{split} \nonumber \\
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \left[ P_y(y) - \pi(0, 0) \right]
+            + (\gamma_2 + \theta_2) y \frac{d}{dy} P_y(y) \\
+            & \quad = \quad \lambda_2 y P_y(y)
+            + \mu \left[ P_y(y | n_1=1) - \pi(1, 0) \right] \\
+            & \quad \quad + \mu y^{-1} \left[ P_y(y) - y \pi(0, 1) - \pi(0, 0) \right]
+            + \gamma_1 y P_y(y | n_1=1) \\
+            & \quad \quad + \theta_1 \left[ P_y(y | n_1=1) - \pi(1, 0) \right]
+            + \theta_2 \left[ \frac{d}{dy} P_y(y) - \pi(0, 1) \right]
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
+            + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
+            & \quad \quad - (\mu + \theta_1) \pi(1, 0)
+            - (\mu + \theta_2) \pi(0, 1) \\
+            & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} \right] \pi(0, 0)
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
+            + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
+            & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - (\lambda_1 + \lambda_2) \right] \pi(0, 0)
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
+            + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1)
+            + \left[ \mu - \mu y^{-1} \right] \pi(0, 0)
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y)
+            + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)
+            - \mu x(1-y) \, \pi(0,0)
+        \end{split} \label{eq:gen_transform_y-boundary_relation}
+    \end{align}
+    
+    We can now combine Equation~\eqref{eq:gen_transform_interior_relation} and Equation~\eqref{eq:gen_transform_x-boundary_relation}, where many terms cancel out, leaving us with the following, remarkably cleaner, expression:
+    \begin{align}
+        \begin{split}
+            & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+            & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
+            & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
+            & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
+            & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad \quad - xy \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1)
+        \end{split} \label{eq:gen_plugged_interior_and_x}
+    \end{align}
+    
+    Now, isolating $\left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)$ in Equation~\eqref{eq:gen_transform_y-boundary_relation} and plugging it into Equation~\eqref{eq:gen_plugged_interior_and_x} makes a cascade of cancelations that result in:
+    \begin{align}
+        \begin{split}
+            & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+            & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
+            & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
+            & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
+            & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
+            & \quad \quad - \left\{ \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y) \right. \\
+            & \quad \quad \quad \left. + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) + \mu x(1-y) \, \pi(0,0) \right\}
+        \end{split} \nonumber \\
+        \begin{split}
+            & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+            & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
+            & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
+            & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
+        \end{split} \label{eq:gen_fundamental_equation}.
+    \end{align}
+\end{proof}
 
-We can now combine Equation \eqref{eq:n1n2_transform_intertior_relation} and Equation \eqref{eq:n1n2_transform_x-boundary_relation}, where many terms cancel out, leaving us with the following, remarkably cleaner, expression:
-\begin{align}
-    \begin{split}
-        &\left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        & +\left[ \gamma_1 xy(x-y) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & +\left[ \gamma_2 xy(y-x)\right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
-        & \quad \quad + \left[ -\mu xy -\gamma_1 x y^2 \right] P_y(y | n_1=1) \\
-        & \quad \quad + \gamma_2 x y^2 \frac{d}{dy} P_y(y)
-    \end{split} \label{eq:n1n2_plugged_interior_and_x}
-\end{align}
-Now, isolating $P_y(y|n_1=1)$ in Equation \eqref{eq:n1n2_transform_y-boundary_relation} and plugging it into Equation \eqref{eq:n1n2_plugged_interior_and_x} makes a cascade of cancelations that result in:
-\begin{align}
-    \begin{split}
-        &\left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        &+ \left[ \gamma_1 xy(x-y) \right] \frac{\partial}{\partial x} P(x,y) \\
-        &+ \left[ \gamma_2 xy(y-x)\right] \frac{\partial}{\partial y} P(x,y) \\
-        &\quad = \quad \mu(x-y) P_y(y) \\
-        & \quad\quad- \mu x(1-y) \pi(0,0)
-    \end{split} \nonumber \\
-    \begin{split}
-        &\left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
-        + xy(x-y) \left[ \gamma_1 \frac{\partial}{\partial x} P(x,y) - \gamma_2 \frac{\partial}{\partial y} P(x,y) \right] \\
-        &\quad = \quad \mu(x-y) P_y(y) 
-         - \mu x(1-y) \pi(0,0)
-    \end{split} \label{eq:n1n2_model-b_fundamental_equation}.
-\end{align}
+Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model A):
+\begin{equation}
+\begin{split}
+    & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+    & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
+\end{split}
+\label{eq:n1n2_sanity_check_1}
+\end{equation}
+
+Sanity check $2$, $\gamma_1=\gamma_2=0$ (abandonments only):
+\begin{equation}
+\begin{split}
+    & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+    & + \theta_1 xy (x-1) \frac{\partial}{\partial x} P(x,y) \\
+    & + \theta_2 xy (y-1) \frac{\partial}{\partial y} P(x,y) \\
+    & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
+\end{split}
+\label{eq:n1n2_sanity_check_2}
+\end{equation}
+
+Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
+\begin{equation}
+\begin{split}
+    & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
+    & + \gamma_1 xy (x-y) \frac{\partial}{\partial x} P(x,y) \\
+    & + \gamma_2 xy (y-x) \frac{\partial}{\partial y} P(x,y) \\
+    & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
+\end{split}
+\label{eq:n1n2_sanity_check_3}
+\end{equation}
 
 
 \subsubsection{Equation for PPGF in state space $\widetilde{S}$}
 
-We start by taking our interior balance equation (Equation \eqref{eq:n1n_balance_interior}), multiplying by $y^{n_2}$ and adding up throughout its domain (i.e., $1 \leq n_2 \leq n-1, n_2 \leq n-1$):
-
-\begin{align*}
+\begin{lemma}[Fundamental equation for the PPGF on $\widetilde{S}$]\label{lem:gen_PPGF_dynamics}
+    Consider the same system on the state space
+    $\widetilde{S}=\{(n_2,n):0\le n_2\le n\}$, where $n$ is the total number of customers
+    \emph{waiting} in the queues and $n_2$ the number of waiting class-$2$ customers.
+    Assume positive recurrence, so that the stationary distribution
+    $\{\tpi(n_2,n)\}$ exists, and define the partial PGF (transforming only $n_2$,
+    keeping $n$ discrete)
+    \[
+        \widetilde{P}(y,n)=\sum_{n_2=0}^{n}\tpi(n_2,n)\,y^{n_2},
+    \]
+    a polynomial of degree $n$ in $y$. Then, for every $n\ge 1$, the family
+    $\{\widetilde{P}(y,n)\}_{n\ge 0}$ satisfies the differential--difference equation
+    \begin{equation}
     \begin{split}
-        & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n-1} \tpi(n_2,n) y^{n_2} \\
-        & + \gamma_1 \sum_{n_2=1}^{n-1} (n-n_2) \tpi(n_2,n)y^{n_2} \\
-        & + \gamma_2 \sum_{n_2=1}^{n-1} n_2 \tpi(n_2,n) y^{n_2} \\
-        & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2,n-1) y^{n_2} \\
-        & \quad \quad + \lambda_2 \sum_{n_2=1}^{n-1} \tpi(n_2-1,n-1) y^{n_2} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{n-1} \tpi(n_2,n+1) y^{n_2} \\
-        & \quad \quad + \gamma_1 \sum_{n_2=1}^{n-1} (n-n_2+1) \tpi(n_2-1,n)y^{n_2} \\
-        & \quad \quad + \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1,n) y^{n_2}
+        & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n)
+          + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
+        & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1)
+          + \left[ \mu + \theta_1 (n+1) \right] \widetilde{P}(y,n+1) \\
+        & \quad \quad + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1)
+          + \mu y^{n} (1-y)\, \tpi(n+1,n+1).
     \end{split}
-\end{align*}
+    \label{eq:gen_PPGF_dynamics}
+    \end{equation}
+\end{lemma}
 
-We add our balance equation (Equation \eqref{eq:n1n_balance_diagonal}) multiplied by $y^n$ for the $n$-th term.
+\begin{proof}
+    We start by taking the interior balance equation (Equation~\eqref{eq:tilde_balance_interior}), multiplying by $y^{n_2}$ and adding up throughout its domain (i.e., $1 \leq n_2 \leq n-1$):
+    \begin{align*}
+        \begin{split}
+            & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n-1} \tpi(n_2,n) y^{n_2} \\
+            & + \gamma_1 \sum_{n_2=1}^{n-1} (n-n_2) \tpi(n_2,n) y^{n_2} \\
+            & + \gamma_2 \sum_{n_2=1}^{n-1} n_2 \tpi(n_2,n) y^{n_2} \\
+            & + \theta_1 \sum_{n_2=1}^{n-1} (n-n_2) \tpi(n_2,n) y^{n_2} \\
+            & + \theta_2 \sum_{n_2=1}^{n-1} n_2 \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2, n-1) y^{n_2} \\
+            & \quad \quad + \lambda_2 \sum_{n_2=1}^{n-1} \tpi(n_2-1, n-1) y^{n_2} \\
+            & \quad \quad + \mu \sum_{n_2=1}^{n-1} \tpi(n_2, n+1) y^{n_2} \\
+            & \quad \quad + \gamma_1 \sum_{n_2=1}^{n-1} (n-n_2+1) \tpi(n_2-1, n) y^{n_2} \\
+            & \quad \quad + \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1, n) y^{n_2} \\
+            & \quad \quad + \theta_1 \sum_{n_2=1}^{n-1} (n+1-n_2) \tpi(n_2, n+1) y^{n_2} \\
+            & \quad \quad + \theta_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1, n+1) y^{n_2}
+        \end{split}
+    \end{align*}
+    
+    We add the diagonal balance equation (Equation~\eqref{eq:tilde_balance_diagonal}) multiplied by $y^n$ for the $n$-th term.
+    
+    When adding these two equations, we notice that most terms from the diagonal equation are cleanly absorbed by the interior balance equation, extending the limit of the summation up to $n$. On the LHS, this is the case for the $(\lambda_1+\lambda_2+\mu)$-term, the $\gamma_2$-term and the $\theta_2$-term; the $\gamma_1$-term and the $\theta_1$-term are extended automatically since their $n$-th term carries the factor $(n-n_2)$ which vanishes at $n_2 = n$. On the RHS, the $\lambda_2$-term, the $\mu$-term, the $\gamma_1$-term, the $\theta_1$-term and the $\theta_2$-term are absorbed by the diagonal contributions. This leaves all summations completed excepting the $\lambda_1$-term and the $\gamma_2$-term on the RHS, plus a spare $\mu \tpi(n+1,n+1) y^n$ also on the RHS:
+    \begin{align*}
+        \begin{split}
+            & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
+            & + \gamma_1 \sum_{n_2=1}^{n} (n-n_2) \tpi(n_2,n) y^{n_2} \\
+            & + \gamma_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
+            & + \theta_1 \sum_{n_2=1}^{n} (n-n_2) \tpi(n_2,n) y^{n_2} \\
+            & + \theta_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2,n-1) y^{n_2} \\
+            & \quad \quad + \lambda_2 \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2} \\
+            & \quad \quad + \mu \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \\
+            & \quad \quad + \mu \tpi(n+1,n+1) y^n \\
+            & \quad \quad + \gamma_1 \sum_{n_2=1}^{n} (n-n_2+1) \tpi(n_2-1,n) y^{n_2} \\
+            & \quad \quad + \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1,n) y^{n_2} \\
+            & \quad \quad + \theta_1 \sum_{n_2=1}^{n} (n+1-n_2) \tpi(n_2,n+1) y^{n_2} \\
+            & \quad \quad + \theta_2 \sum_{n_2=1}^{n} (n_2+1) \tpi(n_2+1,n+1) y^{n_2}.
+        \end{split}
+    \end{align*}
+    
+    Now we work the terms out individually:
+    \begin{align}
+        \begin{split}
+            & LHS_1 \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_2=0}^{n} \tpi(n_2,n) y^{n_2} - \tpi(0,n) y^0 \right] \\
+            & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ \widetilde{P}(y,n) - \tpi(0,n) \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_2 \\
+            & \quad = \quad \gamma_1 \sum_{n_2=1}^{n} (n-n_2) \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad \gamma_1 \left[ n \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} - \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \right] \\
+            & \quad = \quad \gamma_1 \left[ n \left( \sum_{n_2=0}^{n} \tpi(n_2,n) y^{n_2} - \tpi(0,n) y^0 \right) - y \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2-1} \right] \\
+            & \quad = \quad \gamma_1 \left[ n \big( \widetilde{P}(y,n) - \tpi(0,n) \big) - y \frac{d}{dy} \widetilde{P}(y,n) \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_3 \\
+            & \quad = \quad \gamma_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad \gamma_2 \left[ y \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2-1} \right] \\
+            & \quad = \quad \gamma_2 y \frac{d}{dy} \widetilde{P}(y,n)
+        \end{split} \\
+        \begin{split}
+            & LHS_4 \\
+            & \quad = \quad \theta_1 \sum_{n_2=1}^{n} (n-n_2) \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad \theta_1 \left[ n \big( \widetilde{P}(y,n) - \tpi(0,n) \big) - y \frac{d}{dy} \widetilde{P}(y,n) \right]
+        \end{split} \\
+        \begin{split}
+            & LHS_5 \\
+            & \quad = \quad \theta_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
+            & \quad = \quad \theta_2 y \frac{d}{dy} \widetilde{P}(y,n)
+        \end{split} \\
+        \begin{split}
+            & RHS_1 \\
+            & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2,n-1) y^{n_2} \\
+            & \quad = \quad \lambda_1 \left[ \sum_{n_2=1}^{n} \tpi(n_2,n-1) y^{n_2} - \tpi(n,n-1) y^n \right] \\
+            & \quad = \quad \lambda_1 \left[ \sum_{n_2=0}^{n} \tpi(n_2,n-1) y^{n_2} - \tpi(n,n-1) y^n - \tpi(0,n-1) y^0 \right] \\
+            & \quad = \quad \lambda_1 \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1) y^n - \tpi(0,n-1) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_2 \\
+            & \quad = \quad \lambda_2 \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2} \\
+            & \quad = \quad \lambda_2 \left[ y \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2-1} \right] \\
+            & \quad = \quad \lambda_2 \left[ y \sum_{n_2=0}^{n-1} \tpi(n_2,n-1) y^{n_2} \right] \\
+            & \quad = \quad \lambda_2 \left[ y \left( \sum_{n_2=0}^{n} \tpi(n_2,n-1) y^{n_2} - \tpi(n,n-1) y^n \right) \right] \\
+            & \quad = \quad \lambda_2 y \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1) y^n \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_3 \\
+            & \quad = \quad \mu \tpi(n+1,n+1) y^n + \mu \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \\
+            & \quad = \quad \mu \left[ \tpi(n+1,n+1) y^n + \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \right] \\
+            & \quad = \quad \mu \left[ \tpi(n+1,n+1) y^n + \sum_{n_2=0}^{n+1} \tpi(n_2,n+1) y^{n_2} - \tpi(0,n+1) y^0 - \tpi(n+1,n+1) y^{n+1} \right] \\
+            & \quad = \quad \mu \left[ \widetilde{P}(y,n+1) - \tpi(0,n+1) + \tpi(n+1,n+1) y^n (1-y) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_4 \\
+            & \quad = \quad \gamma_1 \sum_{n_2=1}^{n} (n-n_2+1) \tpi(n_2-1,n) y^{n_2} \\
+            & \quad = \quad \gamma_1 \left[ y \sum_{n_2=1}^{n} (n - (n_2-1)) \tpi(n_2-1,n) y^{n_2-1} \right] \\
+            & \quad = \quad \gamma_1 \left[ y \sum_{k=0}^{n-1} (n-k) \tpi(k,n) y^k \right] \\
+            & \quad = \quad \gamma_1 \left[ y \sum_{k=0}^{n} (n-k) \tpi(k,n) y^k \right] \quad \text{(since the $k=n$ term is 0)} \\
+            & \quad = \quad \gamma_1 y \left[ n \sum_{k=0}^{n} \tpi(k,n) y^k - y \sum_{k=1}^{n} k \tpi(k,n) y^{k-1} \right] \\
+            & \quad = \quad \gamma_1 y \left[ n \widetilde{P}(y,n) - y \frac{d}{dy} \widetilde{P}(y,n) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_5 \\
+            & \quad = \quad \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1,n) y^{n_2} \\
+            & \quad = \quad \gamma_2 \sum_{k=2}^{n} k \tpi(k,n) y^{k-1} \quad \text{(letting $k = n_2+1$)} \\
+            & \quad = \quad \gamma_2 \left[ \sum_{k=1}^{n} k \tpi(k,n) y^{k-1} - 1 \cdot \tpi(1,n) y^0 \right] \\
+            & \quad = \quad \gamma_2 \left[ \frac{d}{dy} \widetilde{P}(y,n) - \tpi(1,n) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_6 \\
+            & \quad = \quad \theta_1 \sum_{n_2=1}^{n} (n+1-n_2) \tpi(n_2,n+1) y^{n_2} \\
+            & \quad = \quad \theta_1 \left[ (n+1) \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} - \sum_{n_2=1}^{n} n_2 \tpi(n_2,n+1) y^{n_2} \right] \\
+            & \quad = \quad \theta_1 \left[ (n+1) \left( \sum_{n_2=0}^{n+1} \tpi(n_2,n+1) y^{n_2} - \tpi(0,n+1) - \tpi(n+1,n+1) y^{n+1} \right) \right] \\
+            & \quad \quad - \theta_1 \left[ y \left( \sum_{n_2=0}^{n+1} n_2 \tpi(n_2,n+1) y^{n_2-1} - (n+1) \tpi(n+1,n+1) y^n \right) \right] \\
+            & \quad = \quad \theta_1 \left[ (n+1) \big( \widetilde{P}(y,n+1) - \tpi(0,n+1) \big) - (n+1) \tpi(n+1,n+1) y^{n+1} \right] \\
+            & \quad \quad - \theta_1 \left[ y \frac{d}{dy} \widetilde{P}(y,n+1) - (n+1) \tpi(n+1,n+1) y^{n+1} \right] \\
+            & \quad = \quad \theta_1 \left[ (n+1) \big( \widetilde{P}(y,n+1) - \tpi(0,n+1) \big) - y \frac{d}{dy} \widetilde{P}(y,n+1) \right]
+        \end{split} \\
+        \begin{split}
+            & RHS_7 \\
+            & \quad = \quad \theta_2 \sum_{n_2=1}^{n} (n_2+1) \tpi(n_2+1,n+1) y^{n_2} \\
+            & \quad = \quad \theta_2 \sum_{k=2}^{n+1} k \tpi(k,n+1) y^{k-1} \quad \text{(letting $k = n_2+1$)} \\
+            & \quad = \quad \theta_2 \left[ \sum_{k=1}^{n+1} k \tpi(k,n+1) y^{k-1} - 1 \cdot \tpi(1,n+1) y^0 \right] \\
+            & \quad = \quad \theta_2 \left[ \frac{d}{dy} \widetilde{P}(y,n+1) - \tpi(1,n+1) \right]
+        \end{split}
+    \end{align}
+    
+    Put the components back together:
+    \begin{align*}
+        \begin{split}
+            & (\lambda_1 + \lambda_2 + \mu) \left[ \widetilde{P}(y,n) - \tpi(0,n) \right] \\
+            & + \gamma_1 \left[ n \big( \widetilde{P}(y,n) - \tpi(0,n) \big) - y \frac{d}{dy} \widetilde{P}(y,n) \right] \\
+            & + \gamma_2 y \frac{d}{dy} \widetilde{P}(y,n) \\
+            & + \theta_1 \left[ n \big( \widetilde{P}(y,n) - \tpi(0,n) \big) - y \frac{d}{dy} \widetilde{P}(y,n) \right] \\
+            & + \theta_2 y \frac{d}{dy} \widetilde{P}(y,n) \\
+            & \quad = \quad \lambda_1 \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1) y^n - \tpi(0,n-1) \right] \\
+            & \quad \quad + \lambda_2 y \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1) y^n \right] \\
+            & \quad \quad + \mu \left[ \widetilde{P}(y,n+1) - \tpi(0,n+1) + \tpi(n+1,n+1) y^n (1-y) \right] \\
+            & \quad \quad + \gamma_1 y \left[ n \widetilde{P}(y,n) - y \frac{d}{dy} \widetilde{P}(y,n) \right] \\
+            & \quad \quad + \gamma_2 \left[ \frac{d}{dy} \widetilde{P}(y,n) - \tpi(1,n) \right] \\
+            & \quad \quad + \theta_1 \left[ (n+1) \big( \widetilde{P}(y,n+1) - \tpi(0,n+1) \big) - y \frac{d}{dy} \widetilde{P}(y,n+1) \right] \\
+            & \quad \quad + \theta_2 \left[ \frac{d}{dy} \widetilde{P}(y,n+1) - \tpi(1,n+1) \right]
+        \end{split}
+    \end{align*}
+    Grouping terms:
+    \begin{align*}
+        \begin{split}
+            & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
+            & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \left[ \mu + \theta_1 (n+1) \right] \widetilde{P}(y,n+1) + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1) \\
+            & \quad \quad + \left\{ \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n \right] \tpi(0,n) - \lambda_1 \tpi(0,n-1) - \left[ \mu + \theta_1 (n+1) \right] \tpi(0,n+1) \right. \\
+            & \quad \quad \quad \left. - \gamma_2 \tpi(1,n) - \theta_2 \tpi(1,n+1) \right\} \\
+            & \quad \quad - y^n (\lambda_1 + \lambda_2 y) \tpi(n,n-1) + \mu y^n (1-y) \tpi(n+1,n+1)
+        \end{split}
+    \end{align*}
+    Combine with the $y$-boundary balance equation (Equation~\eqref{eq:tilde_balance_y-boundary}), which makes the bracketed boundary terms vanish. Together with $\tpi(n,n-1)=0$ (state outside $\widetilde{S}$), the equation simplifies to:
+    \begin{align}
+        \begin{split}
+            & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
+            & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \left[ \mu + \theta_1 (n+1) \right] \widetilde{P}(y,n+1) + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1) \\
+            & \quad \quad + \mu y^n (1-y) \tpi(n+1,n+1)
+        \end{split} \label{eq:gen_PPGF_dynamics}
+    \end{align}
+\end{proof}
 
-When adding these two equations, we notice that most terms from the diagonal equation are cleanly absorbed by the interior balance equation, extending the limit of the summation up to $n$. However, the $\gamma_1$-term on the left-hand side is extended to $n$ not by adding a term to the equation, but because the $(n-n_2)$ factor makes its $n$-th term evaluate to $0$. On the right-hand side, the coefficient $(n-n+1)=1$ exactly matches the $\gamma_1$ term added from the diagonal equation, allowing us to absorb it and complete the summation up to $n$ as well. Therefore, we have:
-
-When adding these two equations, we notice that most terms from the diagonal equation are cleanly absorbed by the interior balance equation, extending the limit of the summation up to $n$. This is the case for the $(\lambda_1+\lambda_2+\mu)$-term and the $\gamma_2$-term on the LHS, and for the $\lambda_2$-term the $\mu$-term and the $\gamma_1$-term on the RHS. Another method to complete the summation up to $n$ is noticing that the $n$-th term of the summation is $0$, this is the case for the $\gamma_1$-term on the LHS. This leaves all summations completed excepting the $\lambda_1$-term and the $\gamma_2$-term on the RHS, plus a spare $\mu \tpi(n+1,n+1) y^n$ also on the RHS.
-
-
-\begin{align*}
-    \begin{split}
-        & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
-        & + \gamma_1 \sum_{n_2=1}^{n} (n-n_2) \tpi(n_2,n)y^{n_2} \\
-        & + \gamma_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
-        & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2,n-1) y^{n_2} \\
-        & \quad \quad + \lambda_2 \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \\
-        & \quad \quad + \mu \tpi(n+1,n+1) y^n \\
-        & \quad \quad + \gamma_1 \sum_{n_2=1}^{n} (n-n_2+1) \tpi(n_2-1,n)y^{n_2} \\
-        & \quad \quad + \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1,n) y^{n_2}.
-    \end{split}
-\end{align*}
-
-Now we work the terms out individually:
-\begin{align}
-    \begin{split}
-        & LHS_1 \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_2=0}^{n} \tpi(n_2,n) y^{n_2} - \tpi(0,n) y^0 \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ \widetilde{P}(y,n) - \tpi(0,n) \right]
-    \end{split} \\
-    \begin{split}
-        & LHS_2 \\
-        & \quad = \quad \gamma_1 \sum_{n_2=1}^{n} (n-n_2) \tpi(n_2,n)y^{n_2} \\
-        & \quad = \quad \gamma_1 \left[ n \sum_{n_2=1}^{n} \tpi(n_2,n)y^{n_2} - \sum_{n_2=1}^{n} n_2 \tpi(n_2,n)y^{n_2} \right] \\
-        & \quad = \quad \gamma_1 \left[ n \left( \sum_{n_2=0}^{n} \tpi(n_2,n) y^{n_2} - \tpi(0,n) y^0 \right) - y \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2-1} \right] \\
-        & \quad = \quad \gamma_1 \left[ n \big( \widetilde{P}(y,n) - \tpi(0,n) \big) - y \frac{d}{dy} \widetilde{P}(y,n) \right]
-    \end{split} \\
-    \begin{split}
-        & LHS_3 \\
-        & \quad = \quad \gamma_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
-        & \quad = \quad \gamma_2 \left[ y \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2-1} \right] \\
-        & \quad = \quad \gamma_2 y \frac{d}{dy} \widetilde{P}(y,n)
-    \end{split} \\
-    \begin{split}
-        & RHS_1 \\
-        & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2,n-1) y^{n_2} \\
-        & \quad = \quad \lambda_1 \left[ \sum_{n_2=1}^{n} \tpi(n_2,n-1) y^{n_2} - \tpi(n,n-1) y^n \right] \\
-        & \quad = \quad \lambda_1 \left[ \sum_{n_2=0}^{n} \tpi(n_2,n-1) y^{n_2} - \tpi(n,n-1) y^n - \tpi(0,n-1) y^0 \right] \\
-        & \quad = \quad \lambda_1 \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1)y^n - \tpi(0,n-1) \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_2 \\
-        & \quad = \quad \lambda_2 \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2} \\
-        & \quad = \quad \lambda_2 \left[ y \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2-1} \right] \\
-        & \quad = \quad \lambda_2 \left[ y \sum_{n_2=0}^{n-1} \tpi(n_2,n-1) y^{n_2} \right] \\
-        & \quad = \quad \lambda_2 \left[ y \left( \sum_{n_2=0}^{n} \tpi(n_2,n-1) y^{n_2} - \tpi(n,n-1)y^n \right) \right] \\
-        & \quad = \quad \lambda_2 y \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1)y^n \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_3 \\
-        & \quad = \quad \mu \tpi(n+1,n+1) y^n + \mu \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \\
-        & \quad = \quad \mu \left[ \tpi(n+1,n+1) y^n + \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \right] \\
-        & \quad = \quad \mu \left[ \tpi(n+1,n+1) y^n + \sum_{n_2=0}^{n+1} \tpi(n_2,n+1) y^{n_2} - \tpi(0,n+1)y^0 - \tpi(n+1,n+1)y^{n+1} \right] \\
-        & \quad = \quad \mu \left[ \tpi(n+1,n+1) y^n + \widetilde{P}(y,n+1) - \tpi(0,n+1) - \tpi(n+1,n+1)y^{n+1} \right] \\
-        & \quad = \quad \mu \left[ \widetilde{P}(y,n+1) - \tpi(0,n+1) + \tpi(n+1,n+1)y^n(1-y) \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_4 \\
-        & \quad = \quad \gamma_1 \sum_{n_2=1}^{n} (n-n_2+1) \tpi(n_2-1,n)y^{n_2} \\
-        & \quad = \quad \gamma_1 \left[ y \sum_{n_2=1}^{n} (n - (n_2-1)) \tpi(n_2-1,n)y^{n_2-1} \right] \\
-        & \quad = \quad \gamma_1 \left[ y \sum_{k=0}^{n-1} (n-k) \tpi(k,n) y^k \right] \\
-        & \quad = \quad \gamma_1 \left[ y \sum_{k=0}^{n} (n-k) \tpi(k,n) y^k \right] \quad \text{(since the $k=n$ term is 0)} \\
-        & \quad = \quad \gamma_1 y \left[ n \sum_{k=0}^{n} \tpi(k,n) y^k - \sum_{k=0}^{n} k \tpi(k,n) y^k \right] \\
-        & \quad = \quad \gamma_1 y \left[ n \widetilde{P}(y,n) - y \sum_{k=1}^{n} k \tpi(k,n) y^{k-1} \right] \\
-        & \quad = \quad \gamma_1 y \left[ n \widetilde{P}(y,n) - y \frac{d}{dy} \widetilde{P}(y,n) \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_5 \\
-        & \quad = \quad \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1,n) y^{n_2} \\
-        & \quad = \quad \gamma_2 \sum_{k=2}^{n} k \tpi(k,n) y^{k-1} \quad \text{(letting $k = n_2+1$)} \\
-        & \quad = \quad \gamma_2 \left[ \sum_{k=1}^{n} k \tpi(k,n) y^{k-1} - 1 \cdot \tpi(1,n) y^0 \right] \\
-        & \quad = \quad \gamma_2 \left[ \frac{d}{dy} \widetilde{P}(y,n) - \tpi(1,n) \right]
-    \end{split}
-\end{align}
-
-Put the components back together:
-\begin{align*}
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ \widetilde{P}(y,n) - \tpi(0,n) \right] \\
-        & + \gamma_1 \left[ n \big( \widetilde{P}(y,n) - \tpi(0,n) \big) - y \frac{d}{dy} \widetilde{P}(y,n) \right] \\
-        & + \gamma_2 y \frac{d}{dy} \widetilde{P}(y,n) \\
-        & \quad = \quad \lambda_1 \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1)y^n - \tpi(0,n-1) \right] \\
-        & \quad \quad + \lambda_2 y \left[ \widetilde{P}(y,n-1) - \tpi(n,n-1)y^n \right] \\
-        & \quad \quad + \mu \left[ \widetilde{P}(y,n+1) - \tpi(0,n+1) + \tpi(n+1,n+1)y^n(1-y) \right] \\
-        & \quad \quad + \gamma_1 y \left[ n \widetilde{P}(y,n) - y \frac{d}{dy} \widetilde{P}(y,n) \right] \\
-        & \quad \quad + \gamma_2 \left[ \frac{d}{dy} \widetilde{P}(y,n) - \tpi(1,n) \right]
-    \end{split}
-\end{align*}
-Grouping terms:
-\begin{align*}
-    \begin{split}
-        & -(\gamma_2 + \gamma_1 y) (1-y) \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) \right] \widetilde{P}(y,n) \\
-        & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu + \gamma_1 n) \tpi(0,n) - \lambda_1 \tpi(0,n-1) - \mu \tpi(0,n+1) \right] - \gamma_2 \tpi(1,n) \\
-        & \quad \quad - y^n (\lambda_1 + \lambda_2 y) \tpi(n,n-1) + \mu y^n (1-y) \tpi(n+1,n+1)
-    \end{split}
-\end{align*}
-Combine with $y$-boundary balance equation (Equation \eqref{eq:n1n_balance_y-boundary}):
-\begin{align}
-    \begin{split}
-        & -(\gamma_2 + \gamma_1 y) (1-y) \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) \right] \widetilde{P}(y,n) \\
-        & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \tpi(n+1,n+1)
-    \end{split} \label{eq:n1n_model-B_dynamics}
-\end{align}
-
-Sanity check 1, $\gamma_1=0, \gamma_2=0$:
+Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model A):
 \begin{align}
     \begin{split}
         & (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) \\
@@ -969,9 +1210,21 @@ Sanity check 1, $\gamma_1=0, \gamma_2=0$:
     \end{split}
 \end{align}
 
-Sanity check 2, $y=1$:
+Sanity check $2$, $\theta_1 = \theta_2 = 0$ (recovers Model B):
 \begin{align}
-    (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(1,n) \quad = \quad (\lambda_1 + \lambda_2) \widetilde{P}(1,n-1) + \mu \widetilde{P}(1,n+1)
+    \begin{split}
+        & -(\gamma_2 + \gamma_1 y)(1-y) \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) \right] \widetilde{P}(y,n) \\
+        & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \tpi(n+1,n+1)
+    \end{split}
+\end{align}
+
+Sanity check $3$, $\gamma_1 = \gamma_2 = 0$ (abandonments only):
+\begin{align}
+    \begin{split}
+        & (\theta_2 - \theta_1) y \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \theta_1 n \right] \widetilde{P}(y,n) \\
+        & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \left[ \mu + \theta_1 (n+1) \right] \widetilde{P}(y,n+1) \\
+        & \quad \quad + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1) + \mu y^n (1-y) \tpi(n+1,n+1)
+    \end{split}
 \end{align}
 
 
@@ -1161,7 +1414,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
             - 1
             \right]
         \pi(0,0)\\
-        &= \left[ \frac{1}{1 - \frac{\rho_GJHTN2}{1-\rho_1}} -1 \right] \pi(0,0) \\
+        &= \left[ \frac{1}{1 - \frac{\rho_2}{1-\rho_1}} -1 \right] \pi(0,0) \\
         &= \frac{1-\rho_1 - (1 - \rho_1 - \rho_2)}{1 - \rho_1 - \rho_2} \pi(0,0) \\
         &= \frac{\rho_2}{1 - \rho_1 - \rho_2} \pi(0,0)\\
         &= \frac{\rho_2}{1 - \rho} \pi(0,0) \\
@@ -1529,7 +1782,7 @@ This forces $F(C_1)=0$, since any different value would make our PGF diverge. Th
     P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))} \,dt.
 \end{equation}
 
-Now we have defined $P()x,y(x)$ in terms of the homogeneous solution $P_h(x,y(x))$ and an integral containing that same homogeneous solution and our forcing function $h(t;C_1)$. But the forcing function still contains an unknown $y$-boundary function $P_y(y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)y^{n_2}$ —in fact, $P_y(y(t))$, since it is inside an integral—. In order to solve for our boundary function, we can exploit our diagonal singularity $x=y$, where we look at the total number of customers in the queues. To avoid confusion, we will write $z=x=y$.
+Now we have defined $P(x,y(x))$ in terms of the homogeneous solution $P_h(x,y(x))$ and an integral containing that same homogeneous solution and our forcing function $h(t;C_1)$. But the forcing function still contains an unknown $y$-boundary function $P_y(y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)y^{n_2}$ —in fact, $P_y(y(t))$, since it is inside an integral—. In order to solve for our boundary function, we can exploit our diagonal singularity $x=y$, where we look at the total number of customers in the queues. To avoid confusion, we will write $z=x=y$.
 
 Every point $(x,y)$ lies on exactly one characteristic curve given by our characteristic constant $C_1=\gamma_2x+\gamma_1y$. For a point $(z,z)$ in the diagonal, we have out characteristic constant $C_1 = (\gamma_1+\gamma_2)z$. Along that curve, we will have the following parametrization:
 \begin{equation}
@@ -1583,14 +1836,42 @@ This is an almost standard form of a type of equations called \textit{Volterra e
 
 
 
-\subsubsection{Variant Model $B_1$ ($\gamma_1=0$)}
 
 
+\section{Variant Model $B_2$ ($\gamma_2=0$)}
 
-
-
-
-\subsubsection{Variant Model $B_2$ ($\gamma_2=0$)}
+\begin{theorem}
+    Consider the two-class priority queueing system of Model~B with per-customer jockeying
+    confined to the priority class, i.e. $\gamma_1>0$, $\gamma_2=0$ (and
+    $\theta_1=\theta_2=0$). Under the stability condition $\rho=\lambda/\mu<1$ with
+    $\lambda=\lambda_1+\lambda_2$, the empty-state mass and the boundary generating function
+    are given in closed form by
+    \begin{equation}
+        \pi_0=1-\rho,\qquad \pi(0,0)=\rho(1-\rho),
+    \end{equation}
+    \begin{equation}
+        P_y(y)=\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\cdot
+        \frac{{}_1F_1\!\bigl(\alpha(y)+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)}
+             {{}_1F_1\!\bigl(\alpha(y);\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)},
+    \end{equation}
+    and the bivariate probability generating function, for $0\le x\le y$, by
+    \begin{equation}
+        P(x,y)=\frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
+        \left[\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\,
+        \frac{{}_1F_1(\alpha+1;b^\star;-\frac{\lambda_1 y}{\gamma_1})}
+             {{}_1F_1(\alpha;b^\star;-\frac{\lambda_1 y}{\gamma_1})}\,
+        \mathcal J_1(x,y)+(1-y)\pi(0,0)\,\mathcal J_2(x,y)\right],
+    \end{equation}
+    where ${}_1F_1$ is the confluent hypergeometric (Kummer) function, the exponents are
+    \begin{equation}
+        \alpha(y)=\frac{\mu}{\gamma_1 y},\qquad
+        \beta(y)=\frac{(1-y)(\lambda y-\mu)}{\gamma_1 y},\qquad
+        b^\star(y)=\alpha+\beta+1=\frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1},
+    \end{equation}
+    and $\mathcal J_1,\mathcal J_2$ are the integrals defined in \eqref{eq:b2_J1}--\eqref{eq:b2_J2};
+    on $y<x\le1$ the same expression holds with $\mathcal J_1,\mathcal J_2$ read as their
+    finite-part continuations.
+\end{theorem}
 
 Let $\gamma_2=0$, then our fundamental equation states:
 \begin{equation}
@@ -1639,13 +1920,13 @@ Integrating the standard identity $\frac{d}{dx}P\cdot \mu_I= q \cdot \mu_I$ on t
 \begin{equation}
     P(x,y)\,\mu_I(x;\,y) - P(0,y)\,\mu_I(0;\,y) = \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt.
 \end{equation}
-Note $\mu_I(x;t) \to 0 \quad$ as $x\to0^+$, so the boundary term vanishes:
+Note $\mu_I(x;y) \to 0 \quad$ as $x\to0^+$, so the boundary term vanishes:
 \begin{equation}
     P(x,y)\,\mu_I(x;\,y)
 = \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt.
 \end{equation}
-Now we substitute $q(x;t)=\frac{\mu\,P_y(y)}{\gamma_1 xy}
-  - \frac{\mu(1-y)\pi(0,0)}{\gamma_1 y(x-y)}$ and divide by $\mu(x;y)$. Note $P_y(y)$ acts as a constant inside our integral, since it only contains terms on $y$. We can define the integrals:
+Now we substitute $q(t;y)=\frac{\mu\,P_y(y)}{\gamma_1 ty}
+  - \frac{\mu(1-y)\pi(0,0)}{\gamma_1 y(t-y)}$ and divide by $\mu_I(x;y)$. Note $P_y(y)$ acts as a constant inside our integral, since it only contains terms on $y$. We can define the integrals:
 \begin{align}
     \mathcal{I}_1(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(t-y)^{\beta}\,dt, \\
     \mathcal{I}_2(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(t-y)^{\beta-1}\,dt
@@ -1658,695 +1939,387 @@ So we obtain
 \;-\;\mu(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\,\Bigr]
 \end{equation}
 
-
-\subsection{[INCORRECT]Analysis model B-$2$: probabilistic approach ($\gamma_2=0$)}
-
-NOTE: This does not work, as constant $\lambda_2$ arrivals does not capture the fact that $\gamma_1 n_1$ customers will also be arriving to queue-$2$. But if we were to consider a different model where class-$1$ customers truly abandon the system, we could make it work I guess.
-
-In the same fasion of what was done for Model A using probabilistic arguments, we can try to take the perspective of a Class-$2$ customer to derive the marginal PGF of the non-priority class by means of probabilistic arguments. Allowing jockeying makes the assignment quite complicated, but a very similar argument can be derived if we set $\gamma_2=0$.
-
-For $\gamma_2=0$, our fundamental equation reads
+Before extracting $P_y(y)$, it is worth recording that the empty-state mass is available in
+closed form, in contrast with Model~C-$2$. Setting $y=x$ in the fundamental equation, the
+convection term $\gamma_1 xy(x-y)\partial_x P$ vanishes identically through its factor $(x-y)$,
+and so does $\mu(x-y)P_y(y)$; this is the analytic reflection of the fact that jockeying merely
+relabels a waiting customer and therefore conserves the total number in the system. What
+remains is
 \begin{equation}
-    \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
-    + \gamma_1 xy(x-y) \frac{\partial}{\partial x} P(x,y) 
-    = \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].
-    \label{eq:modelC_fundamental}
+    \bigl[(\lambda_1+\lambda_2+\mu)x-\mu-(\lambda_1+\lambda_2)x^2\bigr]P(x,x)=-\mu(1-x)\,\pi(0,0),
 \end{equation}
-
-To customers belonging to the non-priority class, given that the server is busy and that $N_1=0$, their effective service time is equivalent to the busy period ($BP$) of an $M/M/1+M$ queueing system with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\gamma_2$, with the very remarkable difference of those abandonments are not abandoning the system as such but joining to the non-priority queue.
-
-The LST and expectation of such busy period are complicated, but known, expressions:
-\begin{align}
-    \begin{split}
-    \widetilde{B}_C(s) = \frac{\mu}{\lambda_1 + \mu + s - \frac{\lambda_1(\mu + \gamma_1)}{\lambda_1 + \mu + \gamma_1 + s - \frac{\lambda_1(\mu + 2\gamma_1)}{\lambda_1 + \mu + 2\gamma_1 + s - \dots}}}.
-    \label{eq:Bc_LST}
-    \end{split}
-    \begin{split}
-        \mathbb{E}[B_C] = \sum_{k=1}^{\infty} \frac{\lambda_1^{k-1}}{\prod_{i=1}^k (\mu + (i-1)\gamma_1)}.
-    \label{eq:Bc_expectation}
-    \end{split}
-\end{align}
-
-We again define $P_y(y)$ as follows:
+whose bracket factors as $(\mu-\lambda x)(x-1)$, so that after cancelling $(x-1)$ we recover the
+total-customer generating function of an $M/M/1(\lambda,\mu)$ queue,
 \begin{equation}
-    P_y(y) = \mathbb{P}(\text{busy}, N_1=0) \cdot \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0].
-    \label{eq:pyy_prob_def_C}
+    P(x,x)=\frac{\mu\,\pi(0,0)}{\mu-\lambda x}=\frac{\pi(0,0)}{1-\rho x}.
 \end{equation}
-
-And apply the Pollaczek-Khinchine formula where the service times are $B_C$ and the arrival rate is $\lambda_2$. Again, we can say that
+Evaluating at $x=1$ and using $P(1,1)=1-\pi_0=\rho$ with $\pi_0=1-\rho$ yields
 \begin{equation}
-     \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0]=L_2(y)= \frac{(1 - \lambda_2 \mathbb{E}[B_C]) (1-y) \widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
-    \label{eq:modelC_pk_formula}
+    \pi(0,0)=\rho(1-\rho),\qquad \pi_0=1-\rho,
+    \label{eq:b2_pi00}
 \end{equation}
+which we shall substitute once $P_y(y)$ has been determined.
 
-This leaves us with the following expression for $P_y(y)$:
+The convection coefficient of the ODE is $\gamma_1 x(x-y)$, so $p(x;y)$ has simple poles only
+at $x=0$ and at the interior point $x=y\in(0,1)$, and, crucially, not at $x=1$. This is the
+structural difference with Model~C-$2$, whose coefficient $\theta_1 x(x-1)$ has its pole at the
+boundary $x=1$. Under the stability condition $\rho=\lambda/\mu<1$ we have $\mu-\lambda y>0$ for
+every $y\in[0,1]$, hence
 \begin{equation}
-    P_y(y) = \mathbb{P}(\text{busy}, N_1=0) \left[ \frac{(1 - \lambda_2 \mathbb{E}[B_C]) (1-y) \widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y} \right].
-    \label{eq:pyy_unsimplified}
+    \beta(y)=\frac{(1-y)(\lambda y-\mu)}{\gamma_1 y}<0
+    \qquad (0<y<1).
+    \label{eq:b2_beta_negative}
 \end{equation}
+Consequently $\mu_I(x;y)^{-1}\propto (x-y)^{-\beta}=(x-y)^{|\beta|}\to0$ as $x\to y$: the
+singular homogeneous mode does not blow up, so a boundedness argument à la Model~C-$2$ yields no
+condition. The operative requirement is the stronger one that a probability generating function
+is holomorphic on the open unit polydisc; we therefore exploit analyticity at $x=y$.
 
-Evaluating that at $y=0$ allows us to simplify the result:
-\begin{align}
-    P_y(0) &= \pi(0,0) \nonumber \\
-    &= \mathbb{P}(\text{busy}, N_1=0) \left[ \frac{(1 - \lambda_2 \mathbb{E}[B_C]) (1) \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)} \right] \nonumber \\
-    &= \mathbb{P}(\text{busy}, N_1=0) (1 - \lambda_2 \mathbb{E}[B_C]).
-    \label{eq:py0_mapping}
-\end{align}
-Leaving us with
+A preliminary technical point concerns the meaning of the integrals on the physical range. For
+$0<t<x<y$ the base $t-y$ is negative, so $(t-y)^{\beta}$ is defined only up to a branch. Writing
+$(t-y)^{\beta}=e^{i\pi\beta}(y-t)^{\beta}$, the common phase $e^{i\pi\beta}$ cancels in
+$P=\mu_I^{-1}\!\int q\,\mu_I$, while the relative phase between the $(t-y)^{\beta}$ and
+$(t-y)^{\beta-1}$ contributions is $e^{i\pi\beta}/e^{i\pi(\beta-1)}=-1$, which converts the minus
+sign above into a plus. The manifestly real solution on $0<x<y$ is therefore
 \begin{equation}
-    P_y(y) = \pi(0,0) \left[ \frac{\widetilde{B}_C(\lambda_2(1-y))(1-y)}{\widetilde{B}_C(\lambda_2(1-y)) - y} \right].
-    \label{eq:pyy_final_C}
+    P(x,y)=\frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
+    \Bigl[\,P_y(y)\,\mathcal J_1(x,y)+(1-y)\pi(0,0)\,\mathcal J_2(x,y)\,\Bigr],
+    \label{eq:b2_Pxy_real}
 \end{equation}
-
-Allowing us to substitute the right-hand side of our fundamental equation for this variant of Model B where $\gamma_1=0$:
-\begin{align*}
-    \text{RHS} &= \mu \left[ (x-y) \left( \pi(0,0) \frac{\widetilde{B}_C(\lambda_2(1-y))(1-y)}{\widetilde{B}_C(\lambda_2(1-y)) - y} \right) - x(1-y) \pi(0,0) \right] \\
-    &= \mu \pi(0,0) (1-y) \left[ \frac{(x-y)\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y} - x \right] \\
-    &= \mu \pi(0,0) y(1-y) \left[ \frac{x - \widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y} \right].
-\end{align*}
-
-In the end, we are left with
 \begin{align}
-    &\left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
-    + \gamma_1 xy(x-y) \frac{\partial}{\partial x} P(x,y) \\
-    & \quad = \quad \mu \pi(0,0) y(1-y) \left[ \frac{x - \widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y} \right].
+    \mathcal J_1(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha-1}(y-t)^{\beta}\,dt,
+    \label{eq:b2_J1}\\
+    \mathcal J_2(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha}(y-t)^{\beta-1}\,dt.
+    \label{eq:b2_J2}
 \end{align}
 
-\section{Models with jockeying and abandonments}
+We now examine the local behaviour at the regular singular point $x=y$. There the
+partial-fraction form of $p$ gives a simple pole with residue $C/\gamma_1=\beta$, and the
+singular part of the source is governed by the second term of $q$, namely $q(x;y)\sim -D/(x-y)$
+with $D=\mu(1-y)\pi(0,0)/(\gamma_1 y)$. The local model equation is thus
+\begin{equation}
+    P'(x,y)+\frac{\beta}{x-y}\,P(x,y)=\frac{-D}{x-y}+(\text{analytic}).
+    \label{eq:b2_local_ode}
+\end{equation}
+Trying a constant particular solution $P\equiv P_*$ forces $\beta P_*=-D$, i.e.
+\begin{equation}
+    P(y,y)=P_*=-\frac{D}{\beta}
+    =\frac{\mu\,\pi(0,0)}{\mu-\lambda y}
+    =\frac{\rho(1-\rho)}{1-\rho y},
+    \label{eq:b2_regular_value}
+\end{equation}
+where the last equality uses $\pi(0,0)=\rho(1-\rho)$ from \eqref{eq:b2_pi00}. The general local
+solution is this regular value plus a multiple of the homogeneous mode
+$(x-y)^{-\beta}=(x-y)^{|\beta|}$. Because $|\beta|\notin\mathbb Z$ in general, that mode is a
+branch term: it is bounded (indeed it vanishes) but not analytic. Holomorphy of $P(\cdot,y)$ at
+the interior point $x=y$ therefore forces its coefficient to vanish.
 
-\subsection{Balance equations}
+In \eqref{eq:b2_Pxy_real} the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ multiplies the finite
+parts of $\mathcal J_1,\mathcal J_2$ at $x=y$ to produce exactly that branch term; eliminating it
+is the single linear condition
+\begin{equation}
+    P_y(y)\,\mathrm{f.p.}\,\mathcal J_1(y,y)
+    +(1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal J_2(y,y)=0,
+    \label{eq:b2_nobranch}
+\end{equation}
+where $\mathrm{f.p.}$ denotes the Hadamard finite part, that is, the analytic continuation of the
+divergent integral in its exponent parameter.
 
-Diagram for the combined model. Dashed arrows correspond to jockeying and dotted arrows to abandonments; both belong only to the generalized model, while the solid arrows are common to all variants:
-\begin{figure}[H]
-  \centering
-  \resizebox{0.8\textwidth}{!}{%
-    \input{figures/model_c-diagram.tikz}
-  }
-  \caption{State transition diagram on state space $S$ for the model with jockeying ($\gamma_i n_i$, dashed) and abandonments ($\theta_i n_i$, dotted).}
-  \label{fig:diagram-gen}
-\end{figure}
-
+It remains to evaluate these finite parts. Substituting $t=ys$ in
+\eqref{eq:b2_J1}--\eqref{eq:b2_J2} and using the Euler representation
+$\int_0^1 s^{a-1}(1-s)^{b-1}e^{-w s}\,ds=B(a,b)\,{}_1F_1(a;a+b;-w)$, continued analytically in
+$b$ (which is precisely the finite part), gives, with $c=\lambda_1/\gamma_1$,
 \begin{align}
-    \begin{split}
-        &\left[\lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 + (\gamma_2 + \theta_2) n_2\right] \pi(n_1,n_2) \\
-        & \quad = \quad \mu \pi(n_1+1,n_2) \\
-        & \quad \quad + \lambda_1 \pi(n_1-1,n_2) \\
-        & \quad \quad + \lambda_2 \pi(n_1,n_2-1) \\
-        & \quad \quad + \gamma_1 (n_1+1) \pi(n_1+1,n_2-1) \\
-        & \quad \quad + \gamma_2 (n_2+1) \pi(n_1-1,n_2+1) \\
-        & \quad \quad + \theta_1 (n_1+1) \pi(n_1+1,n_2) \\
-        & \quad \quad + \theta_2 (n_2+1) \pi(n_1,n_2+1)
-    \end{split}
-    && \text{for} \quad n_1 \geq 1, n_2 \geq 1 \label{eq:gen_balance_interior}\\
-    \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu +  (\gamma_2 + \theta_2) n_2 \right] \pi(0,n_2) \\
-        & \quad = \quad \lambda_2 \pi(0,n_2-1) \\
-        & \quad \quad + \mu \pi(1,n_2) \\
-        & \quad \quad + \mu \pi(0,n_2+1) \\
-        & \quad \quad + \gamma_1 \pi(1, n_2-1) \\
-        & \quad \quad + \theta_1 \pi(1, n_2) \\
-        & \quad \quad + \theta_2(n_2+1) \pi(0,n_2+1)
-    \end{split}
-    && \text{for} \quad n_1=0, n_2 \geq 1 \label{eq:gen_balance_y-boundary}\\
-    \begin{split}
-        & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1,0) \\
-        & \quad = \quad \lambda_1 \pi(n_1-1,0) \\
-        & \quad \quad + \mu \pi(n_1+1, 0) \\
-        & \quad \quad + \gamma_2 \pi(n_1-1, 1) \\
-        & \quad \quad + \theta_1(n_1+1) \pi(n_1+1, 0) \\
-        & \quad \quad + \theta_2 \pi(n_1,1)
-    \end{split}
-    && \text{for} \quad n_1 \geq 1, n_2 = 0 \label{eq:gen_balance_x-boundary}\\
-    \begin{split}
-        \left[\lambda_1+\lambda_2\right]\pi(0,0) = (\mu+\theta_1)\pi(1,0) + (\mu+\theta_2)\pi(0,1)
-    \end{split} && \label{eq:gen_balance_zero}\\
-    \begin{split}
-        (\lambda_1+\lambda_2) \pi_0 = \mu \pi(0,0)
-    \end{split} && \label{eq:gen_balance_idle}
+    \mathrm{f.p.}\,\mathcal J_1(y,y)&=B(\alpha,\beta+1)\,y^{\alpha+\beta}\,
+        {}_1F_1\!\bigl(\alpha;\,\alpha+\beta+1;\,-cy\bigr),\\
+    \mathrm{f.p.}\,\mathcal J_2(y,y)&=B(\alpha+1,\beta)\,y^{\alpha+\beta}\,
+        {}_1F_1\!\bigl(\alpha+1;\,\alpha+\beta+1;\,-cy\bigr).
 \end{align}
+The common $y^{\alpha+\beta}$ cancels in \eqref{eq:b2_nobranch}, and the Beta-ratio collapses to
+$B(\alpha+1,\beta)/B(\alpha,\beta+1)=\alpha/\beta$. Solving for $P_y(y)$ and using
+$(1-y)\,(-\alpha/\beta)=\mu/(\mu-\lambda y)$ together with $\pi(0,0)=\rho(1-\rho)$, we arrive at
+the closed form
+\begin{empheq}[box=\fbox]{align}
+    P_y(y)&=\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\cdot
+    \frac{{}_1F_1\!\bigl(\alpha+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)}
+         {{}_1F_1\!\bigl(\alpha;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)},
+    \label{eq:b2_Py_final}\\[2pt]
+    \text{with}\quad \alpha(y)&=\frac{\mu}{\gamma_1 y},\qquad
+    b^\star(y)=\alpha+\beta+1=\frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1}. \nonumber
+\end{empheq}
+The prefactor is the regular value $P(y,y)$ of \eqref{eq:b2_regular_value}, while the Kummer
+ratio is the boundary correction. As $y\to0^+$ the ratio tends to $1$ and $P_y(0)=\pi(0,0)$,
+consistent with $P_y(0)=\sum_{n_2}\pi(0,n_2)0^{n_2}=\pi(0,0)$.
+
+Substituting \eqref{eq:b2_Py_final} into \eqref{eq:b2_Pxy_real} finally gives, for
+$0\le x\le y$,
+\begin{empheq}[box=\fbox]{equation}
+    P(x,y)=\frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
+    \left[\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\,
+    \frac{{}_1F_1(\alpha+1;b^\star;-\frac{\lambda_1 y}{\gamma_1})}
+         {{}_1F_1(\alpha;b^\star;-\frac{\lambda_1 y}{\gamma_1})}\,
+    \mathcal J_1(x,y)+(1-y)\pi(0,0)\,\mathcal J_2(x,y)\right].
+    \label{eq:b2_Pxy_final}
+\end{empheq}
+The no-branch condition \eqref{eq:b2_nobranch} guarantees that this extends to a single analytic
+function across $x=y$, with diagonal value $P(y,y)=\rho(1-\rho)/(1-\rho y)$; on $y<x\le1$ the same
+expression holds with $\mathcal J_1,\mathcal J_2$ read as their finite-part
+(incomplete-${}_1F_1$) continuations. Since the constant is fixed in closed form by
+\eqref{eq:b2_pi00}, the solution \eqref{eq:b2_Pxy_final} is fully explicit.
 
 
-\subsubsection{Equation for PGF in state space $S$}
+\section{Analysis model C-$2$ ($\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$)}
 
-The balance equations are as defined in Equations~\eqref{eq:gen_balance_interior}, \eqref{eq:gen_balance_y-boundary}, \eqref{eq:gen_balance_x-boundary}, \eqref{eq:gen_balance_zero} and \eqref{eq:gen_balance_idle}. We follow the standard procedure for finding PGF's: multiply every balance equation by $x^{n_1}y^{n_2}$ and add them up across their domain.
+In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account. The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model A will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:modelC2_fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
 
-Hence, the interior balance equation (Equation~\eqref{eq:gen_balance_interior}) yields the following expression:
-\begin{align}
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &+ \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &+ \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &+ \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &+ \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
-        &\quad = \quad \mu \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1,n_2)x^{n_1}y^{n_2} \\
-        &\quad\quad  + \lambda_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1,n_2)x^{n_1}y^{n_2} \\
-        &\quad\quad + \lambda_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2-1)x^{n_1}y^{n_2} \\
-        &\quad\quad + \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1)\pi(n_1+1,n_2-1)x^{n_1}y^{n_2} \\
-        &\quad\quad + \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1)\pi(n_1-1,n_2+1)x^{n_1}y^{n_2} \\
-        &\quad\quad + \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1)\pi(n_1+1,n_2)x^{n_1}y^{n_2} \\
-        &\quad\quad + \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1)\pi(n_1,n_2+1)x^{n_1}y^{n_2}
-    \end{split} \\
-    \begin{split}
-        & LHS_1 + LHS_2 + LHS_3 + LHS_4 + LHS_5 \\
-        & \quad = \quad RHS_1 + RHS_2 + RHS_3 + RHS_4 + RHS_5 + RHS_6 + RHS_7
-    \end{split}
-\end{align}
-
-We solve the parts individually:
-\begin{align}
-    \begin{split}
-        & LHS_1 \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2)x^{n_1}y^{n_2} \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \left[ \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} - \pi(n_1,0) x^{n_1} y^0 \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[
-            \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
-            - \sum_{n_1=1}^{\infty} \pi(n_1,0) x^{n_1}
-        \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2}
-            - \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}
-        \right] \\
-        & \quad \quad - \; (\lambda_1 + \lambda_2 + \mu) \left[
-            \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} - \pi(0,0)
-        \right] \\
-        & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \left[ P(x,y) - P_y(y) - P_x(x) + \pi(0,0) \right]
-    \end{split} \\
-    \begin{split}
-        & LHS_2 \\
-        & \quad = \quad \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \gamma_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2} \\
-        & \quad = \quad \gamma_1 x \left[
-            \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
-            - \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-        \right] \\
-        & \quad = \quad \gamma_1 x \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
-            - \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-        \right] \\
-        & \quad = \quad \gamma_1 x \left[
-            \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & LHS_3 \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \left[ \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} - 0 \cdot \pi(n_1,0) x^{n_1} \right] \\
-        & \quad = \quad \gamma_2 y \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2-1}
-            - \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1}
-        \right] \\
-        & \quad = \quad \gamma_2 y \left[
-            \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & LHS_4 \\
-        & \quad = \quad \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \theta_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2} \\
-        & \quad = \quad \theta_1 x \left[
-            \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
-            - \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-        \right] \\
-        & \quad = \quad \theta_1 x \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
-            - \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-        \right] \\
-        & \quad = \quad \theta_1 x \left[
-            \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & LHS_5 \\
-        & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \theta_2 y \left[
-            \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2-1}
-            - \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1}
-        \right] \\
-        & \quad = \quad \theta_2 y \left[
-            \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_1 \\
-        & \quad = \quad \mu \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1, n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \mu x^{-1} \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1+1, n_2) x^{n_1+1} y^{n_2} \\
-        & \quad = \quad \mu x^{-1} \sum_{m=2}^{\infty} \sum_{n_2=1}^{\infty} \pi(m, n_2) x^{m} y^{n_2} \\
-        & \quad = \quad \mu x^{-1} \sum_{m=2}^{\infty} \left[
-            \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2} - \pi(m, 0) x^m
-        \right] \\
-        & \quad = \quad \mu x^{-1} \left[ \sum_{m=2}^{\infty} \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
-            - \sum_{m=2}^{\infty} \pi(m, 0) x^{m}
-        \right] \\
-        & \quad = \quad \mu x^{-1} \left[
-            \sum_{m=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
-            - x \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2}
-            - \sum_{n_2=0}^{\infty} \pi(0, n_2) y^{n_2}
-        \right] \\
-        & \quad \quad - \; \mu x^{-1} \left[
-            \sum_{m=0}^{\infty} \pi(m, 0) x^{m} - x \pi(1, 0) - \pi(0, 0)
-        \right] \\
-        & \quad = \quad \mu x^{-1} \left[
-            P(x,y) - x P_y(y | n_1=1) - P_y(y) - P_x(x) + x \pi(1, 0) + \pi(0, 0)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_2 \\
-        & \quad = \quad \lambda_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1, n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \lambda_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1-1, n_2) x^{n_1-1} y^{n_2} \\
-        & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \sum_{n_2=1}^{\infty} \pi(m, n_2) x^{m} y^{n_2} \\
-        & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \left[
-            \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2} - \pi(m, 0) x^m
-        \right] \\
-        & \quad = \quad \lambda_1 x \left[
-            \sum_{m=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(m, n_2) x^{m} y^{n_2}
-            - \sum_{m=0}^{\infty} \pi(m, 0) x^m
-        \right] \\
-        & \quad = \quad \lambda_1 x \left[ P(x,y) - P_x(x) \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_3 \\
-        & \quad = \quad \lambda_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1, n_2-1) x^{n_1} y^{n_2} \\
-        & \quad = \quad \lambda_2 y \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1, n_2-1) x^{n_1} y^{n_2-1} \\
-        & \quad = \quad \lambda_2 y \sum_{n_1=1}^{\infty} \sum_{m=0}^{\infty} \pi(n_1, m) x^{n_1} y^{m} \\
-        & \quad = \quad \lambda_2 y \left[
-            \sum_{n_1=0}^{\infty} \sum_{m=0}^{\infty} \pi(n_1, m) x^{n_1} y^{m} - \sum_{m=0}^{\infty} \pi(0, m) y^m
-        \right] \\
-        & \quad = \quad \lambda_2 y \left[ P(x,y) - P_y(y) \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_4 \\
-        & \quad = \quad \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1) \pi(n_1+1, n_2-1) x^{n_1} y^{n_2} \\
-        & \quad = \quad \gamma_1 y \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} (n_1+1) \pi(n_1+1, m_2) x^{n_1} y^{m_2} \\
-        & \quad = \quad \gamma_1 y \sum_{m_1=2}^{\infty} \sum_{m_2=0}^{\infty} m_1 \pi(m_1, m_2) x^{m_1-1} y^{m_2} \\
-        & \quad = \quad \gamma_1 y \left[
-            \sum_{m_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_1 \pi(m_1, m_2) x^{m_1-1} y^{m_2}
-            - \sum_{m_2=0}^{\infty} \pi(1, m_2) y^{m_2}
-        \right] \\
-        & \quad = \quad \gamma_1 y \left[
-            \frac{\partial}{\partial x} P(x,y) - P_y(y | n_1=1)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_5 \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1) \pi(n_1-1, n_2+1) x^{n_1} y^{n_2} \\
-        & \quad = \quad \gamma_2 \sum_{n_1=1}^{\infty} \sum_{m_2=2}^{\infty} m_2 \pi(n_1-1, m_2) x^{n_1} y^{m_2-1} \\
-        & \quad = \quad \gamma_2 x \left[
-            \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1-1, m_2) x^{n_1-1} y^{m_2-1}
-            - \sum_{n_1=1}^{\infty} \pi(n_1-1, 1) x^{n_1-1}
-        \right] \\
-        & \quad = \quad \gamma_2 x \left[
-            \sum_{m_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(m_1, m_2) x^{m_1} y^{m_2-1}
-            - \sum_{m_1=0}^{\infty} \pi(m_1, 1) x^{m_1}
-        \right] \\
-        & \quad = \quad \gamma_2 x \left[
-            \frac{\partial}{\partial y} P(x,y) - P_x(x | n_2=1)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_6 \\
-        & \quad = \quad \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_1+1) \pi(n_1+1, n_2) x^{n_1} y^{n_2} \\
-        & \quad = \quad \theta_1 \sum_{m_1=2}^{\infty} \sum_{n_2=1}^{\infty} m_1 \pi(m_1, n_2) x^{m_1-1} y^{n_2} \\
-        & \quad = \quad \theta_1 \left[
-            \sum_{m_1=0}^{\infty} \sum_{n_2=1}^{\infty} m_1 \pi(m_1, n_2) x^{m_1-1} y^{n_2}
-            - \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2}
-        \right] \\
-        & \quad = \quad \theta_1 \left[
-            \sum_{m_1=0}^{\infty} \sum_{n_2=0}^{\infty} m_1 \pi(m_1, n_2) x^{m_1-1} y^{n_2}
-            - \sum_{m_1=0}^{\infty} m_1 \pi(m_1, 0) x^{m_1-1}
-        \right] \\
-        & \quad \quad - \theta_1 \left[
-            \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2}
-            - \pi(1, 0)
-        \right] \\
-        & \quad = \quad \theta_1 \left[
-            \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) - P_y(y | n_1=1) + \pi(1, 0)
-        \right]
-    \end{split} \\
-    \begin{split}
-        & RHS_7 \\
-        & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} (n_2+1) \pi(n_1, n_2+1) x^{n_1} y^{n_2} \\
-        & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{m_2=2}^{\infty} m_2 \pi(n_1, m_2) x^{n_1} y^{m_2-1} \\
-        & \quad = \quad \theta_2 \left[
-            \sum_{n_1=1}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1, m_2) x^{n_1} y^{m_2-1}
-            - \sum_{n_1=1}^{\infty} \pi(n_1, 1) x^{n_1}
-        \right] \\
-        & \quad = \quad \theta_2 \left[
-            \sum_{n_1=0}^{\infty} \sum_{m_2=0}^{\infty} m_2 \pi(n_1, m_2) x^{n_1} y^{m_2-1}
-            - \sum_{m_2=0}^{\infty} m_2 \pi(0, m_2) y^{m_2-1}
-        \right] \\
-        & \quad \quad - \theta_2 \left[
-            \sum_{n_1=0}^{\infty} \pi(n_1, 1) x^{n_1}
-            - \pi(0, 1)
-        \right] \\
-        & \quad = \quad \theta_2 \left[
-            \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) - P_x(x | n_2=1) + \pi(0, 1)
-        \right]
-    \end{split}
-\end{align}
-
-Now, we combine all terms, we group them and we multiply both sides by $xy$ in order to avoid negative exponents on $x$ and $y$, be it on that or subsequent equations:
-\begin{align}
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[
-            P(x,y) - P_y(y) - P_x(x) + \pi(0,0)
-        \right] \\
-        & + \gamma_1 x \left[ \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) \right] \\
-        & + \gamma_2 y \left[ \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) \right] \\
-        & + \theta_1 x \left[ \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) \right] \\
-        & + \theta_2 y \left[ \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) \right] \\
-        & \quad = \quad \mu x^{-1} \left[
-            P(x,y) - x P_y(y | n_1=1) - P_y(y) - P_x(x) + x \pi(1,0) + \pi(0,0)
-        \right] \\
-        & \quad \quad + \lambda_1 x \left[ P(x,y) - P_x(x) \right] \\
-        & \quad \quad + \lambda_2 y \left[ P(x,y) - P_y(y) \right] \\
-        & \quad \quad + \gamma_1 y \left[ \frac{\partial}{\partial x} P(x,y) - P_y(y | n_1=1) \right] \\
-        & \quad \quad + \gamma_2 x \left[ \frac{\partial}{\partial y} P(x,y) - P_x(x | n_2=1) \right] \\
-        & \quad \quad + \theta_1 \left[
-            \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x) - P_y(y | n_1=1) + \pi(1, 0)
-        \right] \\
-        & \quad \quad + \theta_2 \left[
-            \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) - P_x(x | n_2=1) + \pi(0, 1)
-        \right]
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1+\lambda_2+\mu) - \mu x^{-1} - \lambda_1 x - \lambda_2 y \right] P(x,y) \\
-        & + \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & + \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_2 y \right] P_y(y) \\
-        & \quad \quad + \left[ -(\lambda_1 + \lambda_2 + \mu) + \mu x^{-1} \right] \pi(0,0) \\
-        & \quad \quad + \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
-        & \quad \quad + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad \quad - \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
-        & \quad \quad - \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1) \\
-        & \quad \quad + \mu \pi(1,0) \\
-        & \quad \quad + \theta_1 \pi(1,0) \\
-        & \quad \quad + \theta_2 \pi(0,1)
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
-        & \quad \quad - \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y \right] \pi(0,0) \\
-        & \quad \quad + xy \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
-        & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad \quad - xy \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
-        & \quad \quad - xy \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1) \\
-        & \quad \quad + (\mu + \theta_1) xy \, \pi(1,0) \\
-        & \quad \quad + \theta_2 xy \, \pi(0,1)
-    \end{split} \label{eq:gen_transform_interior_relation}
-\end{align}
-
-Now, we can recreate the equivalent steps for the $x$-boundary balance equation (Equation~\eqref{eq:gen_balance_x-boundary}):
-\begin{align}
-    \begin{split}
-        & \sum_{n_1=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1, 0) x^{n_1} \\
-        & \quad = \quad \lambda_1 \sum_{n_1=1}^{\infty} \pi(n_1-1,0) x^{n_1}
-        + \mu \sum_{n_1=1}^{\infty} \pi(n_1+1,0) x^{n_1} \\
-        & \quad \quad + \gamma_2 \sum_{n_1=1}^{\infty} \pi(n_1-1, 1) x^{n_1}
-        + \theta_1 \sum_{n_1=1}^{\infty} (n_1+1) \pi(n_1+1, 0) x^{n_1}
-        + \theta_2 \sum_{n_1=1}^{\infty} \pi(n_1, 1) x^{n_1}
-    \end{split} \nonumber \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \pi(n_1, 0) x^{n_1}
-        + (\gamma_1 + \theta_1) x \sum_{n_1=1}^{\infty} n_1 \pi(n_1, 0) x^{n_1-1} \\
-        & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \pi(m, 0) x^{m}
-        + \mu x^{-1} \sum_{m=2}^{\infty} \pi(m, 0) x^{m} \\
-        & \quad \quad + \gamma_2 x \sum_{m=0}^{\infty} \pi(m, 1) x^{m}
-        + \theta_1 \sum_{m=2}^{\infty} m \pi(m, 0) x^{m-1}
-        + \theta_2 \sum_{m=1}^{\infty} \pi(m, 1) x^{m}
-    \end{split} \nonumber \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_1=0}^{\infty} \pi(n_1, 0) x^{n_1} - \pi(0,0) \right]
-        + (\gamma_1 + \theta_1) x \sum_{n_1=0}^{\infty} n_1 \pi(n_1, 0) x^{n_1-1} \\
-        & \quad = \quad \lambda_1 x \sum_{m=0}^{\infty} \pi(m, 0) x^{m} \\
-        & \quad \quad + \mu x^{-1} \left[ \sum_{m=0}^{\infty} \pi(m, 0) x^{m} - x \pi(1, 0) - \pi(0,0) \right] \\
-        & \quad \quad + \gamma_2 x \sum_{m=0}^{\infty} \pi(m, 1) x^{m} \\
-        & \quad \quad + \theta_1 \left[ \sum_{m=0}^{\infty} m \pi(m, 0) x^{m-1} - \pi(1, 0) \right] \\
-        & \quad \quad + \theta_2 \left[ \sum_{m=0}^{\infty} \pi(m, 1) x^{m} - \pi(0, 1) \right]
-    \end{split} \nonumber \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ P_x(x) - \pi(0,0) \right]
-        + (\gamma_1 + \theta_1) x \frac{d}{dx} P_x(x) \\
-        & \quad = \quad \lambda_1 x P_x(x)
-        + \mu x^{-1} \left[ P_x(x) - x \pi(1, 0) - \pi(0, 0) \right] \\
-        & \quad \quad + \gamma_2 x P_x(x | n_2=1)
-        + \theta_1 \left[ \frac{d}{dx} P_x(x) - \pi(1, 0) \right]
-        + \theta_2 \left[ P_x(x | n_2=1) - \pi(0, 1) \right]
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x)
-        + \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} \right] \pi(0,0)
-        - (\mu + \theta_1) \pi(1, 0)
-        - \theta_2 \pi(0, 1) \\
-        & \quad \quad + \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1)
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x)
-        + xy \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y \right] \pi(0,0) \\
-        & \quad \quad - (\mu + \theta_1) xy \, \pi(1, 0) \\
-        & \quad \quad - \theta_2 xy \, \pi(0, 1) \\
-        & \quad \quad + xy \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1)
-    \end{split} \label{eq:gen_transform_x-boundary_relation}
-\end{align}
-
-Again, we replicate the procedure for the $y$-boundary balance equation (Equation~\eqref{eq:gen_balance_y-boundary}):
-\begin{align}
-    \begin{split}
-        & \sum_{n_2=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_2 + \theta_2) n_2 \right] \pi(0, n_2) y^{n_2} \\
-        & \quad = \quad \lambda_2 \sum_{n_2=1}^{\infty} \pi(0, n_2-1) y^{n_2} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(0, n_2+1) y^{n_2} \\
-        & \quad \quad + \gamma_1 \sum_{n_2=1}^{\infty} \pi(1, n_2-1) y^{n_2} \\
-        & \quad \quad + \theta_1 \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
-        & \quad \quad + \theta_2 \sum_{n_2=1}^{\infty} (n_2+1) \pi(0, n_2+1) y^{n_2}
-    \end{split} \nonumber \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{\infty} \pi(0, n_2) y^{n_2} \\
-        & + (\gamma_2 + \theta_2) y \sum_{n_2=1}^{\infty} n_2 \pi(0, n_2) y^{n_2-1} \\
-        & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty} \pi(0, m) y^{m} \\
-        & \quad \quad + \mu \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
-        & \quad \quad + \mu y^{-1} \sum_{m=2}^{\infty} \pi(0, m) y^{m} \\
-        & \quad \quad + \gamma_1 y \sum_{m=0}^{\infty} \pi(1, m) y^{m} \\
-        & \quad \quad + \theta_1 \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
-        & \quad \quad + \theta_2 \sum_{m=2}^{\infty} m \pi(0, m) y^{m-1}
-    \end{split} \nonumber \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_2=0}^{\infty} \pi(0, n_2) y^{n_2} - \pi(0,0) \right] \\
-        & + (\gamma_2 + \theta_2) y \sum_{n_2=0}^{\infty} n_2 \pi(0, n_2) y^{n_2-1} \\
-        & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty} \pi(0, m) y^{m} \\
-        & \quad \quad + \mu \left[ \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2} - \pi(1, 0) \right] \\
-        & \quad \quad + \mu y^{-1} \left[ \sum_{m=0}^{\infty} \pi(0, m) y^{m} - y \pi(0, 1) - \pi(0, 0) \right] \\
-        & \quad \quad + \gamma_1 y \sum_{m=0}^{\infty} \pi(1, m) y^{m} \\
-        & \quad \quad + \theta_1 \left[ \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2} - \pi(1, 0) \right] \\
-        & \quad \quad + \theta_2 \left[ \sum_{m=0}^{\infty} m \pi(0, m) y^{m-1} - \pi(0, 1) \right]
-    \end{split} \nonumber \\
-    \begin{split}
-        & (\lambda_1 + \lambda_2 + \mu) \left[ P_y(y) - \pi(0, 0) \right]
-        + (\gamma_2 + \theta_2) y \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \lambda_2 y P_y(y)
-        + \mu \left[ P_y(y | n_1=1) - \pi(1, 0) \right] \\
-        & \quad \quad + \mu y^{-1} \left[ P_y(y) - y \pi(0, 1) - \pi(0, 0) \right]
-        + \gamma_1 y P_y(y | n_1=1) \\
-        & \quad \quad + \theta_1 \left[ P_y(y | n_1=1) - \pi(1, 0) \right]
-        + \theta_2 \left[ \frac{d}{dy} P_y(y) - \pi(0, 1) \right]
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
-        + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
-        & \quad \quad - (\mu + \theta_1) \pi(1, 0)
-        - (\mu + \theta_2) \pi(0, 1) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} \right] \pi(0, 0)
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
-        + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
-        & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - (\lambda_1 + \lambda_2) \right] \pi(0, 0)
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
-        + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1)
-        + \left[ \mu - \mu y^{-1} \right] \pi(0, 0)
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y)
-        + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)
-        - \mu x(1-y) \, \pi(0,0)
-    \end{split} \label{eq:gen_transform_y-boundary_relation}
-\end{align}
-
-We can now combine Equation~\eqref{eq:gen_transform_interior_relation} and Equation~\eqref{eq:gen_transform_x-boundary_relation}, where many terms cancel out, leaving us with the following, remarkably cleaner, expression:
-\begin{align}
-    \begin{split}
-        & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
-        & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad \quad - xy \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1)
-    \end{split} \label{eq:gen_plugged_interior_and_x}
-\end{align}
-
-Now, isolating $\left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)$ in Equation~\eqref{eq:gen_transform_y-boundary_relation} and plugging it into Equation~\eqref{eq:gen_plugged_interior_and_x} makes a cascade of cancelations that result in:
-\begin{align}
-    \begin{split}
-        & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
-        & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-        & \quad \quad - \left\{ \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y) \right. \\
-        & \quad \quad \quad \left. + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) + \mu x(1-y) \, \pi(0,0) \right\}
-    \end{split} \nonumber \\
-    \begin{split}
-        & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
-        & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
-        & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
-        & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
-    \end{split} \label{eq:gen_fundamental_equation}.
-\end{align}
-
-
-
-
-
-
-
-
-
-
-
-\section{[OLD]Analysis model A: \texorpdfstring{$M/M/1$}{M/M/1} queue with no jockeying ($\gamma_1=0,\gamma_2=0$)}
-
-\subsection{Model A: Analytical approach}
-
-\subsection{Model A: PPGF approach on state space $S$}
-
-\subsection{Model A: PPGF on state space $\widetilde{S}$}
-
-
-\subsection{Model A: Probabilistic approach}
-
-The approach here is less direct, but probably more insightful and rich in terms of arguments. Here we will look at the system in states $(0,n_2), n_2 \geq 0$, where the priority queue is empty and the server is busy. The main idea is that, if we find the system in that state and there is a class-$1$ arrival, the server will start a period of "vacation" where the server will serve that priority customer first and an undetermined number of priority class arrivals that may arrive before this new priority arrival's service is completed. Such a reasoning will help us provide an expression for $P_y(y)$ and, ultimately, one for $P(x,y)$. We will now define the following random variables:
-\begin{itemize}
-    \item $L$: the number of (class-$2$) customers in the system
-    \item $L_Q$: the number of (class-$2$) customers in the queue
-\end{itemize}
-
-\begin{proof}
-
-    Let service times of an $M/G/1$ queue be given by the random variable $B$. The Laplace-Stieltjes Transform of the number of customers in the system  -i.e. $L(z)$ is given by the Pollazcek-Khinchine formula:
+\begin{theorem}
+    Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
     \begin{equation}
-        L(x)
-        = \frac{
-            (1 - \mathbb{E}[B]) (1-z) \widetilde{B}(\lambda_2(1-z))
-        }{
-            \widetilde{B}(\lambda_2(1-z) - z
-        }.
-        \label{eq:pk_Lz}
+        \rho_2\cdot{}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right) \;<\; 1
+        \quad\Longleftrightarrow\quad
+        \lambda_2\,\mathbb{E}[B_C] \;<\; 1,
     \end{equation}
-
-    By conditioning on the class-$2$ subsystem being busy (i.e. $L>0$), we can obtain the following relation:
-    \begin{align*}
-        L(z)
-        &= \mathbb{E}\left[ z^{L} \right] \\
-        &= \mathbb{E}[z^L |L=0] \mathbb{P}(L=0) + \mathbb{E}[z^L |L>0] \mathbb{P}(L>0) \\
-        &= (1 - \lambda_2 \mathbb{E}[B]) + \lambda_2 \mathbb{E}[B] \cdot \mathbb{E}[z^{L} | \text{L>0}] \\
-        &= (1 - \lambda_2 \mathbb{E}[B]) + \lambda_2 \mathbb{E}[B] \cdot \mathbb{E}[z^{1 +L_Q} | \text{L>0}] \\
-        &= (1 - \lambda_2 \mathbb{E}[B]) + \lambda_2 \mathbb{E}[B] \cdot z\mathbb{E}[z^{L_Q} | \text{L>0}]
-    \end{align*}
-    Rearranging the expression yields
-    \begin{equation}
-        \mathbb{E}[z^{L_Q} | L>0] = \frac{
-            \mathbb{E}[z^L] - (1 - \lambda_2 \mathbb{E}[B])
-        }{
-            z \cdot \lambda_2 \mathbb{E}[B]
-        }
-    \end{equation}
-    By plugging equation \eqref{eq:pk_Lz} in, we obtain
-    \begin{align*}
-        \mathbb{E}[z^{L_Q} | L>0]
-        &= \frac{
-            (1 - \lambda_2\mathbb{E}[B]) (1-z) \widetilde{B}(\lambda_2(1-z)) - (1 - \lambda_2 \mathbb{E}[B])
-        }{
-           z \lambda_1\mathbb{E}[B] (\widetilde{B}(\lambda_2(1-z)) - z)
-        } \\
-        &= \frac{
-            1 - \lambda_2 \mathbb{E}[B]
-        }{
-            z \lambda_1\mathbb{E}[B]
-        } \cdot \frac{
-            (1 -z) \widetilde{B}(\lambda_2(1-z)) - 1
-        }{
-            \widetilde{B}(\lambda_2(1-z)) - z
-        } \\
-        &= \frac{
-            1 - \lambda_2 \mathbb{E}[B]
-        }{
-            z \lambda_1\mathbb{E}[B]
-        } \cdot \frac{
-            (1 -z) \widetilde{B}(\lambda_2(1-z)) -  \widetilde{B}(\lambda_2(1-z)) + z
-        }{
-            \widetilde{B}(\lambda_2(1-z)) - z
-        } \\
-        &= \frac{
-            1 - \lambda_2 \mathbb{E}[B]
-        }{
-            z \lambda_1\mathbb{E}[B]
-        } \cdot \frac{
-            z - z \widetilde{B}(\lambda_2(1-z)) 
-        }{
-            \widetilde{B}(\lambda_2(1-z)) - z
-        } \\
-        &= \frac{
-            1 - \lambda_2 \mathbb{E}[B]
-        }{
-            \lambda_1\mathbb{E}[B]
-        } \cdot \frac{
-            1 - \widetilde{B}(\lambda_2(1-z)) 
-        }{
-            \widetilde{B}(\lambda_2(1-z)) - z
-        }.
-    \end{align*}
-
-    When only looking at class-$2$ customers in states where the service is busy and the priority queue is empty —i.e. states $(0,n_2), n_2 \geq 0$, we find that it is equivalent to a $M/G/1$ queue with Poisson arrivals at rate $\lambda_2$ and general service times $B$ distributed as the busy period of a queue $M/M/1$ with arrival rate $\lambda_1$ and exponential service times with rate $\mu$. The LST and the expectation for the busy period of such system are in Equations \eqref{eq:bp_mm1} and \eqref{eq:bp_expected_mm1}, respectively. Plugging in our constants yields
+    the probability generating function $P(x,y)$ of such a system is given by
     \begin{align}
-        \widetilde{B}(\lambda_2(1-z)) 
-        &= \frac{
-            (\mu + \lambda_1 + \lambda_2(1-z))
-            - \sqrt{
-                (\mu + \lambda_1 + \lambda_2(1-z))^2 - 4 \lambda_1
-            }
-        }{
-            2 \lambda_1
-        }         \\
-        \lambda_2 \mathbb{E}[B] &= \frac{\rho_2}{1 - \rho_1}.
+        \begin{split}
+            P(x,y) \;&=\; \frac{e^{\lambda_1 x/\theta_1}\,\mu\,\pi(0,0)\,(1-y)}{\theta_1\, x^{\mu/\theta_1}(1-x)^{\lambda_2(1-y)/\theta_1}\bigl(\widetilde{B}_C(\lambda_2(1-y))-y\bigr)}\\[4pt]
+            &\quad\times \Bigl[\widetilde{B}_C(\lambda_2(1-y))\,\mathcal{I}_1(x,y) - \bigl(1-\widetilde{B}_C(\lambda_2(1-y))\bigr)\,\mathcal{I}_2(x,y)\Bigr],
+        \end{split}
     \end{align}
-    With $\frac{1 - \lambda_2 \mathbb{E}[B]}{\lambda_2 \mathbb{E}[B]} =  \frac{1 - \rho}{\rho_2}$, we can immediately derive that
-    \begin{equation*}
-        \mathbb{E}[z^{L_Q} | L>0]
-        = \frac{1 - \rho}{\rho_2}
-        \cdot
-        \frac{1 -\widetilde{B}(\lambda_2 (1-z))}{\widetilde{B}(\lambda_2 (1-z)) - z}
-    \end{equation*}
-    In order to align this result with the one obtained analytically in the previous subsection, note that $\widetilde{B}(\lambda_2(1-z)) = x^*(y)$, so we can rewrite the expresson above:
-    \begin{equation*}
-        \mathbb{E}[z^{L_Q} | L>0]
-        = \frac{1 - \rho}{\rho_2}
-        \cdot
-        \frac{1 -x^*(y)}{x^*(y) - z}.
-    \end{equation*}
+    where
+    \begin{align*}
+        \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}(1-t)^{\,\lambda_2(1-y)/\theta_1}\,dt, \\
+        \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1}(1-t)^{\,\lambda_2(1-y)/\theta_1-1}\,dt,
+    \end{align*}
+    $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:Bc_LST_C2}, and $\pi(0,0)$ is given by Corollary~\ref{cor:modelC2_pi00} below.
+\end{theorem}
 
+\begin{corollary}\label{cor:modelC2_pi00}
+    The limiting probability $\pi(0,0)$ of the joint state $(N_1,N_2)=(0,0)$ with the server busy, and the empty-system probability $\pi_0$, are given by
+    \begin{align}
+        \pi(0,0) \;&=\; \frac{(\lambda_1+\lambda_2)\bigl(1 - \lambda_2\,\mathbb{E}[B_C]\bigr)}{\mu\,\bigl(1 + \lambda_1\,\mathbb{E}[B_C]\bigr)} \;=\; (\rho_1+\rho_2)\,\frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:modelC2_pi00}\\[4pt]
+        \pi_0 \;&=\; \frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:modelC2_pi0}
+    \end{align}
+    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:Bc_expectation_C2}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~A results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
+\end{corollary}
 
+\subsection{Setup: reduction to a first-order linear ODE in $x$}
 
+Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the fundamental equation~\eqref{eq:gen_fundamental_equation} (both partial-derivative terms collapse onto the $\theta_1$ contribution) leaves
+\begin{equation}
+    \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
+    + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y)
+    \;=\; \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
+    \label{eq:modelC2_fundamental}
+\end{equation}
+where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{n_2}$ is, as in Model A, the partial PGF restricted to states where the server is busy and the priority queue is empty ($N_1=0$).
+
+For any fixed $y$, Equation~\eqref{eq:modelC2_fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
+\begin{enumerate}
+    \item Identify $P_y(y)$ — first by a probabilistic argument exploiting the $M/G/1$ structure seen by Class-$2$ (\S\ref{ssec:modelC2_prob}), then re-derived analytically from boundedness of $P(x,y)$ at $x=1$ (\S\ref{ssec:modelC2_anal}).
+    \item Recover $P(x,y)$ by solving the ODE with $P_y(y)$ now known (\S\ref{ssec:modelC2_recovery}).
+\end{enumerate}
+We close the setup with the conditional-expectation decomposition that will drive the probabilistic derivation:
+\begin{equation}
+    P_y(y) \;=\; \mathbb{P}(\text{busy},\, N_1=0)\,\cdot\,\mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right].
+    \label{eq:modelC2_pyy_prob_def}
+\end{equation}
+
+\subsection{Probabilistic derivation of $P_y(y)$}\label{ssec:modelC2_prob}
+
+The idea is, again, to adopt the perspective of a Class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from class-$1$ truly abandon the system, leaving the Poisson arrival process of Class-$2$ undisturbed. Therefore, customers in the non-priority class are driven by an $M/G/1$ process, with Poisson arrivals at rate $\lambda_2$ and general effective service times $B_C$ equivalent to the busy period of Class-$1$'s $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$.
+
+The LST and expectation of such busy period $B_C$ are known results:
+\begin{align}
+    \begin{split}
+        \widetilde{B}_C(s) &= \cfrac{\mu}{\lambda_1+\mu+s-\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s-\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
+    \label{eq:Bc_LST_C2}
+    \end{split} \\
+    \begin{split}
+         \mathbb{E}[B_C] &= \sum_{k=1}^{\infty} \frac{\lambda_1^{\,k-1}}{\displaystyle\prod_{i=1}^{k}\bigl(\mu+(i-1)\theta_1\bigr)}
+    \;=\;\frac{{}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)}{\mu}.
+    \label{eq:Bc_expectation_C2}
+    \end{split}
+\end{align}
+The second equality follows from expressing the product in terms of \textit{Kummer's confluent hypergeometric function of the first kind} ${}_1F_1$,
+\begin{equation}
+    {}_1F_1(a;b;z) \;=\; \sum_{n=0}^{\infty} \frac{a^{(n)}\,z^n}{b^{(n)}\,n!}, \qquad a^{(n)}\;=\;\prod_{k=0}^{n-1}(a+k) \quad(a^{(0)}=1),
+\end{equation}
+which provides a closed form for $\mathbb{E}[B_C]$.
+
+The stability condition required for the Class-$2$ subsystem is that of the $M/G/1$ defined above, i.e.\ $\lambda_2\,\mathbb{E}[B_C]<1$:
+\begin{equation}
+    \rho_2 \cdot {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right) \;<\; 1.
+    \label{eq:modelC2_stability}
+\end{equation}
+Compared to Model A, this stability condition is strictly weaker than the classical $\rho_1+\rho_2<1$, which aligns with the fact that abandonments lower the load of the system: for all $\theta_1>0$, the series defining ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)$ is termwise dominated by the geometric series for $1/(1-\rho_1)$, so ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1) < 1/(1-\rho_1)$. Abandonments in the priority queue therefore stabilise the non-priority queue.
+
+With the LST and expectation of the effective service time seen by Class-$2$ customers, and thanks to the constant arrival rate $\lambda_2$ from the Poisson arrival process, we apply the Pollaczek--Khinchine formula:
+\begin{equation}
+    L_2(y) \;\equiv\; \mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right] \;=\; \frac{(1 - \lambda_2 \mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
+    \label{eq:modelC2_pk_formula}
+\end{equation}
+Substituting~\eqref{eq:modelC2_pk_formula} into~\eqref{eq:modelC2_pyy_prob_def} yields
+\begin{equation}
+    P_y(y) \;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\left[\frac{(1-\lambda_2\mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}\right].
+    \label{eq:modelC2_pyy_unsimplified}
+\end{equation}
+By the definition of $P_y$, $P_y(0)=\pi(0,0)$. Evaluating~\eqref{eq:modelC2_pyy_unsimplified} at $y=0$,
+\begin{align}
+    P_y(0) \;=\; \pi(0,0)
+    &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\left[\frac{(1-\lambda_2\mathbb{E}[B_C])\cdot 1 \cdot \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)}\right] \nonumber \\
+    &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,(1-\lambda_2\mathbb{E}[B_C]),
+    \label{eq:modelC2_py0_mapping}
+\end{align}
+so that $\mathbb{P}(\text{busy},\,N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$. Substituting this back into~\eqref{eq:modelC2_pyy_unsimplified}, the $(1-\lambda_2\mathbb{E}[B_C])$ factor cancels and we are left with
+\begin{equation}
+    P_y(y) \;=\; \pi(0,0)\,\frac{(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
+    \label{eq:modelC2_pyy_final}
+\end{equation}
+This is structurally the same expression as in the probabilistic argument for Model A (Equation~\eqref{eq:pyy_final_C}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
+
+\subsection{Analytical re-derivation of $P_y(y)$ via boundedness at $x=1$}\label{ssec:modelC2_anal}
+
+For an analytic counterpart of the previous derivation, we put~\eqref{eq:modelC2_fundamental} in standard form:
+\begin{align}
+    \frac{\partial P}{\partial x} \;+\; \underbrace{\frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}{\theta_1\,x(x-1)}}_{p(x;\,y)}\,P
+    \;=\; \underbrace{\frac{\mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0)}{\theta_1\,xy(x-1)}}_{q(x;\,y)}.
+    \label{eq:modelC2_ODE_standard}
+\end{align}
+The numerator of $p(x;y)$ is the same polynomial we have seen in every model so far. With $x^*(y)$ and $x^+(y)$ as its roots (Equation~\eqref{eq:xstar}), we can write
+\begin{equation}
+    (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy \;=\; -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
+\end{equation}
+with $x^*(y)\,x^+(y) = \mu/\lambda_1$. Partial fraction decomposition gives
+\begin{equation}
+    \frac{-\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr)}{x(x-1)} \;=\; A + \frac{B}{x} + \frac{C}{x-1},
+\end{equation}
+where $A=-\lambda_1$ is read off from the ratio of leading coefficients of the quadratic terms in numerator and denominator, $B=\mu$ from setting $x=0$ and using $\lambda_1\,x^*x^+=\mu$, and $C=\lambda_2(1-y)$ from setting $x=1$ and using $(1-x^*)(1-x^+) = -\lambda_2(1-y)/\lambda_1$. Thus
+\begin{equation}
+    p(x;y) \;=\; \frac{1}{\theta_1}\!\left[-\lambda_1 + \frac{\mu}{x} + \frac{\lambda_2(1-y)}{x-1}\right].
+    \label{eq:modelC2_pfd}
+\end{equation}
+Integrating term by term,
+\begin{equation}
+    \int p(x;y)\,dx \;=\; \frac{1}{\theta_1}\!\left[-\lambda_1 x + \mu\ln x + \lambda_2(1-y)\ln(1-x)\right],
+\end{equation}
+which yields the integrating factor
+\begin{equation}
+    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\cdot x^{\mu/\theta_1}\cdot (1-x)^{\lambda_2(1-y)/\theta_1}.
+    \label{eq:modelC2_integrating_factor}
+\end{equation}
+Both exponents are positive under our stability assumptions, so $\mu_I$ vanishes at both $x=0$ and $x=1$. From $\tfrac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$, integration over $(0,x]$ reads
+\begin{equation}
+    P(x,y)\,\mu_I(x;y) - P(0,y)\,\mu_I(0;y) \;=\; \int_0^x q(t;y)\,\mu_I(t;y)\,dt,
+\end{equation}
+and the boundary term vanishes, yielding
+\begin{equation}
+    P(x,y) \;=\; \frac{1}{\mu_I(x;y)} \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
+    \label{eq:modelC2_Pxy_implicit}
+\end{equation}
+
+Now, in the same fashion as the root-cancellation argument used for Model A, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$. Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:modelC2_Pxy_implicit} bounded is
+\begin{equation}
+    \int_0^1 q(t;y)\,\mu_I(t;y)\,dt \;=\; 0.
+    \label{eq:modelC2_anal_boundedness}
+\end{equation}
+Substituting the explicit forms of $q$ and $\mu_I$ into~\eqref{eq:modelC2_anal_boundedness} and using $(1-t)^{b}/(t-1) = -(1-t)^{b-1}$ to simplify,
+\begin{equation}
+    \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b-1}\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]\,dt \;=\; 0,
+\end{equation}
+where $a=\mu/\theta_1$ and $b=\lambda_2(1-y)/\theta_1$. Introducing the auxiliary integrals
+\begin{align}
+    \mathcal{J}_0(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b-1}\,dt, \\
+    \mathcal{J}_1(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt,
+\end{align}
+and splitting the integrand, the boundedness condition~\eqref{eq:modelC2_anal_boundedness} becomes
+\begin{equation}
+    P_y(y)\bigl[\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)\bigr] \;=\; (1-y)\,\pi(0,0)\,\mathcal{J}_1(y),
+\end{equation}
+which gives
+\begin{equation}
+    P_y(y) \;=\; \pi(0,0)\,(1-y)\,\frac{\mathcal{J}_1(y)}{\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)}.
+    \label{eq:modelC2_anal_Py_raw}
+\end{equation}
+
+The continued-fraction representation of the busy period of an $M/M/1+M$ queue~\eqref{eq:Bc_LST_C2} admits the integral form
+\begin{equation}
+    \widetilde{B}_C(s) \;=\; \frac{\displaystyle\int_{0}^{1} t^{a}(1-t)^{b-1}e^{-ct}\,dt}{\displaystyle\int_{0}^{1} t^{a-1}(1-t)^{b-1}e^{-ct}\,dt}
+    \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)},
+    \label{eq:Bc_Kummer_identity}
+\end{equation}
+with $a=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$. Setting $s=\lambda_2(1-y)$ — so that $b=\lambda_2(1-y)/\theta_1$ matches the exponent in $\mu_I$ — yields exactly the ratio of our $\mathcal{J}_i$:
+\begin{equation}
+    \widetilde{B}_C\bigl(\lambda_2(1-y)\bigr) \;=\; \frac{\mathcal{J}_1(y)}{\mathcal{J}_0(y)}.
+\end{equation}
+Dividing numerator and denominator of~\eqref{eq:modelC2_anal_Py_raw} by $\mathcal{J}_0(y)$ then recovers exactly Equation~\eqref{eq:modelC2_pyy_final}. The boundedness route, which uses no probabilistic structure, reaches the same Pollaczek--Khinchine form only through the Beta-integral identity~\eqref{eq:Bc_Kummer_identity}, which is the analytic shadow of the $M/G/1$/busy-period decomposition used in \S\ref{ssec:modelC2_prob}.
+
+\subsection{Recovery of $P(x,y)$ from $P_y(y)$}\label{ssec:modelC2_recovery}
+
+With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:modelC2_fundamental} and substitute~\eqref{eq:modelC2_pyy_final} into its right-hand side. Writing $\zeta(y) \equiv \widetilde{B}_C(\lambda_2(1-y))$ for brevity,
+\begin{align*}
+    \text{RHS}
+    &\;=\; \mu(x-y)\,\pi(0,0)\,\frac{(1-y)\,\zeta(y)}{\zeta(y) - y} \;-\; \mu x(1-y)\,\pi(0,0) \\
+    &\;=\; \mu\,\pi(0,0)\,(1-y)\!\left[\frac{(x-y)\,\zeta(y)}{\zeta(y) - y} - x\right] \\
+    &\;=\; \mu\,\pi(0,0)\,(1-y)\,\frac{(x-y)\,\zeta(y) - x\bigl[\zeta(y) - y\bigr]}{\zeta(y) - y} \\
+    &\;=\; \mu\,\pi(0,0)\,y(1-y)\,\frac{x - \zeta(y)}{\zeta(y) - y},
+\end{align*}
+which is structurally identical to the RHS found for Model A, though now with the more involved effective service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:modelC2_pfd} and~\eqref{eq:modelC2_integrating_factor}, the source $q(x;y)$ of the standard-form ODE now reads
+\begin{equation}
+    q(x;y) \;=\; \frac{\mu\,\pi(0,0)\,(1-y)\,\bigl[x-\zeta(y)\bigr]}{\theta_1\,x(x-1)\,\bigl[\zeta(y)-y\bigr]},
+\end{equation}
+and the implicit solution~\eqref{eq:modelC2_Pxy_implicit} becomes
+\begin{equation}
+    P(x,y) \;=\; \frac{1}{\mu_I(x;y)} \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
+\end{equation}
+
+To evaluate the integral, we use the partial-fraction identity
+\begin{align*}
+    \frac{t-\zeta(y)}{t(t-1)}
+    &\;=\; \frac{\zeta(y)(t-1) + t\bigl(1-\zeta(y)\bigr)}{t(t-1)}
+    \;=\; \frac{\zeta(y)}{t} + \frac{1-\zeta(y)}{t-1},
+\end{align*}
+and define the auxiliary integrals
+\begin{align}
+    \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b}\,dt, \label{eq:modelC2_I1} \\
+    \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt, \label{eq:modelC2_I2}
+\end{align}
+with $a=\mu/\theta_1$ and $b=\lambda_2(1-y)/\theta_1$. Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
+\begin{equation}
+    \int_0^x q(t;y)\,\mu_I(t;y)\,dt \;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}\Bigl[\zeta(y)\,\mathcal{I}_1(x,y) \;-\; \bigl(1-\zeta(y)\bigr)\,\mathcal{I}_2(x,y)\Bigr].
+\end{equation}
+Dividing by $\mu_I(x;y)$ and restoring $\zeta(y)=\widetilde{B}_C(\lambda_2(1-y))$, we arrive at the closed form
+\begin{align}
+    \begin{split}
+        P(x,y) \;=\; \frac{e^{\lambda_1 x/\theta_1}\,\mu\,\pi(0,0)\,(1-y)}{\theta_1\, x^{\mu/\theta_1}(1-x)^{\lambda_2(1-y)/\theta_1}\bigl(\widetilde{B}_C(\lambda_2(1-y))-y\bigr)}\\[4pt]
+        \times \Bigl[\widetilde{B}_C(\lambda_2(1-y))\,\mathcal{I}_1(x,y) - \bigl(1-\widetilde{B}_C(\lambda_2(1-y))\bigr)\,\mathcal{I}_2(x,y)\Bigr],
+    \end{split}\label{eq:modelC2_Pxy_final}
+\end{align}
+which is the statement of the theorem. This closed form is the product of a probabilistic derivation of $P_y(y)$ via Pollaczek--Khinchine, combined with an analytic integration of the ODE in $x$; the same result is reached from the purely analytic route of \S\ref{ssec:modelC2_anal}.
+
+\begin{proof}[Proof of Corollary~\ref{cor:modelC2_pi00}]
+    The boundary balance at the empty state $(N_1,N_2)=(0,0)$ with server idle, equating the rate-out (arrivals at total rate $\lambda_1+\lambda_2$) and the rate-in (service completion from $(0,0)$ with the server busy at rate $\mu$), reads
+    \begin{equation}
+        (\lambda_1+\lambda_2)\,\pi_0 \;=\; \mu\,\pi(0,0),
+        \label{eq:modelC2_balance_state0}
+    \end{equation}
+    so $\pi(0,0) = (\rho_1+\rho_2)\,\pi_0$.
+
+    To fix $\pi_0$, we exploit the $M/G/1$ structure used in \S\ref{ssec:modelC2_prob}. Class-$2$ customers form an $M/G/1$ with arrival rate $\lambda_2$ and service time $B_C$, whose utilisation is $\lambda_2\,\mathbb{E}[B_C]$. The event ``$M/G/1$ idle'' coincides with the absence of any Class-$2$ customer from the system, so
+    \begin{equation}
+        \mathbb{P}(\text{no Class-$2$ present}) \;=\; 1 - \lambda_2\,\mathbb{E}[B_C].
+    \end{equation}
+    Conditional on no Class-$2$ being present, the priority subsystem evolves freely as the same $M/M/1+M$ queue used to define $B_C$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$. The stationary idle fraction of that subsystem is given by the standard renewal-theoretic ratio of mean idle period ($1/\lambda_1$) to mean cycle ($1/\lambda_1+\mathbb{E}[B_C]$):
+    \begin{equation}
+        \mathbb{P}(\text{Class-$1$ absent} \mid \text{no Class-$2$ present}) \;=\; \frac{1}{1+\lambda_1\,\mathbb{E}[B_C]}.
+    \end{equation}
+    The event $\{\text{server idle}, N_1=N_2=0\}$ is precisely the intersection of these two, so
+    \begin{equation}
+        \pi_0 \;=\; \bigl(1-\lambda_2\,\mathbb{E}[B_C]\bigr)\cdot\frac{1}{1+\lambda_1\,\mathbb{E}[B_C]} \;=\; \frac{1-\lambda_2\,\mathbb{E}[B_C]}{1+\lambda_1\,\mathbb{E}[B_C]},
+    \end{equation}
+    which is~\eqref{eq:modelC2_pi0}. Substituting into~\eqref{eq:modelC2_balance_state0} yields~\eqref{eq:modelC2_pi00}.
+
+    For the Model A limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, hence $\lambda_1\,\mathbb{E}[B_C]\to\rho_1/(1-\rho_1)$ and $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$; substituting into~\eqref{eq:modelC2_pi0} and~\eqref{eq:modelC2_pi00} recovers $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
 \end{proof}
 
 
@@ -2359,236 +2332,65 @@ The approach here is less direct, but probably more insightful and rich in terms
 
 
 
-\section{ DUMPSTER SECTION: $M/M/1$ queue with $2$ priority classes}
-
-In order to address a more complex system with abandonment rates in each queue or with customers with impatience, such as the one studied using approximation-based methods in \cite{de1992approximate}, it is reasonable to study a simpler model, such as the one that will follow in this section. The idea is that the techniques and methods employed in this section will serve as a foundation for the analysis of the models in which we are more interested.
-
-\subsection{Marginal PGF of the priority class}
-
-To examine the marginal PGF of the priority class, it suffices to plug $y=1$ into Equation \eqref{eq:P_x}, as $P(x,y)=\mathbb{E}\left[ x^{n_1}y^{n_2} \right]$, $P(x,1)=\mathbb{E}\left[ x^{n_1}1^{n_2} \right] =\mathbb{E}\left[ x^{n_1} \right]$. We would expect this to behave as a single class $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. As described in many manuals, including \cite{adan2002queueing}, this should be geometrically distributed with parameter $\rho_1 = \frac{\lambda_1}{\mu}$.
-\begin{align}
-    \left[ -\lambda_1 x^2 + \lambda_1 x + \mu x - \mu \right] P(x,1)
-    &= \mu (x-1) P_y(1) \\
-     \left[ (x-1) (\mu - \lambda_1 x) \right] P(x,1) 
-     &= \mu (x-1) P_y(1) \\
-      (\mu - \lambda_1 x)P(x,1) 
-      &= \mu P_y(1) \\\
-      \left[ 1-\rho_1 x \right] P(x,1)
-      &= P_y(1) \\
-      P(x,1)
-      &= \frac{P_y(1)}{1 - \rho_1 x}.
-\end{align}
-We can use  $P(1,1)=\sum_{n_1=0}^{\infty} \pi(n_1,n_2) = 1 - \pi_0 = 1-(1-\rho)=\rho$ in the above relation evaluated at $x=1$ to obtain $P_y(1)= \rho (1 - \rho_1)$. Thus, the marginal PGF of the number of customers from the priority class waiting in the queue is
-\begin{equation}
-    P(x,1) = \rho \frac{1-\rho_1}{1-\rho_1x}. \label{eq:pgf_marginal_x}
-\end{equation}
-This result aligns with what is known for a classic single class $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$, where the PGF of the number of customers in the system is $P(x)=\frac{1-\rho_1}{1 - \rho_1 x}$. The presence of $\rho=\frac{\lambda_1+\lambda_2}{\mu}$ in Equation \eqref{eq:pgf_marginal_x}here is motivated by the fact that we are looking at the number of people in the queue and conditioning on the fact that the server is busy, so we still need to account for the class-$2$ arrivals when the server is idle.
-
-\subsection{Derivation total number of customers}
-
-Another sanity check that can be done is looking at the total number of customers in the queues by substituting $y=x$ into Equation \eqref{eq:Pxy}. This follows from the fact that $P(x,x) = \mathbb{E}[x^{N_1}x^{N_2}] = \mathbb{E}[x^{N_1+N_2}]$. This should behave like an $M/M/1$-queue with arrival rate $\lambda = \lambda_1 + \lambda_2$ and service rate $\mu$.
-\begin{align*}
-    \left[ (\lambda_1 + \lambda_2 + \mu)x^2 - \mu x -\lambda_1 x^3 - \lambda_2 x^3 \right] P(x,x) 
-    & = - \mu x (x-1) \pi(0,0) \\
-      \left[ (\lambda_1 + \lambda_2 + \mu)x - \mu -\lambda_1 x^2 - \lambda_2 x^2 \right] P(x,x)
-    & = - \mu (x-1) \pi(0,0) \\
-    \left[ (x-1) \left[ x- \frac{\mu}{\lambda_1 + \lambda_2} \right]  \right] P(x,x) 
-    & = - \mu (x-1) \pi(0,0) \\
-    P(x,x)
-    & = \frac{\pi(0,0)}{\frac{\mu}{\lambda_1 + \lambda_2} - x} \\
-    P(x,x)
-    & = \frac{\pi(0,0)}{1 - x\rho}.
-\end{align*}
-If we evaluate the above equation at $x=1$, we will be able to use $P(1,1)=1-\pi_0 = \rho$ to obtain $\pi(0,0)=\rho(1-\rho)$. Therefore, we have
-\begin{equation}
-    P(x,x) = \rho \frac{(1-\rho)}{1 - x\rho}.
-\end{equation}
-This, again, aligns with the PGF for the total number of customers in the system for the $M/M/1$-queue with arrival rate $\lambda$ and service rate $\mu$, but with the presence of a $\rho$ term in front of it, as we are once more conditioning on the fact that the server is busy in order to account only for the people in the queues.
-
-
-
-\subsection{Finding $P_y(y)$}
-
-As Equation \eqref{eq:Pxy} involves a term with the $y$-boundary function $P_y(y)$, we derive an expression for $P_y(y)$. To do so, we observe the system only in the epochs of states $(0, n_2)$ for $n_2 \geq 0$, i.e. when the server is busy, the priority queue is empty and there are $n_2$ class-$2$ customers in the non-priority queue.
-
-Only looking at those moments in time where these conditions are met allows us to see how the system behaves in the $y$-boundary, where the service times between two valid states will no longer be exponentially distributed.
-
-The non-priority queue, when only observed at states $(0,n_2)$ for $n_2 \geq 0$, behaves like a $M/G/1$-queue with arrival rate $\lambda_2$ and service time distribution equal to the busy period ($BP$) of a $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. The intuition behind this is that, when we leave state $(0,n_2)$, class-$2$ customers will have to wait until class-$1$ queue is empty again in order to be served.
-
-In \cite{tian2006vacation}, the authors study the so-called Multiple Adaptive Vacation models. A result is given for the distribution of the number of customers in the queue 
-
-In \cite{tian2006vacation}, the authors study the so-called Multiple Vacation Models. A result is given for the distribution of the number of customers in the queue ($L_v$), where it behaves as the sum of two independent random variables $L$ and $L_d$, where $L$ refers to that of the classic models $M/G/1$ and $L_d$ accounts for the delay caused by the vacation effect. It reads like this:
-\begin{equation*}
-    L_v = L+ L_d.
-\end{equation*}
-Naturally, the PGF of that is the following:
-\begin{equation}
-    L_v(z) = \mathbb{E}\left[ z^{L_v} \right]
-    = \mathbb{E}\left[ z^{L + L_d} \right]
-    = \mathbb{E}\left[ z^{L} \right] \mathbb{E}\left[ z^{L_d} \right] = L(z) L_d(z).
-\end{equation}
-
-In their book, they provide closed formulas for both expressions, being as follows:
-\begin{align*}
-    L(z) = \frac{(1-\rho) (1-z) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
-     \quad \text{and} \quad
-     L_d(z) = \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right] (1-z)},
-\end{align*}
-where V is the random variable for the total vacation time taken by the servers. In our case, this is simply the busy period of the $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. It is a known result that for such model we have $\mathbb{E} \left[ BP \right] = \frac{1}{\mu - \lambda_1}$. With this information we have the following relation:
-\begin{align*}
-    L_v(z) 
-    &= \frac{(1-\rho_2) (1-z) \widetilde{B}(\lambda_2(1-z))}{\widetilde{B}(\lambda_2(1-z)) - z}
-    \frac{1 - \widetilde{B}(\lambda_2(1-z))}{\frac{1}{\mu - \lambda_1} (1-z)} \\
-    &= \frac{(1-\rho_2) \widetilde{B}(\lambda_2(1-z))}{\widetilde{B}(\lambda_2(1-z)) - z}
-    \frac{1 - \widetilde{B}(\lambda_2(1-z))}{\lambda_2\frac{1}{\mu - \lambda_1}}.
-\end{align*}
-
-Now we have that $B$ for our $M/G/1$-queue, conditional on the server being busy, corresponds to the busy period of an $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. This is a very well known result, and it is explained in a very clear manner by \cite{adan2002queueing}. They show that
-\begin{equation}
-   \widetilde{B}(s) = \widetilde{BP}_1(s) = \frac{
-   ( \mu + \lambda_1 + s) - \sqrt{( \mu + \lambda_1 + s)^2-4\lambda_1 \mu}
-    }{2\lambda_1},
-\end{equation}
-which for $s= \lambda_2 (1-z)$ is
-\begin{equation}
-    \widetilde{B}(\lambda_2 (1-z)) = \widetilde{BP}_1(\lambda_2 (1-z)) = \frac{
-   ( \mu + \lambda_1 + \lambda_2 (1-z)) - \sqrt{( \mu + \lambda_1 + \lambda_2 (1-z))^2-4\lambda_1 \mu}
-    }{2\lambda_1}, \label{eq:bp_mm1_local}
-\end{equation}
 
 
 
 
-\section{Other}
-The first observation that we can do here is that the term $\lambda_2(1-y)$ appears both here and in $B(\lambda_2(1-z))$. It becomes more interesting when we see that it matches the solution obtained in \eqref{eq:bp_mm1_local}.
-We are left with
-\begin{align*}
-    L_v(z) 
-    &= \frac{(1-\rho_2)x^*(y) }{x^*(y)  - z}
-    \frac{1 - x^*(y) }{\lambda_2\frac{1}{\mu - \lambda_1}} \\
-    &= \frac{(\mu - \lambda_1)(1 - \rho_2)}{ \lambda_2} \cdot \frac{x^*(y)(1 - x^*(y))}{x^*(y)-z} \\
-    &= \frac{\mu(1-\rho_1)(1-\rho_2)}{\lambda_2} \cdot \frac{x^*(y)(1 - x^*(y))}{x^*(y)-z} \\
-    &= \frac{(1-\rho_1)(1-\rho_2)}{\rho_2} \cdot \frac{x^*(y)(1 - x^*(y))}{x^*(y)-z}
-\end{align*}
-
-\section{Theorem}
-
-\begin{lemma}[Queue-length decomposition for Multiple Adaptive Vacation models]
-Consider an $M/G/1$-queue with Poisson arrival rate $\lambda$, i.i.d generally distributed service times $B$ where the server is expected to take multiple vacations $V$. 
-Let the number of customers in the system be
-\begin{equation}
-    L_v = L + L_d,
-\end{equation}
-where the term $L$ corresponds to the number of customers in the system of such an $M/G/1$-queue without vacations and the term $L_d$ captures the increase caused by the multiple adaptive vacation effect.
-The Laplace-Stiltjes Transform for $L_v$ is given by
-\begin{equation}
-    L_v(z) = \mathbb{E}\left[ z^{L_v} \right]
-    = \mathbb{E}\left[ z^{L + L_d} \right]
-    = \mathbb{E}\left[ z^{L} \right] \mathbb{E}\left[ z^{L_d} \right] = L(z) L_d(z),
-\end{equation}
-with
-\begin{equation}
-    L(z) = \frac{(1-\rho) (1-z) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
-    \quad \text{and} \quad
-    L_d(z) = \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right] (1-z)}.
-\end{equation}.
-Thus, the LST for the Multiple Adaptive Vacation model for such a queue is given by
-\begin{equation}
-    L_v(z)
-    = \frac{(1-\rho) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
-    \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right]}.
-\end{equation}
-\label{lem:mav}
-\end{lemma}
-\bigskip
-
-Applying Lemma \ref{lem:mav} to our problem, we can consider the $y$-boundary $P_y(y)$ as a $M/G/1$-queue with Poisson arrival rate $\lambda_2$ and service rate equal to the busy period of the $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$, which we will denote by $\widetilde{BP}_1$.
-
-In order to apply the Lemma \ref{lem:mav} to our particular problem of finding an expression for the $y$-boundary term, we must again consider our $M/G/1$-queue with the Poisson arrival rate $\lambda_2$ and with service times that are distributed as the busy period of a $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$, which we will denote by $BP_{M/M/1}$. In the result of the lemma, we must carry out the following substitutions: $\lambda=\lambda_2$, $\rho=\rho_2$, $\widetilde{B}=\widetilde{BP}_1$ and $\mathbb{E}\left[V\right] = \mathbb{E}\left[\widetilde{BP}_1\right]$. Applying these changes leaves us with the following result:
-\begin{equation}
-    L_v(z)
-    = \frac{(1-\rho_2) \widetilde{BP}_1(\lambda_2(1-z))}{\widetilde{BP}_1(\lambda_2(1-z)) - z}
-    \frac{1 - \widetilde{BP}_1(\lambda_2(1-z))}{ \lambda_2\mathbb{E}\left[BP_{M/M/1}\right]}.
-\end{equation}
-
-The results for $\widetilde{BP}_1(s)$ and $\mathbb{E}\left[BP_{M/M/1}\right]$ of a generic $M/M/1$-queue can be found in many sources, including \cite{adan2002queueing}:
-\begin{align*}
-    \widetilde{BP}_1(s) = \frac{
-   ( \mu + \lambda_1 + s) - \sqrt{( \mu + \lambda_1 + s)^2-4\lambda_1 \mu}
-    }{2\lambda_1}
-    \quad \text{and } \quad
-    \mathbb{E}\left[BP_{M/M/1}\right] = \frac{1/ \mu}{1 - \rho_1}.
-\end{align*}
-Applied to our case, note that the arrival rate is $\lambda_1$ and that we need to substitute $s=\lambda_2(1-z)$. So the expressions read as follows
-\begin{align}
-    \widetilde{BP}_1\!\left[\lambda_2(1-z)\right]
-    &=
-    \frac{
-  (\mu + \lambda_1 + \lambda_2(1-z))
-    - \sqrt{(\mu + \lambda_1 + \lambda_2(1-z))^2 - 4\lambda_1 \mu}
-    }{
-    2\lambda_1
-    },
-    \label{eq:bp_mm1}\\
-    \mathbb{E}\!\left[BP_{M/M/1}\right]
-    &= \frac{1/\mu}{1 - \rho_1}
-    \label{eq:ebp_mm1}.
-\end{align}
-
-Now, combining these results allows us to find an expression for $P_y(y)$:
-\begin{align*}
-    L_v(z) 
-    &=  \frac{
-            (1-\rho_2)\widetilde{BP}_1
-        }{
-            \widetilde{BP}_1  - z
-        }
-        \cdot
-        \frac{1 - \widetilde{BP}_1 }{\lambda_2\frac{1/\mu}{1 - \rho_1}} \\
-    &=  \frac{
-            (1 - \rho_1)(1 - \rho_2)
-        }{
-            \rho_2
-        } 
-        \cdot
-        \frac{
-            \widetilde{BP}_1(1 - \widetilde{BP}_1)
-        }{
-            \widetilde{BP}_1-z
-        } \\
-    &=  \frac{(1 - \rho_1)(1 - \rho_2)}{ \rho_2} 
-        \cdot
-        \frac{
-            \widetilde{BP}_1 \left[1 - \widetilde{BP}_1(\lambda_2(1-z))\right]
-        }{
-            \widetilde{BP}_1 - z
-        },
-\end{align*}
-with $\widetilde{BP}_1(\lambda_2(1-z)$ defined as in Equation \eqref{eq:bp_mm1}.
-
-\begin{theorem}[Probability Generating Function for the $M/M/1$-queue with $2$ priority classes and common service rate]
-    
-    Consider a queuing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, and exponentially distributed service times with rate $\mu$ independently of the class.
-    
-    The Probability Generating Function $P(x,y)$ of such a system is given by
-    
-    \begin{eqnarray*}
-        & & \hspace{-3em} \left[ (\lambda_1 + \lambda_2 +\mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2 \right]  P(x,y) \\
-        &=& \;      \mu (x-y) P_y(y) \\
-        & & + \;  \mu x (y-1) \pi(0,0) \\
-        & & \hspace{-3em} \left[ (\lambda_1 + \lambda_2 +\mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2 \right]  P(x,y) \\
-        &=& \; \mu (x-y) \frac{(1 - \rho_1)(1 - \rho_2)}{ \rho_2} 
-        \cdot
-        \frac{
-            \widetilde{BP}_1(\lambda_2(1-y)) \left[1 - \widetilde{BP}_1(\lambda_2(1-y))\right]
-        }{
-            \widetilde{BP}_1(\lambda_2(1-y)) - y
-        } \\
-        & & - \mu x (y-1) \pi(0,0) \; 
-    \end{eqnarray*}
-\end{theorem}
 
 
+\section{Comparison of Variant $B_2$ with Model C-$2$}
+\label{ssec:B2_vs_C2}
+
+Both models reduce the fundamental equation to a first-order linear ODE in $x$ with a
+parameter $y$, and both close in confluent hypergeometric functions; yet the mechanism that
+pins the boundary function $P_y(y)$ is structurally different, as is the determination of the empty-state mass $\pi(0,0)$. The contrast is summarized below.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{p{0.30\textwidth} p{0.31\textwidth} p{0.31\textwidth}}
+\hline
+ & \textbf{Model C-$2$ ($\theta_1>0$)} & \textbf{Variant $B_2$ ($\gamma_1>0$)} \\
+\hline
+Convection coefficient
+ & $\theta_1\,x(x-1)$
+ & $\gamma_1\,x(x-y)$ \\
+Operative singular point
+ & boundary $x=1$
+ & interior $x=y$ \\
+Exponent there
+ & $b=\dfrac{\lambda_2(1-y)}{\theta_1}>0$ \;($\mu_I\to0$)
+ & $\beta=\dfrac{(1-y)(\lambda y-\mu)}{\gamma_1 y}<0$ \;($\mu_I\to\infty$) \\
+Pinning principle
+ & \emph{boundedness} at $x=1$: \;$\int_0^1 q\,\mu_I\,dt=0$
+ & \emph{analyticity} at $x=y$: branch coefficient $=0$ \\
+Empty-state mass $\pi(0,0)$
+ & $M/G/1$+renewal (abandonment breaks conservation)
+ & $\rho(1-\rho)$ exactly (jockeying conserves total) \\
+Probabilistic backbone
+ & class-$2$ is $M/G/1$; PK with service $B_C$
+ & class-$1$ is $M/M/1{+}M$ (reneging $=\gamma_1$); no PK \\
+\hline
+\end{tabular}
+\end{center}
+
+In words: in C-$2$ the abandonment convection $\theta_1 x(x-1)$ places the singularity on the
+boundary $x=1$ with a \emph{positive} integrating-factor exponent, so $\mu_I$ vanishes there
+and mere boundedness of the PGF forces the vanishing integral that determines $P_y(y)$; the
+Poisson character of the class-$2$ stream survives abandonment, so Pollaczek--Khinchine
+delivers $P_y(y)$ probabilistically and an $M/G/1$ renewal argument delivers $\pi(0,0)$. In
+$B_2$ the jockeying convection $\gamma_1 x(x-y)$ places the singularity at the \emph{interior}
+point $x=y$ with a \emph{negative} exponent, so $\mu_I$ blows up, the homogeneous mode
+vanishes, and only the stronger requirement of holomorphy --- the absence of the non-integer
+branch $(x-y)^{|\beta|}$ --- pins $P_y(y)$. Jockeying destroys the Poisson/renewal structure of
+the per-class input, so no PK identity is available; what remains probabilistic is the exact
+total-customer $M/M/1$ behaviour (giving $\pi(0,0)=\rho(1-\rho)$ and $\pi_0=1-\rho$) and the
+$M/M/1{+}M$ reading of the class-$1$ marginal, which is the origin of the ${}_1F_1$ factors.
+A common object appears in both: the Erlang-A--type constant
+${}_1F_1\!\bigl(1;\,\tfrac{\mu}{r}+1;\,\tfrac{\lambda_1}{r}\bigr)$ with $r=\theta_1$ (C-$2$) or
+$r=\gamma_1$ ($B_2$). Finally, $B_2$ degenerates to Model~A only in the singular limit
+$\gamma_1\to0^+$, in which $\alpha,\beta\to\infty$ and the Kummer ratio collapses to the
+rational Model-A answer; this limit is not uniform, which is consistent with $\gamma_1$
+multiplying the highest-order term of the ODE.
 
 
 

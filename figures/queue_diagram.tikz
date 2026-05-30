@@ -1,0 +1,65 @@
+\begin{tikzpicture}[
+    >=Latex, % Uses clean, modern arrowheads
+    thick    % Sets a slightly heavier default line weight
+]
+
+    % ===============================
+    % QUEUE 1 (TOP)
+    % ===============================
+    % Draw the queue buffer (open on the left, closed on the right)
+    \draw (0, 1.9) -- (2, 1.9) -- (2, 1.1) -- (0, 1.1);
+    
+    % Draw the jobs/items inside the queue
+    \foreach \x in {0.2, 0.4, ..., 1.8} {
+        \draw[thin] (\x, 1.8) -- (\x, 1.2);
+    }
+    
+    % Arrival rate (lambda_1)
+    \draw[->] (-1.5, 1.5) -- (-0.1, 1.5) node[midway, above] {$\lambda_1$};
+    
+    % Departure/Abandonment (theta_1)
+    \draw[->, dotted] (1, 2.0) -- (1, 3.0) node[above] {$\theta_1$};
+
+
+    % ===============================
+    % QUEUE 2 (BOTTOM)
+    % ===============================
+    % Draw the queue buffer
+    \draw (0, -1.1) -- (2, -1.1) -- (2, -1.9) -- (0, -1.9);
+    
+    % Draw the jobs/items inside the queue
+    \foreach \x in {0.2, 0.4, ..., 1.8} {
+        \draw[thin] (\x, -1.2) -- (\x, -1.8);
+    }
+    
+    % Arrival rate (lambda_2)
+    \draw[->] (-1.5, -1.5) -- (-0.1, -1.5) node[midway, above] {$\lambda_2$};
+    
+    % Departure/Abandonment (theta_2)
+    \draw[->, dotted] (1, -2.0) -- (1, -3.0) node[below] {$\theta_2$};
+
+
+    % ===============================
+    % INTERNAL ROUTING (BETWEEN QUEUES)
+    % ===============================
+    % Routing downward (gamma_1)
+    \draw[->, dashed] (0.6, 1.0) -- (0.6, -1.0) node[midway, left] {$\gamma_1$};
+    
+    % Routing upward (gamma_2)
+    \draw[->, dashed] (1.4, -1.0) -- (1.4, 1.0) node[midway, right] {$\gamma_2$};
+
+
+    % ===============================
+    % SERVER & FINAL DEPARTURE
+    % ===============================
+    % Draw the server circle node
+    \node[draw, circle, minimum size=1.2cm] (server) at (5, 0) {$\mu$};
+    
+    % Routes from queues to the server
+    \draw[->] (2.2, 1.5) -- (server);
+    \draw[->] (2.2, -1.5) -- (server);
+    
+    % Final system departure
+    \draw[->] (server) -- (7, 0);
+
+\end{tikzpicture}

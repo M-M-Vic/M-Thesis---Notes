@@ -1,0 +1,388 @@
+
+
+
+
+
+
+
+
+
+
+
+\section{ DUMPSTER SECTION: $M/M/1$ queue with $2$ priority classes}
+
+In order to address a more complex system with abandonment rates in each queue or with customers with impatience, such as the one studied using approximation-based methods in \cite{de1992approximate}, it is reasonable to study a simpler model, such as the one that will follow in this section. The idea is that the techniques and methods employed in this section will serve as a foundation for the analysis of the models in which we are more interested.
+
+\subsection{Marginal PGF of the priority class}
+
+To examine the marginal PGF of the priority class, it suffices to plug $y=1$ into Equation \eqref{eq:P_x}, as $P(x,y)=\mathbb{E}\left[ x^{n_1}y^{n_2} \right]$, $P(x,1)=\mathbb{E}\left[ x^{n_1}1^{n_2} \right] =\mathbb{E}\left[ x^{n_1} \right]$. We would expect this to behave as a single class $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. As described in many manuals, including \cite{adan2002queueing}, this should be geometrically distributed with parameter $\rho_1 = \frac{\lambda_1}{\mu}$.
+\begin{align}
+    \left[ -\lambda_1 x^2 + \lambda_1 x + \mu x - \mu \right] P(x,1)
+    &= \mu (x-1) P_y(1) \\
+     \left[ (x-1) (\mu - \lambda_1 x) \right] P(x,1) 
+     &= \mu (x-1) P_y(1) \\
+      (\mu - \lambda_1 x)P(x,1) 
+      &= \mu P_y(1) \\\
+      \left[ 1-\rho_1 x \right] P(x,1)
+      &= P_y(1) \\
+      P(x,1)
+      &= \frac{P_y(1)}{1 - \rho_1 x}.
+\end{align}
+We can use  $P(1,1)=\sum_{n_1=0}^{\infty} \pi(n_1,n_2) = 1 - \pi_0 = 1-(1-\rho)=\rho$ in the above relation evaluated at $x=1$ to obtain $P_y(1)= \rho (1 - \rho_1)$. Thus, the marginal PGF of the number of customers from the priority class waiting in the queue is
+\begin{equation}
+    P(x,1) = \rho \frac{1-\rho_1}{1-\rho_1x}. \label{eq:pgf_marginal_x}
+\end{equation}
+This result aligns with what is known for a classic single class $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$, where the PGF of the number of customers in the system is $P(x)=\frac{1-\rho_1}{1 - \rho_1 x}$. The presence of $\rho=\frac{\lambda_1+\lambda_2}{\mu}$ in Equation \eqref{eq:pgf_marginal_x}here is motivated by the fact that we are looking at the number of people in the queue and conditioning on the fact that the server is busy, so we still need to account for the class-$2$ arrivals when the server is idle.
+
+\subsection{Derivation total number of customers}
+
+Another sanity check that can be done is looking at the total number of customers in the queues by substituting $y=x$ into Equation \eqref{eq:Pxy}. This follows from the fact that $P(x,x) = \mathbb{E}[x^{N_1}x^{N_2}] = \mathbb{E}[x^{N_1+N_2}]$. This should behave like an $M/M/1$-queue with arrival rate $\lambda = \lambda_1 + \lambda_2$ and service rate $\mu$.
+\begin{align*}
+    \left[ (\lambda_1 + \lambda_2 + \mu)x^2 - \mu x -\lambda_1 x^3 - \lambda_2 x^3 \right] P(x,x) 
+    & = - \mu x (x-1) \pi(0,0) \\
+      \left[ (\lambda_1 + \lambda_2 + \mu)x - \mu -\lambda_1 x^2 - \lambda_2 x^2 \right] P(x,x)
+    & = - \mu (x-1) \pi(0,0) \\
+    \left[ (x-1) \left[ x- \frac{\mu}{\lambda_1 + \lambda_2} \right]  \right] P(x,x) 
+    & = - \mu (x-1) \pi(0,0) \\
+    P(x,x)
+    & = \frac{\pi(0,0)}{\frac{\mu}{\lambda_1 + \lambda_2} - x} \\
+    P(x,x)
+    & = \frac{\pi(0,0)}{1 - x\rho}.
+\end{align*}
+If we evaluate the above equation at $x=1$, we will be able to use $P(1,1)=1-\pi_0 = \rho$ to obtain $\pi(0,0)=\rho(1-\rho)$. Therefore, we have
+\begin{equation}
+    P(x,x) = \rho \frac{(1-\rho)}{1 - x\rho}.
+\end{equation}
+This, again, aligns with the PGF for the total number of customers in the system for the $M/M/1$-queue with arrival rate $\lambda$ and service rate $\mu$, but with the presence of a $\rho$ term in front of it, as we are once more conditioning on the fact that the server is busy in order to account only for the people in the queues.
+
+
+
+\subsection{Finding $P_y(y)$}
+
+As Equation \eqref{eq:Pxy} involves a term with the $y$-boundary function $P_y(y)$, we derive an expression for $P_y(y)$. To do so, we observe the system only in the epochs of states $(0, n_2)$ for $n_2 \geq 0$, i.e. when the server is busy, the priority queue is empty and there are $n_2$ class-$2$ customers in the non-priority queue.
+
+Only looking at those moments in time where these conditions are met allows us to see how the system behaves in the $y$-boundary, where the service times between two valid states will no longer be exponentially distributed.
+
+The non-priority queue, when only observed at states $(0,n_2)$ for $n_2 \geq 0$, behaves like a $M/G/1$-queue with arrival rate $\lambda_2$ and service time distribution equal to the busy period ($BP$) of a $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. The intuition behind this is that, when we leave state $(0,n_2)$, class-$2$ customers will have to wait until class-$1$ queue is empty again in order to be served.
+
+In \cite{tian2006vacation}, the authors study the so-called Multiple Adaptive Vacation models. A result is given for the distribution of the number of customers in the queue 
+
+In \cite{tian2006vacation}, the authors study the so-called Multiple Vacation Models. A result is given for the distribution of the number of customers in the queue ($L_v$), where it behaves as the sum of two independent random variables $L$ and $L_d$, where $L$ refers to that of the classic models $M/G/1$ and $L_d$ accounts for the delay caused by the vacation effect. It reads like this:
+\begin{equation*}
+    L_v = L+ L_d.
+\end{equation*}
+Naturally, the PGF of that is the following:
+\begin{equation}
+    L_v(z) = \mathbb{E}\left[ z^{L_v} \right]
+    = \mathbb{E}\left[ z^{L + L_d} \right]
+    = \mathbb{E}\left[ z^{L} \right] \mathbb{E}\left[ z^{L_d} \right] = L(z) L_d(z).
+\end{equation}
+
+In their book, they provide closed formulas for both expressions, being as follows:
+\begin{align*}
+    L(z) = \frac{(1-\rho) (1-z) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
+     \quad \text{and} \quad
+     L_d(z) = \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right] (1-z)},
+\end{align*}
+where V is the random variable for the total vacation time taken by the servers. In our case, this is simply the busy period of the $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. It is a known result that for such model we have $\mathbb{E} \left[ BP \right] = \frac{1}{\mu - \lambda_1}$. With this information we have the following relation:
+\begin{align*}
+    L_v(z) 
+    &= \frac{(1-\rho_2) (1-z) \widetilde{B}(\lambda_2(1-z))}{\widetilde{B}(\lambda_2(1-z)) - z}
+    \frac{1 - \widetilde{B}(\lambda_2(1-z))}{\frac{1}{\mu - \lambda_1} (1-z)} \\
+    &= \frac{(1-\rho_2) \widetilde{B}(\lambda_2(1-z))}{\widetilde{B}(\lambda_2(1-z)) - z}
+    \frac{1 - \widetilde{B}(\lambda_2(1-z))}{\lambda_2\frac{1}{\mu - \lambda_1}}.
+\end{align*}
+
+Now we have that $B$ for our $M/G/1$-queue, conditional on the server being busy, corresponds to the busy period of an $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$. This is a very well known result, and it is explained in a very clear manner by \cite{adan2002queueing}. They show that
+\begin{equation}
+   \widetilde{B}(s) = \widetilde{BP}_1(s) = \frac{
+   ( \mu + \lambda_1 + s) - \sqrt{( \mu + \lambda_1 + s)^2-4\lambda_1 \mu}
+    }{2\lambda_1},
+\end{equation}
+which for $s= \lambda_2 (1-z)$ is
+\begin{equation}
+    \widetilde{B}(\lambda_2 (1-z)) = \widetilde{BP}_1(\lambda_2 (1-z)) = \frac{
+   ( \mu + \lambda_1 + \lambda_2 (1-z)) - \sqrt{( \mu + \lambda_1 + \lambda_2 (1-z))^2-4\lambda_1 \mu}
+    }{2\lambda_1}, \label{eq:bp_mm1_local}
+\end{equation}
+
+
+
+
+\section{Other}
+The first observation that we can do here is that the term $\lambda_2(1-y)$ appears both here and in $B(\lambda_2(1-z))$. It becomes more interesting when we see that it matches the solution obtained in \eqref{eq:bp_mm1_local}.
+We are left with
+\begin{align*}
+    L_v(z) 
+    &= \frac{(1-\rho_2)x^*(y) }{x^*(y)  - z}
+    \frac{1 - x^*(y) }{\lambda_2\frac{1}{\mu - \lambda_1}} \\
+    &= \frac{(\mu - \lambda_1)(1 - \rho_2)}{ \lambda_2} \cdot \frac{x^*(y)(1 - x^*(y))}{x^*(y)-z} \\
+    &= \frac{\mu(1-\rho_1)(1-\rho_2)}{\lambda_2} \cdot \frac{x^*(y)(1 - x^*(y))}{x^*(y)-z} \\
+    &= \frac{(1-\rho_1)(1-\rho_2)}{\rho_2} \cdot \frac{x^*(y)(1 - x^*(y))}{x^*(y)-z}
+\end{align*}
+
+\section{Theorem}
+
+\begin{lemma}[Queue-length decomposition for Multiple Adaptive Vacation models]
+Consider an $M/G/1$-queue with Poisson arrival rate $\lambda$, i.i.d generally distributed service times $B$ where the server is expected to take multiple vacations $V$. 
+Let the number of customers in the system be
+\begin{equation}
+    L_v = L + L_d,
+\end{equation}
+where the term $L$ corresponds to the number of customers in the system of such an $M/G/1$-queue without vacations and the term $L_d$ captures the increase caused by the multiple adaptive vacation effect.
+The Laplace-Stiltjes Transform for $L_v$ is given by
+\begin{equation}
+    L_v(z) = \mathbb{E}\left[ z^{L_v} \right]
+    = \mathbb{E}\left[ z^{L + L_d} \right]
+    = \mathbb{E}\left[ z^{L} \right] \mathbb{E}\left[ z^{L_d} \right] = L(z) L_d(z),
+\end{equation}
+with
+\begin{equation}
+    L(z) = \frac{(1-\rho) (1-z) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
+    \quad \text{and} \quad
+    L_d(z) = \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right] (1-z)}.
+\end{equation}.
+Thus, the LST for the Multiple Adaptive Vacation model for such a queue is given by
+\begin{equation}
+    L_v(z)
+    = \frac{(1-\rho) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
+    \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right]}.
+\end{equation}
+\label{lem:mav}
+\end{lemma}
+\bigskip
+
+Applying Lemma \ref{lem:mav} to our problem, we can consider the $y$-boundary $P_y(y)$ as a $M/G/1$-queue with Poisson arrival rate $\lambda_2$ and service rate equal to the busy period of the $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$, which we will denote by $\widetilde{BP}_1$.
+
+In order to apply the Lemma \ref{lem:mav} to our particular problem of finding an expression for the $y$-boundary term, we must again consider our $M/G/1$-queue with the Poisson arrival rate $\lambda_2$ and with service times that are distributed as the busy period of a $M/M/1$-queue with arrival rate $\lambda_1$ and service rate $\mu$, which we will denote by $BP_{M/M/1}$. In the result of the lemma, we must carry out the following substitutions: $\lambda=\lambda_2$, $\rho=\rho_2$, $\widetilde{B}=\widetilde{BP}_1$ and $\mathbb{E}\left[V\right] = \mathbb{E}\left[\widetilde{BP}_1\right]$. Applying these changes leaves us with the following result:
+\begin{equation}
+    L_v(z)
+    = \frac{(1-\rho_2) \widetilde{BP}_1(\lambda_2(1-z))}{\widetilde{BP}_1(\lambda_2(1-z)) - z}
+    \frac{1 - \widetilde{BP}_1(\lambda_2(1-z))}{ \lambda_2\mathbb{E}\left[BP_{M/M/1}\right]}.
+\end{equation}
+
+The results for $\widetilde{BP}_1(s)$ and $\mathbb{E}\left[BP_{M/M/1}\right]$ of a generic $M/M/1$-queue can be found in many sources, including \cite{adan2002queueing}:
+\begin{align*}
+    \widetilde{BP}_1(s) = \frac{
+   ( \mu + \lambda_1 + s) - \sqrt{( \mu + \lambda_1 + s)^2-4\lambda_1 \mu}
+    }{2\lambda_1}
+    \quad \text{and } \quad
+    \mathbb{E}\left[BP_{M/M/1}\right] = \frac{1/ \mu}{1 - \rho_1}.
+\end{align*}
+Applied to our case, note that the arrival rate is $\lambda_1$ and that we need to substitute $s=\lambda_2(1-z)$. So the expressions read as follows
+\begin{align}
+    \widetilde{BP}_1\!\left[\lambda_2(1-z)\right]
+    &=
+    \frac{
+  (\mu + \lambda_1 + \lambda_2(1-z))
+    - \sqrt{(\mu + \lambda_1 + \lambda_2(1-z))^2 - 4\lambda_1 \mu}
+    }{
+    2\lambda_1
+    },
+    \label{eq:bp_mm1}\\
+    \mathbb{E}\!\left[BP_{M/M/1}\right]
+    &= \frac{1/\mu}{1 - \rho_1}
+    \label{eq:ebp_mm1}.
+\end{align}
+
+Now, combining these results allows us to find an expression for $P_y(y)$:
+\begin{align*}
+    L_v(z) 
+    &=  \frac{
+            (1-\rho_2)\widetilde{BP}_1
+        }{
+            \widetilde{BP}_1  - z
+        }
+        \cdot
+        \frac{1 - \widetilde{BP}_1 }{\lambda_2\frac{1/\mu}{1 - \rho_1}} \\
+    &=  \frac{
+            (1 - \rho_1)(1 - \rho_2)
+        }{
+            \rho_2
+        } 
+        \cdot
+        \frac{
+            \widetilde{BP}_1(1 - \widetilde{BP}_1)
+        }{
+            \widetilde{BP}_1-z
+        } \\
+    &=  \frac{(1 - \rho_1)(1 - \rho_2)}{ \rho_2} 
+        \cdot
+        \frac{
+            \widetilde{BP}_1 \left[1 - \widetilde{BP}_1(\lambda_2(1-z))\right]
+        }{
+            \widetilde{BP}_1 - z
+        },
+\end{align*}
+with $\widetilde{BP}_1(\lambda_2(1-z)$ defined as in Equation \eqref{eq:bp_mm1}.
+
+\begin{theorem}[Probability Generating Function for the $M/M/1$-queue with $2$ priority classes and common service rate]
+    
+    Consider a queuing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, and exponentially distributed service times with rate $\mu$ independently of the class.
+    
+    The Probability Generating Function $P(x,y)$ of such a system is given by
+    
+    \begin{eqnarray*}
+        & & \hspace{-3em} \left[ (\lambda_1 + \lambda_2 +\mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2 \right]  P(x,y) \\
+        &=& \;      \mu (x-y) P_y(y) \\
+        & & + \;  \mu x (y-1) \pi(0,0) \\
+        & & \hspace{-3em} \left[ (\lambda_1 + \lambda_2 +\mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2 \right]  P(x,y) \\
+        &=& \; \mu (x-y) \frac{(1 - \rho_1)(1 - \rho_2)}{ \rho_2} 
+        \cdot
+        \frac{
+            \widetilde{BP}_1(\lambda_2(1-y)) \left[1 - \widetilde{BP}_1(\lambda_2(1-y))\right]
+        }{
+            \widetilde{BP}_1(\lambda_2(1-y)) - y
+        } \\
+        & & - \mu x (y-1) \pi(0,0) \; 
+    \end{eqnarray*}
+\end{theorem}
+
+\subsection{Closed-form solution for the case $\theta_1 > 0$, $\gamma_1 = \gamma_2 = \theta_2 = 0$}
+\label{subsec:theta1_only}
+
+Setting $\gamma_1 = \gamma_2 = \theta_2 = 0$ in the fundamental equation, the $y$-derivative term vanishes entirely and the $x$-derivative coefficient collapses to $\theta_1\, xy(x-1)$. The equation reduces to
+\begin{equation}
+    \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
+    + \theta_1\, xy(x-1)\, \frac{\partial P}{\partial x}(x,y)
+    = \mu(x-y) P_y(y) - \mu x(1-y)\, \pi(0,0).
+    \label{eq:theta1_only}
+\end{equation}
+For each fixed $y \in (0,1)$, equation~\eqref{eq:theta1_only} is a \emph{first-order linear ODE in $x$} with $P_y(y)$ and $\pi(0,0)$ appearing as source terms. The strategy is to solve the ODE in $x$ by the integrating-factor method, treating $P_y(y)$ as an unknown parameter, then determine $P_y(y)$ by imposing analyticity of $P(x,y)$ at the singular points $x=0$ and $x=1$, and finally fix $\pi(0,0)$ from the normalisation $P(1,1)=\rho$, where $\rho := 1 - \pi_0$ is the total probability mass on non-empty states.
+
+\paragraph{Reduction to standard linear-ODE form.}
+Dividing both sides of~\eqref{eq:theta1_only} by $\theta_1\, xy(x-1)$ on the open interval $x \in (0,1)$ yields
+\begin{equation}
+    \frac{\partial P}{\partial x}(x,y) + \frac{Q(x;y)}{x(x-1)}\, P(x,y) = R(x;y),
+    \label{eq:linear_ode_x}
+\end{equation}
+where the coefficient $Q(x;y)/[x(x-1)]$ comes from the bracketed polynomial in~\eqref{eq:theta1_only}. Factoring $y$ from that bracket gives
+\begin{equation}
+    (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2
+    = -y\Big[\lambda_1 x^2 - \big(\lambda_1 + \lambda_2 + \mu - \lambda_2 y\big)x + \mu\Big],
+\end{equation}
+so that
+\begin{equation}
+    Q(x;y) := -\frac{1}{\theta_1}\Big[\lambda_1 x^2 - \big(\lambda_1 + \lambda_2 + \mu - \lambda_2 y\big)x + \mu\Big],
+    \label{eq:Q_def}
+\end{equation}
+and
+\begin{equation}
+    R(x;y) := \frac{\mu(x-y) P_y(y) - \mu x(1-y)\, \pi(0,0)}{\theta_1\, xy(x-1)}.
+    \label{eq:R_def}
+\end{equation}
+
+\paragraph{Partial-fraction decomposition.}
+To construct the integrating factor we need the antiderivative of $Q(x;y)/[x(x-1)]$. Since $Q$ is quadratic in $x$ and the denominator $x(x-1)$ is quadratic with simple roots at $0$ and $1$, polynomial division gives a constant remainder plus two simple poles:
+\begin{equation}
+    \frac{Q(x;y)}{x(x-1)} = \frac{A(y)}{x} + \frac{B(y)}{x-1} + C.
+    \label{eq:partial_fractions}
+\end{equation}
+The residues are obtained by the standard cover-up rule:
+\begin{align}
+    A(y) &= \lim_{x \to 0} \frac{Q(x;y)}{x-1} = \frac{Q(0;y)}{-1} = \frac{-\mu/\theta_1}{-1} = \frac{\mu}{\theta_1}, \\[2pt]
+    B(y) &= \lim_{x \to 1} \frac{Q(x;y)}{x} = Q(1;y) = -\frac{1}{\theta_1}\Big[\lambda_1 - (\lambda_1+\lambda_2+\mu-\lambda_2 y) + \mu\Big] = \frac{\lambda_2(1-y)}{\theta_1}, \\[2pt]
+    C &= -\frac{\lambda_1}{\theta_1},
+\end{align}
+where $C$ is read off as the coefficient of the leading $x^2$ term of $Q$ divided by the leading $x^2$ of the denominator. To lighten notation, define
+\begin{equation}
+    a := \frac{\mu}{\theta_1}, \qquad b(y) := \frac{\lambda_2(1-y)}{\theta_1}, \qquad c := \frac{\lambda_1}{\theta_1},
+    \label{eq:abc_def}
+\end{equation}
+so that~\eqref{eq:partial_fractions} becomes
+\begin{equation}
+    \frac{Q(x;y)}{x(x-1)} = \frac{a}{x} + \frac{b(y)}{x-1} - c.
+\end{equation}
+
+\paragraph{Integrating factor and general solution.}
+The integrating factor for~\eqref{eq:linear_ode_x} is $M(x;y) = \exp\!\int \frac{Q(x;y)}{x(x-1)}\,dx$. Integrating term by term,
+\begin{equation}
+    \int\!\left[\frac{a}{x} + \frac{b(y)}{x-1} - c\right] dx = a \ln x + b(y) \ln(x-1) - cx,
+\end{equation}
+so $M(x;y) = x^{a}\, (x-1)^{b(y)}\, e^{-cx}$. On the open interval $x \in (0,1)$ we have $x - 1 < 0$; writing $(x-1)^{b(y)} = (-1)^{b(y)} (1-x)^{b(y)}$ introduces an overall constant factor $(-1)^{b(y)}$ that cancels between numerator and denominator in the final solution, so we may equivalently use
+\begin{equation}
+    M(x;y) = x^{a}\, (1-x)^{b(y)}\, e^{-cx}.
+    \label{eq:integrating_factor}
+\end{equation}
+Multiplying~\eqref{eq:linear_ode_x} by $M(x;y)$ converts the left-hand side into $\frac{d}{dx}\!\left[M(x;y) P(x,y)\right]$, and integrating from $0$ to $x$ gives
+\begin{equation}
+    P(x,y) = \frac{1}{M(x;y)}\left[ K(y) + \int_0^x M(s;y)\, R(s;y)\, ds \right],
+    \label{eq:general_solution}
+\end{equation}
+where $K(y)$ is an integration constant. Substituting~\eqref{eq:R_def} and~\eqref{eq:integrating_factor},
+\begin{equation}
+    M(s;y)\, R(s;y) = -\frac{\mu}{\theta_1\, y}\, s^{a-1}(1-s)^{b(y)-1}\, e^{-cs}\Big[(s-y) P_y(y) - s(1-y)\pi(0,0)\Big],
+    \label{eq:MR_product}
+\end{equation}
+where the overall sign comes from $1/(s-1) = -1/(1-s)$.
+
+\paragraph{Analyticity at the boundary singularities.}
+The integrating factor $M(x;y)$ vanishes at $x = 1$ to order $b(y) > 0$ (since $\lambda_2 > 0$ and $y < 1$). Consequently, $1/M(x;y)$ has a singularity at $x = 1$, and~\eqref{eq:general_solution} can produce a finite $P(1,y)$ only if the bracket also vanishes at $x = 1$. Since $P(x,y)$ is a probability generating function, it must be analytic on the closed unit disc; in particular $P(1,y)$ must be finite. This forces
+\begin{equation}
+    K(y) + \int_0^{1} M(s;y)\, R(s;y)\, ds = 0,
+    \label{eq:analyticity_at_1}
+\end{equation}
+that is
+\begin{equation}
+    K(y) = -\int_0^{1} M(s;y)\, R(s;y)\, ds.
+    \label{eq:K_value}
+\end{equation}
+Similarly, $M(x;y) \sim x^a$ as $x \to 0$ with $a = \mu/\theta_1 > 0$, so $1/M(x;y)$ also blows up at $x = 0$. Analyticity at $x = 0$ — equivalently, the requirement that $P(0,y) = P_y(y)$ be finite — forces $K(y) = 0$.\footnote{The integrand~\eqref{eq:MR_product} behaves like $s^{a-1}$ near $s = 0$, so $\int_0^x M(s;y)R(s;y)\,ds$ grows like $x^a$ and exactly cancels the $1/M(x;y) \sim x^{-a}$ singularity, provided $K(y) = 0$.} Combining $K(y) = 0$ with~\eqref{eq:K_value} yields
+\begin{equation}
+    \int_0^1 s^{a-1}(1-s)^{b(y)-1}\, e^{-cs}\Big[(s-y) P_y(y) - s(1-y)\pi(0,0)\Big] ds = 0,
+\end{equation}
+where the overall constant prefactor $-\mu/(\theta_1 y)$ has been dropped. Splitting the bracket and solving for $P_y(y)$,
+\begin{equation}
+    \boxed{\;
+    P_y(y) = \pi(0,0)\,(1-y)\,
+    \frac{\displaystyle\int_0^1 s^{a}(1-s)^{b(y)-1}\, e^{-cs}\, ds}
+         {\displaystyle\int_0^1 (s-y)\, s^{a-1}(1-s)^{b(y)-1}\, e^{-cs}\, ds}\;}
+    \label{eq:Py_formula}
+\end{equation}
+
+\paragraph{Expression in terms of Kummer functions.}
+The integrals in~\eqref{eq:Py_formula} are confluent hypergeometric functions. Using the integral representation of Kummer's function ${}_1F_1$,
+\begin{equation}
+    \int_0^1 s^{\alpha-1}(1-s)^{\beta-1}\, e^{-cs}\, ds = B(\alpha,\beta)\, {}_1F_1(\alpha;\, \alpha+\beta;\, -c),
+    \label{eq:kummer_integral_rep}
+\end{equation}
+valid for $\Re\alpha, \Re\beta > 0$, the numerator and denominator of~\eqref{eq:Py_formula} become
+\begin{align}
+    \mathcal{N}(y) &:= \int_0^1 s^{a}(1-s)^{b(y)-1}\, e^{-cs}\, ds = B\big(a+1,\, b(y)\big)\, {}_1F_1\!\big(a+1;\, a+1+b(y);\, -c\big), \\[2pt]
+    \mathcal{D}(y) &:= \int_0^1 (s-y)\, s^{a-1}(1-s)^{b(y)-1}\, e^{-cs}\, ds = \mathcal{N}(y) - y\, B\big(a, b(y)\big)\, {}_1F_1\!\big(a;\, a+b(y);\, -c\big),
+\end{align}
+where in $\mathcal{D}(y)$ we split $(s-y) = s - y$ and applied~\eqref{eq:kummer_integral_rep} with $\alpha = a+1$ and $\alpha = a$. Therefore
+\begin{equation}
+    P_y(y) = \pi(0,0)\,(1-y)\,
+    \frac{B(a+1, b(y))\, {}_1F_1\!\big(a+1;\, a+1+b(y);\, -c\big)}
+         {B(a+1, b(y))\, {}_1F_1\!\big(a+1;\, a+1+b(y);\, -c\big) - y\, B(a, b(y))\, {}_1F_1\!\big(a;\, a+b(y);\, -c\big)}.
+    \label{eq:Py_kummer}
+\end{equation}
+
+\paragraph{Reconstruction of $P(x,y)$.}
+With $P_y(y)$ given by~\eqref{eq:Py_kummer} and $K(y) = 0$, the full bivariate generating function follows from~\eqref{eq:general_solution} as
+\begin{equation}
+    P(x,y) = \frac{1}{x^{a}(1-x)^{b(y)} e^{-cx}}\, \frac{\mu}{\theta_1 y}\int_0^x s^{a-1}(1-s)^{b(y)-1}\, e^{-cs}\Big[s(1-y)\pi(0,0) - (s-y) P_y(y)\Big] ds.
+    \label{eq:P_xy_integral}
+\end{equation}
+Introducing the \emph{incomplete} confluent hypergeometric (incomplete Kummer) function
+\begin{equation}
+    \Phi(x; \alpha, \beta; c) := \int_0^x s^{\alpha-1}(1-s)^{\beta-1}\, e^{-cs}\, ds,
+    \label{eq:incomplete_kummer}
+\end{equation}
+equation~\eqref{eq:P_xy_integral} can be written compactly as
+\begin{equation}
+    P(x,y) = \frac{\mu}{\theta_1 y}\, \frac{(1-y)\pi(0,0)\, \Phi(x; a+1, b(y); c) - P_y(y)\,\big[\Phi(x; a+1, b(y); c) - y\, \Phi(x; a, b(y); c)\big]}{x^{a}(1-x)^{b(y)} e^{-cx}}.
+    \label{eq:P_xy_final}
+\end{equation}
+
+\paragraph{Fixing $\pi(0,0)$ from normalisation.}
+The probability generating function satisfies $P(1,1) = \rho$, where $\rho = 1 - \pi_0$ is the stationary probability that the system is in a non-empty state (so that $P(x,y)$ encodes the joint distribution conditional on, or summed over, non-empty states only — and the empty-state mass $\pi_0$ is separated out by construction). Taking $y \to 1$ in~\eqref{eq:P_xy_final}, the parameter $b(y) = \lambda_2(1-y)/\theta_1 \to 0$, and a careful expansion of the integrals using $(1-s)^{b(y)-1}$ as $b(y) \to 0^+$ yields a linear equation for $\pi(0,0)$ in terms of $\rho$.\footnote{In this limit the $(1-s)^{b(y)-1}$ factor concentrates near $s = 1$ and the integrals reduce to incomplete gamma functions evaluated at $c$; the apparent singularity from $(1-x)^{b(y)}$ in the denominator of~\eqref{eq:P_xy_final} is exactly cancelled by the matching vanishing of the bracket — this is precisely the analyticity condition~\eqref{eq:analyticity_at_1} evaluated at $y = 1$.} Schematically,
+\begin{equation}
+    \pi(0,0) = \rho \cdot \mathcal{F}(a, c; \rho, \lambda_1, \lambda_2, \mu, \theta_1),
+    \label{eq:pi00_normalisation}
+\end{equation}
+where $\mathcal{F}$ is the finite ratio obtained from evaluating~\eqref{eq:P_xy_final} at $(x,y) = (1,1)$ in the regularised limit described above.
+
+\paragraph{Summary.}
+The case $\theta_1 > 0$ with $\gamma_1 = \gamma_2 = \theta_2 = 0$ admits a fully explicit closed-form solution: $P_y(y)$ is given by~\eqref{eq:Py_kummer} as a ratio of confluent hypergeometric functions ${}_1F_1$; $P(x,y)$ is given by~\eqref{eq:P_xy_final} as a finite combination of incomplete Kummer functions $\Phi$ defined in~\eqref{eq:incomplete_kummer}; and $\pi(0,0)$ is fixed by the normalisation $P(1,1) = \rho$ via~\eqref{eq:pi00_normalisation}. When the ratios $a = \mu/\theta_1$ and $b(y) = \lambda_2(1-y)/\theta_1$ take rational (in particular integer) values, the Kummer functions reduce to finite combinations of elementary functions, making the solution computable in closed form.
