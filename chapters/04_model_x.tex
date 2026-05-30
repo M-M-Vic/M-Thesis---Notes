@@ -29,12 +29,12 @@ summarised below.}
     \resizebox{\textwidth}{!}{%
         \input{figures/models-queue-overview.tikz}%
     }
-    \caption{Physical queue layout for Model~X (top) and its four specializations
-    (bottom row). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
-    \textbf{Solid}: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
-    \textbf{Dashed}: jockeying ($\gamma_i$), a transfer between queues that conserves
-    the total number of customers.
-    \textbf{Dotted}: abandonment ($\theta_i$), a true departure that reduces the total.}
+    \caption{Physical queue layout for Model~X (left) and its four specializations
+    (right, $2\times2$ grid). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
+    Solid arrows: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
+    Dashed arrows: jockeying ($\gamma_i$), which transfers a waiting customer between
+    queues and conserves the total~$n$.
+    Dotted arrows: abandonment ($\theta_i$), a true departure that reduces~$n$.}
     \label{fig:models-queue-overview}
 \end{figure}
 
