@@ -2,6 +2,19 @@
 
 In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account. The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model A will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
 
+\begin{figure}[H]
+    \centering
+    \resizebox{0.65\textwidth}{!}{%
+        \input{figures/model-c2-diagram.tikz}%
+    }
+    \caption{State-transition diagram for Model~C$_2$ on state space $S$.
+    Dotted arrows indicate Class-1 abandonment at rate $\theta_1 n_1$ per state;
+    there is no jockeying and no Class-2 abandonment.
+    Note the absence of a dotted arrow at $(0,n_2)$: when $n_1=0$ no Class-1
+    customer is waiting, so the abandonment rate is zero at that boundary.}
+    \label{fig:model-c2-diagram}
+\end{figure}
+
 \begin{theorem}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
     \begin{equation}

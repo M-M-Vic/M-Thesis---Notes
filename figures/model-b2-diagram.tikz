@@ -1,0 +1,48 @@
+% Model B₂: γ₂=0, θ₁=θ₂=0, γ₁>0  — one-way jockeying (1→2 only), no abandonment
+% Dashed arrow: only class-1 customers can jockey into the class-2 queue.
+\begin{tikzpicture}[>=Stealth, line cap=round, line join=round]
+
+  % ── axes ──────────────────────────────────────────────────────────────────
+  \draw[->] (0,0) -- (8,0) node[below right] {$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left]  {$n_2$};
+  \node[above right, xshift=2pt, yshift=2pt] at (0,0) {$(0,0)$};
+
+  % ── origin transitions ────────────────────────────────────────────────────
+  \draw[->] (0,0) -- ++(0:1.2)  node[below] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(90:1.2) node[right] {$\lambda_2$};
+
+  % ── x-boundary (n1,0) ─────────────────────────────────────────────────────
+  \coordinate (A) at (6,0);
+  \node[below] at (A) {$(n_1,0)$};
+  \draw[->] (A) -- ++(0:1.2)   node[below] {$\lambda_1$};
+  \draw[->] (A) -- ++(90:1.2)  node[right] {$\lambda_2$};
+  \draw[->] (A) -- ++(180:1.2) node[below] {$\mu$};
+  % γ₁ only: no γ₂ on this boundary
+  \draw[->, dashed] (A) -- ++(135:1.2) node[left] {$\gamma_1 n_1$};
+
+  % ── interior (n1,n2) ──────────────────────────────────────────────────────
+  \coordinate (B) at (6,4);
+  \node[below left] at (B) {$(n_1,n_2)$};
+  \draw[->] (B) -- ++(0:1.2)   node[below] {$\lambda_1$};
+  \draw[->] (B) -- ++(90:1.2)  node[right] {$\lambda_2$};
+  \draw[->] (B) -- ++(180:1.2) node[left]  {$\mu$};
+  % only γ₁ (1→2); no γ₂ return jockeying
+  \draw[->, dashed] (B) -- ++(135:1.2) node[left] {$\gamma_1 n_1$};
+
+  % ── y-boundary (0,n2) ─────────────────────────────────────────────────────
+  \coordinate (C) at (0,4);
+  \node[left] at (C) {$(0,n_2)$};
+  \draw[->] (C) -- ++(0:1.2)   node[below] {$\lambda_1$};
+  \draw[->] (C) -- ++(90:1.2)  node[right] {$\lambda_2$};
+  \draw[->] (C) -- ++(-90:1.2) node[left]  {$\mu$};
+  % no γ₂ arrow here: class-2 customers cannot jockey back
+
+  % ── idle state arcs ───────────────────────────────────────────────────────
+  \coordinate (idle) at (-1.25,-1.15);
+  \node[below] at (idle) {$\mathrm{idle}$};
+  \draw[->] (idle) to[bend left=45]
+      node[midway, above left] {$\lambda_1{+}\lambda_2$} (0,0);
+  \draw[->] (0,0)  to[bend left=45]
+      node[midway, below right] {$\mu$} (idle);
+
+\end{tikzpicture}

@@ -12,6 +12,17 @@ The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \e
 \end{equation}
 The Class-1 subsystem additionally requires $\rho_1 = \lambda_1/\mu < 1$ for its own queue to be stable; this is implied by $\rho < 1$ and $\lambda_2 > 0$.
 
+\begin{figure}[H]
+    \centering
+    \resizebox{0.65\textwidth}{!}{%
+        \input{figures/model-a-diagram.tikz}%
+    }
+    \caption{State-transition diagram for Model~A on state space $S$.
+    Only arrivals ($\lambda_i$) and service ($\mu$) are present;
+    all jockeying and abandonment rates are zero.}
+    \label{fig:model-a-diagram}
+\end{figure}
+
 \subsection{Analysis model A: state space $S$}
 
 We start by stating a $\gamma$-free version of Equation \eqref{eq:gen:fundamental_equation}, where the function $P_y(y)$ and the constant $\pi(0,0)$ are still to be determined:

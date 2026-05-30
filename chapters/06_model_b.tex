@@ -4,6 +4,17 @@ Model~B introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaini
 
 \textbf{Stability.} $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying does not affect this condition.
 
+\begin{figure}[H]
+    \centering
+    \resizebox{0.65\textwidth}{!}{%
+        \input{figures/model-b-diagram.tikz}%
+    }
+    \caption{State-transition diagram for Model~B on state space $S$.
+    Dashed arrows indicate bidirectional jockeying ($\gamma_1 n_1$ and $\gamma_2 n_2$),
+    which transfer a waiting customer between queues without changing the total~$n$.}
+    \label{fig:model-b-diagram}
+\end{figure}
+
 \subsection{Analysis model B by the Method of Characteristics and the Method of Variation of Parameters}
 
 To solve the homogeneous part of the PDE for this model (Equation \eqref{eq:gen:fundamental_equation}), we set the right-hand side to zero and proceed with the Method of Characteristics.

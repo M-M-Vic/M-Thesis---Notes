@@ -1,0 +1,237 @@
+% Combined overview of all five models.
+%
+% Layout (two rows):
+%   Row 1 (top, y-offset 9):   Model X  (scale 0.52, centred over row 2)
+%   Row 2 (bottom, y-offset 0): A | B | B₂ | C₂  (scale 0.40 each, 4.8 apart)
+%
+% Arrow conventions (same as individual diagrams):
+%   solid  → arrivals (λ) and service (μ)
+%   dashed → jockeying (γ)   — conserves total n
+%   dotted → abandonment (θ) — reduces total n
+%
+% Each scope replicates the style of model_c-diagram.tikz.
+% Sub-diagram origins are placed at the scope shift; axes run from (0,0) to (8,8).
+% The idle-state node sits at (-1.25, -1.15) in local coordinates.
+%
+\begin{tikzpicture}[>=Stealth, line cap=round, line join=round]
+
+% ─────────────────────────────────────────────────────────────────────────────
+% ROW 2 (bottom): Models A, B, B₂, C₂
+% Each sub-diagram has scale=0.40; x-shift of 4.8 between origins.
+% ─────────────────────────────────────────────────────────────────────────────
+
+% ── Model A ──────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(0,0)}, scale=0.40]
+  \draw[->] (0,0) -- (8,0) node[below right] {\tiny$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left]  {\tiny$n_2$};
+  \node[above right, xshift=1pt, yshift=1pt, font=\tiny] at (0,0) {$(0,0)$};
+  \draw[->] (0,0) -- ++(0:1.1)  node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(90:1.1) node[right, font=\tiny] {$\lambda_2$};
+  % (n1,0)
+  \coordinate (Aa) at (6,0);
+  \node[below, font=\tiny] at (Aa) {$(n_1,0)$};
+  \draw[->] (Aa) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (Aa) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (Aa) -- ++(180:1.1) node[below, font=\tiny] {$\mu$};
+  % (n1,n2)
+  \coordinate (Ab) at (6,4);
+  \node[below left, font=\tiny] at (Ab) {$(n_1,n_2)$};
+  \draw[->] (Ab) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (Ab) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (Ab) -- ++(180:1.1) node[left,  font=\tiny] {$\mu$};
+  % (0,n2)
+  \coordinate (Ac) at (0,4);
+  \node[left, font=\tiny] at (Ac) {$(0,n_2)$};
+  \draw[->] (Ac) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (Ac) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (Ac) -- ++(-90:1.1) node[left,  font=\tiny] {$\mu$};
+  % idle arcs
+  \coordinate (Ai) at (-1.25,-1.15);
+  \node[below, font=\tiny] at (Ai) {$\mathrm{idle}$};
+  \draw[->] (Ai) to[bend left=45]
+      node[midway, above left, font=\tiny] {$\lambda_1{+}\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45]
+      node[midway, below right, font=\tiny] {$\mu$} (Ai);
+\end{scope}
+\node[font=\small\bfseries] at (1.6,-0.8) {Model~A};
+
+% ── Model B ──────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(4.8,0)}, scale=0.40]
+  \draw[->] (0,0) -- (8,0) node[below right] {\tiny$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left]  {\tiny$n_2$};
+  \node[above right, xshift=1pt, yshift=1pt, font=\tiny] at (0,0) {$(0,0)$};
+  \draw[->] (0,0) -- ++(0:1.1)  node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(90:1.1) node[right, font=\tiny] {$\lambda_2$};
+  % (n1,0)
+  \coordinate (Ba) at (6,0);
+  \node[below, font=\tiny] at (Ba) {$(n_1,0)$};
+  \draw[->] (Ba) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (Ba) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (Ba) -- ++(180:1.1) node[below, font=\tiny] {$\mu$};
+  \draw[->, dashed] (Ba) -- ++(135:1.1) node[left, font=\tiny] {$\gamma_1 n_1$};
+  % (n1,n2)
+  \coordinate (Bb) at (6,4);
+  \node[below left, font=\tiny] at (Bb) {$(n_1,n_2)$};
+  \draw[->] (Bb) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (Bb) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (Bb) -- ++(180:1.1) node[left,  font=\tiny] {$\mu$};
+  \draw[->, dashed] (Bb) -- ++(135:1.1) node[left,  font=\tiny] {$\gamma_1 n_1$};
+  \draw[->, dashed] (Bb) -- ++(315:1.1) node[right, font=\tiny] {$\gamma_2 n_2$};
+  % (0,n2)
+  \coordinate (Bc) at (0,4);
+  \node[left, font=\tiny] at (Bc) {$(0,n_2)$};
+  \draw[->] (Bc) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (Bc) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (Bc) -- ++(-90:1.1) node[left,  font=\tiny] {$\mu$};
+  \draw[->, dashed] (Bc) -- ++(315:1.1) node[right, font=\tiny] {$\gamma_2 n_2$};
+  % idle arcs
+  \coordinate (Bi) at (-1.25,-1.15);
+  \node[below, font=\tiny] at (Bi) {$\mathrm{idle}$};
+  \draw[->] (Bi) to[bend left=45]
+      node[midway, above left, font=\tiny] {$\lambda_1{+}\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45]
+      node[midway, below right, font=\tiny] {$\mu$} (Bi);
+\end{scope}
+\node[font=\small\bfseries] at (6.4,-0.8) {Model~B};
+
+% ── Model B₂ ─────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(9.6,0)}, scale=0.40]
+  \draw[->] (0,0) -- (8,0) node[below right] {\tiny$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left]  {\tiny$n_2$};
+  \node[above right, xshift=1pt, yshift=1pt, font=\tiny] at (0,0) {$(0,0)$};
+  \draw[->] (0,0) -- ++(0:1.1)  node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(90:1.1) node[right, font=\tiny] {$\lambda_2$};
+  % (n1,0)
+  \coordinate (B2a) at (6,0);
+  \node[below, font=\tiny] at (B2a) {$(n_1,0)$};
+  \draw[->] (B2a) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (B2a) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (B2a) -- ++(180:1.1) node[below, font=\tiny] {$\mu$};
+  \draw[->, dashed] (B2a) -- ++(135:1.1) node[left, font=\tiny] {$\gamma_1 n_1$};
+  % (n1,n2)
+  \coordinate (B2b) at (6,4);
+  \node[below left, font=\tiny] at (B2b) {$(n_1,n_2)$};
+  \draw[->] (B2b) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (B2b) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (B2b) -- ++(180:1.1) node[left,  font=\tiny] {$\mu$};
+  \draw[->, dashed] (B2b) -- ++(135:1.1) node[left, font=\tiny] {$\gamma_1 n_1$};
+  % (0,n2) — no γ₂ arrow: class-2 cannot jockey in B₂
+  \coordinate (B2c) at (0,4);
+  \node[left, font=\tiny] at (B2c) {$(0,n_2)$};
+  \draw[->] (B2c) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (B2c) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (B2c) -- ++(-90:1.1) node[left,  font=\tiny] {$\mu$};
+  % idle arcs
+  \coordinate (B2i) at (-1.25,-1.15);
+  \node[below, font=\tiny] at (B2i) {$\mathrm{idle}$};
+  \draw[->] (B2i) to[bend left=45]
+      node[midway, above left, font=\tiny] {$\lambda_1{+}\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45]
+      node[midway, below right, font=\tiny] {$\mu$} (B2i);
+\end{scope}
+\node[font=\small\bfseries] at (11.2,-0.8) {Model~$B_2$};
+
+% ── Model C₂ ─────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(14.4,0)}, scale=0.40]
+  \draw[->] (0,0) -- (8,0) node[below right] {\tiny$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left]  {\tiny$n_2$};
+  \node[above right, xshift=1pt, yshift=1pt, font=\tiny] at (0,0) {$(0,0)$};
+  \draw[->] (0,0) -- ++(0:1.1)  node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(90:1.1) node[right, font=\tiny] {$\lambda_2$};
+  % (n1,0)
+  \coordinate (C2a) at (6,0);
+  \node[below, font=\tiny] at (C2a) {$(n_1,0)$};
+  \draw[->] (C2a) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (C2a) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (C2a) -- ++(180:1.1) node[below, font=\tiny] {$\mu$};
+  \draw[->, dotted] (6, 0.30) -- (4.9, 0.30) node[above, font=\tiny] {$\theta_1 n_1$};
+  % (n1,n2)
+  \coordinate (C2b) at (6,4);
+  \node[below left, font=\tiny] at (C2b) {$(n_1,n_2)$};
+  \draw[->] (C2b) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (C2b) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (C2b) -- ++(180:1.1) node[left,  font=\tiny] {$\mu$};
+  \draw[->, dotted] (6, 4.30) -- (4.9, 4.30) node[above, font=\tiny] {$\theta_1 n_1$};
+  % (0,n2) — no θ₁ since n₁=0
+  \coordinate (C2c) at (0,4);
+  \node[left, font=\tiny] at (C2c) {$(0,n_2)$};
+  \draw[->] (C2c) -- ++(0:1.1)   node[below, font=\tiny] {$\lambda_1$};
+  \draw[->] (C2c) -- ++(90:1.1)  node[right, font=\tiny] {$\lambda_2$};
+  \draw[->] (C2c) -- ++(-90:1.1) node[left,  font=\tiny] {$\mu$};
+  % idle arcs
+  \coordinate (C2i) at (-1.25,-1.15);
+  \node[below, font=\tiny] at (C2i) {$\mathrm{idle}$};
+  \draw[->] (C2i) to[bend left=45]
+      node[midway, above left, font=\tiny] {$\lambda_1{+}\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45]
+      node[midway, below right, font=\tiny] {$\mu$} (C2i);
+\end{scope}
+\node[font=\small\bfseries] at (16.0,-0.8) {Model~C$_2$};
+
+% ─────────────────────────────────────────────────────────────────────────────
+% ROW 1 (top): Model X — centred over the four submodels
+% x-centre of row 2 span: (0 + 14.4 + 8×0.40)/2 = (0 + 14.4 + 3.2)/2 = 8.8
+% Model X at scale 0.52: span ≈ 8×0.52 = 4.16 → shift x = 8.8 - 4.16/2 ≈ 6.7
+% y-offset chosen to give comfortable spacing above row 2 diagrams (row 2 top ≈ 8×0.40=3.2)
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(6.7, 5.2)}, scale=0.52]
+  \draw[->] (0,0) -- (8,0) node[below right] {\footnotesize$n_1$};
+  \draw[->] (0,0) -- (0,8) node[above left]  {\footnotesize$n_2$};
+  \node[above right, xshift=2pt, yshift=2pt, font=\footnotesize] at (0,0) {$(0,0)$};
+  \draw[->] (0,0) -- ++(0:1.2)  node[below, font=\footnotesize] {$\lambda_1$};
+  \draw[->] (0,0) -- ++(90:1.2) node[right, font=\footnotesize] {$\lambda_2$};
+  % (n1,0)
+  \coordinate (Xa) at (6,0);
+  \node[below, font=\footnotesize] at (Xa) {$(n_1,0)$};
+  \draw[->] (Xa) -- ++(0:1.2)   node[below, font=\footnotesize] {$\lambda_1$};
+  \draw[->] (Xa) -- ++(90:1.2)  node[right, font=\footnotesize] {$\lambda_2$};
+  \draw[->] (Xa) -- ++(180:1.2) node[below, font=\footnotesize] {$\mu$};
+  \draw[->, dashed] (Xa) -- ++(135:1.2) node[left, font=\footnotesize] {$\gamma_1 n_1$};
+  \draw[->, dotted] (6, 0.35) -- (4.8, 0.35)
+      node[above, font=\footnotesize] {$\theta_1 n_1$};
+  % (n1,n2)
+  \coordinate (Xb) at (6,4);
+  \node[below left, font=\footnotesize] at (Xb) {$(n_1,n_2)$};
+  \draw[->] (Xb) -- ++(0:1.2)   node[below, font=\footnotesize] {$\lambda_1$};
+  \draw[->] (Xb) -- ++(90:1.2)  node[right, font=\footnotesize] {$\lambda_2$};
+  \draw[->] (Xb) -- ++(180:1.2) node[left,  font=\footnotesize] {$\mu$};
+  \draw[->, dashed] (Xb) -- ++(135:1.2) node[left,  font=\footnotesize] {$\gamma_1 n_1$};
+  \draw[->, dashed] (Xb) -- ++(315:1.2) node[right, font=\footnotesize] {$\gamma_2 n_2$};
+  \draw[->, dotted] (6, 4.35) -- (4.8, 4.35)
+      node[above, font=\footnotesize] {$\theta_1 n_1$};
+  \draw[->, dotted] (Xb) -- ++(270:1.2)
+      node[left,  font=\footnotesize] {$\theta_2 n_2$};
+  % (0,n2)
+  \coordinate (Xc) at (0,4);
+  \node[left, font=\footnotesize] at (Xc) {$(0,n_2)$};
+  \draw[->] (Xc) -- ++(0:1.2)   node[below, font=\footnotesize] {$\lambda_1$};
+  \draw[->] (Xc) -- ++(90:1.2)  node[right, font=\footnotesize] {$\lambda_2$};
+  \draw[->] (Xc) -- ++(-90:1.2) node[left,  font=\footnotesize] {$\mu$};
+  \draw[->, dashed] (Xc) -- ++(315:1.2) node[right, font=\footnotesize] {$\gamma_2 n_2$};
+  \draw[->, dotted] (0.35, 4) -- (0.35, 2.8)
+      node[right, font=\footnotesize] {$\theta_2 n_2$};
+  % idle arcs
+  \coordinate (Xi) at (-1.25,-1.15);
+  \node[below, font=\footnotesize] at (Xi) {$\mathrm{idle}$};
+  \draw[->] (Xi) to[bend left=45]
+      node[midway, above left, font=\footnotesize] {$\lambda_1{+}\lambda_2$} (0,0);
+  \draw[->] (0,0) to[bend left=45]
+      node[midway, below right, font=\footnotesize] {$\mu$} (Xi);
+\end{scope}
+\node[font=\normalsize\bfseries] at (8.8, 9.7) {Model~X (parent)};
+
+% ─────────────────────────────────────────────────────────────────────────────
+% Legend (bottom right)
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(14.5, 2.6)}]
+  \draw[->]             (0, 1.2) -- ++(0.9,0)
+      node[right, font=\small] {arrivals / service};
+  \draw[->, dashed]     (0, 0.6) -- ++(0.9,0)
+      node[right, font=\small] {jockeying ($\gamma_i$)};
+  \draw[->, dotted]     (0, 0.0) -- ++(0.9,0)
+      node[right, font=\small] {abandonment ($\theta_i$)};
+  \draw[rounded corners=2pt]
+      (-0.25, -0.35) rectangle (4.35, 1.55);
+\end{scope}
+
+\end{tikzpicture}
