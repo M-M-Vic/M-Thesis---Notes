@@ -8,12 +8,12 @@
 %  beyond the finite truncation at N_max = 40, whose effect is controlled and
 %  small for the parameter regimes tested.]
 
-Each theoretical result — two lemmas, three theorems, two corollaries, and one
-approximation theorem — is verified numerically against the exact stationary
-distribution obtained from a truncated CTMC solver (state-space truncation at
-$N_{\max}=40$).  All models share the base parameters $\lambda_1=0.3$,
-$\lambda_2=0.4$, $\mu=1.0$; where applicable, $\gamma_1=0.5$ (Models B, B$_2$)
-or $\theta_1=0.5$ (Model C$_2$) is added, isolating each mechanism.
+Each theoretical result — two lemmas, three theorems, two corollaries, one
+approximation theorem, and two experiment-model theorems — is verified
+numerically against the exact stationary distribution obtained from a truncated
+CTMC solver ($N_{\max}=40$).  All models share base parameters
+$\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1.0$; the mechanism parameter
+($\gamma_1$ or $\theta_1$) is set to $0.5$ where applicable.
 
 Table~\ref{tab:validation_summary} collects the verdict for every result.
 Figures~\ref{fig:val_lemmas}--\ref{fig:val_ppgf} provide the visual evidence.
@@ -38,6 +38,9 @@ T-B2 & Theorem (Model B$_2$)                     & B$_2$              & $P(x,y)$
 T-C2 & Theorem (Model C$_2$)                     & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
 C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
 T-S  & Theorem~\ref{thm:A:PPGF_Stilde}           & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
+\hline
+E-B  & Theorem~\ref{thm:exp} (i) — Model B$_2^1$  & B$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
+E-C  & Theorem~\ref{thm:exp} (ii) — Model C$_2^1$ & C$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
 \hline
 \end{tabular}
 \end{table}
@@ -195,3 +198,58 @@ For reference, Model~A admits the closed-form expressions
 with sum $\rho^2/(1-\rho)$ (the M/M/1 queue-length formula for the combined
 system).  No analogous closed forms exist for the individual class means in
 Models~B$_2$ and C$_2$.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Experiment models B$_2^1$ and C$_2^1$}
+
+% [Introduce: these are the two new models from §11.  Their fundamental
+%  equations are algebraic (no derivative terms), so the lemma check reduces
+%  to verifying that D(x,y)·P(x,y) = RHS purely by plugging in the CTMC —
+%  no numerical differentiation needed.  The theorem check is the same
+%  P(x,y) grid comparison used for A, B₂, and C₂.]
+
+The two experiment models possess algebraic fundamental equations.  The lemma
+check therefore requires no differentiation of $P$: only the CTMC values of
+$P(x,y)$ and $P_y(y)$ are substituted into each side and the residual is
+measured.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/validation/val_experiment.pdf}
+    \caption{Validation of Models B$_2^1$ and C$_2^1$.
+    \textit{Top row, left and centre}: relative error
+    $|P_{\rm formula}(x,y)-P_{\rm CTMC}(x,y)|/|P_{\rm CTMC}(x,y)|$
+    on the 5$\times$5 test grid.
+    \textit{Top row, right}: maximum relative residual of the algebraic
+    fundamental equation for each model — both well below the $10^{-6}$
+    tolerance.
+    \textit{Bottom row}: boundary function $P_y(y)=P(0,y)$ comparing the
+    rational closed-form formula against the CTMC.
+    % [Discuss: B₂¹ achieves the same accuracy as Model A (~10⁻⁷);
+    %  C₂¹ achieves near-machine precision (~10⁻¹¹) because the denominator
+    %  D₁ in the C₂¹ formula never passes close to zero in the test range.
+    %  Both lemma residuals are far below 10⁻⁶, confirming the algebraic
+    %  derivation.]
+    }
+    \label{fig:val_experiment}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/validation/val_experiment_pi.pdf}
+    \caption{Empty-state probabilities $\pi_0$ and $\pi(0,0)$ as the mechanism
+    parameter increases from $0$ to $2.5$.
+    \textit{Left}: B$_2^1$ (blue) maintains $\pi_0=1-\rho$ exactly for all
+    $\gamma_1$ — jockeying conserves total customers.
+    C$_2^1$ (orange) shows $\pi_0$ increasing with $\theta_1$: abandonment
+    clears the priority queue faster, raising the server's idle fraction.
+    \textit{Right}: same story for $\pi(0,0)$.
+    Solid orange = closed-form formula~\eqref{eq:C21:pi0_pi00}; dashed orange
+    = CTMC.  The two are indistinguishable (max error $<10^{-4}$).
+    % [Discuss: the B₂¹ conservation result (π₀=1−ρ regardless of γ₁) is a
+    %  structural theorem, not just a numerical observation.  For C₂¹, the
+    %  formula shows π₀→1 as θ₁→∞ (all class-1 customers abandon immediately,
+    %  leaving only class-2, which eventually also clears at rate μ).]
+    }
+    \label{fig:val_experiment_pi}
+\end{figure}

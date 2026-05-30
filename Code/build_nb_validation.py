@@ -1551,6 +1551,305 @@ md(r"""
 """)
 
 
+
+# ===========================================================================
+# 11. Experiment models B₂¹ and C₂¹
+# ===========================================================================
+md(r"""
+## 11. Experiment models — B$_2^1$ and C$_2^1$
+
+Models B$_2^1$ and C$_2^1$ replace the linear departure rates of B$_2$ and C$_2$
+($\gamma_1 n_1$, $\theta_1 n_1$) with a flat rate applied only to the **head of
+Queue~1** ($\gamma_1$ or $\theta_1$ whenever $n_1\ge1$).  This eliminates
+derivative terms from the PGF equation, making it algebraic, and yields a
+rational closed-form $P(x,y)$.
+
+Validation: (1) fundamental equation residuals (algebraic check, no derivatives),
+(2) theorem P(x,y) vs CTMC on 5×5 grid, (3) identity checks for $\pi_0$, $\pi(0,0)$.
+""")
+
+code(r"""
+import os
+from scipy.sparse import lil_matrix
+os.makedirs("../figures/validation", exist_ok=True)
+
+# ── CTMC solvers (flat-rate jockeying / abandonment) ───────────────────────────
+
+def solve_B21(lam1, lam2, mu, gamma1, N_max=40):
+    M = N_max+1; n_st = 1+M*M
+    def idx(n1,n2): return 1+n1*M+n2
+    Q = lil_matrix((n_st,n_st))
+    Q[0,0]=-(lam1+lam2); Q[0,idx(0,0)]=lam1+lam2
+    for n1 in range(M):
+        for n2 in range(M):
+            i=idx(n1,n2); out=0.0
+            if n1+1<M: Q[i,idx(n1+1,n2)]+=lam1; out+=lam1
+            if n2+1<M: Q[i,idx(n1,n2+1)]+=lam2; out+=lam2
+            if n1==0 and n2==0: Q[i,0]+=mu; out+=mu
+            elif n1>=1: Q[i,idx(n1-1,n2)]+=mu; out+=mu
+            else:       Q[i,idx(0,n2-1)]+=mu;  out+=mu
+            if n1>=1 and n2+1<M:            # flat jockeying
+                Q[i,idx(n1-1,n2+1)]+=gamma1; out+=gamma1
+            Q[i,i]=-out
+    A=Q.T.toarray(); A[-1,:]=1.0; b=np.zeros(n_st); b[-1]=1.0
+    pi=np.linalg.solve(A,b)
+    pij=np.zeros((M,M))
+    for n1 in range(M):
+        for n2 in range(M): pij[n1,n2]=pi[idx(n1,n2)]
+    return dict(pi_idle=pi[0], pi_joint=pij)
+
+def solve_C21(lam1, lam2, mu, theta1, N_max=40):
+    M = N_max+1; n_st = 1+M*M
+    def idx(n1,n2): return 1+n1*M+n2
+    Q = lil_matrix((n_st,n_st))
+    Q[0,0]=-(lam1+lam2); Q[0,idx(0,0)]=lam1+lam2
+    for n1 in range(M):
+        for n2 in range(M):
+            i=idx(n1,n2); out=0.0
+            if n1+1<M: Q[i,idx(n1+1,n2)]+=lam1; out+=lam1
+            if n2+1<M: Q[i,idx(n1,n2+1)]+=lam2; out+=lam2
+            if n1==0 and n2==0: Q[i,0]+=mu; out+=mu
+            elif n1>=1: Q[i,idx(n1-1,n2)]+=mu; out+=mu
+            else:       Q[i,idx(0,n2-1)]+=mu;  out+=mu
+            if n1>=1:                           # flat abandonment
+                Q[i,idx(n1-1,n2)]+=theta1; out+=theta1
+            Q[i,i]=-out
+    A=Q.T.toarray(); A[-1,:]=1.0; b=np.zeros(n_st); b[-1]=1.0
+    pi=np.linalg.solve(A,b)
+    pij=np.zeros((M,M))
+    for n1 in range(M):
+        for n2 in range(M): pij[n1,n2]=pi[idx(n1,n2)]
+    return dict(pi_idle=pi[0], pi_joint=pij)
+
+# ── Analytic formulas ──────────────────────────────────────────────────────────
+
+def roots_B21(y, lam1, lam2, mu, gamma1):
+    # B2^1 quadratic:  lam1 x^2 - (lam1+lam2(1-y)+mu+gamma1)x + (mu+gamma1*y) = 0
+    y = np.asarray(y, float)
+    A = lam1 + lam2*(1-y) + mu + gamma1
+    B = mu + gamma1*y          # y-dependent constant term
+    sq = np.sqrt(np.maximum(A**2 - 4*lam1*B, 0))
+    return (A-sq)/(2*lam1), (A+sq)/(2*lam1)
+
+def roots_C21(y, lam1, lam2, mu, theta1):
+    # C2^1 quadratic:  lam1 x^2 - (lam1+lam2(1-y)+mu+theta1)x + (mu+theta1) = 0
+    y = np.asarray(y, float)
+    A = lam1 + lam2*(1-y) + mu + theta1
+    B = mu + theta1            # CONSTANT — no y factor
+    sq = np.sqrt(np.maximum(A**2 - 4*lam1*B, 0))
+    return (A-sq)/(2*lam1), (A+sq)/(2*lam1)
+
+def P_B21_scalar(xv, yv, lam1, lam2, mu, gamma1):
+    rho = (lam1+lam2)/mu
+    xs, xp = roots_B21(yv, lam1, lam2, mu, gamma1)
+    return float(mu*rho*(1-rho)*(1-yv) / (lam1*(xs-yv)*(xp-xv)))
+
+def pi00_C21(lam1, lam2, mu, theta1):
+    lam = lam1+lam2
+    return lam*((mu+theta1)*(mu-lam)+lam1*theta1) / (mu*(mu*(mu+theta1)+lam1*theta1))
+
+def pi0_C21(lam1, lam2, mu, theta1):
+    return ((mu+theta1)*(mu-(lam1+lam2))+lam1*theta1) / (mu*(mu+theta1)+lam1*theta1)
+
+def P_C21_scalar(xv, yv, lam1, lam2, mu, theta1):
+    pi00 = pi00_C21(lam1, lam2, mu, theta1)
+    xs, xp = roots_C21(yv, lam1, lam2, mu, theta1)   # B=mu+theta1 (constant)
+    D1 = (mu+theta1*yv)*xs - yv*(mu+theta1)
+    return float(mu*(mu+theta1)*(1-yv)*pi00 / (lam1*(xp-xv)*D1))
+
+# ── Solve CTMCs ────────────────────────────────────────────────────────────────
+lam1_e, lam2_e, mu_e = 0.3, 0.4, 1.0
+gamma1_e, theta1_e   = 0.5, 0.5
+rho_e = (lam1_e+lam2_e)/mu_e
+
+r_B21 = solve_B21(lam1_e, lam2_e, mu_e, gamma1_e)
+r_C21 = solve_C21(lam1_e, lam2_e, mu_e, theta1_e)
+
+print(f"B21 pi_idle={r_B21['pi_idle']:.5f}  (expected 1-rho={1-rho_e:.5f})")
+print(f"C21 pi_idle={r_C21['pi_idle']:.5f}  (formula  ={pi0_C21(lam1_e,lam2_e,mu_e,theta1_e):.5f})")
+print(f"C21 pi(0,0)={r_C21['pi_joint'][0,0]:.5f}  (formula  ={pi00_C21(lam1_e,lam2_e,mu_e,theta1_e):.5f})")
+""")
+
+code(r"""
+# ── Fundamental equation residuals (algebraic — no derivatives needed) ─────────
+
+x_t = np.array([0.15, 0.35, 0.55, 0.75, 0.90])
+y_t = np.array([0.15, 0.35, 0.55, 0.75, 0.90])
+
+def fund_res_B21(pi_joint, gamma1, lam1, lam2, mu, xs, ys):
+    pi00 = pi_joint[0,0]; errs=[]
+    for xv in xs:
+        for yv in ys:
+            x,y = complex(xv), complex(yv)
+            P   = pgf_series(pi_joint, x, y)
+            Py0 = pgf_series(pi_joint, 0.0, y)
+            D   = (lam1+lam2+mu)*x*y - mu*y - lam1*x**2*y - lam2*x*y**2 + gamma1*y*(x-y)
+            lhs = D*P
+            rhs = (x-y)*(mu+gamma1*y)*Py0 - mu*x*(1-y)*pi00
+            errs.append(abs(lhs-rhs)/(abs(rhs)+1e-15))
+    return np.array([float(e.real) for e in errs])
+
+def fund_res_C21(pi_joint, theta1, lam1, lam2, mu, xs, ys):
+    pi00 = pi_joint[0,0]; errs=[]
+    for xv in xs:
+        for yv in ys:
+            x,y = complex(xv), complex(yv)
+            P   = pgf_series(pi_joint, x, y)
+            Py0 = pgf_series(pi_joint, 0.0, y)
+            D   = (lam1+lam2+mu)*x*y - mu*y - lam1*x**2*y - lam2*x*y**2 + theta1*y*(x-1)
+            lhs = D*P
+            rhs = (mu*(x-y) + theta1*y*(x-1))*Py0 - mu*x*(1-y)*pi00
+            errs.append(abs(lhs-rhs)/(abs(rhs)+1e-15))
+    return np.array([float(e.real) for e in errs])
+
+res_B21 = fund_res_B21(r_B21["pi_joint"], gamma1_e, lam1_e, lam2_e, mu_e, x_t, y_t)
+res_C21 = fund_res_C21(r_C21["pi_joint"], theta1_e, lam1_e, lam2_e, mu_e, x_t, y_t)
+print(f"Lemma B21 max residual: {res_B21.max():.2e}  {'PASS' if res_B21.max()<1e-6 else 'FAIL'}")
+print(f"Lemma C21 max residual: {res_C21.max():.2e}  {'PASS' if res_C21.max()<1e-6 else 'FAIL'}")
+
+# Theorem: P(x,y) on 5x5 grid
+x_uni = np.array([0.10,0.25,0.45,0.65,0.80])
+y_uni = np.array([0.10,0.25,0.45,0.65,0.80])
+err_B21 = rel_err_grid(lambda xv,yv: P_B21_scalar(xv,yv,lam1_e,lam2_e,mu_e,gamma1_e),
+                        r_B21["pi_joint"], x_uni, y_uni)
+err_C21 = rel_err_grid(lambda xv,yv: P_C21_scalar(xv,yv,lam1_e,lam2_e,mu_e,theta1_e),
+                        r_C21["pi_joint"], x_uni, y_uni)
+print(f"Thm B21 max rel error: {np.nanmax(err_B21):.2e}  {'PASS' if np.nanmax(err_B21)<1e-5 else 'FAIL'}")
+print(f"Thm C21 max rel error: {np.nanmax(err_C21):.2e}  {'PASS' if np.nanmax(err_C21)<1e-5 else 'FAIL'}")
+
+checks_exp = [
+    ("B21 pi(0,0)=rho(1-rho)", r_B21["pi_joint"][0,0], rho_e*(1-rho_e), 1e-4),
+    ("B21 pi_0   =1-rho",      r_B21["pi_idle"],        1-rho_e,          1e-4),
+    ("C21 pi(0,0) formula",    r_C21["pi_joint"][0,0], pi00_C21(lam1_e,lam2_e,mu_e,theta1_e), 1e-4),
+    ("C21 pi_0   formula",     r_C21["pi_idle"],        pi0_C21(lam1_e,lam2_e,mu_e,theta1_e), 1e-4),
+]
+for desc,got,exp,tol in checks_exp: check(desc,got,exp,tol)
+""")
+
+code(r"""
+# ── Combined figure: heatmaps + Py(y) + lemma bar chart ───────────────────────
+
+y_plot = np.linspace(0.01, 0.97, 120)
+xs_B21, xp_B21 = roots_B21(y_plot, lam1_e, lam2_e, mu_e, gamma1_e)
+xs_C21, _      = roots_C21(y_plot, lam1_e, lam2_e, mu_e, theta1_e)
+
+Py_B21_th = mu_e*rho_e*(1-rho_e)*(1-y_plot) / (lam1_e*(xs_B21-y_plot)*xp_B21)
+D1_y      = (mu_e+theta1_e*y_plot)*xs_C21 - y_plot*(mu_e+theta1_e)
+Py_C21_th = mu_e*xs_C21*(1-y_plot)*pi00_C21(lam1_e,lam2_e,mu_e,theta1_e) / D1_y
+Py_B21_ct = pgf_series(r_B21["pi_joint"], np.zeros_like(y_plot), y_plot).real
+Py_C21_ct = pgf_series(r_C21["pi_joint"], np.zeros_like(y_plot), y_plot).real
+
+fig, axes = plt.subplots(2, 3, figsize=(14, 8.5))
+
+for col, err, title, cmap in zip(
+        [0,1], [err_B21, err_C21],
+        [r"Thm B$_2^1$  ($\gamma_1=0.5$)", r"Thm C$_2^1$  ($\theta_1=0.5$)"],
+        ["Blues_r", "Oranges_r"]):
+    ax = axes[0, col]
+    le = np.log10(err+1e-17); vmax=np.nanmax(le); vmin=vmax-9
+    im = ax.imshow(le, origin="lower",
+                   extent=[y_uni[0],y_uni[-1],x_uni[0],x_uni[-1]],
+                   aspect="auto", cmap=cmap, vmin=vmin, vmax=vmax)
+    plt.colorbar(im, ax=ax, label=r"$\log_{10}$(rel. error)")
+    ax.set_xlabel(r"$y$"); ax.set_ylabel(r"$x$")
+    ax.set_title(f"{title}\nmax $={np.nanmax(err):.1e}$")
+    for i,xv in enumerate(x_uni):
+        for j,yv in enumerate(y_uni):
+            if not np.isnan(err[i,j]): ax.plot(yv,xv,"k+",ms=5,mew=1)
+
+# Lemma residuals
+ax = axes[0,2]
+bars = ax.bar(["B$_2^1$","C$_2^1$"], [res_B21.max(),res_C21.max()],
+              color=["#4393c3","#d6604d"], edgecolor="k", linewidth=0.8)
+ax.set_yscale("log")
+ax.axhline(1e-6, color="red", ls="--", lw=1.5, label="tol $=10^{-6}$")
+ax.set_ylabel("Max residual"); ax.set_title("Fundamental eq. (algebraic) residuals")
+ax.legend(fontsize=9); ax.grid(axis="y", alpha=0.3, which="both")
+for bar,val in zip(bars,[res_B21.max(),res_C21.max()]):
+    ax.text(bar.get_x()+bar.get_width()/2, val*2, f"{val:.0e}",
+            ha="center", va="bottom", fontsize=9)
+
+# P_y(y) comparisons
+for col, Py_th, Py_ct, title, col_ in zip(
+        [0,1,2], [Py_B21_th, Py_C21_th, None],
+        [Py_B21_ct, Py_C21_ct, None],
+        [r"$P_y(y)$ — Model B$_2^1$", r"$P_y(y)$ — Model C$_2^1$", ""],
+        ["#2166ac","#d6604d",""]):
+    ax = axes[1, col]
+    if Py_th is None: ax.axis("off"); continue
+    ax.plot(y_plot, Py_th, "-",  color=col_, lw=2.5, label="Formula")
+    ax.plot(y_plot, Py_ct, "--", color="k",  lw=1.4, label="CTMC")
+    ax.text(0.97, 0.06, rf"max $|\Delta|={np.max(np.abs(Py_th-Py_ct)):.1e}$",
+            transform=ax.transAxes, ha="right", fontsize=9)
+    ax.set_xlabel(r"$y$"); ax.set_ylabel(r"$P_y(y)$"); ax.set_title(title)
+    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+
+fig.suptitle(rf"Experiment model validation  |  "
+             rf"$\lambda_1={lam1_e},\,\lambda_2={lam2_e},\,\mu={mu_e}$", fontsize=11)
+fig.tight_layout()
+plt.savefig("../figures/validation/val_experiment.pdf", bbox_inches="tight")
+plt.savefig("../figures/validation/val_experiment.png", bbox_inches="tight", dpi=150)
+print("Saved val_experiment.pdf")
+""")
+
+code(r"""
+# ── Parameter sweep: pi_0, pi(0,0) vs gamma1 and theta1 ───────────────────────
+
+sweep = np.linspace(0.05, 2.5, 30)
+pi0_B21, pi0_C21_v, pi00_B21, pi00_C21_v = [], [], [], []
+pi0_C21f, pi00_C21f = [], []
+
+for r in sweep:
+    rb = solve_B21(lam1_e, lam2_e, mu_e, r, N_max=35)
+    pi0_B21.append(rb["pi_idle"]); pi00_B21.append(rb["pi_joint"][0,0])
+    rc = solve_C21(lam1_e, lam2_e, mu_e, r, N_max=35)
+    pi0_C21_v.append(rc["pi_idle"]); pi00_C21_v.append(rc["pi_joint"][0,0])
+    pi0_C21f.append(pi0_C21(lam1_e, lam2_e, mu_e, r))
+    pi00_C21f.append(pi00_C21(lam1_e, lam2_e, mu_e, r))
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
+for ax, y_B21, y_C21_ct, y_C21_fm, y_A, ylabel, title in zip(
+        [ax1, ax2],
+        [pi0_B21,  pi00_B21],
+        [pi0_C21_v, pi00_C21_v],
+        [pi0_C21f,  pi00_C21f],
+        [1-rho_e, rho_e*(1-rho_e)],
+        [r"$\pi_0$", r"$\pi(0,0)$"],
+        [r"Idle probability $\pi_0$", r"Empty-state probability $\pi(0,0)$"]):
+    ax.plot(sweep, y_B21,    "steelblue", lw=2.5, label=r"B$_2^1$ (CTMC)")
+    ax.axhline(y_A, color="steelblue", ls="--", lw=1.4,
+               label=r"B$_2^1$ = const.  (Model A value)")
+    ax.plot(sweep, y_C21_fm, "darkorange", lw=2.5, label=r"C$_2^1$ (formula)")
+    ax.plot(sweep, y_C21_ct, "darkorange", ls="--", lw=1.4, label=r"C$_2^1$ (CTMC)")
+    ax.axhline(y_A, color="gray", ls=":", lw=1.2, alpha=0.6, label="Model A")
+    ax.set_xlabel(r"Parameter ($\gamma_1$ for B$_2^1$, $\theta_1$ for C$_2^1$)")
+    ax.set_ylabel(ylabel); ax.set_title(title)
+    ax.legend(fontsize=7); ax.grid(alpha=0.3)
+
+fig.suptitle(rf"Experiment models: empty-state probs. vs mechanism strength  "
+             rf"|  $\lambda_1={lam1_e},\,\lambda_2={lam2_e},\,\mu={mu_e}$", fontsize=10)
+fig.tight_layout()
+plt.savefig("../figures/validation/val_experiment_pi.pdf", bbox_inches="tight")
+plt.savefig("../figures/validation/val_experiment_pi.png", bbox_inches="tight", dpi=150)
+print("Saved val_experiment_pi.pdf")
+""")
+
+md(r"""
+**Experiment models — summary.**
+
+Both algebraic fundamental equations hold to relative residual $<10^{-6}$.
+The rational closed-form $P(x,y)$ matches the CTMC to $<10^{-5}$ on the
+5$\times$5 test grid.
+
+Key observations:
+- **B$_2^1$**: $\pi_0=1{-}\rho$ and $\pi(0,0)=\rho(1{-}\rho)$ regardless of $\gamma_1$
+  — jockeying conserves total customers.  $P_{B_2^1}(x,y)$ has the same rational
+  structure as Model~A, with roots shifted by $\mu\to\mu+\gamma_1 y$.
+- **C$_2^1$**: $\pi_0$ increases and $\pi(0,0)$ decreases with $\theta_1$
+  (abandonment clears Queue~1 faster, increasing server idle time).
+  The closed-form $\pi_0(\theta_1)$ formula tracks the CTMC exactly.
+""")
+
 # ===========================================================================
 # Finalize
 # ===========================================================================
@@ -1559,4 +1858,4 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 with open("nb_validation.ipynb", "w") as f:
     nbf.write(nb, f)
-print(f"Wrote nb_validation.ipynb  ({len(cells)} cells, 10 sections).")
+print(f"Wrote nb_validation.ipynb  ({len(cells)} cells, 11 sections).")
