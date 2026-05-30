@@ -1,0 +1,415 @@
+\section{Experiment: models with a single active customer}
+\label{sec:experiment}
+
+The standard departure mechanisms studied so far --- abandonment at rate
+$\theta_1 n_1$ (Model~C$_2$) and jockeying at rate $\gamma_1 n_1$
+(Model~B$_2$) --- produce \emph{linear} departure rates proportional to the
+queue length.  In the PGF equation this gives rise to derivative terms
+$xy(\cdot)\partial P/\partial x$, making the equation a first-order ODE and
+requiring the integrating-factor machinery of Sections~7--8.
+
+This section explores a simpler variant: only the \emph{first customer in
+line} (the head of Queue~1) can abandon or jockey, at a fixed rate
+independent of queue length.  The aggregate departure rate is then
+$\theta_1\cdot\mathbf{1}_{\{n_1\ge1\}}$ (not $\theta_1 n_1$), and the
+corresponding PGF contribution is \emph{algebraic} rather than differential.
+The resulting fundamental equation can be solved directly by the kernel
+method, giving rational closed-form expressions for $P(x,y)$.
+
+\begin{definition*}[Models B$_2^1$ and C$_2^1$]
+\begin{itemize}
+    \item \textbf{Model B$_2^1$:} $\gamma_2=\theta_1=\theta_2=0$, $\gamma_1>0$.
+    Only the customer at the head of Queue~1 (the one that would be served
+    next) may jockey to Queue~2, at rate $\gamma_1$.
+    All other waiting Class-1 customers remain in Queue~1.
+    \item \textbf{Model C$_2^1$:} $\gamma_1=\gamma_2=\theta_2=0$, $\theta_1>0$.
+    Only the customer at the head of Queue~1 may abandon the system,
+    at rate $\theta_1$.  All other waiting Class-1 customers are patient.
+\end{itemize}
+In both models the service discipline, arrival processes, and Class-2
+dynamics are identical to Models~B$_2$ and~C$_2$ respectively.
+\end{definition*}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Balance equations}
+
+\subsubsection*{Model B$_2^1$}
+
+The jockeying transition $(n_1,n_2)\to(n_1-1,n_2+1)$ occurs at the fixed
+rate $\gamma_1$ whenever $n_1\ge1$.  The balance equations on $S$ are:
+\begin{align}
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu+\gamma_1\right]\pi(n_1,n_2) \\
+        &\quad=\quad \mu\,\pi(n_1+1,n_2)
+          +\lambda_1\pi(n_1-1,n_2)
+          +\lambda_2\pi(n_1,n_2-1)
+          +\gamma_1\pi(n_1+1,n_2-1)
+    \end{split}
+    &&n_1\ge1,\;n_2\ge1, \label{eq:B21:interior} \\
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu+\gamma_1\right]\pi(n_1,0) \\
+        &\quad=\quad \mu\,\pi(n_1+1,0)
+          +\lambda_1\pi(n_1-1,0)
+    \end{split}
+    &&n_1\ge1,\;n_2=0, \label{eq:B21:xboundary} \\
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2) \\
+        &\quad=\quad \mu\,\pi(1,n_2)
+          +\gamma_1\pi(1,n_2-1)
+          +\lambda_2\pi(0,n_2-1)
+          +\mu\,\pi(0,n_2+1)
+    \end{split}
+    &&n_1=0,\;n_2\ge1, \label{eq:B21:yboundary} \\
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
+          = (\lambda_1+\lambda_2)\pi_0
+          + \mu\,\pi(1,0)
+          + \mu\,\pi(0,1),
+    \end{split} &&\label{eq:B21:zero} \\
+    \begin{split}
+        &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
+    \end{split} &&\label{eq:B21:idle}
+\end{align}
+The key structural difference from Model~B$_2$ (Equation~\eqref{eq:gen:balance_interior}
+with $\gamma_2=\theta_i=0$) is that the jockeying coefficient is $\gamma_1$
+(constant) rather than $\gamma_1 n_1$ (linear in queue length).
+
+\subsubsection*{Model C$_2^1$}
+
+The abandonment transition $(n_1,n_2)\to(n_1-1,n_2)$ occurs at the fixed
+rate $\theta_1$ whenever $n_1\ge1$.  The balance equations are:
+\begin{align}
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu+\theta_1\right]\pi(n_1,n_2) \\
+        &\quad=\quad (\mu+\theta_1)\pi(n_1+1,n_2)
+          +\lambda_1\pi(n_1-1,n_2)
+          +\lambda_2\pi(n_1,n_2-1)
+    \end{split}
+    &&n_1\ge1,\;n_2\ge1, \label{eq:C21:interior} \\
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu+\theta_1\right]\pi(n_1,0) \\
+        &\quad=\quad (\mu+\theta_1)\pi(n_1+1,0)
+          +\lambda_1\pi(n_1-1,0)
+    \end{split}
+    &&n_1\ge1,\;n_2=0, \label{eq:C21:xboundary} \\
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2) \\
+        &\quad=\quad (\mu+\theta_1)\pi(1,n_2)
+          +\lambda_2\pi(0,n_2-1)
+          +\mu\,\pi(0,n_2+1)
+    \end{split}
+    &&n_1=0,\;n_2\ge1, \label{eq:C21:yboundary} \\
+    \begin{split}
+        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
+          = (\lambda_1+\lambda_2)\pi_0
+          + (\mu+\theta_1)\pi(1,0)
+          + \mu\,\pi(0,1),
+    \end{split} &&\label{eq:C21:zero} \\
+    \begin{split}
+        &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
+    \end{split} &&\label{eq:C21:idle}
+\end{align}
+In Model~C$_2$, the coefficients $\mu+\theta_1(n_1+1)$ and $\theta_1 n_1$
+grow with $n_1$.  Here they are constants $\mu+\theta_1$ and $\theta_1$
+throughout; this is the departure point of the analysis.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Fundamental PGF equations}
+
+\begin{lemma}[Fundamental equation for Model B$_2^1$]\label{lem:B21:fundamental}
+The joint PGF $P(x,y)$ satisfies
+\begin{equation}
+    \begin{split}
+        &\left[(\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2
+               + \gamma_1 y(x-y)\right]P(x,y) \\
+        &\quad=\quad \left[\mu(x-y) + \gamma_1 y(x-y)\right]P_y(y)
+               - \mu x(1-y)\,\pi(0,0).
+    \end{split}
+    \label{eq:B21:fundamental}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Multiply the interior equation~\eqref{eq:B21:interior} by $x^{n_1}y^{n_2}$
+and sum over $n_1\ge1$, $n_2\ge1$.  The jockeying term generates:
+\begin{align}
+    \begin{split}
+        \text{Rate out: } &\gamma_1\sum_{n_1\ge1,\,n_2\ge1}\pi(n_1,n_2)\,x^{n_1}y^{n_2}
+        = \gamma_1\bigl[P-P_y\bigr], \\
+        \text{Rate in: } &\gamma_1\sum_{n_1\ge1,\,n_2\ge1}\pi(n_1+1,n_2-1)\,x^{n_1}y^{n_2}
+        = \gamma_1\,\tfrac{y}{x}\bigl[P-P_y\bigr]+\text{(boundary corrections)}.
+    \end{split}
+\end{align}
+The net contribution is $\gamma_1(1-y/x)(P-P_y)$.
+After repeating the procedure for the
+$x$-boundary~\eqref{eq:B21:xboundary}, the $y$-boundary~\eqref{eq:B21:yboundary},
+and state~\eqref{eq:B21:zero}, the boundary corrections cancel exactly
+(same algebra as in Lemma~\ref{lem:gen:fundamental_equation}) and multiplying
+through by $xy$ yields~\eqref{eq:B21:fundamental}.
+\end{proof}
+
+\begin{remark}
+Equation~\eqref{eq:B21:fundamental} contains \emph{no derivative} of $P$.
+Contrast with Model~B$_2$, whose fundamental equation has the term
+$\gamma_1 xy(x-y)\partial P/\partial x$.
+The flat jockeying rate contributes an algebraic factor $\gamma_1y(x-y)$ to
+the left-hand coefficient of $P(x,y)$, reducing the functional equation to
+an algebraic one.
+\end{remark}
+
+\begin{lemma}[Fundamental equation for Model C$_2^1$]\label{lem:C21:fundamental}
+The joint PGF $P(x,y)$ satisfies
+\begin{equation}
+    \begin{split}
+        &\left[(\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2
+               + \theta_1 y(x-1)\right]P(x,y) \\
+        &\quad=\quad \left[\mu(x-y) + \theta_1 y(x-1)\right]P_y(y)
+               - \mu x(1-y)\,\pi(0,0).
+    \end{split}
+    \label{eq:C21:fundamental}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The abandonment term in~\eqref{eq:C21:interior} contributes:
+\begin{align}
+    \begin{split}
+        \text{Rate out: }
+        &\theta_1\sum_{n_1\ge1,\,n_2\ge1}\pi(n_1,n_2)\,x^{n_1}y^{n_2}
+         = \theta_1\bigl[P-P_y\bigr], \\
+        \text{Rate in: }
+        &\theta_1\sum_{n_1\ge1,\,n_2\ge1}\pi(n_1+1,n_2)\,x^{n_1}y^{n_2}
+         = \theta_1 x^{-1}\bigl[P-P_y\bigr]+\text{(boundary corrections)}.
+    \end{split}
+\end{align}
+The net contribution is $\theta_1(1-x^{-1})(P-P_y)$.
+Combining all boundary equations as before and multiplying by $xy$
+yields~\eqref{eq:C21:fundamental}.
+\end{proof}
+
+\begin{remark}
+Equation~\eqref{eq:C21:fundamental} likewise contains no derivative of $P$.
+The term replacing $\theta_1 xy(x-1)\partial P/\partial x$ of Model~C$_2$ is
+the algebraic factor $\theta_1 y(x-1)$ on the coefficient of $P(x,y)$.
+\end{remark}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Closed-form solution via the kernel method}
+
+Both fundamental equations~\eqref{eq:B21:fundamental} and~\eqref{eq:C21:fundamental}
+have the structure
+\begin{equation}
+    D(x,y)\,P(x,y) \;=\; R(x,y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
+    \label{eq:exp:algebraic}
+\end{equation}
+where $D(x,y)$ is a polynomial in $x$ and $y$ and $R(x,y)$ does not involve
+$P$ or its derivatives.  This is a \emph{closed-form} relation:
+\begin{equation}
+    P(x,y) \;=\; \frac{R(x,y)\,P_y(y) - \mu x(1-y)\,\pi(0,0)}{D(x,y)},
+    \label{eq:exp:Pxy_general}
+\end{equation}
+provided $D(x,y)\ne0$.  The unknown $P_y(y)$ is determined by requiring
+$P(x,y)$ to be analytic on the unit polydisc: at the zero of $D(\cdot,y)$
+inside $|x|\le1$, the numerator must vanish.
+
+\subsubsection*{Characteristic roots}
+
+For each fixed $y$, the polynomial $D(x,y)=0$ is quadratic in $x$.
+Writing $D$ for each model:
+\begin{align}
+    \begin{split}
+        D^{B_2^1}(x,y) &= y\bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)x
+        - (\mu+\gamma_1 y)\bigr],
+    \end{split}
+    \label{eq:B21:D} \\
+    \begin{split}
+        D^{C_2^1}(x,y) &= y\bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\theta_1)x
+        - (\mu+\theta_1)\bigr].
+    \end{split}
+    \label{eq:C21:D}
+\end{align}
+The inner quadratics are of the same form as in Model~A (Equation~\eqref{eq:A:xstar}),
+but with $\mu$ replaced by $\mu+\gamma_1 y$ (B$_2^1$) or $\mu+\theta_1$ (C$_2^1$).
+Their negative-sign roots inside the unit disc are:
+\begin{align}
+    \begin{split}
+        x_{B_2^1}^*(y) &= \frac{(\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)
+        - \sqrt{(\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)^2 - 4\lambda_1(\mu+\gamma_1 y)}}
+        {2\lambda_1},
+    \end{split}
+    \label{eq:B21:xstar} \\
+    \begin{split}
+        x_{C_2^1}^*(y) &= \frac{(\lambda_1+\lambda_2(1-y)+\mu+\theta_1)
+        - \sqrt{(\lambda_1+\lambda_2(1-y)+\mu+\theta_1)^2 - 4\lambda_1(\mu+\theta_1)}}
+        {2\lambda_1}.
+    \end{split}
+    \label{eq:C21:xstar}
+\end{align}
+
+At $\gamma_1=0$, $x_{B_2^1}^*(y)\to x^*(y)$
+(Model~A root, Equation~\eqref{eq:A:xstar}).  At $\theta_1=0$,
+$x_{C_2^1}^*(y)\to x^*(y)$ as well.  Both models degenerate to Model~A
+in the limit of vanishing mechanism.
+
+\subsubsection*{Boundary function $P_y(y)$}
+
+Setting $x=x^*(y)$ in~\eqref{eq:exp:Pxy_general} and requiring the
+numerator to vanish:
+\begin{align}
+    \begin{split}
+        P_y^{B_2^1}(y) &= \frac{\mu\, x_{B_2^1}^*(y)\,(1-y)\,\pi(0,0)}
+        {(x_{B_2^1}^*(y)-y)\,(\mu+\gamma_1 y)},
+    \end{split}
+    \label{eq:B21:Py} \\
+    \begin{split}
+        P_y^{C_2^1}(y) &= \frac{\mu\, x_{C_2^1}^*(y)\,(1-y)\,\pi(0,0)}
+        {x_{C_2^1}^*(y)\,(\mu+\theta_1 y) - y(\mu+\theta_1)}.
+    \end{split}
+    \label{eq:C21:Py}
+\end{align}
+
+% [Expand: verify Py(0) = pi(0,0) for both models as a sanity check.]
+
+\subsubsection*{Joint PGF}
+
+Substituting the boundary functions back into~\eqref{eq:exp:algebraic} and
+simplifying the numerator (the cross-terms in $x_{r}^*$ cancel), one obtains:
+\begin{align}
+    \begin{split}
+        P_{B_2^1}(x,y) \;&=\;
+        \frac{\mu(1-y)\,\pi(0,0)\,\bigl(x - x_{B_2^1}^*(y)\bigr)}
+        {\bigl(x_{B_2^1}^*(y)-y\bigr)
+         \bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\gamma_1)x - (\mu+\gamma_1 y)\bigr]},
+    \end{split}
+    \label{eq:B21:Pxy} \\[8pt]
+    \begin{split}
+        P_{C_2^1}(x,y) \;&=\;
+        \frac{\mu(\mu+\theta_1)(1-y)\,\pi(0,0)\,\bigl(x - x_{C_2^1}^*(y)\bigr)}
+        {\bigl[x_{C_2^1}^*(y)(\mu+\theta_1 y) - y(\mu+\theta_1)\bigr]
+         \bigl[-\lambda_1 x^2 + (\lambda_1+\lambda_2(1-y)+\mu+\theta_1)x - (\mu+\theta_1)\bigr]}.
+    \end{split}
+    \label{eq:C21:Pxy}
+\end{align}
+
+Both are \emph{rational functions} of $x$ and $y$ (given $\pi(0,0)$),
+with the same $(x-x_r^*(y))/(...)$ structure as Model~A
+(Equation~\eqref{eq:A:fundamental}).  At $\gamma_1=0$ (resp.\ $\theta_1=0$)
+the roots and coefficients reduce to those of Model~A, recovering
+$P_A(x,y)$ exactly.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Empty-state probabilities}
+
+\subsubsection*{Model B$_2^1$}
+Jockeying conserves the total number of customers, so the diagonal identity
+$P(z,z)=\rho(1-\rho)/(1-\rho z)$ (cf.\ Equation~\eqref{eq:A:Pzz})
+still holds, giving
+\begin{equation}
+    \pi(0,0) = \rho(1-\rho), \qquad \pi_0 = 1-\rho.
+    \label{eq:B21:pi00}
+\end{equation}
+
+\subsubsection*{Model C$_2^1$}
+Abandonment removes customers from the system, breaking conservation.
+Setting $x=y=z$ in~\eqref{eq:C21:fundamental}, the term $\theta_1 y(x-1)$
+does not vanish (since $x-1\ne0$):
+\begin{align}
+    \begin{split}
+        &\bigl[(\lambda_1+\lambda_2+\mu)z^2-\mu z-\lambda_1 z^3-\lambda_2 z^3
+        +\theta_1 z(z-1)\bigr]P(z,z) \\
+        &\quad=\quad \mu(z-z)P_y(z) - \mu z(1-z)\pi(0,0),
+    \end{split}
+    \label{eq:C21:diag}
+\end{align}
+which reduces (using $\mu(z-z)=0$ on the right) to
+\begin{align}
+    \begin{split}
+        \bigl[-\lambda z^2+(\lambda+\mu+\theta_1)z-(\mu+\theta_1)\bigr]\,P(z,z)/z
+        \;=\; -\mu(1-z)\,\pi(0,0).
+    \end{split}
+\end{align}
+Factoring $-\lambda z^2+(\lambda+\mu+\theta_1)z-(\mu+\theta_1)
+= -\lambda(z-1)(z-(\mu+\theta_1)/\lambda)$ and cancelling $(1-z)$:
+\begin{equation}
+    P(z,z) \;=\; \frac{\mu\,\pi(0,0)\,z}{\lambda\bigl(z - (\mu+\theta_1)/\lambda\bigr)}.
+    \label{eq:C21:Pzz}
+\end{equation}
+This is a \emph{closed form} for the diagonal generating function, which
+Model~C$_2$ lacks.  Evaluating at $z=1$:
+\begin{equation}
+    P(1,1) \;=\; \frac{\mu\,\pi(0,0)}{\lambda-(\mu+\theta_1)} \;=\; 1-\pi_0.
+    \label{eq:C21:Pzz_norm}
+\end{equation}
+Combined with the idle balance $(\lambda_1+\lambda_2)\pi_0=\mu\,\pi(0,0)$, these
+two equations give $\pi_0$ and $\pi(0,0)$ in closed form:
+\begin{align}
+    \begin{split}
+        \pi_0 \;=\; \frac{\mu+\theta_1-\lambda}{\mu+\theta_1}, \qquad
+        \pi(0,0) \;=\; \frac{\lambda(\mu+\theta_1-\lambda)}{\mu(\mu+\theta_1)}.
+    \end{split}
+    \label{eq:C21:pi0_pi00}
+\end{align}
+% [Note: stability requires lambda < mu+theta_1, i.e. rho < 1 + theta_1/mu.
+%  This is a WEAKER condition than rho < 1 — consistent with abandonment
+%  making the system stable for higher loads.]
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Comparison with Models A, B$_2$, and C$_2$}
+
+Table~\ref{tab:experiment_comparison} contrasts the four models.
+
+\begin{table}[H]
+\centering
+\caption{Key properties of Models A, B$_2$, B$_2^1$, C$_2$, and C$_2^1$.}
+\label{tab:experiment_comparison}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Property} & \textbf{A} & \textbf{B$_2$} & \textbf{B$_2^1$}
+                  & \textbf{C$_2$} / \textbf{C$_2^1$} \\
+\hline
+Mechanism rate from $(n_1,n_2)$
+ & ---
+ & $\gamma_1 n_1$
+ & $\gamma_1\cdot\mathbf{1}_{\{n_1\ge1\}}$
+ & $\theta_1 n_1$ / $\theta_1\cdot\mathbf{1}_{\{n_1\ge1\}}$ \\
+PGF equation type
+ & algebraic
+ & ODE in $x$
+ & \textbf{algebraic}
+ & ODE in $x$ / \textbf{algebraic} \\
+Integrating factor needed
+ & no
+ & yes
+ & \textbf{no}
+ & yes / \textbf{no} \\
+$P(x,y)$ form
+ & rational
+ & integral + ${}_1F_1$
+ & \textbf{rational}
+ & integral + ${}_1F_1$ / \textbf{rational} \\
+$\pi(0,0)$
+ & $\rho(1-\rho)$
+ & $\rho(1-\rho)$
+ & $\rho(1-\rho)$
+ & formula / formula \\
+$P(z,z)$ closed form
+ & yes
+ & yes
+ & yes
+ & no / \textbf{yes} \\
+Characteristic root
+ & $x^*(y)$
+ & $x^*(y)$ [effectively]
+ & $x_{B_2^1}^*(y)$
+ & --- / $x_{C_2^1}^*(y)$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The ``first-customer-only'' assumption converts an ODE into an algebraic
+equation in both cases.  The resulting characteristic roots
+$x_{B_2^1}^*(y)$ and $x_{C_2^1}^*(y)$ have the same form as Model~A's
+$x^*(y)$ but with $\mu$ replaced by $\mu+\gamma_1 y$ and $\mu+\theta_1$
+respectively.  This makes the full closed-form PGF available without
+quadrature, and all performance measures derivable by direct differentiation.
