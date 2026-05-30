@@ -268,6 +268,26 @@ which is the statement of the theorem. This closed form is the product of a prob
     For the Model A limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, hence $\lambda_1\,\mathbb{E}[B_C]\to\rho_1/(1-\rho_1)$ and $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$; substituting into~\eqref{eq:C2:pi0} and~\eqref{eq:C2:pi00} recovers $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
 \end{proof}
 
+\subsection{Mean queue lengths and mean waiting times}
+
+Abandonment reduces the load: $\mathbb{E}[N_1]+\mathbb{E}[N_2] < \rho^2/(1-\rho)$
+for $\theta_1>0$.
+The individual means are obtained from $P(x,y)$ by differentiation at $(1,1)$
+(approached via a non-singular path), or directly from the CTMC.
+
+\textbf{Little's Law with abandonment.}
+The relation $\mathbb{E}[N_i] = \lambda_i\,\mathbb{E}[W_i]$ requires no
+Poisson assumption: it is a universal identity between the stationary mean
+number of customers present, the arrival rate, and the mean time spent in
+queue.  For Model~C$_2$, $\lambda_i$ must be the \emph{arrival} rate of all
+class-$i$ customers (including those who will abandon), so $\mathbb{E}[W_i]$
+represents the mean waiting time averaged over served and abandoned customers
+alike.  The throughput $\mu(1-\pi_0) < \lambda_1+\lambda_2$ should \emph{not}
+replace $\lambda_i$ in Little's Law.
+
+As $\theta_1\to0^+$, both $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$ recover the
+Model~A expressions~\eqref{eq:A:EN1}--\eqref{eq:A:EN2}.
+
 
 
 

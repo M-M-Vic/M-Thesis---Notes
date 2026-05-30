@@ -237,4 +237,25 @@ expression holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their finite-part
 (incomplete-${}_1F_1$) continuations. Since the constant is fixed in closed form by
 \eqref{eq:B2:pi00}, the solution \eqref{eq:B2:Pxy} is fully explicit.
 
+\subsection{Mean queue lengths and mean waiting times}
+
+Jockeying conserves the total number of customers in the system, so the
+mean total queue length equals the Model~A value exactly:
+\begin{equation}
+    \mathbb{E}[N_1] + \mathbb{E}[N_2] \;=\; \frac{\rho^2}{1-\rho}. \label{eq:B2:EN}
+\end{equation}
+The individual means do depend on $\gamma_1$: as $\gamma_1$ increases, Class-1
+customers jockey into Queue~2, lowering $\mathbb{E}[N_1]$ and raising
+$\mathbb{E}[N_2]$.  No closed form is available for the split; the means are
+extracted from $P(x,y)$ via
+\begin{equation}
+    \mathbb{E}[N_i] \;=\; \lim_{(x,y)\to(1,1)} \frac{\partial P}{\partial x_i}(x,y),
+    \label{eq:B2:EN_def}
+\end{equation}
+where the limit is approached along a path inside the unit polydisc to avoid
+the singularity at $(1,1)$.
+By Little's Law, $\mathbb{E}[W_i] = \mathbb{E}[N_i]/\lambda_i$.
+In the limit $\gamma_1\to0^+$ the Model~A expressions
+\eqref{eq:A:EN1}--\eqref{eq:A:EW2} are recovered.
+
 

@@ -1,6 +1,6 @@
 \section{Analysis of Model~A ($\gamma_1=0,\,\gamma_2=0$, $\theta_1=\theta_2=0$)}
 
-The model discussed in this section is fundamentally more simple than the one explained in the previous sections. We set $\gamma_1=0,\gamma_2=0$, i.e. we do not allow our waiting customers to go to a different queue once they have arrived. The starting point for the analysis will depend on whether we decide to work with state space $S$ or with state space $\widetilde{S}$.
+Model~A is the baseline of the hierarchy: all extra parameters are zero, leaving a pure two-class non-preemptive priority queue with no jockeying and no abandonment.  The analysis is carried out on both state spaces $S$ and $\widetilde{S}$, and three independent proof routes are presented.
 
 The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle} for state space $S$, and Equations \eqref{eq:gen:tilde_balance_interior}, \eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary}, \eqref{eq:gen:tilde_balance_zero} and \eqref{eq:gen:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen:fundamental_equation} for state space $S$ and Equation \eqref{eq:gen:PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
 
@@ -457,6 +457,34 @@ We can evaluate this expression at $y=1$ and check that it will behave like a re
 \begin{equation}
     \tP(1,n)= (1-\rho)\rho \cdot  [\widetilde{y}^*(1)]^n = (1-\rho)\rho \cdot\rho^n= (1-\rho) \rho^{n+1}.
 \end{equation}
+
+\subsection{Mean queue lengths and mean waiting times}
+
+The mean numbers of waiting customers follow from $P(x,y)$ by differentiation.
+The class-1 marginal $P(x,1)=\rho(1-\rho_1)/(1-\rho_1 x)$ is a geometric PGF,
+yielding the closed-form expressions
+\begin{align}
+    \mathbb{E}[N_1] &= \frac{\rho\rho_1}{1-\rho_1}, \label{eq:A:EN1} \\
+    \mathbb{E}[N_2] &= \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)}. \label{eq:A:EN2}
+\end{align}
+Their sum is $\mathbb{E}[N_1]+\mathbb{E}[N_2] = \rho^2/(1-\rho)$, the
+standard $M/M/1$ queue-length result for the combined system.
+
+% [Expand: derive \eqref{eq:A:EN2} from the P-K formula.
+%  The class-2 subsystem is M/G/1 with load ρ_B = λ₂ E[B] = ρ₂/(1-ρ₁), giving
+%  E[N₂] = ρ_B/(1-ρ_B) = ρ₂(1-ρ₁)⁻¹ / (1-ρ₂(1-ρ₁)⁻¹) = ρ₂/((1-ρ₁)-ρ₂) = ρ₂/(1-ρ₁-ρ₂)·... check.]
+
+\textbf{Little's Law} ($\mathbb{E}[N_i] = \lambda_i\,\mathbb{E}[W_i]$) holds for
+any stable system regardless of the arrival distribution;
+since arrivals are Poisson here, it also coincides with the PASTA-based
+decomposition~\eqref{eq:prio:py_decomp}.  The mean waiting times in queue are
+\begin{align}
+    \mathbb{E}[W_1] &= \frac{\rho}{\mu(1-\rho_1)}, \label{eq:A:EW1} \\
+    \mathbb{E}[W_2] &= \frac{\rho}{\mu(1-\rho_1)(1-\rho)}. \label{eq:A:EW2}
+\end{align}
+Class-1 benefits from priority: its waiting time is independent of $\rho_2$
+(only the total load $\rho$ and its own load $\rho_1$ appear).
+Class-2 pays a factor $1/(1-\rho_1)$ on top of the single-class waiting time.
 
 
 

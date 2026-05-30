@@ -1371,6 +1371,187 @@ It is suitable only when the priority class carries most of the load ($\rho_1/\r
 
 
 # ===========================================================================
+# 10. Mean queue lengths and mean waiting times
+# ===========================================================================
+md(r"""
+## 10. Mean queue lengths and mean waiting times
+
+**Little's Law** $\mathbb{E}[N_i] = \lambda_i\,\mathbb{E}[W_i]$ holds for any
+stable system — no Poisson assumption is needed.  For Model~C$_2$ (with
+abandonment), $\lambda_i$ is the arrival rate of all customers including those
+that will abandon; $\mathbb{E}[W_i]$ then averages over served and abandoned
+customers alike.
+
+This section compares $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, and the implied
+waiting times across Models A, B$_2$, and C$_2$ as the mechanism parameter
+($\gamma_1$ or $\theta_1$) varies, holding the base parameters fixed.
+""")
+
+code(r"""
+# ── Helpers ────────────────────────────────────────────────────────────────────
+
+def mean_queue_lengths_ctmc(pi_joint):
+    # Returns (E[N1], E[N2]) from the joint stationary distribution.
+    M = pi_joint.shape[0]
+    idx = np.arange(M)
+    E_n1 = float(np.sum(pi_joint * idx[:, None]))
+    E_n2 = float(np.sum(pi_joint * idx[None, :]))
+    return E_n1, E_n2
+
+# Model A exact formulas (closed form)
+def E_N_modelA(lam1, lam2, mu):
+    rho1, rho2, rho = lam1/mu, lam2/mu, (lam1+lam2)/mu
+    EN1 = rho * rho1 / (1 - rho1)
+    EN2 = rho * rho2 / ((1 - rho1) * (1 - rho))
+    return EN1, EN2
+
+# Verify Model A exact vs CTMC at uniform params
+lam1_u, lam2_u, mu_u = 0.3, 0.4, 1.0
+EN1_A_exact, EN2_A_exact = E_N_modelA(lam1_u, lam2_u, mu_u)
+r_A_check = solve_exact(Params(lam1_u, lam2_u, mu_u), N_max=50)
+EN1_A_ctmc, EN2_A_ctmc = mean_queue_lengths_ctmc(r_A_check["pi_joint"])
+
+print("Model A verification — exact formula vs CTMC:")
+print(f"  E[N1]: exact = {EN1_A_exact:.5f}   CTMC = {EN1_A_ctmc:.5f}   err = {abs(EN1_A_exact - EN1_A_ctmc):.1e}")
+print(f"  E[N2]: exact = {EN2_A_exact:.5f}   CTMC = {EN2_A_ctmc:.5f}   err = {abs(EN2_A_exact - EN2_A_ctmc):.1e}")
+print(f"  E[N] = E[N1]+E[N2]: {EN1_A_exact+EN2_A_exact:.5f}  (rho^2/(1-rho) = {(lam1_u+lam2_u)**2/mu_u**2/(1-(lam1_u+lam2_u)/mu_u):.5f})")
+""")
+
+code(r"""
+# ── Model B₂: E[N1], E[N2] vs γ₁ ─────────────────────────────────────────────
+
+gamma1_sweep = np.linspace(0.0, 3.0, 40)
+EN1_B2, EN2_B2 = [], []
+
+for g1 in gamma1_sweep:
+    pm = Params(lam1_u, lam2_u, mu_u, gamma1=g1)
+    r  = solve_exact(pm, N_max=50)
+    n1, n2 = mean_queue_lengths_ctmc(r["pi_joint"])
+    EN1_B2.append(n1); EN2_B2.append(n2)
+
+EN1_B2 = np.array(EN1_B2); EN2_B2 = np.array(EN2_B2)
+EW1_B2 = EN1_B2 / lam1_u;  EW2_B2 = EN2_B2 / lam2_u
+
+# Model A baseline (horizontal)
+EN1_A_b = np.full_like(gamma1_sweep, EN1_A_exact)
+EN2_A_b = np.full_like(gamma1_sweep, EN2_A_exact)
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
+
+axes[0].plot(gamma1_sweep, EN1_B2, "steelblue",  lw=2.5, label=r"$\mathbb{E}[N_1]$  (B$_2$)")
+axes[0].plot(gamma1_sweep, EN2_B2, "darkorange",  lw=2.5, label=r"$\mathbb{E}[N_2]$  (B$_2$)")
+axes[0].axhline(EN1_A_exact, color="steelblue",  ls="--", lw=1.5, label=r"$\mathbb{E}[N_1]$  (A)")
+axes[0].axhline(EN2_A_exact, color="darkorange",  ls="--", lw=1.5, label=r"$\mathbb{E}[N_2]$  (A)")
+axes[0].axhline(EN1_A_exact + EN2_A_exact, color="gray", ls=":", lw=1.5,
+                label=r"$\mathbb{E}[N]$ (conserved)")
+axes[0].set_xlabel(r"$\gamma_1$"); axes[0].set_ylabel("Mean queue length")
+axes[0].set_title(r"Model $B_2$: mean queue lengths vs $\gamma_1$")
+axes[0].legend(fontsize=8); axes[0].grid(alpha=0.3)
+
+axes[1].plot(gamma1_sweep, EW1_B2, "steelblue",  lw=2.5, label=r"$\mathbb{E}[W_1]$  (B$_2$)")
+axes[1].plot(gamma1_sweep, EW2_B2, "darkorange",  lw=2.5, label=r"$\mathbb{E}[W_2]$  (B$_2$)")
+axes[1].axhline(EN1_A_exact / lam1_u, color="steelblue",  ls="--", lw=1.5, label=r"$\mathbb{E}[W_1]$  (A)")
+axes[1].axhline(EN2_A_exact / lam2_u, color="darkorange",  ls="--", lw=1.5, label=r"$\mathbb{E}[W_2]$  (A)")
+axes[1].set_xlabel(r"$\gamma_1$"); axes[1].set_ylabel("Mean waiting time")
+axes[1].set_title(r"Model $B_2$: mean waiting times vs $\gamma_1$")
+axes[1].legend(fontsize=8); axes[1].grid(alpha=0.3)
+
+fig.suptitle(rf"$\lambda_1={lam1_u},\,\lambda_2={lam2_u},\,\mu={mu_u}$  —  "
+             r"dashed = Model A baseline", fontsize=10)
+fig.tight_layout()
+os.makedirs("../figures/validation", exist_ok=True)
+plt.savefig("../figures/validation/val_meanq_B2.pdf", bbox_inches="tight")
+plt.savefig("../figures/validation/val_meanq_B2.png", bbox_inches="tight", dpi=150)
+""")
+
+code(r"""
+# ── Model C₂: E[N1], E[N2] vs θ₁ ─────────────────────────────────────────────
+
+theta1_sweep = np.linspace(0.05, 3.0, 40)
+EN1_C2, EN2_C2 = [], []
+
+for th1 in theta1_sweep:
+    pm = Params(lam1_u, lam2_u, mu_u, theta1=th1)
+    r  = solve_exact(pm, N_max=50)
+    n1, n2 = mean_queue_lengths_ctmc(r["pi_joint"])
+    EN1_C2.append(n1); EN2_C2.append(n2)
+
+EN1_C2 = np.array(EN1_C2); EN2_C2 = np.array(EN2_C2)
+EW1_C2 = EN1_C2 / lam1_u;  EW2_C2 = EN2_C2 / lam2_u
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
+
+axes[0].plot(theta1_sweep, EN1_C2, "steelblue",   lw=2.5, label=r"$\mathbb{E}[N_1]$  (C$_2$)")
+axes[0].plot(theta1_sweep, EN2_C2, "darkorange",   lw=2.5, label=r"$\mathbb{E}[N_2]$  (C$_2$)")
+axes[0].axhline(EN1_A_exact, color="steelblue",   ls="--", lw=1.5, label=r"$\mathbb{E}[N_1]$  (A)")
+axes[0].axhline(EN2_A_exact, color="darkorange",   ls="--", lw=1.5, label=r"$\mathbb{E}[N_2]$  (A)")
+axes[0].axvline(0, color="gray", ls=":", lw=1, alpha=0.5)
+axes[0].set_xlabel(r"$\theta_1$"); axes[0].set_ylabel("Mean queue length")
+axes[0].set_title(r"Model C$_2$: mean queue lengths vs $\theta_1$")
+axes[0].legend(fontsize=8); axes[0].grid(alpha=0.3)
+
+axes[1].plot(theta1_sweep, EW1_C2, "steelblue",   lw=2.5, label=r"$\mathbb{E}[W_1]$  (C$_2$)")
+axes[1].plot(theta1_sweep, EW2_C2, "darkorange",   lw=2.5, label=r"$\mathbb{E}[W_2]$  (C$_2$)")
+axes[1].axhline(EN1_A_exact / lam1_u, color="steelblue",   ls="--", lw=1.5, label=r"$\mathbb{E}[W_1]$  (A)")
+axes[1].axhline(EN2_A_exact / lam2_u, color="darkorange",   ls="--", lw=1.5, label=r"$\mathbb{E}[W_2]$  (A)")
+axes[1].set_xlabel(r"$\theta_1$"); axes[1].set_ylabel("Mean waiting time  (in queue)")
+axes[1].set_title(r"Model C$_2$: mean waiting times vs $\theta_1$")
+axes[1].legend(fontsize=8); axes[1].grid(alpha=0.3)
+
+fig.suptitle(rf"$\lambda_1={lam1_u},\,\lambda_2={lam2_u},\,\mu={mu_u}$  —  "
+             r"dashed = Model A baseline", fontsize=10)
+fig.tight_layout()
+plt.savefig("../figures/validation/val_meanq_C2.pdf", bbox_inches="tight")
+plt.savefig("../figures/validation/val_meanq_C2.png", bbox_inches="tight", dpi=150)
+""")
+
+code(r"""
+# ── Four-panel summary: all three models, queue lengths and waiting times ─────
+
+fig, axes = plt.subplots(2, 2, figsize=(12, 8.5))
+titles_row = [r"Mean queue lengths vs $\gamma_1$ (Model $B_2$)",
+              r"Mean queue lengths vs $\theta_1$ (Model C$_2$)",
+              r"Mean waiting times vs $\gamma_1$ (Model $B_2$)",
+              r"Mean waiting times vs $\theta_1$ (Model C$_2$)"]
+
+x_axes     = [gamma1_sweep, theta1_sweep, gamma1_sweep, theta1_sweep]
+x_labels   = [r"$\gamma_1$", r"$\theta_1$", r"$\gamma_1$", r"$\theta_1$"]
+y_sets     = [(EN1_B2, EN2_B2), (EN1_C2, EN2_C2), (EW1_B2, EW2_B2), (EW1_C2, EW2_C2)]
+base_y     = [(EN1_A_exact, EN2_A_exact), (EN1_A_exact, EN2_A_exact),
+              (EN1_A_exact/lam1_u, EN2_A_exact/lam2_u),
+              (EN1_A_exact/lam1_u, EN2_A_exact/lam2_u)]
+y_labels   = ["Mean queue length", "Mean queue length",
+              "Mean waiting time", "Mean waiting time"]
+
+for ax, xv, xl, (y1, y2), (b1, b2), yl, title in zip(
+        axes.flat, x_axes, x_labels, y_sets, base_y, y_labels, titles_row):
+    ax.plot(xv, y1, color="#2166ac", lw=2.5, label=r"Class 1  (model)")
+    ax.plot(xv, y2, color="#d6604d", lw=2.5, label=r"Class 2  (model)")
+    ax.axhline(b1, color="#2166ac", ls="--", lw=1.4, label="Class 1  (Model A)")
+    ax.axhline(b2, color="#d6604d", ls="--", lw=1.4, label="Class 2  (Model A)")
+    ax.set_xlabel(xl); ax.set_ylabel(yl); ax.set_title(title, pad=4)
+    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+
+fig.suptitle(rf"$\lambda_1={lam1_u},\,\lambda_2={lam2_u},\,\mu={mu_u}$  —  "
+             r"dashed lines: Model A baseline ($\gamma_i=\theta_i=0$)", fontsize=10)
+fig.tight_layout()
+plt.savefig("../figures/validation/val_meanq_all.pdf", bbox_inches="tight")
+plt.savefig("../figures/validation/val_meanq_all.png", bbox_inches="tight", dpi=150)
+print("Saved val_meanq_all.pdf")
+""")
+
+md(r"""
+**Key observations.**
+
+* **Model B₂** (jockeying $1\to2$, no abandonment): the total mean $\mathbb{E}[N]=\mathbb{E}[N_1]+\mathbb{E}[N_2]=\rho^2/(1-\rho)$ is conserved for all $\gamma_1$.  Class-1 benefits (shorter queue/wait) while class-2 is penalised — jockeying acts as a load-transfer mechanism.
+
+* **Model C₂** (class-1 abandonment, no jockeying): abandonment reduces the effective load, so *both* mean queue lengths fall below the Model~A baseline as $\theta_1$ increases. Class-2 benefits indirectly because class-1 customers leave the system, freeing the server sooner.
+
+* **Little's Law**: the relationship $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ uses the *arrival* rate $\lambda_i$ in all three models.  For Model C₂ the throughput $\mu(1-\pi_0)<\lambda_1+\lambda_2$; using it would give a larger $\mathbb{E}[W_i]$, which would represent only the waiting time of customers who actually complete service — a different quantity.
+""")
+
+
+# ===========================================================================
 # Finalize
 # ===========================================================================
 nb["cells"] = cells
@@ -1378,4 +1559,4 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 with open("nb_validation.ipynb", "w") as f:
     nbf.write(nb, f)
-print(f"Wrote nb_validation.ipynb  ({len(cells)} cells, 9 sections).")
+print(f"Wrote nb_validation.ipynb  ({len(cells)} cells, 10 sections).")

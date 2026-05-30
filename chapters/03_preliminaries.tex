@@ -16,26 +16,25 @@ from the balance equations of the two-class system.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
-% [Expand: one short paragraph on model definition and stability.]
-% Content: Poisson arrivals rate λ, exponential service rate μ, single server.
-% Stable iff ρ = λ/μ < 1.
-
-Steady-state queue-length probabilities (geometric distribution):
+The $M/M/1$ queue has Poisson arrivals at rate $\lambda$, exponential service
+at rate $\mu$, and a single server.  It is stable if and only if $\rho=\lambda/\mu<1$.
+Its steady-state queue-length distribution is geometric:
 \begin{equation}
     \pi_n = (1-\rho)\,\rho^n, \quad n \ge 0. \label{eq:mm1:steadystate}
 \end{equation}
+% [Expand: brief derivation via balance equations, or cite adan2002queueing.
+%  State mean queue length E[L] = ρ/(1−ρ) (useful for Little's Law applications).]
 
-The \emph{busy period} $B$ starts when a customer arrives to an idle server
-and ends when the server next becomes idle.
+The \emph{busy period} $B$ begins when a customer arrives to an idle server
+and ends when the server next returns to idle.  Its LST and mean are
 \begin{align}
     \widetilde{B}(s) &= \frac{(\mu+\lambda+s) - \sqrt{(\mu+\lambda+s)^2 - 4\mu\lambda}}
                               {2\lambda},
     \label{eq:mm1:bp_lst} \\
     \mathbb{E}[B]    &= \frac{1}{\mu(1-\rho)}. \label{eq:mm1:bp_mean}
 \end{align}
-
-% [Note for later: B̃(λ₂(1-y)) = x*(y), the characteristic root of the two-class
-%  PGF equation — this link is made explicit in §5 (Model A).]
+% [Note: evaluating $\widetilde{B}$ at $s=\lambda_2(1-y)$ recovers $x^*(y)$,
+%  the characteristic root of the two-class PGF equation — see §5 (Model A).]
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}

@@ -184,7 +184,9 @@ Persisting on this task of grouping known and unknown terms, we define $\mathcal
 \begin{equation}
     \mathcal{F}(z) = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt.
 \end{equation}
-This is an almost standard form of a type of equations called \textit{Volterra equation of the first kind} for the $y$-boundary function $P_y$. By carrying out a change of variables $s=y(t;z)$ and the subsequent steps would leave the equation in the standard form for equations of this kind. However, these steps are sufficient for us to determine that, if the derivation that brought us to this point was already quite demanding, solving such an equation is far beyond the scope of this thesis, as very advanced mathematical methods are needed here.
+This is a \textit{Volterra integral equation of the first kind} for the unknown boundary function $P_y$: after the change of variables $s = y(t\,;\,z)$, the equation takes the standard convolution form, but its kernel does not simplify to a closed form for general $(\gamma_1,\gamma_2)$.  Resolving it would require methods well beyond the scope of this thesis.
+
+Model~B is therefore left open at this point.  Its role in the hierarchy is structural: it identifies the precise obstruction (the Volterra equation for $P_y$) that the tractable special cases B$_2$ and C$_2$ circumvent, each by a different mechanism.  Model~B$_2$ removes $\gamma_2$, collapsing the PDE to an ODE whose boundary condition is pinned by an analyticity argument; Model~C$_2$ removes jockeying entirely and pins $P_y$ by a boundedness argument.  Both are analysed in the following sections.
 
 
 
