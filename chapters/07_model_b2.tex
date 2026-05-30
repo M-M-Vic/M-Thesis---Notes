@@ -6,13 +6,13 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.65\textwidth}{!}{%
-        \input{figures/model-b2-diagram.tikz}%
+    \resizebox{0.62\textwidth}{!}{%
+        \input{figures/model-b2-queue.tikz}%
     }
-    \caption{State-transition diagram for Model~$B_2$ on state space $S$.
-    Only the $1\to2$ jockeying direction is present (dashed, rate $\gamma_1 n_1$);
-    the return direction $\gamma_2=0$ is absent.}
-    \label{fig:model-b2-diagram}
+    \caption{Queue layout for Model~$B_2$. Only the $1\to2$ jockeying direction
+    is active (dashed, downward): Class-1 customers may defect to Queue~2,
+    but no customer can move in the reverse direction ($\gamma_2=0$).}
+    \label{fig:model-b2-queue}
 \end{figure}
 
 \begin{theorem}

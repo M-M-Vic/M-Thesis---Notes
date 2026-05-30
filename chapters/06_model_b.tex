@@ -6,13 +6,13 @@ Model~B introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaini
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.65\textwidth}{!}{%
-        \input{figures/model-b-diagram.tikz}%
+    \resizebox{0.62\textwidth}{!}{%
+        \input{figures/model-b-queue.tikz}%
     }
-    \caption{State-transition diagram for Model~B on state space $S$.
-    Dashed arrows indicate bidirectional jockeying ($\gamma_1 n_1$ and $\gamma_2 n_2$),
-    which transfer a waiting customer between queues without changing the total~$n$.}
-    \label{fig:model-b-diagram}
+    \caption{Queue layout for Model~B. Dashed arrows indicate bidirectional
+    jockeying: $\gamma_1$ moves a Class-1 customer down to Queue~2 and $\gamma_2$
+    moves a Class-2 customer up to Queue~1. Both transfers conserve the total~$n$.}
+    \label{fig:model-b-queue}
 \end{figure}
 
 \subsection{Analysis model B by the Method of Characteristics and the Method of Variation of Parameters}

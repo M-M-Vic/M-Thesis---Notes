@@ -1,0 +1,122 @@
+% Combined queue-layout overview of all five models.
+%
+% Layout:
+%   Row 1 (top):    Model X  — scale 0.52, centred over row 2
+%   Row 2 (bottom): A | B | B₂ | C₂  — scale 0.38, evenly spaced
+%
+% The local coordinate system of each sub-diagram (inherited from queue_diagram style):
+%   x : −1.5 (arrivals) … 7 (departure)   total span ≈ 8.5
+%   y : −3   (θ₂ tip)   … 3 (θ₁ tip)     total span = 6
+%   Server at (5, 0), queues at x∈[0,2], y centres ±1.5.
+%
+% Arrow conventions (same as individual diagrams):
+%   solid  → arrivals (λ_i) and service (μ)
+%   dashed → jockeying (γ_i)   conserves n
+%   dotted → abandonment (θ_i) reduces n
+%
+% "line width=0.55pt" inside each scope keeps strokes proportional at small scale.
+%
+\begin{tikzpicture}[>=Latex]
+
+% ─────────────────────────────────────────────────────────────────────────────
+% ROW 2 (bottom): Models A, B, B₂, C₂  — scale 0.38, x-pitch = 3.9
+% ─────────────────────────────────────────────────────────────────────────────
+
+% ── Model A ──────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(0, 0)}, scale=0.38, line width=0.55pt]
+    \draw (0,1.9)--(2,1.9)--(2,1.1)--(0,1.1);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,1.8)--(\x,1.2);}
+    \draw[->](-1.5,1.5)--(-0.1,1.5) node[midway,above,font=\tiny]{$\lambda_1$};
+    \draw (0,-1.1)--(2,-1.1)--(2,-1.9)--(0,-1.9);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,-1.2)--(\x,-1.8);}
+    \draw[->](-1.5,-1.5)--(-0.1,-1.5) node[midway,above,font=\tiny]{$\lambda_2$};
+    \node[draw,circle,minimum size=0.85cm,font=\small](s1) at (5,0){$\mu$};
+    \draw[->](2.2,1.5)--(s1); \draw[->](2.2,-1.5)--(s1); \draw[->](s1)--(7,0);
+\end{scope}
+\node[font=\small\bfseries] at (0.78, -1.35) {Model~A};
+
+% ── Model B ──────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(3.9, 0)}, scale=0.38, line width=0.55pt]
+    \draw (0,1.9)--(2,1.9)--(2,1.1)--(0,1.1);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,1.8)--(\x,1.2);}
+    \draw[->](-1.5,1.5)--(-0.1,1.5) node[midway,above,font=\tiny]{$\lambda_1$};
+    \draw (0,-1.1)--(2,-1.1)--(2,-1.9)--(0,-1.9);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,-1.2)--(\x,-1.8);}
+    \draw[->](-1.5,-1.5)--(-0.1,-1.5) node[midway,above,font=\tiny]{$\lambda_2$};
+    \draw[->,dashed](0.6,1.0)--(0.6,-1.0) node[midway,left,font=\tiny]{$\gamma_1$};
+    \draw[->,dashed](1.4,-1.0)--(1.4,1.0) node[midway,right,font=\tiny]{$\gamma_2$};
+    \node[draw,circle,minimum size=0.85cm,font=\small](s2) at (5,0){$\mu$};
+    \draw[->](2.2,1.5)--(s2); \draw[->](2.2,-1.5)--(s2); \draw[->](s2)--(7,0);
+\end{scope}
+\node[font=\small\bfseries] at (4.68, -1.35) {Model~B};
+
+% ── Model B₂ ─────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(7.8, 0)}, scale=0.38, line width=0.55pt]
+    \draw (0,1.9)--(2,1.9)--(2,1.1)--(0,1.1);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,1.8)--(\x,1.2);}
+    \draw[->](-1.5,1.5)--(-0.1,1.5) node[midway,above,font=\tiny]{$\lambda_1$};
+    \draw (0,-1.1)--(2,-1.1)--(2,-1.9)--(0,-1.9);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,-1.2)--(\x,-1.8);}
+    \draw[->](-1.5,-1.5)--(-0.1,-1.5) node[midway,above,font=\tiny]{$\lambda_2$};
+    \draw[->,dashed](1.0,1.0)--(1.0,-1.0) node[midway,left,font=\tiny]{$\gamma_1$};
+    \node[draw,circle,minimum size=0.85cm,font=\small](s3) at (5,0){$\mu$};
+    \draw[->](2.2,1.5)--(s3); \draw[->](2.2,-1.5)--(s3); \draw[->](s3)--(7,0);
+\end{scope}
+\node[font=\small\bfseries] at (8.58, -1.35) {Model~$B_2$};
+
+% ── Model C₂ ─────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(11.7, 0)}, scale=0.38, line width=0.55pt]
+    \draw (0,1.9)--(2,1.9)--(2,1.1)--(0,1.1);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,1.8)--(\x,1.2);}
+    \draw[->](-1.5,1.5)--(-0.1,1.5) node[midway,above,font=\tiny]{$\lambda_1$};
+    \draw[->,dotted](1,2.0)--(1,3.0) node[above,font=\tiny]{$\theta_1$};
+    \draw (0,-1.1)--(2,-1.1)--(2,-1.9)--(0,-1.9);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.3pt](\x,-1.2)--(\x,-1.8);}
+    \draw[->](-1.5,-1.5)--(-0.1,-1.5) node[midway,above,font=\tiny]{$\lambda_2$};
+    \node[draw,circle,minimum size=0.85cm,font=\small](s4) at (5,0){$\mu$};
+    \draw[->](2.2,1.5)--(s4); \draw[->](2.2,-1.5)--(s4); \draw[->](s4)--(7,0);
+\end{scope}
+\node[font=\small\bfseries] at (12.48, -1.35) {Model~C$_2$};
+
+% ─────────────────────────────────────────────────────────────────────────────
+% ROW 1 (top): Model X — scale 0.52, centred over row 2
+%
+% Row 2 visual centre (x): row spans from −1.5×0.38=−0.57 at left edge of A
+%   to 11.7+7×0.38=14.36 at right edge of C₂ → centre ≈ (−0.57+14.36)/2 = 6.90
+% Model X at scale 0.52: diagram centre in local coords = (−1.5+7)/2 = 2.75
+%   → shift_x = 6.90 − 2.75×0.52 = 6.90 − 1.43 = 5.47
+% Row 2 top: 1.9×0.38 = 0.72 (queue tops) + θ label offset for C₂ ≈ 1.14
+% Gap: 0.9 → Model X bottom = 1.14+0.9 = 2.04
+% Model X bottom in local coords: −1.5 (arrival y offset actually minimum is −1.9)
+%   → −1.9×0.52 = −0.99 below its shift_y → shift_y = 2.04+0.99 = 3.03 ≈ 3.1
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(5.47, 3.1)}, scale=0.52, line width=0.7pt]
+    \draw (0,1.9)--(2,1.9)--(2,1.1)--(0,1.1);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.35pt](\x,1.8)--(\x,1.2);}
+    \draw[->](-1.5,1.5)--(-0.1,1.5) node[midway,above,font=\small]{$\lambda_1$};
+    \draw[->,dotted](1,2.0)--(1,3.0) node[above,font=\small]{$\theta_1$};
+    \draw (0,-1.1)--(2,-1.1)--(2,-1.9)--(0,-1.9);
+    \foreach \x in {0.2,0.4,...,1.8}{\draw[line width=0.35pt](\x,-1.2)--(\x,-1.8);}
+    \draw[->](-1.5,-1.5)--(-0.1,-1.5) node[midway,above,font=\small]{$\lambda_2$};
+    \draw[->,dotted](1,-2.0)--(1,-3.0) node[below,font=\small]{$\theta_2$};
+    \draw[->,dashed](0.6,1.0)--(0.6,-1.0) node[midway,left,font=\small]{$\gamma_1$};
+    \draw[->,dashed](1.4,-1.0)--(1.4,1.0) node[midway,right,font=\small]{$\gamma_2$};
+    \node[draw,circle,minimum size=1.1cm,font=\normalsize](sX) at (5,0){$\mu$};
+    \draw[->](2.2,1.5)--(sX); \draw[->](2.2,-1.5)--(sX); \draw[->](sX)--(7,0);
+\end{scope}
+\node[font=\normalsize\bfseries] at (6.90, 5.85) {Model~X (parent)};
+
+% ─────────────────────────────────────────────────────────────────────────────
+% Legend (bottom right)
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{scope}[shift={(11.2, -2.2)}, line width=0.55pt]
+    \draw[->]         (0, 0.9) -- (0.8, 0.9)
+        node[right, font=\footnotesize] {arrivals / service};
+    \draw[->, dashed]  (0, 0.45) -- (0.8, 0.45)
+        node[right, font=\footnotesize] {jockeying ($\gamma_i$)};
+    \draw[->, dotted]  (0, 0.0) -- (0.8, 0.0)
+        node[right, font=\footnotesize] {abandonment ($\theta_i$)};
+    \draw[rounded corners=2pt] (-0.15, -0.25) rectangle (3.75, 1.15);
+\end{scope}
+
+\end{tikzpicture}

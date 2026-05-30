@@ -1,0 +1,26 @@
+% Model B₂: γ₂=0, θ₁=θ₂=0, γ₁>0
+% One-way jockeying: Class-1 can jockey into Class-2 queue only (dashed, downward).
+% Class-2 customers cannot jockey back.
+\begin{tikzpicture}[>=Latex, thick]
+
+    % ── Queue 1 (top, Class-1, priority) ──────────────────────────────────────
+    \draw (0, 1.9) -- (2, 1.9) -- (2, 1.1) -- (0, 1.1);
+    \foreach \x in {0.2, 0.4, ..., 1.8} { \draw[thin] (\x, 1.8) -- (\x, 1.2); }
+    \draw[->] (-1.5, 1.5) -- (-0.1, 1.5) node[midway, above] {$\lambda_1$};
+
+    % ── Queue 2 (bottom, Class-2) ──────────────────────────────────────────────
+    \draw (0, -1.1) -- (2, -1.1) -- (2, -1.9) -- (0, -1.9);
+    \foreach \x in {0.2, 0.4, ..., 1.8} { \draw[thin] (\x, -1.2) -- (\x, -1.8); }
+    \draw[->] (-1.5, -1.5) -- (-0.1, -1.5) node[midway, above] {$\lambda_2$};
+
+    % ── One-way jockeying (1→2 only) ─────────────────────────────────────────
+    \draw[->, dashed] (1.0, 1.0) -- (1.0, -1.0) node[midway, left] {$\gamma_1$};
+    % No upward γ₂ arrow
+
+    % ── Server ────────────────────────────────────────────────────────────────
+    \node[draw, circle, minimum size=1.2cm] (server) at (5, 0) {$\mu$};
+    \draw[->] (2.2,  1.5) -- (server);
+    \draw[->] (2.2, -1.5) -- (server);
+    \draw[->] (server) -- (7, 0);
+
+\end{tikzpicture}

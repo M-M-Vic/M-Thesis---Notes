@@ -27,18 +27,15 @@ summarised below.}
 \begin{figure}[H]
     \centering
     \resizebox{\textwidth}{!}{%
-        \input{figures/models-overview.tikz}%
+        \input{figures/models-queue-overview.tikz}%
     }
-    \caption{State-transition diagrams on state space $S$ for Model~X (parent, top)
-    and its four specializations (bottom row), showing representative states
-    $(0,0)$, $(n_1,0)$, $(n_1,n_2)$, and $(0,n_2)$.
-    \textbf{Solid} arrows: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$),
-    present in every model.
-    \textbf{Dashed} arrows: jockeying ($\gamma_i n_i$), which transfers a waiting
-    customer between queues and conserves the total~$n$.
-    \textbf{Dotted} arrows: abandonment ($\theta_i n_i$), which removes a waiting
-    customer from the system and reduces~$n$ by one.}
-    \label{fig:models-overview}
+    \caption{Physical queue layout for Model~X (top) and its four specializations
+    (bottom row). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
+    \textbf{Solid}: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
+    \textbf{Dashed}: jockeying ($\gamma_i$), a transfer between queues that conserves
+    the total number of customers.
+    \textbf{Dotted}: abandonment ($\theta_i$), a true departure that reduces the total.}
+    \label{fig:models-queue-overview}
 \end{figure}
 
 The model discussed in this section is an $M/M/1$ queueing system with $2$ priority
@@ -62,7 +59,7 @@ linear-reneging mechanism of the $M/M/1+M$ queue introduced in the Preliminaries
 
 \begin{figure}[htbp]
     \centering
-    \input{figures/queue_diagram.tikz}
+    \input{figures/model-x-queue.tikz}
     \caption{Queueing system with two parallel queues.}
     \label{fig:queue_model}
 \end{figure}
