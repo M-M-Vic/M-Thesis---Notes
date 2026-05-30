@@ -1,6 +1,6 @@
 \section{Analysis of Model~C$_2$ ($\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$)}
 
-In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account. The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model A will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:modelC2_fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
+In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account. The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model A will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
 
 \begin{theorem}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
@@ -21,41 +21,41 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
         \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}(1-t)^{\,\lambda_2(1-y)/\theta_1}\,dt, \\
         \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1}(1-t)^{\,\lambda_2(1-y)/\theta_1-1}\,dt,
     \end{align*}
-    $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:Bc_LST_C2}, and $\pi(0,0)$ is given by Corollary~\ref{cor:modelC2_pi00} below.
+    $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:C2:Bc_LST}, and $\pi(0,0)$ is given by Corollary~\ref{cor:C2:pi00} below.
 \end{theorem}
 
-\begin{corollary}\label{cor:modelC2_pi00}
+\begin{corollary}\label{cor:C2:pi00}
     The limiting probability $\pi(0,0)$ of the joint state $(N_1,N_2)=(0,0)$ with the server busy, and the empty-system probability $\pi_0$, are given by
     \begin{align}
-        \pi(0,0) \;&=\; \frac{(\lambda_1+\lambda_2)\bigl(1 - \lambda_2\,\mathbb{E}[B_C]\bigr)}{\mu\,\bigl(1 + \lambda_1\,\mathbb{E}[B_C]\bigr)} \;=\; (\rho_1+\rho_2)\,\frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:modelC2_pi00}\\[4pt]
-        \pi_0 \;&=\; \frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:modelC2_pi0}
+        \pi(0,0) \;&=\; \frac{(\lambda_1+\lambda_2)\bigl(1 - \lambda_2\,\mathbb{E}[B_C]\bigr)}{\mu\,\bigl(1 + \lambda_1\,\mathbb{E}[B_C]\bigr)} \;=\; (\rho_1+\rho_2)\,\frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi00}\\[4pt]
+        \pi_0 \;&=\; \frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi0}
     \end{align}
-    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:Bc_expectation_C2}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~A results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
+    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:C2:Bc_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~A results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
 \end{corollary}
 
 \subsection{Setup: reduction to a first-order linear ODE in $x$}
 
-Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the fundamental equation~\eqref{eq:gen_fundamental_equation} (both partial-derivative terms collapse onto the $\theta_1$ contribution) leaves
+Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the fundamental equation~\eqref{eq:gen:fundamental_equation} (both partial-derivative terms collapse onto the $\theta_1$ contribution) leaves
 \begin{equation}
     \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
     + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y)
     \;=\; \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
-    \label{eq:modelC2_fundamental}
+    \label{eq:C2:fundamental}
 \end{equation}
 where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{n_2}$ is, as in Model A, the partial PGF restricted to states where the server is busy and the priority queue is empty ($N_1=0$).
 
-For any fixed $y$, Equation~\eqref{eq:modelC2_fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
+For any fixed $y$, Equation~\eqref{eq:C2:fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
 \begin{enumerate}
-    \item Identify $P_y(y)$ — first by a probabilistic argument exploiting the $M/G/1$ structure seen by Class-$2$ (\S\ref{ssec:modelC2_prob}), then re-derived analytically from boundedness of $P(x,y)$ at $x=1$ (\S\ref{ssec:modelC2_anal}).
-    \item Recover $P(x,y)$ by solving the ODE with $P_y(y)$ now known (\S\ref{ssec:modelC2_recovery}).
+    \item Identify $P_y(y)$ — first by a probabilistic argument exploiting the $M/G/1$ structure seen by Class-$2$ (\S\ref{ssec:C2:prob}), then re-derived analytically from boundedness of $P(x,y)$ at $x=1$ (\S\ref{ssec:C2:anal}).
+    \item Recover $P(x,y)$ by solving the ODE with $P_y(y)$ now known (\S\ref{ssec:C2:recovery}).
 \end{enumerate}
 We close the setup with the conditional-expectation decomposition that will drive the probabilistic derivation:
 \begin{equation}
     P_y(y) \;=\; \mathbb{P}(\text{busy},\, N_1=0)\,\cdot\,\mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right].
-    \label{eq:modelC2_pyy_prob_def}
+    \label{eq:C2:Py_prob_decomp}
 \end{equation}
 
-\subsection{Probabilistic derivation of $P_y(y)$}\label{ssec:modelC2_prob}
+\subsection{Probabilistic derivation of $P_y(y)$}\label{ssec:C2:prob}
 
 The idea is, again, to adopt the perspective of a Class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from class-$1$ truly abandon the system, leaving the Poisson arrival process of Class-$2$ undisturbed. Therefore, customers in the non-priority class are driven by an $M/G/1$ process, with Poisson arrivals at rate $\lambda_2$ and general effective service times $B_C$ equivalent to the busy period of Class-$1$'s $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$.
 
@@ -63,12 +63,12 @@ The LST and expectation of such busy period $B_C$ are known results:
 \begin{align}
     \begin{split}
         \widetilde{B}_C(s) &= \cfrac{\mu}{\lambda_1+\mu+s-\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s-\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
-    \label{eq:Bc_LST_C2}
+    \label{eq:C2:Bc_LST}
     \end{split} \\
     \begin{split}
          \mathbb{E}[B_C] &= \sum_{k=1}^{\infty} \frac{\lambda_1^{\,k-1}}{\displaystyle\prod_{i=1}^{k}\bigl(\mu+(i-1)\theta_1\bigr)}
     \;=\;\frac{{}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)}{\mu}.
-    \label{eq:Bc_expectation_C2}
+    \label{eq:C2:Bc_mean}
     \end{split}
 \end{align}
 The second equality follows from expressing the product in terms of \textit{Kummer's confluent hypergeometric function of the first kind} ${}_1F_1$,
@@ -80,43 +80,43 @@ which provides a closed form for $\mathbb{E}[B_C]$.
 The stability condition required for the Class-$2$ subsystem is that of the $M/G/1$ defined above, i.e.\ $\lambda_2\,\mathbb{E}[B_C]<1$:
 \begin{equation}
     \rho_2 \cdot {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right) \;<\; 1.
-    \label{eq:modelC2_stability}
+    \label{eq:C2:stability}
 \end{equation}
 Compared to Model A, this stability condition is strictly weaker than the classical $\rho_1+\rho_2<1$, which aligns with the fact that abandonments lower the load of the system: for all $\theta_1>0$, the series defining ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)$ is termwise dominated by the geometric series for $1/(1-\rho_1)$, so ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1) < 1/(1-\rho_1)$. Abandonments in the priority queue therefore stabilise the non-priority queue.
 
 With the LST and expectation of the effective service time seen by Class-$2$ customers, and thanks to the constant arrival rate $\lambda_2$ from the Poisson arrival process, we apply the Pollaczek--Khinchine formula:
 \begin{equation}
     L_2(y) \;\equiv\; \mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right] \;=\; \frac{(1 - \lambda_2 \mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
-    \label{eq:modelC2_pk_formula}
+    \label{eq:C2:pk_formula}
 \end{equation}
-Substituting~\eqref{eq:modelC2_pk_formula} into~\eqref{eq:modelC2_pyy_prob_def} yields
+Substituting~\eqref{eq:C2:pk_formula} into~\eqref{eq:C2:Py_prob_decomp} yields
 \begin{equation}
     P_y(y) \;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\left[\frac{(1-\lambda_2\mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}\right].
-    \label{eq:modelC2_pyy_unsimplified}
+    \label{eq:C2:Py_unsimplified}
 \end{equation}
-By the definition of $P_y$, $P_y(0)=\pi(0,0)$. Evaluating~\eqref{eq:modelC2_pyy_unsimplified} at $y=0$,
+By the definition of $P_y$, $P_y(0)=\pi(0,0)$. Evaluating~\eqref{eq:C2:Py_unsimplified} at $y=0$,
 \begin{align}
     P_y(0) \;=\; \pi(0,0)
     &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\left[\frac{(1-\lambda_2\mathbb{E}[B_C])\cdot 1 \cdot \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)}\right] \nonumber \\
     &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,(1-\lambda_2\mathbb{E}[B_C]),
-    \label{eq:modelC2_py0_mapping}
+    \label{eq:C2:Py_at_zero}
 \end{align}
-so that $\mathbb{P}(\text{busy},\,N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$. Substituting this back into~\eqref{eq:modelC2_pyy_unsimplified}, the $(1-\lambda_2\mathbb{E}[B_C])$ factor cancels and we are left with
+so that $\mathbb{P}(\text{busy},\,N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$. Substituting this back into~\eqref{eq:C2:Py_unsimplified}, the $(1-\lambda_2\mathbb{E}[B_C])$ factor cancels and we are left with
 \begin{equation}
     P_y(y) \;=\; \pi(0,0)\,\frac{(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
-    \label{eq:modelC2_pyy_final}
+    \label{eq:C2:Py}
 \end{equation}
-This is structurally the same expression as in the probabilistic argument for Model A (Equation~\eqref{eq:pyy_final_C}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
+This is structurally the same expression as in the probabilistic argument for Model~A (Equation~\eqref{eq:A:Py}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
 
-\subsection{Analytical re-derivation of $P_y(y)$ via boundedness at $x=1$}\label{ssec:modelC2_anal}
+\subsection{Analytical re-derivation of $P_y(y)$ via boundedness at $x=1$}\label{ssec:C2:anal}
 
-For an analytic counterpart of the previous derivation, we put~\eqref{eq:modelC2_fundamental} in standard form:
+For an analytic counterpart of the previous derivation, we put~\eqref{eq:C2:fundamental} in standard form:
 \begin{align}
     \frac{\partial P}{\partial x} \;+\; \underbrace{\frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}{\theta_1\,x(x-1)}}_{p(x;\,y)}\,P
     \;=\; \underbrace{\frac{\mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0)}{\theta_1\,xy(x-1)}}_{q(x;\,y)}.
-    \label{eq:modelC2_ODE_standard}
+    \label{eq:C2:ODE_standard}
 \end{align}
-The numerator of $p(x;y)$ is the same polynomial we have seen in every model so far. With $x^*(y)$ and $x^+(y)$ as its roots (Equation~\eqref{eq:xstar}), we can write
+The numerator of $p(x;y)$ is the same polynomial we have seen in every model so far. With $x^*(y)$ and $x^+(y)$ as its roots (Equation~\eqref{eq:A:xstar}), we can write
 \begin{equation}
     (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy \;=\; -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
 \end{equation}
@@ -127,7 +127,7 @@ with $x^*(y)\,x^+(y) = \mu/\lambda_1$. Partial fraction decomposition gives
 where $A=-\lambda_1$ is read off from the ratio of leading coefficients of the quadratic terms in numerator and denominator, $B=\mu$ from setting $x=0$ and using $\lambda_1\,x^*x^+=\mu$, and $C=\lambda_2(1-y)$ from setting $x=1$ and using $(1-x^*)(1-x^+) = -\lambda_2(1-y)/\lambda_1$. Thus
 \begin{equation}
     p(x;y) \;=\; \frac{1}{\theta_1}\!\left[-\lambda_1 + \frac{\mu}{x} + \frac{\lambda_2(1-y)}{x-1}\right].
-    \label{eq:modelC2_pfd}
+    \label{eq:C2:pfd}
 \end{equation}
 Integrating term by term,
 \begin{equation}
@@ -136,7 +136,7 @@ Integrating term by term,
 which yields the integrating factor
 \begin{equation}
     \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\cdot x^{\mu/\theta_1}\cdot (1-x)^{\lambda_2(1-y)/\theta_1}.
-    \label{eq:modelC2_integrating_factor}
+    \label{eq:C2:integrating_factor}
 \end{equation}
 Both exponents are positive under our stability assumptions, so $\mu_I$ vanishes at both $x=0$ and $x=1$. From $\tfrac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$, integration over $(0,x]$ reads
 \begin{equation}
@@ -145,15 +145,15 @@ Both exponents are positive under our stability assumptions, so $\mu_I$ vanishes
 and the boundary term vanishes, yielding
 \begin{equation}
     P(x,y) \;=\; \frac{1}{\mu_I(x;y)} \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
-    \label{eq:modelC2_Pxy_implicit}
+    \label{eq:C2:Pxy_implicit}
 \end{equation}
 
-Now, in the same fashion as the root-cancellation argument used for Model A, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$. Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:modelC2_Pxy_implicit} bounded is
+Now, in the same fashion as the root-cancellation argument used for Model A, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$. Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:C2:Pxy_implicit} bounded is
 \begin{equation}
     \int_0^1 q(t;y)\,\mu_I(t;y)\,dt \;=\; 0.
-    \label{eq:modelC2_anal_boundedness}
+    \label{eq:C2:boundedness}
 \end{equation}
-Substituting the explicit forms of $q$ and $\mu_I$ into~\eqref{eq:modelC2_anal_boundedness} and using $(1-t)^{b}/(t-1) = -(1-t)^{b-1}$ to simplify,
+Substituting the explicit forms of $q$ and $\mu_I$ into~\eqref{eq:C2:boundedness} and using $(1-t)^{b}/(t-1) = -(1-t)^{b-1}$ to simplify,
 \begin{equation}
     \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b-1}\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]\,dt \;=\; 0,
 \end{equation}
@@ -162,31 +162,31 @@ where $a=\mu/\theta_1$ and $b=\lambda_2(1-y)/\theta_1$. Introducing the auxiliar
     \mathcal{J}_0(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b-1}\,dt, \\
     \mathcal{J}_1(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt,
 \end{align}
-and splitting the integrand, the boundedness condition~\eqref{eq:modelC2_anal_boundedness} becomes
+and splitting the integrand, the boundedness condition~\eqref{eq:C2:boundedness} becomes
 \begin{equation}
     P_y(y)\bigl[\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)\bigr] \;=\; (1-y)\,\pi(0,0)\,\mathcal{J}_1(y),
 \end{equation}
 which gives
 \begin{equation}
     P_y(y) \;=\; \pi(0,0)\,(1-y)\,\frac{\mathcal{J}_1(y)}{\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)}.
-    \label{eq:modelC2_anal_Py_raw}
+    \label{eq:C2:Py_anal_raw}
 \end{equation}
 
-The continued-fraction representation of the busy period of an $M/M/1+M$ queue~\eqref{eq:Bc_LST_C2} admits the integral form
+The continued-fraction representation of the busy period of an $M/M/1+M$ queue~\eqref{eq:C2:Bc_LST} admits the integral form
 \begin{equation}
     \widetilde{B}_C(s) \;=\; \frac{\displaystyle\int_{0}^{1} t^{a}(1-t)^{b-1}e^{-ct}\,dt}{\displaystyle\int_{0}^{1} t^{a-1}(1-t)^{b-1}e^{-ct}\,dt}
     \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)},
-    \label{eq:Bc_Kummer_identity}
+    \label{eq:C2:Bc_Kummer}
 \end{equation}
 with $a=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$. Setting $s=\lambda_2(1-y)$ — so that $b=\lambda_2(1-y)/\theta_1$ matches the exponent in $\mu_I$ — yields exactly the ratio of our $\mathcal{J}_i$:
 \begin{equation}
     \widetilde{B}_C\bigl(\lambda_2(1-y)\bigr) \;=\; \frac{\mathcal{J}_1(y)}{\mathcal{J}_0(y)}.
 \end{equation}
-Dividing numerator and denominator of~\eqref{eq:modelC2_anal_Py_raw} by $\mathcal{J}_0(y)$ then recovers exactly Equation~\eqref{eq:modelC2_pyy_final}. The boundedness route, which uses no probabilistic structure, reaches the same Pollaczek--Khinchine form only through the Beta-integral identity~\eqref{eq:Bc_Kummer_identity}, which is the analytic shadow of the $M/G/1$/busy-period decomposition used in \S\ref{ssec:modelC2_prob}.
+Dividing numerator and denominator of~\eqref{eq:C2:Py_anal_raw} by $\mathcal{J}_0(y)$ then recovers exactly Equation~\eqref{eq:C2:Py}. The boundedness route, which uses no probabilistic structure, reaches the same Pollaczek--Khinchine form only through the Beta-integral identity~\eqref{eq:C2:Bc_Kummer}, which is the analytic shadow of the $M/G/1$/busy-period decomposition used in \S\ref{ssec:C2:prob}.
 
-\subsection{Recovery of $P(x,y)$ from $P_y(y)$}\label{ssec:modelC2_recovery}
+\subsection{Recovery of $P(x,y)$ from $P_y(y)$}\label{ssec:C2:recovery}
 
-With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:modelC2_fundamental} and substitute~\eqref{eq:modelC2_pyy_final} into its right-hand side. Writing $\zeta(y) \equiv \widetilde{B}_C(\lambda_2(1-y))$ for brevity,
+With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:C2:fundamental} and substitute~\eqref{eq:C2:Py} into its right-hand side. Writing $\zeta(y) \equiv \widetilde{B}_C(\lambda_2(1-y))$ for brevity,
 \begin{align*}
     \text{RHS}
     &\;=\; \mu(x-y)\,\pi(0,0)\,\frac{(1-y)\,\zeta(y)}{\zeta(y) - y} \;-\; \mu x(1-y)\,\pi(0,0) \\
@@ -194,11 +194,11 @@ With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:modelC2_fundamental} a
     &\;=\; \mu\,\pi(0,0)\,(1-y)\,\frac{(x-y)\,\zeta(y) - x\bigl[\zeta(y) - y\bigr]}{\zeta(y) - y} \\
     &\;=\; \mu\,\pi(0,0)\,y(1-y)\,\frac{x - \zeta(y)}{\zeta(y) - y},
 \end{align*}
-which is structurally identical to the RHS found for Model A, though now with the more involved effective service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:modelC2_pfd} and~\eqref{eq:modelC2_integrating_factor}, the source $q(x;y)$ of the standard-form ODE now reads
+which is structurally identical to the RHS found for Model A, though now with the more involved effective service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:C2:pfd} and~\eqref{eq:C2:integrating_factor}, the source $q(x;y)$ of the standard-form ODE now reads
 \begin{equation}
     q(x;y) \;=\; \frac{\mu\,\pi(0,0)\,(1-y)\,\bigl[x-\zeta(y)\bigr]}{\theta_1\,x(x-1)\,\bigl[\zeta(y)-y\bigr]},
 \end{equation}
-and the implicit solution~\eqref{eq:modelC2_Pxy_implicit} becomes
+and the implicit solution~\eqref{eq:C2:Pxy_implicit} becomes
 \begin{equation}
     P(x,y) \;=\; \frac{1}{\mu_I(x;y)} \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
 \end{equation}
@@ -211,8 +211,8 @@ To evaluate the integral, we use the partial-fraction identity
 \end{align*}
 and define the auxiliary integrals
 \begin{align}
-    \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b}\,dt, \label{eq:modelC2_I1} \\
-    \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt, \label{eq:modelC2_I2}
+    \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b}\,dt, \label{eq:C2:I1} \\
+    \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt, \label{eq:C2:I2}
 \end{align}
 with $a=\mu/\theta_1$ and $b=\lambda_2(1-y)/\theta_1$. Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
 \begin{equation}
@@ -223,19 +223,19 @@ Dividing by $\mu_I(x;y)$ and restoring $\zeta(y)=\widetilde{B}_C(\lambda_2(1-y))
     \begin{split}
         P(x,y) \;=\; \frac{e^{\lambda_1 x/\theta_1}\,\mu\,\pi(0,0)\,(1-y)}{\theta_1\, x^{\mu/\theta_1}(1-x)^{\lambda_2(1-y)/\theta_1}\bigl(\widetilde{B}_C(\lambda_2(1-y))-y\bigr)}\\[4pt]
         \times \Bigl[\widetilde{B}_C(\lambda_2(1-y))\,\mathcal{I}_1(x,y) - \bigl(1-\widetilde{B}_C(\lambda_2(1-y))\bigr)\,\mathcal{I}_2(x,y)\Bigr],
-    \end{split}\label{eq:modelC2_Pxy_final}
+    \end{split}\label{eq:C2:Pxy}
 \end{align}
-which is the statement of the theorem. This closed form is the product of a probabilistic derivation of $P_y(y)$ via Pollaczek--Khinchine, combined with an analytic integration of the ODE in $x$; the same result is reached from the purely analytic route of \S\ref{ssec:modelC2_anal}.
+which is the statement of the theorem. This closed form is the product of a probabilistic derivation of $P_y(y)$ via Pollaczek--Khinchine, combined with an analytic integration of the ODE in $x$; the same result is reached from the purely analytic route of \S\ref{ssec:C2:anal}.
 
-\begin{proof}[Proof of Corollary~\ref{cor:modelC2_pi00}]
+\begin{proof}[Proof of Corollary~\ref{cor:C2:pi00}]
     The boundary balance at the empty state $(N_1,N_2)=(0,0)$ with server idle, equating the rate-out (arrivals at total rate $\lambda_1+\lambda_2$) and the rate-in (service completion from $(0,0)$ with the server busy at rate $\mu$), reads
     \begin{equation}
         (\lambda_1+\lambda_2)\,\pi_0 \;=\; \mu\,\pi(0,0),
-        \label{eq:modelC2_balance_state0}
+        \label{eq:C2:balance_zero}
     \end{equation}
     so $\pi(0,0) = (\rho_1+\rho_2)\,\pi_0$.
 
-    To fix $\pi_0$, we exploit the $M/G/1$ structure used in \S\ref{ssec:modelC2_prob}. Class-$2$ customers form an $M/G/1$ with arrival rate $\lambda_2$ and service time $B_C$, whose utilisation is $\lambda_2\,\mathbb{E}[B_C]$. The event ``$M/G/1$ idle'' coincides with the absence of any Class-$2$ customer from the system, so
+    To fix $\pi_0$, we exploit the $M/G/1$ structure used in \S\ref{ssec:C2:prob}. Class-$2$ customers form an $M/G/1$ with arrival rate $\lambda_2$ and service time $B_C$, whose utilisation is $\lambda_2\,\mathbb{E}[B_C]$. The event ``$M/G/1$ idle'' coincides with the absence of any Class-$2$ customer from the system, so
     \begin{equation}
         \mathbb{P}(\text{no Class-$2$ present}) \;=\; 1 - \lambda_2\,\mathbb{E}[B_C].
     \end{equation}
@@ -247,9 +247,9 @@ which is the statement of the theorem. This closed form is the product of a prob
     \begin{equation}
         \pi_0 \;=\; \bigl(1-\lambda_2\,\mathbb{E}[B_C]\bigr)\cdot\frac{1}{1+\lambda_1\,\mathbb{E}[B_C]} \;=\; \frac{1-\lambda_2\,\mathbb{E}[B_C]}{1+\lambda_1\,\mathbb{E}[B_C]},
     \end{equation}
-    which is~\eqref{eq:modelC2_pi0}. Substituting into~\eqref{eq:modelC2_balance_state0} yields~\eqref{eq:modelC2_pi00}.
+    which is~\eqref{eq:C2:pi0}. Substituting into~\eqref{eq:C2:balance_zero} yields~\eqref{eq:C2:pi00}.
 
-    For the Model A limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, hence $\lambda_1\,\mathbb{E}[B_C]\to\rho_1/(1-\rho_1)$ and $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$; substituting into~\eqref{eq:modelC2_pi0} and~\eqref{eq:modelC2_pi00} recovers $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
+    For the Model A limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, hence $\lambda_1\,\mathbb{E}[B_C]\to\rho_1/(1-\rho_1)$ and $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$; substituting into~\eqref{eq:C2:pi0} and~\eqref{eq:C2:pi00} recovers $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
 \end{proof}
 
 

@@ -32,7 +32,7 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
         \beta(y)=\frac{(1-y)(\lambda y-\mu)}{\gamma_1 y},\qquad
         b^\star(y)=\alpha+\beta+1=\frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1},
     \end{equation}
-    and $\mathcal{I}_1,\mathcal{I}_2$ are the integrals defined in \eqref{eq:b2_I1}--\eqref{eq:b2_I2};
+    and $\mathcal{I}_1,\mathcal{I}_2$ are the integrals defined in \eqref{eq:B2:I1}--\eqref{eq:B2:I2};
     on $y<x\le1$ the same expression holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their
     finite-part continuations.
 \end{theorem}
@@ -54,7 +54,7 @@ Next, we leave the ODE in standard form by dividing both sides by $\gamma_1 x(x-
         \frac{dP}{dx} + p(x;y) P &= q(x;y)
     \end{split}
 \end{align}
-Here we can write the numerator of $p(x;y)$ as we already know its roots —we write $x^*(y)$ for the taking the negative sign (Equation \eqref{eq:xstar}) and $x_+(y)$ for the root with the positive sign. Hence, we write $(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy = -\lambda_1 (x-x^*(y))(x-x^+(y))$.
+Here we can write the numerator of $p(x;y)$ as we already know its roots —we write $x^*(y)$ for the taking the negative sign (Equation \eqref{eq:A:xstar}) and $x_+(y)$ for the root with the positive sign. Hence, we write $(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy = -\lambda_1 (x-x^*(y))(x-x^+(y))$.
 \begin{equation}
     \frac{dP}{dx} - \frac{\lambda_1 (x-x^*(y))(x-x^+(y))}{\gamma_1 x(x-y)}P = q(x;y).
 \end{equation}
@@ -90,7 +90,7 @@ Note $\mu_I(x;y) \to 0 \quad$ as $x\to0^+$, so the boundary term vanishes:
 = \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt.
 \end{equation}
 Now we substitute $q(t;y)=\frac{\mu\,P_y(y)}{\gamma_1 ty}
-  - \frac{\mu(1-y)\pi(0,0)}{\gamma_1 y(t-y)}$ and divide by $\mu_I(x;y)$. Note $P_y(y)$ acts as a constant inside our integral, since it only contains terms on $y$. The result involves $(t-y)^{\beta}$ with $\beta<0$, which introduces a branch on the integration path; the manifestly real form after resolving this branch is stated in~\eqref{eq:b2_Pxy_real} below. The intermediate expression is:
+  - \frac{\mu(1-y)\pi(0,0)}{\gamma_1 y(t-y)}$ and divide by $\mu_I(x;y)$. Note $P_y(y)$ acts as a constant inside our integral, since it only contains terms on $y$. The result involves $(t-y)^{\beta}$ with $\beta<0$, which introduces a branch on the integration path; the manifestly real form after resolving this branch is stated in~\eqref{eq:B2:Pxy_real} below. The intermediate expression is:
 \begin{equation}
     P(x,y) =
 \frac{e^{\lambda_1 x/\gamma_1}\,x^{-\alpha(y)}\,(x-y)^{-\beta(y)}}{\gamma_1 y}
@@ -115,7 +115,7 @@ total-customer generating function of an $M/M/1(\lambda,\mu)$ queue,
 Evaluating at $x=1$ and using $P(1,1)=1-\pi_0=\rho$ with $\pi_0=1-\rho$ yields
 \begin{equation}
     \pi(0,0)=\rho(1-\rho),\qquad \pi_0=1-\rho,
-    \label{eq:b2_pi00}
+    \label{eq:B2:pi00}
 \end{equation}
 which we shall substitute once $P_y(y)$ has been determined.
 
@@ -127,7 +127,7 @@ every $y\in[0,1]$, hence
 \begin{equation}
     \beta(y)=\frac{(1-y)(\lambda y-\mu)}{\gamma_1 y}<0
     \qquad (0<y<1).
-    \label{eq:b2_beta_negative}
+    \label{eq:B2:beta_negative}
 \end{equation}
 Consequently $\mu_I(x;y)^{-1}\propto (x-y)^{-\beta}=(x-y)^{|\beta|}\to0$ as $x\to y$: the
 singular homogeneous mode does not blow up, so a boundedness argument à la Model~C-$2$ yields no
@@ -143,13 +143,13 @@ sign above into a plus. The manifestly real solution on $0<x<y$ is therefore
 \begin{equation}
     P(x,y)=\frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
     \Bigl[\,P_y(y)\,\mathcal{I}_1(x,y)+(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\,\Bigr],
-    \label{eq:b2_Pxy_real}
+    \label{eq:B2:Pxy_real}
 \end{equation}
 \begin{align}
     \mathcal{I}_1(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha-1}(y-t)^{\beta}\,dt,
-    \label{eq:b2_I1}\\
+    \label{eq:B2:I1}\\
     \mathcal{I}_2(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha}(y-t)^{\beta-1}\,dt.
-    \label{eq:b2_I2}
+    \label{eq:B2:I2}
 \end{align}
 
 We now examine the local behaviour at the regular singular point $x=y$. There the
@@ -158,34 +158,34 @@ singular part of the source is governed by the second term of $q$, namely $q(x;y
 with $D=\mu(1-y)\pi(0,0)/(\gamma_1 y)$. The local model equation is thus
 \begin{equation}
     P'(x,y)+\frac{\beta}{x-y}\,P(x,y)=\frac{-D}{x-y}+(\text{analytic}).
-    \label{eq:b2_local_ode}
+    \label{eq:B2:local_ode}
 \end{equation}
 Trying a constant particular solution $P\equiv P_*$ forces $\beta P_*=-D$, i.e.
 \begin{equation}
     P(y,y)=P_*=-\frac{D}{\beta}
     =\frac{\mu\,\pi(0,0)}{\mu-\lambda y}
     =\frac{\rho(1-\rho)}{1-\rho y},
-    \label{eq:b2_regular_value}
+    \label{eq:B2:regular_value}
 \end{equation}
-where the last equality uses $\pi(0,0)=\rho(1-\rho)$ from \eqref{eq:b2_pi00}. The general local
+where the last equality uses $\pi(0,0)=\rho(1-\rho)$ from \eqref{eq:B2:pi00}. The general local
 solution is this regular value plus a multiple of the homogeneous mode
 $(x-y)^{-\beta}=(x-y)^{|\beta|}$. Because $|\beta|\notin\mathbb Z$ in general, that mode is a
 branch term: it is bounded (indeed it vanishes) but not analytic. Holomorphy of $P(\cdot,y)$ at
 the interior point $x=y$ therefore forces its coefficient to vanish.
 
-In \eqref{eq:b2_Pxy_real} the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ multiplies the finite
+In \eqref{eq:B2:Pxy_real} the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ multiplies the finite
 parts of $\mathcal{I}_1,\mathcal{I}_2$ at $x=y$ to produce exactly that branch term; eliminating it
 is the single linear condition
 \begin{equation}
     P_y(y)\,\mathrm{f.p.}\,\mathcal{I}_1(y,y)
     +(1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal{I}_2(y,y)=0,
-    \label{eq:b2_nobranch}
+    \label{eq:B2:nobranch}
 \end{equation}
 where $\mathrm{f.p.}$ denotes the Hadamard finite part, that is, the analytic continuation of the
 divergent integral in its exponent parameter.
 
 It remains to evaluate these finite parts. Substituting $t=ys$ in
-\eqref{eq:b2_I1}--\eqref{eq:b2_I2} and using the Euler representation
+\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and using the Euler representation
 $\int_0^1 s^{a-1}(1-s)^{b-1}e^{-w s}\,ds=B(a,b)\,{}_1F_1(a;a+b;-w)$, continued analytically in
 $b$ (which is precisely the finite part), gives, with $c=\lambda_1/\gamma_1$,
 \begin{align}
@@ -194,7 +194,7 @@ $b$ (which is precisely the finite part), gives, with $c=\lambda_1/\gamma_1$,
     \mathrm{f.p.}\,\mathcal{I}_2(y,y)&=B(\alpha+1,\beta)\,y^{\alpha+\beta}\,
         {}_1F_1\!\bigl(\alpha+1;\,\alpha+\beta+1;\,-cy\bigr).
 \end{align}
-The common $y^{\alpha+\beta}$ cancels in \eqref{eq:b2_nobranch}, and the Beta-ratio collapses to
+The common $y^{\alpha+\beta}$ cancels in \eqref{eq:B2:nobranch}, and the Beta-ratio collapses to
 $B(\alpha+1,\beta)/B(\alpha,\beta+1)=\alpha/\beta$. Solving for $P_y(y)$ and using
 $(1-y)\,(-\alpha/\beta)=\mu/(\mu-\lambda y)$ together with $\pi(0,0)=\rho(1-\rho)$, we arrive at
 the closed form
@@ -202,15 +202,15 @@ the closed form
     P_y(y)&=\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\cdot
     \frac{{}_1F_1\!\bigl(\alpha+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)}
          {{}_1F_1\!\bigl(\alpha;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)},
-    \label{eq:b2_Py_final}\\[2pt]
+    \label{eq:B2:Py}\\[2pt]
     \text{with}\quad \alpha(y)&=\frac{\mu}{\gamma_1 y},\qquad
     b^\star(y)=\alpha+\beta+1=\frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1}. \nonumber
 \end{empheq}
-The prefactor is the regular value $P(y,y)$ of \eqref{eq:b2_regular_value}, while the Kummer
+The prefactor is the regular value $P(y,y)$ of \eqref{eq:B2:regular_value}, while the Kummer
 ratio is the boundary correction. As $y\to0^+$ the ratio tends to $1$ and $P_y(0)=\pi(0,0)$,
 consistent with $P_y(0)=\sum_{n_2}\pi(0,n_2)0^{n_2}=\pi(0,0)$.
 
-Substituting \eqref{eq:b2_Py_final} into \eqref{eq:b2_Pxy_real} finally gives, for
+Substituting \eqref{eq:B2:Py} into \eqref{eq:B2:Pxy_real} finally gives, for
 $0\le x\le y$,
 \begin{empheq}[box=\fbox]{equation}
     P(x,y)=\frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
@@ -218,12 +218,12 @@ $0\le x\le y$,
     \frac{{}_1F_1(\alpha+1;b^\star;-\frac{\lambda_1 y}{\gamma_1})}
          {{}_1F_1(\alpha;b^\star;-\frac{\lambda_1 y}{\gamma_1})}\,
     \mathcal{I}_1(x,y)+(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\right].
-    \label{eq:b2_Pxy_final}
+    \label{eq:B2:Pxy}
 \end{empheq}
-The no-branch condition \eqref{eq:b2_nobranch} guarantees that this extends to a single analytic
+The no-branch condition \eqref{eq:B2:nobranch} guarantees that this extends to a single analytic
 function across $x=y$, with diagonal value $P(y,y)=\rho(1-\rho)/(1-\rho y)$; on $y<x\le1$ the same
 expression holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their finite-part
 (incomplete-${}_1F_1$) continuations. Since the constant is fixed in closed form by
-\eqref{eq:b2_pi00}, the solution \eqref{eq:b2_Pxy_final} is fully explicit.
+\eqref{eq:B2:pi00}, the solution \eqref{eq:B2:Pxy} is fully explicit.
 
 

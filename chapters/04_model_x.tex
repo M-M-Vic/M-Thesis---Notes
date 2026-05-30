@@ -85,11 +85,11 @@ Therefore, we define our state spaces as follows:
 \begin{align}
     \begin{split}
         &S := \{(0)\} \cup \{ (n_1,n_2) \mid n_1,n_2 \geq 0 \},
-        \label{eq:state_space_s}
+        \label{eq:gen:state_space_S}
     \end{split} \\
     \begin{split}
         &\widetilde{S} := \{(0)\} \cup \{ (n_2,n) \mid n \geq n_2 \geq 0 \}.
-        \label{eq:state_space_stilde}
+        \label{eq:gen:state_space_Stilde}
     \end{split}
 \end{align}
 
@@ -157,10 +157,10 @@ an arrival at rate $\lambda=\lambda_1+\lambda_2$; this is exactly the idle balan
 equation $\lambda\pi_0=\mu\,\pi(0,0)$. Consequently,
 \begin{equation}
     \pi(0,0) \;=\; \frac{\lambda}{\mu}\,\pi_0 \;=\; \rho\,\pi_0 .
-    \label{eq:pi00_general}
+    \label{eq:gen:pi00_general}
 \end{equation}
 Note that neither jockeying nor abandonment can occur from $(0,0)$ (there are no
-waiting customers), so~\eqref{eq:pi00_general} is unaffected by $\gamma_i$ and
+waiting customers), so~\eqref{eq:gen:pi00_general} is unaffected by $\gamma_i$ and
 $\theta_i$. What \emph{does} depend on the abandonment parameters is the value of
 $\pi_0$ itself, as we now discuss.
 
@@ -173,7 +173,7 @@ probability is the familiar
     \pi_0 = 1-\rho = 1-\frac{\lambda_1+\lambda_2}{\mu},
     \qquad
     \pi(0,0)=\rho\,\pi_0=(1-\rho)\rho .
-    \label{eq:pi0_noaband}
+    \label{eq:gen:pi0_noaband}
 \end{equation}
 
 \emph{Models with abandonment (X, C2).} As soon as a true abandonment is present, the
@@ -192,16 +192,16 @@ single-class-abandonment case $\theta_2=0$, in the dedicated analysis of Model C
 In all cases, the mass on the busy states is
 \begin{equation}
     \sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\pi(n_1,n_2) = 1-\pi_0,
-    \label{eq:busy_mass}
+    \label{eq:gen:busy_mass}
 \end{equation}
-which equals $\rho$ only in the no-abandonment case~\eqref{eq:pi0_noaband}; for
+which equals $\rho$ only in the no-abandonment case~\eqref{eq:gen:pi0_noaband}; for
 Models X and C2 one has $1-\pi_0\neq\rho$ in general. This conditioning on a busy
 server will be relevant in our derivations, as we will look at the queue length
 conditioned on the server being busy.
 
 \subsection{Balance equations}
 
-\subsubsection{Balance equations for state space $S$} \label{sec:n1n2_balance_equations}
+\subsubsection{Balance equations for state space $S$} \label{sec:gen:balance_equations}
 
 Diagram for the combined model. Dashed arrows correspond to jockeying and dotted arrows to abandonments; both belong only to the generalized model, while the solid arrows are common to all variants:
 \begin{figure}[H]
@@ -224,7 +224,7 @@ Diagram for the combined model. Dashed arrows correspond to jockeying and dotted
         & \quad \quad + \theta_1 (n_1+1) \pi(n_1+1,n_2) \\
         & \quad \quad + \theta_2 (n_2+1) \pi(n_1,n_2+1)
     \end{split}
-    && \text{for} \quad n_1 \geq 1, n_2 \geq 1 \label{eq:gen_balance_interior}\\
+    && \text{for} \quad n_1 \geq 1, n_2 \geq 1 \label{eq:gen:balance_interior}\\
     \begin{split}
         & \left[ \lambda_1 + \lambda_2 + \mu +  (\gamma_2 + \theta_2) n_2 \right] \pi(0,n_2) \\
         & \quad = \quad \lambda_2 \pi(0,n_2-1) \\
@@ -234,7 +234,7 @@ Diagram for the combined model. Dashed arrows correspond to jockeying and dotted
         & \quad \quad + \theta_1 \pi(1, n_2) \\
         & \quad \quad + \theta_2(n_2+1) \pi(0,n_2+1)
     \end{split}
-    && \text{for} \quad n_1=0, n_2 \geq 1 \label{eq:gen_balance_y-boundary}\\
+    && \text{for} \quad n_1=0, n_2 \geq 1 \label{eq:gen:balance_y_boundary}\\
     \begin{split}
         & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1,0) \\
         & \quad = \quad \lambda_1 \pi(n_1-1,0) \\
@@ -243,13 +243,13 @@ Diagram for the combined model. Dashed arrows correspond to jockeying and dotted
         & \quad \quad + \theta_1(n_1+1) \pi(n_1+1, 0) \\
         & \quad \quad + \theta_2 \pi(n_1,1)
     \end{split}
-    && \text{for} \quad n_1 \geq 1, n_2 = 0 \label{eq:gen_balance_x-boundary}\\
+    && \text{for} \quad n_1 \geq 1, n_2 = 0 \label{eq:gen:balance_x_boundary}\\
     \begin{split}
         \left[\lambda_1+\lambda_2\right]\pi(0,0) = (\mu+\theta_1)\pi(1,0) + (\mu+\theta_2)\pi(0,1)
-    \end{split} && \label{eq:gen_balance_zero}\\
+    \end{split} && \label{eq:gen:balance_zero}\\
     \begin{split}
         (\lambda_1+\lambda_2) \pi_0 = \mu \pi(0,0)
-    \end{split} && \label{eq:gen_balance_idle}
+    \end{split} && \label{eq:gen:balance_idle}
 \end{align}
 
 \subsubsection{Balance equations for state space $\widetilde{S}$}
@@ -281,7 +281,7 @@ The balance equations, after combining the equations where $\tpi_0$ shows up, ar
         & \quad \quad + \theta_1 (n+1-n_2) \tpi(n_2, n+1) \\
         & \quad \quad + \theta_2 (n_2+1) \tpi(n_2+1, n+1)
     \end{split}
-    && \text{for} \quad 1 \leq n_2 \leq n-1, \; n \geq 2 \label{eq:tilde_balance_interior} \\
+    && \text{for} \quad 1 \leq n_2 \leq n-1, \; n \geq 2 \label{eq:gen:tilde_balance_interior} \\
     \begin{split}
         & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_2+\theta_2) n \right] \tpi(n,n) \\
         & \quad = \quad \lambda_2 \tpi(n-1,n-1) \\
@@ -291,7 +291,7 @@ The balance equations, after combining the equations where $\tpi_0$ shows up, ar
         & \quad \quad + \theta_1 \tpi(n, n+1) \\
         & \quad \quad + \theta_2 (n+1) \tpi(n+1, n+1)
     \end{split}
-    && \text{for} \quad n_2=n, \; n \geq 1 \label{eq:tilde_balance_diagonal} \\
+    && \text{for} \quad n_2=n, \; n \geq 1 \label{eq:gen:tilde_balance_diagonal} \\
     \begin{split}
         & \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1+\theta_1) n \right] \tpi(0,n) \\
         & \quad = \quad \lambda_1 \tpi(0,n-1) \\
@@ -300,16 +300,16 @@ The balance equations, after combining the equations where $\tpi_0$ shows up, ar
         & \quad \quad + \theta_1 (n+1) \tpi(0, n+1) \\
         & \quad \quad + \theta_2 \tpi(1, n+1)
     \end{split}
-    && \text{for} \quad n_2=0, \; n \geq 1 \label{eq:tilde_balance_y-boundary} \\
+    && \text{for} \quad n_2=0, \; n \geq 1 \label{eq:gen:tilde_balance_y_boundary} \\
     \begin{split}
         & \left[ \lambda_1 + \lambda_2 \right] \tpi(0,0) \\
         & \quad = \quad (\mu + \theta_1) \tpi(0,1) + (\mu + \theta_2) \tpi(1,1)
     \end{split}
-    && \label{eq:tilde_balance_zero} \\
+    && \label{eq:gen:tilde_balance_zero} \\
     \begin{split}
         (\lambda_1+\lambda_2) \tpi_0 = \mu \tpi(0,0)
     \end{split}
-    && \label{eq:tilde_balance_idle}
+    && \label{eq:gen:tilde_balance_idle}
 \end{align}
 
 
@@ -357,7 +357,7 @@ These partial transforms are linked to the joint PGF by the following relations:
 
 \subsubsection{Equation for PGF in state space $S$}
 
-\begin{lemma}[Fundamental equation for the PGF on $S$]\label{lem:gen_fundamental_equation}
+\begin{lemma}[Fundamental equation for the PGF on $S$]\label{lem:gen:fundamental_equation}
 Consider the two-class non-preemptive priority queue on the state space
 $S=\{(n_1,n_2):n_1,n_2\ge 0\}$, with Poisson arrival rates $\lambda_1,\lambda_2$,
 exponential service rate $\mu$, jockeying rates $\gamma_1,\gamma_2$ and abandonment
@@ -378,15 +378,15 @@ satisfies the first-order linear partial differential equation
     & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
     & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y)\,\pi(0,0).
 \end{split}
-\label{eq:gen_fundamental_equation}
+\label{eq:gen:fundamental_equation}
 \end{equation}
 \end{lemma}
 
 \begin{proof}
 
-    The balance equations are as defined in Equations~\eqref{eq:gen_balance_interior}, \eqref{eq:gen_balance_y-boundary}, \eqref{eq:gen_balance_x-boundary}, \eqref{eq:gen_balance_zero} and \eqref{eq:gen_balance_idle}. We follow the standard procedure for finding PGF's: multiply every balance equation by $x^{n_1}y^{n_2}$ and add them up across their domain.
+    The balance equations are as defined in Equations~\eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle}. We follow the standard procedure for finding PGF's: multiply every balance equation by $x^{n_1}y^{n_2}$ and add them up across their domain.
     
-    Hence, the interior balance equation (Equation~\eqref{eq:gen_balance_interior}) yields the following expression:
+    Hence, the interior balance equation (Equation~\eqref{eq:gen:balance_interior}) yields the following expression:
     \begin{align}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} \\
@@ -652,10 +652,10 @@ satisfies the first-order linear partial differential equation
             & \quad \quad - xy \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1) \\
             & \quad \quad + (\mu + \theta_1) xy \, \pi(1,0) \\
             & \quad \quad + \theta_2 xy \, \pi(0,1)
-        \end{split} \label{eq:gen_transform_interior_relation}
+        \end{split} \label{eq:gen:transform_interior}
     \end{align}
     
-    Now, we can recreate the equivalent steps for the $x$-boundary balance equation (Equation~\eqref{eq:gen_balance_x-boundary}):
+    Now, we can recreate the equivalent steps for the $x$-boundary balance equation (Equation~\eqref{eq:gen:balance_x_boundary}):
     \begin{align}
         \begin{split}
             & \sum_{n_1=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1, 0) x^{n_1} \\
@@ -707,10 +707,10 @@ satisfies the first-order linear partial differential equation
             & \quad \quad - (\mu + \theta_1) xy \, \pi(1, 0) \\
             & \quad \quad - \theta_2 xy \, \pi(0, 1) \\
             & \quad \quad + xy \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1)
-        \end{split} \label{eq:gen_transform_x-boundary_relation}
+        \end{split} \label{eq:gen:transform_x_boundary}
     \end{align}
     
-    Again, we replicate the procedure for the $y$-boundary balance equation (Equation~\eqref{eq:gen_balance_y-boundary}):
+    Again, we replicate the procedure for the $y$-boundary balance equation (Equation~\eqref{eq:gen:balance_y_boundary}):
     \begin{align}
         \begin{split}
             & \sum_{n_2=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_2 + \theta_2) n_2 \right] \pi(0, n_2) y^{n_2} \\
@@ -776,10 +776,10 @@ satisfies the first-order linear partial differential equation
             + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
             & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)
             - \mu x(1-y) \, \pi(0,0)
-        \end{split} \label{eq:gen_transform_y-boundary_relation}
+        \end{split} \label{eq:gen:transform_y_boundary}
     \end{align}
     
-    We can now combine Equation~\eqref{eq:gen_transform_interior_relation} and Equation~\eqref{eq:gen_transform_x-boundary_relation}, where many terms cancel out, leaving us with the following, remarkably cleaner, expression:
+    We can now combine Equation~\eqref{eq:gen:transform_interior} and Equation~\eqref{eq:gen:transform_x_boundary}, where many terms cancel out, leaving us with the following, remarkably cleaner, expression:
     \begin{align}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -788,10 +788,10 @@ satisfies the first-order linear partial differential equation
             & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
             & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
             & \quad \quad - xy \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1)
-        \end{split} \label{eq:gen_plugged_interior_and_x}
+        \end{split} \label{eq:gen:plugged_interior_x}
     \end{align}
     
-    Now, isolating $\left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)$ in Equation~\eqref{eq:gen_transform_y-boundary_relation} and plugging it into Equation~\eqref{eq:gen_plugged_interior_and_x} makes a cascade of cancelations that result in:
+    Now, isolating $\left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)$ in Equation~\eqref{eq:gen:transform_y_boundary} and plugging it into Equation~\eqref{eq:gen:plugged_interior_x} makes a cascade of cancelations that result in:
     \begin{align}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -817,7 +817,7 @@ Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model A):
     & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
     & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
 \end{split}
-\label{eq:n1n2_sanity_check_1}
+\label{eq:gen:sanity1}
 \end{equation}
 
 Sanity check $2$, $\gamma_1=\gamma_2=0$ (abandonments only):
@@ -828,7 +828,7 @@ Sanity check $2$, $\gamma_1=\gamma_2=0$ (abandonments only):
     & + \theta_2 xy (y-1) \frac{\partial}{\partial y} P(x,y) \\
     & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
 \end{split}
-\label{eq:n1n2_sanity_check_2}
+\label{eq:gen:sanity2}
 \end{equation}
 
 Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
@@ -839,13 +839,13 @@ Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
     & + \gamma_2 xy (y-x) \frac{\partial}{\partial y} P(x,y) \\
     & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
 \end{split}
-\label{eq:n1n2_sanity_check_3}
+\label{eq:gen:sanity3}
 \end{equation}
 
 
 \subsubsection{Equation for PPGF in state space $\widetilde{S}$}
 
-\begin{lemma}[Fundamental equation for the PPGF on $\widetilde{S}$]\label{lem:gen_PPGF_dynamics}
+\begin{lemma}[Fundamental equation for the PPGF on $\widetilde{S}$]\label{lem:gen:PPGF_dynamics}
     Consider the same system on the state space
     $\widetilde{S}=\{(n_2,n):0\le n_2\le n\}$, where $n$ is the total number of customers
     \emph{waiting} in the queues and $n_2$ the number of waiting class-$2$ customers.
@@ -866,12 +866,12 @@ Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
         & \quad \quad + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1)
           + \mu y^{n} (1-y)\, \tpi(n+1,n+1).
     \end{split}
-    \label{eq:gen_PPGF_dynamics}
+    \label{eq:gen:PPGF_dynamics}
     \end{equation}
 \end{lemma}
 
 \begin{proof}
-    We start by taking the interior balance equation (Equation~\eqref{eq:tilde_balance_interior}), multiplying by $y^{n_2}$ and adding up throughout its domain (i.e., $1 \leq n_2 \leq n-1$):
+    We start by taking the interior balance equation (Equation~\eqref{eq:gen:tilde_balance_interior}), multiplying by $y^{n_2}$ and adding up throughout its domain (i.e., $1 \leq n_2 \leq n-1$):
     \begin{align*}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n-1} \tpi(n_2,n) y^{n_2} \\
@@ -889,7 +889,7 @@ Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
         \end{split}
     \end{align*}
     
-    We add the diagonal balance equation (Equation~\eqref{eq:tilde_balance_diagonal}) multiplied by $y^n$ for the $n$-th term.
+    We add the diagonal balance equation (Equation~\eqref{eq:gen:tilde_balance_diagonal}) multiplied by $y^n$ for the $n$-th term.
     
     When adding these two equations, we notice that most terms from the diagonal equation are cleanly absorbed by the interior balance equation, extending the limit of the summation up to $n$. On the LHS, this is the case for the $(\lambda_1+\lambda_2+\mu)$-term, the $\gamma_2$-term and the $\theta_2$-term; the $\gamma_1$-term and the $\theta_1$-term are extended automatically since their $n$-th term carries the factor $(n-n_2)$ which vanishes at $n_2 = n$. On the RHS, the $\lambda_2$-term, the $\mu$-term, the $\gamma_1$-term, the $\theta_1$-term and the $\theta_2$-term are absorbed by the diagonal contributions. This leaves all summations completed excepting the $\lambda_1$-term and the $\gamma_2$-term on the RHS, plus a spare $\mu \tpi(n+1,n+1) y^n$ also on the RHS:
     \begin{align*}
@@ -1025,7 +1025,7 @@ Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
             & \quad \quad - y^n (\lambda_1 + \lambda_2 y) \tpi(n,n-1) + \mu y^n (1-y) \tpi(n+1,n+1)
         \end{split}
     \end{align*}
-    Combine with the $y$-boundary balance equation (Equation~\eqref{eq:tilde_balance_y-boundary}), which makes the bracketed boundary terms vanish. Together with $\tpi(n,n-1)=0$ (state outside $\widetilde{S}$), the equation simplifies to:
+    Combine with the $y$-boundary balance equation (Equation~\eqref{eq:gen:tilde_balance_y_boundary}), which makes the bracketed boundary terms vanish. Together with $\tpi(n,n-1)=0$ (state outside $\widetilde{S}$), the equation simplifies to:
     \begin{align}
         \begin{split}
             & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\

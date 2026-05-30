@@ -2,7 +2,7 @@
 
 The model discussed in this section is fundamentally more simple than the one explained in the previous sections. We set $\gamma_1=0,\gamma_2=0$, i.e. we do not allow our waiting customers to go to a different queue once they have arrived. The starting point for the analysis will depend on whether we decide to work with state space $S$ or with state space $\widetilde{S}$.
 
-The balance equations are given —Equations \eqref{eq:gen_balance_interior}, \eqref{eq:gen_balance_x-boundary}, \eqref{eq:gen_balance_y-boundary}, \eqref{eq:gen_balance_zero} and \eqref{eq:gen_balance_idle} for state space $S$, and Equations \eqref{eq:tilde_balance_interior}, \eqref{eq:tilde_balance_diagonal}, \eqref{eq:tilde_balance_y-boundary}, \eqref{eq:tilde_balance_zero} and \eqref{eq:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen_fundamental_equation} for state space $S$ and Equation \eqref{eq:gen_PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
+The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle} for state space $S$, and Equations \eqref{eq:gen:tilde_balance_interior}, \eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary}, \eqref{eq:gen:tilde_balance_zero} and \eqref{eq:gen:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen:fundamental_equation} for state space $S$ and Equation \eqref{eq:gen:PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
 
 \textbf{Tractability.} With no jockeying, Class-1 operates as an independent $M/M/1(\lambda_1,\mu)$ queue. Class-2 customers wait while that queue is non-empty, so their effective service time equals the busy period $B$ of the Class-1 $M/M/1$ queue, making the Class-2 subsystem an $M/G/1$ queue. This reduction enables both the analytical kernel-method approach (zero of the coefficient polynomial) and the probabilistic Pollaczek--Khinchine route. A third approach via the PPGF on $\widetilde{S}$ is also presented for comparison.
 
@@ -14,13 +14,13 @@ The Class-1 subsystem additionally requires $\rho_1 = \lambda_1/\mu < 1$ for its
 
 \subsection{Analysis model A: state space $S$}
 
-We start by stating a $\gamma$-free version of Equation \eqref{eq:gen_fundamental_equation}, where the function $P_y(y)$ and the constant $\pi(0,0)$ are still to be determined:
+We start by stating a $\gamma$-free version of Equation \eqref{eq:gen:fundamental_equation}, where the function $P_y(y)$ and the constant $\pi(0,0)$ are still to be determined:
 \begin{align}
     \begin{split}
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
          &= \mu(x-y) P_y(y) 
          - \mu x(1-y) \pi(0,0).
-    \end{split} \label{eq:n1n2_model-A_dynamics}
+    \end{split} \label{eq:A:fundamental}
 \end{align}
 
 We now introduce a theorem, and the proofs for it —one analytical and one involving probabilistic arguments— will follow in the  subsections below.
@@ -88,7 +88,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         }{
             2\lambda_1
         }.
-        \label{eq:xstar}
+        \label{eq:A:xstar}
     \end{equation}
 
     Since the next steps will involve using l'Hôpital's rule in order to compute a limit, another expression that we will need is the derivative of $x^*(y)$, i.e.  $\frac{d}{dy}x^*(y)$:
@@ -139,12 +139,12 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
     \end{align*}
     For future reference,
     \begin{equation}
-        \frac{d}{dy}x^*(1) = \frac{\rho_2}{1-\rho_1}. \label{eq:xstar_1}
+        \frac{d}{dy}x^*(1) = \frac{\rho_2}{1-\rho_1}. \label{eq:A:xstar_deriv}
     \end{equation}
     
     Now for $x=x^*(y)$, we have $\mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big] = 0$, so
     \begin{equation}
-        P_y(y) = \frac{x^*(y)(1-y)}{x^*(y) - y} \pi(0,0). \label{eq:pyy_xstars}
+        P_y(y) = \frac{x^*(y)(1-y)}{x^*(y) - y} \pi(0,0). \label{eq:A:Py}
     \end{equation}
     Taking $(1-y)$ common factor gives us the following expression:
     \begin{equation}
@@ -166,7 +166,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         \lim_{y\to 1} \rho_2 y P(1,y) =  \lim_{y\to 1} \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) 
     \end{equation}
     
-    Although the LHS of the above expression is simple, the RHS presents a type of indetermination "$0/0$". Because of that, we apply the L'Hôpital's rule and use the results previously obtained in Equations \eqref{eq:xstar} and \eqref{eq:xstar_1}:
+    Although the LHS of the above expression is simple, the RHS presents a type of indetermination "$0/0$". Because of that, we apply the L'Hôpital's rule and use the results previously obtained in Equations \eqref{eq:A:xstar} and \eqref{eq:A:xstar_deriv}:
     \begin{align*}
         \rho_2 \rho
         &=\left[
@@ -205,12 +205,12 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         &= \frac{\rho_2}{1 - \rho_1 - \rho_2} \pi(0,0)\\
         &= \frac{\rho_2}{1 - \rho} \pi(0,0) \\
     \end{align*}
-    Thus, we find $\pi(0,0) = \rho(1-\rho)$, and since $\pi_0 = 1-\rho$ holds for all no-abandonment models (Equation~\eqref{eq:pi0_noaband}), this establishes Corollary~\ref{cor:A:pi0}. For reference:
+    Thus, we find $\pi(0,0) = \rho(1-\rho)$, and since $\pi_0 = 1-\rho$ holds for all no-abandonment models (Equation~\eqref{eq:gen:pi0_noaband}), this establishes Corollary~\ref{cor:A:pi0}. For reference:
     \begin{equation}
-        \pi(0,0) = \rho (1-\rho). \label{eq:pi00}
+        \pi(0,0) = \rho (1-\rho). \label{eq:A:pi00}
     \end{equation}
 
-    Now that we have determined $P_y(y)$ and $\pi(0,0)$, substituting Equation \eqref{eq:pyy_xstars} and Equation \eqref{eq:pi00} into Equation \eqref{eq:n1n2_model-A_dynamics} yields
+    Now that we have determined $P_y(y)$ and $\pi(0,0)$, substituting Equation \eqref{eq:A:Py} and Equation \eqref{eq:A:pi00} into Equation \eqref{eq:A:fundamental} yields
     \begin{align*}
         \left[ 
             (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2
@@ -250,17 +250,17 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
 
 \subsubsection{Probabilistic approach of model A in state space $S$}
 \begin{proof}
-    Our goal here is to derive the partial PGF $P_y(y)$ based on probabilistic arguments. As done in the analytical approach, we start from the fundamental global balance equation for Model~A, i.e.\ Equation \eqref{eq:n1n2_model-A_dynamics}:
+    Our goal here is to derive the partial PGF $P_y(y)$ based on probabilistic arguments. As done in the analytical approach, we start from the fundamental global balance equation for Model~A, i.e.\ Equation \eqref{eq:A:fundamental}:
     \begin{equation}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
         \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].
-        \label{eq:global_balance_starting}
+        \label{eq:A:prob_starting}
     \end{equation}
     
     Here, $P_y(y) = P(0,y) = \sum_{n_2=0}^{\infty} \pi(0,n_2)y^{n_2}$ represents the partial PGF restricted to states where the server is busy and the high-priority queue is empty ($N_1 = 0$). From the definition of conditional expectation, we can express $P_y(y)$ in the following way:
     \begin{equation}
         P_y(y) = \mathbb{P}(\text{busy}, N_1=0) \cdot \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0].
-        \label{eq:pyy_prob_def}
+        \label{eq:A:Py_prob_decomp}
     \end{equation}
     
     In order to address the term with the conditional expectation of class-$2$ customers, we must adopt their perspective. For non-priority customers, their queue behaves like an $M/G/1$-queue with arrival rate $\lambda_2$ and general service times $B$, where $B$ is distributed as the busy period of an $M/M/1$-queue with arrival rate $\lambda_1$ and exponentially distributed service times with rate $\mu$. 
@@ -274,24 +274,24 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
  In this $M/G/1$ framework, we apply the Pollaczek-Khinchine formula to find $L_2(y)$, the unconditional generating function for the number of customers in this equivalent system. For an $M/G/1$ equivalent system with $\lambda_2$ arrivals and service times $B$ the Pollaczek-Khinchine formula reads:
     \begin{equation}
         L_2(y) = \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}.
-        \label{eq:n1n2_modelA_pk_formula}
+        \label{eq:A:pk_formula}
     \end{equation}
     
-    Notice that evaluating $\widetilde{B}(s)$ at $s = \lambda_2(1-y)$ yields the exact mathematical root $x^*(y)$ previously identified in Equation \eqref{eq:xstar}:
+    Notice that evaluating $\widetilde{B}(s)$ at $s = \lambda_2(1-y)$ yields the exact mathematical root $x^*(y)$ previously identified in Equation \eqref{eq:A:xstar}:
     \begin{equation}
         \widetilde{B}(\lambda_2(1-y)) = \frac{\mu+\lambda_1+\lambda_2(1-y) - \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2-4\mu\lambda_1}}{2\lambda_1} = x^*(y).
     \end{equation}
     
-    Substituting $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ and $\lambda_2 \mathbb{E}[B] = \frac{\rho_2}{1-\rho_1}$ into the Pollaczek-Khinchine formula (Equation \eqref{eq:n1n2_modelA_pk_formula}) yields: 
+    Substituting $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ and $\lambda_2 \mathbb{E}[B] = \frac{\rho_2}{1-\rho_1}$ into the Pollaczek-Khinchine formula (Equation \eqref{eq:A:pk_formula}) yields: 
     \begin{equation}
         L_2(y) =  \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
-        \label{eq:l2_unconditional}
+        \label{eq:A:L2_pgf}
     \end{equation}
     
     Note that the service for class-$2$ customers is blocked during all states where $N_1>0$, which automatically implies the server is busy. Hence, the conditional distribution of the queue length given that $N_1=0$ and that the system is busy is equivalent to the unconditional distribution $L_2(y)$ of the equivalent $M/G/1$ system. Thus:
     \begin{equation}
         \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0] = L_2(y) = \frac{1-\rho}{1-\rho_1} \frac{x^*(y)(1-y)}{x^*(y) - y}.
-        \label{eq:conditional_n2}
+        \label{eq:A:L2_conditional}
     \end{equation}
     
     Returning to the probabilistic definition of $P_y(y)$, we can now use this $L_2(y)$ together with the fact that $\mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)$:
@@ -302,7 +302,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
          &\quad=\quad \rho (1-\rho) \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}. 
     \end{align*}
     
-    We now substitute $P_y(y)$ and $\pi(0,0)=\rho(1-\rho)$ back into the right-hand side of our starting global balance Equation \eqref{eq:global_balance_starting}:
+    We now substitute $P_y(y)$ and $\pi(0,0)=\rho(1-\rho)$ back into the right-hand side of our starting global balance Equation \eqref{eq:A:prob_starting}:
     \begin{align*}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
         &= \mu \left[ (x-y) \left( \rho(1-\rho) \frac{x^*(y)(1-y)}{x^*(y) - y} \right) - x(1-y) \rho(1-\rho) \right].
@@ -357,12 +357,12 @@ From the interior balance equation, then, we obtain
     \end{split} 
 \end{align*}
 
-Note that we can use the $x$-boundary equation (Equation \eqref{eq:gen_balance_x-boundary}) to simplify the expression. Doing so and then grouping terms yields
+Note that we can use the $x$-boundary equation (Equation \eqref{eq:gen:balance_x_boundary}) to simplify the expression. Doing so and then grouping terms yields
 \begin{equation}
     \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] \widetilde{P}(n_1,y)
     = \mu \widetilde{P}(n_1+1,y)
     + \lambda_1 \widetilde{P}(n_1-1,y).
-    \label{eq:model-i_ppgf_recurrence}
+    \label{eq:A:ppgf_recurrence}
 \end{equation}
 
 Cohen notices that since $\widetilde{P}(n_1,y)$ is only defined in terms of its neighbouring states, there exists a recurrent relation such that
@@ -374,7 +374,7 @@ where $\widetilde{x}^*(y)$ is a root of the characteristic equation
     \mu [\widetilde{x}^*(y)]^2 - [\mu + \lambda_1 + \lambda_2(1-y)] \widetilde{x}^*(y) + \lambda_1 = 0.
 \end{equation}
 
-A similar procedure can be replicated with the $y$-boundary balance equation (Equation \eqref{eq:gen_balance_y-boundary}) to obtain $\widetilde{P}(0,y)$. First, solving the characteristic equation yields two roots:
+A similar procedure can be replicated with the $y$-boundary balance equation (Equation \eqref{eq:gen:balance_y_boundary}) to obtain $\widetilde{P}(0,y)$. First, solving the characteristic equation yields two roots:
 \begin{equation*}
     \widetilde{x}^*(y) = \frac{(\mu + \lambda_1 + \lambda_2(1-y)) \pm \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1\mu}}{2\mu}.
 \end{equation*}
@@ -398,11 +398,11 @@ Starting point:
     \begin{split}
        &\left[ \lambda_1 + \lambda_2 + \mu \right] \widetilde{P}(y,n) \\
        & \quad = \quad(\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \tpi(n+1,n+1)
-    \end{split} \label{eq:n1n_model-A_dynamics}
+    \end{split} \label{eq:A:ppgf_Stilde_dynamics}
 \end{align}
 
 \begin{theorem}[Approximate PPGF on $\widetilde{S}$]\label{thm:A:PPGF_Stilde}
-    Under the approximation that neglects the boundary-diagonal forcing term $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:n1n_model-A_dynamics}, the homogeneous recurrence admits the geometric solution
+    Under the approximation that neglects the boundary-diagonal forcing term $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics}, the homogeneous recurrence admits the geometric solution
     \begin{equation}
         \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, \label{eq:A:Ptilde_approx}
     \end{equation}

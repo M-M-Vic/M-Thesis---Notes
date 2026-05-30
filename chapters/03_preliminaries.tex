@@ -1,33 +1,8 @@
 \section{Preliminaries}
 
-In order to preserve the flow of the proofs and demonstrations in this thesis, it is convenient to introduce some fundamental concepts that will play an important role in the explanations. From basic queueing systems such as the $M/M/1$ queue to more specific and not-so-known systems such as the Multiple Adaptive Vacation models. 
+This section collects background material used throughout the thesis. The $M/M/1$ queue is the building block for all models studied here: its steady-state distribution, busy-period LST, and mean are invoked repeatedly in the analyses of Models A, B$_2$, and C$_2$.
 
-The following subsections are meant to serve as an introduction to those concepts, but sometimes highlight some aspects that are more specific to the content of this document. That implies that some very important results will be omitted as they become less relevant in the context of this thesis, despite some of them being crucial.
-
-\subsection{Probability Generating Functions (PGF)}
-
-There exist several approaches when it comes to obtaining the long-run state space distribution of the system. For simple models such as the classic $M/M/1$-queue, there are several very illustrative ways to obtain it. In \cite{adan2002queueing} they mention a direct approach in which they solve a quadratic equation, an approach involving a recursion in the transition probabilities, and a Probability Generating Function (PGF) approach. The latter is more interesting for us, not only because our model is already more complex than the $M/M/1$-queue but also because the goal of this project is to study models that are far more complex than the one that this section addresses. We hope that the methods and arguments involved in the PGF approach  provide the foundation to study a more complex system: be it with multiple servers, abandonment rates, customers with "impatience", or all those at once.
-
-
-\subsubsection{Definition}
-
-In order to derive the PGF, we must first provide a definition for it:
-\begin{equation}
-       P(x,y) = \mathbb{E}[x^{N_1} y^{N_2}] = \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1} y^{n_2}. \\
-\end{equation}
-Furthermore, we must define some terms that will appear in the derivation. These functions correspond to the dynamics that appear at the boundaries. This is when one of the queues is empty, conditional on the fact that there is already someone in service:
-\begin{align}
-   P_x(x) = \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} \\
-   P_y(y) = \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2} \\
-\end{align}
-Another term that will appear once we proceed to use the balance equations is the following. However, this will just be an intermediate step towards the final result, as we will see, it will be possible to express it on other terms:
-\begin{equation}
-    P_y(y |n_1=1) = \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2}.
-\end{equation}
-
-\subsection{Partial Probability Generating Function (PPGF)}
-
-
+The central analytical tool --- the bivariate probability generating function $P(x,y)$ and its partial variants --- is introduced in full in Section~4 (Model~X), where it is derived directly from the balance equations of the two-class system. It is not pre-introduced here, as a shallow definition disconnected from the model would add nothing.
 
 
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}
@@ -43,8 +18,8 @@ Having $\rho < 1$ gives us the possibility of studying the long-term behavior of
 
 The resulting system is the so-called birth-death process and it is equivalent to a Markov chain where the balance equations are as follows:
 \begin{align}
-    &0 = -\lambda \pi_0 + \mu \pi_1  \label{eq:mm1_balance1}\\
-    &0 = \lambda \pi_{n-1} - (\lambda+\mu) \pi_n + \mu \pi_{n+1} & \text{for} \quad n \geq 1 \label{eq:mm1_balance2}
+    &0 = -\lambda \pi_0 + \mu \pi_1  \label{eq:mm1:balance1}\\
+    &0 = \lambda \pi_{n-1} - (\lambda+\mu) \pi_n + \mu \pi_{n+1} & \text{for} \quad n \geq 1 \label{eq:mm1:balance2}
 \end{align}
 
 In \cite{adan2002queueing}, the formula for $\pi_0$ is derived in various ways: one with a direct approach, one that involves a recursion, and one involving PGF's. Since this document tries to derive PGF's for more complex systems, the latter one will be best suited as an introduction.
@@ -54,7 +29,7 @@ Let $L(z)$ be the probability generating function (PGF) of the number of custome
     L(z) = \mathbb{E}[z^L]=\sum_{n=1}^{\infty} \pi_n z^n.
 \end{equation}
 
-Multiplying the $n$th balance equations (in Equations \eqref{eq:mm1_balance1} and \eqref{eq:mm1_balance2} by $z^n$ and summing them up all over $n$, we will obtain 
+Multiplying the $n$th balance equations (in Equations \eqref{eq:mm1:balance1} and \eqref{eq:mm1:balance2} by $z^n$ and summing them up all over $n$, we will obtain 
 \begin{equation*}
     0 = \mu \pi_0 (1 - z^{-1}) + (\lambda z + \mu z^{-1} - (\lambda + \mu)) L(z),
 \end{equation*}
@@ -71,33 +46,9 @@ Here, they use the fact that $L(1)=1$ to determine $\pi_0=1-\rho$ and obtain
 Among the objects we can measure in the $M/M/1$ queueing system is the so-called \textit{busy period}, denoted by $BP$, which is the time interval starting when a customer arrives to an idle system and ending once the system becomes empty again: during that time, a customer is in service, and customers may or may not arrive before that service completion. The Laplace-Stieltjes Transform and expectation of the busy period are well-known:
 \begin{align}
     \widetilde{BP}(s) &= \frac{(\mu + \lambda +s) - \sqrt{(\mu + \lambda + s)^2 - 4 \mu \lambda}}{2 \lambda} 
-    \label{eq:bp_mm1}\\
-    \mathbb{E}\left[ BP\right] &= \frac{1/ \mu}{1 - \rho}. \label{eq:bp_expected_mm1}
+    \label{eq:mm1:bp_lst}\\
+    \mathbb{E}\left[ BP\right] &= \frac{1/ \mu}{1 - \rho}. \label{eq:mm1:bp_mean}
 \end{align}
 The transform is known to be invertible, so the distribution of $BP$ is also known. However, that is beyond the scope of this document, as it involves a more complex mathematical object called \textit{modified Bessel functions}.
 
-\subsection{Multiple Adaptive Vacation model}
-
-In \cite{tian2006vacation}, the authors study the so-called Multiple Vacation Models. A result is given for the distribution of the number of customers in the queue ($L_v$), where it behaves as the sum of two independent random variables $L$ and $L_d$, where $L$ refers to that of the classic models $M/G/1$ and $L_d$ accounts for the delay caused by the vacation effect. It reads like this:
-\begin{equation*}
-    L_v = L+ L_d.
-\end{equation*}
-Naturally, the PGF of that is the following:
-\begin{equation}
-    L_v(z) = \mathbb{E}\left[ z^{L_v} \right]
-    = \mathbb{E}\left[ z^{L + L_d} \right]
-    = \mathbb{E}\left[ z^{L} \right] \mathbb{E}\left[ z^{L_d} \right] = L(z) L_d(z).
-\end{equation}
-
-In their book, they provide closed formulas for both expressions, being as follows:
-\begin{align*}
-    L(z) = \frac{(1-\rho) (1-z) \widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}
-     \quad \text{and} \quad
-     L_d(z) = \frac{1 - \widetilde{B}(\lambda(1-z))}{ \lambda_2\mathbb{E}\left[V\right] (1-z)},
-\end{align*}
-
-Here, $\rho=\lambda \mathbb{E}[B]$ is the load of the system and is not necessarily equal to $\frac{\lambda}{\mu}$. Thus:
-\begin{equation}
-L(z) = \frac{(1-\lambda \mathbb{E}[B]) \widetilde{B}(\lambda(1-z)) \left[ 1 - \widetilde{B}(\lambda(1-z)) \right]}{\lambda \mathbb{E}[V] \left[ \widetilde{B}(\lambda(1-z)) - z \right]}
-\end{equation}
 
