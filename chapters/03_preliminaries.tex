@@ -1,54 +1,216 @@
 \section{Preliminaries}
 
-This section collects background material used throughout the thesis. The $M/M/1$ queue is the building block for all models studied here: its steady-state distribution, busy-period LST, and mean are invoked repeatedly in the analyses of Models A, B$_2$, and C$_2$.
+This section collects the background material invoked throughout the thesis.
+The ordering follows the logical dependency: the two queueing building blocks
+(\S\S\ref{ssec:mm1}--\ref{ssec:erlangA}) underpin the priority decomposition
+(\S\ref{ssec:priority}), which in turn justifies the Pollaczek--Khinchine
+formula (\S\ref{ssec:pk}) used in the probabilistic proofs.
+The confluent hypergeometric function (\S\ref{ssec:kummer}) appears in the
+solutions produced by those proofs, and the ODE/PDE methods (\S\ref{ssec:ode})
+are the analytic tools deployed when no probabilistic shortcut exists.
 
-The central analytical tool --- the bivariate probability generating function $P(x,y)$ and its partial variants --- is introduced in full in Section~4 (Model~X), where it is derived directly from the balance equations of the two-class system. It is not pre-introduced here, as a shallow definition disconnected from the model would add nothing.
+The central analytical object --- the bivariate PGF $P(x,y)$ and its partial
+variants --- is introduced in Section~4 (Model~X), where it is derived directly
+from the balance equations of the two-class system.
 
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
-\subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}
+% [Expand: one short paragraph on model definition and stability.]
+% Content: Poisson arrivals rate λ, exponential service rate μ, single server.
+% Stable iff ρ = λ/μ < 1.
 
-The $M/M/1$ queue is one of the most studied queueing systems. There is a great deal of literature available for this type of queue, but the content of this subsection will be taken from the textbook \cite{adan2002queueing}.
-
-It consists of a Poisson arrival process with rate $\lambda$ and service times being exponentially distributed with rate $\mu$, where there is $1$ server. This queueing system will be stable if and only if $\rho = \frac{\lambda}{\mu} < 1$. This quantity is known as the system's \textit{load}, as it's the fraction of time the server is working.
-
-Having $\rho < 1$ gives us the possibility of studying the long-term behavior of the system, as it ensures that a limiting distribution is in place: let $L=0,1,2,\dots$  be the number of customers in the system and define $\pi_n$ to be the limiting probability of finding $n$ customers in the system at a random moment in time. We will then have
+Steady-state queue-length probabilities (geometric distribution):
 \begin{equation}
-    \sum_{n=0}^{\infty} \pi_n = 1.
+    \pi_n = (1-\rho)\,\rho^n, \quad n \ge 0. \label{eq:mm1:steadystate}
 \end{equation}
 
-The resulting system is the so-called birth-death process and it is equivalent to a Markov chain where the balance equations are as follows:
+The \emph{busy period} $B$ starts when a customer arrives to an idle server
+and ends when the server next becomes idle.
 \begin{align}
-    &0 = -\lambda \pi_0 + \mu \pi_1  \label{eq:mm1:balance1}\\
-    &0 = \lambda \pi_{n-1} - (\lambda+\mu) \pi_n + \mu \pi_{n+1} & \text{for} \quad n \geq 1 \label{eq:mm1:balance2}
+    \widetilde{B}(s) &= \frac{(\mu+\lambda+s) - \sqrt{(\mu+\lambda+s)^2 - 4\mu\lambda}}
+                              {2\lambda},
+    \label{eq:mm1:bp_lst} \\
+    \mathbb{E}[B]    &= \frac{1}{\mu(1-\rho)}. \label{eq:mm1:bp_mean}
 \end{align}
 
-In \cite{adan2002queueing}, the formula for $\pi_0$ is derived in various ways: one with a direct approach, one that involves a recursion, and one involving PGF's. Since this document tries to derive PGF's for more complex systems, the latter one will be best suited as an introduction.
+% [Note for later: B̃(λ₂(1-y)) = x*(y), the characteristic root of the two-class
+%  PGF equation — this link is made explicit in §5 (Model A).]
 
-Let $L(z)$ be the probability generating function (PGF) of the number of customers in the system, i.e., for $|z| \leq 1$ we have:
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}
+
+% [Expand: model definition — M/M/1 with per-customer patience clock Exp(θ).
+%  Always positive recurrent for any λ,μ,θ > 0 (contrast with M/M/1).
+%  State the steady-state probabilities (product-form via detailed balance).]
+
+The \emph{busy period} $B_C$ of the $M/M/1+M(\lambda_1,\mu,\theta_1)$ queue
+is the class-1 subsystem for Model~C$_2$.  Its LST satisfies
 \begin{equation}
-    L(z) = \mathbb{E}[z^L]=\sum_{n=1}^{\infty} \pi_n z^n.
+    \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
+      -\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s
+      -\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
+    \label{eq:erlangA:bp_lst}
+\end{equation}
+and its mean admits the closed form
+\begin{equation}
+    \mathbb{E}[B_C] = \frac{1}{\mu}\,
+        {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right),
+    \label{eq:erlangA:bp_mean}
+\end{equation}
+where ${}_1F_1$ is defined in \S\ref{ssec:kummer}.
+In the limit $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$,
+recovering \eqref{eq:mm1:bp_mean}.
+
+% [Note: the stability condition for Model C₂,
+%  λ₂ · E[B_C] < 1, follows immediately from this mean.]
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Non-preemptive priority and PASTA}\label{ssec:priority}
+
+% [Expand: define the two-class non-preemptive priority discipline.
+%  Explain that Class-2 service is never interrupted once started.]
+
+Under Poisson arrivals and a common exponential service rate $\mu$, the
+following decomposition holds:
+\begin{itemize}
+    \item \textbf{Class-1 subsystem.}  Class-1 customers are unaffected by
+    Class-2 and form an independent $M/M/1(\lambda_1,\mu)$ queue
+    (or $M/M/1+M$ when $\theta_1>0$).
+    \item \textbf{Class-2 effective service time.}  From the perspective of
+    a Class-2 customer, effective service equals a busy period of the
+    Class-1 subsystem.  Class-2 therefore operates as an $M/G/1$ queue with
+    service time $B$ (Model~A) or $B_C$ (Model~C$_2$) and arrival rate $\lambda_2$.
+\end{itemize}
+
+\textbf{PASTA (Poisson Arrivals See Time Averages).}  Because Class-2 arrivals
+form a Poisson process, an arriving Class-2 customer sees the stationary
+distribution:
+\begin{equation}
+    \mathbb{P}(\text{arriving Class-2 sees state }s) = \pi(s). \label{eq:prio:pasta}
+\end{equation}
+This property justifies the conditional-expectation decomposition
+\begin{equation}
+    P_y(y) = \mathbb{P}(\text{busy},\,N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},\,N_1=0]
+    \label{eq:prio:py_decomp}
+\end{equation}
+used in the probabilistic proofs of Models~A and~C$_2$.
+
+% [Note: jockeying breaks the Poisson input seen by each class individually,
+%  so PASTA no longer implies the M/G/1 structure — this is why the
+%  probabilistic route is unavailable for Models B and B₂.]
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Pollaczek--Khinchine formula}\label{ssec:pk}
+
+% [Expand: brief definition of M/G/1 queue; state stability condition ρ_B < 1.]
+
+For an $M/G/1$ queue with arrival rate $\lambda$, service time $B$ with
+LST $\widetilde{B}(s)$, and load $\rho_B = \lambda\,\mathbb{E}[B] < 1$,
+the PGF of the stationary number of customers in the system is
+\begin{equation}
+    L(z) \;=\; \frac{(1-\rho_B)(1-z)\,\widetilde{B}(\lambda(1-z))}
+                    {\widetilde{B}(\lambda(1-z)) - z}.
+    \label{eq:pk:pgf}
 \end{equation}
 
-Multiplying the $n$th balance equations (in Equations \eqref{eq:mm1:balance1} and \eqref{eq:mm1:balance2} by $z^n$ and summing them up all over $n$, we will obtain 
-\begin{equation*}
-    0 = \mu \pi_0 (1 - z^{-1}) + (\lambda z + \mu z^{-1} - (\lambda + \mu)) L(z),
-\end{equation*}
-which yields the following solution:
+% [Cite: Kleinrock (1975) or Adan & Resing (2002).]
+
+This formula is applied with two different service-time distributions:
+\begin{itemize}
+    \item \textbf{Model~A}: $B$ = busy period of $M/M/1(\lambda_1,\mu)$,
+    so $\widetilde{B}(\lambda_2(1-y)) = x^*(y)$ (see \S\ref{ssec:mm1}).
+    \item \textbf{Model~C$_2$}: $B = B_C$ = busy period of
+    $M/M/1+M(\lambda_1,\mu,\theta_1)$, so
+    $\widetilde{B}_C(\lambda_2(1-y)) = \zeta(y)$ (see \S\ref{ssec:erlangA}).
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Confluent hypergeometric function}\label{ssec:kummer}
+
+The \emph{Kummer confluent hypergeometric function of the first kind} is
 \begin{equation}
-    L(z) = \frac{\pi_0}{1 - \rho z} = \frac{1 - \rho}{1 - \rho z} = \sum_{n=0}^{\infty} (1 - \rho) \rho^n z^n,
+    {}_1F_1(a;\,b;\,z) \;=\;
+        \sum_{n=0}^{\infty} \frac{a^{(n)}}{b^{(n)}\,n!}\,z^n,
+    \qquad a^{(n)} = \prod_{k=0}^{n-1}(a+k),\quad a^{(0)}=1,
+    \label{eq:kummer:series}
 \end{equation}
+where $b \notin \{0,-1,-2,\dots\}$ and the series converges for all
+$z\in\mathbb{C}$.
 
-Here, they use the fact that $L(1)=1$ to determine $\pi_0=1-\rho$ and obtain
-\begin{equation*}
-    \pi_n = (1 - \rho) \rho^n \quad \text{for} \quad n \geq 0.
-\end{equation*}
+% [Expand: mention Kummer's ODE  z u'' + (b-z)u' - a u = 0; cite DLMF §13
+%  and Abramowitz & Stegun Ch. 13.]
 
-Among the objects we can measure in the $M/M/1$ queueing system is the so-called \textit{busy period}, denoted by $B$, which is the time interval starting when a customer arrives to an idle system and ending once the system becomes empty again: during that time, a customer is in service, and customers may or may not arrive before that service completion. The Laplace-Stieltjes Transform and expectation of the busy period are well-known:
-\begin{align}
-    \widetilde{B}(s) &= \frac{(\mu + \lambda +s) - \sqrt{(\mu + \lambda + s)^2 - 4 \mu \lambda}}{2 \lambda}
-    \label{eq:mm1:bp_lst}\\
-    \mathbb{E}\left[ B\right] &= \frac{1/ \mu}{1 - \rho}. \label{eq:mm1:bp_mean}
-\end{align}
-The transform is known to be invertible, so the distribution of $BP$ is also known. However, that is beyond the scope of this document, as it involves a more complex mathematical object called \textit{modified Bessel functions}.
+Two identities used in this thesis:
 
+\textbf{Euler integral representation} ($a,b>0$):
+\begin{equation}
+    {}_1F_1(a;\,a+b;\,z) \;=\; \frac{1}{B(a,b)}
+        \int_0^1 t^{a-1}(1-t)^{b-1} e^{zt}\,dt,
+    \label{eq:kummer:euler}
+\end{equation}
+where $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$.
+This is invoked in \S\ref{ssec:C2:anal} to identify the integrals
+$\mathcal{J}_0,\mathcal{J}_1$ as Kummer functions evaluated at $s=\lambda_2(1-y)$.
 
+\textbf{Contiguous-function ratio.}  The combination
+\begin{equation}
+    \frac{{}_1F_1(a+1;\,b;\,z)}{{}_1F_1(a;\,b;\,z)}
+    \label{eq:kummer:ratio}
+\end{equation}
+appears in the closed-form expression for $P_y(y)$ in Model~B$_2$
+and in the LST \eqref{eq:erlangA:bp_lst} of the $M/M/1+M$ busy period.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{First-order linear ODEs and PDEs}\label{ssec:ode}
+
+\subsubsection{Integrating factor (variation of parameters)}
+
+% [Expand: one sentence on when this applies — the fundamental PGF equation
+%  reduces to an ODE in x for each fixed y when γ₂=θ₂=0 (Models B₂ and C₂).]
+
+The standard form of a first-order linear ODE in $x$ (with $y$ as a parameter) is
+\begin{equation}
+    \frac{dP}{dx} + p(x;\,y)\,P \;=\; q(x;\,y). \label{eq:ode:standard}
+\end{equation}
+Its integrating factor $\mu_I(x;y) = \exp\!\bigl(\int_0^x p(t;y)\,dt\bigr)$
+converts \eqref{eq:ode:standard} to $\frac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$,
+giving
+\begin{equation}
+    P(x,y) \;=\; \frac{1}{\mu_I(x;\,y)}
+        \left[C(y) + \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt\right].
+    \label{eq:ode:variation}
+\end{equation}
+When $\mu_I(0;y)=0$ the constant $C(y)=0$ and the lower boundary term vanishes;
+this is the case in both Models~B$_2$ (where $\mu_I \propto x^\alpha(x-y)^\beta$)
+and C$_2$ (where $\mu_I \propto x^\alpha(1-x)^{\beta(y)}$).
+
+% [Note: the condition pinning P_y(y) — analyticity at x=y for B₂,
+%  boundedness at x=1 for C₂ — is imposed after \eqref{eq:ode:variation}
+%  is written down.]
+
+\subsubsection{Method of characteristics}\label{sssec:moc}
+
+% [Expand: one paragraph on the general idea — reduce a first-order PDE to
+%  a family of ODEs along characteristic curves in the (x,y)-plane.]
+
+A first-order quasilinear PDE
+$a\,P_x + b\,P_y = cP + d$
+is solved by tracing \emph{characteristic curves} $(x(t),y(t))$ satisfying
+$\dot x = a$, $\dot y = b$.  Along each curve, $P$ satisfies
+$\dot P = cP + d$, an ODE in the single variable $t$.
+
+In the two-class PGF equation with jockeying, the convection coefficients
+$a = \gamma_1 x(x-y)$ and $b = -\gamma_2 x(x-y)$ give the conserved quantity
+\begin{equation}
+    C_1 = \gamma_2\,x + \gamma_1\,y \quad (\text{constant along each characteristic}).
+    \label{eq:ode:char_constant}
+\end{equation}
+The general homogeneous solution takes the form
+$P_h = F(C_1)\cdot(\text{particular factor})$
+where $F$ is an arbitrary function determined by the boundary condition on $P_y(y)$.
+
+% [Note: for Model B (γ₂>0) determining F requires solving a Volterra integral
+%  equation that does not admit a closed form — this is why Model B is left open.
+%  For Model B₂ (γ₂=0) the characteristic direction is purely in x, so the
+%  PDE degenerates to the ODE \eqref{eq:ode:standard}, handled by §3.6.1.]
