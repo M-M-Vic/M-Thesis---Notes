@@ -270,55 +270,64 @@ which is the statement of the theorem. This closed form is the product of a prob
 
 \subsection{Mean queue lengths and mean waiting times}
 
-\subsubsection*{Why the diagonal no longer gives a closed form}
+\subsubsection*{Why the diagonal no longer simplifies}
 
-Setting $x=y=z$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
-terms $\mu(x-y)P_y(y)$ and $\gamma_1 xy(x-y)\partial_x P$ both vanish, but
-the abandonment convection $\theta_1 xy(x-1)\partial_x P$ does \emph{not}
-(since $(x-1)|_{x=z}\neq0$ in general):
+Setting $x=y=z$ in the theorem formula~\eqref{eq:C2:Pxy}, the integrating
+factor $\mu_I(z;z) \propto z^\alpha(1-z)^{\beta(z)}$ is well-defined but the
+abandonment convection $\theta_1 xy(x-1)$ does \emph{not} vanish at $x=y=z$
+(since $(x-1)|_{x=z}\neq0$).  Consequently, the diagonal equation becomes:
 \begin{align}
     \begin{split}
-        &\bigl[(\lambda_1+\lambda_2+\mu)z^2-\mu z-\lambda_1 z^3-\lambda_2 z^3\bigr]P(z,z)
-         +\theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z) \\
-        &\quad =\; -\mu z(1-z)\,\pi(0,0).
+        &\bigl[(\lambda_1{+}\lambda_2{+}\mu)z^2-\mu z-\lambda z^3\bigr]P(z,z)
+        + \theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z) \\
+        &\quad=\; -\mu z(1-z)\,\pi(0,0),
     \end{split}
     \label{eq:C2:diag}
 \end{align}
-The unknown $\partial_x P(z,z)$ prevents a direct closed form for $P(z,z)$,
-and hence for $\mathbb{E}[N]$.  In contrast to Models~A and~B$_2$, the total
-mean queue length is strictly less than $\rho^2/(1-\rho)$: abandonment removes
-customers from the system, reducing both $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$
-compared to the Model~A baseline.
+and the unknown $\partial_x P(z,z)$ prevents a closed form for $P(z,z)$.
+Hence $\mathbb{E}[N]=\mathbb{E}[N_1]+\mathbb{E}[N_2]$ is strictly less than
+$\rho^2/(1-\rho)$: abandonment removes customers and reduces both means
+relative to Model~A.
 
-\subsubsection*{Individual means}
+\subsubsection*{Means from the theorem formula}
 
-The means are extracted from $P(x,y)$ by differentiation:
+Differentiating the theorem formula~\eqref{eq:C2:Pxy} with respect to $x$
+and $y$ respectively yields the means; the limit $(x,y)\to(1,1)$ is
+approached along a non-singular path:
 \begin{align}
     \begin{split}
-        \mathbb{E}[N_1] \;=\; \lim_{(x,y)\to(1,1)}\frac{\partial P}{\partial x}(x,y), \qquad
-        \mathbb{E}[N_2] \;=\; \lim_{(x,y)\to(1,1)}\frac{\partial P}{\partial y}(x,y).
+        \mathbb{E}[N_1]
+        &\;=\; \lim_{\varepsilon\to0^+}
+        \frac{P(1{-}\varepsilon,\,1{-}\varepsilon)-P(1{-}2\varepsilon,\,1{-}\varepsilon)}
+             {\varepsilon}, \\
+        \mathbb{E}[N_2]
+        &\;=\; \lim_{\varepsilon\to0^+}
+        \frac{P(1{-}\varepsilon,\,1{-}\varepsilon)-P(1{-}\varepsilon,\,1{-}2\varepsilon)}
+             {\varepsilon}.
     \end{split}
     \label{eq:C2:EN_def}
 \end{align}
+Both integrals $\mathcal{I}_1,\mathcal{I}_2$ in~\eqref{eq:C2:Pxy} depend on
+$\theta_1$ through the exponent $\beta(y)=\lambda_2(1-y)/\theta_1$; no closed
+form exists for the individual means.
 
 \subsubsection*{Little's Law with abandonment}
 
-The relation $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ holds for any
-stable system.  For Model~C$_2$, $\lambda_i$ is the arrival rate of
-\emph{all} class-$i$ customers, including those that will eventually abandon.
-Consequently $\mathbb{E}[W_i]$ is the mean time spent in queue averaged over
-both served and abandoned customers:
+The universal relation $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ holds for
+any stable system.  Here $\lambda_i$ is the \emph{arrival} rate of all
+class-$i$ customers, including those that will eventually abandon, so
+$\mathbb{E}[W_i]$ is the mean time in queue averaged over both served and
+abandoned customers:
 \begin{align}
     \begin{split}
         \mathbb{E}[W_i] \;=\; \frac{\mathbb{E}[N_i]}{\lambda_i}.
     \end{split}
     \label{eq:C2:EW}
 \end{align}
-The throughput $\mu(1-\pi_0)<\lambda_1+\lambda_2$ should not replace $\lambda_i$;
-doing so would yield the conditional waiting time of customers who complete
-service only, a different quantity.
-As $\theta_1\to0^+$, the Model~A expressions~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}
-are recovered.
+Using the throughput $\mu(1-\pi_0)$ instead would give the conditional
+waiting time of customers who complete service only --- a different object.
+As $\theta_1\to0^+$ both means recover the Model~A
+values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}.
 
 
 

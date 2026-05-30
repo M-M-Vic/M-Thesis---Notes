@@ -460,63 +460,76 @@ We can evaluate this expression at $y=1$ and check that it will behave like a re
 
 \subsection{Mean queue lengths and mean waiting times}
 
-\subsubsection*{Class-1 marginal}
+\subsubsection*{Class-1 marginal from the theorem formula}
 
-Setting $y=1$ in the fundamental equation~\eqref{eq:A:fundamental}, the
-right-hand side simplifies because $(1-y)|_{y=1}=0$:
+We evaluate $P(x,y)$ of the theorem at $y=1$ for fixed $x\neq1$.
+The denominator satisfies $D(x,y)\to D(x,1) = -\rho_1(x-1)(x-1/\rho_1)$,
+while the factor $x-x^*(y)\to x-x^*(1)=x-1$.  For the remaining $0/0$,
+expand $x^*(y)$ near $y=1$:
 \begin{align}
     \begin{split}
-        &\bigl[(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 x\bigr]
-        P(x,1) = \mu(x-1)\,P_y(1).
+        x^*(y) \;=\; 1 - \frac{\rho_2}{1-\rho_1}(1-y) + O\!\bigl((1-y)^2\bigr),
     \end{split}
 \end{align}
-The left-hand polynomial factors as $-\lambda_1(x-1)(x-1/\rho_1)$.
-Cancelling $(x-1)$ for $x\neq1$ yields
+so $x^*(y)-y = \frac{1-\rho}{1-\rho_1}(1-y)+O((1-y)^2)$ and the factor
+$(1-y)$ in numerator and denominator cancel:
 \begin{align}
     \begin{split}
-        P(x,1) \;=\; \frac{P_y(1)}{1-\rho_1 x}.
-    \end{split}
-\end{align}
-Evaluating at $x=1$ and using $P(1,1)=\rho$ gives $P_y(1)=\rho(1-\rho_1)$, so
-\begin{align}
-    \begin{split}
-        P(x,1) \;=\; \frac{\rho(1-\rho_1)}{1-\rho_1 x},
+        P(x,1)
+        &\;=\; \lim_{y\to1} \frac{y\,\rho(1-\rho)\,(x-x^*(y))}{D(x,y)\,(x^*(y)-y)/(1-y)} \\
+        &\;=\; \frac{\rho(1-\rho)\cdot(x-1)}{-\rho_1(x-1)(x-1/\rho_1)\cdot\frac{1-\rho}{1-\rho_1}} \\
+        &\;=\; \frac{\rho(1-\rho_1)}{-\rho_1(x-1/\rho_1)}
+         \;=\; \frac{\rho(1-\rho_1)}{1-\rho_1 x}.
     \end{split}
     \label{eq:A:Px1}
 \end{align}
-a geometric PGF.  Differentiating at $x=1$:
+Differentiating at $x=1$:
 \begin{align}
     \begin{split}
         \mathbb{E}[N_1] \;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1}
-        \;=\; \frac{\rho(1-\rho_1)\rho_1}{(1-\rho_1)^2}
+        \;=\; \frac{\rho(1-\rho_1)\,\rho_1}{(1-\rho_1)^2}
         \;=\; \frac{\rho\rho_1}{1-\rho_1}.
     \end{split}
     \label{eq:A:EN1}
 \end{align}
 
-\subsubsection*{Total queue length from the diagonal}
+\subsubsection*{Total queue length from the diagonal of the theorem formula}
 
-Setting $x=y=z$ in the fundamental equation, the right-hand side vanishes
-(the factor $(x-y)$ is zero), and the left-hand polynomial in $z$ factors as
-$-\lambda(z-1)(z-1/\rho)$.  Cancelling $(z-1)$ for $z\neq1$ gives
+Observe that $x^*(z)=z$ iff $z$ is a root of $\lambda(z-1)(z-1/\rho)=0$, so
+$x^*(z)\neq z$ for all $z\in(0,1)$ with $\rho<1$.  Therefore the ratio
+$(z-x^*(z))/(x^*(z)-z)=-1$ throughout $(0,1)$, and the theorem formula
+reduces to:
 \begin{align}
     \begin{split}
-        P(z,z) \;=\; \frac{\pi(0,0)}{1-\rho z} \;=\; \frac{\rho(1-\rho)}{1-\rho z}.
+        P(z,z)
+        \;=\; \frac{z(1-z)\,\rho(1-\rho)}{D(z,z)}\cdot(-1).
+    \end{split}
+\end{align}
+The denominator at $x=y=z$ is
+$D(z,z)=(1+\rho)z^2-z-\rho z^3=-\rho z(z-1)(z-1/\rho)$,
+so:
+\begin{align}
+    \begin{split}
+        P(z,z)
+        &\;=\; \frac{-z(1-z)\,\rho(1-\rho)}{-\rho z(z-1)(z-1/\rho)} \\
+        &\;=\; \frac{(1-z)(1-\rho)}{(z-1)(z-1/\rho)}
+         \;=\; \frac{-(1-\rho)}{z-1/\rho}
+         \;=\; \frac{\rho(1-\rho)}{1-\rho z}.
     \end{split}
     \label{eq:A:Pzz}
 \end{align}
-Since $\frac{d}{dz}P(z,z) = \frac{\partial P}{\partial x}(z,z)+\frac{\partial P}{\partial y}(z,z)$,
-evaluating at $z=1$ gives $\mathbb{E}[N_1]+\mathbb{E}[N_2]$, and differentiating the
-right-hand side:
+Since $\frac{d}{dz}P(z,z)\big|_{z=1}
+= \frac{\partial P}{\partial x}(1,1)+\frac{\partial P}{\partial y}(1,1)
+=\mathbb{E}[N_1]+\mathbb{E}[N_2]$:
 \begin{align}
     \begin{split}
-        \mathbb{E}[N_1]+\mathbb{E}[N_2] \;=\; \left.\frac{d}{dz}\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
+        \mathbb{E}[N_1]+\mathbb{E}[N_2]
+        \;=\; \left.\frac{d}{dz}\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
         \;=\; \frac{\rho^2}{1-\rho}.
     \end{split}
     \label{eq:A:EN}
 \end{align}
-This is the standard $M/M/1(\lambda,\mu)$ result for the total queue, which
-is expected because jockeying and abandonment are both absent.
+This is the $M/M/1(\lambda,\mu)$ queue-length result for the combined system.
 
 \subsubsection*{Class-2 mean by subtraction}
 
@@ -534,7 +547,7 @@ is expected because jockeying and abandonment are both absent.
 \subsubsection*{Mean waiting times via Little's Law}
 
 \textbf{Little's Law} ($\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$) holds for any
-stable system, regardless of the arrival process.  Applied to each class:
+stable system, regardless of the arrival process:
 \begin{align}
     \begin{split}
         \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}
@@ -550,8 +563,7 @@ stable system, regardless of the arrival process.  Applied to each class:
     \label{eq:A:EW2}
 \end{align}
 Class-1 gains from priority: $\mathbb{E}[W_1]$ does not depend on $\rho_2$,
-while $\mathbb{E}[W_2]$ carries the additional factor $1/(1-\rho_1)$
-reflecting the delay imposed by class-1's priority.
+while $\mathbb{E}[W_2]$ carries the extra factor $1/(1-\rho_1)$.
 
 
 
