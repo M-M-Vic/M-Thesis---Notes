@@ -43,11 +43,11 @@ Here, they use the fact that $L(1)=1$ to determine $\pi_0=1-\rho$ and obtain
     \pi_n = (1 - \rho) \rho^n \quad \text{for} \quad n \geq 0.
 \end{equation*}
 
-Among the objects we can measure in the $M/M/1$ queueing system is the so-called \textit{busy period}, denoted by $BP$, which is the time interval starting when a customer arrives to an idle system and ending once the system becomes empty again: during that time, a customer is in service, and customers may or may not arrive before that service completion. The Laplace-Stieltjes Transform and expectation of the busy period are well-known:
+Among the objects we can measure in the $M/M/1$ queueing system is the so-called \textit{busy period}, denoted by $B$, which is the time interval starting when a customer arrives to an idle system and ending once the system becomes empty again: during that time, a customer is in service, and customers may or may not arrive before that service completion. The Laplace-Stieltjes Transform and expectation of the busy period are well-known:
 \begin{align}
-    \widetilde{BP}(s) &= \frac{(\mu + \lambda +s) - \sqrt{(\mu + \lambda + s)^2 - 4 \mu \lambda}}{2 \lambda} 
+    \widetilde{B}(s) &= \frac{(\mu + \lambda +s) - \sqrt{(\mu + \lambda + s)^2 - 4 \mu \lambda}}{2 \lambda}
     \label{eq:mm1:bp_lst}\\
-    \mathbb{E}\left[ BP\right] &= \frac{1/ \mu}{1 - \rho}. \label{eq:mm1:bp_mean}
+    \mathbb{E}\left[ B\right] &= \frac{1/ \mu}{1 - \rho}. \label{eq:mm1:bp_mean}
 \end{align}
 The transform is known to be invertible, so the distribution of $BP$ is also known. However, that is beyond the scope of this document, as it involves a more complex mathematical object called \textit{modified Bessel functions}.
 

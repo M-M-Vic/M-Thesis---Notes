@@ -74,13 +74,13 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         \end{split} \nonumber.
     \end{align}
     
-    If we take $y=1$, we have
+    We label the root with the negative sign $x^*(y)$ and the root with the positive sign $x^+(y)$. At $y=1$,
     \begin{align*}
-        x^*(1) = \frac{(\mu + \lambda_1) + (\mu-\lambda_1)}{2 \lambda_1} = \frac{\mu}{\lambda_1} >1
+        x^+(1) = \frac{(\mu + \lambda_1) + (\mu-\lambda_1)}{2 \lambda_1} = \frac{\mu}{\lambda_1} >1
         & \quad \text{and} \quad
-        x^*(1) = \frac{(\mu + \lambda_1) - (\mu-\lambda_1)}{2 \lambda_1} = \frac{\lambda_1}{\lambda_1} =1.
+        x^*(1) = \frac{(\mu + \lambda_1) - (\mu-\lambda_1)}{2 \lambda_1} = 1.
     \end{align*}
-    Since $x \in [0,1]$, only the option with the negative sign will be valid. Hence
+    Since $P(x,y)$ is a PGF analytic on $|x|\le1$, only $x^*(y)$ stays inside the unit disc; $x^+(y)>1$ is inadmissible. Hence
     \begin{equation}
         x^*(y) = \frac{
             (\mu +\lambda_1 + \lambda_2 (1-y)) 

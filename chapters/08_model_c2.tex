@@ -135,10 +135,15 @@ Integrating term by term,
 \end{equation}
 which yields the integrating factor
 \begin{equation}
-    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\cdot x^{\mu/\theta_1}\cdot (1-x)^{\lambda_2(1-y)/\theta_1}.
+    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\cdot x^{\alpha}\cdot (1-x)^{\beta(y)},
     \label{eq:C2:integrating_factor}
 \end{equation}
-Both exponents are positive under our stability assumptions, so $\mu_I$ vanishes at both $x=0$ and $x=1$. From $\tfrac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$, integration over $(0,x]$ reads
+where, in parallel with Model~$B_2$, we set
+\begin{equation}
+    \alpha \;=\; \frac{\mu}{\theta_1}, \qquad \beta(y) \;=\; \frac{\lambda_2(1-y)}{\theta_1}.
+    \label{eq:C2:exponents}
+\end{equation}
+Under our stability assumptions both exponents are positive ($\alpha>0$ always; $\beta(y)\ge0$ for $y\in[0,1]$), so $\mu_I$ vanishes at both $x=0$ and $x=1$. From $\tfrac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$, integration over $(0,x]$ reads
 \begin{equation}
     P(x,y)\,\mu_I(x;y) - P(0,y)\,\mu_I(0;y) \;=\; \int_0^x q(t;y)\,\mu_I(t;y)\,dt,
 \end{equation}
@@ -155,12 +160,12 @@ Now, in the same fashion as the root-cancellation argument used for Model A, we 
 \end{equation}
 Substituting the explicit forms of $q$ and $\mu_I$ into~\eqref{eq:C2:boundedness} and using $(1-t)^{b}/(t-1) = -(1-t)^{b-1}$ to simplify,
 \begin{equation}
-    \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b-1}\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]\,dt \;=\; 0,
+    \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)-1}\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]\,dt \;=\; 0,
 \end{equation}
-where $a=\mu/\theta_1$ and $b=\lambda_2(1-y)/\theta_1$. Introducing the auxiliary integrals
+with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}. Introducing the auxiliary integrals
 \begin{align}
-    \mathcal{J}_0(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b-1}\,dt, \\
-    \mathcal{J}_1(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt,
+    \mathcal{J}_0(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)-1}\,dt, \\
+    \mathcal{J}_1(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt,
 \end{align}
 and splitting the integrand, the boundedness condition~\eqref{eq:C2:boundedness} becomes
 \begin{equation}
@@ -178,7 +183,7 @@ The continued-fraction representation of the busy period of an $M/M/1+M$ queue~\
     \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)},
     \label{eq:C2:Bc_Kummer}
 \end{equation}
-with $a=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$. Setting $s=\lambda_2(1-y)$ — so that $b=\lambda_2(1-y)/\theta_1$ matches the exponent in $\mu_I$ — yields exactly the ratio of our $\mathcal{J}_i$:
+with $a=\alpha=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$. Setting $s=\lambda_2(1-y)$ — so that $b=\beta(y)$ matches the exponent in~\eqref{eq:C2:exponents} — yields exactly the ratio of our $\mathcal{J}_i$:
 \begin{equation}
     \widetilde{B}_C\bigl(\lambda_2(1-y)\bigr) \;=\; \frac{\mathcal{J}_1(y)}{\mathcal{J}_0(y)}.
 \end{equation}
@@ -211,17 +216,17 @@ To evaluate the integral, we use the partial-fraction identity
 \end{align*}
 and define the auxiliary integrals
 \begin{align}
-    \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a-1}(1-t)^{\,b}\,dt, \label{eq:C2:I1} \\
-    \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,a}(1-t)^{\,b-1}\,dt, \label{eq:C2:I2}
+    \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)}\,dt, \label{eq:C2:I1} \\
+    \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt, \label{eq:C2:I2}
 \end{align}
-with $a=\mu/\theta_1$ and $b=\lambda_2(1-y)/\theta_1$. Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
+with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}. Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
 \begin{equation}
     \int_0^x q(t;y)\,\mu_I(t;y)\,dt \;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}\Bigl[\zeta(y)\,\mathcal{I}_1(x,y) \;-\; \bigl(1-\zeta(y)\bigr)\,\mathcal{I}_2(x,y)\Bigr].
 \end{equation}
 Dividing by $\mu_I(x;y)$ and restoring $\zeta(y)=\widetilde{B}_C(\lambda_2(1-y))$, we arrive at the closed form
 \begin{align}
     \begin{split}
-        P(x,y) \;=\; \frac{e^{\lambda_1 x/\theta_1}\,\mu\,\pi(0,0)\,(1-y)}{\theta_1\, x^{\mu/\theta_1}(1-x)^{\lambda_2(1-y)/\theta_1}\bigl(\widetilde{B}_C(\lambda_2(1-y))-y\bigr)}\\[4pt]
+        P(x,y) \;=\; \frac{e^{\lambda_1 x/\theta_1}\,\mu\,\pi(0,0)\,(1-y)}{\theta_1\, x^{\alpha}(1-x)^{\beta(y)}\bigl(\widetilde{B}_C(\lambda_2(1-y))-y\bigr)}\\[4pt]
         \times \Bigl[\widetilde{B}_C(\lambda_2(1-y))\,\mathcal{I}_1(x,y) - \bigl(1-\widetilde{B}_C(\lambda_2(1-y))\bigr)\,\mathcal{I}_2(x,y)\Bigr],
     \end{split}\label{eq:C2:Pxy}
 \end{align}
