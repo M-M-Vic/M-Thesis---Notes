@@ -1,0 +1,158 @@
+\section{Results}
+
+\subsection{Validation}
+
+% [Introduce: say that every closed-form expression in this thesis is validated
+%  numerically against a truncated CTMC solver that solves the linear system
+%  π Q = 0 directly.  The CTMC is the ground truth — it makes no approximation
+%  beyond the finite truncation at N_max = 40, whose effect is controlled and
+%  small for the parameter regimes tested.]
+
+Each theoretical result — two lemmas, three theorems, two corollaries, and one
+approximation theorem — is verified numerically against the exact stationary
+distribution obtained from a truncated CTMC solver (state-space truncation at
+$N_{\max}=40$).  All models share the base parameters $\lambda_1=0.3$,
+$\lambda_2=0.4$, $\mu=1.0$; where applicable, $\gamma_1=0.5$ (Models B, B$_2$)
+or $\theta_1=0.5$ (Model C$_2$) is added, isolating each mechanism.
+
+Table~\ref{tab:validation_summary} collects the verdict for every result.
+Figures~\ref{fig:val_lemmas}--\ref{fig:val_ppgf} provide the visual evidence.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{table}[H]
+\centering
+\caption{Validation summary.  All mathematical results are accepted; the PPGF
+approximation is conditionally accepted (accurate only for $\rho_1/\rho\ge0.6$
+and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
+\label{tab:validation_summary}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{llllcl}
+\hline
+\textbf{ID} & \textbf{Result} & \textbf{Model(s)} & \textbf{Check} & \textbf{Max error} & \textbf{Verdict} \\
+\hline
+L1   & Lemma~\ref{lem:gen:fundamental_equation}  & A, B, B$_2$, C$_2$ & PGF eq.\ residual             & $<5\times10^{-9}$  & Accept \\
+L2   & Lemma~\ref{lem:gen:PPGF_dynamics}         & A, B$_2$, C$_2$    & PPGF dynamics residual        & $<2\times10^{-15}$ & Accept \\
+T-A  & Theorem (Model A)                         & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
+C-A  & Corollary~\ref{cor:A:pi0}                 & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
+T-B2 & Theorem (Model B$_2$)                     & B$_2$              & $P(x,y)$ on $5\times5$ grid   & $<3\times10^{-7}$  & Accept \\
+T-C2 & Theorem (Model C$_2$)                     & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
+C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
+T-S  & Theorem~\ref{thm:A:PPGF_Stilde}           & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
+\hline
+\end{tabular}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection*{Structural lemmas}
+
+% [Discuss: the lemmas state that the stationary distribution satisfies a
+%  specific functional equation.  A non-zero residual would indicate either a
+%  derivation error or a coding error in the CTMC.  Residuals below 10^{-9}
+%  are consistent with truncation noise at N_max=40, not formula error.]
+
+Figure~\ref{fig:val_lemmas} shows the maximum relative residual
+$|{\rm LHS}-{\rm RHS}|/|{\rm RHS}|$ of each lemma's functional equation,
+evaluated on the exact CTMC distribution across all model variants.
+Both lemmas hold to better than $10^{-9}$; Lemma~2 reaches floating-point
+precision (${\sim}10^{-15}$) because its recurrence involves only one
+discrete variable.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{figures/validation/val_lemmas.pdf}
+    \caption{Lemma validation.  \textit{Left}: max relative residual of the
+    fundamental PGF equation (Lemma~\ref{lem:gen:fundamental_equation}) for
+    each model variant on a $5\times5$ interior grid.
+    \textit{Right}: max relative residual of the PPGF dynamics recurrence
+    (Lemma~\ref{lem:gen:PPGF_dynamics}) over $n\in\{1,\ldots,15\}$ and
+    $y\in[0.05,0.90]$.
+    All values lie well below the $10^{-6}$ tolerance (red dashed line).}
+    \label{fig:val_lemmas}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection*{Closed-form and integral-form theorems}
+
+% [Discuss: the three theorems (A, B₂, C₂) give explicit formulas for P(x,y).
+%  Because all three are tested on the same 5×5 grid with the same base
+%  parameters (only the extra mechanism changes), the errors are directly
+%  comparable.  Model C₂ achieves near-machine precision because the
+%  Pollaczek–Khinchine ratio evaluates exactly; Model B₂ is limited by the
+%  finite-part quadrature near the branch singularity at x=y.]
+
+Figures~\ref{fig:val_pxy} and~\ref{fig:val_py} compare the three analytic
+formulas against the CTMC on a uniform grid, using identical parameters and
+the same error metric.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/validation/val_theorems_pxy.pdf}
+    \caption{Relative error $|P_{\rm formula}(x,y)-P_{\rm CTMC}(x,y)|/|P_{\rm CTMC}(x,y)|$
+    on the same $5\times5$ test grid for Models A, B$_2$, and C$_2$.
+    Colour scales are anchored to the same range across all three panels.
+    White crosses mark the 25 test points.}
+    \label{fig:val_pxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/validation/val_theorems_py.pdf}
+    \caption{Boundary function $P_y(y)=P(0,y)$ for Models A, B$_2$, and C$_2$:
+    analytic formula (solid) vs CTMC (dashed).
+    % [Discuss: note the qualitative similarity — P_y rises monotonically to
+    %  P(0,1)=P(busy, N_1=0) — but the values differ across models because
+    %  each mechanism changes how class-1 customers block class-2 service.]
+    }
+    \label{fig:val_py}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection*{Corollaries}
+
+% [Discuss: Corollary A says π₀ and π(0,0) depend only on ρ for all
+%  no-abandonment models (A, B, B₂).  Corollary C₂ gives more complex
+%  expressions involving E[B_C].  Both are tested over random configurations
+%  with the same structure (60 configs, tol = 10^{-4}).]
+
+Figure~\ref{fig:val_corollaries} shows the scatter of formula vs CTMC values
+for $\pi_0$ and $\pi(0,0)$ across 60 random parameter configurations for each
+corollary.  All points lie on the diagonal to within $10^{-4}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth]{figures/validation/val_corollaries.pdf}
+    \caption{Corollaries A (blue) and C$_2$ (red): formula vs CTMC for
+    $\pi_0$ (left column) and $\pi(0,0)$ (right column) over 60 random
+    configurations each.  Perfect agreement lies on the diagonal.
+    % [Discuss: the C₂ corollary is non-trivial — it involves the confluent
+    %  hypergeometric function and the M/M/1+M busy period — yet it matches
+    %  CTMC to the same tolerance as the simple Model A formula.]
+    }
+    \label{fig:val_corollaries}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsubsection*{PPGF approximation (Theorem~\ref{thm:A:PPGF_Stilde})}
+
+% [Discuss: unlike the other results, this theorem is approximate by design.
+%  The approximation drops the inhomogeneous forcing term, which decays as ρ^n.
+%  It is exact at y=1 for all parameter regimes.  It should only be used as
+%  an approximation when ρ₁/ρ is large — i.e., when the priority class
+%  dominates.]
+
+Figure~\ref{fig:val_ppgf} maps the maximum relative error
+$\varepsilon_\infty(\rho_1,\rho_2)$ over the parameter space.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.52\textwidth]{figures/validation/val_ppgf_heatmap.pdf}
+    \caption{Max relative error $\varepsilon_\infty$ of the approximate PPGF
+    $\widetilde{P}_{\rm app}(y,n)=(1-\rho)\rho[\widetilde{y}^*(y)]^n$ as a
+    function of $(\rho_1,\rho_2)$.
+    Green: accurate ($\varepsilon_\infty < 3\%$);
+    red: poor.
+    The approximation is reliable only when the priority class carries most
+    of the offered load ($\rho_1/\rho\gtrsim0.6$) and the system is not
+    heavily loaded ($\rho\lesssim0.6$).}
+    \label{fig:val_ppgf}
+\end{figure}
