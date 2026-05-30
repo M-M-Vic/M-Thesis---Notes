@@ -1,12 +1,12 @@
-\section{[NEW]Analysis model A: \texorpdfstring{$M/M/1$}{M/M/1} queue with no jockeying ($\gamma_1=0,\gamma_2=0$)}
+\section{Analysis of Model~A ($\gamma_1=0,\,\gamma_2=0$, $\theta_1=\theta_2=0$)}
 
 The model discussed in this section is fundamentally more simple than the one explained in the previous sections. We set $\gamma_1=0,\gamma_2=0$, i.e. we do not allow our waiting customers to go to a different queue once they have arrived. The starting point for the analysis will depend on whether we decide to work with state space $S$ or with state space $\widetilde{S}$.
 
-The balance equations are given —Equations \eqref{eq:n1n2_balance_interior}, \eqref{eq:n1n2_balance_x-boundary}, \eqref{eq:n1n2_balance_y-boundary}, \eqref{eq:n1n2_balance_zero} and \eqref{eq:n1n2_balance_zero} for state space $S$, and Equations \eqref{eq:n1n_balance_interior}, \eqref{eq:n1n_balance_diagonal}, \eqref{eq:n1n_balance_y-boundary}, \eqref{eq:n1n_balance_zero} and \eqref{eq:n1n_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:n1n2_model-b_fundamental_equation} for state space $S$ and Equation \eqref{eq:n1n_model-B_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
+The balance equations are given —Equations \eqref{eq:gen_balance_interior}, \eqref{eq:gen_balance_x-boundary}, \eqref{eq:gen_balance_y-boundary}, \eqref{eq:gen_balance_zero} and \eqref{eq:gen_balance_idle} for state space $S$, and Equations \eqref{eq:tilde_balance_interior}, \eqref{eq:tilde_balance_diagonal}, \eqref{eq:tilde_balance_y-boundary}, \eqref{eq:tilde_balance_zero} and \eqref{eq:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen_fundamental_equation} for state space $S$ and Equation \eqref{eq:gen_PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
 
 \subsection{Analysis model A: state space $S$}
 
-We start by stating a $\gamma$-free version of Equation \eqref{eq:n1n2_model-b_fundamental_equation}, where the function $P_y(y)$ and the constant $\pi(0,0)$ are still to be determined:
+We start by stating a $\gamma$-free version of Equation \eqref{eq:gen_fundamental_equation}, where the function $P_y(y)$ and the constant $\pi(0,0)$ are still to be determined:
 \begin{align}
     \begin{split}
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
@@ -123,7 +123,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
     \end{align*}
     For future reference,
     \begin{equation}
-        \frac{d}{dy}x^*(1) = \frac{\rho_2}{1-\rho_1}.
+        \frac{d}{dy}x^*(1) = \frac{\rho_2}{1-\rho_1}. \label{eq:xstar_1}
     \end{equation}
     
     Now for $x=x^*(y)$, we have $\mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big] = 0$, so
@@ -194,7 +194,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         \pi(0,0) = \rho (1-\rho) \label{eq:pi00}
     \end{equation}
 
-    Now that we have determined $P_y(y)$ and $\pi(0,0)$, substituting Equation \eqref{eq:pyy_xstars} and Equation \eqref{eq:pi00} into Equation \eqref{pxy_pyy-p00} yields
+    Now that we have determined $P_y(y)$ and $\pi(0,0)$, substituting Equation \eqref{eq:pyy_xstars} and Equation \eqref{eq:pi00} into Equation \eqref{eq:n1n2_model-A_dynamics} yields
     \begin{align*}
         \left[ 
             (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2
@@ -234,7 +234,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
 
 \subsubsection{Probabilistic approach of model A in state space $S$}
 \begin{proof}
-    Our goal here is to derive the partial PGF $P_y(y)$ based on probabilistic arguments. As done in the analytical approach, we start from the fundamental global balance equation for Model $A$, (i.e. Equation \eqref{eq:n1n2_model-b_fundamental_equation} with $\gamma_1=0, \gamma_2=0$):
+    Our goal here is to derive the partial PGF $P_y(y)$ based on probabilistic arguments. As done in the analytical approach, we start from the fundamental global balance equation for Model~A, i.e.\ Equation \eqref{eq:n1n2_model-A_dynamics}:
     \begin{equation}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
         \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].
@@ -341,7 +341,7 @@ From the interior balance equation, then, we obtain
     \end{split} 
 \end{align*}
 
-Note that we can use the $x$-boundary equation (Equation \eqref{eq:balance2}) to simplify the expression. Doing so and then grouping terms yields
+Note that we can use the $x$-boundary equation (Equation \eqref{eq:gen_balance_x-boundary}) to simplify the expression. Doing so and then grouping terms yields
 \begin{equation}
     \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] \widetilde{P}(n_1,y)
     = \mu \widetilde{P}(n_1+1,y)
@@ -358,7 +358,7 @@ where $\widetilde{x}^*(y)$ is a root of the characteristic equation
     \mu [\widetilde{x}^*(y)]^2 - [\mu + \lambda_1 + \lambda_2(1-y)] \widetilde{x}^*(y) + \lambda_1 = 0.
 \end{equation}
 
-A similar procedure can be replicated with the $y$-boundary balance equation (Equation \eqref{eq:balance3}) to obtain $\widetilde{P}(0,y)$. First, solving the characteristic equation yields two roots:
+A similar procedure can be replicated with the $y$-boundary balance equation (Equation \eqref{eq:gen_balance_y-boundary}) to obtain $\widetilde{P}(0,y)$. First, solving the characteristic equation yields two roots:
 \begin{equation*}
     \widetilde{x}^*(y) = \frac{(\mu + \lambda_1 + \lambda_2(1-y)) \pm \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1\mu}}{2\mu}.
 \end{equation*}
