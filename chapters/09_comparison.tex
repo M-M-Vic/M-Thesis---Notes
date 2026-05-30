@@ -1,0 +1,72 @@
+\section{Comparison of Variant $B_2$ with Model C-$2$}
+\label{ssec:B2_vs_C2}
+
+Both models reduce the fundamental equation to a first-order linear ODE in $x$ with a
+parameter $y$, and both close in confluent hypergeometric functions; yet the mechanism that
+pins the boundary function $P_y(y)$ is structurally different, as is the determination of the empty-state mass $\pi(0,0)$. The contrast is summarized below.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{p{0.30\textwidth} p{0.31\textwidth} p{0.31\textwidth}}
+\hline
+ & \textbf{Model C-$2$ ($\theta_1>0$)} & \textbf{Variant $B_2$ ($\gamma_1>0$)} \\
+\hline
+Convection coefficient
+ & $\theta_1\,x(x-1)$
+ & $\gamma_1\,x(x-y)$ \\
+Operative singular point
+ & boundary $x=1$
+ & interior $x=y$ \\
+Exponent there
+ & $b=\dfrac{\lambda_2(1-y)}{\theta_1}>0$ \;($\mu_I\to0$)
+ & $\beta=\dfrac{(1-y)(\lambda y-\mu)}{\gamma_1 y}<0$ \;($\mu_I\to\infty$) \\
+Pinning principle
+ & \emph{boundedness} at $x=1$: \;$\int_0^1 q\,\mu_I\,dt=0$
+ & \emph{analyticity} at $x=y$: branch coefficient $=0$ \\
+Empty-state mass $\pi(0,0)$
+ & $M/G/1$+renewal (abandonment breaks conservation)
+ & $\rho(1-\rho)$ exactly (jockeying conserves total) \\
+Probabilistic backbone
+ & class-$2$ is $M/G/1$; PK with service $B_C$
+ & class-$1$ is $M/M/1{+}M$ (reneging $=\gamma_1$); no PK \\
+\hline
+\end{tabular}
+\end{center}
+
+In words: in C-$2$ the abandonment convection $\theta_1 x(x-1)$ places the singularity on the
+boundary $x=1$ with a \emph{positive} integrating-factor exponent, so $\mu_I$ vanishes there
+and mere boundedness of the PGF forces the vanishing integral that determines $P_y(y)$; the
+Poisson character of the class-$2$ stream survives abandonment, so Pollaczek--Khinchine
+delivers $P_y(y)$ probabilistically and an $M/G/1$ renewal argument delivers $\pi(0,0)$. In
+$B_2$ the jockeying convection $\gamma_1 x(x-y)$ places the singularity at the \emph{interior}
+point $x=y$ with a \emph{negative} exponent, so $\mu_I$ blows up, the homogeneous mode
+vanishes, and only the stronger requirement of holomorphy --- the absence of the non-integer
+branch $(x-y)^{|\beta|}$ --- pins $P_y(y)$. Jockeying destroys the Poisson/renewal structure of
+the per-class input, so no PK identity is available; what remains probabilistic is the exact
+total-customer $M/M/1$ behaviour (giving $\pi(0,0)=\rho(1-\rho)$ and $\pi_0=1-\rho$) and the
+$M/M/1{+}M$ reading of the class-$1$ marginal, which is the origin of the ${}_1F_1$ factors.
+A common object appears in both: the Erlang-A--type constant
+${}_1F_1\!\bigl(1;\,\tfrac{\mu}{r}+1;\,\tfrac{\lambda_1}{r}\bigr)$ with $r=\theta_1$ (C-$2$) or
+$r=\gamma_1$ ($B_2$). Finally, $B_2$ degenerates to Model~A only in the singular limit
+$\gamma_1\to0^+$, in which $\alpha,\beta\to\infty$ and the Kummer ratio collapses to the
+rational Model-A answer; this limit is not uniform, which is consistent with $\gamma_1$
+multiplying the highest-order term of the ODE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
