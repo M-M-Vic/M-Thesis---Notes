@@ -1095,51 +1095,66 @@ def P_A_scalar_uni(xv, yv):
 x_uni = np.array([0.10, 0.25, 0.45, 0.65, 0.80])
 y_uni = np.array([0.10, 0.25, 0.45, 0.65, 0.80])
 
-def rel_err_grid(P_fn, pi_ctmc, xs, ys):
-    out = np.zeros((len(xs), len(ys)))
+def rel_err_grid(P_fn, pi_ctmc, xs, ys, valid_mask=None):
+    '''Relative error |formula - CTMC| / |CTMC| on a grid.
+    valid_mask(xv, yv) -> bool: if provided, returns NaN for invalid cells.'''
+    out = np.full((len(xs), len(ys)), np.nan)
     for i, xv in enumerate(xs):
         for j, yv in enumerate(ys):
+            if valid_mask is not None and not valid_mask(xv, yv):
+                continue
             th = P_fn(xv, yv)
             ct = pgf_series(pi_ctmc, xv, yv).real
             out[i, j] = abs(th - ct) / (abs(ct) + 1e-15)
     return out
 
+# Model A and C₂: valid on the full grid.
+# Model B₂: real-branch formula requires x < y (x = y is the interior singularity).
 err_A_u  = rel_err_grid(P_A_scalar_uni, pi_uni_A,  x_uni, y_uni)
-err_B2_u = rel_err_grid(P_B2_uni,       pi_uni_B2, x_uni, y_uni)
+err_B2_u = rel_err_grid(P_B2_uni,       pi_uni_B2, x_uni, y_uni,
+                         valid_mask=lambda x, y: x < y)
 err_C2_u = rel_err_grid(P_C2_uni,       pi_uni_C2, x_uni, y_uni)
 
-print(f"  Model A  — max rel err: {err_A_u.max():.2e}   mean: {err_A_u.mean():.2e}")
-print(f"  Model B₂ — max rel err: {err_B2_u.max():.2e}  mean: {err_B2_u.mean():.2e}")
-print(f"  Model C₂ — max rel err: {err_C2_u.max():.2e}  mean: {err_C2_u.mean():.2e}")
+print(f"  Model A  — max rel err: {np.nanmax(err_A_u):.2e}")
+print(f"  Model B₂ — max rel err (x<y only): {np.nanmax(err_B2_u):.2e}")
+print(f"  Model C₂ — max rel err: {np.nanmax(err_C2_u):.2e}")
 """)
 
 code(r"""
-# ── P(x,y) heatmap comparison — three panels, identical grid and colour scale ──
+# ── P(x,y) heatmap — per-panel colour scale; grey = formula not defined ──────
 
 fig, axes = plt.subplots(1, 3, figsize=(13, 4.2))
 cmaps  = ["Blues_r", "Oranges_r", "Greens_r"]
-titles = ["Model A",
-          r"Model $B_2$  ($\gamma_1=0.5$)",
-          r"Model $C_2$  ($\theta_1=0.5$)"]
+titles = ["Model A  (valid everywhere)",
+          r"Model $B_2$  ($\gamma_1=0.5$, valid $x<y$)",
+          r"Model $C_2$  ($\theta_1=0.5$, valid everywhere)"]
 errors = [err_A_u, err_B2_u, err_C2_u]
 
-# Shared log-colour scale anchored to the worst case
-vmax_shared = max(e.max() for e in errors)
-vmin_shared = vmax_shared * 1e-9
-
 for ax, err, title, cmap in zip(axes, errors, titles, cmaps):
-    im = ax.imshow(np.log10(err + 1e-17), origin="lower",
+    log_err = np.log10(err + 1e-17)           # NaN stays NaN after log
+    vmax = np.nanmax(log_err)
+    vmin = vmax - 9                            # 9 decades of dynamic range
+
+    # Light-grey background for NaN (formula not defined) cells
+    bg = np.where(np.isnan(err), 0.18, np.nan)
+    ax.imshow(bg, origin="lower",
+              extent=[y_uni[0], y_uni[-1], x_uni[0], x_uni[-1]],
+              aspect="auto", cmap="Greys", vmin=0, vmax=1, zorder=1)
+
+    im = ax.imshow(log_err, origin="lower",
                    extent=[y_uni[0], y_uni[-1], x_uni[0], x_uni[-1]],
-                   aspect="auto", cmap=cmap,
-                   vmin=np.log10(vmin_shared), vmax=np.log10(vmax_shared))
+                   aspect="auto", cmap=cmap, vmin=vmin, vmax=vmax, zorder=2)
     plt.colorbar(im, ax=ax, label=r"$\log_{10}$(rel. error)")
     ax.set_xlabel(r"$y$"); ax.set_ylabel(r"$x$")
-    ax.set_title(f"{title}\nmax $= {err.max():.1e}$")
-    for xv in x_uni:
-        for yv in y_uni:
-            ax.plot(yv, xv, "w+", ms=5, mew=1.0)
+    ax.set_title(f"{title}\nmax $= {np.nanmax(err):.1e}$")
+    # Mark valid test points
+    for i, xv in enumerate(x_uni):
+        for j, yv in enumerate(y_uni):
+            if not np.isnan(err[i, j]):
+                ax.plot(yv, xv, "w+", ms=6, mew=1.2, zorder=3)
+
 fig.suptitle(
-    r"$P(x,y)$: relative error (formula vs CTMC) — same 5$\times$5 test grid",
+    r"$P(x,y)$: relative error (formula vs CTMC) — same $5\times5$ test grid",
     fontsize=11)
 fig.tight_layout()
 plt.savefig("../figures/validation/val_theorems_pxy.pdf", bbox_inches="tight")
@@ -1304,13 +1319,13 @@ rows = [
     ("L2",   "Lemma 2",                 "A, B$_2$, C$_2$",
      "PPGF dynamics residual",          l2_max_str,  "PASS"),
     ("T-A",  "Theorem (Model A)",       "A",
-     "$P(x,y)$ on 5×5 grid (rel.)",    f"{err_A_u.max():.0e}", "PASS"),
+     "$P(x,y)$ on 5×5 grid (rel.)",    f"{np.nanmax(err_A_u):.0e}", "PASS"),
     ("C-A",  "Corollary A",             "A, B, B$_2$",
      "$\\pi_0$, $\\pi(0,0)$ (60 cfgs)", f"{max(abs(a-b) for a,b in zip(A_f0,A_c0)):.0e}", "PASS"),
     ("T-B2", "Theorem (Model $B_2$)",   "B$_2$",
-     "$P(x,y)$ on 5×5 grid (rel.)",    f"{err_B2_u.max():.0e}", "PASS"),
+     "$P(x,y)$ on 5×5 grid, $x<y$ (rel.)", f"{np.nanmax(err_B2_u):.0e}", "PASS"),
     ("T-C2", "Theorem (Model $C_2$)",   "C$_2$",
-     "$P(x,y)$ on 5×5 grid (rel.)",    f"{err_C2_u.max():.0e}", "PASS"),
+     "$P(x,y)$ on 5×5 grid (rel.)",    f"{np.nanmax(err_C2_u):.0e}", "PASS"),
     ("C-C2", "Corollary C$_2$",         "C$_2$",
      "$\\pi_0$, $\\pi(0,0)$ (60 cfgs)", f"{max(abs(a-b) for a,b in zip(C2_f0,C2_c0)):.0e}", "PASS"),
     ("T-S",  "Thm. (approx. PPGF)",    "A",
