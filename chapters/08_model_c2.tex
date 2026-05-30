@@ -270,23 +270,55 @@ which is the statement of the theorem. This closed form is the product of a prob
 
 \subsection{Mean queue lengths and mean waiting times}
 
-Abandonment reduces the load: $\mathbb{E}[N_1]+\mathbb{E}[N_2] < \rho^2/(1-\rho)$
-for $\theta_1>0$.
-The individual means are obtained from $P(x,y)$ by differentiation at $(1,1)$
-(approached via a non-singular path), or directly from the CTMC.
+\subsubsection*{Why the diagonal no longer gives a closed form}
 
-\textbf{Little's Law with abandonment.}
-The relation $\mathbb{E}[N_i] = \lambda_i\,\mathbb{E}[W_i]$ requires no
-Poisson assumption: it is a universal identity between the stationary mean
-number of customers present, the arrival rate, and the mean time spent in
-queue.  For Model~C$_2$, $\lambda_i$ must be the \emph{arrival} rate of all
-class-$i$ customers (including those who will abandon), so $\mathbb{E}[W_i]$
-represents the mean waiting time averaged over served and abandoned customers
-alike.  The throughput $\mu(1-\pi_0) < \lambda_1+\lambda_2$ should \emph{not}
-replace $\lambda_i$ in Little's Law.
+Setting $x=y=z$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
+terms $\mu(x-y)P_y(y)$ and $\gamma_1 xy(x-y)\partial_x P$ both vanish, but
+the abandonment convection $\theta_1 xy(x-1)\partial_x P$ does \emph{not}
+(since $(x-1)|_{x=z}\neq0$ in general):
+\begin{align}
+    \begin{split}
+        &\bigl[(\lambda_1+\lambda_2+\mu)z^2-\mu z-\lambda_1 z^3-\lambda_2 z^3\bigr]P(z,z)
+         +\theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z) \\
+        &\quad =\; -\mu z(1-z)\,\pi(0,0).
+    \end{split}
+    \label{eq:C2:diag}
+\end{align}
+The unknown $\partial_x P(z,z)$ prevents a direct closed form for $P(z,z)$,
+and hence for $\mathbb{E}[N]$.  In contrast to Models~A and~B$_2$, the total
+mean queue length is strictly less than $\rho^2/(1-\rho)$: abandonment removes
+customers from the system, reducing both $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$
+compared to the Model~A baseline.
 
-As $\theta_1\to0^+$, both $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$ recover the
-Model~A expressions~\eqref{eq:A:EN1}--\eqref{eq:A:EN2}.
+\subsubsection*{Individual means}
+
+The means are extracted from $P(x,y)$ by differentiation:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_1] \;=\; \lim_{(x,y)\to(1,1)}\frac{\partial P}{\partial x}(x,y), \qquad
+        \mathbb{E}[N_2] \;=\; \lim_{(x,y)\to(1,1)}\frac{\partial P}{\partial y}(x,y).
+    \end{split}
+    \label{eq:C2:EN_def}
+\end{align}
+
+\subsubsection*{Little's Law with abandonment}
+
+The relation $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ holds for any
+stable system.  For Model~C$_2$, $\lambda_i$ is the arrival rate of
+\emph{all} class-$i$ customers, including those that will eventually abandon.
+Consequently $\mathbb{E}[W_i]$ is the mean time spent in queue averaged over
+both served and abandoned customers:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[W_i] \;=\; \frac{\mathbb{E}[N_i]}{\lambda_i}.
+    \end{split}
+    \label{eq:C2:EW}
+\end{align}
+The throughput $\mu(1-\pi_0)<\lambda_1+\lambda_2$ should not replace $\lambda_i$;
+doing so would yield the conditional waiting time of customers who complete
+service only, a different quantity.
+As $\theta_1\to0^+$, the Model~A expressions~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}
+are recovered.
 
 
 

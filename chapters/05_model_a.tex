@@ -460,31 +460,98 @@ We can evaluate this expression at $y=1$ and check that it will behave like a re
 
 \subsection{Mean queue lengths and mean waiting times}
 
-The mean numbers of waiting customers follow from $P(x,y)$ by differentiation.
-The class-1 marginal $P(x,1)=\rho(1-\rho_1)/(1-\rho_1 x)$ is a geometric PGF,
-yielding the closed-form expressions
-\begin{align}
-    \mathbb{E}[N_1] &= \frac{\rho\rho_1}{1-\rho_1}, \label{eq:A:EN1} \\
-    \mathbb{E}[N_2] &= \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)}. \label{eq:A:EN2}
-\end{align}
-Their sum is $\mathbb{E}[N_1]+\mathbb{E}[N_2] = \rho^2/(1-\rho)$, the
-standard $M/M/1$ queue-length result for the combined system.
+\subsubsection*{Class-1 marginal}
 
-% [Expand: derive \eqref{eq:A:EN2} from the P-K formula.
-%  The class-2 subsystem is M/G/1 with load ρ_B = λ₂ E[B] = ρ₂/(1-ρ₁), giving
-%  E[N₂] = ρ_B/(1-ρ_B) = ρ₂(1-ρ₁)⁻¹ / (1-ρ₂(1-ρ₁)⁻¹) = ρ₂/((1-ρ₁)-ρ₂) = ρ₂/(1-ρ₁-ρ₂)·... check.]
-
-\textbf{Little's Law} ($\mathbb{E}[N_i] = \lambda_i\,\mathbb{E}[W_i]$) holds for
-any stable system regardless of the arrival distribution;
-since arrivals are Poisson here, it also coincides with the PASTA-based
-decomposition~\eqref{eq:prio:py_decomp}.  The mean waiting times in queue are
+Setting $y=1$ in the fundamental equation~\eqref{eq:A:fundamental}, the
+right-hand side simplifies because $(1-y)|_{y=1}=0$:
 \begin{align}
-    \mathbb{E}[W_1] &= \frac{\rho}{\mu(1-\rho_1)}, \label{eq:A:EW1} \\
-    \mathbb{E}[W_2] &= \frac{\rho}{\mu(1-\rho_1)(1-\rho)}. \label{eq:A:EW2}
+    \begin{split}
+        &\bigl[(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 x\bigr]
+        P(x,1) = \mu(x-1)\,P_y(1).
+    \end{split}
 \end{align}
-Class-1 benefits from priority: its waiting time is independent of $\rho_2$
-(only the total load $\rho$ and its own load $\rho_1$ appear).
-Class-2 pays a factor $1/(1-\rho_1)$ on top of the single-class waiting time.
+The left-hand polynomial factors as $-\lambda_1(x-1)(x-1/\rho_1)$.
+Cancelling $(x-1)$ for $x\neq1$ yields
+\begin{align}
+    \begin{split}
+        P(x,1) \;=\; \frac{P_y(1)}{1-\rho_1 x}.
+    \end{split}
+\end{align}
+Evaluating at $x=1$ and using $P(1,1)=\rho$ gives $P_y(1)=\rho(1-\rho_1)$, so
+\begin{align}
+    \begin{split}
+        P(x,1) \;=\; \frac{\rho(1-\rho_1)}{1-\rho_1 x},
+    \end{split}
+    \label{eq:A:Px1}
+\end{align}
+a geometric PGF.  Differentiating at $x=1$:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_1] \;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1}
+        \;=\; \frac{\rho(1-\rho_1)\rho_1}{(1-\rho_1)^2}
+        \;=\; \frac{\rho\rho_1}{1-\rho_1}.
+    \end{split}
+    \label{eq:A:EN1}
+\end{align}
+
+\subsubsection*{Total queue length from the diagonal}
+
+Setting $x=y=z$ in the fundamental equation, the right-hand side vanishes
+(the factor $(x-y)$ is zero), and the left-hand polynomial in $z$ factors as
+$-\lambda(z-1)(z-1/\rho)$.  Cancelling $(z-1)$ for $z\neq1$ gives
+\begin{align}
+    \begin{split}
+        P(z,z) \;=\; \frac{\pi(0,0)}{1-\rho z} \;=\; \frac{\rho(1-\rho)}{1-\rho z}.
+    \end{split}
+    \label{eq:A:Pzz}
+\end{align}
+Since $\frac{d}{dz}P(z,z) = \frac{\partial P}{\partial x}(z,z)+\frac{\partial P}{\partial y}(z,z)$,
+evaluating at $z=1$ gives $\mathbb{E}[N_1]+\mathbb{E}[N_2]$, and differentiating the
+right-hand side:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_1]+\mathbb{E}[N_2] \;=\; \left.\frac{d}{dz}\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
+        \;=\; \frac{\rho^2}{1-\rho}.
+    \end{split}
+    \label{eq:A:EN}
+\end{align}
+This is the standard $M/M/1(\lambda,\mu)$ result for the total queue, which
+is expected because jockeying and abandonment are both absent.
+
+\subsubsection*{Class-2 mean by subtraction}
+
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_2]
+        &\;=\; \frac{\rho^2}{1-\rho} - \frac{\rho\rho_1}{1-\rho_1}
+         \;=\; \frac{\rho^2(1-\rho_1)-\rho\rho_1(1-\rho)}{(1-\rho)(1-\rho_1)} \\
+        &\;=\; \frac{\rho(\rho-\rho_1)}{(1-\rho)(1-\rho_1)}
+         \;=\; \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)}.
+    \end{split}
+    \label{eq:A:EN2}
+\end{align}
+
+\subsubsection*{Mean waiting times via Little's Law}
+
+\textbf{Little's Law} ($\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$) holds for any
+stable system, regardless of the arrival process.  Applied to each class:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}
+        \;=\; \frac{\rho\rho_1}{\lambda_1(1-\rho_1)}
+        \;=\; \frac{\rho}{\mu(1-\rho_1)},
+    \end{split}
+    \label{eq:A:EW1} \\
+    \begin{split}
+        \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}
+        \;=\; \frac{\rho\rho_2}{\lambda_2(1-\rho_1)(1-\rho)}
+        \;=\; \frac{\rho}{\mu(1-\rho_1)(1-\rho)}.
+    \end{split}
+    \label{eq:A:EW2}
+\end{align}
+Class-1 gains from priority: $\mathbb{E}[W_1]$ does not depend on $\rho_2$,
+while $\mathbb{E}[W_2]$ carries the additional factor $1/(1-\rho_1)$
+reflecting the delay imposed by class-1's priority.
 
 
 
