@@ -1,5 +1,9 @@
 \section{Analysis of Model~$B_2$ ($\gamma_1>0$, $\gamma_2=0$, $\theta_1=\theta_2=0$)}
 
+Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\gamma_2=0$) and retains no abandonment ($\theta_1=\theta_2=0$). Setting $\gamma_2=0$ eliminates the $\partial P/\partial y$ term from the fundamental equation, reducing it to a first-order linear ODE in $x$ for each fixed $y\in[0,1]$. An integrating factor then yields a formal integral expression for $P(x,y)$; the boundary function $P_y(y)$ is pinned by requiring $P(\cdot,y)$ to be holomorphic at the interior singular point $x=y$, where the integrating factor carries a branch singularity with negative exponent. This analyticity condition replaces the boundedness argument used for Model~C$_2$.
+
+\textbf{Stability.} As in Models~A and~B, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves total customer count and does not affect the stability condition.
+
 \begin{theorem}
     Consider the two-class priority queueing system of Model~B with per-customer jockeying
     confined to the priority class, i.e. $\gamma_1>0$, $\gamma_2=0$ (and
@@ -20,7 +24,7 @@
         \left[\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\,
         \frac{{}_1F_1(\alpha+1;b^\star;-\frac{\lambda_1 y}{\gamma_1})}
              {{}_1F_1(\alpha;b^\star;-\frac{\lambda_1 y}{\gamma_1})}\,
-        \mathcal J_1(x,y)+(1-y)\pi(0,0)\,\mathcal J_2(x,y)\right],
+        \mathcal{I}_1(x,y)+(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\right],
     \end{equation}
     where ${}_1F_1$ is the confluent hypergeometric (Kummer) function, the exponents are
     \begin{equation}
@@ -28,8 +32,8 @@
         \beta(y)=\frac{(1-y)(\lambda y-\mu)}{\gamma_1 y},\qquad
         b^\star(y)=\alpha+\beta+1=\frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1},
     \end{equation}
-    and $\mathcal J_1,\mathcal J_2$ are the integrals defined in \eqref{eq:b2_J1}--\eqref{eq:b2_J2};
-    on $y<x\le1$ the same expression holds with $\mathcal J_1,\mathcal J_2$ read as their
+    and $\mathcal{I}_1,\mathcal{I}_2$ are the integrals defined in \eqref{eq:b2_I1}--\eqref{eq:b2_I2};
+    on $y<x\le1$ the same expression holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their
     finite-part continuations.
 \end{theorem}
 
@@ -86,17 +90,12 @@ Note $\mu_I(x;y) \to 0 \quad$ as $x\to0^+$, so the boundary term vanishes:
 = \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt.
 \end{equation}
 Now we substitute $q(t;y)=\frac{\mu\,P_y(y)}{\gamma_1 ty}
-  - \frac{\mu(1-y)\pi(0,0)}{\gamma_1 y(t-y)}$ and divide by $\mu_I(x;y)$. Note $P_y(y)$ acts as a constant inside our integral, since it only contains terms on $y$. We can define the integrals:
-\begin{align}
-    \mathcal{I}_1(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(t-y)^{\beta}\,dt, \\
-    \mathcal{I}_2(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(t-y)^{\beta-1}\,dt
-\end{align}
-So we obtain
+  - \frac{\mu(1-y)\pi(0,0)}{\gamma_1 y(t-y)}$ and divide by $\mu_I(x;y)$. Note $P_y(y)$ acts as a constant inside our integral, since it only contains terms on $y$. The result involves $(t-y)^{\beta}$ with $\beta<0$, which introduces a branch on the integration path; the manifestly real form after resolving this branch is stated in~\eqref{eq:b2_Pxy_real} below. The intermediate expression is:
 \begin{equation}
     P(x,y) =
 \frac{e^{\lambda_1 x/\gamma_1}\,x^{-\alpha(y)}\,(x-y)^{-\beta(y)}}{\gamma_1 y}
-\Bigl[\,\mu\,P_y(y)\,\mathcal{I}_1(x,y)
-\;-\;\mu(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\,\Bigr]
+\left[\,\mu\,P_y(y)\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(t-y)^{\beta}\,dt
+\;-\;\mu(1-y)\pi(0,0)\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(t-y)^{\beta-1}\,dt\,\right]
 \end{equation}
 
 Before extracting $P_y(y)$, it is worth recording that the empty-state mass is available in
@@ -143,14 +142,14 @@ $(t-y)^{\beta-1}$ contributions is $e^{i\pi\beta}/e^{i\pi(\beta-1)}=-1$, which c
 sign above into a plus. The manifestly real solution on $0<x<y$ is therefore
 \begin{equation}
     P(x,y)=\frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
-    \Bigl[\,P_y(y)\,\mathcal J_1(x,y)+(1-y)\pi(0,0)\,\mathcal J_2(x,y)\,\Bigr],
+    \Bigl[\,P_y(y)\,\mathcal{I}_1(x,y)+(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\,\Bigr],
     \label{eq:b2_Pxy_real}
 \end{equation}
 \begin{align}
-    \mathcal J_1(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha-1}(y-t)^{\beta}\,dt,
-    \label{eq:b2_J1}\\
-    \mathcal J_2(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha}(y-t)^{\beta-1}\,dt.
-    \label{eq:b2_J2}
+    \mathcal{I}_1(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha-1}(y-t)^{\beta}\,dt,
+    \label{eq:b2_I1}\\
+    \mathcal{I}_2(x,y)&=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\alpha}(y-t)^{\beta-1}\,dt.
+    \label{eq:b2_I2}
 \end{align}
 
 We now examine the local behaviour at the regular singular point $x=y$. There the
@@ -175,24 +174,24 @@ branch term: it is bounded (indeed it vanishes) but not analytic. Holomorphy of 
 the interior point $x=y$ therefore forces its coefficient to vanish.
 
 In \eqref{eq:b2_Pxy_real} the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ multiplies the finite
-parts of $\mathcal J_1,\mathcal J_2$ at $x=y$ to produce exactly that branch term; eliminating it
+parts of $\mathcal{I}_1,\mathcal{I}_2$ at $x=y$ to produce exactly that branch term; eliminating it
 is the single linear condition
 \begin{equation}
-    P_y(y)\,\mathrm{f.p.}\,\mathcal J_1(y,y)
-    +(1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal J_2(y,y)=0,
+    P_y(y)\,\mathrm{f.p.}\,\mathcal{I}_1(y,y)
+    +(1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal{I}_2(y,y)=0,
     \label{eq:b2_nobranch}
 \end{equation}
 where $\mathrm{f.p.}$ denotes the Hadamard finite part, that is, the analytic continuation of the
 divergent integral in its exponent parameter.
 
 It remains to evaluate these finite parts. Substituting $t=ys$ in
-\eqref{eq:b2_J1}--\eqref{eq:b2_J2} and using the Euler representation
+\eqref{eq:b2_I1}--\eqref{eq:b2_I2} and using the Euler representation
 $\int_0^1 s^{a-1}(1-s)^{b-1}e^{-w s}\,ds=B(a,b)\,{}_1F_1(a;a+b;-w)$, continued analytically in
 $b$ (which is precisely the finite part), gives, with $c=\lambda_1/\gamma_1$,
 \begin{align}
-    \mathrm{f.p.}\,\mathcal J_1(y,y)&=B(\alpha,\beta+1)\,y^{\alpha+\beta}\,
+    \mathrm{f.p.}\,\mathcal{I}_1(y,y)&=B(\alpha,\beta+1)\,y^{\alpha+\beta}\,
         {}_1F_1\!\bigl(\alpha;\,\alpha+\beta+1;\,-cy\bigr),\\
-    \mathrm{f.p.}\,\mathcal J_2(y,y)&=B(\alpha+1,\beta)\,y^{\alpha+\beta}\,
+    \mathrm{f.p.}\,\mathcal{I}_2(y,y)&=B(\alpha+1,\beta)\,y^{\alpha+\beta}\,
         {}_1F_1\!\bigl(\alpha+1;\,\alpha+\beta+1;\,-cy\bigr).
 \end{align}
 The common $y^{\alpha+\beta}$ cancels in \eqref{eq:b2_nobranch}, and the Beta-ratio collapses to
@@ -218,12 +217,12 @@ $0\le x\le y$,
     \left[\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\,
     \frac{{}_1F_1(\alpha+1;b^\star;-\frac{\lambda_1 y}{\gamma_1})}
          {{}_1F_1(\alpha;b^\star;-\frac{\lambda_1 y}{\gamma_1})}\,
-    \mathcal J_1(x,y)+(1-y)\pi(0,0)\,\mathcal J_2(x,y)\right].
+    \mathcal{I}_1(x,y)+(1-y)\pi(0,0)\,\mathcal{I}_2(x,y)\right].
     \label{eq:b2_Pxy_final}
 \end{empheq}
 The no-branch condition \eqref{eq:b2_nobranch} guarantees that this extends to a single analytic
 function across $x=y$, with diagonal value $P(y,y)=\rho(1-\rho)/(1-\rho y)$; on $y<x\le1$ the same
-expression holds with $\mathcal J_1,\mathcal J_2$ read as their finite-part
+expression holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their finite-part
 (incomplete-${}_1F_1$) continuations. Since the constant is fixed in closed form by
 \eqref{eq:b2_pi00}, the solution \eqref{eq:b2_Pxy_final} is fully explicit.
 
