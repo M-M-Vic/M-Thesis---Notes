@@ -1,8 +1,8 @@
-\section{Model description: Model X}\label{sec:model_x}
+\section{Model description: Model~$X$}\label{sec:model_x}
 
 \textit{Note: This section defines the general two-class system equipped with
 \emph{both} jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this
-full model as \emph{Model X}. The simpler variants studied elsewhere in this
+full model as \emph{Model~$X$}. The simpler variants studied elsewhere in this
 document are recovered as special cases by zeroing the appropriate parameters, as
 summarised below.}
 
@@ -15,11 +15,11 @@ summarised below.}
         X  & both ($1\!\leftrightarrow\!2$) & both ($1,2$)       & $\gamma_i \geq 0,\ \theta_i \geq 0$ \quad (general) \\
         A  & none                            & none               & $\gamma_1=\gamma_2=0,\ \theta_1=\theta_2=0$ \\
         B  & both ($1\!\leftrightarrow\!2$) & none               & $\gamma_i \geq 0,\ \theta_1=\theta_2=0$ \\
-        B2 & $1\!\to\!2$ only                & none               & $\gamma_1 \geq 0,\ \gamma_2=0,\ \theta_1=\theta_2=0$ \\
-        C2 & none                            & class $1$ only     & $\theta_1 \geq 0,\ \theta_2=0,\ \gamma_1=\gamma_2=0$ \\
+        $B_2$ & $1\!\to\!2$ only                & none               & $\gamma_1 \geq 0,\ \gamma_2=0,\ \theta_1=\theta_2=0$ \\
+        $C_2$ & none                            & class $1$ only     & $\theta_1 \geq 0,\ \theta_2=0,\ \gamma_1=\gamma_2=0$ \\
         \hline
     \end{tabular}
-    \caption{Nested family of models. Model X is the parent; Models A, B, B2 and C2
+    \caption{Nested family of models. Model~$X$ is the parent; Models $A$, $B$, $B_2$ and $C_2$
     are obtained by restricting the jockeying directions and the abandoning classes.}
     \label{tab:model_family}
 \end{table}
@@ -29,7 +29,7 @@ summarised below.}
     \resizebox{\textwidth}{!}{%
         \input{figures/models-queue-overview.tikz}%
     }
-    \caption{Physical queue layout for Model~X (left) and its four specializations
+    \caption{Physical queue layout for Model~$X$ (left) and its four specializations
     (right, $2\times2$ grid). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
     Solid arrows: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
     Dashed arrows: jockeying ($\gamma_i$), which transfers a waiting customer between
@@ -43,7 +43,7 @@ classes, where customers are served on a First-Come, First-Served (FCFS) basis
 within their own class and those coming from the priority class (Class-$1$) have
 non-preemptive priority over those of the non-priority class (Class-$2$); that is,
 when a Class-$2$ customer is in service, that service will not be interrupted by a
-potential arrival of a Class-$1$ customer. Beyond the basic dynamics, Model X
+potential arrival of a Class-$1$ customer. Beyond the basic dynamics, Model~$X$
 incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a
 waiting customer may abandon its own queue and \emph{join the other queue}, at a
 per-customer rate $\gamma_1$ for the direction $1\to2$ and $\gamma_2$ for the
@@ -131,14 +131,14 @@ For the class-specific metrics and service rate, we define:
     \item $\gamma_2$: per-customer rate at which a waiting Class-$2$ customer jockeys
           from the class-$2$ queue to the class-$1$ queue ($2\to1$); a jockeying
           event in either direction transfers a waiting customer between queues and
-          \emph{conserves} the total $n=n_1+n_2$ (Model B2 sets $\gamma_2=0$);
+          \emph{conserves} the total $n=n_1+n_2$ (Model~$B_2$ sets $\gamma_2=0$);
     \item $\theta_1,\theta_2$: per-customer abandonment (reneging) rates from the
           class-$1$ and class-$2$ queues, respectively; an abandonment is a true
           departure from the system and \emph{reduces} the total number of
           customers by one. Each waiting Class-$i$ customer reneges independently
           after an $\mathrm{Exp}(\theta_i)$ patience time, so the aggregate
           Class-$i$ abandonment rate in state $(n_1,n_2)$ is $\theta_i n_i$
-          (Model C2 sets $\theta_2=0$).
+          (Model~$C_2$ sets $\theta_2=0$).
 \end{itemize}
 For the aggregate system parameters, we define:
 \begin{itemize}
@@ -147,23 +147,23 @@ For the aggregate system parameters, we define:
 \end{itemize}
 
 \textbf{Stability.}
-In the absence of abandonment ($\theta_1=\theta_2=0$, i.e.\ Models A, B and B2), the
+In the absence of abandonment ($\theta_1=\theta_2=0$, i.e.\ Models $A$, $B$ and $B_2$), the
 server must keep up on average with the offered workload, and it suffices to require
 \begin{equation*}
     \rho=\frac{\lambda_1+\lambda_2}{\mu}<1 .
 \end{equation*}
 Jockeying does not affect this condition, since it merely relocates customers
 without changing their total number. Abandonment changes the picture: when
-\emph{both} $\theta_1>0$ and $\theta_2>0$ (the general Model X), the state-dependent
+\emph{both} $\theta_1>0$ and $\theta_2>0$ (the general Model~$X$), the state-dependent
 departure rate $\mu+\theta_1 n_1+\theta_2 n_2$ grows without bound in every
 direction, so the chain is positive recurrent for \emph{all} $\lambda,\mu>0$. When
-only one class reneges —as in Model C2, where $\theta_1>0$ but $\theta_2=0$—
+only one class reneges —as in Model~$C_2$, where $\theta_1>0$ but $\theta_2=0$—
 abandonment bounds only the priority queue, and stability still imposes a condition
 on the non-abandoning class; this is treated in the dedicated analysis of that
 model.
 
 \textbf{Computation of $\pi_0$ and $\pi(0,0)$.}
-A relation that holds for Model X \emph{unconditionally} —for any
+A relation that holds for Model~$X$ \emph{unconditionally} —for any
 $\gamma_i,\theta_i\geq 0$— follows from the cut between the idle state and the set of
 busy states. The only transition into $(0)$ is a service completion from the
 single-customer state $(0,0)$ at rate $\mu$, and the only transition out of $(0)$ is
@@ -178,7 +178,7 @@ waiting customers), so~\eqref{eq:gen:pi00_general} is unaffected by $\gamma_i$ a
 $\theta_i$. What \emph{does} depend on the abandonment parameters is the value of
 $\pi_0$ itself, as we now discuss.
 
-\emph{Models without abandonment (A, B, B2).} When $\theta_1=\theta_2=0$, jockeying
+\emph{Models without abandonment ($A$, $B$, $B_2$).} When $\theta_1=\theta_2=0$, jockeying
 conserves the total number of customers, so the total-in-system process is a
 constant death-rate birth--death chain with up-rate $\lambda$ and down-rate $\mu$
 —that is, an ordinary $M/M/1$ queue with parameters $\lambda$ and $\mu$. Its idle
@@ -190,18 +190,18 @@ probability is the familiar
     \label{eq:gen:pi0_noaband}
 \end{equation}
 
-\emph{Models with abandonment (X, C2).} As soon as a true abandonment is present, the
+\emph{Models with abandonment ($X$, $C_2$).} As soon as a true abandonment is present, the
 total number of customers is no longer conserved: the departure rate out of a busy
 state is $\mu+\theta_1 n_1+\theta_2 n_2$, which depends on the \emph{split}
 $(n_1,n_2)$ and not merely on the total $n=n_1+n_2$. Indeed, the states $(n,0)$ and
 $(0,n)$ carry departure rates $\mu+\theta_1 n$ and $\mu+\theta_2 n$, which differ
-whenever $\theta_1\neq\theta_2$ —in particular for Model C2, where $\theta_2=0$.
+whenever $\theta_1\neq\theta_2$ —in particular for Model~$C_2$, where $\theta_2=0$.
 Consequently the total-in-system process is not lumpable to a one-dimensional
 birth--death chain, and $\pi_0$ admits no closed form obtained from the marginal
 alone. Instead, $\pi_0$ is determined jointly with the full two-dimensional
 stationary distribution through the normalisation $P(1,1)=1-\pi_0$ of the bivariate
 generating function, as carried out in the analysis sections below —and, for the
-single-class-abandonment case $\theta_2=0$, in the dedicated analysis of Model C2.
+single-class-abandonment case $\theta_2=0$, in the dedicated analysis of Model~$C_2$.
 
 In all cases, the mass on the busy states is
 \begin{equation}
@@ -209,7 +209,7 @@ In all cases, the mass on the busy states is
     \label{eq:gen:busy_mass}
 \end{equation}
 which equals $\rho$ only in the no-abandonment case~\eqref{eq:gen:pi0_noaband}; for
-Models X and C2 one has $1-\pi_0\neq\rho$ in general. This conditioning on a busy
+Models $X$ and $C_2$ one has $1-\pi_0\neq\rho$ in general. This conditioning on a busy
 server will be relevant in our derivations, as we will look at the queue length
 conditioned on the server being busy.
 
@@ -825,7 +825,7 @@ satisfies the first-order linear partial differential equation
     \end{align}
 \end{proof}
 
-Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model A):
+Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model~$A$):
 \begin{equation}
 \begin{split}
     & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -845,7 +845,7 @@ Sanity check $2$, $\gamma_1=\gamma_2=0$ (abandonments only):
 \label{eq:gen:sanity2}
 \end{equation}
 
-Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
+Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model~$B$:
 \begin{equation}
 \begin{split}
     & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -1049,7 +1049,7 @@ Sanity check $3$, $\theta_1=\theta_2=0$, recovers Model B:
     \end{align}
 \end{proof}
 
-Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model A):
+Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model~$A$):
 \begin{align}
     \begin{split}
         & (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) \\
@@ -1057,7 +1057,7 @@ Sanity check $1$, $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ (Model A):
     \end{split}
 \end{align}
 
-Sanity check $2$, $\theta_1 = \theta_2 = 0$ (recovers Model B):
+Sanity check $2$, $\theta_1 = \theta_2 = 0$ (recovers Model~$B$):
 \begin{align}
     \begin{split}
         & -(\gamma_2 + \gamma_1 y)(1-y) \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) \right] \widetilde{P}(y,n) \\

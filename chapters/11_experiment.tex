@@ -2,8 +2,8 @@
 \label{sec:experiment}
 
 The standard departure mechanisms studied so far --- abandonment at rate
-$\theta_1 n_1$ (Model~C$_2$) and jockeying at rate $\gamma_1 n_1$
-(Model~B$_2$) --- produce \emph{linear} departure rates proportional to the
+$\theta_1 n_1$ (Model~$C_2$) and jockeying at rate $\gamma_1 n_1$
+(Model~$B_2$) --- produce \emph{linear} departure rates proportional to the
 queue length.  In the PGF equation this gives rise to derivative terms
 $xy(\cdot)\partial P/\partial x$, making the equation a first-order ODE and
 requiring the integrating-factor machinery of Sections~7--8.
@@ -16,13 +16,13 @@ corresponding PGF contribution is \emph{algebraic} rather than differential.
 The resulting fundamental equation can be solved directly by the kernel
 method, giving rational closed-form expressions for $P(x,y)$.
 
-\paragraph*{Models B$_2^1$ and C$_2^1$.}
+\paragraph*{Models $B_2^1$ and C$_2^1$.}
 \begin{itemize}
-    \item \textbf{Model B$_2^1$:} $\gamma_2=\theta_1=\theta_2=0$, $\gamma_1>0$.
+    \item \textbf{Model~$B_2^1$:} $\gamma_2=\theta_1=\theta_2=0$, $\gamma_1>0$.
     Only the customer at the head of Queue~1 (the one that would be served
     next) may jockey to Queue~2, at rate $\gamma_1$.
     All other waiting Class-1 customers remain in Queue~1.
-    \item \textbf{Model C$_2^1$:} $\gamma_1=\gamma_2=\theta_2=0$, $\theta_1>0$.
+    \item \textbf{Model~$C_2^1$:} $\gamma_1=\gamma_2=\theta_2=0$, $\theta_1>0$.
     Only the customer at the head of Queue~1 may abandon the system,
     at rate $\theta_1$.  All other waiting Class-1 customers are patient.
 \end{itemize}
@@ -32,7 +32,7 @@ dynamics are identical to Models~B$_2$ and~C$_2$ respectively.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Balance equations}
 
-\subsubsection*{Model B$_2^1$}
+\subsubsection*{Model~$B_2^1$}
 
 The jockeying transition $(n_1,n_2)\to(n_1-1,n_2+1)$ occurs at the fixed
 rate $\gamma_1$ whenever $n_1\ge1$.  The balance equations on $S$ are:
@@ -69,11 +69,11 @@ rate $\gamma_1$ whenever $n_1\ge1$.  The balance equations on $S$ are:
         &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
     \end{split} &&\label{eq:B21:idle}
 \end{align}
-The key structural difference from Model~B$_2$ (Equation~\eqref{eq:gen:balance_interior}
+The key structural difference from Model~$B_2$ (Equation~\eqref{eq:gen:balance_interior}
 with $\gamma_2=\theta_i=0$) is that the jockeying coefficient is $\gamma_1$
 (constant) rather than $\gamma_1 n_1$ (linear in queue length).
 
-\subsubsection*{Model C$_2^1$}
+\subsubsection*{Model~$C_2^1$}
 
 The abandonment transition $(n_1,n_2)\to(n_1-1,n_2)$ occurs at the fixed
 rate $\theta_1$ whenever $n_1\ge1$.  The balance equations are:
@@ -108,14 +108,14 @@ rate $\theta_1$ whenever $n_1\ge1$.  The balance equations are:
         &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
     \end{split} &&\label{eq:C21:idle}
 \end{align}
-In Model~C$_2$, the coefficients $\mu+\theta_1(n_1+1)$ and $\theta_1 n_1$
+In Model~$C_2$, the coefficients $\mu+\theta_1(n_1+1)$ and $\theta_1 n_1$
 grow with $n_1$.  Here they are constants $\mu+\theta_1$ and $\theta_1$
 throughout; this is the departure point of the analysis.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Fundamental PGF equations}
 
-\begin{lemma}[Fundamental equation for Model B$_2^1$]\label{lem:B21:fundamental}
+\begin{lemma}[Fundamental equation for Model~$B_2^1$]\label{lem:B21:fundamental}
 The joint PGF $P(x,y)$ satisfies
 \begin{equation}
     \begin{split}
@@ -149,12 +149,12 @@ through by $xy$ yields~\eqref{eq:B21:fundamental}.
 
 \textit{Remark.}
 Equation~\eqref{eq:B21:fundamental} contains \emph{no derivative} of $P$.
-Contrast with Model~B$_2$, whose fundamental equation has the term
+Contrast with Model~$B_2$, whose fundamental equation has the term
 $\gamma_1 xy(x-y)\partial P/\partial x$.
 The flat jockeying rate contributes the algebraic factor $\gamma_1y(x-y)$ to
 the coefficient of $P(x,y)$, reducing the functional equation to an algebraic one.
 
-\begin{lemma}[Fundamental equation for Model C$_2^1$]\label{lem:C21:fundamental}
+\begin{lemma}[Fundamental equation for Model~$C_2^1$]\label{lem:C21:fundamental}
 The joint PGF $P(x,y)$ satisfies
 \begin{equation}
     \begin{split}
@@ -186,7 +186,7 @@ yields~\eqref{eq:C21:fundamental}.
 
 \textit{Remark.}
 Equation~\eqref{eq:C21:fundamental} likewise contains no derivative of $P$.
-The term replacing $\theta_1 xy(x-1)\partial P/\partial x$ of Model~C$_2$ is
+The term replacing $\theta_1 xy(x-1)\partial P/\partial x$ of Model~$C_2$ is
 the algebraic factor $\theta_1 y(x-1)$ in the coefficient of $P(x,y)$.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -217,7 +217,7 @@ For each model, the factor $y$ in $D$ cancels and the inner quadratic in $x$ is:
     \end{split}
     \label{eq:C21:quad}
 \end{align}
-Both have the same form as Model~A's quadratic~\eqref{eq:A:xstar}, but with
+Both have the same form as Model~$A$'s quadratic~\eqref{eq:A:xstar}, but with
 $\mu$ replaced by $\mu+\gamma_1 y$ (B$_2^1$) or $\mu+\theta_1$ (C$_2^1$).
 By Vieta's formulas, the product of the two roots is
 $(\mu+\gamma_1 y)/\lambda_1$ or $(\mu+\theta_1)/\lambda_1$ respectively.
@@ -236,7 +236,7 @@ The negative-sign (inner) roots are:
 \end{align}
 At $y=1$: $x_{B_2^1}^*(1)=1$ and $x_{C_2^1}^*(1)=1$ (both verified by direct
 substitution).  At $\gamma_1=0$ (resp.\ $\theta_1=0$) both roots reduce to
-$x^*(y)$ of Model~A~\eqref{eq:A:xstar}.
+$x^*(y)$ of Model~$A$~\eqref{eq:A:xstar}.
 
 \subsubsection*{Step 2 — boundary function $P_y(y)$}
 
@@ -284,29 +284,29 @@ $x_r^+$ for the corresponding outer root:
 \end{align}
 
 \textit{Remark.}
-Formula~\eqref{eq:B21:Pxy} is \emph{structurally identical to Model~A}:
+Formula~\eqref{eq:B21:Pxy} is \emph{structurally identical to Model~$A$}:
 \begin{equation}
     P_A(x,y) \;=\; \frac{\mu\,\rho(1-\rho)\,(1-y)}
     {\lambda_1\,(x_A^*(y)-y)\,(x_A^+(y)-x)}.
     \label{eq:A:Pxy_factored}
 \end{equation}
-The only difference between Models A and B$_2^1$ is in the characteristic
+The only difference between Models $A$ and B$_2^1$ is in the characteristic
 roots: replacing $\mu\to\mu+\gamma_1 y$ in the quadratic shifts the roots
 from $x_A^*,x_A^+$ to $x_{B_2^1}^*,x_{B_2^1}^+$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Empty-state probabilities}
 
-\subsubsection*{Model B$_2^1$}
+\subsubsection*{Model~$B_2^1$}
 
 Jockeying conserves the total number of customers, so the same diagonal
-argument as in Model~A (Equation~\eqref{eq:A:Pzz}) gives
+argument as in Model~$A$ (Equation~\eqref{eq:A:Pzz}) gives
 $P(z,z)=\rho(1-\rho)/(1-\rho z)$, hence
 \begin{equation}
     \pi(0,0) \;=\; \rho(1-\rho), \qquad \pi_0 \;=\; 1-\rho. \label{eq:B21:pi00}
 \end{equation}
 
-\subsubsection*{Model C$_2^1$}
+\subsubsection*{Model~$C_2^1$}
 
 Abandonment reduces the load, so conservation breaks and a different argument
 is needed.  Setting $y=1$ in~\eqref{eq:C21:fundamental}: the factor
@@ -355,7 +355,7 @@ Substituting $\pi(0,0)=\lambda\pi_0/\mu$ and solving:
     \end{split}
     \label{eq:C21:pi0_pi00}
 \end{align}
-At $\theta_1=0$: $\pi_0\to1-\rho$ and $\pi(0,0)\to\rho(1-\rho)$, recovering Model~A. \\
+At $\theta_1=0$: $\pi_0\to1-\rho$ and $\pi(0,0)\to\rho(1-\rho)$, recovering Model~$A$. \\
 Stability requires $\pi_0>0$, i.e.\ $(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1>0$,
 a \emph{weaker} condition than $\rho<1$.
 
@@ -366,11 +366,11 @@ a \emph{weaker} condition than $\rho<1$.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Main results and comparison}
 
-\begin{theorem}[Closed-form PGF for Models B$_2^1$ and C$_2^1$]\label{thm:exp}
+\begin{theorem}[Closed-form PGF for Models $B_2^1$ and C$_2^1$]\label{thm:exp}
 Under stability, the joint PGF of the two-class non-preemptive priority queue
 is rational in both experiment models.
 
-\emph{(i) Model B$_2^1$.}  With $\pi(0,0)=\rho(1-\rho)$,
+\emph{(i) Model~$B_2^1$.}  With $\pi(0,0)=\rho(1-\rho)$,
 \begin{equation}
     P_{B_2^1}(x,y) \;=\;
     \frac{\mu\,\rho(1-\rho)\,(1-y)}
@@ -378,11 +378,11 @@ is rational in both experiment models.
     \label{eq:B21:theorem}
 \end{equation}
 where $x_{B_2^1}^*(y)$ and $x_{B_2^1}^+(y)$ are the two roots
-of~\eqref{eq:B21:quad}.  This has the \emph{same rational form as Model~A},
+of~\eqref{eq:B21:quad}.  This has the \emph{same rational form as Model~$A$},
 differing only in the characteristic roots
 ($\mu\to\mu+\gamma_1 y$ in the quadratic).
 
-\emph{(ii) Model C$_2^1$.}  With $\pi(0,0)$ given by~\eqref{eq:C21:pi0_pi00},
+\emph{(ii) Model~$C_2^1$.}  With $\pi(0,0)$ given by~\eqref{eq:C21:pi0_pi00},
 \begin{equation}
     P_{C_2^1}(x,y) \;=\;
     \frac{\mu(\mu+\theta_1)\,(1-y)\,\pi(0,0)}
@@ -391,7 +391,7 @@ differing only in the characteristic roots
     \label{eq:C21:theorem}
 \end{equation}
 where $x_{C_2^1}^*(y)$ and $x_{C_2^1}^+(y)$ are the roots of~\eqref{eq:C21:quad}.
-At $\theta_1\to0^+$ the formula recovers Model~A exactly.
+At $\theta_1\to0^+$ the formula recovers Model~$A$ exactly.
 \end{theorem}
 
 Table~\ref{tab:experiment_comparison} summarises the structural differences.
@@ -428,7 +428,7 @@ $P(x,y)$ form
  & \textbf{rational}
  & integral+${}_1F_1$
  & \textbf{rational} \\
-Same form as Model~A?
+Same form as Model~$A$?
  & \checkmark
  & $\times$
  & \textbf{\checkmark}
@@ -463,7 +463,7 @@ Stability condition
 \end{table}
 
 The ``first-customer-only'' assumption converts both ODEs into algebraic
-equations.  For B$_2^1$, the result is structurally identical to Model~A
+equations.  For B$_2^1$, the result is structurally identical to Model~$A$
 — the only change is $\mu\to\mu+\gamma_1 y$ in the quadratic that defines
 the characteristic root.  For C$_2^1$, the structure is similar but the
 extra factor $(\mu+\theta_1)$ in the numerator and the modified denominator

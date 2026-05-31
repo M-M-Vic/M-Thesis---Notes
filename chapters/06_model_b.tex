@@ -1,6 +1,6 @@
-\section{Analysis of Model~B ($\gamma_1,\gamma_2>0$, $\theta_1=\theta_2=0$)}\label{sec:model_b}
+\section{Analysis of Model~$B$ ($\gamma_1,\gamma_2>0$, $\theta_1=\theta_2=0$)}\label{sec:model_b}
 
-Model~B introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaining no abandonment ($\theta_1=\theta_2=0$). Jockeying conserves the total number of customers in the system, so the stationary distribution still exists under the same condition as Model~A. However, jockeying breaks the per-class Poisson/renewal structure: a Class-2 customer can no longer identify its effective service time with a Class-1 busy period, so the Pollaczek--Khinchine probabilistic route is unavailable. Formally integrating the fundamental equation by the method of characteristics yields a general solution, but closing it for $P_y(y)$ requires a Volterra-type integral equation that does not admit a closed form. Model~B is therefore intentionally left open, in structural parallel with Model~X; its role is to motivate the tractable specialization Model~$B_2$.
+Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaining no abandonment ($\theta_1=\theta_2=0$). Jockeying conserves the total number of customers in the system, so the stationary distribution still exists under the same condition as Model~$A$. However, jockeying breaks the per-class Poisson/renewal structure: a Class-2 customer can no longer identify its effective service time with a Class-1 busy period, so the Pollaczek--Khinchine probabilistic route is unavailable. Formally integrating the fundamental equation by the method of characteristics yields a general solution, but closing it for $P_y(y)$ requires a Volterra-type integral equation that does not admit a closed form. Model~$B$ is therefore intentionally left open, in structural parallel with Model~$X$; its role is to motivate the tractable specialization Model~$B_2$.
 
 \textbf{Stability.} $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying does not affect this condition.
 
@@ -9,7 +9,7 @@ Model~B introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaini
     \resizebox{0.62\textwidth}{!}{%
         \input{figures/model-b-queue.tikz}%
     }
-    \caption{Queue layout for Model~B. Dashed arrows indicate bidirectional
+    \caption{Queue layout for Model~$B$. Dashed arrows indicate bidirectional
     jockeying: $\gamma_1$ moves a Class-1 customer down to Queue~2 and $\gamma_2$
     moves a Class-2 customer up to Queue~1. Both transfers conserve the total~$n$.}
     \label{fig:model-b-queue}
@@ -153,7 +153,7 @@ Now we use the fact that $y(t\,;\,z) > t$ for $t \in [0,z)$ to change the sign i
     h(t\,;\,C_1) = \frac{\mu}{\gamma_1\,t\,y(t;z)}\,P_y\!\bigl(y(t;z)\bigr) + \frac{\mu\,\bigl(1-y(t;z)\bigr)}{\gamma_1\,y(t;z)\,\bigl(y(t;z)-t\bigr)}\,\pi(0,0).
 \end{equation}
 
-From the derivation in Model A for the total number of customers, we can use the result $P(z,z)=\frac{\pi(0,0)}{1-\rho z}$. This result also holds for Model B, as the jockeying containing $\gamma_1$ or $\gamma_2$ terms appear multiplied by $(x-y)$ in our fundamental equation (Equation \eqref{eq:gen:fundamental_equation}). Intuitively, jockeying does not alter the total number of customers. Next, we evaluate the integral formula at $x=z$. Note the upper limit of the integral also hits the diagonal point $z$. We obtain
+From the derivation in Model~$A$ for the total number of customers, we can use the result $P(z,z)=\frac{\pi(0,0)}{1-\rho z}$. This result also holds for Model~$B$, as the jockeying containing $\gamma_1$ or $\gamma_2$ terms appear multiplied by $(x-y)$ in our fundamental equation (Equation \eqref{eq:gen:fundamental_equation}). Intuitively, jockeying does not alter the total number of customers. Next, we evaluate the integral formula at $x=z$. Note the upper limit of the integral also hits the diagonal point $z$. We obtain
 \begin{equation}
     \frac{\pi(0,0)}{1-\rho z} = P_h(z,z)\int_0^z \frac{h\bigl(t\,;\,(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,\,y(t;z)\bigr)}\,dt.
 \end{equation}
@@ -186,7 +186,7 @@ Persisting on this task of grouping known and unknown terms, we define $\mathcal
 \end{equation}
 This is a \textit{Volterra integral equation of the first kind} for the unknown boundary function $P_y$: after the change of variables $s = y(t\,;\,z)$, the equation takes the standard convolution form, but its kernel does not simplify to a closed form for general $(\gamma_1,\gamma_2)$.  Resolving it would require methods well beyond the scope of this thesis.
 
-Model~B is therefore left open at this point.  Its role in the hierarchy is structural: it identifies the precise obstruction (the Volterra equation for $P_y$) that the tractable special cases B$_2$ and C$_2$ circumvent, each by a different mechanism.  Model~B$_2$ removes $\gamma_2$, collapsing the PDE to an ODE whose boundary condition is pinned by an analyticity argument; Model~C$_2$ removes jockeying entirely and pins $P_y$ by a boundedness argument.  Both are analysed in the following sections.
+Model~$B$ is therefore left open at this point.  Its role in the hierarchy is structural: it identifies the precise obstruction (the Volterra equation for $P_y$) that the tractable special cases B$_2$ and C$_2$ circumvent, each by a different mechanism.  Model~$B_2$ removes $\gamma_2$, collapsing the PDE to an ODE whose boundary condition is pinned by an analyticity argument; Model~$C_2$ removes jockeying entirely and pins $P_y$ by a boundedness argument.  Both are analysed in the following sections.
 
 
 

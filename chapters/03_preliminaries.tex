@@ -10,7 +10,7 @@ solutions produced by those proofs, and the ODE/PDE methods (\S\ref{ssec:ode})
 are the analytic tools deployed when no probabilistic shortcut exists.
 
 The central analytical object --- the bivariate PGF $P(x,y)$ and its partial
-variants --- is introduced in Section~4 (Model~X), where it is derived directly
+variants --- is introduced in Section~4 (Model~$X$), where it is derived directly
 from the balance equations of the two-class system.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -34,7 +34,7 @@ and ends when the server next returns to idle.  Its LST and mean are
     \mathbb{E}[B]    &= \frac{1}{\mu(1-\rho)}. \label{eq:mm1:bp_mean}
 \end{align}
 % [Note: evaluating $\widetilde{B}$ at $s=\lambda_2(1-y)$ recovers $x^*(y)$,
-%  the characteristic root of the two-class PGF equation — see §5 (Model A).]
+%  the characteristic root of the two-class PGF equation — see §5 (Model~$A$).]
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}
@@ -44,7 +44,7 @@ and ends when the server next returns to idle.  Its LST and mean are
 %  State the steady-state probabilities (product-form via detailed balance).]
 
 The \emph{busy period} $B_C$ of the $M/M/1+M(\lambda_1,\mu,\theta_1)$ queue
-is the class-1 subsystem for Model~C$_2$.  Its LST satisfies
+is the class-1 subsystem for Model~$C_2$.  Its LST satisfies
 \begin{equation}
     \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
       -\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s
@@ -76,7 +76,7 @@ where ${}_1F_1$ is defined in \S\ref{ssec:kummer}.
 In the limit $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$,
 recovering \eqref{eq:mm1:bp_mean}.
 
-% [Note: the stability condition for Model C₂,
+% [Note: the stability condition for Model~$C$₂,
 %  λ₂ · E[B_C] < 1, follows immediately from this mean.]
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -94,7 +94,7 @@ following decomposition holds:
     \item \textbf{Class-2 effective service time.}  From the perspective of
     a Class-2 customer, effective service equals a busy period of the
     Class-1 subsystem.  Class-2 therefore operates as an $M/G/1$ queue with
-    service time $B$ (Model~A) or $B_C$ (Model~C$_2$) and arrival rate $\lambda_2$.
+    service time $B$ (Model~$A$) or $B_C$ (Model~$C_2$) and arrival rate $\lambda_2$.
 \end{itemize}
 
 \textbf{PASTA (Poisson Arrivals See Time Averages).}  Because Class-2 arrivals
@@ -112,7 +112,7 @@ used in the probabilistic proofs of Models~A and~C$_2$.
 
 % [Note: jockeying breaks the Poisson input seen by each class individually,
 %  so PASTA no longer implies the M/G/1 structure — this is why the
-%  probabilistic route is unavailable for Models B and B₂.]
+%  probabilistic route is unavailable for Models $B$ and B₂.]
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Pollaczek--Khinchine formula}\label{ssec:pk}
@@ -132,9 +132,9 @@ the PGF of the stationary number of customers in the system is
 
 This formula is applied with two different service-time distributions:
 \begin{itemize}
-    \item \textbf{Model~A}: $B$ = busy period of $M/M/1(\lambda_1,\mu)$,
+    \item \textbf{Model~$A$}: $B$ = busy period of $M/M/1(\lambda_1,\mu)$,
     so $\widetilde{B}(\lambda_2(1-y)) = x^*(y)$ (see \S\ref{ssec:mm1}).
-    \item \textbf{Model~C$_2$}: $B = B_C$ = busy period of
+    \item \textbf{Model~$C_2$}: $B = B_C$ = busy period of
     $M/M/1+M(\lambda_1,\mu,\theta_1)$, so
     $\widetilde{B}_C(\lambda_2(1-y)) = \zeta(y)$ (see \S\ref{ssec:erlangA}).
 \end{itemize}
@@ -172,7 +172,7 @@ $\mathcal{J}_0,\mathcal{J}_1$ as Kummer functions evaluated at $s=\lambda_2(1-y)
     \frac{{}_1F_1(a+1;\,b;\,z)}{{}_1F_1(a;\,b;\,z)}
     \label{eq:kummer:ratio}
 \end{equation}
-appears in the closed-form expression for $P_y(y)$ in Model~B$_2$
+appears in the closed-form expression for $P_y(y)$ in Model~$B_2$
 and in the LST \eqref{eq:erlangA:bp_lst} of the $M/M/1+M$ busy period.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -181,7 +181,7 @@ and in the LST \eqref{eq:erlangA:bp_lst} of the $M/M/1+M$ busy period.
 \subsubsection{Integrating factor (variation of parameters)}
 
 % [Expand: one sentence on when this applies — the fundamental PGF equation
-%  reduces to an ODE in x for each fixed y when γ₂=θ₂=0 (Models B₂ and C₂).]
+%  reduces to an ODE in x for each fixed y when γ₂=θ₂=0 (Models $B$₂ and C₂).]
 
 The standard form of a first-order linear ODE in $x$ (with $y$ as a parameter) is
 \begin{equation}
@@ -224,7 +224,7 @@ The general homogeneous solution takes the form
 $P_h = F(C_1)\cdot(\text{particular factor})$
 where $F$ is an arbitrary function determined by the boundary condition on $P_y(y)$.
 
-% [Note: for Model B (γ₂>0) determining F requires solving a Volterra integral
-%  equation that does not admit a closed form — this is why Model B is left open.
-%  For Model B₂ (γ₂=0) the characteristic direction is purely in x, so the
+% [Note: for Model~$B$ (γ₂>0) determining F requires solving a Volterra integral
+%  equation that does not admit a closed form — this is why Model~$B$ is left open.
+%  For Model~$B$₂ (γ₂=0) the characteristic direction is purely in x, so the
 %  PDE degenerates to the ODE \eqref{eq:ode:standard}, handled by §3.6.1.]

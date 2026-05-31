@@ -1,6 +1,6 @@
-\section{Analysis of Model~A ($\gamma_1=0,\,\gamma_2=0$, $\theta_1=\theta_2=0$)}\label{sec:model_a}
+\section{Analysis of Model~$A$ ($\gamma_1=0,\,\gamma_2=0$, $\theta_1=\theta_2=0$)}\label{sec:model_a}
 
-Model~A is the baseline of the hierarchy: all extra parameters are zero, leaving a pure two-class non-preemptive priority queue with no jockeying and no abandonment.  The analysis is carried out on both state spaces $S$ and $\widetilde{S}$, and three independent proof routes are presented.
+Model~$A$ is the baseline of the hierarchy: all extra parameters are zero, leaving a pure two-class non-preemptive priority queue with no jockeying and no abandonment.  The analysis is carried out on both state spaces $S$ and $\widetilde{S}$, and three independent proof routes are presented.
 
 The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle} for state space $S$, and Equations \eqref{eq:gen:tilde_balance_interior}, \eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary}, \eqref{eq:gen:tilde_balance_zero} and \eqref{eq:gen:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen:fundamental_equation} for state space $S$ and Equation \eqref{eq:gen:PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
 
@@ -17,7 +17,7 @@ The Class-1 subsystem additionally requires $\rho_1 = \lambda_1/\mu < 1$ for its
     \resizebox{0.62\textwidth}{!}{%
         \input{figures/model-a-queue.tikz}%
     }
-    \caption{Queue layout for Model~A. Only Poisson arrivals and exponential service
+    \caption{Queue layout for Model~$A$. Only Poisson arrivals and exponential service
     are present; all jockeying and abandonment rates are zero.}
     \label{fig:model-a-queue}
 \end{figure}
@@ -45,7 +45,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
 \end{theorem}
 
 \begin{corollary}\label{cor:A:pi0}
-    Under the stability condition $\rho<1$, the empty-state probabilities for Model~A are
+    Under the stability condition $\rho<1$, the empty-state probabilities for Model~$A$ are
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho). \label{eq:A:pi0_pi00}
     \end{equation}
@@ -275,7 +275,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
 
 \subsubsection{Probabilistic approach of model A in state space $S$}
 \begin{proof}
-    Our goal here is to derive the partial PGF $P_y(y)$ based on probabilistic arguments. As done in the analytical approach, we start from the fundamental global balance equation for Model~A, i.e.\ Equation \eqref{eq:A:fundamental}:
+    Our goal here is to derive the partial PGF $P_y(y)$ based on probabilistic arguments. As done in the analytical approach, we start from the fundamental global balance equation for Model~$A$, i.e.\ Equation \eqref{eq:A:fundamental}:
     \begin{equation}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
         \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].

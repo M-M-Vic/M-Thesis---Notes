@@ -1,4 +1,4 @@
-\section{Analysis of Model~C$_2$ ($\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$)}\label{sec:model_c2}
+\section{Analysis of Model~$C_2$ ($\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$)}\label{sec:model_c2}
 
 In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account.
 
@@ -7,11 +7,11 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
     \resizebox{0.62\textwidth}{!}{%
         \input{figures/model-c2-queue.tikz}%
     }
-    \caption{Queue layout for Model~C$_2$. Class-1 customers abandon the system
+    \caption{Queue layout for Model~$C_2$. Class-1 customers abandon the system
     at rate $\theta_1$ per waiting customer (dotted arrow, upward from Queue~1).
     Class-2 never abandons ($\theta_2=0$) and there is no jockeying.}
     \label{fig:model-c2-queue}
-\end{figure} The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model A will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
+\end{figure} The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model~$A$ will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
 
 \begin{theorem}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
@@ -60,7 +60,7 @@ which vanishes at $x=0$ and $x=1$ because $\alpha,\beta(y)>0$.
         \pi(0,0) \;&=\; \frac{(\lambda_1+\lambda_2)\bigl(1 - \lambda_2\,\mathbb{E}[B_C]\bigr)}{\mu\,\bigl(1 + \lambda_1\,\mathbb{E}[B_C]\bigr)} \;=\; (\rho_1+\rho_2)\,\frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi00}\\[4pt]
         \pi_0 \;&=\; \frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi0}
     \end{align}
-    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:erlangA:bp_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~A results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
+    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:erlangA:bp_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~$A$ results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
 \end{corollary}
 
 \subsection{Setup: reduction to a first-order linear ODE in $x$}
@@ -72,7 +72,7 @@ Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the fundamental equati
     \;=\; \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
     \label{eq:C2:fundamental}
 \end{equation}
-where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{n_2}$ is, as in Model A, the partial PGF restricted to states where the server is busy and the priority queue is empty ($N_1=0$).
+where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{n_2}$ is, as in Model~$A$, the partial PGF restricted to states where the server is busy and the priority queue is empty ($N_1=0$).
 
 For any fixed $y$, Equation~\eqref{eq:C2:fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
 \begin{enumerate}
@@ -96,7 +96,7 @@ The stability condition required for the Class-$2$ subsystem is that of the $M/G
     \rho_2 \cdot {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right) \;<\; 1.
     \label{eq:C2:stability}
 \end{equation}
-Compared to Model A, this stability condition is strictly weaker than the classical $\rho_1+\rho_2<1$, which aligns with the fact that abandonments lower the load of the system: for all $\theta_1>0$, the series defining ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)$ is termwise dominated by the geometric series for $1/(1-\rho_1)$, so ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1) < 1/(1-\rho_1)$. Abandonments in the priority queue therefore stabilise the non-priority queue.
+Compared to Model~$A$, this stability condition is strictly weaker than the classical $\rho_1+\rho_2<1$, which aligns with the fact that abandonments lower the load of the system: for all $\theta_1>0$, the series defining ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)$ is termwise dominated by the geometric series for $1/(1-\rho_1)$, so ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1) < 1/(1-\rho_1)$. Abandonments in the priority queue therefore stabilise the non-priority queue.
 
 With the LST and expectation of the effective service time seen by Class-$2$ customers, and thanks to the constant arrival rate $\lambda_2$ from the Poisson arrival process, we apply the Pollaczek--Khinchine formula:
 \begin{equation}
@@ -120,7 +120,7 @@ so that $\mathbb{P}(\text{busy},\,N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$.
     P_y(y) \;=\; \pi(0,0)\,\frac{(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
     \label{eq:C2:Py}
 \end{equation}
-This is structurally the same expression as in the probabilistic argument for Model~A (Equation~\eqref{eq:A:Py}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
+This is structurally the same expression as in the probabilistic argument for Model~$A$ (Equation~\eqref{eq:A:Py}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
 
 \subsection{Analytical re-derivation of $P_y(y)$ via boundedness at $x=1$}\label{ssec:C2:anal}
 
@@ -167,7 +167,7 @@ and the boundary term vanishes, yielding
     \label{eq:C2:Pxy_implicit}
 \end{equation}
 
-Now, in the same fashion as the root-cancellation argument used for Model A, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$. Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:C2:Pxy_implicit} bounded is
+Now, in the same fashion as the root-cancellation argument used for Model~$A$, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$. Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:C2:Pxy_implicit} bounded is
 \begin{equation}
     \int_0^1 q(t;y)\,\mu_I(t;y)\,dt \;=\; 0.
     \label{eq:C2:boundedness}
@@ -215,7 +215,7 @@ With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:C2:fundamental} and su
     &\;=\; \mu\,\pi(0,0)\,(1-y)\,\frac{(x-y)\,\zeta(y) - x\bigl[\zeta(y) - y\bigr]}{\zeta(y) - y} \\
     &\;=\; \mu\,\pi(0,0)\,y(1-y)\,\frac{x - \zeta(y)}{\zeta(y) - y},
 \end{align*}
-which is structurally identical to the RHS found for Model A, though now with the more involved effective service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:C2:pfd} and~\eqref{eq:C2:integrating_factor}, the source $q(x;y)$ of the standard-form ODE now reads
+which is structurally identical to the RHS found for Model~$A$, though now with the more involved effective service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:C2:pfd} and~\eqref{eq:C2:integrating_factor}, the source $q(x;y)$ of the standard-form ODE now reads
 \begin{equation}
     q(x;y) \;=\; \frac{\mu\,\pi(0,0)\,(1-y)\,\bigl[x-\zeta(y)\bigr]}{\theta_1\,x(x-1)\,\bigl[\zeta(y)-y\bigr]},
 \end{equation}
@@ -274,7 +274,7 @@ which is the statement of the theorem. This closed form is the product of a prob
     \end{equation}
     which is~\eqref{eq:C2:pi0}. Substituting into~\eqref{eq:C2:balance_zero} yields~\eqref{eq:C2:pi00}.
 
-    For the Model A limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, hence $\lambda_1\,\mathbb{E}[B_C]\to\rho_1/(1-\rho_1)$ and $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$; substituting into~\eqref{eq:C2:pi0} and~\eqref{eq:C2:pi00} recovers $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
+    For the Model~$A$ limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, hence $\lambda_1\,\mathbb{E}[B_C]\to\rho_1/(1-\rho_1)$ and $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$; substituting into~\eqref{eq:C2:pi0} and~\eqref{eq:C2:pi00} recovers $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
 \end{proof}
 
 \subsection{Mean queue lengths and mean waiting times}
@@ -296,7 +296,7 @@ abandonment convection $\theta_1 xy(x-1)$ does \emph{not} vanish at $x=y=z$
 and the unknown $\partial_x P(z,z)$ prevents a closed form for $P(z,z)$.
 Hence $\mathbb{E}[N]=\mathbb{E}[N_1]+\mathbb{E}[N_2]$ is strictly less than
 $\rho^2/(1-\rho)$: abandonment removes customers and reduces both means
-relative to Model~A.
+relative to Model~$A$.
 
 \subsubsection*{Means from the theorem formula}
 
@@ -335,7 +335,7 @@ abandoned customers:
 \end{align}
 Using the throughput $\mu(1-\pi_0)$ instead would give the conditional
 waiting time of customers who complete service only --- a different object.
-As $\theta_1\to0^+$ both means recover the Model~A
+As $\theta_1\to0^+$ both means recover the Model~$A$
 values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}.
 
 

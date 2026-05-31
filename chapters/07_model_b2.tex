@@ -1,6 +1,6 @@
 \section{Analysis of Model~$B_2$ ($\gamma_1>0$, $\gamma_2=0$, $\theta_1=\theta_2=0$)}\label{sec:model_b2}
 
-Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\gamma_2=0$) and retains no abandonment ($\theta_1=\theta_2=0$). Setting $\gamma_2=0$ eliminates the $\partial P/\partial y$ term from the fundamental equation, reducing it to a first-order linear ODE in $x$ for each fixed $y\in[0,1]$. An integrating factor then yields a formal integral expression for $P(x,y)$; the boundary function $P_y(y)$ is pinned by requiring $P(\cdot,y)$ to be holomorphic at the interior singular point $x=y$, where the integrating factor carries a branch singularity with negative exponent. This analyticity condition replaces the boundedness argument used for Model~C$_2$.
+Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\gamma_2=0$) and retains no abandonment ($\theta_1=\theta_2=0$). Setting $\gamma_2=0$ eliminates the $\partial P/\partial y$ term from the fundamental equation, reducing it to a first-order linear ODE in $x$ for each fixed $y\in[0,1]$. An integrating factor then yields a formal integral expression for $P(x,y)$; the boundary function $P_y(y)$ is pinned by requiring $P(\cdot,y)$ to be holomorphic at the interior singular point $x=y$, where the integrating factor carries a branch singularity with negative exponent. This analyticity condition replaces the boundedness argument used for Model~$C_2$.
 
 \textbf{Stability.} As in Models~A and~B, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves total customer count and does not affect the stability condition.
 
@@ -16,7 +16,7 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
 \end{figure}
 
 \begin{theorem}
-    Consider the two-class priority queueing system of Model~B with per-customer jockeying
+    Consider the two-class priority queueing system of Model~$B$ with per-customer jockeying
     confined to the priority class, i.e. $\gamma_1>0$, $\gamma_2=0$ (and
     $\theta_1=\theta_2=0$). Under the stability condition $\rho=\lambda/\mu<1$ with
     $\lambda=\lambda_1+\lambda_2$, the empty-state mass and the boundary generating function
@@ -124,7 +124,7 @@ Now we substitute $q(t;y)=\frac{\mu\,P_y(y)}{\gamma_1 ty}
 \end{equation}
 
 Before extracting $P_y(y)$, it is worth recording that the empty-state mass is available in
-closed form, in contrast with Model~C-$2$. Setting $y=x$ in the fundamental equation, the
+closed form, in contrast with Model~$C$-$2$. Setting $y=x$ in the fundamental equation, the
 convection term $\gamma_1 xy(x-y)\partial_x P$ vanishes identically through its factor $(x-y)$,
 and so does $\mu(x-y)P_y(y)$; this is the analytic reflection of the fact that jockeying merely
 relabels a waiting customer and therefore conserves the total number in the system. What
@@ -146,7 +146,7 @@ which we shall substitute once $P_y(y)$ has been determined.
 
 The convection coefficient of the ODE is $\gamma_1 x(x-y)$, so $p(x;y)$ has simple poles only
 at $x=0$ and at the interior point $x=y\in(0,1)$, and, crucially, not at $x=1$. This is the
-structural difference with Model~C-$2$, whose coefficient $\theta_1 x(x-1)$ has its pole at the
+structural difference with Model~$C$-$2$, whose coefficient $\theta_1 x(x-1)$ has its pole at the
 boundary $x=1$. Under the stability condition $\rho=\lambda/\mu<1$ we have $\mu-\lambda y>0$ for
 every $y\in[0,1]$, hence
 \begin{equation}
@@ -155,7 +155,7 @@ every $y\in[0,1]$, hence
     \label{eq:B2:beta_negative}
 \end{equation}
 Consequently $\mu_I(x;y)^{-1}\propto (x-y)^{-\beta}=(x-y)^{|\beta|}\to0$ as $x\to y$: the
-singular homogeneous mode does not blow up, so a boundedness argument à la Model~C-$2$ yields no
+singular homogeneous mode does not blow up, so a boundedness argument à la Model~$C$-$2$ yields no
 condition. The operative requirement is the stronger one that a probability generating function
 is holomorphic on the open unit polydisc; we therefore exploit analyticity at $x=y$.
 
@@ -258,7 +258,7 @@ expression holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their finite-part
 Setting $x=y=z$ in the theorem formula~\eqref{eq:B2:Pxy}, the convection
 term $\gamma_1 xy(x-y)\partial_xP$ in the underlying ODE vanishes (factor
 $(x-y)=0$), and so does the boundary term $\mu(x-y)P_y(y)$.  The remaining
-polynomial in $z$ is identical to Model~A's, so the same cancellation as
+polynomial in $z$ is identical to Model~$A$'s, so the same cancellation as
 in~\eqref{eq:A:Pzz} applies:
 \begin{align}
     \begin{split}
@@ -295,7 +295,7 @@ evaluated numerically:
     \label{eq:B2:EN_def}
 \end{align}
 By Little's Law, $\mathbb{E}[W_i] = \mathbb{E}[N_i]/\lambda_i$.
-As $\gamma_1\to0^+$ the Model~A values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}
+As $\gamma_1\to0^+$ the Model~$A$ values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}
 are recovered.
 
 

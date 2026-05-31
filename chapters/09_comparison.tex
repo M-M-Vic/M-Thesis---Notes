@@ -1,9 +1,9 @@
-\section{Comparison of Models A, B\texorpdfstring{$_2$}{2}, and C\texorpdfstring{$_2$}{2}}
+\section{Comparison of Models $A$, $B_2$, and $C_2$}
 \label{sec:comparison}
 
 The three solved models represent the three tractable specializations of
-Model~X: a pure baseline (A), a jockeying extension (B$_2$), and an
-abandonment extension (C$_2$).  Each is obtained from Model~X by zeroing
+Model~$X$: a pure baseline (A), a jockeying extension (B$_2$), and an
+abandonment extension (C$_2$).  Each is obtained from Model~$X$ by zeroing
 all but one of the extra mechanisms, and each produces a closed-form or
 integral-form expression for $P(x,y)$.  Table~\ref{tab:comparison} collects
 the key structural facts; the remainder of this section traces the
@@ -11,12 +11,12 @@ consequences.
 
 \begin{table}[H]
 \centering
-\caption{Structural comparison of Models A, B$_2$, and C$_2$.}
+\caption{Structural comparison of Models $A$, B$_2$, and C$_2$.}
 \label{tab:comparison}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{p{0.26\textwidth} p{0.21\textwidth} p{0.21\textwidth} p{0.21\textwidth}}
 \hline
- & \textbf{Model A} & \textbf{Model B$_2$} & \textbf{Model C$_2$} \\
+ & \textbf{Model~$A$} & \textbf{Model~$B_2$} & \textbf{Model~$C_2$} \\
 \hline
 Extra mechanism
  & none
@@ -70,21 +70,21 @@ $\mathbb{E}[N_1]$ closed form
 \end{tabular}
 \end{table}
 
-\subsection*{Model A: the rational baseline}
+\subsection*{Model~$A$: the rational baseline}
 
-Model~A imposes no extra departure mechanism.
+Model~$A$ imposes no extra departure mechanism.
 Class-1 operates as an independent $M/M/1(\lambda_1,\mu)$ queue;
 class-2 sees an $M/G/1$ with service time equal to a class-1 busy period
 (by PASTA and the priority decomposition of \S\ref{ssec:priority}).
 The Pollaczek--Khinchine formula~\eqref{eq:pk:pgf} delivers $P_y(y)$
 as a rational function of $x^*(y)$, and $P(x,y)$ is a ratio of polynomials
 in $x$, $y$, and $x^*(y)$.  All performance measures --- $\pi_0$, $\pi(0,0)$,
-$\mathbb{E}[N_i]$, $\mathbb{E}[W_i]$ --- are in closed form.  Model~A also
+$\mathbb{E}[N_i]$, $\mathbb{E}[W_i]$ --- are in closed form.  Model~$A$ also
 furnishes the structural identities that persist across the hierarchy:
 $P(z,z)=\rho(1-\rho)/(1-\rho z)$ (total queue is $M/M/1$),
 $\pi_0=1-\rho$, and $\pi(0,0)=\rho(1-\rho)$.
 
-\subsection*{Effect of jockeying: Model A $\to$ Model B$_2$}
+\subsection*{Effect of jockeying: Model~$A$ $\to$ Model~$B_2$}
 
 Adding one-way jockeying ($\gamma_1>0$, $\gamma_2=0$) couples the two queues:
 a class-1 customer waiting in Queue~1 may defect to Queue~2 at rate $\gamma_1$.
@@ -94,7 +94,7 @@ The consequences are asymmetric.
 Jockeying transfers customers but does not remove them, so the total-customer
 process remains a standard $M/M/1(\lambda,\mu)$ birth--death chain.
 Consequently $P(z,z)$, $\pi_0$, $\pi(0,0)$, and $\mathbb{E}[N]$ are identical
-to Model~A for all $\gamma_1>0$.
+to Model~$A$ for all $\gamma_1>0$.
 
 \emph{What is destroyed.}
 Jockeying breaks the per-class Poisson/renewal structure: a class-2 customer
@@ -113,7 +113,7 @@ The individual means $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$ change with
 $\gamma_1$ (class-1 becomes shorter, class-2 longer), with no closed form for
 the split.
 
-\subsection*{Effect of abandonment: Model A $\to$ Model C$_2$}
+\subsection*{Effect of abandonment: Model~$A$ $\to$ Model~$C_2$}
 
 Adding class-1 abandonment ($\theta_1>0$, $\theta_2=0$, $\gamma_i=0$)
 allows each waiting class-1 customer to leave the system at rate $\theta_1$.
@@ -143,10 +143,10 @@ The integrating factor now has its singularity at the \emph{boundary} $x=1$
 with a positive exponent, so $\mu_I$ vanishes there and mere boundedness of
 $P$ forces $\int_0^1 q\,\mu_I\,dt=0$.  This determines $P_y(y)$ without any
 reference to holomorphy.  Both $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$ decrease
-relative to Model~A as $\theta_1$ increases: class-2 benefits indirectly
+relative to Model~$A$ as $\theta_1$ increases: class-2 benefits indirectly
 because class-1 abandonments free the server sooner.
 
-\subsection*{Structural comparison of Models B$_2$ and C$_2$}
+\subsection*{Structural comparison of Models $B_2$ and C$_2$}
 
 Both models reduce the fundamental equation to a first-order linear ODE in $x$
 and both close in confluent hypergeometric functions; yet the mechanism that
@@ -156,7 +156,7 @@ pins $P_y(y)$ is structurally different.  The contrast is as follows.
 \renewcommand{\arraystretch}{1.45}
 \begin{tabular}{p{0.28\textwidth} p{0.31\textwidth} p{0.31\textwidth}}
 \hline
- & \textbf{Model C$_2$ ($\theta_1>0$)} & \textbf{Model~B$_2$ ($\gamma_1>0$)} \\
+ & \textbf{Model~$C_2$ ($\theta_1>0$)} & \textbf{Model~$B_2$ ($\gamma_1>0$)} \\
 \hline
 Convection coefficient
  & $\theta_1\,x(x-1)$
@@ -180,12 +180,12 @@ Probabilistic backbone
 \end{tabular}
 \end{center}
 
-In words: in Model~C$_2$ the abandonment convection $\theta_1 x(x-1)$ places
+In words: in Model~$C_2$ the abandonment convection $\theta_1 x(x-1)$ places
 the singularity at the boundary $x=1$ with a positive integrating-factor
 exponent, so $\mu_I$ vanishes there and mere boundedness forces the vanishing
 integral that determines $P_y(y)$.  The Poisson character of the class-2
 stream survives abandonment, so P-K delivers $P_y(y)$ probabilistically and
-an $M/G/1$ renewal argument delivers $\pi(0,0)$.  In Model~B$_2$, the
+an $M/G/1$ renewal argument delivers $\pi(0,0)$.  In Model~$B_2$, the
 jockeying convection $\gamma_1 x(x-y)$ places the singularity at the interior
 point $x=y$ with a negative exponent, so $\mu_I$ blows up, the homogeneous
 mode vanishes, and only the stronger requirement of holomorphy --- the absence
@@ -202,7 +202,7 @@ A common object appears in both B$_2$ and C$_2$:
     {}_1F_1\!\left(1;\,\frac{\mu}{r}+1;\,\frac{\lambda_1}{r}\right),
     \label{eq:comp:1F1}
 \end{equation}
-with $r=\gamma_1$ (Model~B$_2$) or $r=\theta_1$ (Model~C$_2$).
+with $r=\gamma_1$ (Model~$B_2$) or $r=\theta_1$ (Model~$C_2$).
 This is the Erlang-A utilisation factor: in C$_2$ it equals $\mu\,\mathbb{E}[B_C]$
 (the mean class-1 busy period scaled by $\mu$), while in B$_2$ it controls the
 Kummer ratio in $P_y(y)$ through the exponent $\alpha(y)=\mu/(\gamma_1 y)$.
@@ -211,10 +211,10 @@ $(-\lambda_1/r)$ in C$_2$ and $(-\lambda_1 y/\gamma_1)$ in B$_2$, and the
 ratio ${}_1F_1(\alpha+1;\cdot;\cdot)/{}_1F_1(\alpha;\cdot;\cdot)$ acts as a
 boundary correction to the Model-A rational formula.
 
-Model~B$_2$ degenerates to Model~A only in the singular limit
+Model~$B_2$ degenerates to Model~$A$ only in the singular limit
 $\gamma_1\to0^+$, in which $\alpha,\beta\to\infty$ and the Kummer ratio
-collapses to the rational expression $x^*(y)(1-y)/(x^*(y)-y)$ of Model~A;
+collapses to the rational expression $x^*(y)(1-y)/(x^*(y)-y)$ of Model~$A$;
 this limit is not uniform, consistent with $\gamma_1$ multiplying the
-highest-order term of the ODE.  Model~C$_2$ degenerates to Model~A uniformly
+highest-order term of the ODE.  Model~$C_2$ degenerates to Model~$A$ uniformly
 as $\theta_1\to0^+$: $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, and all
 C$_2$ formulas recover their Model-A counterparts.

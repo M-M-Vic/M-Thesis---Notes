@@ -12,9 +12,9 @@ The direct methodological ancestor of this work is \citet{cohen1956delay}, who i
 % [Similarities to this thesis:] non-preemptive priority, two classes, common
 %  exponential service rate, PGF/Cohen methodology, queue-length distributions.
 % [Differences:] $c \geq 1$ servers (thesis: single server only), no jockeying,
-%  no abandonment; their single-server ($c=1$) case recovers Model~A of this
+%  no abandonment; their single-server ($c=1$) case recovers Model~$A$ of this
 %  thesis.
-% [Cite in:] §5 (Model~A, after the theorem — note that the c=1 case coincides).
+% [Cite in:] §5 (Model~$A$, after the theorem — note that the c=1 case coincides).
 
 The preemptive multi-server case is analysed exactly by \citet{wang2015mmc}, who derive the queue-length PGF for an M/M/$c$ queue with two preemptive priority classes and class-specific service rates.
 % [Similarities:] exact PGF analysis, two priority classes, Markov chain approach.
@@ -25,14 +25,14 @@ The preemptive multi-server case is analysed exactly by \citet{wang2015mmc}, who
 % ── §2.2 ──────────────────────────────────────────────────────────────────────
 \subsection*{Priority queues with abandonment}
 
-The multi-server analog of Model~C$_2$ is studied by \citet{jouini2014multiple}, who consider an M/M/$s$+M queue with two non-preemptive priority classes and exponential patience times (Erlang-A structure per class). They derive Laplace- Stieltjes transforms for the unconditional and conditional waiting times, including the probability of service and abandonment.
+The multi-server analog of Model~$C_2$ is studied by \citet{jouini2014multiple}, who consider an M/M/$s$+M queue with two non-preemptive priority classes and exponential patience times (Erlang-A structure per class). They derive Laplace- Stieltjes transforms for the unconditional and conditional waiting times, including the probability of service and abandonment.
 % [Similarities:] non-preemptive priority, two classes, exponential abandonment
 %  (Erlang-A), Markovian arrivals and service; their model is the multi-server
-%  version of Model~C₂.
+%  version of Model~$C$₂.
 % [Differences:] multiple servers ($c \geq 1$); focus on waiting time LSTs
 %  (this thesis: queue-length bivariate PGF); no jockeying; approximate methods
 %  only for $c>1$.
-% [Cite in:] §8 (Model~C₂ intro — position the single-server exact treatment
+% [Cite in:] §8 (Model~$C$₂ intro — position the single-server exact treatment
 %  relative to the multi-server approximate one); §10 (Results).
 
 \citet{shmelev2025letting} study a multi-server, multi-class queue where the operator can reject arriving customers or initiate (controlled) abandonment, in addition to customer-initiated impatience. Both Erlang-B (rejection) and Erlang-A (impatience) substructures appear, and a heavy-traffic index policy is shown to be asymptotically optimal.
@@ -41,7 +41,7 @@ The multi-server analog of Model~C$_2$ is studied by \citet{jouini2014multiple},
 % [Differences:] controlled (operator-initiated) abandonment, multiple servers,
 %  focus on scheduling policy and heavy-traffic asymptotics rather than exact
 %  stationary distributions; no bivariate PGF.
-% [Cite in:] §8 (Model~C₂ — contextualise Erlang-A substructure); §10.
+% [Cite in:] §8 (Model~$C$₂ — contextualise Erlang-A substructure); §10.
 
 % ── §2.3 ──────────────────────────────────────────────────────────────────────
 \subsection*{Jockeying and priority changes}
@@ -53,7 +53,7 @@ The multi-server analog of Model~C$_2$ is studied by \citet{jouini2014multiple},
 %  M/M/1); priority change is class-upgrade over time, not queue-switch
 %  (jockeying in this thesis moves a customer between two physical queues,
 %  preserving total n); focus on waiting time, not queue-length PGF.
-% [Cite in:] §6 (Model~B preamble — motivate why exact jockeying is hard);
+% [Cite in:] §6 (Model~$B$ preamble — motivate why exact jockeying is hard);
 %  §2 Literature.
 
 \citet{stanford2014accumulating} introduce the \emph{accumulating priority} queue, in which each class $i$ accumulates priority at rate $b_i$ per unit waiting time so that older customers overtake newer ones over time. They derive exact waiting time distributions for an M/G/1 queue via Laplace--Stieltjes transforms and a maximum-priority process.
@@ -62,7 +62,7 @@ The multi-server analog of Model~C$_2$ is studied by \citet{jouini2014multiple},
 % [Differences:] priority \emph{accumulates continuously} (this thesis: discrete
 %  jockeying events at rate γᵢ per customer); M/G/1 (this thesis: M/M/1);
 %  focus on sojourn times, not queue-length PGF.
-% [Cite in:] §6 (Model~B — accumulating priority as a continuous-time analogue
+% [Cite in:] §6 (Model~$B$ — accumulating priority as a continuous-time analogue
 %  of jockeying); §2 Literature.
 
 \citet{huchandong2022proactive} model a multi-server queue where customers transition between a \emph{moderate} and an \emph{urgent} class while waiting, driven by deterioration and improvement dynamics. Optimal scheduling is characterised by a modified $c\mu/\theta$ index in heavy traffic.
@@ -71,7 +71,7 @@ The multi-server analog of Model~C$_2$ is studied by \citet{jouini2014multiple},
 % [Differences:] class transitions are stochastic deterioration/improvement
 %  (not customer-controlled queue-switching); multiple servers; focus on
 %  optimal scheduling policy, not exact stationary distributions.
-% [Cite in:] §6 (Model~B preamble); §2 Literature.
+% [Cite in:] §6 (Model~$B$ preamble); §2 Literature.
 
 % ── §2.4 ──────────────────────────────────────────────────────────────────────
 \subsection*{Multi-server extensions and performance design}
@@ -111,14 +111,14 @@ Baron et al.\ (2025)              & $c$ & \checkmark & -- & --         & --     
 Hu, Chan \& Dong (2022)           & $c$ & \checkmark & \checkmark & \checkmark & --   & $\approx$ \\
 Shmelev \& Zychlinski (2025)      & $c$ & \checkmark & -- & \checkmark & --         & $\approx$ \\
 \hline
-\textbf{This thesis (Model A)}    & \textbf{1} & \checkmark & -- & --  & \checkmark & \checkmark \\
-\textbf{This thesis (Model B$_2$)}& \textbf{1} & \checkmark & \checkmark & -- & \checkmark & \checkmark \\
-\textbf{This thesis (Model C$_2$)}& \textbf{1} & \checkmark & -- & \checkmark & \checkmark & \checkmark \\
+\textbf{This thesis (Model~$A$)}    & \textbf{1} & \checkmark & -- & --  & \checkmark & \checkmark \\
+\textbf{This thesis (Model~$B_2$)}& \textbf{1} & \checkmark & \checkmark & -- & \checkmark & \checkmark \\
+\textbf{This thesis (Model~$C_2$)}& \textbf{1} & \checkmark & -- & \checkmark & \checkmark & \checkmark \\
 \hline
 \end{tabular}
 \end{table}
 
-The thesis occupies a distinctive position: it provides the \emph{exact} bivariate PGF for a single-server non-preemptive priority queue under both jockeying (Model~B$_2$) and abandonment (Model~C$_2$), combining the queue-length focus of \citet{zuk2023explicit} with the departure mechanisms studied in the approximate and multi-server literature above. The single common theme connecting this work to all entries in Table~\ref{tab:literature} is the two-class non-preemptive priority discipline; the distinguishing contribution is the exact closed-form or integral-form PGF in the single-server setting with one extra mechanism active at a time.
+The thesis occupies a distinctive position: it provides the \emph{exact} bivariate PGF for a single-server non-preemptive priority queue under both jockeying (Model~$B_2$) and abandonment (Model~$C_2$), combining the queue-length focus of \citet{zuk2023explicit} with the departure mechanisms studied in the approximate and multi-server literature above. The single common theme connecting this work to all entries in Table~\ref{tab:literature} is the two-class non-preemptive priority discipline; the distinguishing contribution is the exact closed-form or integral-form PGF in the single-server setting with one extra mechanism active at a time.
 
 % [Abate et al. (2000): a methodological complement for future work on tail
 %  probabilities; not directly cited in the main analysis chapters but useful

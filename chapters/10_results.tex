@@ -32,15 +32,15 @@ and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
 \hline
 L1   & Lemma~\ref{lem:gen:fundamental_equation}  & A, B, B$_2$, C$_2$ & PGF eq.\ residual             & $<5\times10^{-9}$  & Accept \\
 L2   & Lemma~\ref{lem:gen:PPGF_dynamics}         & A, B$_2$, C$_2$    & PPGF dynamics residual        & $<2\times10^{-15}$ & Accept \\
-T-A  & Theorem (Model A)                         & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
+T-A  & Theorem (Model~$A$)                         & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
 C-A  & Corollary~\ref{cor:A:pi0}                 & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
-T-B2 & Theorem (Model B$_2$)                     & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
-T-C2 & Theorem (Model C$_2$)                     & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
+T-B2 & Theorem (Model~$B_2$)                     & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
+T-C2 & Theorem (Model~$C_2$)                     & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
 C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
 T-S  & Theorem~\ref{thm:A:PPGF_Stilde}           & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
 \hline
-E-B  & Theorem~\ref{thm:exp} (i) — Model B$_2^1$  & B$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
-E-C  & Theorem~\ref{thm:exp} (ii) — Model C$_2^1$ & C$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
+E-B  & Theorem~\ref{thm:exp} (i) — Model~$B_2^1$  & B$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
+E-C  & Theorem~\ref{thm:exp} (ii) — Model~$C_2^1$ & C$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
 \hline
 \end{tabular}
 \end{table}
@@ -79,8 +79,8 @@ discrete variable.
 % [Discuss: the three theorems (A, B₂, C₂) give explicit formulas for P(x,y).
 %  Because all three are tested on the same 5×5 grid with the same base
 %  parameters (only the extra mechanism changes), the errors are directly
-%  comparable.  Model C₂ achieves near-machine precision because the
-%  Pollaczek–Khinchine ratio evaluates exactly; Model B₂ is limited by the
+%  comparable.  Model~$C$₂ achieves near-machine precision because the
+%  Pollaczek–Khinchine ratio evaluates exactly; Model~$B$₂ is limited by the
 %  finite-part quadrature near the branch singularity at x=y.]
 
 Figures~\ref{fig:val_pxy} and~\ref{fig:val_py} compare the three analytic
@@ -91,7 +91,7 @@ the same error metric.
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_theorems_pxy.pdf}
     \caption{Relative error $|P_{\rm formula}(x,y)-P_{\rm CTMC}(x,y)|/|P_{\rm CTMC}(x,y)|$
-    on the same $5\times5$ test grid for Models A, B$_2$, and C$_2$.
+    on the same $5\times5$ test grid for Models $A$, B$_2$, and C$_2$.
     Colour scales are anchored to the same range across all three panels.
     White crosses mark the 25 test points.}
     \label{fig:val_pxy}
@@ -100,7 +100,7 @@ the same error metric.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_theorems_py.pdf}
-    \caption{Boundary function $P_y(y)=P(0,y)$ for Models A, B$_2$, and C$_2$:
+    \caption{Boundary function $P_y(y)=P(0,y)$ for Models $A$, B$_2$, and C$_2$:
     analytic formula (solid) vs CTMC (dashed).
     % [Discuss: note the qualitative similarity — P_y rises monotonically to
     %  P(0,1)=P(busy, N_1=0) — but the values differ across models because
@@ -129,7 +129,7 @@ corollary.  All points lie on the diagonal to within $10^{-4}$.
     configurations each.  Perfect agreement lies on the diagonal.
     % [Discuss: the C₂ corollary is non-trivial — it involves the confluent
     %  hypergeometric function and the M/M/1+M busy period — yet it matches
-    %  CTMC to the same tolerance as the simple Model A formula.]
+    %  CTMC to the same tolerance as the simple Model~$A$ formula.]
     }
     \label{fig:val_corollaries}
 \end{figure}
@@ -164,32 +164,32 @@ $\varepsilon_\infty(\rho_1,\rho_2)$ over the parameter space.
 \subsection{Mean queue lengths and mean waiting times}
 
 % [Introduce: Little's Law holds for all three models. Mention the conservation
-%  property of B₂ (E[N] is the same as Model A) vs C₂ (E[N] decreases with θ₁).
+%  property of B₂ (E[N] is the same as Model~$A$) vs C₂ (E[N] decreases with θ₁).
 %  Note that for C₂ the arrival rate λ_i (not the throughput) is used in L=λW.]
 
 Figure~\ref{fig:meanq_all} shows $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, and the
 implied waiting times $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ as the
-mechanism parameter ($\gamma_1$ for Model~B$_2$, $\theta_1$ for Model~C$_2$)
-varies from zero (Model~A limit, dashed) to three.
+mechanism parameter ($\gamma_1$ for Model~$B_2$, $\theta_1$ for Model~$C_2$)
+varies from zero (Model~$A$ limit, dashed) to three.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_meanq_all.pdf}
     \caption{Mean queue lengths (top row) and mean waiting times (bottom row)
-    for Models B$_2$ (left column) and C$_2$ (right column) as their respective
-    mechanism parameters vary.  Dashed lines indicate the Model~A baseline.
+    for Models $B_2$ (left column) and C$_2$ (right column) as their respective
+    mechanism parameters vary.  Dashed lines indicate the Model~$A$ baseline.
     % [Discuss B₂ left panels: jockeying transfers load from Class-1 to Class-2
     %  while conserving the total E[N]. Class-1 benefits; Class-2 is penalised.
     %  The total E[N] = ρ²/(1-ρ) is the grey dotted line — perfectly flat.]
     % [Discuss C₂ right panels: abandonment reduces E[N₁] directly (class-1
     %  customers leave the queue). Class-2 also benefits indirectly because
-    %  the server is freed sooner. Both curves fall below the Model A dashed lines.
-    %  The limit θ₁→0 recovers the Model A values.]
+    %  the server is freed sooner. Both curves fall below the Model~$A$ dashed lines.
+    %  The limit θ₁→0 recovers the Model~$A$ values.]
     }
     \label{fig:meanq_all}
 \end{figure}
 
-For reference, Model~A admits the closed-form expressions
+For reference, Model~$A$ admits the closed-form expressions
 \begin{align}
     \mathbb{E}[N_1] &= \frac{\rho\rho_1}{1-\rho_1}, &
     \mathbb{E}[N_2] &= \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)},
@@ -216,7 +216,7 @@ measured.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_experiment.pdf}
-    \caption{Validation of Models B$_2^1$ and C$_2^1$.
+    \caption{Validation of Models $B_2^1$ and C$_2^1$.
     \textit{Top row, left and centre}: relative error
     $|P_{\rm formula}(x,y)-P_{\rm CTMC}(x,y)|/|P_{\rm CTMC}(x,y)|$
     on the 5$\times$5 test grid.
@@ -225,7 +225,7 @@ measured.
     tolerance.
     \textit{Bottom row}: boundary function $P_y(y)=P(0,y)$ comparing the
     rational closed-form formula against the CTMC.
-    % [Discuss: B₂¹ achieves the same accuracy as Model A (~10⁻⁷);
+    % [Discuss: B₂¹ achieves the same accuracy as Model~$A$ (~10⁻⁷);
     %  C₂¹ achieves near-machine precision (~10⁻¹¹) because the denominator
     %  D₁ in the C₂¹ formula never passes close to zero in the test range.
     %  Both lemma residuals are far below 10⁻⁶, confirming the algebraic
