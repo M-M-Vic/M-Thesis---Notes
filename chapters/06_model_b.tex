@@ -30,184 +30,209 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     where $\mathcal{K}$ and $\mathcal{F}$ are fully explicit (defined in~\eqref{eq:B:kernel}--\eqref{eq:B:rhs} below).  The kernel $\mathcal{K}$ does not factorise for general $(\gamma_1,\gamma_2)$, so~\eqref{eq:B:volterra} does not reduce to a closed-form solution for $P_y$.  Model~$B$ is therefore left open.
 \end{claim}
 
-\subsection{Analysis model $B$ by the Method of Characteristics and Variation of Parameters}
+\subsection{Analysis of Model~$B$ by the Method of Characteristics and Variation of Parameters}
 
-To solve the homogeneous part of the PDE for this model (Equation \eqref{eq:gen:fundamental_equation}), we set the right-hand side to zero and proceed with the Method of Characteristics.
+\subsubsection*{Homogeneous solution via the method of characteristics}
 
-We start by stating the homogeneous version of the equation:
-\begin{equation*}
-    \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) + xy(x-y) \left[ \gamma_1 \frac{\partial P}{\partial x} - \gamma_2 \frac{\partial P}{\partial y} \right] = 0
-\end{equation*}
-We take common factor $y$ and divide by it. Thus, for $y \neq 0$ we have:
-\begin{equation*}
-    \left[ (\lambda_1+\lambda_2+ \mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy \right] P(x,y) + x(x-y) \left[ \gamma_1 \frac{\partial P}{\partial x} - \gamma_2 \frac{\partial P}{\partial y} \right] = 0
-\end{equation*}
-Rearranging this into the standard form of a linear first-order PDE yields the following expression:
-\begin{equation*}
-    \gamma_1 x(x-y) \frac{\partial P}{\partial x} - \gamma_2 x(x-y) \frac{\partial P}{\partial y} = - \left[ (\lambda_1+\lambda_2+ \mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy \right] P
-\end{equation*}
-
-Applying the Method of Characteristics, we construct the following system of ODEs:
-\begin{equation*}
-    \frac{dx}{\gamma_1 x(x-y)} = \frac{dy}{-\gamma_2 x(x-y)} = \frac{dP}{- \left[ (\lambda_1+\lambda_2+ \mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy \right] P}
-\end{equation*}
-We take the first pair of equations to find the relationship between $x$ and $y$:
-\begin{equation*}
-    \frac{dx}{\gamma_1} = \frac{dy}{-\gamma_2}
-\end{equation*}
-Integrating this yields our characteristic constant $C_1$:
+The fundamental equation~\eqref{eq:gen:fundamental_equation} with $\theta_1=\theta_2=0$ is a first-order linear PDE in $P(x,y)$.  Setting the right-hand side to zero and dividing through by $y$ yields the homogeneous PDE
 \begin{equation}
-    -\gamma_2 x = \gamma_1 y - C_1 \implies C_1 = \gamma_2 x + \gamma_1 y
+    \gamma_1 x(x-y)\,\frac{\partial P}{\partial x} - \gamma_2 x(x-y)\,\frac{\partial P}{\partial y}
+    = -\bigl[(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy\bigr]P.
+    \label{eq:B:homogeneous_pde}
+\end{equation}
+The method of characteristics converts this into the system of ODEs
+\begin{equation}
+    \frac{dx}{\gamma_1 x(x-y)}
+    = \frac{dy}{-\gamma_2 x(x-y)}
+    = \frac{dP}{-\bigl[(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy\bigr]P}.
+    \label{eq:B:char_system}
+\end{equation}
+Taking the first ratio, the $x(x-y)$ factors cancel:
+\begin{equation}
+    \frac{dx}{\gamma_1} = \frac{dy}{-\gamma_2}
+    \quad\Longrightarrow\quad
+    C_1 = \gamma_2 x + \gamma_1 y \;\text{ (constant along each characteristic)}.
     \label{eq:B:char_constant}
 \end{equation}
-Now we can parameterise $y$ in terms of $x$ along the characteristic curves: 
-\begin{equation*}
-    y = \frac{C_1 - \gamma_2 x}{\gamma_1}.
-\end{equation*}
-Next, we use the $dx$ and $dP$ relation, substituting the parametric expression for $y$:
-\begin{align*}
-    \begin{split}
-        \frac{dP}{P} &= \frac{- \left[ (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 x \left(\frac{C_1 - \gamma_2 x}{\gamma_1}\right) \right]}{\gamma_1 x \left( x - \frac{C_1 - \gamma_2 x}{\gamma_1} \right)} dx
-    \end{split} \\
-    \begin{split}
-        \frac{dP}{P} &= \frac{- \left[ \gamma_1(\lambda_1+\lambda_2+\mu)x - \gamma_1\mu - \gamma_1\lambda_1 x^2 - \lambda_2 C_1 x + \lambda_2 \gamma_2 x^2 \right]}{\gamma_1 x \left( (\gamma_1+\gamma_2)x - C_1 \right)} dx.
-    \end{split} \\
-    \begin{split}
-        \frac{dP}{P} &= \frac{(\gamma_1\lambda_1 - \lambda_2\gamma_2)x^2 - \left[ \gamma_1(\lambda_1+\lambda_2+\mu) - \lambda_2 C_1 \right]x + \gamma_1\mu}{\gamma_1 x \left( (\gamma_1+\gamma_2)x - C_1 \right)} dx
-    \end{split}
-\end{align*}
-
-We now proceed to apply Partial Fraction Decomposition. Let the integrand be $\frac{1}{\gamma_1} I(x) dx$, where:
-\begin{equation*}
-    I(x) = K + \frac{M}{x} + \frac{N}{(\gamma_1+\gamma_2)x - C_1}
-\end{equation*}
-By matching coefficients, we find the constants $K$, $M$, and $N$:
-\begin{align*}
-    K = \frac{\gamma_1\lambda_1 - \lambda_2\gamma_2}{\gamma_1+\gamma_2}, \quad M = -\frac{\gamma_1\mu}{C_1}, \quad \text{and} \quad N(C_1) = \gamma_1 \left[ \frac{\lambda_1+\lambda_2}{\gamma_1+\gamma_2} C_1 - (\lambda_1+\lambda_2+\mu) + \frac{\mu(\gamma_1+\gamma_2)}{C_1} \right].
-\end{align*}
-We therefore have the following.
-\begin{align*}
-    \begin{split}
-        \frac{dP}{P} &= \frac{1}{\gamma_1}\left( K - \frac{\gamma_1\mu}{C_1 x} + \frac{N(C_1)}{(\gamma_1+\gamma_2)x - C_1} \right) dx
-    \end{split} \\
-    \begin{split}
-        \int \frac{dP}{P} &= \frac{1}{\gamma_1} \int \left( K - \frac{\gamma_1\mu}{C_1 x} + \frac{N(C_1)}{(\gamma_1+\gamma_2)x - C_1} \right) dx
-    \end{split} \\
-    \begin{split}
-        \ln P &= \frac{K}{\gamma_1} x - \frac{\mu}{C_1} \ln x 
-    + \frac{N(C_1)}{\gamma_1(\gamma_1+\gamma_2)} \ln\left( (\gamma_1+\gamma_2)x - C_1 \right) + \ln f(C_1)
-    \end{split},
-\end{align*}
-where $f(C_1)$ is an arbitrary function of the characteristic constant.
-
-Note that $(\gamma_1+\gamma_2)x - C_1 = (\gamma_1+\gamma_2)x - (\gamma_2 x + \gamma_1 y) = \gamma_1(x-y)$. The extra $\ln(\gamma_1)$ constant can be absorbed into the arbitrary function $f(C_1)$ to form a new function $F(C_1)$. We now substitute $C_1 = \gamma_2 x + \gamma_1 y$ into the equation. Taking the exponential on both sides yields the general solution to the homogeneous PDE:
+Parameterising $y$ along the curve by $y(x) = (C_1 - \gamma_2 x)/\gamma_1$ and substituting into the $dP/P$ ratio:
+\begin{align}
+    \frac{dP}{P}
+    &= \frac{(\gamma_1\lambda_1 - \lambda_2\gamma_2)x^2
+            - \bigl[\gamma_1(\lambda_1+\lambda_2+\mu) - \lambda_2 C_1\bigr]x
+            + \gamma_1\mu}
+           {\gamma_1 x\bigl[(\gamma_1+\gamma_2)x - C_1\bigr]}\,dx.
+    \label{eq:B:dPP}
+\end{align}
+Partial fraction decomposition of the right-hand side, writing the integrand as $(1/\gamma_1)\,I(x)\,dx$ with
 \begin{equation}
-    P_h(x,y) = F(\gamma_2 x + \gamma_1 y) \cdot \exp\left( \frac{\gamma_1\lambda_1 - \lambda_2\gamma_2}{\gamma_1(\gamma_1+\gamma_2)} x \right) \cdot x^{-\frac{\mu}{\gamma_2 x + \gamma_1 y}} \cdot (x-y)^{E(x,y)},
+    I(x) = K + \frac{M}{x} + \frac{N(C_1)}{(\gamma_1+\gamma_2)x - C_1},
+\end{equation}
+yields, by matching coefficients,
+\begin{equation}
+    K = \frac{\gamma_1\lambda_1 - \lambda_2\gamma_2}{\gamma_1+\gamma_2},
+    \qquad
+    M = -\frac{\gamma_1\mu}{C_1},
+    \qquad
+    N(C_1) = \gamma_1\!\left[
+        \frac{\lambda_1+\lambda_2}{\gamma_1+\gamma_2}C_1
+        - (\lambda_1+\lambda_2+\mu)
+        + \frac{\mu(\gamma_1+\gamma_2)}{C_1}
+    \right].
+    \label{eq:B:KMN}
+\end{equation}
+Integrating term by term gives
+\begin{equation}
+    \ln P = \frac{K}{\gamma_1}x - \frac{\mu}{C_1}\ln x
+    + \frac{N(C_1)}{\gamma_1(\gamma_1+\gamma_2)}\ln\bigl[(\gamma_1+\gamma_2)x - C_1\bigr]
+    + \ln f(C_1),
+    \label{eq:B:lnP}
+\end{equation}
+where $f(C_1)$ is an arbitrary function of the characteristic constant.  Now observe that
+\begin{equation}
+    (\gamma_1+\gamma_2)x - C_1
+    = (\gamma_1+\gamma_2)x - (\gamma_2 x + \gamma_1 y)
+    = \gamma_1(x-y),
+    \label{eq:B:simplify}
+\end{equation}
+so $\ln[(\gamma_1+\gamma_2)x-C_1] = \ln\gamma_1 + \ln(x-y)$.  The constant $\ln\gamma_1$ is absorbed into $f(C_1)$ to form a new arbitrary function $F(C_1)$.  Reading off the exponent of $(x-y)$ from~\eqref{eq:B:lnP}:
+\begin{equation}
+    E(x,y) := \frac{N(C_1)}{\gamma_1(\gamma_1+\gamma_2)}\bigg|_{C_1=\gamma_2 x+\gamma_1 y}
+    = \frac{\lambda_1+\lambda_2}{(\gamma_1+\gamma_2)^2}(\gamma_2 x+\gamma_1 y)
+    - \frac{\lambda_1+\lambda_2+\mu}{\gamma_1+\gamma_2}
+    + \frac{\mu}{\gamma_2 x+\gamma_1 y}.
+    \label{eq:B:E}
+\end{equation}
+Substituting $C_1=\gamma_2 x+\gamma_1 y$ and taking the exponential of~\eqref{eq:B:lnP} yields the general solution to the homogeneous PDE:
+\begin{equation}
+    P_h(x,y) = F(\gamma_2 x+\gamma_1 y)
+    \cdot \exp\!\left(\frac{\gamma_1\lambda_1-\lambda_2\gamma_2}{\gamma_1(\gamma_1+\gamma_2)}x\right)
+    \cdot x^{-\mu/(\gamma_2 x+\gamma_1 y)}
+    \cdot (x-y)^{E(x,y)},
     \label{eq:B:Ph}
 \end{equation}
-where $F$ is an arbitrary differentiable function to be determined by our boundary conditions, and  $E(x,y)$ is given by:
-\begin{equation}
-    E(x,y) = \frac{\lambda_1+\lambda_2}{(\gamma_1+\gamma_2)^2} (\gamma_2 x + \gamma_1 y) - \frac{\lambda_1+\lambda_2+\mu}{\gamma_1+\gamma_2} + \frac{\mu}{\gamma_2 x + \gamma_1 y}.
-\end{equation}
+where $F$ is an arbitrary differentiable function to be determined by the boundary conditions.
 
-The immediate steps after deriving the homogeneous solution by the Method of Characteristics are called the Method of Variation of Parameters. The idea here is to parameterize $y$ in terms of $x$ such that the pair $(x,y)$ lies in our characteristic curve. For $C_1=\gamma_2x+\gamma_1y$, we have 
+\smallskip\noindent\textit{Sign of $E(x,y)$ and connection to Model~$B_2$.}
+Under stability ($\rho<1$), a computation analogous to that for $\beta(y)<0$ in Model~$B_2$ shows that $E(x,y)<0$ in the interior of the unit square.  This means $(x-y)^{E(x,y)}\to\infty$ as $x\to y$, which is the analogue of the branch singularity that drives the analyticity argument in Model~$B_2$.  Setting $\gamma_2=0$ in~\eqref{eq:B:Ph} gives $C_1=\gamma_1 y$ (constant in $x$), and $P_h|_{\gamma_2=0}$ reduces to
 \begin{equation}
-    y(x) = \frac{C_1-\gamma_2x}{\gamma_1}.
+    P_h(x,y)\big|_{\gamma_2=0}
+    = F(\gamma_1 y)\cdot e^{\lambda_1 x/\gamma_1}\cdot x^{-\mu/(\gamma_1 y)}\cdot(x-y)^{-\beta(y)},
+    \label{eq:B:Ph_B2limit}
 \end{equation}
+which is $F(\gamma_1 y)\cdot\mu_I^{-1}(x;y)$, the inverse of the Model~$B_2$ integrating factor~\eqref{eq:B2:mu_I}.  The two analyses are therefore structurally identical at $\gamma_2=0$: what is called the "homogeneous solution" in Model~$B$ degenerates to the "inverse integrating factor" in Model~$B_2$.
 
-Now the problem reduces to the following first-order ODE in $x$:
+\subsubsection*{Particular solution via variation of parameters}
+
+Variation of parameters exploits the homogeneous solution as a fundamental solution for the inhomogeneous equation.  Restricting attention to a fixed characteristic curve $y(x)=(C_1-\gamma_2 x)/\gamma_1$, the full fundamental equation~\eqref{eq:gen:fundamental_equation} becomes a first-order ODE in $x$:
 \begin{equation}
-    \frac{dP}{dx} =  \underbrace{-\frac{A(x, y(x))}{\gamma_1 x (x - y(x))}}_{f(x;C_1)} P + \underbrace{\frac{G(x, y(x))}{\gamma_1 x y(x) (x - y(x))}}_{h(x;C_1)}
-    = f(x;C_1) P + h(x;C_1)
+    \frac{dP}{dx} = f(x;C_1)\,P + h(x;C_1),
+    \label{eq:B:ode_char}
 \end{equation}
-where
+where the coefficient and forcing term are
 \begin{align}
-    A(x,y) &= (\lambda_1 + \lambda_2 + \mu)x - \mu - \lambda_1 x^2 - \lambda_2xy,  \\
-    G(x,y) &= \mu (x-y) P_y(y) -\mu x(1-y)\pi(0,0).
+    f(x;C_1) &= -\frac{A(x,\,y(x))}{\gamma_1 x\bigl(x-y(x)\bigr)},
+    \label{eq:B:fdef}\\[4pt]
+    h(x;C_1) &= \frac{G(x,\,y(x))}{\gamma_1 x\,y(x)\bigl(x-y(x)\bigr)},
+    \label{eq:B:hdef}
 \end{align}
-
-Since $P_h(x,y(x))$, for a fixed $C_1$, is a solution to the homogeneous problem $\frac{dP_h}{dx}= f(x;C_1)P_h$ —hence $e^{\int fdx}=P_h$, up to a multiplicative constant—, it is valid as a fundamental solution for the Method of Variation of Parameters. Therefore, using $P_h^{-1}(x,y(x))$ as the integrating factor for this ODE, the complete solution along the characteristic curve reads
-\begin{equation}
-    P(x,y(x)) = P_h(x,y(x))\left[F(C_1) + \int_{x_0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))} \,dt\right]
-\end{equation}
-
-Note that when restricted to a characteristic curve $y(t)$, our forcing function $h(t;C_1)$ simplifies dramatically. By directly applying $G(t, y(t))$ into the numerator, we get:
+with
 \begin{align}
-    h(t;C_1) &= \frac{\mu(t - y(t)) P_y(y(t)) - \mu t(1-y(t))\pi(0,0)}{\gamma_1 t y(t) (t - y(t))} \nonumber \\
-    &= \frac{\mu(t - y(t)) P_y(y(t))}{\gamma_1 t y(t) (t - y(t))} - \frac{\mu t(1-y(t))\pi(0,0)}{\gamma_1 t y(t) (t - y(t))} \nonumber \\
-    &= \frac{\mu}{\gamma_1 t y(t)} P_y(y(t)) - \frac{\mu(1 - y(t))}{\gamma_1 y(t)(t - y(t))} \pi(0, 0).
+    A(x,y) &= (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy,
+    \label{eq:B:Adef}\\
+    G(x,y) &= \mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0).
+    \label{eq:B:Gdef}
 \end{align}
-
-Notice $P_h(x,y(x))$ contains a term $x^{-\frac{\mu}{C_1}}$. Since $\mu \geq 0$ and $C_1=\gamma_2x+\gamma_1y \geq 0$, that term would blow up to infinity for $x\to0$, while all other terms in $P_h(x,y(x))$ remain finite at $x=0$.
-Usually $x_0$ is one of the problematic values, such as $x_0=0$. For $x\to0$, we have
+Note that $f(x;C_1) = -p(x;y(x))/\gamma_1$ and $h(x;C_1) = q(x;y(x))/y(x)$ in the notation of Model~$B_2$'s ODE~\eqref{eq:B2:pxy}--\eqref{eq:B2:qxy} (evaluated along the characteristic).  Since $P_h(x,y(x))$ satisfies the homogeneous equation $\frac{dP_h}{dx}=f(x;C_1)P_h$, it is the fundamental solution of~\eqref{eq:B:ode_char}.  The general solution of the full inhomogeneous equation is therefore
 \begin{equation}
-    \lim_{x \to 0} P(x,y(x)) = \lim_{x \to 0} \left( P_h(x,y(x))\left[F(C_1) + \int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))} \,dt\right] \right).
-\end{equation}
-The value of the integral above is exactly $0$, since the limits are the same. Since $P_h$ explodes to infinity, we are left with the following for $x\to x_0$
-\begin{equation}
-    P(0,y(0)) \to \infty \cdot [ F(C_1)+0 ] \quad \quad\text{as} \quad\quad x \to 0^+.
-\end{equation}
-This forces $F(C_1)=0$, since any different value would make our PGF diverge. Therefore, we now have the following:
-\begin{equation}
-    P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))} \,dt. \label{eq:B:integral_rep_body}
+    P(x,y(x)) = P_h(x,y(x))\left[F(C_1) + \int_{x_0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt\right].
+    \label{eq:B:variation}
 \end{equation}
 
-Now we have defined $P(x,y(x))$ in terms of the homogeneous solution $P_h(x,y(x))$ and an integral containing that same homogeneous solution and our forcing function $h(t;C_1)$. But the forcing function still contains an unknown $y$-boundary function $P_y(y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)y^{n_2}$ —in fact, $P_y(y(t))$, since it is inside an integral—. In order to solve for our boundary function, we can exploit our diagonal singularity $x=y$, where we look at the total number of customers in the queues. To avoid confusion, we will write $z=x=y$.
+\subsubsection*{Determination of $F(C_1)$ from the boundary condition at $x=0$}
 
-Every point $(x,y)$ lies on exactly one characteristic curve given by our characteristic constant $C_1=\gamma_2x+\gamma_1y$. For a point $(z,z)$ in the diagonal, we have out characteristic constant $C_1 = (\gamma_1+\gamma_2)z$. Along that curve, we will have the following parametrization:
+Along any characteristic, $y(0)=C_1/\gamma_1$, so the PGF value at $x=0$ is
+\[
+    P\bigl(0,\,y(0)\bigr)
+    = P\!\left(0,\,\frac{C_1}{\gamma_1}\right)
+    = P_y\!\left(\frac{C_1}{\gamma_1}\right),
+\]
+which must be finite (it is a value of the boundary PGF $P_y$).  However, $P_h$ contains the factor $x^{-\mu/C_1}\to\infty$ as $x\to0^+$ (since $\mu/C_1>0$), while the integral in~\eqref{eq:B:variation} tends to zero (the limits coincide at $x_0=0$).  Hence
+\[
+    \lim_{x\to0^+}P(x,y(x))
+    = \lim_{x\to0^+}P_h(x,y(x))\cdot F(C_1)
+    = \infty\cdot F(C_1),
+\]
+which is finite only if $F(C_1)=0$.  Setting $x_0=0$ and $F(C_1)=0$ in~\eqref{eq:B:variation} gives the representation stated in Claim~\ref{clm:B:volterra}:
 \begin{equation}
-    y(t\,;\,z) = \frac{(\gamma_1+\gamma_2)z - \gamma_2\,t}{\gamma_1}.
-\end{equation}
-Notice that $y(0\,;\,z)> z$ an that $y(z\,;\,z)= z$ —which confirms that the curve hits the diagonal. For every other point in between, i.e. in the interval $t \in [0,z)$ we will have $y(t\,;\,z) > t$, which we will now use.
-
-The forcing function $h(t;C_1)$ in the Method of Variation of Parameters, along the characteristic curve where $C_1=(\gamma_1+\gamma_2)z$, becomes
-\begin{equation}
-    h(t\,;\,C_1) = \frac{\mu}{\gamma_1\,t\,y(t;z)}\,P_y\!\bigl(y(t;z)\bigr)- \frac{\mu\,\bigl(1-y(t;z)\bigr)}{\gamma_1\,y(t;z)\,\bigl(t-y(t;z)\bigr)}\,\pi(0,0).
-\end{equation}
-Now we use the fact that $y(t\,;\,z) > t$ for $t \in [0,z)$ to change the sign in the equation above, as the denominator $(t - y(t;z))$ is negative. We obtain
-\begin{equation}
-    h(t\,;\,C_1) = \frac{\mu}{\gamma_1\,t\,y(t;z)}\,P_y\!\bigl(y(t;z)\bigr) + \frac{\mu\,\bigl(1-y(t;z)\bigr)}{\gamma_1\,y(t;z)\,\bigl(y(t;z)-t\bigr)}\,\pi(0,0).
-\end{equation}
-
-From the derivation in Model~$A$ for the total number of customers, we can use the result $P(z,z)=\frac{\pi(0,0)}{1-\rho z}$. This result also holds for Model~$B$, as the jockeying containing $\gamma_1$ or $\gamma_2$ terms appear multiplied by $(x-y)$ in our fundamental equation (Equation \eqref{eq:gen:fundamental_equation}). Intuitively, jockeying does not alter the total number of customers. Next, we evaluate the integral formula at $x=z$. Note the upper limit of the integral also hits the diagonal point $z$. We obtain
-\begin{equation}
-    \frac{\pi(0,0)}{1-\rho z} = P_h(z,z)\int_0^z \frac{h\bigl(t\,;\,(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,\,y(t;z)\bigr)}\,dt.
+    P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt.
+    \label{eq:B:integral_rep_body}
 \end{equation}
 
-From the step where we rearranged the forcing function, substitute $h$ and distribute $P_h(z,z)$, as only the part containing $P_y(y(t;z))$ is unknown whereas the other part depends only on fully known constants and functions:
+\subsubsection*{Simplification of the forcing function and diagonal evaluation}
+
+When restricted to the characteristic, $G(t,y(t))$ in~\eqref{eq:B:Gdef} simplifies: the factor $(t-y(t))$ cancels in the first term, and the sign of the second term changes because $y(t)>t$ for $t\in[0,z)$ (so $(t-y(t))<0$).  Explicitly,
+\begin{equation}
+    h(t;C_1) = \frac{\mu}{\gamma_1\,t\,y(t)}\,P_y\!\bigl(y(t)\bigr)
+    + \frac{\mu\,(1-y(t))}{\gamma_1\,y(t)\,(y(t)-t)}\,\pi(0,0).
+    \label{eq:B:h_simplified}
+\end{equation}
+
+\noindent\textit{Empty-state probabilities.}
+Before evaluating at the diagonal, we fix $\pi_0$ and $\pi(0,0)$.  Setting $x=y$ in the full fundamental equation, the factors $(x-y)$ kill both the jockeying convection terms and the boundary term $\mu(x-y)P_y(y)$, leaving
+\begin{equation}
+    \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
+    = -\mu(1-x)\,\pi(0,0).
+    \label{eq:B:diagonal_ode}
+\end{equation}
+The bracket factors as $(\mu-\lambda x)(x-1)$; after cancelling $(x-1)$,
+\begin{equation}
+    P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
+    \label{eq:B:Pxx}
+\end{equation}
+Setting $x=1$ and using $P(1,1)=1-\pi_0$ together with the idle-state balance $\lambda\pi_0=\mu\pi(0,0)$:
+\begin{equation}
+    \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho).
+    \label{eq:B:pi00}
+\end{equation}
+This recovers the same values as Model~$A$ and Model~$B_2$~\eqref{eq:B2:pi00}: jockeying conserves the total-customer process and therefore cannot change the marginal idle probability.
+
+\noindent\textit{Diagonal evaluation.}
+Every diagonal point $(z,z)$ lies on the characteristic with $C_1=(\gamma_1+\gamma_2)z$.  The parametrisation along that curve is $y(t;z)=((\gamma_1+\gamma_2)z-\gamma_2 t)/\gamma_1$, which satisfies $y(0;z)>z$ and $y(z;z)=z$, confirming that the curve reaches the diagonal.  Evaluating~\eqref{eq:B:integral_rep_body} at $x=z$ and substituting~\eqref{eq:B:Pxx}:
+\begin{equation}
+    \frac{\pi(0,0)}{1-\rho z}
+    = P_h(z,z)\int_0^z \frac{h\bigl(t;\,(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,\,y(t;z)\bigr)}\,dt.
+    \label{eq:B:diag_eval}
+\end{equation}
+
+\subsubsection*{Reduction to the Volterra equation}
+
+Substituting~\eqref{eq:B:h_simplified} into~\eqref{eq:B:diag_eval} and separating the known term (involving $\pi(0,0)$) from the unknown term (involving $P_y(y(t;z))$):
 \begin{align}
-    \begin{split}
-        &\frac{\pi(0,0)}{1-\rho z} \\
-        &\quad = \quad \frac{\mu\,P_h(z,z)}{\gamma_1}  \int_0^z \frac{P_y\bigl(y(t;z)\bigr)}{t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt \\
-        & \quad \quad + \frac{\mu\,P_h(z,z)}{\gamma_1}   \int_0^z \frac{\bigl(1-y(t;z)\bigr)\,\pi(0,0)}{y(t;z)\cdot\bigl(y(t;z)-t\bigr)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
-    \end{split}
+    \frac{\pi(0,0)}{1-\rho z}
+    &= \frac{\mu\,P_h(z,z)}{\gamma_1}
+       \int_0^z \frac{P_y\bigl(y(t;z)\bigr)}{t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt
+    \nonumber\\
+    &\quad
+    + \frac{\mu\,P_h(z,z)\,\pi(0,0)}{\gamma_1}
+       \int_0^z \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
+    \label{eq:B:split}
 \end{align}
-
-To put the problem in a rather more standard form, we will define the known and the unknown part. Let
+Define the kernel and the known right-hand side:
 \begin{align}
-    \begin{split}
-        \mathcal{K}(z,t) := \frac{\mu\cdot P_h(z,z)} {\gamma_1\cdot t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)}, \label{eq:B:kernel}
-    \end{split} \\
-    \begin{split}
-        \mathcal{B}(z) := \frac{\mu\cdot P_h(z,z)\cdot\pi(0,0)}{\gamma_1} \int_0^z \frac{1-y(t;z)}{y(t;z)\cdot\bigl(y(t;z)-t\bigr)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
-    \end{split}
+    \mathcal{K}(z,t) &:= \frac{\mu\cdot P_h(z,z)}
+                                {\gamma_1\cdot t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)},
+    \label{eq:B:kernel}\\[6pt]
+    \mathcal{B}(z) &:= \frac{\mu\cdot P_h(z,z)\cdot\pi(0,0)}{\gamma_1}
+                        \int_0^z
+                        \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}
+                        \,dt,
+    \label{eq:B:Bdef}
 \end{align}
-Having defined those, we have the following expression:
-\begin{equation}
-    \frac{\pi(0,0)}{1-\rho z} = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt + \mathcal{B}(z).
-\end{equation}
-Persisting on this task of grouping known and unknown terms, we define $\mathcal{F}(z)=\frac{\pi(0,0)}{1-\rho z}-\mathcal{B}(z)$. Therefore
+and set $\mathcal{F}(z)=\pi(0,0)/(1-\rho z)-\mathcal{B}(z)$.  Then~\eqref{eq:B:split} becomes
 \begin{equation}
     \mathcal{F}(z) = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt,
     \label{eq:B:rhs}
 \end{equation}
-confirming Claim~\ref{clm:B:volterra}.  This is a \textit{Volterra integral equation of the first kind} for the unknown boundary function $P_y$: after the change of variables $s = y(t\,;\,z)$, the equation takes the standard convolution form, but its kernel does not simplify to a closed form for general $(\gamma_1,\gamma_2)$.  Resolving it would require methods well beyond the scope of this thesis.
+confirming Claim~\ref{clm:B:volterra}.  This is a \emph{Volterra integral equation of the first kind} for the unknown boundary function $P_y$: after the substitution $s=y(t;z)$, the equation takes the standard convolution form, but the kernel $\mathcal{K}$ depends on $P_h$ through both arguments and does not simplify to a closed form for general $(\gamma_1,\gamma_2)$.  Resolving it would require Volterra inversion methods well beyond the scope of this thesis.
 
-Model~$B$ is therefore left open at this point.  Its role in the hierarchy is structural: it identifies the precise obstruction (the Volterra equation for $P_y$) that the tractable special cases B$_2$ and C$_2$ circumvent, each by a different mechanism.  Model~$B_2$ removes $\gamma_2$, collapsing the PDE to an ODE whose boundary condition is pinned by an analyticity argument; Model~$C_2$ removes jockeying entirely and pins $P_y$ by a boundedness argument.  Both are analysed in the following sections.
-
-
-
-
-
-
-
+Model~$B$ is therefore left open at this point.  Its role in the hierarchy is structural: it identifies the precise obstruction (the Volterra equation for $P_y$) that the tractable special cases $B_2$ and $C_2$ circumvent, each by a different mechanism.  Model~$B_2$ sets $\gamma_2=0$, collapsing the PDE to an ODE whose boundary condition is pinned by an analyticity argument; Model~$C_2$ removes jockeying entirely and pins $P_y$ by a boundedness argument.  Both are analysed in the following sections.
