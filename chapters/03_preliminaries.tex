@@ -7,9 +7,7 @@ The central mathematical object in our derivations will be the (P)PGF of the mod
 
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
-The $M/M/1$ queue has Poisson arrivals at rate $\lambda$, exponential service
-at rate $\mu$, and a single server.  It is stable if and only if $\rho=\lambda/\mu<1$.
-Its steady-state queue-length distribution is geometric:
+The $M/M/1$ queue has Poisson arrivals at rate $\lambda$ —i.e. the inter-arrival times are exponentially distributed with parameter $\lambda$—, exponentially distributed service times at rate $\mu$, and a single server.  It is a stable system if and only if  $\rho=\lambda/\mu<1$. Its steady-state queue-length distribution is follows the geometric distribution with parameter $\rho$.
 \begin{equation}
     \pi_n = (1-\rho)\,\rho^n, \quad n \ge 0. \label{eq:mm1:steadystate}
 \end{equation}
@@ -34,8 +32,7 @@ and ends when the server next returns to idle.  Its LST and mean are
 %  Always positive recurrent for any λ,μ,θ > 0 (contrast with M/M/1).
 %  State the steady-state probabilities (product-form via detailed balance).]
 
-The \emph{busy period} $B_C$ of the $M/M/1+M(\lambda_1,\mu,\theta_1)$ queue
-is the class-1 subsystem for Model~$C_2$.  Its LST satisfies
+The \emph{busy period} $B_C$ of the $M/M/1+M(\lambda_1,\mu,\theta_1)$ queueis the class-1 subsystem for Model~$C_2$.  Its LST satisfies
 \begin{equation}
     \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
       -\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s
