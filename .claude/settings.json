@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(grep -v \"^.*%.*\\\\$\")",
-      "Bash(grep -vP \"Model~\\\\\\\\\\\\$|Model \\\\\\\\\\\\$\")"
+      "Bash(grep -vP \"Model~\\\\\\\\\\\\$|Model \\\\\\\\\\\\$\")",
+      "Bash(grep -n \"empheq\\\\|fbox\\\\|C\\\\\\\\\\\\$-\\\\\\\\\\\\$2\\\\|Models~A\\\\b\\\\|Models~B\\\\b\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex)"
     ]
   }
 }
