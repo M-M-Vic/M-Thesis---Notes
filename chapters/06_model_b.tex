@@ -15,7 +15,22 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     \label{fig:model-b-queue}
 \end{figure}
 
-\subsection{Analysis model B by the Method of Characteristics and the Method of Variation of Parameters}
+\begin{claim}\label{clm:B:volterra}
+    Under stability $\rho<1$, the bivariate PGF of Model~$B$ satisfies, on each characteristic curve $\gamma_2 x + \gamma_1 y = C_1$ of the fundamental equation, the integro-differential representation
+    \begin{equation}
+        P(x,y(x)) \;=\; P_h(x,y(x))\int_{0}^{x}
+        \frac{h\bigl(t;\,C_1\bigr)}{P_h\bigl(t,\,y(t)\bigr)}\,dt,
+        \label{eq:B:integral_rep}
+    \end{equation}
+    where $P_h$ is the explicit homogeneous solution derived by the method of characteristics~\eqref{eq:B:Ph}, $y(t)=(C_1-\gamma_2 t)/\gamma_1$ is the characteristic parametrisation, and $h(t;C_1)$ is a forcing function depending on the unknown boundary trace $P_y(y)=P(0,y)$.  Evaluating~\eqref{eq:B:integral_rep} at the diagonal $x=y=z$ and invoking the conservation identity $P(z,z)=\pi(0,0)/(1-\rho z)$ reduces the problem to a \emph{Volterra integral equation of the first kind} for $P_y$:
+    \begin{equation}
+        \mathcal{F}(z) \;=\; \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt,
+        \label{eq:B:volterra}
+    \end{equation}
+    where $\mathcal{K}$ and $\mathcal{F}$ are fully explicit (defined in~\eqref{eq:B:kernel}--\eqref{eq:B:rhs} below).  The kernel $\mathcal{K}$ does not factorise for general $(\gamma_1,\gamma_2)$, so~\eqref{eq:B:volterra} does not reduce to a closed-form solution for $P_y$.  Model~$B$ is therefore left open.
+\end{claim}
+
+\subsection{Analysis model $B$ by the Method of Characteristics and Variation of Parameters}
 
 To solve the homogeneous part of the PDE for this model (Equation \eqref{eq:gen:fundamental_equation}), we set the right-hand side to zero and proceed with the Method of Characteristics.
 
@@ -88,6 +103,7 @@ where $f(C_1)$ is an arbitrary function of the characteristic constant.
 Note that $(\gamma_1+\gamma_2)x - C_1 = (\gamma_1+\gamma_2)x - (\gamma_2 x + \gamma_1 y) = \gamma_1(x-y)$. The extra $\ln(\gamma_1)$ constant can be absorbed into the arbitrary function $f(C_1)$ to form a new function $F(C_1)$. We now substitute $C_1 = \gamma_2 x + \gamma_1 y$ into the equation. Taking the exponential on both sides yields the general solution to the homogeneous PDE:
 \begin{equation}
     P_h(x,y) = F(\gamma_2 x + \gamma_1 y) \cdot \exp\left( \frac{\gamma_1\lambda_1 - \lambda_2\gamma_2}{\gamma_1(\gamma_1+\gamma_2)} x \right) \cdot x^{-\frac{\mu}{\gamma_2 x + \gamma_1 y}} \cdot (x-y)^{E(x,y)},
+    \label{eq:B:Ph}
 \end{equation}
 where $F$ is an arbitrary differentiable function to be determined by our boundary conditions, and  $E(x,y)$ is given by:
 \begin{equation}
@@ -133,7 +149,7 @@ The value of the integral above is exactly $0$, since the limits are the same. S
 \end{equation}
 This forces $F(C_1)=0$, since any different value would make our PGF diverge. Therefore, we now have the following:
 \begin{equation}
-    P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))} \,dt.
+    P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))} \,dt. \label{eq:B:integral_rep_body}
 \end{equation}
 
 Now we have defined $P(x,y(x))$ in terms of the homogeneous solution $P_h(x,y(x))$ and an integral containing that same homogeneous solution and our forcing function $h(t;C_1)$. But the forcing function still contains an unknown $y$-boundary function $P_y(y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)y^{n_2}$ —in fact, $P_y(y(t))$, since it is inside an integral—. In order to solve for our boundary function, we can exploit our diagonal singularity $x=y$, where we look at the total number of customers in the queues. To avoid confusion, we will write $z=x=y$.
@@ -170,7 +186,7 @@ From the step where we rearranged the forcing function, substitute $h$ and distr
 To put the problem in a rather more standard form, we will define the known and the unknown part. Let
 \begin{align}
     \begin{split}
-        \mathcal{K}(z,t) := \frac{\mu\cdot P_h(z,z)} {\gamma_1\cdot t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)},
+        \mathcal{K}(z,t) := \frac{\mu\cdot P_h(z,z)} {\gamma_1\cdot t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)}, \label{eq:B:kernel}
     \end{split} \\
     \begin{split}
         \mathcal{B}(z) := \frac{\mu\cdot P_h(z,z)\cdot\pi(0,0)}{\gamma_1} \int_0^z \frac{1-y(t;z)}{y(t;z)\cdot\bigl(y(t;z)-t\bigr)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
@@ -182,9 +198,10 @@ Having defined those, we have the following expression:
 \end{equation}
 Persisting on this task of grouping known and unknown terms, we define $\mathcal{F}(z)=\frac{\pi(0,0)}{1-\rho z}-\mathcal{B}(z)$. Therefore
 \begin{equation}
-    \mathcal{F}(z) = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt.
+    \mathcal{F}(z) = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt,
+    \label{eq:B:rhs}
 \end{equation}
-This is a \textit{Volterra integral equation of the first kind} for the unknown boundary function $P_y$: after the change of variables $s = y(t\,;\,z)$, the equation takes the standard convolution form, but its kernel does not simplify to a closed form for general $(\gamma_1,\gamma_2)$.  Resolving it would require methods well beyond the scope of this thesis.
+confirming Claim~\ref{clm:B:volterra}.  This is a \textit{Volterra integral equation of the first kind} for the unknown boundary function $P_y$: after the change of variables $s = y(t\,;\,z)$, the equation takes the standard convolution form, but its kernel does not simplify to a closed form for general $(\gamma_1,\gamma_2)$.  Resolving it would require methods well beyond the scope of this thesis.
 
 Model~$B$ is therefore left open at this point.  Its role in the hierarchy is structural: it identifies the precise obstruction (the Volterra equation for $P_y$) that the tractable special cases B$_2$ and C$_2$ circumvent, each by a different mechanism.  Model~$B_2$ removes $\gamma_2$, collapsing the PDE to an ODE whose boundary condition is pinned by an analyticity argument; Model~$C_2$ removes jockeying entirely and pins $P_y$ by a boundedness argument.  Both are analysed in the following sections.
 
