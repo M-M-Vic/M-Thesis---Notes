@@ -51,6 +51,21 @@ is the class-1 subsystem for Model~C$_2$.  Its LST satisfies
       -\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
     \label{eq:erlangA:bp_lst}
 \end{equation}
+\textit{Derivation (first-step analysis).}  Let $b_n(s)$ denote the LST of the busy period starting from $n\ge1$ customers (one in service, $n-1$ waiting), so $\widetilde{B}_C(s)=b_1(s)$.  Conditioning on the first event and exploiting exponential memorylessness:
+\begin{alignat*}{2}
+  n=1\colon\quad
+    & (\lambda_1+\mu+s)\,b_1(s) &\;=\;& \mu \;+\; \lambda_1\,b_2(s), \\
+  n\ge2\colon\quad
+    & (\lambda_1+\mu+(n{-}1)\theta_1+s)\,b_n(s) &\;=\;&
+      (\mu+(n{-}1)\theta_1)\,b_{n-1}(s) \;+\; \lambda_1\,b_{n+1}(s).
+\end{alignat*}
+In the $n=1$ equation there are no waiting customers, so abandonment plays no role; in the $n\ge2$ equation the combined rate of going from $n$ to $n-1$ customers is $\mu+(n-1)\theta_1$ (service completion or any one of the $n-1$ waiting customers abandoning).  Define the ratio $r_n(s)=b_n(s)/b_{n-1}(s)$ for $n\ge2$.  Dividing the $n\ge2$ equation by $b_{n-1}$ gives
+\begin{equation}
+  r_n(s) \;=\; \cfrac{\mu+(n-1)\theta_1}{\lambda_1+\mu+(n-1)\theta_1+s \;-\; \lambda_1\,r_{n+1}(s)}, \qquad n\ge 2,
+  \label{eq:erlangA:r_recursion}
+\end{equation}
+and the $n=1$ equation rewrites as $b_1(s)=\mu\,/\,(\lambda_1+\mu+s-\lambda_1 r_2(s))$.  The partial denominators $\lambda_1+\mu+(n-1)\theta_1+s$ grow without bound as $n\to\infty$, so the continued fraction converges; substituting the forward recursion~\eqref{eq:erlangA:r_recursion} into $b_1$ and iterating recovers~\eqref{eq:erlangA:bp_lst}.
+
 and its mean admits the closed form
 \begin{equation}
     \mathbb{E}[B_C] = \frac{1}{\mu}\,

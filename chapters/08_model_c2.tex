@@ -32,7 +32,7 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
         \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}(1-t)^{\,\lambda_2(1-y)/\theta_1}\,dt, \\
         \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1}(1-t)^{\,\lambda_2(1-y)/\theta_1-1}\,dt,
     \end{align*}
-    $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:C2:Bc_LST}, and $\pi(0,0)$ is given by Corollary~\ref{cor:C2:pi00} below.
+    $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:erlangA:bp_lst}, and $\pi(0,0)$ is given by Corollary~\ref{cor:C2:pi00} below.
 \end{theorem}
 
 \begin{corollary}\label{cor:C2:pi00}
@@ -41,7 +41,7 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
         \pi(0,0) \;&=\; \frac{(\lambda_1+\lambda_2)\bigl(1 - \lambda_2\,\mathbb{E}[B_C]\bigr)}{\mu\,\bigl(1 + \lambda_1\,\mathbb{E}[B_C]\bigr)} \;=\; (\rho_1+\rho_2)\,\frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi00}\\[4pt]
         \pi_0 \;&=\; \frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi0}
     \end{align}
-    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:C2:Bc_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~A results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
+    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:erlangA:bp_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~A results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
 \end{corollary}
 
 \subsection{Setup: reduction to a first-order linear ODE in $x$}
@@ -70,23 +70,7 @@ We close the setup with the conditional-expectation decomposition that will driv
 
 The idea is, again, to adopt the perspective of a Class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from class-$1$ truly abandon the system, leaving the Poisson arrival process of Class-$2$ undisturbed. Therefore, customers in the non-priority class are driven by an $M/G/1$ process, with Poisson arrivals at rate $\lambda_2$ and general effective service times $B_C$ equivalent to the busy period of Class-$1$'s $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$.
 
-The LST and expectation of such busy period $B_C$ are known results:
-\begin{align}
-    \begin{split}
-        \widetilde{B}_C(s) &= \cfrac{\mu}{\lambda_1+\mu+s-\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s-\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
-    \label{eq:C2:Bc_LST}
-    \end{split} \\
-    \begin{split}
-         \mathbb{E}[B_C] &= \sum_{k=1}^{\infty} \frac{\lambda_1^{\,k-1}}{\displaystyle\prod_{i=1}^{k}\bigl(\mu+(i-1)\theta_1\bigr)}
-    \;=\;\frac{{}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)}{\mu}.
-    \label{eq:C2:Bc_mean}
-    \end{split}
-\end{align}
-The second equality follows from expressing the product in terms of \textit{Kummer's confluent hypergeometric function of the first kind} ${}_1F_1$,
-\begin{equation}
-    {}_1F_1(a;b;z) \;=\; \sum_{n=0}^{\infty} \frac{a^{(n)}\,z^n}{b^{(n)}\,n!}, \qquad a^{(n)}\;=\;\prod_{k=0}^{n-1}(a+k) \quad(a^{(0)}=1),
-\end{equation}
-which provides a closed form for $\mathbb{E}[B_C]$.
+The LST $\widetilde{B}_C(s)$ and mean $\mathbb{E}[B_C]$ of this busy period are derived via the first-step analysis in \S\ref{ssec:erlangA}; see Equations~\eqref{eq:erlangA:bp_lst}--\eqref{eq:erlangA:bp_mean}.
 
 The stability condition required for the Class-$2$ subsystem is that of the $M/G/1$ defined above, i.e.\ $\lambda_2\,\mathbb{E}[B_C]<1$:
 \begin{equation}
@@ -188,13 +172,15 @@ which gives
     \label{eq:C2:Py_anal_raw}
 \end{equation}
 
-The continued-fraction representation of the busy period of an $M/M/1+M$ queue~\eqref{eq:C2:Bc_LST} admits the integral form
+The continued-fraction representation~\eqref{eq:erlangA:bp_lst} admits an equivalent integral form.  Setting $a=\alpha=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$, the Euler integral representation~\eqref{eq:kummer:euler} identifies each of the integrals below as a Beta-function multiple of a $\,{}_1F_1$ value:
 \begin{equation}
     \widetilde{B}_C(s) \;=\; \frac{\displaystyle\int_{0}^{1} t^{a}(1-t)^{b-1}e^{-ct}\,dt}{\displaystyle\int_{0}^{1} t^{a-1}(1-t)^{b-1}e^{-ct}\,dt}
-    \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)},
+    \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)}.
     \label{eq:C2:Bc_Kummer}
 \end{equation}
-with $a=\alpha=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$. Setting $s=\lambda_2(1-y)$ — so that $b=\beta(y)$ matches the exponent in~\eqref{eq:C2:exponents} — yields exactly the ratio of our $\mathcal{J}_i$:
+That this ratio equals the continued fraction~\eqref{eq:erlangA:bp_lst} follows from the three-term recurrence for $\,{}_1F_1$ in its first parameter~\cite{dlmf}, which is precisely the ratio recursion~\eqref{eq:erlangA:r_recursion} derived in~\S\ref{ssec:erlangA}.
+
+Setting $s=\lambda_2(1-y)$ — so that $b=\beta(y)$ matches the exponent in~\eqref{eq:C2:exponents} — yields exactly the ratio of our $\mathcal{J}_i$:
 \begin{equation}
     \widetilde{B}_C\bigl(\lambda_2(1-y)\bigr) \;=\; \frac{\mathcal{J}_1(y)}{\mathcal{J}_0(y)}.
 \end{equation}
@@ -230,7 +216,11 @@ and define the auxiliary integrals
     \mathcal{I}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)}\,dt, \label{eq:C2:I1} \\
     \mathcal{I}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt, \label{eq:C2:I2}
 \end{align}
-with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}. Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
+with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}.
+
+\textit{Note on the $\mathcal{J}$--$\mathcal{I}$ correspondence.}  The integrals $\mathcal{I}_1, \mathcal{I}_2$ are the partial (upper limit $x$) counterparts of the full integrals $\mathcal{J}_0, \mathcal{J}_1$ from~\eqref{eq:C2:boundedness}.  Evaluating at $x=1$ gives $\mathcal{I}_2(1,y)=\mathcal{J}_1(y)$ exactly.  However, $\mathcal{I}_1(1,y)$ is \emph{not} $\mathcal{J}_0(y)$: the former has the exponent $\beta(y)$ on $(1-t)$ while the latter has $\beta(y)-1$, which under the Euler representation~\eqref{eq:kummer:euler} corresponds to incrementing the second Kummer parameter by one.  Both families are evaluated by the same representation; the exponent shift is harmless because $\mathcal{I}_1$ and $\mathcal{I}_2$ always appear together in the combination $\zeta(y)\,\mathcal{I}_1 - (1-\zeta(y))\,\mathcal{I}_2$, not individually.
+
+Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
 \begin{equation}
     \int_0^x q(t;y)\,\mu_I(t;y)\,dt \;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}\Bigl[\zeta(y)\,\mathcal{I}_1(x,y) \;-\; \bigl(1-\zeta(y)\bigr)\,\mathcal{I}_2(x,y)\Bigr].
 \end{equation}
