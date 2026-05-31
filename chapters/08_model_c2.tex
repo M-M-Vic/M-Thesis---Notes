@@ -35,6 +35,25 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
     $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:erlangA:bp_lst}, and $\pi(0,0)$ is given by Corollary~\ref{cor:C2:pi00} below.
 \end{theorem}
 
+\begin{proof}
+The proof is structured in three stages.
+
+\emph{Stage 1: Reduction to a first-order ODE in $x$ and the integrating factor.}  Substituting $\theta_1>0$, $\gamma_1=\gamma_2=\theta_2=0$ into the general fundamental equation eliminates both convection terms in $y$, leaving a first-order linear ODE in $x$ for each fixed $y\in[0,1]$ (Equation~\eqref{eq:C2:fundamental}).  Partial-fraction decomposition of the ODE coefficient gives the integrating factor
+\[
+    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\,x^{\alpha}\,(1-x)^{\beta(y)},
+    \qquad \alpha=\tfrac{\mu}{\theta_1},\quad \beta(y)=\tfrac{\lambda_2(1-y)}{\theta_1},
+\]
+which vanishes at $x=0$ and $x=1$ because $\alpha,\beta(y)>0$.
+
+\emph{Stage 2: Determination of $P_y(y)$.}  Two independent routes are given in \S\S\ref{ssec:C2:prob}--\ref{ssec:C2:anal}:
+\begin{itemize}
+  \item \emph{Probabilistic (Pollaczek--Khinchine).}  Because $\theta_2=\gamma_i=0$, the class-2 arrival stream remains Poisson; PASTA applies.  Class-2 customers see an $M/G/1$ queue with effective service time $B_C$ (the busy period of the class-1 $M/M/1{+}M$ subsystem), and the P-K formula yields $P_y(y)$ directly (Equation~\eqref{eq:C2:Py}).
+  \item \emph{Analytical (boundedness at $x=1$).}  Since $\mu_I(1;y)=0$, the only way for $P(x,y)$ to remain bounded as $x\to1$ is $\int_0^1 q(t;y)\mu_I(t;y)\,dt=0$ (Equation~\eqref{eq:C2:boundedness}).  Evaluating this integral via the Kummer--Euler identity~\eqref{eq:C2:Bc_Kummer} recovers the same $P_y(y)$.
+\end{itemize}
+
+\emph{Stage 3: Recovery of $P(x,y)$.}  With $P_y(y)$ known, the ODE is integrated against the integrating factor (\S\ref{ssec:C2:recovery}), yielding the closed form~\eqref{eq:C2:Pxy} stated in the theorem.
+\end{proof}
+
 \begin{corollary}\label{cor:C2:pi00}
     The limiting probability $\pi(0,0)$ of the joint state $(N_1,N_2)=(0,0)$ with the server busy, and the empty-system probability $\pi_0$, are given by
     \begin{align}

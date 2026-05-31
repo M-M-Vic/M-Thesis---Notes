@@ -52,6 +52,21 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
     In particular, $P(1,1) = 1-\pi_0 = \rho$ and the diagonal generating function satisfies $P(z,z)=\pi(0,0)/(1-\rho z)$.
 \end{corollary}
 
+\begin{proof}[Proof of Corollary~\ref{cor:A:pi0}]
+    \textbf{Diagonal PGF.}  Setting $x=y=z$ in the theorem formula, the factor $(x-x^*(y))/(x^*(y)-y)$ evaluates to $(z-x^*(z))/(x^*(z)-z)=-1$, while the denominator becomes
+    \[
+        D(z,z) \;=\; (1+\rho)z^2 - z - \rho z^3 \;=\; -z(z-1)(\rho z-1).
+    \]
+    The numerator equals $z(1-z)\cdot(-1)\cdot\rho(1-\rho)=-\rho(1-\rho)z(1-z)$.  Cancelling $-z(z-1)=(1-z)z$ from both,
+    \begin{equation}
+        P(z,z) = \frac{\rho(1-\rho)}{1-\rho z}. \label{eq:A:Pzz_cor}
+    \end{equation}
+    \textbf{Empty-system probabilities.}  Sending $z\to1$ gives $P(1,1)=\rho$.  Since $P(1,1)=\sum_{n_1,n_2\ge0}\pi(n_1,n_2)=1-\pi_0$, it follows that $\pi_0=1-\rho$.  The global balance at the idle state reads $(\lambda_1+\lambda_2)\pi_0=\mu\pi(0,0)$, giving
+    \[
+        \pi(0,0) \;=\; (\rho_1+\rho_2)\,\pi_0 \;=\; \rho(1-\rho). \qedhere
+    \]
+\end{proof}
+
 \subsubsection{Analytical approach of model A in state space $S$}
 
 \begin{proof}
@@ -423,8 +438,7 @@ Starting point:
     At $y=1$ this recovers $\widetilde{P}(1,n)=(1-\rho)\rho^{n+1}$, consistent with the $M/M/1(\lambda,\mu)$ steady-state marginal for $n$ customers waiting.
 \end{theorem}
 
-\subsubsection{Analytical approach of model A in state space $\widetilde{S}$, neglecting the non-homogeneous term}
-
+\begin{proof}[Proof of Theorem~\ref{thm:A:PPGF_Stilde}]
 For state space $\widetilde{S}$, the dynamics for the PPGF are described by the following inhomogeneous difference equation:
 \begin{equation}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \pi(n+1,n+1).
@@ -455,8 +469,9 @@ Using $\tP(y,0)=\sum_{n_2=0}^0\tpi(n_2,0)y^{n_2}=\tpi(0,0)=(1-\rho)\rho$, we obt
 \end{equation}
 We can evaluate this expression at $y=1$ and check that it will behave like a regular $M/M/1$ queueing system with arrival rate $\lambda=\lambda_1+\lambda_2$ and service rate $\mu$. Note that, since $n$ counts the total number of customers in the queues and not in the system, we will have an exponent $n+1$ in the $\rho$ term, with thar $+1$ accounting for the customer in service:
 \begin{equation}
-    \tP(1,n)= (1-\rho)\rho \cdot  [\widetilde{y}^*(1)]^n = (1-\rho)\rho \cdot\rho^n= (1-\rho) \rho^{n+1}.
+    \tP(1,n)= (1-\rho)\rho \cdot  [\widetilde{y}^*(1)]^n = (1-\rho)\rho \cdot\rho^n= (1-\rho) \rho^{n+1}. \qedhere
 \end{equation}
+\end{proof}
 
 \subsection{Mean queue lengths and mean waiting times}
 

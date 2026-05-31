@@ -48,6 +48,20 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
     finite-part continuations.
 \end{theorem}
 
+\begin{proof}
+The proof proceeds in three stages, carried out in full in the derivation below.
+
+\emph{Stage 1: Reduction to a first-order ODE in $x$.}  With $\gamma_2=0$ the fundamental equation contains no $\partial P/\partial y$ term; for each fixed $y$ it is a first-order linear ODE in $x$.  Partial-fraction decomposition of the coefficient $p(x;y)$ yields an integrating factor of the form
+\[
+    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\gamma_1}\,x^{-\alpha(y)}\,(x-y)^{-\beta(y)},
+\]
+with $\alpha(y)=\mu/(\gamma_1 y)$ and $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$.  The factor $(x-y)^{-\beta(y)}$ carries a branch singularity at the interior point $x=y$ with exponent $-\beta(y)>0$ in the stability region.
+
+\emph{Stage 2: Pinning $P_y(y)$ by analyticity at $x=y$.}  The integrating factor diverges as $x\to y$, so the general solution involves a term proportional to $(x-y)^{-|\beta(y)|}$ unless the corresponding coefficient vanishes.  Since $P(\cdot,y)$ must be bounded (it is a PGF), this non-integer branch must be absent; requiring its coefficient to vanish gives a closed-form expression for $P_y(y)$ as a ratio of ${}_1F_1$ values (Equation~\eqref{eq:B2:Py}).  Together with $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$ from the conservation of the total-customer process, the boundary data are fully determined.
+
+\emph{Stage 3: Integration to obtain $P(x,y)$.}  Substituting $P_y(y)$ back into the ODE and integrating against the integrating factor yields the integral formula~\eqref{eq:B2:Pxy}.  The no-branch condition ensures that the formula extends analytically across $x=y$.  The limit $\gamma_1\to0^+$ recovers the Model-A rational formula, confirming consistency.
+\end{proof}
+
 Let $\gamma_2=0$, then our fundamental equation states:
 \begin{equation}
     \bigl[(\lambda_1+\lambda_2+\mu)xy-\mu y-\lambda_1 x^2 y-\lambda_2 xy^2\bigr]P + \gamma_1 xy(x-y)\frac{\partial P}{\partial x} = \mu(x-y)P_y(y) - \mu x(1-y)\pi(0,0).
