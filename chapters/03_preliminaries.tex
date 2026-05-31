@@ -7,12 +7,19 @@ The central mathematical object in our derivations will be the (P)PGF of the mod
 
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
-The $M/M/1$ queue has Poisson arrivals at rate $\lambda$ —i.e. the inter-arrival times are exponentially distributed with parameter $\lambda$—, exponentially distributed service times at rate $\mu$, and a single server.  It is a stable system if and only if  $\rho=\lambda/\mu<1$. Its steady-state queue-length distribution is follows the geometric distribution with parameter $\rho$.
+The $M/M/1$ queue~\cite{adan2002queueing} is the canonical single-server model:
+customers arrive according to a Poisson process at rate $\lambda$, service times are
+i.i.d.\ $\mathrm{Exp}(\mu)$, and a single server operates in first-come-first-served
+order.  The system is stable if and only if the traffic intensity $\rho = \lambda/\mu < 1$.
+Under stability, the global balance equations
+$\lambda\,\pi_n = \mu\,\pi_{n+1}$ ($n \ge 0$) together with normalization yield the
+geometric steady-state distribution of the number in the system:
 \begin{equation}
     \pi_n = (1-\rho)\,\rho^n, \quad n \ge 0. \label{eq:mm1:steadystate}
 \end{equation}
-% [Expand: brief derivation via balance equations, or cite adan2002queueing.
-%  State mean queue length E[L] = ρ/(1−ρ) (useful for Little's Law applications).]
+By the PASTA property (\S\ref{ssec:priority}), this is also the distribution seen by
+arriving customers.  The mean number in the system is $\mathbb{E}[L] = \rho/(1-\rho)$,
+so Little's Law gives mean sojourn time $\mathbb{E}[W] = 1/(\mu - \lambda)$.
 
 The \emph{busy period} $B$ begins when a customer arrives to an idle server
 and ends when the server next returns to idle.  Its LST and mean are
@@ -22,17 +29,40 @@ and ends when the server next returns to idle.  Its LST and mean are
     \label{eq:mm1:bp_lst} \\
     \mathbb{E}[B]    &= \frac{1}{\mu(1-\rho)}. \label{eq:mm1:bp_mean}
 \end{align}
-% [Note: evaluating $\widetilde{B}$ at $s=\lambda_2(1-y)$ recovers $x^*(y)$,
-%  the characteristic root of the two-class PGF equation — see §5 (Model~$A$).]
+Evaluating $\widetilde{B}$ at $s = \lambda_2(1-y)$ recovers $x^*(y)$, the characteristic
+root that appears in the two-class PGF equation of Model~$A$ (see \S\ref{sec:model_a}).
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}
 
-% [Expand: model definition — M/M/1 with per-customer patience clock Exp(θ).
-%  Always positive recurrent for any λ,μ,θ > 0 (contrast with M/M/1).
-%  State the steady-state probabilities (product-form via detailed balance).]
+The $M/M/1+M$ queue (also called the \emph{Erlang-A} model) augments the $M/M/1$ queue
+with customer impatience: each waiting customer independently abandons after an
+$\mathrm{Exp}(\theta)$ patience time, independent of service and other customers.
+Arrivals remain Poisson at rate $\lambda$ and service times are $\mathrm{Exp}(\mu)$.
+The key structural difference from the $M/M/1$ is that the $M/M/1+M$ is
+\emph{positive recurrent for all} $\lambda, \mu, \theta > 0$: even when $\lambda > \mu$,
+impatient departures prevent the queue from drifting to infinity.
 
-The \emph{busy period} $B_C$ of the $M/M/1+M(\lambda_1,\mu,\theta_1)$ queueis the class-1 subsystem for Model~$C_2$.  Its LST satisfies
+The steady-state distribution follows from the global balance equations.
+At state $n \ge 0$ (counting all customers in the system), the transition rate from
+$n$ to $n+1$ is $\lambda$ and from $n+1$ to $n$ is $\mu + n\theta$ (service or any one
+of the $n$ waiting customers abandoning), giving
+\begin{equation}
+    \lambda\,\pi_n = (\mu + n\theta)\,\pi_{n+1}, \qquad n \ge 0.
+    \label{eq:erlangA:balance}
+\end{equation}
+Iterating yields the product form
+\begin{equation}
+    \pi_n = \pi_0\,\frac{(\lambda/\theta)^n}{(\mu/\theta)^{(n)}}, \qquad n \ge 0,
+    \label{eq:erlangA:steadystate}
+\end{equation}
+where $a^{(n)} = a(a+1)\cdots(a+n-1)$ is the Pochhammer symbol defined in
+\S\ref{ssec:kummer}.  Normalization gives
+$\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$
+(see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$).
+
+The \emph{busy period} $B_C$ of the $M/M/1+M(\lambda_1,\mu,\theta_1)$ queue
+is the class-1 subsystem for Model~$C_2$.  Its LST satisfies
 \begin{equation}
     \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
       -\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s
@@ -64,14 +94,21 @@ where ${}_1F_1$ is defined in \S\ref{ssec:kummer}.
 In the limit $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$,
 recovering \eqref{eq:mm1:bp_mean}.
 
-% [Note: the stability condition for Model~$C$₂,
-%  λ₂ · E[B_C] < 1, follows immediately from this mean.]
+The stability condition for Model~$C_2$, namely $\lambda_2\cdot\mathbb{E}[B_C] < 1$,
+follows immediately from this mean via the $M/G/1$ structure of the Class-2 subsystem
+(\S\ref{ssec:pk}).
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Non-preemptive priority and PASTA}\label{ssec:priority}
 
-% [Expand: define the two-class non-preemptive priority discipline.
-%  Explain that Class-2 service is never interrupted once started.]
+In a two-class \emph{non-preemptive priority} queue with a single server, Class-1 holds
+strict priority over Class-2: whenever the server becomes free, it selects the head of
+the Class-1 queue if any Class-1 customer is waiting, and only begins serving a Class-2
+customer when no Class-1 customer is present.  Crucially, the discipline is
+\emph{non-preemptive}: a Class-2 customer already in service is never interrupted by a
+new Class-1 arrival; that service runs to completion.  Consequently, from the perspective
+of Class-1, Class-2 customers are entirely transparent, and the Class-1 subsystem evolves
+as an independent $M/M/1$ (or $M/M/1+M$ under Class-1 abandonment).
 
 Under Poisson arrivals and a common exponential service rate $\mu$, the
 following decomposition holds:
@@ -98,25 +135,25 @@ This property justifies the conditional-expectation decomposition
 \end{equation}
 used in the probabilistic proofs of Models~A and~C$_2$.
 
-% [Note: jockeying breaks the Poisson input seen by each class individually,
-%  so PASTA no longer implies the M/G/1 structure — this is why the
-%  probabilistic route is unavailable for Models $B$ and B₂.]
+Jockeying breaks the Poisson structure of the input seen by each class individually,
+so PASTA no longer implies the $M/G/1$ decomposition above.  This is why the
+probabilistic route to $P_y(y)$ is unavailable for Models~$B$ and~$B_2$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Pollaczek--Khinchine formula}\label{ssec:pk}
 
-% [Expand: brief definition of M/G/1 queue; state stability condition ρ_B < 1.]
-
-For an $M/G/1$ queue with arrival rate $\lambda$, service time $B$ with
-LST $\widetilde{B}(s)$, and load $\rho_B = \lambda\,\mathbb{E}[B] < 1$,
-the PGF of the stationary number of customers in the system is
+The $M/G/1$ queue~\cite{adan2002queueing} is a single-server queue with Poisson arrivals
+at rate $\lambda$ and generally distributed i.i.d.\ service times $B$ with mean
+$\mathbb{E}[B]$ and Laplace--Stieltjes transform (LST) $\widetilde{B}(s) = \mathbb{E}[e^{-sB}]$.
+The traffic intensity is $\rho_B = \lambda\,\mathbb{E}[B]$, and the queue is stable if
+and only if $\rho_B < 1$.  Under this condition the Pollaczek--Khinchine (PK) formula
+gives the PGF of the stationary number of customers in the system:
 \begin{equation}
     L(z) \;=\; \frac{(1-\rho_B)(1-z)\,\widetilde{B}(\lambda(1-z))}
                     {\widetilde{B}(\lambda(1-z)) - z}.
     \label{eq:pk:pgf}
 \end{equation}
 
-% [Cite: Kleinrock (1975) or Adan & Resing (2002).]
 
 This formula is applied with two different service-time distributions:
 \begin{itemize}
@@ -140,8 +177,14 @@ The \emph{Kummer confluent hypergeometric function of the first kind} is
 where $b \notin \{0,-1,-2,\dots\}$ and the series converges for all
 $z\in\mathbb{C}$.
 
-% [Expand: mention Kummer's ODE  z u'' + (b-z)u' - a u = 0; cite DLMF §13
-%  and Abramowitz & Stegun Ch. 13.]
+The function ${}_1F_1(a;\,b;\,z)$ is the unique entire solution of
+\emph{Kummer's equation}~\cite{dlmf}
+\begin{equation}
+    z\,u'' + (b - z)\,u' - a\,u = 0, \label{eq:kummer:ode}
+\end{equation}
+normalized by ${}_1F_1(a;\,b;\,0) = 1$.  The series \eqref{eq:kummer:series} converges
+for all $z\in\mathbb{C}$ whenever $b \notin \{0,-1,-2,\ldots\}$; see \cite{dlmf}
+(\S13) for a systematic treatment.
 
 Two identities used in this thesis:
 
@@ -168,8 +211,12 @@ and in the LST \eqref{eq:erlangA:bp_lst} of the $M/M/1+M$ busy period.
 
 \subsubsection{Integrating factor (variation of parameters)}
 
-% [Expand: one sentence on when this applies — the fundamental PGF equation
-%  reduces to an ODE in x for each fixed y when γ₂=θ₂=0 (Models $B$₂ and C₂).]
+When the reverse jockeying rate and the Class-2 abandonment rate both vanish
+($\gamma_2 = \theta_2 = 0$), the fundamental PGF balance equation reduces, for each
+fixed $y \in [0,1]$, to a first-order linear ODE in $x$.  This reduction applies to
+both Model~$B_2$ (\S\ref{sec:model_b2}) and Model~$C_2$ (\S\ref{sec:model_c2}), and in
+each case the integrating-factor method yields a closed-form expression for $P(x,y)$
+up to an unknown boundary function $P_y(y)$.
 
 The standard form of a first-order linear ODE in $x$ (with $y$ as a parameter) is
 \begin{equation}
@@ -187,14 +234,18 @@ When $\mu_I(0;y)=0$ the constant $C(y)=0$ and the lower boundary term vanishes;
 this is the case in both Models~B$_2$ (where $\mu_I \propto x^\alpha(x-y)^\beta$)
 and C$_2$ (where $\mu_I \propto x^\alpha(1-x)^{\beta(y)}$).
 
-% [Note: the condition pinning P_y(y) — analyticity at x=y for B₂,
-%  boundedness at x=1 for C₂ — is imposed after \eqref{eq:ode:variation}
-%  is written down.]
+The free function $C(y)$ (or equivalently $P_y(y)$) is pinned by an analytic condition
+imposed on the closed-form expression \eqref{eq:ode:variation}: analyticity of $P(x,y)$
+at $x = y$ for Model~$B_2$, and boundedness of $P(x,y)$ as $x \to 1^-$ for Model~$C_2$.
 
 \subsubsection{Method of characteristics}\label{sssec:moc}
 
-% [Expand: one paragraph on the general idea — reduce a first-order PDE to
-%  a family of ODEs along characteristic curves in the (x,y)-plane.]
+When $\gamma_2 > 0$, the fundamental PGF equation is a first-order quasilinear PDE in
+both $x$ and $y$ simultaneously.  The method of characteristics reduces such an equation
+to a family of ODEs along \emph{characteristic curves} in the $(x,y)$-plane, along each
+of which the PDE collapses to a scalar ODE in a single parameter $t$.  The general
+solution is then obtained by integrating along characteristics and assembling the result
+via an arbitrary function determined by the boundary data.
 
 A first-order quasilinear PDE
 $a\,P_x + b\,P_y = cP + d$
@@ -212,7 +263,8 @@ The general homogeneous solution takes the form
 $P_h = F(C_1)\cdot(\text{particular factor})$
 where $F$ is an arbitrary function determined by the boundary condition on $P_y(y)$.
 
-% [Note: for Model~$B$ (γ₂>0) determining F requires solving a Volterra integral
-%  equation that does not admit a closed form — this is why Model~$B$ is left open.
-%  For Model~$B$₂ (γ₂=0) the characteristic direction is purely in x, so the
-%  PDE degenerates to the ODE \eqref{eq:ode:standard}, handled by §3.6.1.]
+For Model~$B$ ($\gamma_2 > 0$), determining $F$ requires solving a Volterra integral
+equation that does not admit a closed form in general — this is why Model~$B$ is left
+open (\S\ref{sec:model_b}).  For Model~$B_2$ ($\gamma_2 = 0$), the characteristic
+direction is purely in $x$, so the PDE degenerates to the ODE \eqref{eq:ode:standard},
+handled by the integrating-factor method above.

@@ -3,7 +3,26 @@
     "allow": [
       "Bash(grep -v \"^.*%.*\\\\$\")",
       "Bash(grep -vP \"Model~\\\\\\\\\\\\$|Model \\\\\\\\\\\\$\")",
-      "Bash(grep -n \"empheq\\\\|fbox\\\\|C\\\\\\\\\\\\$-\\\\\\\\\\\\$2\\\\|Models~A\\\\b\\\\|Models~B\\\\b\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex)"
+      "Bash(grep -n \"empheq\\\\|fbox\\\\|C\\\\\\\\\\\\$-\\\\\\\\\\\\$2\\\\|Models~A\\\\b\\\\|Models~B\\\\b\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex)",
+      "Bash(find /usr/local /usr /opt -name \"pdflatex\" 2>/dev/null | head -5; find ~/Library -name \"pdflatex\" 2>/dev/null | head -3)",
+      "Read(//opt/**)",
+      "Read(//Users/victor/Library/**)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes status)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes log --oneline -5)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes log --oneline origin/main -5)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff --name-only HEAD origin/main)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes show origin/main --name-only --format=\"%H %s\")",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff 73eb955 origin/main --name-only)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff 73eb955 origin/main -- chapters/03_preliminaries.tex)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes pull --rebase origin main)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes stash)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes add chapters/03_preliminaries.tex)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes rebase --continue)",
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff --cached --name-only)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff --name-only)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes add .claude/settings.json)",
+      "Bash(GIT_EDITOR=true git -C /Users/victor/GitVictor/M-Thesis---Notes rebase --continue)"
     ]
   }
 }
