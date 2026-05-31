@@ -2,66 +2,42 @@
 
 \subsection*{Motivation}
 
-Priority queues arise naturally wherever heterogeneous demand must be served by a shared resource: triage in emergency departments, differentiated service-level agreements in telecommunications networks, real-time versus best-effort traffic in operating system schedulers, and tiered customer support in call centres.  In each setting a key modelling question is how the steady-state queue lengths and waiting times depend on the priority discipline and on the parameters governing customer patience and mobility.
+Priority queues arise naturally in a wide range of contexts where a common server must satisfy heterogeneous demand. The primary motivation for this thesis comes from the context of healthcare operations. In particular, the management of waiting lists for access to elderly care facilities, where the medical severity dictates a user's —hereafter referred to as \emph{customer}— priority class. In this context, prolonged waiting times may alter the system's dynamics, given that the lack of appropriate care may deteriorate the health condition of a waiting potential user, leading to a change in their priority status (jockeying) or leaving the system (abandonment), be it due to seeking alternative care or passing away. Despite the initial motivation, this work aims to address the problem from a general modeling, which may be applicable to a broad class of systems: characterising the long-run behaviour of queueing systems when phenomenons such as jockeying and/or abandonments play a role.
 
-This thesis analyses a two-class non-preemptive priority $M/M/1$ queue---Poisson arrivals of rate $\lambda_i$ for class~$i$, exponential service of rate $\mu$ shared by both classes, and a single server that completes the current service before switching to a higher-priority customer---augmented with two \emph{departure} mechanisms that move or remove waiting customers before they reach the server.
+In this thesis, an analysis of a $2$-class $M/M/1$ queueing system with non-preemptive priority is carried out. In short, this means that arrivals from each priority class are driven by a Poisson process with arrival rates $\lambda_1$ and $\lambda_2$. exponentially distributed service times at a rate $\mu$ —common to both priority classes—, and a single server that completes the current service despite the arrivals of higher-priority customers; with the addition of the mechanisms of jockeying and abandonments. The model and its mechanisms are described in more depth in Section \ref{sec:model_description}. % Add label to that section.
 
-\textbf{Jockeying.}  A waiting customer in one queue may switch to the other at a per-customer rate ($\gamma_1$ for the direction class-1$\to$class-2, $\gamma_2$ for the reverse direction).  Jockeying is a transfer: the total number of customers in the system is preserved, but the composition of each queue changes.  It models rational behaviour in systems with visible queue lengths, and has been studied in parallel-queue models \cite{adan2002queueing} and accumulating-priority systems \cite{stanford2014accumulating}.
-
-\textbf{Abandonment (reneging).}  A waiting customer of class~$i$ holds an independent $\mathrm{Exp}(\theta_i)$ patience clock and leaves the system when it expires, at a per-customer aggregate rate $\theta_i n_i$.  Abandonment is a true departure: the total population decreases, the stability condition relaxes, and the class-2 queue is affected indirectly because the server is freed sooner.  It has been studied in multi-server priority models \cite{jouini2014multiple,deWaal1992approximate} and in scheduling contexts \cite{huchandong2022proactive,shmelev2025letting}.
-
-The interplay of the two mechanisms within a priority discipline is the central object of this thesis.
+The interplay of these two mechanisms within a priority discipline and how they affect the difficulty of obtaining a closed-form expression for their Probability Generating Function (PGF) are the pivotal objects of this thesis.
 
 \subsection*{The analytical challenge}
 
-The combination of jockeying and abandonment in full generality defines Model~$X$, whose state space is $\{(0)\}\cup\{(n_1,n_2):n_1,n_2\ge0\}$ with the idle state $(0)$ and all states $(n_1,n_2)$ implying an active server.  The bivariate probability generating function $P(x,y)=\mathbb{E}[x^{N_1}y^{N_2}]$ (where $N_i$ counts waiting customers of class~$i$, \emph{excluding} the one in service) satisfies a functional equation that mixes three kinds of terms: an algebraic coefficient, a partial derivative in $x$ (from jockeying and abandonment in class~1), and a partial derivative in $y$ (from jockeying and abandonment in class~2).  When both derivatives are present and coupled, the equation belongs to a family of integro-differential equations for which no closed-form solution is known.
+The combination of jockeying and abandonment in full generality defines Model~$X$. The bivariate PGF satisfies a functional equation that involves terms of three kinds: algebraic coefficients, a partial derivative term in $x$ —from jockeying and abandonments in Class-$1$— and a partial derivative term in $y$ —from the same mechanisms in Class-$2$. When derivative terms of the two kinds are present, the equation belongs to a family of integro-differential equations for which no close-form solution is known, and it becomes a substantially challenging problem. 
 
-The strategy adopted here is to isolate and solve the \emph{tractable specializations} of Model~$X$, identified by zeroing all but one extra parameter:
-
+The strategy adopted here is to explore less complex models that require a use of less advanced mathematical tools by setting some of the jockeying and/or abandonment parameters equal to zero. The table below (Table \ref{tab:model_overview_intro}) lists the models studied in this work and provide some insight of the challenge they imply:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{clll}
-\hline
-\textbf{Model} & \textbf{Active mechanism} & \textbf{Equation type} & \textbf{Status} \\
-\hline
-A   & none                          & algebraic PGF equation    & solved (three routes) \\
-B   & bidirectional jockeying        & PDE, Volterra family      & open (deliberate) \\
-B$_2$ & one-way jockeying ($1\to2$) & ODE in $x$, Kummer        & solved \\
-C$_2$ & class-1 abandonment         & ODE in $x$, Kummer        & solved \\
-\hline
-\end{tabular}
+    \begin{tabular}{clll}
+        \hline
+            \textbf{Model} & \textbf{Active mechanism} & \textbf{Equation type} & \textbf{Status} \\
+            \hline
+            A   & none                          & algebraic PGF equation    & solved  \\
+            B   & bidirectional jockeying        & PDE, Volterra family      & open \\
+            B$_2$ & one-way jockeying ($1\to2$) & ODE in $x$, Kummer        & solved \\
+            C$_2$ & class-1 abandonment         & ODE in $x$, Kummer        & solved \\
+        \hline
+    \end{tabular} \label{tab:model_overview_intro}
 \end{center}
-
-Model~$B$'s incompleteness is structural, not accidental: with two-way jockeying present, the boundary condition on $P_y(y)$ reduces to a Volterra integral equation for which no closed-form kernel inversion is available.  Model~$B_2$---one-way jockeying only---removes the $\partial P/\partial y$ term and renders the functional equation an ODE, which is solvable.
+As one can see, some models —in particular, Model-$X$ and Model $B$— have been left incomplete, as they involve derivative terms in $y$, and some other models such a potential Model-$B_1$, Model-$C$ or Model-$C_1$ have not even been considered for the same reason: they all reduce to a Volterra integral equation that falls beyond the scope of the work carried out in this thesis. Here Model-$B$ serves as an example of how this sort of problems reduce to such an integral equation, whereas the other models correspond to problems we can solve.
 
 \subsection*{Methods}
 
-Three complementary proof strategies are employed throughout.
+Three complementary proof strategies are used throughout.
 
-\textbf{Kernel method / ODE with integrating factor.}  For Model~$A$, the algebraic coefficient of $P(x,y)$ vanishes on a curve (the ``kernel''); evaluating the equation there determines $P_y(y)$ without solving a differential equation.  For Models~B$_2$ and~C$_2$, the reduction to a first-order linear ODE admits an explicit integrating factor.  The unknown boundary function $P_y(y)$ is then pinned by a regularity argument at a singularity of the integrating factor: an \emph{analyticity} (holomorphy) condition at the interior point $x=y$ for Model~$B_2$, and a \emph{boundedness} condition at the domain boundary $x=1$ for Model~$C_2$.
+\emph{Kernel method / ODE with integrating factor}. For Model-$A$, which does not involve derivative terms whatsoever, the algebraic coefficient of $P(x,y)$ vanishes on a curve (i.e. the \emph{kernel}). Evaluating the equation there lets us determine the rest of the unknowns. Model-$B_2$ and Model-$C_2$, which do involve derivative terms in $x$, reduce to a first-order linear ODE in $x$ and admit an explicit integrating factor. The unknowns there are obtained my means of a regilarity argument at a singularity point of the integrating factor. Both strategies are here explained as one, as the underlying idea is the same. One could say that the latter is the extension of the former when the unknowns are independent from the derivative terms and can be taken outside of the integral.
 
-\textbf{Probabilistic argument via Pollaczek--Khinchine.}  For Models~A and~C$_2$, the Poisson character of the class-2 arrival stream is preserved by the extra mechanism: in Model~$A$ because no mechanism is active, and in Model~$C_2$ because class-1 abandonment does not disturb the class-2 arrival process.  In both cases the PASTA property applies to class-2 customers, who then see an $M/G/1$ queue with effective service time equal to a busy period of the class-1 subsystem.  The Pollaczek--Khinchine formula delivers $P_y(y)$ directly, providing an independent confirmation of the analytic result.  Jockeying destroys this Poisson structure (customers now arrive at the class-2 queue from inside the system as well as from outside), so the probabilistic route is \emph{not available} for Models~B and~B$_2$.
+\emph{Probabilistic argument via Pollaczek--Khinchine and the effective service time}. For Model-$A$ and Model-$C_2$, we have Poisson arrivals for Class-$2$ customers —and therefore the PASTA property holds—, which allows us to utilize the Pollaczek--Khinchine formula, combined with the \emph{effective service time} seen by Class-$2$ customers: an $M/G/1$ queueing system where the general service times are equivalent to the busy period of the Class-$1$ subsystem, which is an $M/M/1$ queueing system for Model-$A$ and an $M/M/1+M$ system for Model-$B$. In both cases, the probabilistic argument confirms the results obtained analytically, allowing to determine the unknown in an independent way. Since jockeying destroys the Poisson structure, this approach is not valid for the other models we studied.
 
-\textbf{Partial PGF on the alternative state space $\widetilde{S}$.}  The system can also be parameterized by the pair $(N_2, N)$ where $N=N_1+N_2$ is the total waiting population.  This coordinatization, denoted $\widetilde{S}$, yields a different set of balance equations and a partial PGF $\widetilde{P}(y,n)$ that is a polynomial in $y$ for each fixed $n$.  The polynomial structure removes convergence issues and provides an alternative closed-form route for Model~$A$, presented in parallel for completeness.
-
-\subsection*{Contributions}
-
-The main results of this thesis are the following.
-
-\begin{enumerate}
-    \item \textbf{Three independent solutions of Model~$A$} (Section~\ref{sec:model_a}): a kernel-method proof, a probabilistic P-K proof, and a PPGF proof on $\widetilde{S}$.  Each route exploits a different structural property; all three converge to the same rational closed form.
-
-    \item \textbf{Closed-form solution of Model~$B_2$} (Section~\ref{sec:model_b2}): $P(x,y)$ is expressed as an integral form whose integrand involves an integrating factor with a Kummer-function singularity at $x=y$.  The boundary function $P_y(y)$ is a ratio of confluent hypergeometric functions.  The diagonal $P(z,z)$ and the empty-state probabilities $\pi_0, \pi(0,0)$ coincide with those of Model~$A$ for all $\gamma_1$: jockeying does not affect total-population statistics.
-
-    \item \textbf{Closed-form solution of Model~$C_2$} (Section~\ref{sec:model_c2}): $P(x,y)$ is expressed in terms of two incomplete Beta integrals $\mathcal{I}_1, \mathcal{I}_2$ derived from the ODE solution, together with the LST $\widetilde{B}_C(s)$ of the busy period of the class-1 $M/M/1{+}M$ subsystem.  The boundary function $P_y(y)$ takes the Pollaczek--Khinchine form with $B_C$ as the effective service time.  The stability condition $\lambda_2\,\mathbb{E}[B_C]<1$ is strictly weaker than $\rho<1$ for all $\theta_1>0$.
-
-    \item \textbf{Structural comparison} (Section~\ref{sec:comparison}): Models~B$_2$ and~C$_2$ share a common Erlang-A skeleton---both produce ${}_1F_1(1;\mu/r+1;\lambda_1/r)$ as a key parameter, with $r=\gamma_1$ or $r=\theta_1$---despite the different mechanisms by which $P_y(y)$ is pinned.  Jockeying and abandonment are shown to be structurally dual: one preserves total-population statistics but redistributes load between classes; the other reduces all queue lengths but admits no total-population conservation law.
-
-    \item \textbf{Experiment models B$_2^1$ and C$_2^1$} (Section~\ref{sec:experiment}): variants in which only the head-of-line customer in Queue~1 is subject to the departure mechanism (at a fixed rate independent of queue length).  The resulting PGF equation is algebraic; the kernel method gives rational closed forms for $P(x,y)$, and these are validated against CTMC.
-\end{enumerate}
-
-All results are verified numerically against the exact stationary distribution of a truncated CTMC with $N_{\max}=40$, with maximum relative errors below $10^{-7}$ for every theorem.
+\emph{Partial PGF (PPGF) in the alternative state space $\widetilde{S}$}. For the models with no abandonments —Model-$A$, Model-$B$ and Model-$B_2$—, we create an alternative space state that looks at these models by taking the number of Class-$2$ customers —difficult distribution— and the total amount of customers —easy, since the total number of customers is preserved and is basically a regular $M/M/1$ queueing system. This yields a PPGF with a non-homogeneous term. For Model-$A$, a recursion argument derived by Cohen \cite{cohen1956delay} applied to the regular state space. We explore, without much success, the challenges of such an approach on this alternative space and evaluate whether a rough approximation is feasible using Cohen's trick.
 
 \subsection*{Structure of the thesis}
 
-Section~\ref{sec:literature} surveys the relevant literature.  Section~\ref{sec:prelim} collects the probabilistic and analytic background used throughout.  Section~\ref{sec:model_x} defines Model~$X$ and derives the general balance equations and the fundamental PGF equation.  Sections~\ref{sec:model_a}--\ref{sec:model_c2} analyse Models~A, B, B$_2$, and C$_2$ in turn, each following the canonical template: stability, fundamental equation, theorem, and proof (analytic then probabilistic where applicable).  Section~\ref{sec:comparison} compares the three solved models.  Section~\ref{sec:results} presents the numerical validation and performance metrics.  Section~\ref{sec:experiment} introduces and solves the head-of-line variants.
+Section~\ref{sec:literature} describes the relevant literature.  Section~\ref{sec:prelim} collects the probabilistic and analytic background used throughout this work.  Section~\ref{sec:model_x} defines Model~$X$ and derives the general balance equations and the fundamental PGF equations, both for the regular and alternative state space.  Sections~\ref{sec:model_a}--\ref{sec:model_c2} analyse Models~A, B, B$_2$, and C$_2$ in turn. Section~\ref{sec:comparison} compares the three solved models.  Section~\ref{sec:results} presents the numerical validation and performance metrics.  Section~\ref{sec:experiment} introduces and solves the head-of-line variants.

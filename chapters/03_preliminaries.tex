@@ -1,19 +1,10 @@
 \section{Preliminaries}\label{sec:prelim}
 
-This section collects the background material invoked throughout the thesis.
-The ordering follows the logical dependency: the two queueing building blocks
-(\S\S\ref{ssec:mm1}--\ref{ssec:erlangA}) underpin the priority decomposition
-(\S\ref{ssec:priority}), which in turn justifies the Pollaczek--Khinchine
-formula (\S\ref{ssec:pk}) used in the probabilistic proofs.
-The confluent hypergeometric function (\S\ref{ssec:kummer}) appears in the
-solutions produced by those proofs, and the ODE/PDE methods (\S\ref{ssec:ode})
-are the analytic tools deployed when no probabilistic shortcut exists.
+This section contains some background material referenced throughout the derivations throughout the thesis. By introducing the building blocks in this section, allowing the subsequent the presented arguments to remain focused on their primary intention. Having some known results as preliminaries will help us keep our derivations cleaner.
 
-The central analytical object --- the bivariate PGF $P(x,y)$ and its partial
-variants --- is introduced in Section~4 (Model~$X$), where it is derived directly
-from the balance equations of the two-class system.
+The central mathematical object in our derivations will be the (P)PGF of the model in question, as well as the idle probability of the system for some corollaries.
 
-% ─────────────────────────────────────────────────────────────────────────────
+
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
 The $M/M/1$ queue has Poisson arrivals at rate $\lambda$, exponential service
