@@ -22,7 +22,10 @@
       "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff --cached --name-only)",
       "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff --name-only)",
       "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes add .claude/settings.json)",
-      "Bash(GIT_EDITOR=true git -C /Users/victor/GitVictor/M-Thesis---Notes rebase --continue)"
+      "Bash(GIT_EDITOR=true git -C /Users/victor/GitVictor/M-Thesis---Notes rebase --continue)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes stash pop)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes push origin main)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes stash drop)"
     ]
   }
 }

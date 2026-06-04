@@ -1,6 +1,6 @@
 \section{Preliminaries}\label{sec:prelim}
 
-This section contains some background material referenced throughout the derivations throughout the thesis. By introducing the building blocks in this section, allowing the subsequent the presented arguments to remain focused on their primary intention. Having some known results as preliminaries will help us keep our derivations cleaner.
+This section collects background material referenced throughout the derivations. Introducing these building blocks here allows the subsequent arguments to remain focused on their primary objectives.
 
 The central mathematical object in our derivations will be the (P)PGF of the model in question, as well as the idle probability of the system for some corollaries.
 
@@ -103,7 +103,7 @@ First, the \emph{Euler integral representation}, for $a,b>0$ we have:
     {}_1F_1(a;\,a+b;\,z) \;=\; \frac{1}{B(a,b)} \int_0^1 t^{a-1}(1-t)^{b-1} e^{zt}\,dt, 
     \label{eq:kummer:euler}
 \end{equation}
-where $B$ is the \emph{Beta distribution} $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$, and $\Gamma$ is the \emph{Gamma function}.
+where $B$ is the \emph{Beta function} $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$, and $\Gamma$ is the \emph{Gamma function}.
 Secondly, the \emph{Contiguous-function ratio}:
 \begin{equation}
     \frac{{}_1F_1(a+1;\,b;\,z)}{{}_1F_1(a;\,b;\,z)}.
@@ -114,43 +114,56 @@ Secondly, the \emph{Contiguous-function ratio}:
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{First-order linear ODEs and PDEs}\label{ssec:ode}
 
-Since jockeying and abandoning add state-dependent rates to our systems, we will have to deal with derivative terms to solve for our PGF's. Here follow some introductions to the methods employed to solve diverse typeS of ODE's and PDE's that will play a role in this thesis.
+Since jockeying and abandonment add state-dependent rates to the balance equations, the derivations require solving first-order linear ODEs and PDEs for the PGF. The three methods below are each invoked at specific steps of the analysis.
 
-\subsubsection{Integrating factor (variation of parameters)}
+\subsubsection{Integrating factor}\label{sssec:if}
 
-This method is standard to tackle —for each fixed $y—$ a \emph{first-order linear ODE in $x$}, and leads to a closed-form solution, in our case, for $P(x,y)$. Such an equation has standard form
+This method is standard to solve —for each fixed $y$— a \emph{first-order linear ODE in $x$}. Such an equation has standard form
 \begin{equation}
     \frac{dP}{dx} + p(x;\,y)\,P \;=\; q(x;\,y). \label{eq:ode:standard}
 \end{equation}
-The integratimg factor $\mu_I(x;y)$, defined by $\mu_I(x;y) = \exp\bigl(\int_0^x p(t;y)\,dt\bigr)$, converts the standard form (Equation \eqref{eq:ode:standard}) to $\frac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$, yielding
+The \emph{integrating factor} $\mu_I(x;y) = \exp\!\bigl(\int_0^x p(t;y)\,dt\bigr)$ converts~\eqref{eq:ode:standard} to $\frac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$. Integrating from $0$ to $x$ gives the general solution
 \begin{equation}
     P(x,y) \;=\; \frac{1}{\mu_I(x;\,y)}
-        \left[C(y) + \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt\right].
-    \label{eq:ode:variation}
+        \left[C_0(y) + \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt\right],
+    \label{eq:ode:general}
 \end{equation}
-For $P$ bounded, $\mu_I(0;y)=0$, we have $C(y)=0$, giving
-\begin{equation}
-    P(x,y) \;=\; \frac{1}{\mu_I(x;\,y)}
-        \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt.
-    \label{eq:ode:variation}
-\end{equation}
+where $C_0(y)$ is an arbitrary function of $y$, determined by a boundary condition.
 
+\subsubsection{Variation of parameters}\label{sssec:vop}
+
+\emph{Variation of parameters} —also called \emph{variation of constants}— provides an alternative derivation of~\eqref{eq:ode:general} that makes the role of the free function explicit. The homogeneous equation $\frac{dP}{dx} + p(x;\,y)\,P = 0$ has general solution $P_h(x;y) = C/\mu_I(x;y)$ for an arbitrary constant $C$. To solve the full equation, one \emph{varies} that constant, setting $P(x,y) = C(x;\,y)/\mu_I(x;\,y)$ and substituting into~\eqref{eq:ode:standard}. Since the homogeneous part cancels, one obtains
+\begin{equation}
+    \frac{dC}{dx}(x;\,y) \;=\; q(x;\,y)\,\mu_I(x;\,y),
+    \label{eq:ode:vop}
+\end{equation}
+and integrating recovers~\eqref{eq:ode:general} with $C_0(y) = C(0;\,y) = P(0,y)$.
+
+In the PGF derivations, $C_0(y)$ is identified with the boundary generating function $P_y(y) = P(0,y)$. Its determination —either by direct probabilistic arguments or by demanding that $P(x,y)$ be analytic and bounded for $|x|\leq 1$— is the central analytical step in each model's solution.
 
 \subsubsection{Method of characteristics}\label{sssec:moc}
 
-This method is standard for solving a \emph{first-order linear PDE in both $x$ and $y$}, simultaneously. The Method of Characteristics reduces such an equation to a family of ODE's along the so-called \emph{characteistic curve} in the $(x,y)$-plane, and each of those collapse to an ODE in a single parameter, namely $t$. The general solution, thus, is obtained by parameterising one variable in terms of the other and integrating along the characteristics. this, together with an arbitrary function determined by the boundary data, yields a general solution.
+This method is standard for solving a \emph{first-order linear PDE in both $x$ and $y$} simultaneously. It reduces the PDE to a family of ODEs along the so-called \emph{characteristic curves} in the $(x,y)$-plane; along each curve the PDE collapses to a single-variable ODE.
 
 A PDE of the form
-\begin{equation*}
+\begin{equation}
     a \frac{\partial P}{\partial x} + b \frac{\partial P}{\partial y} = cP + d
-\end{equation*}
-is solved by tracing the \emph{characteristic curve} —$(x(t),y(t))$, satisfying
-\begin{equation}
-    \frac{dx}{dt} = a, \quad \frac{dy}{dt} = b.
+    \label{eq:ode:pde}
 \end{equation}
-Along each of these curves, the function $P(x(t), y(t))$ satisfies:
+is solved by tracing the characteristic curve $(x(t),y(t))$ satisfying
 \begin{equation}
-    \frac{dP}{dt} = cP + d
+    \frac{dx}{dt} = a, \qquad \frac{dy}{dt} = b.
+    \label{eq:ode:char}
 \end{equation}
-which is an ODE in the single variable $t$.
+By the chain rule, $\frac{d}{dt}P(x(t),y(t)) = a\,P_x + b\,P_y$, so~\eqref{eq:ode:pde} reduces to
+\begin{equation}
+    \frac{dP}{dt} = cP + d,
+    \label{eq:ode:charode}
+\end{equation}
+a first-order linear ODE in $t$, solved by the integrating factor (\S\ref{sssec:if}). When $a$ and $b$ are constants, the characteristics are straight lines and the quantity
+\begin{equation}
+    \xi \;:=\; b\,x - a\,y
+    \label{eq:ode:firstint}
+\end{equation}
+is preserved along each curve —it is the \emph{first integral} that labels each characteristic. The integration constant of~\eqref{eq:ode:charode} therefore varies between characteristics: it is an arbitrary function $F(\xi)$. Re-expressing the solution in the original variables $(x,y)$ via~\eqref{eq:ode:char} gives the general solution of~\eqref{eq:ode:pde}. In the PGF setting, $F$ is identified with a boundary generating function, and analyticity of $P(x,y)$ for $|x|,|y|\leq 1$ uniquely determines it.
 
