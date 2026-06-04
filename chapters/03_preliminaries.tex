@@ -114,7 +114,7 @@ Secondly, the \emph{Contiguous-function ratio}:
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{First-order linear ODEs and PDEs}\label{ssec:ode}
 
-Since jockeying and abandonment add state-dependent rates to the balance equations, the derivations require solving first-order linear ODEs and PDEs for the PGF. The three methods below are each invoked at specific steps of the analysis.
+Since jockeying and abandonment add state-dependent rates to the balance equations, derivative terms end showing up in the derivations  and they require solving first-order linear ODEs and PDEs for the PGF. The three methods below are invoked at specific steps of the analysis.
 
 \subsubsection{Integrating factor}\label{sssec:if}
 
@@ -132,18 +132,17 @@ where $C_0(y)$ is an arbitrary function of $y$, determined by a boundary conditi
 
 \subsubsection{Variation of parameters}\label{sssec:vop}
 
-\emph{Variation of parameters} —also called \emph{variation of constants}— provides an alternative derivation of~\eqref{eq:ode:general} that makes the role of the free function explicit. The homogeneous equation $\frac{dP}{dx} + p(x;\,y)\,P = 0$ has general solution $P_h(x;y) = C/\mu_I(x;y)$ for an arbitrary constant $C$. To solve the full equation, one \emph{varies} that constant, setting $P(x,y) = C(x;\,y)/\mu_I(x;\,y)$ and substituting into~\eqref{eq:ode:standard}. Since the homogeneous part cancels, one obtains
+\emph{Variation of parameters} provides an alternative derivation of~\eqref{eq:ode:general} that makes the role of the free function explicit. The homogeneous equation $\frac{dP}{dx} + p(x;\,y)\,P = 0$ has general solution $P_h(x;y) = C/\mu_I(x;y)$ for an arbitrary constant $C$. To solve the full equation, one \emph{varies} that constant, setting $P(x,y) = C(x;\,y)/\mu_I(x;\,y)$ and substituting into~\eqref{eq:ode:standard}. Since the homogeneous part cancels, one obtains the following.
 \begin{equation}
     \frac{dC}{dx}(x;\,y) \;=\; q(x;\,y)\,\mu_I(x;\,y),
     \label{eq:ode:vop}
 \end{equation}
-and integrating recovers~\eqref{eq:ode:general} with $C_0(y) = C(0;\,y) = P(0,y)$.
+and integrating recovers~\eqref{eq:ode:general} with $C_0(y)$.
 
-In the PGF derivations, $C_0(y)$ is identified with the boundary generating function $P_y(y) = P(0,y)$. Its determination —either by direct probabilistic arguments or by demanding that $P(x,y)$ be analytic and bounded for $|x|\leq 1$— is the central analytical step in each model's solution.
 
-\subsubsection{Method of characteristics}\label{sssec:moc}
+\subsubsection{Method of Characteristics}\label{sssec:moc}
 
-This method is standard for solving a \emph{first-order linear PDE in both $x$ and $y$} simultaneously. It reduces the PDE to a family of ODEs along the so-called \emph{characteristic curves} in the $(x,y)$-plane; along each curve the PDE collapses to a single-variable ODE.
+This method is standard for solving a \emph{first-order linear PDE in both $x$ and $y$} simultaneously. It reduces the PDE to a family of ODEs along the so-called \emph{characteristic curves} in the $(x,y)$-plane; along each curve, the PDE collapses to a single-variable ODE.
 
 A PDE of the form
 \begin{equation}

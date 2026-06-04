@@ -1,20 +1,15 @@
 \section{Model description: Model~$X$}\label{sec:model_x}
 
-\textit{Note: This section defines the general two-class system equipped with
-\emph{both} jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this
-full model as \emph{Model~$X$}. The simpler variants studied elsewhere in this
-document are recovered as special cases by zeroing the appropriate parameters, as
-summarised below.}
-
+This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this full model as \emph{Model~$X$}. The simpler variants studied are recovered as special cases by zeroing the appropriate parameters, as summarised in the table below (Table \ref{tab:model_family}):
 \begin{table}[H]
     \centering
     \begin{tabular}{cccl}
         \hline
         Model & Jockeying & Abandonment & Parameter restriction \\
         \hline
-        X  & both ($1\!\leftrightarrow\!2$) & both ($1,2$)       & $\gamma_i \geq 0,\ \theta_i \geq 0$ \quad (general) \\
-        A  & none                            & none               & $\gamma_1=\gamma_2=0,\ \theta_1=\theta_2=0$ \\
-        B  & both ($1\!\leftrightarrow\!2$) & none               & $\gamma_i \geq 0,\ \theta_1=\theta_2=0$ \\
+        $X$  & both ($1\!\leftrightarrow\!2$) & both ($1,2$)       & $\gamma_i \geq 0,\ \theta_i \geq 0$ \quad (general) \\
+        $A$  & none                            & none               & $\gamma_1=\gamma_2=0,\ \theta_1=\theta_2=0$ \\
+        $B$  & both ($1\!\leftrightarrow\!2$) & none               & $\gamma_i \geq 0,\ \theta_1=\theta_2=0$ \\
         $B_2$ & $1\!\to\!2$ only                & none               & $\gamma_1 \geq 0,\ \gamma_2=0,\ \theta_1=\theta_2=0$ \\
         $C_2$ & none                            & class $1$ only     & $\theta_1 \geq 0,\ \theta_2=0,\ \gamma_1=\gamma_2=0$ \\
         \hline
@@ -24,6 +19,7 @@ summarised below.}
     \label{tab:model_family}
 \end{table}
 
+The queueing diagrams in Figure \ref{fig:models-queue-overview} show a more visual representation of Model-$X$ and each of the variants that we will consider:
 \begin{figure}[H]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -43,35 +39,28 @@ classes, where customers are served on a First-Come, First-Served (FCFS) basis
 within their own class and those coming from the priority class (Class-$1$) have
 non-preemptive priority over those of the non-priority class (Class-$2$); that is,
 when a Class-$2$ customer is in service, that service will not be interrupted by a
-potential arrival of a Class-$1$ customer. Beyond the basic dynamics, Model~$X$
+potential arrival of a Class-$1$ customer. Beyond basic dynamics, Model~$X$
 incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a
-waiting customer may abandon its own queue and \emph{join the other queue}, at a
-per-customer rate $\gamma_1$ for the direction $1\to2$ and $\gamma_2$ for the
+waiting customer can abandon its own queue and \emph{join the other queue}, at a
+per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for 
 direction $2\to1$, so the total number of customers is preserved. Second,
-\emph{abandonment} (reneging): a waiting customer may leave the \emph{system
-entirely} at a per-customer rate $\theta_i$, so the total number of customers
+\emph{abandonment} (reneging): a waiting customer may completely leave the \emph{system
+} at a rate per-customer $\theta_i$, so the total number of customers
 decreases by one. Concretely, each Class-$i$ customer that is waiting in line
 (i.e.\ not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$
-patience clock and abandons the system when it expires; consequently the aggregate
+patience clock and abandons the system when it expires; consequently, the aggregate
 Class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear
 term $\theta_i n_i$ that appears in the balance equations. This is precisely the
-linear-reneging mechanism of the $M/M/1+M$ queue introduced in the Preliminaries.
-
-\begin{figure}[htbp]
-    \centering
-    \input{figures/model-x-queue.tikz}
-    \caption{Queueing system with two parallel queues.}
-    \label{fig:queue_model}
-\end{figure}
+linear-reneging mechanism of the $M/M/1+M$ queue introduced in the Preliminaries section \ref{sec:prelim}.
 
 This model, being an $M/M/1$ queueing model according to Kendall's notation,
 features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for
 Class-$i$, exponentially distributed service times with rate $\mu$, and a service
 capacity of $1$ customer at a time. In addition, a waiting customer of Class-$1$
-jockeys to the class-$2$ queue at per-customer rate $\gamma_1$ and a waiting
-customer of Class-$2$ jockeys to the class-$1$ queue at per-customer rate
+jockeys in the class-$2$ queue at the per-customer rate $\gamma_1$ and a waiting
+customer of Class-$2$ jockeys in the class-$1$ queue at the per-customer rate
 $\gamma_2$ (transfers that conserve the total), while a waiting customer of
-Class-$i$ abandons the system at per-customer rate $\theta_i$ (a true departure
+Class-$i$ abandons the system at the per-customer rate $\theta_i$ (a true departure
 that reduces the total).
 
 In order to define the stochastic processes that drive this queueing system, it is
@@ -208,12 +197,14 @@ In all cases, the mass on the busy states is
     \sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\pi(n_1,n_2) = 1-\pi_0,
     \label{eq:gen:busy_mass}
 \end{equation}
-which equals $\rho$ only in the no-abandonment case~\eqref{eq:gen:pi0_noaband}; for
+which equals $\rho$ only in the non-abandonment case~\eqref{eq:gen:pi0_noaband}; for
 Models $X$ and $C_2$ one has $1-\pi_0\neq\rho$ in general. This conditioning on a busy
 server will be relevant in our derivations, as we will look at the queue length
 conditioned on the server being busy.
 
 \subsection{Balance equations}
+
+In this subsection, we will see the flow diagram of Model-$X$, for both state space $S$ and $\widetilde{S}$ separately. For each of them, the balance equations are derived and stated.
 
 \subsubsection{Balance equations for state space $S$} \label{sec:gen:balance_equations}
 
