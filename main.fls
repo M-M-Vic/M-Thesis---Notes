@@ -2,7 +2,7 @@ PWD /Users/victor/GitVictor/M-Thesis---Notes
 INPUT /usr/local/texlive/2026/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT main.tex
+INPUT /Users/victor/GitVictor/M-Thesis---Notes/main.tex
 OUTPUT main.log
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/article.cls
@@ -322,9 +322,6 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm1
 INPUT ./figures/models-queue-overview.tikz
 INPUT ./figures/models-queue-overview.tikz
 INPUT figures/models-queue-overview.tikz
-INPUT ./figures/model-x-queue.tikz
-INPUT ./figures/model-x-queue.tikz
-INPUT figures/model-x-queue.tikz
 INPUT ./figures/model_c-diagram.tikz
 INPUT ./figures/model_c-diagram.tikz
 INPUT figures/model_c-diagram.tikz

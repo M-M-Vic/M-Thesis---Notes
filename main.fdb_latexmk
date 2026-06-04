@@ -1,13 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1780563629.84262 "main.aux" "main.bbl" "main" 1780563631.1229 0
+["bibtex main"] 1780565428.51075 "main.aux" "main.bbl" "main" 1780565429.8483 0
   "./references.bib" 1780232684.24796 4051 1e47b7bd5b675823e0a0888b26bf6caf ""
   "/usr/local/texlive/2026/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "main.aux" 1780563630.85025 40009 622ebd801d6be924fe72271d66102131 "pdflatex"
+  "main.aux" 1780565429.56827 39875 1bee23dd40dbfed5c8d12d4b440628ab "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1780563629.93237 "main.tex" "main.pdf" "main" 1780563631.12305 0
+["pdflatex"] 1780565428.61038 "/Users/victor/GitVictor/M-Thesis---Notes/main.tex" "main.pdf" "main" 1780565429.84846 0
+  "/Users/victor/GitVictor/M-Thesis---Notes/main.tex" 1780249234.31764 3267 9c4b5ef588ec2267a12740c41baef8c5 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -198,8 +199,8 @@
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "chapters/01_introduction.tex" 1780248910.40986 7226 c8f48dae88a3eeca79780ef90197f176 ""
   "chapters/02_literature.tex" 1780248910.41033 10878 36a57b9ba2d662e90d3e36c865a93c14 ""
-  "chapters/03_preliminaries.tex" 1780561478.27308 12118 64e9e5155ef8c4616bef30d8b002c2dc ""
-  "chapters/04_model_x.tex" 1780234828.31554 66455 e9c60ec5f8284bd81c98c21d48ce599c ""
+  "chapters/03_preliminaries.tex" 1780564778.9003 11810 555994923ad022ddc25dbb2c32465742 ""
+  "chapters/04_model_x.tex" 1780565158.08274 66440 c85c42f968ef62021b75e74bc002d314 ""
   "chapters/05_model_a.tex" 1780234094.81045 31460 6ddbc31a718f43b4060d76fa151689c3 ""
   "chapters/06_model_b.tex" 1780262522.3131 14508 a65d7785f22aaf49d4bfd584d46bf6c7 ""
   "chapters/07_model_b2.tex" 1780254809.67437 14905 3ba13d0de64b9917c40a794665553ef7 ""
@@ -212,7 +213,6 @@
   "figures/model-b-queue.tikz" 1780166880.73889 1774 a1120dc400069a5e63fa04462a6620ce ""
   "figures/model-b2-queue.tikz" 1780166891.08042 1674 04216d66c04b42b03d1a24efadeccfaa ""
   "figures/model-c2-queue.tikz" 1780166900.689 1552 241d6de194f41cbb055ded9b8d1a987d ""
-  "figures/model-x-queue.tikz" 1780152487.27683 2041 2962fdfbf4d186b69315d32f66d88d9c ""
   "figures/model_c-diagram.tikz" 1780152487.27674 2290 a02b6631e6262445b17884d0f0768b94 ""
   "figures/models-queue-overview.tikz" 1780168181.14999 7191 8a4265d2d6d3e2fd6dd09246a56e3346 ""
   "figures/validation/val_corollaries.pdf" 1780179635.75384 39320 2e223fc7d4b17cebceb2e58b6b4f5776 ""
@@ -223,11 +223,11 @@
   "figures/validation/val_ppgf_heatmap.pdf" 1780179627.40751 29682 508daa926f3036a8d523192b1ca17bf3 ""
   "figures/validation/val_theorems_pxy.pdf" 1780179628.12906 48074 6b552641e28ffccba88ad4de810e13f1 ""
   "figures/validation/val_theorems_py.pdf" 1780179628.70954 37631 a8cfc34e414e31acc9c3d6e07a29bcc5 ""
-  "main.aux" 1780563630.85025 40009 622ebd801d6be924fe72271d66102131 "pdflatex"
-  "main.bbl" 1780563629.93009 730 97d66aecf59630d9508545107d797e2d "bibtex main"
-  "main.out" 1780563630.85278 10815 5cfc9caa6776bc224f570dbd9b60eff6 "pdflatex"
+  "main.aux" 1780565429.56827 39875 1bee23dd40dbfed5c8d12d4b440628ab "pdflatex"
+  "main.bbl" 1780565428.60804 724 6d045c2a47b22f6ad2e0f143de60e893 "bibtex main"
+  "main.out" 1780565429.57199 10815 809496b8ec74db643da884c85ca8ec0b "pdflatex"
   "main.tex" 1780249234.31764 3267 9c4b5ef588ec2267a12740c41baef8c5 ""
-  "main.toc" 1780563630.85298 5036 570ccfafb39e20df610257976b089523 "pdflatex"
+  "main.toc" 1780565429.57228 5036 4221f1aa1e999c41ef24010621c0901a "pdflatex"
   (generated)
   "main.aux"
   "main.log"
