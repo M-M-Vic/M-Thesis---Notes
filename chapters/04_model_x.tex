@@ -19,7 +19,7 @@ This section defines the general two-class system with both jockeying ($\gamma_i
     \label{tab:model_family}
 \end{table}
 
-The queueing diagrams in Figure \ref{fig:models-queue-overview} show a more visual representation of Model-$X$ and each of the variants that we will consider:
+Figure~\ref{fig:models-queue-overview} provides a visual overview of Model~$X$ and each of the variants that we will consider:
 \begin{figure}[H]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -51,7 +51,7 @@ decreases by one. Concretely, each Class-$i$ customer that is waiting in line
 patience clock and abandons the system when it expires; consequently, the aggregate
 Class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear
 term $\theta_i n_i$ that appears in the balance equations. This is precisely the
-linear-reneging mechanism of the $M/M/1+M$ queue introduced in the Preliminaries section \ref{sec:prelim}.
+linear-reneging mechanism of the $M/M/1+M$ queue introduced in Section~\ref{ssec:erlangA}.
 
 This model, being an $M/M/1$ queueing model according to Kendall's notation,
 features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for
@@ -204,11 +204,11 @@ conditioned on the server being busy.
 
 \subsection{Balance equations}
 
-In this subsection, we will see the flow diagram of Model-$X$, for both state space $S$ and $\widetilde{S}$ separately. For each of them, the balance equations are derived and stated.
+This subsection presents the state-transition diagrams of Model~$X$ on both state spaces $S$ and $\widetilde{S}$, and derives the corresponding balance equations.
 
 \subsubsection{Balance equations for state space $S$} \label{sec:gen:balance_equations}
 
-Diagram for the combined model. Dashed arrows correspond to jockeying and dotted arrows to abandonments; both belong only to the generalized model, while the solid arrows are common to all variants:
+The state-transition diagram of Model~$X$ on $S$ is given in Figure~\ref{fig:diagram-gen}.
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{%
@@ -259,10 +259,7 @@ Diagram for the combined model. Dashed arrows correspond to jockeying and dotted
 
 \subsubsection{Balance equations for state space $\widetilde{S}$}
 
-We introduce a new state space $\widetilde{S}$:
-\begin{equation}
-    \widetilde{S} := \big\{ (0) \cup \{ (n_2,n) \mid n \geq n_2 \geq 0\}\big\}.
-\end{equation}
+Recall the state space $\widetilde{S}$ defined in~\eqref{eq:gen:state_space_Stilde}.
 
 For the sake of readability, we will denote the limiting probabilities associated to this state space with $\tpi(n_2,n)$, for state $(n_2,n)\in \widetilde{S}$.
 
@@ -272,6 +269,7 @@ For the sake of readability, we will denote the limiting probabilities associate
     \input{figures/diagram_jockeying_and_abandonments.tikz}
   }
   \caption{State transition diagram on state space $\widetilde{S}$.}
+  \label{fig:diagram-gen-stilde}
 \end{figure}
 
 The balance equations, after combining the equations where $\tpi_0$ shows up, are:
@@ -334,7 +332,7 @@ The derivation that will be carried out here includes the boundary terms, where 
 Note that both of these terms include the state where the server is busy but both queues are empty, which is represented by $\pi(0,0)$, while the state where the entire system is empty (the idle state) is treated separately.
 
 
-Another term that arises during the application of the balance equations characterizes the boundary dynamics when the Class-$1$ contains exactly one customer:
+Another term that arises during the application of the balance equations characterizes the boundary dynamics when the class-$1$ queue contains exactly one waiting customer:
 \begin{equation}
     P_1(y) = \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2}.
 \end{equation}
@@ -389,7 +387,7 @@ satisfies the first-order linear partial differential equation
 
 \begin{proof}
 
-    The balance equations are as defined in Equations~\eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle}. We follow the standard procedure for finding PGF's: multiply every balance equation by $x^{n_1}y^{n_2}$ and add them up across their domain.
+    The balance equations are as defined in Equations~\eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle}. We follow the standard procedure for deriving PGFs: multiply every balance equation by $x^{n_1}y^{n_2}$ and sum over the interior domain.
     
     Hence, the interior balance equation (Equation~\eqref{eq:gen:balance_interior}) yields the following expression:
     \begin{align}

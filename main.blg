@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: alpha.bst
+Database file #1: references.bib
+Warning--I didn't find a database entry for "Cohen1950"
+You've used 3 entries,
+            2543 wiz_defined-function locations,
+            580 strings with 4988 characters,
+and the built_in function-call counts, 946 in all, are:
+= -- 96
+> -- 28
+< -- 1
++ -- 8
+- -- 8
+* -- 59
+:= -- 156
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 16
+chr.to.int$ -- 3
+cite$ -- 3
+duplicate$ -- 39
+empty$ -- 81
+format.name$ -- 11
+if$ -- 195
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 2
+newline$ -- 18
+num.names$ -- 6
+pop$ -- 17
+preamble$ -- 1
+purify$ -- 19
+quote$ -- 0
+skip$ -- 32
+stack$ -- 0
+substring$ -- 52
+swap$ -- 3
+text.length$ -- 1
+text.prefix$ -- 2
+top$ -- 0
+type$ -- 24
+warning$ -- 0
+while$ -- 8
+width$ -- 5
+write$ -- 39
+(There was 1 warning)
