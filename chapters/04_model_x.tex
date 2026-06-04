@@ -329,9 +329,9 @@ satisfies the first-order linear partial differential equation
 
 \begin{proof}
 
-    The balance equations are as defined in Equations~\eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle}. We follow the standard procedure for deriving PGFs: multiply every balance equation by $x^{n_1}y^{n_2}$ and sum over the interior domain.
-    
-    Hence, the interior balance equation (Equation~\eqref{eq:gen:balance_interior}) yields the following expression:
+    We multiply each balance equation by $x^{n_1}y^{n_2}$ and sum over its domain.
+
+    From the interior equation~\eqref{eq:gen:balance_interior}:
     \begin{align}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} \\
@@ -353,7 +353,7 @@ satisfies the first-order linear partial differential equation
         \end{split}
     \end{align}
     
-    We solve the parts individually:
+    Evaluating each summand:
     \begin{align}
         \begin{split}
             & LHS_1 \\
@@ -545,7 +545,7 @@ satisfies the first-order linear partial differential equation
         \end{split}
     \end{align}
     
-    Now, we combine all terms, we group them and we multiply both sides by $xy$ in order to avoid negative exponents on $x$ and $y$, be it on that or subsequent equations:
+    Collecting and multiplying through by $xy$ to clear the $x^{-1}$ factor:
     \begin{align}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[
@@ -600,7 +600,7 @@ satisfies the first-order linear partial differential equation
         \end{split} \label{eq:gen:transform_interior}
     \end{align}
     
-    Now, we can recreate the equivalent steps for the $x$-boundary balance equation (Equation~\eqref{eq:gen:balance_x_boundary}):
+    The $x$-boundary equation~\eqref{eq:gen:balance_x_boundary}, treated analogously, gives:
     \begin{align}
         \begin{split}
             & \sum_{n_1=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 \right] \pi(n_1, 0) x^{n_1} \\
@@ -655,7 +655,7 @@ satisfies the first-order linear partial differential equation
         \end{split} \label{eq:gen:transform_x_boundary}
     \end{align}
     
-    Again, we replicate the procedure for the $y$-boundary balance equation (Equation~\eqref{eq:gen:balance_y_boundary}):
+    The $y$-boundary equation~\eqref{eq:gen:balance_y_boundary} gives:
     \begin{align}
         \begin{split}
             & \sum_{n_2=1}^{\infty} \left[ \lambda_1 + \lambda_2 + \mu + (\gamma_2 + \theta_2) n_2 \right] \pi(0, n_2) y^{n_2} \\
@@ -724,7 +724,7 @@ satisfies the first-order linear partial differential equation
         \end{split} \label{eq:gen:transform_y_boundary}
     \end{align}
     
-    We can now combine Equation~\eqref{eq:gen:transform_interior} and Equation~\eqref{eq:gen:transform_x_boundary}, where many terms cancel out, leaving us with the following, remarkably cleaner, expression:
+    Substituting~\eqref{eq:gen:transform_x_boundary} into~\eqref{eq:gen:transform_interior} eliminates all $P_x$ terms:
     \begin{align}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -736,7 +736,7 @@ satisfies the first-order linear partial differential equation
         \end{split} \label{eq:gen:plugged_interior_x}
     \end{align}
     
-    Now, isolating $\left[ \mu + \gamma_1 y + \theta_1 \right] xy \, P_y(y | n_1=1)$ in Equation~\eqref{eq:gen:transform_y_boundary} and plugging it into Equation~\eqref{eq:gen:plugged_interior_x} makes a cascade of cancelations that result in:
+    Isolating $[\mu+\gamma_1 y+\theta_1]\,xy\,P_y(y|n_1=1)$ from~\eqref{eq:gen:transform_y_boundary} and substituting into~\eqref{eq:gen:plugged_interior_x}:
     \begin{align}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -785,7 +785,7 @@ satisfies the first-order linear partial differential equation
 \end{lemma}
 
 \begin{proof}
-    We start by taking the interior balance equation (Equation~\eqref{eq:gen:tilde_balance_interior}), multiplying by $y^{n_2}$ and adding up throughout its domain (i.e., $1 \leq n_2 \leq n-1$):
+    Multiply the interior equation~\eqref{eq:gen:tilde_balance_interior} by $y^{n_2}$ and sum over $1\le n_2\le n-1$:
     \begin{align*}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n-1} \tpi(n_2,n) y^{n_2} \\
@@ -803,9 +803,7 @@ satisfies the first-order linear partial differential equation
         \end{split}
     \end{align*}
     
-    We add the diagonal balance equation (Equation~\eqref{eq:gen:tilde_balance_diagonal}) multiplied by $y^n$ for the $n$-th term.
-    
-    When adding these two equations, we notice that most terms from the diagonal equation are cleanly absorbed by the interior balance equation, extending the limit of the summation up to $n$. On the LHS, this is the case for the $(\lambda_1+\lambda_2+\mu)$-term, the $\gamma_2$-term and the $\theta_2$-term; the $\gamma_1$-term and the $\theta_1$-term are extended automatically since their $n$-th term carries the factor $(n-n_2)$ which vanishes at $n_2 = n$. On the RHS, the $\lambda_2$-term, the $\mu$-term, the $\gamma_1$-term, the $\theta_1$-term and the $\theta_2$-term are absorbed by the diagonal contributions. This leaves all summations completed excepting the $\lambda_1$-term and the $\gamma_2$-term on the RHS, plus a spare $\mu \tpi(n+1,n+1) y^n$ also on the RHS:
+    Adding the diagonal equation~\eqref{eq:gen:tilde_balance_diagonal} multiplied by $y^n$ extends most summation limits to $n$; the $\lambda_1$- and $\gamma_2$-terms on the RHS remain restricted to $n_2\le n-1$, and a spare $\mu\tpi(n+1,n+1)y^n$ survives:
     \begin{align*}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
@@ -824,7 +822,7 @@ satisfies the first-order linear partial differential equation
         \end{split}
     \end{align*}
     
-    Now we work the terms out individually:
+    Evaluating each summand:
     \begin{align}
         \begin{split}
             & LHS_1 \\
@@ -912,7 +910,7 @@ satisfies the first-order linear partial differential equation
         \end{split}
     \end{align}
     
-    Put the components back together:
+    Collecting:
     \begin{align*}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[ \widetilde{P}(y,n) - \tpi(0,n) \right] \\
@@ -929,7 +927,7 @@ satisfies the first-order linear partial differential equation
             & \quad \quad + \theta_2 \left[ \frac{d}{dy} \widetilde{P}(y,n+1) - \tpi(1,n+1) \right]
         \end{split}
     \end{align*}
-    Grouping terms:
+    Regrouping:
     \begin{align*}
         \begin{split}
             & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
@@ -939,7 +937,7 @@ satisfies the first-order linear partial differential equation
             & \quad \quad - y^n (\lambda_1 + \lambda_2 y) \tpi(n,n-1) + \mu y^n (1-y) \tpi(n+1,n+1)
         \end{split}
     \end{align*}
-    Combine with the $y$-boundary balance equation (Equation~\eqref{eq:gen:tilde_balance_y_boundary}), which makes the bracketed boundary terms vanish. Together with $\tpi(n,n-1)=0$ (state outside $\widetilde{S}$), the equation simplifies to:
+    The $y$-boundary equation~\eqref{eq:gen:tilde_balance_y_boundary} makes the bracketed terms vanish; since $\tpi(n,n-1)=0$ (outside $\widetilde{S}$):
     \begin{align}
         \begin{split}
             & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
