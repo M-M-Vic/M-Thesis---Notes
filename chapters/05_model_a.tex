@@ -1,10 +1,10 @@
 \section{Analysis of Model~$A$ ($\gamma_1=0,\,\gamma_2=0$, $\theta_1=\theta_2=0$)}\label{sec:model_a}
 
-Model~$A$ is the baseline of the hierarchy: all extra parameters are zero, leaving a pure two-class non-preemptive priority queue with no jockeying and no abandonment.  The analysis is carried out on both state spaces $S$ and $\widetilde{S}$, and three independent proof routes are presented.
+Model~$A$ is the baseline of the hierarchy: all extra parameters are zero, leaving a pure two-class non-preemptive priority queue with no jockeying and no abandonment.  The analysis is carried out on both state spaces $S$ and $\widetilde{S}$; on $S$ two complete proofs (analytical and probabilistic) and a PPGF-based outline are presented.
 
 The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle} for state space $S$, and Equations \eqref{eq:gen:tilde_balance_interior}, \eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary}, \eqref{eq:gen:tilde_balance_zero} and \eqref{eq:gen:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen:fundamental_equation} for state space $S$ and Equation \eqref{eq:gen:PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
 
-\textbf{Tractability.} With no jockeying, Class-1 operates as an independent $M/M/1(\lambda_1,\mu)$ queue. Class-2 customers wait while that queue is non-empty, so their effective service time equals the busy period $B$ of the Class-1 $M/M/1$ queue, making the Class-2 subsystem an $M/G/1$ queue. This reduction enables both the analytical kernel-method approach (zero of the coefficient polynomial) and the probabilistic Pollaczek--Khinchine route. A third approach via the PPGF on $\widetilde{S}$ is also presented for comparison.
+\textbf{Tractability.} With no jockeying, class-1 customers have strict non-preemptive priority: upon any service completion, the server always picks a waiting class-1 customer next. Consequently, class-2 customers are blocked whenever $N_1>0$; their effective service time is the duration of a complete class-1 busy period $B$ of the $M/M/1(\lambda_1,\mu)$ sub-queue, making the class-2 subsystem equivalent to an $M/G/1(\lambda_2,B)$ queue. This reduction enables both the analytical kernel-method approach (zero of the coefficient polynomial) and the probabilistic Pollaczek--Khinchine route. A PPGF-based approach on $S$ is also outlined for comparison.
 
 \textbf{Stability.} With no abandonment, the system is positive recurrent if and only if the total traffic intensity satisfies
 \begin{equation}
@@ -53,7 +53,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor:A:pi0}]
-    \textbf{Diagonal PGF.}  Setting $x=y=z$ in the theorem formula, the factor $(x-x^*(y))/(x^*(y)-y)$ evaluates to $(z-x^*(z))/(x^*(z)-z)=-1$, while the denominator becomes
+    \textbf{Diagonal PGF.}  Setting $x=y=z$ in the theorem formula: substituting $x=y=z$ into the kernel equation~\eqref{eq:A:xstar} with $y=z$ gives $\lambda z^2-(\mu+\lambda)z+\mu=(z-1)(\lambda z-\mu)=0$, so $x^*(z)=z$ only at $z\in\{1,1/\rho\}$, neither of which lies in $(0,1)$ for $\rho<1$.  Therefore $(z-x^*(z))/(x^*(z)-z)=-1$ throughout $(0,1)$, while the denominator becomes
     \[
         D(z,z) \;=\; (1+\rho)z^2 - z - \rho z^3 \;=\; -z(z-1)(\rho z-1).
     \]
@@ -102,7 +102,11 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
         & \quad \text{and} \quad
         x^*(1) = \frac{(\mu + \lambda_1) - (\mu-\lambda_1)}{2 \lambda_1} = 1.
     \end{align*}
-    Since $P(x,y)$ is a PGF analytic on $|x|\le1$, only $x^*(y)$ stays inside the unit disc; $x^+(y)>1$ is inadmissible. Hence
+    To confirm that $x^*(y)<1$ for all $y\in[0,1)$: the derivative formula above gives
+    \[
+        \frac{d}{dy}x^*(y) = \frac{\lambda_2}{2\lambda_1}\!\left[-1+\frac{\mu+\lambda_1+\lambda_2(1-y)}{\sqrt{(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu}}\right]>0,
+    \]
+    since $(\mu+\lambda_1+\lambda_2(1-y))^2>(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu$ whenever $\lambda_1\mu>0$.  Because $x^*$ is strictly increasing on $[0,1]$ with $x^*(1)=1$, we have $x^*(y)<1$ for all $y\in[0,1)$.  By Vieta's formulas for the kernel quadratic $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu=0$, the product of roots equals $\mu/\lambda_1>1$; hence $x^+(y)=\mu/(\lambda_1 x^*(y))>1$ throughout $[0,1)$.  Therefore $x^*(y)$ is the unique root strictly inside the unit disc, and $x^+(y)>1$ is inadmissible. Hence
     \begin{equation}
         x^*(y) = \frac{
             (\mu +\lambda_1 + \lambda_2 (1-y)) 
@@ -308,13 +312,21 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
         \label{eq:A:L2_pgf}
     \end{equation}
 
-    In the $M/G/1$ equivalent, having $k\geq1$ customers in the system corresponds to one class-$2$ customer in service and $k-1$ class-$2$ customers waiting, which in the original model is exactly the event $\{N_1=0,\, N_2=k-1,\, \text{busy}\}$. Since $L_2(y)$ is the PGF of the $M/G/1$ system count and the idle probability of the $M/G/1$ (the $y^0$ coefficient) equals $(1-\rho)/(1-\rho_1)=\pi(0,0)/[\rho(1-\rho_1)]$, the above identification yields:
+    By the PASTA property, class-$2$ Poisson arrivals see the time-average joint distribution. Since the class-$2$ subsystem is isomorphic to an $M/G/1(\lambda_2,B)$ queue — consecutive class-$2$ service initiations are separated by i.i.d.\ intervals $B$, and class-$2$ customers in this sub-queue correspond exactly to $N_2$ waiting class-$2$ customers in the original model when $N_1=0$ — the time-average PGF of $N_2$ conditional on $(N_1=0, \text{busy})$ equals the $M/G/1$ steady-state PGF:
     \begin{equation}
         \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0] = L_2(y) = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \label{eq:A:L2_conditional}
     \end{equation}
 
-    For the prefactor, the non-preemptive priority structure ensures that class-$1$ evolves as an independent $M/M/1(\lambda_1,\mu)$ queue, so the marginal distribution of $N_1$ conditioned on the server being busy is geometric with parameter $\rho_1$; in particular $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$. Therefore $\mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)$.
+    For the prefactor, we determine $\mathbb{P}(\text{busy},N_1=0)$ by a level-crossing argument on the class-$1$ waiting queue. Under non-preemptive priority, whenever $N_1\geq1$ the server always selects a waiting class-$1$ customer upon any service completion. Therefore the flux crossing level $N_1=n_1$ upward (a class-$1$ arrival when $N_1=n_1$, rate $\lambda_1$) equals the flux downward (a service completion removes one waiting class-$1$, rate $\mu$):
+    \[
+        \lambda_1\,\mathbb{P}(N_1=n_1-1,\,\text{busy}) = \mu\,\mathbb{P}(N_1=n_1,\,\text{busy}), \quad n_1\geq1.
+    \]
+    This recursion gives $\mathbb{P}(N_1=n_1,\,\text{busy})=\rho_1^{n_1}\,\mathbb{P}(N_1=0,\,\text{busy})$.  Summing over all $n_1\geq0$ and using $\mathbb{P}(\text{busy})=\rho$:
+    \[
+        \mathbb{P}(N_1=0,\,\text{busy})\cdot\frac{1}{1-\rho_1}=\rho \implies \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1).
+    \]
+    In particular, $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$.
 
     Returning to Equation~\eqref{eq:A:Py_prob_decomp}:
     \begin{align*}
@@ -355,7 +367,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
 
 \subsubsection{PPGF approach of model A in state space $S$}
 
-In this subsection, we will approach the balance equations by keeping the first variable $N_1$ intact and taking the PGF only with respect to the second variable $N_2$. By multiplying our equations by $y^{n_2}$ and adding them all across their respective domains, we will find some new relations that describe the dynamics of the class-$2$ queue. The idea here is that, given that queue-$1$ is a regular $M/M/1$ queue with Poisson arrivals at rate $\lambda_1$ and service rate $\mu$, we can consider it to be fairly easy to describe.
+In this subsection, we approach the balance equations by keeping the class-$1$ index $N_1$ as a discrete parameter and forming the PGF only with respect to $N_2$, defining $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$. Multiplying the interior and boundary balance equations by $y^{n_2}$ and summing yields a second-order linear recurrence in $n_1$ whose characteristic roots determine the geometric structure of the solution in $n_1$.
 
 From the interior balance equation, then, we obtain
 \begin{align*}
@@ -410,7 +422,11 @@ In particular, at $y=1$ the root recovers the class-$1$ traffic intensity:
 \begin{equation}
     \widetilde{x}^*(1) = \frac{\lambda_1}{\mu} = \rho_1,
 \end{equation}
-consistent with the geometric marginal $P(N_1=n_1,\text{busy})=(1-\rho_1)\rho_1^{n_1}\rho$ of the priority class. Determining $\widetilde{P}(0,y)$ from the $y$-boundary equation~\eqref{eq:gen:balance_y_boundary} and reconstructing $P(x,y)$ via $P(x,y)=\sum_{n_1=0}^\infty \widetilde{P}(n_1,y)\,x^{n_1}$ then reproduces Theorem~\ref{thm:A:PGF}, as verified by the analytical proof above.
+consistent with the geometric marginal $P(N_1=n_1,\text{busy})=(1-\rho_1)\rho_1^{n_1}\rho$ of the priority class. To complete this approach: substitute $\widetilde{P}(n_1,y)=\widetilde{P}(0,y)[\widetilde{x}^*(y)]^{n_1}$ into the $y$-boundary equation~\eqref{eq:gen:balance_y_boundary} to determine $\widetilde{P}(0,y)$, then reconstruct
+\[
+    P(x,y)=\sum_{n_1=0}^\infty\widetilde{P}(0,y)[\widetilde{x}^*(y)]^{n_1}x^{n_1}=\frac{\widetilde{P}(0,y)}{1-\widetilde{x}^*(y)x};
+\]
+the resulting formula should match Theorem~\ref{thm:A:PGF}. These final steps are not carried out here.
 
 \subsection{Analysis of Model~$A$: state space $\widetilde{S}$}
 
@@ -422,8 +438,8 @@ Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the $\widetilde{S}$ balance e
     \end{split} \label{eq:A:ppgf_Stilde_dynamics}
 \end{align}
 
-\begin{theorem}[Approximate PPGF on $\widetilde{S}$]\label{thm:A:PPGF_Stilde}
-    Under the approximation that neglects the boundary-diagonal forcing term $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics}, the homogeneous recurrence admits the geometric solution
+\begin{theorem}[Approximate PPGF on $\widetilde{S}$; heuristic]\label{thm:A:PPGF_Stilde}
+    \emph{(The following result rests on an unproved decay assumption; see the proof.)} Under the approximation that neglects the boundary-diagonal forcing term $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics}, the homogeneous recurrence admits the geometric solution
     \begin{equation}
         \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, \label{eq:A:Ptilde_approx}
     \end{equation}
@@ -439,7 +455,7 @@ For state space $\widetilde{S}$, the dynamics for the PPGF are described by the 
 \begin{equation}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \tpi(n+1,n+1).
 \end{equation}
-The inhomogeneous term $\mu y^n(1-y)\tpi(n+1,n+1)$ prevents the direct application of Cohen's geometric-sequence ansatz $\tP(y,n)=\tP(y,0)\cdot [f(y)]^n$. However, since $\tpi(n+1,n+1)$ decays geometrically in $n$ under stability, this forcing term is exponentially small, and we obtain a useful approximation by neglecting it. The resulting homogeneous recurrence is
+The inhomogeneous term $\mu y^n(1-y)\tpi(n+1,n+1)$ prevents the direct application of Cohen's geometric-sequence ansatz $\tP(y,n)=\tP(y,0)\cdot [f(y)]^n$. The diagonal probabilities $\tpi(n,n)=\pi(0,n)$ correspond to states where all $n$ waiting customers are class-$2$; from the exact formula in Theorem~\ref{thm:A:PGF} one can verify that $\pi(0,n)$ decays geometrically in $n$, but this is not derived here.  \emph{Assuming} this geometric decay, the forcing term is exponentially small and we obtain an approximation by neglecting it. The resulting homogeneous recurrence is
 \begin{equation}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1).
 \end{equation}
@@ -557,8 +573,7 @@ This is the $M/M/1(\lambda,\mu)$ queue-length result for the combined system.
 
 \subsubsection*{Mean waiting times via Little's Law}
 
-\textbf{Little's Law} ($\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$) holds for any
-stable system, regardless of the arrival process:
+\textbf{Little's Law} applied to the \emph{waiting sub-system} of each class: since $N_i$ counts only customers \emph{waiting} in queue (excluding the customer in service), Little's Law gives $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ where $\mathbb{E}[W_i]$ is the mean waiting time in queue (time from arrival until service start, not including the service duration itself):
 \begin{align}
     \begin{split}
         \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}
