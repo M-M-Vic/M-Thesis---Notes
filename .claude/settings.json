@@ -28,7 +28,10 @@
       "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes stash drop)",
       "Bash(latexmk -pdf main.tex)",
       "Bash(grep -n \"PGF's\\\\|custonmer\\\\|will see\\\\|Diagram for\\\\|Class-\\\\$1\\\\$ contains\\\\|introduce a new state\\\\|more visual\\\\|section \\\\\\\\\\\\\\\\ref{sec:prelim}\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/04_model_x.tex)",
-      "Bash(grep -n \"Class-\\\\\\\\\\\\$1\\\\\\\\\\\\$ contains\\\\|class-\\\\\\\\\\\\$1\\\\\\\\\\\\$ contains\\\\|queue contains exactly\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/04_model_x.tex)"
+      "Bash(grep -n \"Class-\\\\\\\\\\\\$1\\\\\\\\\\\\$ contains\\\\|class-\\\\\\\\\\\\$1\\\\\\\\\\\\$ contains\\\\|queue contains exactly\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/04_model_x.tex)",
+      "Bash(latexmk -pdf -g main.tex)",
+      "Skill(code-review)",
+      "Skill(code-review:*)"
     ]
   }
 }

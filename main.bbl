@@ -7,12 +7,15 @@ Ivo Adan and Jacques Resing.
 
 \bibitem[Coh56]{cohen1956delay}
 Jacob~Willem Cohen.
-\newblock Certain delay problems for a full availability trunk group loaded by two traffic sources.
+\newblock Certain delay problems for a full availability trunk group loaded by
+  two traffic sources.
 \newblock {\em Communication News}, 16:105--113, 1956.
 
 \bibitem[DLM]{dlmf}
 {NIST} digital library of mathematical functions.
 \newblock \url{https://dlmf.nist.gov/}.
-\newblock Release 1.1.12, 2023. F.~W.~J.~Olver, A.~B.~Olde~Daalhuis, D.~W.~Lozier, B.~I.~Schneider, R.~F.~Boisvert, C.~W.~Clark, B.~R.~Miller, B.~V.~Saunders, H.~S.~Cohl, and M.~A.~McClain, eds.
+\newblock Release 1.1.12, 2023. F.~W.~J.~Olver, A.~B.~Olde~Daalhuis,
+  D.~W.~Lozier, B.~I.~Schneider, R.~F.~Boisvert, C.~W.~Clark, B.~R.~Miller,
+  B.~V.~Saunders, H.~S.~Cohl, and M.~A.~McClain, eds.
 
 \end{thebibliography}

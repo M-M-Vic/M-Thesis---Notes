@@ -33,9 +33,9 @@ We start by stating a $\gamma$-free version of Equation \eqref{eq:gen:fundamenta
     \end{split} \label{eq:A:fundamental}
 \end{align}
 
-We now introduce a theorem, and the proofs for it —one analytical and one involving probabilistic arguments— will follow in the  subsections below.
-\begin{theorem}
-    Consider a queuing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, and exponentially distributed service times with rate $\mu$ independently of the class.
+We now introduce a theorem, and the proofs for it —one analytical and one probabilistic— will follow in the subsections below.
+\begin{theorem}\label{thm:A:PGF}
+    Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, and exponentially distributed service times with rate $\mu$ independently of the class.
  The probability generation function $P(x,y)$ of such a system is given by
     \begin{align}
         P(x,y) &= \left[ (1+\rho_1 +\rho_2)xy - y -\rho_1x^2y - \rho_2xy^2 \right]^{-1} \cdot y(1-y) \left[ \frac{x - x^*(y)}{x^*(y)-y} \right] \cdot \rho (1-\rho) \\[10pt]
@@ -70,14 +70,11 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
 \subsubsection{Analytical approach of model A in state space $S$}
 
 \begin{proof}
-    We now address this question as a \textit{finite boundary problem}. Exploiting the fact that $P(x,y)$ is a PGF —and hence bounded— the statement below must follow:
-    \begin{equation*}
-        \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) = 0 
-        \quad \Longrightarrow \quad
-        \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big] = 0.
-    \end{equation*}
-    
-    On the left-hand side of the statement, for $y\neq 0$, we have
+    We apply the \textit{kernel method}: fix $y\in[0,1)$ and find $x=x^*(y)$ inside the unit disc such that the bracket on the left of Equation~\eqref{eq:A:fundamental} vanishes. At any such root the left-hand side is zero, so the right-hand side must vanish as well:
+    \[
+        (x^*(y)-y)\,P_y(y) \;=\; x^*(y)(1-y)\,\pi(0,0).
+    \]
+    Dividing both sides by $y\neq 0$ in Equation~\eqref{eq:A:fundamental} and setting the coefficient of $P$ to zero gives
     \begin{align}
         \begin{split}
              0 &=  (\lambda_1 + \lambda_2 + \mu)x - \mu -\lambda_1x^2 - \lambda_2xy 
@@ -125,7 +122,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         }{2\lambda_1} \right] \\
         &= \frac{1}{2\lambda_1}
         \left[ -\lambda_2 - \frac{1}{2} \frac{2(\mu+\lambda_1+\lambda_2(1-y)) \cdot (-\lambda_2)}{
-            \sqrt{(\mu + \lambda_1 + \lambda_2(1-y)) - 4\lambda_1 \mu}
+            \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1 \mu}
         }\right] \\
         &= \frac{\lambda_2}{2 \lambda_1}
         \left[ 
@@ -288,38 +285,38 @@ We now introduce a theorem, and the proofs for it —one analytical and one invo
         \label{eq:A:Py_prob_decomp}
     \end{equation}
     
-    In order to address the term with the conditional expectation of class-$2$ customers, we must adopt their perspective. For non-priority customers, their queue behaves like an $M/G/1$-queue with arrival rate $\lambda_2$ and general service times $B$, where $B$ is distributed as the busy period of an $M/M/1$-queue with arrival rate $\lambda_1$ and exponentially distributed service times with rate $\mu$. 
-    
-    The LST for the busy period for the $M/M/1$-queue and its expectation are known results. We will directly refer to them as $\widetilde{B}(s)$ and $\mathbb{E}[B]$, where $B$ is already the effective service time of our $M/G/1$ subsystem for class-$2$:
+    In order to address the conditional expectation of class-$2$ customers, we adopt their perspective. Since class-$1$ has non-preemptive priority, class-$2$ customers are blocked whenever $N_1>0$; their effective service time is therefore the duration of a complete busy period $B$ of the $M/M/1(\lambda_1,\mu)$ sub-queue, so from class-$2$'s viewpoint the system is an $M/G/1(\lambda_2, B)$ queue. The LST and mean of $B$ are given in~\S\ref{ssec:mm1} (Equations~\eqref{eq:mm1:bp_lst}--\eqref{eq:mm1:bp_mean}) with $\lambda\leftarrow\lambda_1$:
     \begin{align}
-        \widetilde{B}(s) &= \frac{\mu+\lambda_1+s - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \\
-        \mathbb{E}[B] &= \frac{1/\mu}{1-\rho_1}.
+        \widetilde{B}(s) &= \frac{(\mu+\lambda_1+s) - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \label{eq:A:B_lst}\\
+        \mathbb{E}[B] &= \frac{1}{\mu(1-\rho_1)}. \label{eq:A:B_mean}
     \end{align}
-    
- In this $M/G/1$ framework, we apply the Pollaczek-Khinchine formula to find $L_2(y)$, the unconditional generating function for the number of customers in this equivalent system. For an $M/G/1$ equivalent system with $\lambda_2$ arrivals and service times $B$ the Pollaczek-Khinchine formula reads:
+
+    In this $M/G/1$ framework, we apply the Pollaczek--Khinchine (PK) formula (\S\ref{ssec:pk}, Equation~\eqref{eq:pk:pgf}) to find $L_2(y)$, the PGF of the number of customers in the equivalent $M/G/1$ system:
     \begin{equation}
         L_2(y) = \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}.
         \label{eq:A:pk_formula}
     \end{equation}
-    
-    Notice that evaluating $\widetilde{B}(s)$ at $s = \lambda_2(1-y)$ yields the exact mathematical root $x^*(y)$ previously identified in Equation \eqref{eq:A:xstar}:
+
+    Evaluating $\widetilde{B}(s)$ at $s = \lambda_2(1-y)$ recovers precisely the kernel root $x^*(y)$ from Equation~\eqref{eq:A:xstar}:
     \begin{equation}
         \widetilde{B}(\lambda_2(1-y)) = \frac{\mu+\lambda_1+\lambda_2(1-y) - \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2-4\mu\lambda_1}}{2\lambda_1} = x^*(y).
     \end{equation}
-    
-    Substituting $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ and $\lambda_2 \mathbb{E}[B] = \frac{\rho_2}{1-\rho_1}$ into the Pollaczek-Khinchine formula (Equation \eqref{eq:A:pk_formula}) yields: 
+
+    Substituting $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ and $\lambda_2 \mathbb{E}[B] = \rho_2/(1-\rho_1)$ into Equation~\eqref{eq:A:pk_formula} gives:
     \begin{equation}
-        L_2(y) =  \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
+        L_2(y) = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \label{eq:A:L2_pgf}
     \end{equation}
-    
-    Note that the service for class-$2$ customers is blocked during all states where $N_1>0$, which automatically implies the server is busy. Hence, the conditional distribution of the queue length given that $N_1=0$ and that the system is busy is equivalent to the unconditional distribution $L_2(y)$ of the equivalent $M/G/1$ system. Thus:
+
+    In the $M/G/1$ equivalent, having $k\geq1$ customers in the system corresponds to one class-$2$ customer in service and $k-1$ class-$2$ customers waiting, which in the original model is exactly the event $\{N_1=0,\, N_2=k-1,\, \text{busy}\}$. Since $L_2(y)$ is the PGF of the $M/G/1$ system count and the idle probability of the $M/G/1$ (the $y^0$ coefficient) equals $(1-\rho)/(1-\rho_1)=\pi(0,0)/[\rho(1-\rho_1)]$, the above identification yields:
     \begin{equation}
-        \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0] = L_2(y) = \frac{1-\rho}{1-\rho_1} \frac{x^*(y)(1-y)}{x^*(y) - y}.
+        \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0] = L_2(y) = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \label{eq:A:L2_conditional}
     \end{equation}
-    
-    Returning to the probabilistic definition of $P_y(y)$, we can now use this $L_2(y)$ together with the fact that $\mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)$:
+
+    For the prefactor, the non-preemptive priority structure ensures that class-$1$ evolves as an independent $M/M/1(\lambda_1,\mu)$ queue, so the marginal distribution of $N_1$ conditioned on the server being busy is geometric with parameter $\rho_1$; in particular $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$. Therefore $\mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)$.
+
+    Returning to Equation~\eqref{eq:A:Py_prob_decomp}:
     \begin{align*}
          &P_y(y) \\
          & \quad=\quad \mathbb{P}(\text{busy}, N_1=0) \cdot \mathbb{E}[y^{N_2} \mid \text{busy}, N_1=0] \\
@@ -390,35 +387,34 @@ Note that we can use the $x$-boundary equation (Equation \eqref{eq:gen:balance_x
     \label{eq:A:ppgf_recurrence}
 \end{equation}
 
-Cohen notices that since $\widetilde{P}(n_1,y)$ is only defined in terms of its neighbouring states, there exists a recurrent relation such that
+Since Equation~\eqref{eq:A:ppgf_recurrence} is a second-order linear recurrence in $n_1$ with constant (in $n_1$) coefficients, its general solution is a linear combination of geometric sequences. Because $\widetilde{P}(n_1,y)\to 0$ as $n_1\to\infty$ (the queue cannot grow without bound under stability), only one geometric mode survives, giving
 \begin{equation}
-    \widetilde{P}(n_1, y) = \widetilde{P}(0,y) [\widetilde{x}^*(y)]^{n_1},
+    \widetilde{P}(n_1, y) = \widetilde{P}(0,y)\,[\widetilde{x}^*(y)]^{n_1},
 \end{equation}
-where $\widetilde{x}^*(y)$ is a root of the characteristic equation
+where $\widetilde{x}^*(y)$ is the root with $|\widetilde{x}^*(y)|\leq 1$ of the characteristic equation
 \begin{equation}
     \mu [\widetilde{x}^*(y)]^2 - [\mu + \lambda_1 + \lambda_2(1-y)] \widetilde{x}^*(y) + \lambda_1 = 0.
 \end{equation}
 
-A similar procedure can be replicated with the $y$-boundary balance equation (Equation \eqref{eq:gen:balance_y_boundary}) to obtain $\widetilde{P}(0,y)$. First, solving the characteristic equation yields two roots:
+Solving the characteristic equation gives two roots:
 \begin{equation*}
     \widetilde{x}^*(y) = \frac{(\mu + \lambda_1 + \lambda_2(1-y)) \pm \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1\mu}}{2\mu}.
 \end{equation*}
 
-Cohen selects the root with the negative sign because $\widetilde{P}(n_1, y)$ is a (P)PGF and thus must be analytic and bounded. Because we want the geometric series $\sum_{n_1=0}^{\infty} \widetilde{P}(0, y) [\widetilde{x}^*(y)]^{n_1}$ to converge, our root must satisfy $|\widetilde{x}^*(y)| \leq 1$. When evaluating both roots at $y=1$, the root with the negative sign evaluates to $\rho_1$, whereas the root with the positive sign evaluates to $1$. Only the root with the negative sign ensures the convergence of our geometric series, hence:
+We select the root with the negative sign. At $y=1$ the characteristic polynomial factors as $(\mu \widetilde{x} - \lambda_1)(\widetilde{x} - 1) = 0$, giving roots $\rho_1<1$ and $1$. The root equal to $1$ would make the series $\sum_{n_1=0}^{\infty} \widetilde{P}(0,y)[\widetilde{x}^*(y)]^{n_1}$ diverge, contradicting $P(x,1)<\infty$ for $|x|<1$. Hence only the root with the negative sign, which satisfies $|\widetilde{x}^*(y)|<1$ for $|y|\leq 1$, is admissible:
 \begin{equation}
     \widetilde{x}^*(y) = \frac{(\mu + \lambda_1 + \lambda_2(1-y)) - \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1\mu}}{2\mu}.
 \end{equation}
 
-By evaluating the roots at the marginal case $y=1$, the characteristic polynomial simplifies to $(\mu \widetilde{x}^*(1) - \lambda_1)(\widetilde{x}^*(1) - 1) = 0$, resulting in roots $\widetilde{x}^*(1) = \rho_1$ and $\widetilde{x}^*(1) = 1$. In a stable system where $\rho_1 < 1$, the root with the positive sign would lead to a value greater than $1$ for certain values of $y$, which implies a divergent queue with infinite expected length. Only the root with the negative sign remains within the unit circle for all $|y| \leq 1$, ensuring the stability of the priority class.
-
-Note that at $y=1$, this result simplifies to the marginal priority traffic intensity:
+In particular, at $y=1$ the root recovers the class-$1$ traffic intensity:
 \begin{equation}
-    \widetilde{x}^*(1) = \frac{\lambda_1}{\mu} = \rho_1.
+    \widetilde{x}^*(1) = \frac{\lambda_1}{\mu} = \rho_1,
 \end{equation}
+consistent with the geometric marginal $P(N_1=n_1,\text{busy})=(1-\rho_1)\rho_1^{n_1}\rho$ of the priority class. Determining $\widetilde{P}(0,y)$ from the $y$-boundary equation~\eqref{eq:gen:balance_y_boundary} and reconstructing $P(x,y)$ via $P(x,y)=\sum_{n_1=0}^\infty \widetilde{P}(n_1,y)\,x^{n_1}$ then reproduces Theorem~\ref{thm:A:PGF}, as verified by the analytical proof above.
 
-\subsection{Analysis model A: state space $\widetilde{S}$}
+\subsection{Analysis of Model~$A$: state space $\widetilde{S}$}
 
-Starting point: 
+Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the $\widetilde{S}$ balance equations~\eqref{eq:gen:tilde_balance_interior}--\eqref{eq:gen:tilde_balance_idle} and forming the PPGF $\widetilde{P}(y,n)=\sum_{n_2=0}^n \widetilde{\pi}(n_2,n)\,y^{n_2}$ yields the inhomogeneous recurrence:
 \begin{align}
     \begin{split}
        &\left[ \lambda_1 + \lambda_2 + \mu \right] \widetilde{P}(y,n) \\
@@ -441,9 +437,9 @@ Starting point:
 \begin{proof}[Proof of Theorem~\ref{thm:A:PPGF_Stilde}]
 For state space $\widetilde{S}$, the dynamics for the PPGF are described by the following inhomogeneous difference equation:
 \begin{equation}
-    (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \pi(n+1,n+1).
+    (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1) + \mu y^n (1-y) \tpi(n+1,n+1).
 \end{equation}
-The fact that it's not homogeneous implies that we are not allowed to use Cohen's trick where $\tP(y,n)=\tP(y,0)\cdot [f(y)]^n$. As a consequence, it becomes rather challenging to solve. But, given than the inhomogeneous term $\mu y^n (1-y) \pi(n+1,n+1)$ shows exponential decay, we can try to obtain an approximation by neglecting it. In that case we are left with
+The inhomogeneous term $\mu y^n(1-y)\tpi(n+1,n+1)$ prevents the direct application of Cohen's geometric-sequence ansatz $\tP(y,n)=\tP(y,0)\cdot [f(y)]^n$. However, since $\tpi(n+1,n+1)$ decays geometrically in $n$ under stability, this forcing term is exponentially small, and we obtain a useful approximation by neglecting it. The resulting homogeneous recurrence is
 \begin{equation}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1).
 \end{equation}
@@ -467,7 +463,7 @@ Using $\tP(y,0)=\sum_{n_2=0}^0\tpi(n_2,0)y^{n_2}=\tpi(0,0)=(1-\rho)\rho$, we obt
 \begin{equation}
     \tP(y,n)=(1-\rho)\rho \cdot  [\widetilde{y}^*(y)]^n.
 \end{equation}
-We can evaluate this expression at $y=1$ and check that it will behave like a regular $M/M/1$ queueing system with arrival rate $\lambda=\lambda_1+\lambda_2$ and service rate $\mu$. Note that, since $n$ counts the total number of customers in the queues and not in the system, we will have an exponent $n+1$ in the $\rho$ term, with thar $+1$ accounting for the customer in service:
+We can evaluate this expression at $y=1$ and check that it will behave like a regular $M/M/1$ queueing system with arrival rate $\lambda=\lambda_1+\lambda_2$ and service rate $\mu$. Note that, since $n$ counts the total number of customers in the queues and not in the system, we have an exponent $n+1$ in the $\rho$ term, with that $+1$ accounting for the customer in service:
 \begin{equation}
     \tP(1,n)= (1-\rho)\rho \cdot  [\widetilde{y}^*(1)]^n = (1-\rho)\rho \cdot\rho^n= (1-\rho) \rho^{n+1}. \qedhere
 \end{equation}
