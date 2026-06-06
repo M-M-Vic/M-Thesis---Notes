@@ -256,47 +256,145 @@ formula~\eqref{eq:A:fundamental}.
 % ─────────────────────────────────────────────────────────────────
 \subsection{Mean queue lengths and mean waiting times}
 
-\subsubsection*{Total queue length from the diagonal of the theorem formula}
+\subsubsection*{Total queue length from the diagonal}
 
-Setting $x=y=z$ in the theorem formula~\eqref{eq:B2:Pxy}, the convection
-term $\gamma_1 xy(x-y)\partial_xP$ in the underlying ODE vanishes (factor
-$(x-y)=0$), and so does the boundary term $\mu(x-y)P_y(y)$.  The remaining
-polynomial in $z$ is identical to Model~$A$'s, so the same cancellation as
-in~\eqref{eq:A:Pzz} applies:
+Setting $x=y=z$ in the fundamental equation~\eqref{eq:B2:fundamental}, the
+jockeying convection term $\gamma_1 xy(x-y)\partial_xP$ vanishes at $x=y=z$
+(factor $(x-y)=0$), as does the boundary term $\mu(x-y)P_y(y)$.  The remaining
+balance is identical to Model~$A$'s, so the same diagonal cancellation gives:
 \begin{align}
     \begin{split}
-        P(z,z) \;=\; \frac{\rho(1-\rho)}{1-\rho z}.
+        P(z,z) \;=\; \frac{\rho(1-\rho)}{1-\rho z},
     \end{split}
     \label{eq:B2:Pzz}
 \end{align}
-Differentiating at $z=1$:
+the same formula as~\eqref{eq:A:Pzz}.  Since
+$\tfrac{d}{dz}P(z,z)\big|_{z=1}=\mathbb{E}[N_1]+\mathbb{E}[N_2]$,
+differentiating by the quotient rule and evaluating at $z=1$:
 \begin{align}
     \begin{split}
         \mathbb{E}[N_1]+\mathbb{E}[N_2]
-        \;=\; \left.\frac{d}{dz}\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
+        \;=\; \left.\frac{d}{dz}\,\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
+        \;=\; \frac{\rho(1-\rho)\cdot\rho}{(1-\rho z)^2}\bigg|_{z=1}
+        \;=\; \frac{\rho^2(1-\rho)}{(1-\rho)^2}
         \;=\; \frac{\rho^2}{1-\rho}.
     \end{split}
     \label{eq:B2:EN}
 \end{align}
+One-way jockeying does not alter the total mean queue length relative to
+Model~$A$, since the diagonal PGF is unchanged.
 
-\subsubsection*{Individual means from the theorem formula}
+\subsubsection*{Class-1 mean queue length}
 
-Setting $y=1-\varepsilon$ in~\eqref{eq:B2:Pxy} and differentiating with respect
-to $x$ gives $\mathbb{E}[N_1]$; $\mathbb{E}[N_2]$ follows by subtraction.
-The integral $\mathcal{I}_1(x,y)$ depends on $\gamma_1$ through the exponents
-$\alpha(y)$ and $\beta(y)$, so no closed form exists and the limit must be
-evaluated numerically:
+We extract $\mathbb{E}[N_1]=\tfrac{\partial P}{\partial x}\big|_{(1,1)}$ by first
+reducing the fundamental equation~\eqref{eq:B2:fundamental} at $y=1$, and then
+differentiating the resulting marginal PGF at $x=1$.
+
+\medskip\noindent\textit{Step~1: marginal PGF $P(x,1)$.}\enspace
+At $y=1$ the exponent $\beta(1)=(1-1)(\lambda{\cdot}1-\mu)/(\gamma_1{\cdot}1)=0$,
+so the jockeying coefficient $\gamma_1 xy(x-y)|_{y=1}=\gamma_1 x(x-1)$, and
+equation~\eqref{eq:B2:fundamental} becomes a first-order linear ODE in $x$:
+\begin{align}
+    \begin{split}
+        -\lambda_1(x-1/\rho_1)\,P(x,1)
+        \;+\; \gamma_1 x\,\frac{d}{dx}P(x,1)
+        \;=\; \mu\,P_y(1).
+    \end{split}
+    \label{eq:B2:ode_y1}
+\end{align}
+The integrating factor for this ODE is $e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}$,
+and integrating from $0$ to $x$ (the boundary term vanishes since $0^{\mu/\gamma_1}=0$):
+\begin{align}
+    \begin{split}
+        P(x,1)\,e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}
+        \;=\; \frac{\mu\,P_y(1)}{\gamma_1}
+        \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\mu/\gamma_1-1}\,dt.
+    \end{split}
+\end{align}
+Rearranging and writing $\alpha=\mu/\gamma_1$ and
+$\mathcal{J}(x)=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}\,dt$:
+\begin{align}
+    \begin{split}
+        P(x,1)
+        \;=\; \frac{\mu\,P_y(1)}{\gamma_1}
+        \cdot e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}\,\mathcal{J}(x).
+    \end{split}
+    \label{eq:B2:Px1}
+\end{align}
+The constant $P_y(1)$ follows from $P(1,1)=1-\pi_0=\rho$, which gives
+$P_y(1)=\rho\gamma_1/({\mu\,e^{\lambda_1/\gamma_1}\,\mathcal{J}(1)})$.
+
+\medskip\noindent\textit{Step~2: differentiate $P(x,1)$ at $x=1$.}\enspace
+Writing $P(x,1)=C\cdot f(x)\cdot\mathcal{J}(x)$ with $C=\mu P_y(1)/\gamma_1$ and
+$f(x)=e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}$, the product rule together with
+Leibniz's rule ($d\mathcal{J}/dx = e^{-\lambda_1 x/\gamma_1}\,x^{\alpha-1}$, the integrand
+at the upper limit) gives:
+\begin{align}
+    \begin{split}
+        \frac{d}{dx}P(x,1)
+        &\;=\; C\Bigl[f'(x)\,\mathcal{J}(x)+f(x)\cdot e^{-\lambda_1 x/\gamma_1}\,x^{\alpha-1}\Bigr].
+    \end{split}
+\end{align}
+The logarithmic derivative $f'(x)/f(x)=\lambda_1/\gamma_1-\alpha/x=(\lambda_1 x-\mu)/(\gamma_1 x)$,
+so:
+\begin{align}
+    \begin{split}
+        \frac{d}{dx}P(x,1)
+        &\;=\; \frac{\mu\,P_y(1)}{\gamma_1}\left[
+            e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}\cdot\frac{\lambda_1 x-\mu}{\gamma_1 x}
+            \cdot\mathcal{J}(x)
+            \;+\; x^{-1}
+        \right].
+    \end{split}
+\end{align}
+
+\medskip\noindent\textit{Step~3: evaluate at $x=1$.}\enspace
 \begin{align}
     \begin{split}
         \mathbb{E}[N_1]
-        &\;=\; \lim_{\varepsilon\to0^+}
-        \frac{P(1{-}\varepsilon,\,1{-}\varepsilon)-P(1{-}2\varepsilon,\,1{-}\varepsilon)}
-             {\varepsilon}, \\
-        \mathbb{E}[N_2]
-        &\;=\; \frac{\rho^2}{1-\rho} - \mathbb{E}[N_1].
+        &\;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1} \\
+        &\;=\; \frac{\mu\,P_y(1)}{\gamma_1}\left[
+            e^{\lambda_1/\gamma_1}\cdot\frac{\lambda_1-\mu}{\gamma_1}
+            \cdot\mathcal{J}(1)
+            \;+\; 1
+        \right],
     \end{split}
-    \label{eq:B2:EN_def}
+    \label{eq:B2:EN1}
 \end{align}
-By Little's Law, $\mathbb{E}[W_i] = \mathbb{E}[N_i]/\lambda_i$.
-As $\gamma_1\to0^+$ the Model~$A$ values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}
-are recovered.
+where $\mathcal{J}(1)=\int_0^1 e^{-\lambda_1 t/\gamma_1}\,t^{\,\mu/\gamma_1-1}\,dt
+=(\gamma_1/\lambda_1)^{\mu/\gamma_1}\,\gamma(\mu/\gamma_1,\,\lambda_1/\gamma_1)$
+and $\gamma(\cdot,\cdot)$ is the lower incomplete gamma function.  The
+factor $(\lambda_1-\mu)<0$ (since $\rho_1<1$), confirming that
+$e^{\lambda_1/\gamma_1}(\lambda_1-\mu)\mathcal{J}(1)/\gamma_1 + 1 > 0$.
+No elementary simplification of~\eqref{eq:B2:EN1} is known; the expression
+is evaluated numerically.  As $\gamma_1\to0^+$ the
+Model~$A$ value~\eqref{eq:A:EN1} is recovered.
+
+\subsubsection*{Class-2 mean queue length by subtraction}
+
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_2]
+        \;=\; \bigl(\mathbb{E}[N_1]+\mathbb{E}[N_2]\bigr)-\mathbb{E}[N_1]
+        \;=\; \frac{\rho^2}{1-\rho}-\mathbb{E}[N_1].
+    \end{split}
+    \label{eq:B2:EN2}
+\end{align}
+Since jockeying defections reduce the class-1 queue,
+$\mathbb{E}[N_1]$ is smaller than the Model~$A$ value $\rho\rho_1/(1-\rho_1)$,
+so $\mathbb{E}[N_2]$ correspondingly exceeds the Model~$A$ value.
+
+\subsubsection*{Mean waiting times via Little's Law}
+
+\textbf{Little's Law} applied to the waiting sub-system of each class:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[W_1]
+        \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1},
+        \qquad
+        \mathbb{E}[W_2]
+        \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}.
+    \end{split}
+    \label{eq:B2:EW}
+\end{align}
+As $\gamma_1\to0^+$ both recover the Model~$A$ values~\eqref{eq:A:EW1}--\eqref{eq:A:EW2}.

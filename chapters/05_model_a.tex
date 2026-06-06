@@ -488,32 +488,42 @@ in the system~\cite{adan2002queueing}.
 
 \subsection{Mean queue lengths and mean waiting times}
 
-\subsubsection{Class-1 marginal}
+\subsubsection{Class-1 marginal PGF and mean queue length}
 
-We evaluate the formula of Theorem~\ref{thm:A:PGF} at $y=1$ for fixed $x\neq1$.
-The denominator satisfies $D(x,y)\to D(x,1) = -\rho_1(x-1)(x-1/\rho_1)$,
-while the factor $x-x^*(y)\to x-x^*(1)=x-1$. Expanding $x^*(y)$ near $y=1$
-using~\eqref{eq:A:xstar_deriv}:
+Setting $y=1$ in the fundamental equation~\eqref{eq:A:fundamental} gives
 \begin{align}
     \begin{split}
-        x^*(y) \;=\; 1 - \frac{\rho_2}{1-\rho_1}(1-y) + O\!\bigl((1-y)^2\bigr),
+        \bigl[-\lambda_1(x-1)(x-1/\rho_1)\bigr]\,P(x,1)
+        \;=\; \mu(x-1)\,P_y(1).
     \end{split}
 \end{align}
-so $x^*(y)-y = \frac{1-\rho}{1-\rho_1}(1-y)+O((1-y)^2)$ and the factor
-$(1-y)$ in numerator and denominator cancel:
+Cancelling the common factor $(x-1)$ for $x\neq1$ and rearranging:
 \begin{align}
     \begin{split}
-        P(x,1)
-        &\;=\; \lim_{y\to1} \frac{y\,\rho(1-\rho)\,(x-x^*(y))}{D(x,y)\,(x^*(y)-y)/(1-y)} \\
-        &\;=\; \frac{\rho(1-\rho)\cdot(x-1)}{-\rho_1(x-1)(x-1/\rho_1)\cdot\frac{1-\rho}{1-\rho_1}} \\
-        &\;=\; \frac{\rho(1-\rho_1)}{1-\rho_1 x}.
+        P(x,1) \;=\; \frac{\mu\,P_y(1)}{\mu-\lambda_1 x}.
     \end{split}
     \label{eq:A:Px1}
 \end{align}
-Differentiating at $x=1$:
+The constant $P_y(1)$ is pinned by the normalisation $P(1,1)=1-\pi_0=\rho$:
 \begin{align}
     \begin{split}
-        \mathbb{E}[N_1] \;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1}
+        \rho \;=\; \frac{\mu\,P_y(1)}{\mu-\lambda_1}
+        \quad\Longrightarrow\quad
+        P_y(1) \;=\; \rho\,(1-\rho_1),
+    \end{split}
+\end{align}
+so that
+\begin{align}
+    \begin{split}
+        P(x,1) \;=\; \frac{\rho(1-\rho_1)}{1-\rho_1 x}.
+    \end{split}
+\end{align}
+Differentiating by the quotient rule and evaluating at $x=1$:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_1]
+        \;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1}
+        \;=\; \left.\frac{\rho(1-\rho_1)\cdot\rho_1}{(1-\rho_1 x)^2}\right|_{x=1}
         \;=\; \frac{\rho(1-\rho_1)\,\rho_1}{(1-\rho_1)^2}
         \;=\; \frac{\rho\rho_1}{1-\rho_1}.
     \end{split}
@@ -547,13 +557,16 @@ so:
     \label{eq:A:Pzz}
 \end{align}
 confirming the diagonal identity of Corollary~\ref{cor:A:pi0}.
-Since $\frac{d}{dz}P(z,z)\big|_{z=1}
-= \frac{\partial P}{\partial x}(1,1)+\frac{\partial P}{\partial y}(1,1)
-=\mathbb{E}[N_1]+\mathbb{E}[N_2]$:
+Since $\tfrac{d}{dz}P(z,z)\big|_{z=1}
+=\tfrac{\partial P}{\partial x}(1,1)+\tfrac{\partial P}{\partial y}(1,1)
+=\mathbb{E}[N_1]+\mathbb{E}[N_2]$, differentiating by the quotient rule and
+evaluating at $z=1$ gives:
 \begin{align}
     \begin{split}
         \mathbb{E}[N_1]+\mathbb{E}[N_2]
-        \;=\; \left.\frac{d}{dz}\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
+        \;=\; \left.\frac{d}{dz}\,\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
+        \;=\; \frac{\rho(1-\rho)\cdot\rho}{(1-\rho z)^2}\bigg|_{z=1}
+        \;=\; \frac{\rho^2(1-\rho)}{(1-\rho)^2}
         \;=\; \frac{\rho^2}{1-\rho}.
     \end{split}
     \label{eq:A:EN}
@@ -567,10 +580,12 @@ single $M/M/1$ queue.
 \begin{align}
     \begin{split}
         \mathbb{E}[N_2]
-        &\;=\; \frac{\rho^2}{1-\rho} - \frac{\rho\rho_1}{1-\rho_1}
-         \;=\; \frac{\rho^2(1-\rho_1)-\rho\rho_1(1-\rho)}{(1-\rho)(1-\rho_1)} \\
+        &\;=\; \bigl(\mathbb{E}[N_1]+\mathbb{E}[N_2]\bigr)-\mathbb{E}[N_1]
+        \;=\; \frac{\rho^2}{1-\rho} - \frac{\rho\rho_1}{1-\rho_1} \\[4pt]
+        &\;=\; \frac{\rho^2(1-\rho_1)-\rho\rho_1(1-\rho)}{(1-\rho)(1-\rho_1)}
+        \;=\; \frac{\rho\bigl[\rho(1-\rho_1)-\rho_1(1-\rho)\bigr]}{(1-\rho)(1-\rho_1)} \\[4pt]
         &\;=\; \frac{\rho(\rho-\rho_1)}{(1-\rho)(1-\rho_1)}
-         \;=\; \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)}.
+        \;=\; \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)}.
     \end{split}
     \label{eq:A:EN2}
 \end{align}
@@ -584,14 +599,18 @@ is the mean waiting time in queue (time from arrival until service start, not in
 the service duration):
 \begin{align}
     \begin{split}
-        \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}
+        \mathbb{E}[W_1]
+        \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}
         \;=\; \frac{\rho\rho_1}{\lambda_1(1-\rho_1)}
+        \;=\; \frac{\rho\cdot(\lambda_1/\mu)}{\lambda_1(1-\rho_1)}
         \;=\; \frac{\rho}{\mu(1-\rho_1)},
     \end{split}
-    \label{eq:A:EW1} \\
+    \label{eq:A:EW1} \\[4pt]
     \begin{split}
-        \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}
+        \mathbb{E}[W_2]
+        \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}
         \;=\; \frac{\rho\rho_2}{\lambda_2(1-\rho_1)(1-\rho)}
+        \;=\; \frac{\rho\cdot(\lambda_2/\mu)}{\lambda_2(1-\rho_1)(1-\rho)}
         \;=\; \frac{\rho}{\mu(1-\rho_1)(1-\rho)}.
     \end{split}
     \label{eq:A:EW2}

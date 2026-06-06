@@ -281,10 +281,9 @@ which is the statement of the theorem. This closed form is the product of a prob
 
 \subsubsection*{Why the diagonal no longer simplifies}
 
-Setting $x=y=z$ in the theorem formula~\eqref{eq:C2:Pxy}, the integrating
-factor $\mu_I(z;z) \propto z^\alpha(1-z)^{\beta(z)}$ is well-defined but the
-abandonment convection $\theta_1 xy(x-1)$ does \emph{not} vanish at $x=y=z$
-(since $(x-1)|_{x=z}\neq0$).  Consequently, the diagonal equation becomes:
+Setting $x=y=z$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
+abandonment convection $\theta_1 xy(x-1)\partial_xP$ does \emph{not} vanish
+(since $(x-1)|_{x=z}\neq0$ for $z\in(0,1)$).  The diagonal equation reads:
 \begin{align}
     \begin{split}
         &\bigl[(\lambda_1{+}\lambda_2{+}\mu)z^2-\mu z-\lambda z^3\bigr]P(z,z)
@@ -293,32 +292,143 @@ abandonment convection $\theta_1 xy(x-1)$ does \emph{not} vanish at $x=y=z$
     \end{split}
     \label{eq:C2:diag}
 \end{align}
-and the unknown $\partial_x P(z,z)$ prevents a closed form for $P(z,z)$.
-Hence $\mathbb{E}[N]=\mathbb{E}[N_1]+\mathbb{E}[N_2]$ is strictly less than
-$\rho^2/(1-\rho)$: abandonment removes customers and reduces both means
-relative to Model~$A$.
+and the unknown $\partial_x P(z,z)$ prevents a closed form for $P(z,z)$ and
+hence for the total $\mathbb{E}[N_1]+\mathbb{E}[N_2]$.  Abandonment removes
+customers and reduces both means relative to Model~$A$.
 
-\subsubsection*{Means from the theorem formula}
+\subsubsection*{Class-2 mean queue length via $P(1,y)$}
 
-Differentiating the theorem formula~\eqref{eq:C2:Pxy} with respect to $x$
-and $y$ respectively yields the means; the limit $(x,y)\to(1,1)$ is
-approached along a non-singular path:
+Setting $x=1$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
+abandonment term $\theta_1 xy(x-1)\partial_xP$ vanishes identically, and
+the coefficient of $P(1,y)$ simplifies to $\lambda_2 y(1-y)$:
+\begin{align}
+    \begin{split}
+        \lambda_2 y(1-y)\,P(1,y)
+        \;=\; \mu(1-y)\bigl[P_y(y)-\pi(0,0)\bigr].
+    \end{split}
+\end{align}
+Cancelling $(1-y)$ for $y\neq1$ and substituting the known
+$P_y(y)$~\eqref{eq:C2:Py}:
+\begin{align}
+    \begin{split}
+        P(1,y)
+        \;=\; \frac{\mu\bigl[P_y(y)-\pi(0,0)\bigr]}{\lambda_2 y}
+        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}
+        \cdot\frac{1-\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y))-y}.
+    \end{split}
+    \label{eq:C2:P1y}
+\end{align}
+This is the marginal PGF of $N_2$.  To differentiate at $y=1$ (where the
+expression is $0/0$), set $\varepsilon=1-y\to0$ and use the LST expansion
+$\widetilde{B}_C(\lambda_2\varepsilon)=1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3)$:
+\begin{align}
+    \begin{split}
+        1-\widetilde{B}_C(\lambda_2\varepsilon)
+        &\;=\; \lambda_2\mathbb{E}[B_C]\,\varepsilon
+               -\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3), \\
+        \widetilde{B}_C(\lambda_2\varepsilon)-y
+        &\;=\; (1-\lambda_2\mathbb{E}[B_C])\,\varepsilon
+               +\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3),
+    \end{split}
+\end{align}
+so that (writing $a=\lambda_2\mathbb{E}[B_C]$ and $c=\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]$):
+\begin{align}
+    \begin{split}
+        P(1,1-\varepsilon)
+        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}
+        \cdot\frac{a\varepsilon - c\varepsilon^2+O(\varepsilon^3)}{(1-a)\varepsilon+c\varepsilon^2+O(\varepsilon^3)}
+        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}
+        \cdot\frac{a-c\varepsilon}{(1-a)+c\varepsilon}+O(\varepsilon^2).
+    \end{split}
+\end{align}
+Differentiating $f(\varepsilon)=(a-c\varepsilon)/((1-a)+c\varepsilon)$ by the quotient rule:
+\begin{align}
+    \begin{split}
+        f'(\varepsilon)
+        \;=\; \frac{-c\,\bigl((1-a)+c\varepsilon\bigr)-(a-c\varepsilon)\cdot c}{\bigl((1-a)+c\varepsilon\bigr)^2}
+        \;=\; \frac{-c}{(1-a+c\varepsilon)^2},
+    \end{split}
+\end{align}
+and since $d/dy\,P(1,y)\big|_{y=1}=-d/d\varepsilon\,P(1,1-\varepsilon)\big|_{\varepsilon=0}$:
+\begin{align}
+    \begin{split}
+        \mathbb{E}[N_2]
+        \;=\; \frac{d}{dy}P(1,y)\bigg|_{y=1}
+        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{c}{(1-a)^2}
+        \;=\; \frac{\mu\,\pi(0,0)\,\lambda_2\,\mathbb{E}[B_C^2]}{2\,(1-\lambda_2\mathbb{E}[B_C])^2}.
+    \end{split}
+    \label{eq:C2:EN2}
+\end{align}
+As $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$ and
+$\mathbb{E}[B_C^2]\to2\mu/(\mu-\lambda_1)^3$; substituting recovers the
+Model~$A$ value $\mathbb{E}[N_2]=\rho\rho_2/((1-\rho_1)(1-\rho))$.
+
+\subsubsection*{Class-1 mean queue length}
+
+We extract $\mathbb{E}[N_1]=\tfrac{\partial P}{\partial x}\big|_{(1,1)}$ by evaluating
+the theorem formula at $y=1$ (limit) and then differentiating in $x$.
+
+\medskip\noindent\textit{Step~1: marginal PGF $P(x,1)$.}\enspace
+As $y\to1$, the exponent $\beta(y)=\lambda_2(1-y)/\theta_1\to0$ so
+$(1-x)^{\beta(y)}\to1$ for fixed $x\in(0,1)$.  Using the LST expansion
+$(1-y)/({\widetilde{B}_C(\lambda_2(1-y))-y})\to1/(1-\lambda_2\mathbb{E}[B_C])$
+as $y\to1$, and $\widetilde{B}_C(0)=1$, the theorem formula gives:
+\begin{align}
+    \begin{split}
+        P(x,1)
+        \;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}
+        \cdot e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}
+        \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt.
+    \end{split}
+    \label{eq:C2:Px1}
+\end{align}
+
+\medskip\noindent\textit{Step~2: differentiate $P(x,1)$ at $x=1$.}\enspace
+Write $P(x,1)=C\cdot f(x)\cdot\mathcal{K}(x)$ with
+$C=\mu\pi(0,0)/(\theta_1(1-\lambda_2\mathbb{E}[B_C]))$,
+$f(x)=e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}$, and
+$\mathcal{K}(x)=\int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt$.
+By the product rule and Leibniz's rule
+($d\mathcal{K}/dx = e^{-\lambda_1 x/\theta_1}\,x^{\mu/\theta_1-1}$):
+\begin{align}
+    \begin{split}
+        \frac{d}{dx}P(x,1)
+        &\;=\; C\Bigl[f'(x)\,\mathcal{K}(x)+f(x)\cdot e^{-\lambda_1 x/\theta_1}\,x^{\mu/\theta_1-1}\Bigr].
+    \end{split}
+\end{align}
+The logarithmic derivative $f'(x)/f(x)=\lambda_1/\theta_1-(\mu/\theta_1)/x=(\lambda_1 x-\mu)/(\theta_1 x)$,
+so:
+\begin{align}
+    \begin{split}
+        \frac{d}{dx}P(x,1)
+        &\;=\; C\left[
+            e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}\cdot
+            \frac{\lambda_1 x-\mu}{\theta_1 x}\cdot\mathcal{K}(x)
+            \;+\; x^{-1}
+        \right].
+    \end{split}
+\end{align}
+
+\medskip\noindent\textit{Step~3: evaluate at $x=1$.}\enspace
 \begin{align}
     \begin{split}
         \mathbb{E}[N_1]
-        &\;=\; \lim_{\varepsilon\to0^+}
-        \frac{P(1{-}\varepsilon,\,1{-}\varepsilon)-P(1{-}2\varepsilon,\,1{-}\varepsilon)}
-             {\varepsilon}, \\
-        \mathbb{E}[N_2]
-        &\;=\; \lim_{\varepsilon\to0^+}
-        \frac{P(1{-}\varepsilon,\,1{-}\varepsilon)-P(1{-}\varepsilon,\,1{-}2\varepsilon)}
-             {\varepsilon}.
+        &\;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1} \\
+        &\;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}
+        \left[
+            e^{\lambda_1/\theta_1}\cdot\frac{\lambda_1-\mu}{\theta_1}
+            \cdot\mathcal{K}(1)
+            \;+\; 1
+        \right],
     \end{split}
-    \label{eq:C2:EN_def}
+    \label{eq:C2:EN1}
 \end{align}
-Both integrals $\mathcal{I}_1,\mathcal{I}_2$ in~\eqref{eq:C2:Pxy} depend on
-$\theta_1$ through the exponent $\beta(y)=\lambda_2(1-y)/\theta_1$; no closed
-form exists for the individual means.
+where $\mathcal{K}(1)=\int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt
+=(\theta_1/\lambda_1)^{\mu/\theta_1}\,\gamma(\mu/\theta_1,\,\lambda_1/\theta_1)$,
+with $\gamma(\cdot,\cdot)$ the lower incomplete gamma function.
+The factor $(\lambda_1-\mu)<0$ (since $\rho_1<1$), so the bracket is positive.
+No elementary simplification is known; $\mathbb{E}[N_1]$ is evaluated numerically.
+As $\theta_1\to0^+$, $\mathbb{E}[N_1]$ recovers the Model~$A$ value~\eqref{eq:A:EN1}.
 
 \subsubsection*{Little's Law with abandonment}
 
@@ -329,7 +439,11 @@ $\mathbb{E}[W_i]$ is the mean time in queue averaged over both served and
 abandoned customers:
 \begin{align}
     \begin{split}
-        \mathbb{E}[W_i] \;=\; \frac{\mathbb{E}[N_i]}{\lambda_i}.
+        \mathbb{E}[W_1]
+        \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1},
+        \qquad
+        \mathbb{E}[W_2]
+        \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}.
     \end{split}
     \label{eq:C2:EW}
 \end{align}
