@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1780696926.33204 "main.aux" "main.bbl" "main" 1780696927.53893 0
+["bibtex main"] 1780782348.48345 "main.aux" "main.bbl" "main" 1780782349.72929 0
   "./references.bib" 1780232684.24796 4051 1e47b7bd5b675823e0a0888b26bf6caf ""
   "/usr/local/texlive/2026/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
-  "main.aux" 1780696927.2711 39945 4c63da84ed6869ef4b7135739349d9f4 "pdflatex"
+  "main.aux" 1780782349.45465 42464 97383189925ca706d0462fcb8b92d61a "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1780696926.42028 "main.tex" "main.pdf" "main" 1780696927.53908 0
+["pdflatex"] 1780782348.57903 "main.tex" "main.pdf" "main" 1780782349.72946 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -40,7 +40,6 @@
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1136768653 1116 25a7bf822c58caf309a702ef79f4afbb ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
-  "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmti7.tfm" 1136768653 1492 86331993fe614793f5e7e755835c31c5 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmti9.tfm" 1136768653 1476 cccc6cc4935c18ec3d5623b77ecb8b74 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
@@ -62,6 +61,7 @@
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1248133631 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1248133631 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1248133631 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb" 1248133631 36310 f5ddc6715cc60deb16d9db5ded6a9391 ""
@@ -200,8 +200,8 @@
   "chapters/02_literature.tex" 1780248910.41033 10878 36a57b9ba2d662e90d3e36c865a93c14 ""
   "chapters/03_preliminaries.tex" 1780564778.9003 11810 555994923ad022ddc25dbb2c32465742 ""
   "chapters/04_model_x.tex" 1780580870.11527 60561 847e2fb6e19581d82a3362daa252537f ""
-  "chapters/05_model_a.tex" 1780696911.71717 33978 dd7a40bddeb2425f2feafa6702267f03 ""
-  "chapters/06_model_b.tex" 1780262522.3131 14508 a65d7785f22aaf49d4bfd584d46bf6c7 ""
+  "chapters/05_model_a.tex" 1780782341.73497 29542 5de40dc982ed499c28fadef66ceaea4e ""
+  "chapters/06_model_b.tex" 1780701344.55022 20238 d6bb459419f648e54b0869073c9cf589 ""
   "chapters/07_model_b2.tex" 1780254809.67437 14905 3ba13d0de64b9917c40a794665553ef7 ""
   "chapters/08_model_c2.tex" 1780234094.81149 25024 3235aceeb496bd31bf70070cfe2df2d0 ""
   "chapters/09_comparison.tex" 1780234094.81181 9527 915c395e18b5b5ab770f70e4b53a9b8e ""
@@ -222,11 +222,11 @@
   "figures/validation/val_ppgf_heatmap.pdf" 1780179627.40751 29682 508daa926f3036a8d523192b1ca17bf3 ""
   "figures/validation/val_theorems_pxy.pdf" 1780179628.12906 48074 6b552641e28ffccba88ad4de810e13f1 ""
   "figures/validation/val_theorems_py.pdf" 1780179628.70954 37631 a8cfc34e414e31acc9c3d6e07a29bcc5 ""
-  "main.aux" 1780696927.2711 39945 4c63da84ed6869ef4b7135739349d9f4 "pdflatex"
-  "main.bbl" 1780696926.4179 730 97d66aecf59630d9508545107d797e2d "bibtex main"
-  "main.out" 1780696927.27373 10833 7b15c5b5d01fc866ed7895ca1ed3fa87 "pdflatex"
+  "main.aux" 1780782349.45465 42464 97383189925ca706d0462fcb8b92d61a "pdflatex"
+  "main.bbl" 1780782348.57678 730 97d66aecf59630d9508545107d797e2d "bibtex main"
+  "main.out" 1780782349.45735 11410 a78c53bfe6f4f515e334ba1b417bb396 "pdflatex"
   "main.tex" 1780249234.31764 3267 9c4b5ef588ec2267a12740c41baef8c5 ""
-  "main.toc" 1780696927.27393 5041 d4b927e81b21616efc4a672321b6aa1e "pdflatex"
+  "main.toc" 1780782349.45755 5682 845e1080c9aff8d904b699f52491cff9 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
