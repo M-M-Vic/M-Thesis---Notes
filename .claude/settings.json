@@ -31,7 +31,28 @@
       "Bash(grep -n \"Class-\\\\\\\\\\\\$1\\\\\\\\\\\\$ contains\\\\|class-\\\\\\\\\\\\$1\\\\\\\\\\\\$ contains\\\\|queue contains exactly\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/04_model_x.tex)",
       "Bash(latexmk -pdf -g main.tex)",
       "Skill(code-review)",
-      "Skill(code-review:*)"
+      "Skill(code-review:*)",
+      "Bash(git fetch *)",
+      "Bash(git merge *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(latexmk -pdf -force main.tex)",
+      "Bash(ls -la /Users/victor/.claude/ 2>/dev/null | head -30)",
+      "Read(//Users/victor/.claude/**)",
+      "Bash(mkdir -p /Users/victor/GitVictor/M-Thesis---Notes/.claude/commands)",
+      "Bash(grep -v \"^$\")",
+      "Bash(mkdir -p /Users/victor/GitVictor/M-Thesis---Notes/figures/archive)",
+      "Bash(mkdir -p /Users/victor/GitVictor/M-Thesis---Notes/Code/archive)",
+      "Bash(rm /Users/victor/GitVictor/M-Thesis---Notes/figures/frog.jpg)",
+      "Bash(rm /Users/victor/GitVictor/M-Thesis---Notes/pdflatex15009.fls)",
+      "Bash(rm /Users/victor/GitVictor/M-Thesis---Notes/figures/validation/*.png)",
+      "Bash(rm -rf /Users/victor/GitVictor/M-Thesis---Notes/Code/__pycache__)",
+      "Bash(python3 build_nb_results.py)",
+      "Bash(git rm *)"
+    ],
+    "additionalDirectories": [
+      "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
     ]
   }
 }

@@ -256,14 +256,6 @@ term $\mu(x-y)P_y(y)$ vanishes:
         \label{eq:A:prob_starting}
     \end{equation}
 
-    Here, $P_y(y) = P(0,y) = \sum_{n_2=0}^{\infty} \pi(0,n_2)y^{n_2}$ is the boundary
-    PGF restricted to states where the server is busy and the high-priority queue is
-    empty ($N_1 = 0$). By the law of total expectation:
-    \begin{equation}
-        P_y(y) = \mathbb{P}(\text{busy},\, N_1=0) \cdot \mathbb{E}[y^{N_2} \mid \text{busy},\, N_1=0].
-        \label{eq:A:Py_prob_decomp}
-    \end{equation}
-
     \paragraph{Class-2 conditional distribution via $M/G/1$.}
     Since class~$1$ has non-preemptive priority, class-$2$ customers are blocked
     whenever $N_1>0$; their effective service time is therefore the duration of a
@@ -276,39 +268,23 @@ term $\mu(x-y)P_y(y)$ vanishes:
         \widetilde{B}(s) &= \frac{(\mu+\lambda_1+s) - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \label{eq:A:B_lst}\\
         \mathbb{E}[B] &= \frac{1}{\mu(1-\rho_1)}. \label{eq:A:B_mean}
     \end{align}
-
     Applying the Pollaczek--Khinchine (PK) formula (\S\ref{ssec:pk},
-    Equation~\eqref{eq:pk:pgf}) to the $M/G/1(\lambda_2,B)$ system gives $L_2(y)$,
-    the PGF of the steady-state number of customers in that system:
-    \begin{equation}
-        L_2(y) = \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}.
-        \label{eq:A:pk_formula}
-    \end{equation}
-
-    Evaluating $\widetilde{B}(s)$ at $s = \lambda_2(1-y)$ recovers precisely the
-    kernel root $x^*(y)$ from Equation~\eqref{eq:A:xstar}:
-    \begin{equation}
-        \widetilde{B}(\lambda_2(1-y)) = \frac{\mu+\lambda_1+\lambda_2(1-y) - \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2-4\mu\lambda_1}}{2\lambda_1} = x^*(y).
-    \end{equation}
-
-    Substituting $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ and
-    $\lambda_2 \mathbb{E}[B] = \rho_2/(1-\rho_1)$ into~\eqref{eq:A:pk_formula}:
-    \begin{equation}
-        L_2(y) = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
+    Equation~\eqref{eq:pk:pgf}) to the $M/G/1(\lambda_2,B)$ system, with
+    $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ (cf.~\eqref{eq:A:xstar}) and
+    $\lambda_2\mathbb{E}[B]=\rho_2/(1-\rho_1)$:
+    \begin{align}
+        \begin{split}
+            L_2(y) &= \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}
+        \end{split}
+        \label{eq:A:pk_formula} \\
+        \begin{split}
+            &= \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
+        \end{split}
         \label{eq:A:L2_pgf}
-    \end{equation}
-
-    \paragraph{Identification of the conditional distribution.}
-    By the PASTA property, class-$2$ Poisson arrivals see the time-average joint
-    distribution. Since consecutive class-$2$ service initiations are separated by
-    i.i.d.\ intervals $B$, and class-$2$ customers in this sub-queue correspond
-    exactly to the $N_2$ waiting class-$2$ customers in the original model when
-    $N_1=0$ and the server is busy, the time-average PGF of $N_2$ conditional on
-    $(\text{busy},N_1=0)$ equals the $M/G/1$ steady-state PGF:
-    \begin{equation}
-        \mathbb{E}[y^{N_2} \mid \text{busy},\, N_1=0] = L_2(y) = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
-        \label{eq:A:L2_conditional}
-    \end{equation}
+    \end{align}
+    By the PASTA property, the time-average distribution of $N_2$ conditional on
+    $(\text{busy},N_1=0)$ coincides with the $M/G/1$ steady-state distribution, so
+    $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
 
     \paragraph{Level-crossing argument for the prefactor.}
     We determine $\mathbb{P}(\text{busy},N_1=0)$ by a level-crossing argument on the
@@ -325,33 +301,35 @@ term $\mu(x-y)P_y(y)$ vanishes:
         \mathbb{P}(\text{busy},\,N_1=0)\cdot\frac{1}{1-\rho_1}=\rho
         \implies \mathbb{P}(\text{busy},\,N_1=0)=\rho(1-\rho_1).
     \]
-    In particular, $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$.
 
     \paragraph{Assembly.}
-    Returning to~\eqref{eq:A:Py_prob_decomp}:
-    \begin{align*}
-         P_y(y)
-         &= \rho(1-\rho_1) \cdot \left( \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y} \right)
-          = \rho (1-\rho) \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
-    \end{align*}
-
-    Substituting $P_y(y)$ and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0})
-    into the RHS of~\eqref{eq:A:prob_starting} and factoring $\mu\rho(1-\rho)(1-y)$:
-    \begin{align*}
-        \bigl[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \bigr] P(x,y)
-        &= \mu (1-y) \left[ \frac{(x-y)x^*(y)}{x^*(y) - y} - x \right] \rho(1-\rho)\\
-        &= \mu (1-y) \left[ \frac{y(x - x^*(y))}{x^*(y) - y} \right]\rho(1-\rho).
-    \end{align*}
-
-    Dividing both sides by $\mu$ yields:
-    \begin{equation*}
-        \left[ (1 + \rho_1 + \rho_2) xy - y - \rho_1 x^2 y - \rho_2 x y^2 \right] P(x,y) = y(1-y) \left[ \frac{x - x^*(y)}{x^*(y) - y} \right]\rho(1-\rho).
-    \end{equation*}
-
-    Multiplying both sides by $\left[ (1+\rho_1 +\rho_2)xy - y -\rho_1x^2y - \rho_2xy^2 \right]^{-1}$ completes the proof:
+    By the law of total expectation,
+    $P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]$,
+    so
     \begin{equation}
-        P(x,y) = \left[ (1+\rho_1 +\rho_2)xy - y -\rho_1x^2y - \rho_2xy^2 \right]^{-1}  y(1-y) \left[ \frac{x - x^*(y)}{x^*(y)-y} \right] \rho (1-\rho). \qedhere
+        P_y(y) = \rho(1-\rho_1)\cdot\frac{1-\rho}{1-\rho_1}\cdot\frac{x^*(y)(1-y)}{x^*(y)-y}
+                = \rho(1-\rho)\cdot\frac{x^*(y)(1-y)}{x^*(y)-y}. \label{eq:A:Py_prob}
     \end{equation}
+    Substituting~\eqref{eq:A:Py_prob} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0})
+    into~\eqref{eq:A:prob_starting}:
+    \begin{align*}
+        \begin{split}
+            \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
+            &= \mu(x-y) \frac{x^*(y)(1-y)}{x^*(y)-y} \rho(1-\rho) - \mu x(1-y) \rho(1-\rho)
+        \end{split} \\
+        \begin{split}
+            &= \mu(1-y) \left[ \frac{x^*(y)(x-y)}{x^*(y)-y} - x \right] \rho(1-\rho)
+        \end{split} \\
+        \begin{split}
+            &= \mu(1-y) \left[ \frac{y(x-x^*(y))}{x^*(y)-y} \right] \rho(1-\rho)
+        \end{split} \\
+        \begin{split}
+            \left[ (1+\rho_1+\rho_2)xy - y - \rho_1 x^2y - \rho_2 xy^2 \right] P(x,y)
+            &= y(1-y) \left[ \frac{x-x^*(y)}{x^*(y)-y} \right] \rho(1-\rho).
+        \end{split}
+    \end{align*}
+    Multiplying both sides by $\left[ (1+\rho_1+\rho_2)xy - y - \rho_1 x^2y - \rho_2 xy^2 \right]^{-1}$
+    isolates $P(x,y)$ and concludes the proof.
 \end{proof}
 
 
