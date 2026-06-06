@@ -386,3 +386,90 @@ where $\mathcal{F}$ is the finite ratio obtained from evaluating~\eqref{eq:P_xy_
 
 \paragraph{Summary.}
 The case $\theta_1 > 0$ with $\gamma_1 = \gamma_2 = \theta_2 = 0$ admits a fully explicit closed-form solution: $P_y(y)$ is given by~\eqref{eq:Py_kummer} as a ratio of confluent hypergeometric functions ${}_1F_1$; $P(x,y)$ is given by~\eqref{eq:P_xy_final} as a finite combination of incomplete Kummer functions $\Phi$ defined in~\eqref{eq:incomplete_kummer}; and $\pi(0,0)$ is fixed by the normalisation $P(1,1) = \rho$ via~\eqref{eq:pi00_normalisation}. When the ratios $a = \mu/\theta_1$ and $b(y) = \lambda_2(1-y)/\theta_1$ take rational (in particular integer) values, the Kummer functions reduce to finite combinations of elementary functions, making the solution computable in closed form.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   % Model A analytic
+    Now, for x=1, the polynomial in the LHS of the expression above simplifies so that we can later divide both sides by $(1-y)$ and obtain the following.
+    \begin{align*}
+         \left[ \lambda_2 y(1-y) \right] P(1,y)
+         &= \mu (1-y) \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) \\
+         \lambda_2 y P(1,y)
+         &= \mu \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) \\
+         \rho_2 y P(1,y)
+         &= \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) \\
+    \end{align*}
+    
+    Since we know that $P(1,1)=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty} \pi(n_1,n_2) = 1-\pi_0 = 1 - (1-\rho)= \rho$, we can take limits on both sides to obtain $\pi(0,0)$.
+    
+    \begin{equation}
+        \lim_{y\to 1} \rho_2 y P(1,y) =  \lim_{y\to 1} \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) 
+    \end{equation}
+    
+    Although the LHS of the above expression is simple, the RHS presents a type of indetermination "$0/0$". Because of that, we apply the L'Hôpital's rule and use the results previously obtained in Equations \eqref{eq:A:xstar} and \eqref{eq:A:xstar_deriv}:
+    \begin{align*}
+        \rho_2 \rho
+        &=\left[
+            \lim_{y\to1} \frac{\frac{d}{dy}(x^*(y)(1-y))}{\frac{d}{dy}(x^*(y)-y)}
+            - 1
+        \right] \pi(0,0) \\
+        &= \lim_{y\to1} \left[
+            \frac{
+                \frac{d}{dy} x^*(y)(1-y) + x^*(y) (-1) 
+            }{
+                 \frac{d}{dy} x^*(y) - 1
+            }
+            -1
+            \right]
+        \pi(0,0)\\
+        &= \left[ 
+            \frac{
+                \frac{d}{dy} x^*(1)(1-1) + x^*(1) (-1) 
+            }{
+                 \frac{d}{dy} x^*(1) - 1
+            }
+            - 1
+            \right]
+        \pi(0,0)\\
+        &= \left[ 
+            \frac{
+                - 1
+            }{
+                \frac{\rho_2}{1-\rho_1} - 1
+            }
+            - 1
+            \right]
+        \pi(0,0)\\
+        &= \left[ \frac{1}{1 - \frac{\rho_2}{1-\rho_1}} -1 \right] \pi(0,0) \\
+        &= \frac{1-\rho_1 - (1 - \rho_1 - \rho_2)}{1 - \rho_1 - \rho_2} \pi(0,0) \\
+        &= \frac{\rho_2}{1 - \rho_1 - \rho_2} \pi(0,0)\\
+        &= \frac{\rho_2}{1 - \rho} \pi(0,0) \\
+    \end{align*}
+    Thus, we find $\pi(0,0) = \rho(1-\rho)$, and since $\pi_0 = 1-\rho$ holds for all no-abandonment models (Equation~\eqref{eq:gen:pi0_noaband}), this establishes Corollary~\ref{cor:A:pi0}. For reference:
+    \begin{equation}
+        \pi(0,0) = \rho (1-\rho). \label{eq:A:pi00}
+    \end{equation}

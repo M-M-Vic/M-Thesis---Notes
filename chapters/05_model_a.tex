@@ -1,17 +1,25 @@
-\section{Analysis of Model-$A$ ($\gamma_1=0,\,\gamma_2=0$, $\theta_1=\theta_2=0$)}\label{sec:model_a}
+\section{Analysis of Model-$A$ ($\gamma_1=\gamma_2=0$, $\theta_1=\theta_2=0$)}\label{sec:model_a}
 
-Model-$A$ is the baseline of the hierarchy: all extra parameters are zero, leaving a pure two-class non-preemptive priority queue with no jockeying and no abandonment.  The analysis is carried out on both state spaces $S$ and $\widetilde{S}$; on $S$ two complete proofs (analytical and probabilistic) and a PPGF-based outline are presented.
+Model-$A$ is the baseline of this collection of models: all jockeying and abandonment parameters are set to zero, leaving an ordinary two-class $M/M/1$ queueing model with non-preemptive priority. The analysis is carried out in both state spaces $S$ and $\widetilde{S}$: on the former, two complete proofs are presented; while on the latter, an approximation and its corresponding evaluation are provided.
 
-The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle} for state space $S$, and Equations \eqref{eq:gen:tilde_balance_interior}, \eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary}, \eqref{eq:gen:tilde_balance_zero} and \eqref{eq:gen:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=0$ and $\gamma_2=0$. The derivation follows accordingly, hence the starting point for the analysis of the model is the equation for the dynamics of our (P)PGF: this is Equation \eqref{eq:gen:fundamental_equation} for state space $S$ and Equation \eqref{eq:gen:PPGF_dynamics} for state space $\widetilde{S}$, for $\gamma_1=\gamma_2=0$. The corresponding subsections will introduce the "$\gamma$-less" versions of these equations.
+The balance equations are given —Equations \eqref{eq:gen:balance_interior}, \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary}, \eqref{eq:gen:balance_zero} and \eqref{eq:gen:balance_idle} for state space $S$, and Equations \eqref{eq:gen:tilde_balance_interior}, \eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary}, \eqref{eq:gen:tilde_balance_zero} and \eqref{eq:gen:tilde_balance_idle} for state space $\widetilde{S}$ by plugging $\gamma_1=\gamma_2=0$ and $\theta_1=\theta_2=0$. The derivation also holds accordingly, so the starting points are the fundamental equations presented in \ref{lem:gen:fundamental_equation} for $S$ and \ref{lem:gen:PPGF_dynamics} for $\widetilde{S}$. The corresponding subsections will introduce the equation for their dynamics, with all jockeying and abandonments parameters set to zero.
 
-\textbf{Tractability.} With no jockeying, class-1 customers have strict non-preemptive priority: upon any service completion, the server always picks a waiting class-1 customer next. Consequently, class-2 customers are blocked whenever $N_1>0$; their effective service time is the duration of a complete class-1 busy period $B$ of the $M/M/1(\lambda_1,\mu)$ sub-queue, making the class-2 subsystem equivalent to an $M/G/1(\lambda_2,B)$ queue. This reduction enables both the analytical kernel-method approach (zero of the coefficient polynomial) and the probabilistic Pollaczek--Khinchine route. A PPGF-based approach on $S$ is also outlined for comparison.
+The stability conditions, since we have no abandonments, will be the same as for an ordinary sincle-class $M/M/1$ queueing system, \ref{eq:A:stability}: the system will be positive recurrent if and only if
+\begin{equation*}
+    \rho = \frac{\lambda_1+\lambda~_2}{\mu} <1.
+\end{equation*}
 
 \textbf{Stability.} With no abandonment, the system is positive recurrent if and only if the total traffic intensity satisfies
 \begin{equation}
-    \rho = \frac{\lambda_1+\lambda_2}{\mu} < 1. \label{eq:A:stability}
+    \rho = \frac{\lambda_1+\lambda_2}{\mu} < 1.
+    \label{eq:A:stability}
 \end{equation}
-The Class-1 subsystem additionally requires $\rho_1 = \lambda_1/\mu < 1$ for its own queue to be stable; this is implied by $\rho < 1$ and $\lambda_2 > 0$.
+The lack of abandonments gives us
+\begin{equation}
+    \pi_0= 1-\rho \quad \text{and} \quad \pi(0,0)=(1-\rho) \rho.
+\end{equation}
 
+The figure below corresponds to the queueing diagram of Model-$A$.
 \begin{figure}[H]
     \centering
     \resizebox{0.62\textwidth}{!}{%
@@ -23,8 +31,7 @@ The Class-1 subsystem additionally requires $\rho_1 = \lambda_1/\mu < 1$ for its
 \end{figure}
 
 \subsection{Analysis model A: state space $S$}
-
-We start by stating a $\gamma$-free version of Equation \eqref{eq:gen:fundamental_equation}, where the function $P_y(y)$ and the constant $\pi(0,0)$ are still to be determined:
+We start by stating Equation \eqref{eq:gen:fundamental_equation} with no jockeying and abandonment parameters, where the marginal $P_y(y)=P(0,y)$ is still to be determined.
 \begin{align}
     \begin{split}
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) 
@@ -33,10 +40,10 @@ We start by stating a $\gamma$-free version of Equation \eqref{eq:gen:fundamenta
     \end{split} \label{eq:A:fundamental}
 \end{align}
 
-We now introduce a theorem, and the proofs for it —one analytical and one probabilistic— will follow in the subsections below.
+The following theorem summarizes the main result of this subsection, and two standalone proofs will be provided: one analytical and one using probabilistic arguments.
 \begin{theorem}\label{thm:A:PGF}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, and exponentially distributed service times with rate $\mu$ independently of the class.
- The probability generation function $P(x,y)$ of such a system is given by
+ The PGF $P(x,y)$ of such a system is given by
     \begin{align}
         P(x,y) &= \left[ (1+\rho_1 +\rho_2)xy - y -\rho_1x^2y - \rho_2xy^2 \right]^{-1} \cdot y(1-y) \left[ \frac{x - x^*(y)}{x^*(y)-y} \right] \cdot \rho (1-\rho) \\[10pt]
         &\text{where} \nonumber \\[5pt]
@@ -53,38 +60,66 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor:A:pi0}]
-    \textbf{Diagonal PGF.}  Setting $x=y=z$ in the theorem formula: substituting $x=y=z$ into the kernel equation~\eqref{eq:A:xstar} with $y=z$ gives $\lambda z^2-(\mu+\lambda)z+\mu=(z-1)(\lambda z-\mu)=0$, so $x^*(z)=z$ only at $z\in\{1,1/\rho\}$, neither of which lies in $(0,1)$ for $\rho<1$.  Therefore $(z-x^*(z))/(x^*(z)-z)=-1$ throughout $(0,1)$, while the denominator becomes
-    \[
-        D(z,z) \;=\; (1+\rho)z^2 - z - \rho z^3 \;=\; -z(z-1)(\rho z-1).
-    \]
-    The numerator equals $z(1-z)\cdot(-1)\cdot\rho(1-\rho)=-\rho(1-\rho)z(1-z)$.  Cancelling $-z(z-1)=(1-z)z$ from both,
-    \begin{equation}
-        P(z,z) = \frac{\rho(1-\rho)}{1-\rho z}. \label{eq:A:Pzz_cor}
-    \end{equation}
-    \textbf{Empty-system probabilities.}  Sending $z\to1$ gives $P(1,1)=\rho$.  Since $P(1,1)=\sum_{n_1,n_2\ge0}\pi(n_1,n_2)=1-\pi_0$, it follows that $\pi_0=1-\rho$.  The global balance at the idle state reads $(\lambda_1+\lambda_2)\pi_0=\mu\pi(0,0)$, giving
-    \[
-        \pi(0,0) \;=\; (\rho_1+\rho_2)\,\pi_0 \;=\; \rho(1-\rho). \qedhere
-    \]
+    \textbf{PGF of the total number of customers}  Setting $x=y=z$ in the fundamental equation (Equation \eqref{eq:A:fundamental}):
+    \begin{align*}
+        \begin{split}
+            \left[ (\lambda_1+\lambda_2+ \mu)z^2 - \mu z - \lambda_1 z^3 - \lambda_2 z^3 \right] P(z,z) 
+            &= \mu(z-z) P_y(z)  - \mu z(1-z) \pi(0,0)
+        \end{split} \\
+        \begin{split}
+            \left[ (\lambda_1+\lambda_2+ \mu)z - \mu  - (\lambda_1 + \lambda_2) z^2 \right] P(z,z) 
+            &= - \mu (1-z) \pi(0,0)
+        \end{split} \\
+        \begin{split}
+            -(1-z)\left[ \mu - (\lambda_1 + \lambda_2)z \right] P(z,z) 
+            &= - \mu (1-z) \pi(0,0)
+        \end{split} \\
+        \begin{split}
+            \left[ \mu - (\lambda_1 + \lambda_2)z \right] P(z,z) 
+            &= \mu \pi(0,0)
+        \end{split} \\
+        \begin{split}
+            P(z,z) 
+            &= \frac{\mu \pi(0,0)}{\mu - \lambda z}
+        \end{split} \\
+        \begin{split}
+            P(z,z) &= \frac{\pi(0,0)}{1-\rho} 
+        \end{split}
+    \end{align*}
+    Using the normalisation condition for the PGF, $P(1,1) = \rho$, we can solve for $\pi(0,0)$ and obtain 
+    \begin{equation*}
+        \pi(0,0) = (1 - \rho) \rho,
+    \end{equation*}
+    and with $\lambda\pi_0=\mu \pi(0,0)$, we recover
+    \begin{equation*}
+        \pi_0=1-\rho.
+    \end{equation*}
 \end{proof}
 
 \subsubsection{Analytical approach of model A in state space $S$}
 
 \begin{proof}
-    We apply the \textit{kernel method}: fix $y\in[0,1)$ and find $x=x^*(y)$ inside the unit disc such that the bracket on the left of Equation~\eqref{eq:A:fundamental} vanishes. At any such root the left-hand side is zero, so the right-hand side must vanish as well:
-    \[
-        (x^*(y)-y)\,P_y(y) \;=\; x^*(y)(1-y)\,\pi(0,0).
-    \]
-    Dividing both sides by $y\neq 0$ in Equation~\eqref{eq:A:fundamental} and setting the coefficient of $P$ to zero gives
-    \begin{align}
+
+    We start by statimg again the fundamental equation for Model-$A$ (Equation \eqref{eq:A:fundamental}):
+    \begin{equation*}
+        \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y) 
+        = \mu(x-y) P_y(y)  - \mu x(1-y) \pi(0,0).
+    \end{equation*}
+    We apply the \emph{Kernel Method}: we fix $y\in(0,1]$ and find $x^*(y)$ such that the LHS the expression above is zero. Given that $P(x,y)$ is a PGF, it is bounded. At any such root, the LHS is zero; therefore the RHS must also be zero: i.e. $(x^*(y)-y)\,P_y(y) \;=\; x^*(y)(1-y)\,\pi(0,0)$.
+    To find the roots of the coefficient of $P(x,y)$, we set
+    \begin{align*}
         \begin{split}
-             0 &=  (\lambda_1 + \lambda_2 + \mu)x - \mu -\lambda_1x^2 - \lambda_2xy 
-        \end{split} \nonumber \\
+             0 &=  (\lambda_1 + \lambda_2 + \mu)xy - \mu y -\lambda_1x^2y - \lambda_2xy^2
+        \end{split} \\
+        \begin{split}
+             0 &=  (\lambda_1 + \lambda_2 + \mu)x - \mu  -\lambda_1x^2 - \lambda_2xy
+        \end{split} \\
         \begin{split}
              0 &=  - \lambda_1 x^2 + \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right]x - \mu 
         \end{split} \\
         \begin{split}
           0 &=  \lambda_1 x^2 - \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] x + \mu 
-        \end{split} \nonumber \\
+        \end{split} \\
         \begin{split}
             x^*(y) &= \frac{
                 \left[\mu + \lambda_1 + \lambda_2 (1-y) \right] \pm \sqrt{
@@ -93,20 +128,18 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
             }{
                 2\lambda_1
             }
-        \end{split} \nonumber.
-    \end{align}
-    
-    We label the root with the negative sign $x^*(y)$ and the root with the positive sign $x^+(y)$. At $y=1$,
-    \begin{align*}
-        x^+(1) = \frac{(\mu + \lambda_1) + (\mu-\lambda_1)}{2 \lambda_1} = \frac{\mu}{\lambda_1} >1
-        & \quad \text{and} \quad
-        x^*(1) = \frac{(\mu + \lambda_1) - (\mu-\lambda_1)}{2 \lambda_1} = 1.
+        \end{split}
     \end{align*}
-    To confirm that $x^*(y)<1$ for all $y\in[0,1)$: the derivative formula above gives
-    \[
+    We label the root with the negative sign $x^*(y)$ and the root with the positive sign $x^+(y)$. At $y=1$, we have
+    \begin{equation*}
+        x^*(1) = 1 \quad \text{and} \quad x^+(1) > 1
+    \end{equation*}
+    We need our root to be inside the unit disk in the interval $[0,1)$. Taking the derivative of $x^*(y)$, we see that ,
+    \begin{equation}
         \frac{d}{dy}x^*(y) = \frac{\lambda_2}{2\lambda_1}\!\left[-1+\frac{\mu+\lambda_1+\lambda_2(1-y)}{\sqrt{(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu}}\right]>0,
-    \]
-    since $(\mu+\lambda_1+\lambda_2(1-y))^2>(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu$ whenever $\lambda_1\mu>0$.  Because $x^*$ is strictly increasing on $[0,1]$ with $x^*(1)=1$, we have $x^*(y)<1$ for all $y\in[0,1)$.  By Vieta's formulas for the kernel quadratic $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu=0$, the product of roots equals $\mu/\lambda_1>1$; hence $x^+(y)=\mu/(\lambda_1 x^*(y))>1$ throughout $[0,1)$.  Therefore $x^*(y)$ is the unique root strictly inside the unit disc, and $x^+(y)>1$ is inadmissible. Hence
+        \label{eq:xstar_prime}
+    \end{equation}
+    since $(\mu+\lambda_1+\lambda_2(1-y))^2>(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu$ whenever $\lambda_1\mu>0$. Therefore, $x^*(y)<1$ for $x\in[0,1)$. By means of Vieta's formulas for the kernel polynomial $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu=0$, we have that the product of the two roots is $x^*(y) x^+(y)= \mu/\lambda_1>1$. Therefore, ($x^+(y)=\mu/(\lambda_1 x^*(y))>1$ throughout $[0,1)$, so the only root that is strictly inside the unit disk for the interval $[0,1)$ is $x^*(y)$. We now state
     \begin{equation}
         x^*(y) = \frac{
             (\mu +\lambda_1 + \lambda_2 (1-y)) 
@@ -116,28 +149,7 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
         }.
         \label{eq:A:xstar}
     \end{equation}
-
-    Since the next steps will involve using l'Hôpital's rule in order to compute a limit, another expression that we will need is the derivative of $x^*(y)$, i.e.  $\frac{d}{dy}x^*(y)$:
-    \begin{align*}
-        \frac{d}{dy}x^*(y)
-        & = \frac{d}{dy} \left[ \frac{
-            (\mu + \lambda_1 + \lambda_2(1-y))
-            - \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1\mu}
-        }{2\lambda_1} \right] \\
-        &= \frac{1}{2\lambda_1}
-        \left[ -\lambda_2 - \frac{1}{2} \frac{2(\mu+\lambda_1+\lambda_2(1-y)) \cdot (-\lambda_2)}{
-            \sqrt{(\mu + \lambda_1 + \lambda_2(1-y))^2 - 4\lambda_1 \mu}
-        }\right] \\
-        &= \frac{\lambda_2}{2 \lambda_1}
-        \left[ 
-            -1 + \frac{
-                (\mu + \lambda_1 + \lambda_2 (1-y))
-            }{
-                \sqrt{(\mu+\lambda_1 + \lambda_2 (1-y))^2- 4\lambda_1\mu}
-            }
-        \right].
-    \end{align*}
-    More specifically, we need to see how this behaves when $y\to1$, so we compute the following:
+    Since the next steps will involve L'Hôpital's rule in order to compute a limit at $y\to 1$, we recall $$\frac{d}{dy}x^*(y)$$ from Equation \eqref{eq:xstar_prime} and we evaluate at $y=1$ to see how it behaves:
     \begin{align*}
         \frac{d}{dy}x^*(1)
         &= \frac{\lambda_2}{2 \lambda_1}
@@ -165,110 +177,36 @@ We now introduce a theorem, and the proofs for it —one analytical and one prob
     \end{align*}
     For future reference,
     \begin{equation}
-        \frac{d}{dy}x^*(1) = \frac{\rho_2}{1-\rho_1}. \label{eq:A:xstar_deriv}
+        \frac{d}{dy}x^*(1) = \frac{\rho_2}{1-\rho_1}.
+        \label{eq:A:xstar_deriv}
     \end{equation}
-    
-    Now for $x=x^*(y)$, we have $\mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big] = 0$, so
+
+    Next, back to the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}), its RHS at $x=x^*(y)$ also equals zero: we have $\mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big] = 0$, so
     \begin{equation}
         P_y(y) = \frac{x^*(y)(1-y)}{x^*(y) - y} \pi(0,0). \label{eq:A:Py}
     \end{equation}
-    Taking $(1-y)$ common factor gives us the following expression:
-    \begin{equation}
-         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) = \mu (1-y) \left[ \frac{x^*(y) (x-y)}{x^*(y) - y} - x \right] \pi(0,0).
-    \end{equation}
-    Now, for x=1, the polynomial in the LHS of the expression above simplifies so that we can later divide both sides by $(1-y)$ and obtain the following.
+    
+    From Corollary~\ref{cor:A:pi0}, we know that $\pi(0,0)=(1-\rho)\rho$. Substituting this and Equation~\eqref{eq:A:Py} simultaneously into our fundamental equation (Equation~\eqref{eq:A:fundamental}) yields:
     \begin{align*}
-         \left[ \lambda_2 y(1-y) \right] P(1,y)
-         &= \mu (1-y) \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) \\
-         \lambda_2 y P(1,y)
-         &= \mu \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) \\
-         \rho_2 y P(1,y)
-         &= \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) \\
+        \begin{split}
+            \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y) 
+            &= \mu(x-y) \frac{x^*(y)(1-y)}{x^*(y) - y} \rho(1-\rho)  - \mu x(1-y) \rho(1-\rho)
+        \end{split} \\
+        \begin{split}
+            \left[ (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
+            &= \mu (1-y) \left[ \frac{x^*(y)(x-y)}{x^*(y)-y} - x \right] \rho (1-\rho)
+        \end{split} \\
+        \begin{split}
+            \left[ (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
+            &= \mu  (1-y) \left[ \frac{y(x - x^*(y))}{x^*(y) - y} \right] \rho (1-\rho)
+        \end{split} \\
+        \begin{split}
+            \left[ (1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2 \right] P(x,y)
+            &= y (1-y) \left[ \frac{x - x^*(y)}{x^*(y) - y} \right] \rho (1-\rho)
+        \end{split}
     \end{align*}
     
-    Since we know that $P(1,1)=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty} \pi(n_1,n_2) = 1-\pi_0 = 1 - (1-\rho)= \rho$, we can take limits on both sides to obtain $\pi(0,0)$.
-    
-    \begin{equation}
-        \lim_{y\to 1} \rho_2 y P(1,y) =  \lim_{y\to 1} \left[ \frac{x^*(y) (1-y)}{x^*(y) - y} - 1 \right] \pi(0,0) 
-    \end{equation}
-    
-    Although the LHS of the above expression is simple, the RHS presents a type of indetermination "$0/0$". Because of that, we apply the L'Hôpital's rule and use the results previously obtained in Equations \eqref{eq:A:xstar} and \eqref{eq:A:xstar_deriv}:
-    \begin{align*}
-        \rho_2 \rho
-        &=\left[
-            \lim_{y\to1} \frac{\frac{d}{dy}(x^*(y)(1-y))}{\frac{d}{dy}(x^*(y)-y)}
-            - 1
-        \right] \pi(0,0) \\
-        &= \lim_{y\to1} \left[
-            \frac{
-                \frac{d}{dy} x^*(y)(1-y) + x^*(y) (-1) 
-            }{
-                 \frac{d}{dy} x^*(y) - 1
-            }
-            -1
-            \right]
-        \pi(0,0)\\
-        &= \left[ 
-            \frac{
-                \frac{d}{dy} x^*(1)(1-1) + x^*(1) (-1) 
-            }{
-                 \frac{d}{dy} x^*(1) - 1
-            }
-            - 1
-            \right]
-        \pi(0,0)\\
-        &= \left[ 
-            \frac{
-                - 1
-            }{
-                \frac{\rho_2}{1-\rho_1} - 1
-            }
-            - 1
-            \right]
-        \pi(0,0)\\
-        &= \left[ \frac{1}{1 - \frac{\rho_2}{1-\rho_1}} -1 \right] \pi(0,0) \\
-        &= \frac{1-\rho_1 - (1 - \rho_1 - \rho_2)}{1 - \rho_1 - \rho_2} \pi(0,0) \\
-        &= \frac{\rho_2}{1 - \rho_1 - \rho_2} \pi(0,0)\\
-        &= \frac{\rho_2}{1 - \rho} \pi(0,0) \\
-    \end{align*}
-    Thus, we find $\pi(0,0) = \rho(1-\rho)$, and since $\pi_0 = 1-\rho$ holds for all no-abandonment models (Equation~\eqref{eq:gen:pi0_noaband}), this establishes Corollary~\ref{cor:A:pi0}. For reference:
-    \begin{equation}
-        \pi(0,0) = \rho (1-\rho). \label{eq:A:pi00}
-    \end{equation}
-
-    Now that we have determined $P_y(y)$ and $\pi(0,0)$, substituting Equation \eqref{eq:A:Py} and Equation \eqref{eq:A:pi00} into Equation \eqref{eq:A:fundamental} yields
-    \begin{align*}
-        \left[ 
-            (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2
-        \right] P(x,y)
-        &= \mu \left[
-            (x-y)\frac{x^*(y)(1-y)}{x^*(y)-y} - x(1-y)
-        \right]
-        \rho (1-\rho) \\
-        \left[ 
-            (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2
-        \right] P(x,y)
-        &= \mu (1-y) \left[
-            \frac{x^*(y)(x-y)}{x^*(y)-y} - x
-        \right]
-        \rho (1-\rho). \\
-        \left[ 
-            (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2
-        \right] P(x,y)
-        &= \mu  (1-y) \left[
-            \frac{y(x - x^*(y))}{x^*(y) - y}
-        \right]
-        \rho (1-\rho). \\
-        \left[ 
-            (1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2
-        \right] P(x,y)
-        &= y (1-y) \left[
-            \frac{x - x^*(y)}{x^*(y) - y}
-        \right]
-        \rho (1-\rho). \\
-    \end{align*}
-    
-    Multiplying both sides by $[(\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2]^{-1}$ to isolate $P(x,y)$ concludes the proof.                                                                                          
+    Multiplying both sides by $\left[(1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2\right]^{-1}$ to isolate $P(x,y)$ concludes the proof.                              
 \end{proof}
 
 
