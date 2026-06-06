@@ -2,7 +2,7 @@
 
 Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\gamma_2=0$) and retains no abandonment ($\theta_1=\theta_2=0$). Setting $\gamma_2=0$ eliminates the $\partial P/\partial y$ term from the fundamental equation, reducing it to a first-order linear ODE in $x$ for each fixed $y\in[0,1]$. An integrating factor then yields a formal integral expression for $P(x,y)$; the boundary function $P_y(y)$ is pinned by requiring $P(\cdot,y)$ to be holomorphic at the interior singular point $x=y$, where the integrating factor carries a branch singularity with negative exponent. This analyticity condition replaces the boundedness argument used for Model~$C_2$.
 
-\textbf{Stability.} As in Models~$A$ and~$B$, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves total customer count and does not affect the stability condition.
+\textbf{Stability.} As in Models~$A$ and~$B$, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect the stability condition.
 
 \begin{figure}[H]
     \centering
@@ -15,16 +15,27 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
     \label{fig:model-b2-queue}
 \end{figure}
 
+\subsection{Reduced fundamental equation}\label{ssec:B2:reduction}
+
+Setting $\gamma_2=0$ and $\theta_1=\theta_2=0$ in the general fundamental
+equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation})
+annihilates the $\partial P/\partial y$ term, whose coefficient
+$xy\bigl[\gamma_2(y-x)+\theta_2(y-1)\bigr]$ vanishes identically, and leaves only the
+$\gamma_1$ contribution to the $\partial P/\partial x$ term:
+\begin{align}
+    &\bigl[(\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2\bigr]P
+    + \gamma_1 xy(x-y)\,\frac{\partial P}{\partial x} \nonumber \\
+    &\qquad = \mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0).
+    \label{eq:B2:fundamental}
+\end{align}
+For each fixed $y\in(0,1]$ this is a first-order linear ODE in $x$; the entire analysis
+of this section is built on it.
+
 \begin{theorem}\label{thm:B2}
-    Consider the two-class priority queueing system of Model~$B_2$ with per-customer
-    jockeying rate $\gamma_1>0$ from Queue~1 to Queue~2 ($\gamma_2=0$,
+    Consider the two-class non-preemptive priority queueing system of Model~$B_2$ with
+    per-customer jockeying rate $\gamma_1>0$ from Queue~1 to Queue~2 ($\gamma_2=0$,
     $\theta_1=\theta_2=0$). Under the stability condition $\rho=\lambda/\mu<1$,
-    $\lambda=\lambda_1+\lambda_2$, the empty-state probabilities are
-    \begin{equation}
-        \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
-        \label{eq:B2:pi00_thm}
-    \end{equation}
-    the boundary generating function is
+    $\lambda=\lambda_1+\lambda_2$, the boundary generating function is
     \begin{equation}
         P_y(y) = \frac{\mu\,\pi(0,0)}{\mu-\lambda y}
         \cdot\frac{{}_1F_1\!\bigl(\alpha(y)+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)}
@@ -45,33 +56,75 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
         b^\star(y) = \alpha+\beta+1 = \frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1},
         \label{eq:B2:exponents_thm}
     \end{equation}
-    and the auxiliary integrals are
+    the auxiliary integrals are
     \begin{align}
         \mathcal{I}_1(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(y-t)^{\beta}\,dt,
         \label{eq:B2:I1}\\
-        \mathcal{I}_2(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(y-t)^{\beta-1}\,dt.
+        \mathcal{I}_2(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(y-t)^{\beta-1}\,dt,
         \label{eq:B2:I2}
     \end{align}
+    and the empty-state probability $\pi(0,0)=\rho(1-\rho)$ is given by
+    Corollary~\ref{cor:B2:pi00} below.
     On $y<x\le1$ the same expression~\eqref{eq:B2:Pxy} holds with $\mathcal{I}_1,\mathcal{I}_2$
     replaced by their finite-part continuations.
 \end{theorem}
 
+\begin{corollary}\label{cor:B2:pi00}
+    The empty-system probability $\pi_0$ (server idle, no one waiting) and the
+    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model~$B_2$ are
+    \begin{equation}
+        \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
+        \label{eq:B2:pi00}
+    \end{equation}
+    identical to the Model~$A$ baseline.
+\end{corollary}
+
 \begin{proof}
+    Because one-way jockeying conserves the total customer count and there is no
+    abandonment, the total-count process $L$ (equal to the number in queue $N$ plus the
+    single customer in service whenever the server is busy) is itself a birth--death
+    chain: it increases at rate $\lambda=\lambda_1+\lambda_2$ on any arrival and decreases
+    at rate $\mu$ on any service completion, irrespective of class. Thus $L$ is an $M/M/1$
+    queue, and by the memorylessness of the exponential clocks its stationary law is
+    geometric, $\mathbb{P}(L=k)=(1-\rho)\rho^k$; in particular
+    $\pi_0=\mathbb{P}(L=0)=1-\rho$.
+
+    For $\pi(0,0)$, set $x=y$ in the reduced fundamental
+    equation~\eqref{eq:B2:fundamental}. The convection term $\gamma_1 xy(x-y)\partial_x P$
+    and the boundary term $\mu(x-y)P_y(y)$ both carry the factor $(x-y)$ and vanish on the
+    diagonal; dividing the surviving terms by the common factor $x$ leaves
+    \begin{equation}
+        \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
+        = -\mu(1-x)\,\pi(0,0).
+        \label{eq:B2:diagonal_ode}
+    \end{equation}
+    Factoring the bracket and cancelling $(x-1)$ against $-(1-x)=(x-1)$ on the right:
+    \begin{align}
+        \bigl[{-\lambda x^2} + (\lambda+\mu)x - \mu\bigr]P(x,x)
+        &= (\mu-\lambda x)(x-1)\,P(x,x) \nonumber\\
+        &= \mu(x-1)\,\pi(0,0),
+        \label{eq:B2:diagonal_factored}
+    \end{align}
+    so that
+    \begin{equation}
+        P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
+        \label{eq:B2:Pxx}
+    \end{equation}
+    Evaluating at $x=1$ with $P(1,1)=1-\pi_0=\rho$ (using $\pi_0=1-\rho$ just established)
+    yields $\pi(0,0)=\rho(1-\rho)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:B2}]
 
 % ─────────────────────────────────────────────────────────────────
-\noindent\textit{Stage~1: Reduction to a first-order ODE and the integrating factor.}
+\noindent\textit{Stage~1: Standard form and the integrating factor.}
 \medskip
 
-Setting $\gamma_2=0$ in the general fundamental equation~\eqref{eq:gen:fundamental_equation}
-eliminates the $\partial P/\partial y$ term and leaves
-\begin{align}
-    &\bigl[(\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2\bigr]P
-    + \gamma_1 xy(x-y)\,\frac{\partial P}{\partial x} \nonumber \\
-    &\qquad = \mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0).
-    \label{eq:B2:fundamental}
-\end{align}
-For any fixed $y\neq0$, dividing through by $\gamma_1 x(x-y)$ puts this in the standard
-first-order ODE form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$, with
+For any fixed $y\neq0$, divide the reduced fundamental
+equation~\eqref{eq:B2:fundamental} through by the coefficient $\gamma_1 xy(x-y)$ of
+$\partial P/\partial x$. The factor $y$ cancels against the overall factor $y$ in the
+bracket multiplying $P$, putting the equation in standard first-order form
+$\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$ with
 \begin{align}
     p(x;y) &= \frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}
                    {\gamma_1 x(x-y)},
@@ -80,16 +133,28 @@ first-order ODE form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$, with
              - \frac{\mu(1-y)\,\pi(0,0)}{\gamma_1 y(x-y)}.
     \label{eq:B2:qxy}
 \end{align}
-The numerator of $p$ equals $-\lambda_1(x-x^*(y))(x-x^+(y))$ (roots of the Model~$A$
-kernel, Equation~\eqref{eq:A:xstar}). Partial fractions give
+Write the numerator of $p$ as a polynomial in $x$,
+\[
+    N(x) = -\lambda_1 x^2 + \bigl[(\lambda_1+\lambda_2+\mu)-\lambda_2 y\bigr]x - \mu
+         = -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
+\]
+which factors through the roots $x^*(y),x^+(y)$ of the Model~$A$ kernel
+(Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$. The partial-fraction
+coefficients of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ follow by residues:
+\begin{align}
+    A &= -\lambda_1 && \text{(ratio of leading $x^2$ terms)}, \nonumber\\
+    B &= \frac{N(0)}{0-y} = \frac{-\mu}{-y} = \frac{\mu}{y}, \nonumber\\
+    C &= \frac{N(y)}{y} = \frac{-(\lambda y-\mu)(y-1)}{y}
+       = \frac{(1-y)(\lambda y-\mu)}{y},
+    \label{eq:B2:pfrac_coeffs}
+\end{align}
+where $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Hence
 \begin{equation}
     p(x;y) = \frac{1}{\gamma_1}\!\left[
         -\lambda_1 + \frac{\mu/y}{x} + \frac{(1-y)(\lambda y-\mu)/y}{x-y}
-    \right],
+    \right].
     \label{eq:B2:pfrac}
 \end{equation}
-where $A=-\lambda_1$ is the leading coefficient, $B=\mu/y$ follows from setting $x=0$ and
-using $\lambda_1 x^*x^+=\mu$, and $C=(1-y)(\lambda y-\mu)/y$ from setting $x=y$.
 Integrating term by term yields the integrating factor
 \begin{equation}
     \mu_I(x;y) = e^{-\lambda_1 x/\gamma_1}\cdot x^{\,\alpha(y)}\cdot(x-y)^{\,\beta(y)},
@@ -104,30 +169,17 @@ vanishes when we integrate $\tfrac{d}{dx}[P\cdot\mu_I]=q\cdot\mu_I$ over $(0,x]$
     \label{eq:B2:ODE_integral}
 \end{equation}
 
-\medskip\noindent\textit{Empty-state probabilities.}
-Before treating the singularity at $x=y$, we fix $\pi_0$ and $\pi(0,0)$ using
-the diagonal $x=y$.  Setting $x=y$ in~\eqref{eq:B2:fundamental}, the factor $(x-y)$ kills
-both the convection term and $\mu(x-y)P_y(y)$, leaving
-\begin{equation}
-    \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
-    = -\mu(1-x)\,\pi(0,0).
-    \label{eq:B2:diagonal_ode}
-\end{equation}
-The bracket factors as $(\mu-\lambda x)(x-1)$; after cancelling $(x-1)$,
-\begin{equation}
-    P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
-    \label{eq:B2:Pxx}
-\end{equation}
-Setting $x=1$ and using $P(1,1)=1-\pi_0$ together with $\pi_0=1-\rho$ gives
-\begin{equation}
-    \pi(0,0) = \rho(1-\rho), \qquad \pi_0 = 1-\rho,
-    \label{eq:B2:pi00}
-\end{equation}
-confirming~\eqref{eq:B2:pi00_thm}.
-
 % ─────────────────────────────────────────────────────────────────
 \medskip\noindent\textit{Stage~2: Determination of $P_y(y)$ by analyticity at $x=y$.}
 \medskip
+
+Unlike Models~$A$ and~$C_2$, no probabilistic (Pollaczek--Khinchine) route is available
+here. One-way jockeying makes the effective service experienced by a Class-2 customer
+depend on the Class-1 queue contents at the (random) jockeying instants, so the Class-2
+input is no longer a Poisson stream feeding an $M/G/1$ subsystem and no busy-period
+reduction applies (cf.\ the discussion of Model~$B$ in \S\ref{sec:model_b}). We therefore
+determine $P_y(y)$ \emph{purely analytically}, by imposing holomorphy of $P(\cdot,y)$ at
+the interior point $x=y$.
 
 Under stability, $\mu-\lambda y>0$ for all $y\in(0,1)$, so
 \begin{equation}
@@ -143,11 +195,13 @@ non-integer-power branch term $(x-y)^{|\beta|}$ in the general solution must the
 vanish.
 
 \smallskip\noindent\textit{Branch resolution.}
-For $0<t<x<y$ the base $(t-y)<0$, so $(t-y)^\beta = e^{i\pi\beta}(y-t)^\beta$.
-The common phase $e^{i\pi\beta}$ cancels between numerator and denominator in
-$P = \mu_I^{-1}\int q\,\mu_I$, while the relative phase between the $(t-y)^\beta$ and
-$(t-y)^{\beta-1}$ contributions is $e^{i\pi\beta}/e^{i\pi(\beta-1)}=-1$, converting the
-minus sign in~\eqref{eq:B2:qxy} into a plus.  The manifestly real form of the
+For $0<t<x<y$ the base $(t-y)<0$, so $(t-y)^\beta = e^{i\pi\beta}(y-t)^\beta$ and
+$(t-y)^{\beta-1}=e^{i\pi(\beta-1)}(y-t)^{\beta-1}$.
+Substituting these into $P=\mu_I^{-1}\int_0^x q\,\mu_I\,dt$, the common phase $e^{i\pi\beta}$
+shared by $\mu_I^{-1}(x)\propto(x-y)^{-\beta}$ and the $\mathcal{I}_1$-integrand cancels,
+while the $\mathcal{I}_2$-integrand carries the \emph{relative} phase
+$e^{i\pi(\beta-1)}/e^{i\pi\beta}=e^{-i\pi}=-1$, which converts the minus sign
+in~\eqref{eq:B2:qxy} into a plus.  The manifestly real form of the
 solution~\eqref{eq:B2:ODE_integral} on $0<x<y$ is therefore
 \begin{equation}
     P(x,y) = \frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
@@ -179,18 +233,25 @@ is a branch term: it vanishes at $x=y$ but is not analytic there. Holomorphy the
 forces its coefficient to zero.
 
 \smallskip\noindent\textit{No-branch condition and $P_y(y)$.}
-In~\eqref{eq:B2:Pxy_real} the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ multiplies the
-finite parts of $\mathcal{I}_1,\mathcal{I}_2$ at $x=y$ to produce exactly that branch term.
-Eliminating it requires
+As $x\to y^-$ the two integrals in~\eqref{eq:B2:Pxy_real} each split into a divergent part
+and a finite part.  The divergent part of $\mathcal{I}_2$ (scaling like
+$(y-x)^{\beta}$) combines with the prefactor $(y-x)^{-\beta}$ to reproduce exactly the
+regular value~\eqref{eq:B2:regular_value}, and the divergent part of $\mathcal{I}_1$
+contributes an integer power $(y-x)^{1}$; both are analytic at $x=y$.  The only
+non-analytic contribution is the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ multiplying the
+\emph{finite parts} of $\mathcal{I}_1,\mathcal{I}_2$.  Eliminating this branch term requires
 \begin{equation}
     P_y(y)\,\mathrm{f.p.}\,\mathcal{I}_1(y,y)
     + (1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal{I}_2(y,y) = 0,
     \label{eq:B2:nobranch}
 \end{equation}
 where $\mathrm{f.p.}$ denotes the Hadamard finite part (the analytic continuation in the
-exponent parameter).  Substituting $t=ys$ in~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and
-applying the Euler integral representation~\eqref{eq:kummer:euler} with
-$c=\lambda_1 y/\gamma_1$:
+exponent parameter).  Substituting $t=ys$ in~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} gives
+$\int_0^1 s^{\alpha-1}(1-s)^{\beta}e^{-cs}\,ds$ (resp.\ $s^{\alpha}(1-s)^{\beta-1}$) with
+$c=\lambda_1 y/\gamma_1$, to which we apply the Euler integral
+representation~\eqref{eq:kummer:euler}, read as its analytic continuation in the second
+parameter $b$ beyond the convergence domain $b>0$ (here $b=\beta+1$, resp.\ $b=\beta$, with
+$\beta<0$ by~\eqref{eq:B2:beta_negative} --- this is precisely the finite part):
 \begin{align}
     \mathrm{f.p.}\,\mathcal{I}_1(y,y)
         &= B(\alpha,\,\beta+1)\,y^{\alpha+\beta}\,
@@ -202,16 +263,25 @@ $c=\lambda_1 y/\gamma_1$:
     \label{eq:B2:fp2}
 \end{align}
 The common factor $y^{\alpha+\beta}$ cancels in~\eqref{eq:B2:nobranch}.  The Beta ratio
-reduces to
-\[
+reduces, via $\Gamma(\alpha+1)=\alpha\Gamma(\alpha)$ and $\Gamma(\beta+1)=\beta\Gamma(\beta)$,
+to
+\begin{align}
     \frac{B(\alpha+1,\,\beta)}{B(\alpha,\,\beta+1)}
-    = \frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)}
-      \cdot\frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha)\Gamma(\beta+1)}
-    = \frac{\alpha}{\beta},
-\]
-and the combination $(1-y)\cdot(-\alpha/\beta) = \mu/(\mu-\lambda y)$ (using the
-definition of $\beta$ and cancelling $(1-y)$).  Solving~\eqref{eq:B2:nobranch} for
-$P_y(y)$:
+    &= \frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)}
+       \cdot\frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha)\Gamma(\beta+1)} \nonumber\\
+    &= \frac{\Gamma(\alpha+1)}{\Gamma(\alpha)}\cdot\frac{\Gamma(\beta)}{\Gamma(\beta+1)}
+       = \frac{\alpha}{\beta},
+    \label{eq:B2:beta_ratio}
+\end{align}
+and the prefactor combination simplifies, using
+$\alpha/\beta=\mu/\bigl[(1-y)(\lambda y-\mu)\bigr]$, as
+\begin{align}
+    (1-y)\left(-\frac{\alpha}{\beta}\right)
+    &= -(1-y)\cdot\frac{\mu}{(1-y)(\lambda y-\mu)} \nonumber\\
+    &= -\frac{\mu}{\lambda y-\mu} = \frac{\mu}{\mu-\lambda y}.
+    \label{eq:B2:prefactor_combo}
+\end{align}
+Solving~\eqref{eq:B2:nobranch} for $P_y(y)$:
 \begin{align}
     P_y(y) &= \frac{\mu\,\pi(0,0)}{\mu-\lambda y}
     \cdot\frac{{}_1F_1\!\bigl(\alpha(y)+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)}
@@ -220,7 +290,8 @@ $P_y(y)$:
 \end{align}
 confirming~\eqref{eq:B2:Py_thm}.  The prefactor equals the regular value $P(y,y)$
 of~\eqref{eq:B2:regular_value}, and the Kummer ratio is the boundary correction.
-As $y\to0^+$ the ratio tends to $1$ and $P_y(0)=\pi(0,0)$, consistent with
+As $y\to0^+$ the argument $-\lambda_1 y/\gamma_1\to0$, so the ratio tends to $1$ and
+$P_y(0)=\pi(0,0)$, consistent with
 $P_y(0)=\sum_{n_2}\pi(0,n_2)\cdot0^{n_2}=\pi(0,0)$.
 
 % ─────────────────────────────────────────────────────────────────
@@ -247,8 +318,14 @@ The no-branch condition~\eqref{eq:B2:nobranch} guarantees that this extends
 analytically across $x=y$, with diagonal value
 $P(y,y)=\rho(1-\rho)/(1-\rho y)$ as computed in~\eqref{eq:B2:regular_value}.
 On $y<x\le1$ the same formula holds with $\mathcal{I}_1,\mathcal{I}_2$ read as their
-finite-part continuations; $\pi(0,0)=\rho(1-\rho)$ from~\eqref{eq:B2:pi00} makes the
-solution fully explicit.  In the limit $\gamma_1\to0^+$, the Kummer ratio
+finite-part continuations; $\pi(0,0)=\rho(1-\rho)$ from Corollary~\ref{cor:B2:pi00} makes
+the solution fully explicit.
+% [AUTHOR: the $\gamma_1\to0^+$ reduction below is stated without proof. As
+% $\gamma_1\to0^+$ both $\alpha=\mu/(\gamma_1 y)$ and $c=\lambda_1 y/\gamma_1\to\infty$;
+% the claimed collapse of the Kummer ratio to the Model~$A$ rational form relies on a
+% confluent-hypergeometric large-parameter asymptotic that should be derived or cited
+% (e.g. DLMF 13.8). Flagging rather than silently asserting.]
+In the limit $\gamma_1\to0^+$, the Kummer ratio
 collapses to the rational expression $x^*(y)(1-y)/(x^*(y)-y)$ of Model~$A$, recovering
 formula~\eqref{eq:A:fundamental}.
 \end{proof}
@@ -258,7 +335,7 @@ formula~\eqref{eq:A:fundamental}.
 
 \subsubsection*{Total queue length from the diagonal}
 
-Setting $x=y=z$ in the fundamental equation~\eqref{eq:B2:fundamental}, the
+Setting $x=y=z$ in the reduced fundamental equation~\eqref{eq:B2:fundamental}, the
 jockeying convection term $\gamma_1 xy(x-y)\partial_xP$ vanishes at $x=y=z$
 (factor $(x-y)=0$), as does the boundary term $\mu(x-y)P_y(y)$.  The remaining
 balance is identical to Model~$A$'s, so the same diagonal cancellation gives:
@@ -268,8 +345,9 @@ balance is identical to Model~$A$'s, so the same diagonal cancellation gives:
     \end{split}
     \label{eq:B2:Pzz}
 \end{align}
-the same formula as~\eqref{eq:A:Pzz}.  Since
-$\tfrac{d}{dz}P(z,z)\big|_{z=1}=\mathbb{E}[N_1]+\mathbb{E}[N_2]$,
+the same formula as~\eqref{eq:A:Pzz}.  Since $P(z,z)=\mathbb{E}[z^{N_1+N_2}]=\mathbb{E}[z^{N}]$
+is the PGF of the total in-queue count $N$, the generating-function identity
+$\tfrac{d}{dz}P(z,z)\big|_{z=1}=\mathbb{E}[N_1]+\mathbb{E}[N_2]$ holds;
 differentiating by the quotient rule and evaluating at $z=1$:
 \begin{align}
     \begin{split}
@@ -291,9 +369,11 @@ reducing the fundamental equation~\eqref{eq:B2:fundamental} at $y=1$, and then
 differentiating the resulting marginal PGF at $x=1$.
 
 \medskip\noindent\textit{Step~1: marginal PGF $P(x,1)$.}\enspace
-At $y=1$ the exponent $\beta(1)=(1-1)(\lambda{\cdot}1-\mu)/(\gamma_1{\cdot}1)=0$,
-so the jockeying coefficient $\gamma_1 xy(x-y)|_{y=1}=\gamma_1 x(x-1)$, and
-equation~\eqref{eq:B2:fundamental} becomes a first-order linear ODE in $x$:
+Evaluating~\eqref{eq:B2:fundamental} at $y=1$, the bracket multiplying $P$ becomes
+$(\lambda_1+\mu)x-\mu-\lambda_1 x^2=-\lambda_1(x-1)(x-1/\rho_1)$, the convection
+coefficient is $\gamma_1 x(x-1)$, and the right-hand side reduces to $\mu(x-1)P_y(1)$
+(the $\pi(0,0)$ term carries the factor $(1-y)=0$). Every term therefore shares the common
+factor $(x-1)$; cancelling it leaves the first-order linear ODE in $x$:
 \begin{align}
     \begin{split}
         -\lambda_1(x-1/\rho_1)\,P(x,1)
@@ -302,8 +382,9 @@ equation~\eqref{eq:B2:fundamental} becomes a first-order linear ODE in $x$:
     \end{split}
     \label{eq:B2:ode_y1}
 \end{align}
-The integrating factor for this ODE is $e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}$,
-and integrating from $0$ to $x$ (the boundary term vanishes since $0^{\mu/\gamma_1}=0$):
+The integrating factor for this ODE is $e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}$
+(noting $\lambda_1/\rho_1=\mu$), and integrating from $0$ to $x$ (the boundary term
+vanishes since $0^{\mu/\gamma_1}=0$):
 \begin{align}
     \begin{split}
         P(x,1)\,e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}
@@ -322,7 +403,7 @@ $\mathcal{J}(x)=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}\,dt$:
     \label{eq:B2:Px1}
 \end{align}
 The constant $P_y(1)$ follows from $P(1,1)=1-\pi_0=\rho$, which gives
-$P_y(1)=\rho\gamma_1/({\mu\,e^{\lambda_1/\gamma_1}\,\mathcal{J}(1)})$.
+$P_y(1)=\rho\gamma_1/\bigl(\mu\,e^{\lambda_1/\gamma_1}\,\mathcal{J}(1)\bigr)$.
 
 \medskip\noindent\textit{Step~2: differentiate $P(x,1)$ at $x=1$.}\enspace
 Writing $P(x,1)=C\cdot f(x)\cdot\mathcal{J}(x)$ with $C=\mu P_y(1)/\gamma_1$ and
@@ -336,7 +417,8 @@ at the upper limit) gives:
     \end{split}
 \end{align}
 The logarithmic derivative $f'(x)/f(x)=\lambda_1/\gamma_1-\alpha/x=(\lambda_1 x-\mu)/(\gamma_1 x)$,
-so:
+and the second product term simplifies as
+$f(x)\,e^{-\lambda_1 x/\gamma_1}x^{\alpha-1}=x^{-1}$, so:
 \begin{align}
     \begin{split}
         \frac{d}{dx}P(x,1)
@@ -364,7 +446,7 @@ so:
 where $\mathcal{J}(1)=\int_0^1 e^{-\lambda_1 t/\gamma_1}\,t^{\,\mu/\gamma_1-1}\,dt
 =(\gamma_1/\lambda_1)^{\mu/\gamma_1}\,\gamma(\mu/\gamma_1,\,\lambda_1/\gamma_1)$
 and $\gamma(\cdot,\cdot)$ is the lower incomplete gamma function.  The
-factor $(\lambda_1-\mu)<0$ (since $\rho_1<1$), confirming that
+factor $(\lambda_1-\mu)<0$ (since $\rho_1=\lambda_1/\mu<1$), confirming that
 $e^{\lambda_1/\gamma_1}(\lambda_1-\mu)\mathcal{J}(1)/\gamma_1 + 1 > 0$.
 No elementary simplification of~\eqref{eq:B2:EN1} is known; the expression
 is evaluated numerically.  As $\gamma_1\to0^+$ the
@@ -386,15 +468,35 @@ so $\mathbb{E}[N_2]$ correspondingly exceeds the Model~$A$ value.
 
 \subsubsection*{Mean waiting times via Little's Law}
 
-\textbf{Little's Law} applied to the waiting sub-system of each class:
+For Class~1, the entry rate into Queue~1 is exactly $\lambda_1$: every Class-1 arrival
+joins Queue~1, whether it later jockeys to Queue~2 or enters service. \textbf{Little's
+Law} applied to the Queue-1 waiting line therefore gives the genuine mean time in Queue~1,
 \begin{align}
     \begin{split}
-        \mathbb{E}[W_1]
-        \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1},
-        \qquad
-        \mathbb{E}[W_2]
-        \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}.
+        \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}.
     \end{split}
     \label{eq:B2:EW}
 \end{align}
-As $\gamma_1\to0^+$ both recover the Model~$A$ values~\eqref{eq:A:EW1}--\eqref{eq:A:EW2}.
+
+% [AUTHOR: throughput for E[W_2]. Unlike Models A and C_2, Queue 2 in Model B_2 has TWO
+% input streams: the Poisson arrivals at rate lambda_2 AND the jockeying transfers from
+% Queue 1, whose long-run rate is gamma_1 * E[N_1]. Little's Law applied to the Queue-2
+% buffer reads E[N_2] = (lambda_2 + gamma_1*E[N_1]) * E[W_2], so the mean time in Queue 2
+% is E[N_2]/(lambda_2 + gamma_1*E[N_1]), NOT E[N_2]/lambda_2. The naive E[N_2]/lambda_2 is
+% correct only if E[W_2] is DEFINED as the Little ratio per Class-2 arrival rather than as
+% a sojourn time. Please confirm the intended definition of W_2 and fix the denominator
+% (or the prose) accordingly. The relation below uses the sojourn-time convention.]
+For Class~2, Queue~2 receives not only the Poisson arrivals at rate $\lambda_2$ but also
+the jockeying transfers from Queue~1, whose long-run rate is $\gamma_1\,\mathbb{E}[N_1]$.
+\textbf{Little's Law} applied to the Queue-2 buffer therefore reads
+$\mathbb{E}[N_2]=\bigl(\lambda_2+\gamma_1\,\mathbb{E}[N_1]\bigr)\,\mathbb{E}[W_2]$, so the
+mean sojourn in Queue~2 is
+\begin{align}
+    \begin{split}
+        \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2+\gamma_1\,\mathbb{E}[N_1]},
+    \end{split}
+    \label{eq:B2:EW2}
+\end{align}
+which reduces to $\mathbb{E}[N_2]/\lambda_2$ only in the no-jockeying limit
+$\gamma_1\to0^+$.  As $\gamma_1\to0^+$ both~\eqref{eq:B2:EW} and~\eqref{eq:B2:EW2}
+recover the Model~$A$ values~\eqref{eq:A:EW1}--\eqref{eq:A:EW2}.

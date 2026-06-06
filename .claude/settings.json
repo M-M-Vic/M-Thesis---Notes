@@ -53,7 +53,8 @@
       "Bash(grep -n \"thm\\\\|theorem\\\\|Theorem\\\\|\\\\\\\\\\\\\\\\begin{theorem}\\\\|P\\(x,y\\)\\\\|eq:A:PGF\\\\|eq:B2:Pxy\\\\|eq:C2:Pxy\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/05_model_a.tex)",
       "Bash(grep -n \"thm\\\\|theorem\\\\|Theorem\\\\|\\\\\\\\\\\\\\\\begin{theorem}\\\\|P\\(x,y\\)\\\\|eq:B2:Pxy\\\\|eq:A:Pxy\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex)",
       "Bash(grep -n \"thm\\\\|theorem\\\\|Theorem\\\\|\\\\\\\\\\\\\\\\begin{theorem}\\\\|P\\(x,y\\)\\\\|eq:C2:Pxy\\\\|eq:C2:integral\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
-      "Bash(latexmk -pdf -interaction=nonstopmode -g main.tex)"
+      "Bash(latexmk -pdf -interaction=nonstopmode -g main.tex)",
+      "Bash(echo \"exit: $?\")"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"

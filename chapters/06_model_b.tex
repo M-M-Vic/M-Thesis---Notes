@@ -15,6 +15,45 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     \label{fig:model-b-queue}
 \end{figure}
 
+\begin{corollary}\label{cor:B:pi00}
+    The empty-system probability $\pi_0$ (server idle, no one waiting) and the
+    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model~$B$
+    coincide with the Model~$A$ baseline,
+    \begin{equation}
+        \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
+        \label{eq:B:pi00}
+    \end{equation}
+    and the diagonal of the PGF is $P(z,z)=\pi(0,0)/(1-\rho z)$.
+\end{corollary}
+
+\begin{proof}
+    Setting $x=y$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} with
+    $\theta_1=\theta_2=0$, both jockeying terms carry the factor $(x-y)$ and vanish, as
+    does the boundary term $\mu(x-y)P_y(y)$; dividing the surviving terms by the common
+    factor $x$ leaves
+    \begin{equation}
+        \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
+        = -\mu(1-x)\,\pi(0,0).
+        \label{eq:B:diagonal_ode}
+    \end{equation}
+    Writing $\lambda=\lambda_1+\lambda_2$, the bracket factors as $(\mu-\lambda x)(x-1)$;
+    cancelling $(x-1)$ against $-(1-x)=(x-1)$ on the right gives
+    \begin{equation}
+        P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
+        \label{eq:B:Pxx}
+    \end{equation}
+    The idle state $(0)$ exchanges probability flux only with the both-queues-empty busy
+    state, so the global balance across the idle--busy cut reads
+    $\lambda\pi_0=\mu\pi(0,0)$ (an arrival at total rate $\lambda$ leaves $(0)$; a service
+    completion at rate $\mu$ returns to it), whence $\pi(0,0)=\rho\pi_0$. Evaluating
+    \eqref{eq:B:Pxx} at $x=1$ with $P(1,1)=1-\pi_0$ gives
+    $1-\pi_0=\rho\pi_0/(1-\rho)$, so $(1-\pi_0)(1-\rho)=\rho\pi_0$, i.e.\ $\pi_0=1-\rho$
+    and $\pi(0,0)=\rho(1-\rho)$. This matches Model~$A$~\eqref{eq:A:pi0_pi00}: jockeying
+    conserves the total-customer process and cannot change the marginal idle probability.
+    The same identities hold in Models~$B_2$ and~$C_2$ for the same conservation
+    reason~\eqref{eq:gen:pi0_noaband}.
+\end{proof}
+
 \begin{claim}\label{clm:B:volterra}
     Under stability, $\rho<1$, the bivariate PGF of Model~$B$ satisfies, on each
     characteristic curve $\gamma_2 x + \gamma_1 y = C_1$ of the fundamental equation,
@@ -179,8 +218,10 @@ exponent~\eqref{eq:B:E} depends only on $u := C_1\in(0,\Gamma)$:
     E(u) = \frac{\lambda}{\Gamma^2}\,u - \frac{\lambda+\mu}{\Gamma} + \frac{\mu}{u}.
     \label{eq:B:E_u}
 \end{equation}
-(For $(x,y)\in(0,1)^2$ we have $u = \gamma_2 x+\gamma_1 y \in (0,\Gamma)$, and
-$E$ is bounded and continuous on this interval.)  Multiplying through by
+(For $(x,y)\in(0,1)^2$ we have $u = \gamma_2 x+\gamma_1 y \in (0,\Gamma)$; $E(u)$ is
+continuous there, with $E(u)\to+\infty$ as $u\to0^+$ and $E(u)\to0^+$ as
+$u\to\Gamma^-$, so it is finite at every interior point although not uniformly bounded.)
+Multiplying through by
 $u\Gamma^2>0$ gives the equivalent quadratic
 \begin{equation}
     q(u) := \lambda u^2 - (\lambda+\mu)\Gamma u + \mu\Gamma^2.
@@ -291,35 +332,13 @@ Claim~\ref{clm:B:volterra}:
 \end{equation}
 
 % ─────────────────────────────────────────────────────────────────────────────
-\medskip\noindent\textbf{Step~5: Empty-state probabilities and reduction to the Volterra equation.}
+\medskip\noindent\textbf{Step~5: Reduction to the Volterra equation.}
 
-Before evaluating on the diagonal, we determine $\pi_0$ and $\pi(0,0)$.  Setting
-$x=y$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} with
-$\theta_1=\theta_2=0$: the jockeying terms both carry the factor $(x-y)$,
-which vanishes; the boundary term $\mu(x-y)P_y(y)$ also vanishes.  What remains is
-\begin{equation}
-    \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
-    = -\mu(1-x)\,\pi(0,0).
-    \label{eq:B:diagonal_ode}
-\end{equation}
-Writing $\lambda=\lambda_1+\lambda_2$, the bracket factors as
-$(\mu-\lambda x)(x-1)$; cancelling $(x-1)$ from both sides (valid for $x\neq1$):
-\begin{equation}
-    P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
-    \label{eq:B:Pxx}
-\end{equation}
-Setting $x=1$ and using $P(1,1)=1-\pi_0$ together with the idle-state
-balance $\lambda\pi_0=\mu\pi(0,0)$:
-\begin{equation}
-    \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho).
-    \label{eq:B:pi00}
-\end{equation}
-This recovers the same values as Model~$A$~\eqref{eq:A:pi0_pi00}: jockeying
-conserves the total-customer process and cannot change the marginal idle
-probability.  The same identities reappear in Models~$B_2$ and~$C_2$
-for the same reason~\eqref{eq:gen:pi0_noaband}.
+By Corollary~\ref{cor:B:pi00} the empty-state probabilities are $\pi_0=1-\rho$ and
+$\pi(0,0)=\rho(1-\rho)$, with diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$
+by~\eqref{eq:B:Pxx}; these are the inputs to the diagonal evaluation below.
 
-Next, we simplify the forcing function $h$ on the characteristic.  Substituting
+We simplify the forcing function $h$ on the characteristic.  Substituting
 $G(t,y(t))$ from~\eqref{eq:B:Gdef} into~\eqref{eq:B:hdef}:
 \begin{align}
     h(t;C_1)
@@ -342,43 +361,61 @@ Writing $t-y(t;z)=-(y(t;z)-t)$ in the denominator of~\eqref{eq:B:h_intermediate}
     \label{eq:B:h_simplified}
 \end{equation}
 
-As discussed in Step~2, taking $\lim_{x\to z^-}$ of~\eqref{eq:B:integral_rep_body}
-(which equals $P(z,z)=\pi(0,0)/(1-\rho z)$ by~\eqref{eq:B:Pxx}), and
-substituting~\eqref{eq:B:h_simplified}, the known and unknown parts separate:
+As established in Step~2, $E>0$, so the homogeneous factor $(x-y)^E$ vanishes on the
+diagonal and $P_h\bigl(x,y(x;z)\bigr)\to0$ as $x\to z^-$; simultaneously the integrand
+in~\eqref{eq:B:integral_rep_body} develops a non-integrable singularity
+$\sim(y(t;z)-t)^{-1-E}$ as $t\to z^-$, so the integral diverges. Their product is the
+finite $0\cdot\infty$ limit
+\begin{equation}
+    \frac{\pi(0,0)}{1-\rho z}
+    = \lim_{x\to z^-} P_h\bigl(x,y(x;z)\bigr)
+      \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt,
+    \label{eq:B:diag_limit}
+\end{equation}
+whose value is $P(z,z)=\pi(0,0)/(1-\rho z)$ by Corollary~\ref{cor:B:pi00}.
+Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown
+$P_y$ from the known remainder, this limit splits as
 \begin{align}
     \frac{\pi(0,0)}{1-\rho z}
-    &= \frac{\mu\,P_h(z,z)}{\gamma_1}
-       \int_0^z \frac{P_y\bigl(y(t;z)\bigr)}{t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt
+    &= \lim_{x\to z^-}\frac{\mu\,P_h\bigl(x,y(x;z)\bigr)}{\gamma_1}
+       \int_0^x \frac{P_y\bigl(y(t;z)\bigr)}{t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt
     \nonumber\\
     &\quad
-    + \frac{\mu\,P_h(z,z)\,\pi(0,0)}{\gamma_1}
-       \int_0^z \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt,
+    + \lim_{x\to z^-}\frac{\mu\,P_h\bigl(x,y(x;z)\bigr)\,\pi(0,0)}{\gamma_1}
+       \int_0^x \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
     \label{eq:B:split}
 \end{align}
-where $P_h(z,z)$ denotes the limiting ratio of the homogeneous solution
-(absorbed into the prefactor from the $\lim_{x\to z^-}$ computation).
-Defining the kernel and the known term,
+Each limit is a Hadamard finite part: the vanishing prefactor
+$P_h^{\,\mathrm{diag}}(z):=\lim_{x\to z^-}P_h\bigl(x,y(x;z)\bigr)$ regularises the
+divergent integral, and neither factor is meaningful in isolation. Writing the kernel
+and known term \emph{formally} as
 \begin{align}
-    \mathcal{K}(z,t) &:= \frac{\mu\cdot P_h(z,z)}
+    \mathcal{K}(z,t) &:= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)}
                                 {\gamma_1\cdot t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)},
     \label{eq:B:kernel}\\[6pt]
-    \mathcal{B}(z) &:= \frac{\mu\cdot P_h(z,z)\cdot\pi(0,0)}{\gamma_1}
+    \mathcal{B}(z) &:= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)\cdot\pi(0,0)}{\gamma_1}
                         \int_0^z
                         \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}
                         \,dt,
     \label{eq:B:Bdef}
 \end{align}
+\emph{to be read through the regularised limit~\eqref{eq:B:split} rather than pointwise},
 and setting $\mathcal{F}(z)=\pi(0,0)/(1-\rho z)-\mathcal{B}(z)$,
-equation~\eqref{eq:B:split} becomes
+equation~\eqref{eq:B:split} becomes the Volterra integral equation of the first kind
 \begin{equation}
     \mathcal{F}(z) = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt,
     \label{eq:B:rhs}
 \end{equation}
-confirming Claim~\ref{clm:B:volterra}.  This is a Volterra integral equation of
-the first kind for the unknown $P_y$. The kernel $\mathcal{K}$ depends on $P_h$
-through both arguments and does not simplify for general $(\gamma_1,\gamma_2)$,
-so~\eqref{eq:B:rhs} does not yield a closed form.  Resolving it would require
-Volterra inversion methods well beyond the scope of this thesis.
+confirming Claim~\ref{clm:B:volterra}.
+% [AUTHOR: the regularisation of the 0*infinity limit (eq:B:split) -- giving the kernel K
+% and known term F a rigorous finite-part meaning -- is itself the analytical obstruction.
+% The displayed K, B are formal (the prefactor P_h^diag(z)=0 pointwise). A rigorous
+% treatment (matched asymptotics near t=z, or a change of variable removing the
+% (y-t)^{-1-E} singularity before passing to the limit) is what places Model B beyond
+% scope. Flagged so this reads as a deliberate open end, not an oversight.]
+The kernel $\mathcal{K}$ depends on $P_h$ through both arguments and does not simplify for
+general $(\gamma_1,\gamma_2)$, so~\eqref{eq:B:rhs} does not yield a closed form.  Resolving
+it would require Volterra inversion methods well beyond the scope of this thesis.
 \end{proof}
 
 Model~$B$ is therefore left open at this point.  Its role in the hierarchy is
