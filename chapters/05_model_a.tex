@@ -247,9 +247,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
 
 \subsubsection{Probabilistic approach for Model~$A$ in state space $S$}\label{sssec:A:probabilistic}
 \begin{proof}
-    Our goal is to derive the boundary PGF $P_y(y)$ from probabilistic arguments.
-    We begin from the fundamental global balance equation for
-    Model~$A$~\eqref{eq:A:fundamental}:
+    The proof is similar to the analytical approach, but deriving the Class-2 marginal PGF $P_y(y)$ by means of probabilistic arguments. We begin by stating the fundamental blobal balance equation for Model-$A$ (Equation \eqref{eq:A:fundamental}):
     \begin{equation}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
         \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].
@@ -257,59 +255,43 @@ term $\mu(x-y)P_y(y)$ vanishes:
     \end{equation}
 
     \paragraph{Class-2 conditional distribution via $M/G/1$.}
-    Since class~$1$ has non-preemptive priority, class-$2$ customers are blocked
-    whenever $N_1>0$; their effective service time is therefore the duration of a
-    complete busy period $B$ of the $M/M/1(\lambda_1,\mu)$ sub-queue, so from
-    class-$2$'s viewpoint the system is an $M/G/1(\lambda_2, B)$ queue. By the
-    memorylessness of the exponential distribution, the LST and mean of $B$ are given
-    in~\S\ref{ssec:mm1} (Equations~\eqref{eq:mm1:bp_lst}--\eqref{eq:mm1:bp_mean})
-    with $\lambda\leftarrow\lambda_1$:
+    Since class~$1$ has non-preemptive priority, class-$2$ customers are will not be taken into service
+    whenever $N_1>0$; their \emph{effective service time}, namely $B$, is therefore the duration of a
+    complete Busy Period, of the single-class $M/M/1$ sub-queue with arrival rate $\lambda_1$ and service rate $\mu$, so from class-$2$'s viewpoint the system is an $M/G/1$ queue with arrivale rate $\lambda_2$ and generally distributed service times $B$ with mean $\mathbb{E}[B]$. The LST and mean of $B$ are presented
+    in~\S\ref{ssec:mm1} (Equations~\eqref{eq:mm1:bp_lst}--\eqref{eq:mm1:bp_mean}), now
+    with $\lambda_1$ instead of $\lambda$:
     \begin{align}
         \widetilde{B}(s) &= \frac{(\mu+\lambda_1+s) - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \label{eq:A:B_lst}\\
         \mathbb{E}[B] &= \frac{1}{\mu(1-\rho_1)}. \label{eq:A:B_mean}
     \end{align}
     Applying the Pollaczek--Khinchine (PK) formula (\S\ref{ssec:pk},
-    Equation~\eqref{eq:pk:pgf}) to the $M/G/1(\lambda_2,B)$ system, with
+    Equation~\eqref{eq:pk:pgf}) to this $M/G/1$ system, with
     $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ (cf.~\eqref{eq:A:xstar}) and
     $\lambda_2\mathbb{E}[B]=\rho_2/(1-\rho_1)$:
     \begin{align}
         \begin{split}
-            L_2(y) &= \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}
+            L_2(y) = \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}
+                    = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \end{split}
-        \label{eq:A:pk_formula} \\
-        \begin{split}
-            &= \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
-        \end{split}
-        \label{eq:A:L2_pgf}
+        \label{eq:A:pk_formula}
     \end{align}
     By the PASTA property, the time-average distribution of $N_2$ conditional on
     $(\text{busy},N_1=0)$ coincides with the $M/G/1$ steady-state distribution, so
     $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
 
-    \paragraph{Level-crossing argument for the prefactor.}
-    We determine $\mathbb{P}(\text{busy},N_1=0)$ by a level-crossing argument on the
-    class-$1$ waiting queue. Under non-preemptive priority, whenever $N_1\geq1$ the
-    server selects a waiting class-$1$ customer upon each service completion. Hence the
-    rate of upward crossings of level $N_1=n_1$ equals the rate of downward crossings:
-    \[
-        \lambda_1\,\mathbb{P}(N_1=n_1-1,\,\text{busy}) = \mu\,\mathbb{P}(N_1=n_1,\,\text{busy}), \quad n_1\geq1.
-    \]
-    This recursion gives
-    $\mathbb{P}(N_1=n_1,\,\text{busy})=\rho_1^{n_1}\,\mathbb{P}(N_1=0,\,\text{busy})$.
-    Summing over all $n_1\geq0$ and using $\mathbb{P}(\text{busy})=\rho$:
-    \[
-        \mathbb{P}(\text{busy},\,N_1=0)\cdot\frac{1}{1-\rho_1}=\rho
-        \implies \mathbb{P}(\text{busy},\,N_1=0)=\rho(1-\rho_1).
-    \]
-
-    \paragraph{Assembly.}
-    By the law of total expectation,
-    $P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]$,
-    so
+    By the law of total expectation, $P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]$. So
+    \begin{equation*}
+        P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0] = \mathbb{P}(\text{busy},N_1=0)\cdot L_2(y).
+    \end{equation*}
+    We now can obtain $\mathbb{P}(\text{busy},N_1=0)$, from $\mathbb{P}(\text{busy})=\rho$ and $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$. So 
+    \begin{equation*}
+        \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)
+    \end{equation*}
+    and therefore
     \begin{equation}
-        P_y(y) = \rho(1-\rho_1)\cdot\frac{1-\rho}{1-\rho_1}\cdot\frac{x^*(y)(1-y)}{x^*(y)-y}
-                = \rho(1-\rho)\cdot\frac{x^*(y)(1-y)}{x^*(y)-y}. \label{eq:A:Py_prob}
+        P_y(y) = \rho(1-\rho_1)\cdot L_2(y) = \rho(1-\rho_1)\cdot\frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y} = \frac{x^*(y)(1-y)}{x^*(y) - y} \cdot (1-\rho) \rho
     \end{equation}
+
     Substituting~\eqref{eq:A:Py_prob} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0})
     into~\eqref{eq:A:prob_starting}:
     \begin{align*}
@@ -335,12 +317,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
 
 \subsubsection{Partial-PGF recurrence approach for Model~$A$ in state space $S$}
 
-In this subsection we approach the balance equations by keeping the class-$1$ index
-$n_1$ as a discrete parameter and forming the PGF only with respect to $N_2$, defining
-$\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$. Multiplying the interior
-and boundary balance equations by $y^{n_2}$ and summing yields a second-order linear
-recurrence in $n_1$ whose characteristic roots determine the geometric structure of the
-solution in $n_1$.
+This proof appears in Cohen's work \cite{cohen1956delay}, and itt consists on keeping the Class-$1$ index as a discrete parameter and forming the PGF only with respect to $N_2$, defining $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$. Multiplying the balance equations by $y^{n_2}$ and summing all over their respective domains yields a second-order linear recurrence in $n_1$ whose characteristic roots determine the geometric structure of the solution in $n_1$.
 
 From the interior balance equation we obtain
 \begin{align*}
