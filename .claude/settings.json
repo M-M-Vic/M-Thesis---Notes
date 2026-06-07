@@ -93,7 +93,17 @@
       "Bash(echo \"\\(exit $? -- 1 = none, good\\)\")",
       "Bash(python3 -c \"import subprocess\")",
       "Bash(pdfinfo main.pdf)",
-      "Bash(echo \"EXIT $?\")"
+      "Bash(echo \"EXIT $?\")",
+      "Bash(echo \"exit=$?\")",
+      "Bash(grep -n \"renewal\\\\|alternating\\\\|idle period\\\\|busy period\\\\|cycle\\\\|\\\\\\\\\\\\\\\\pi_0\\\\|pi\\(0,0\\)\\\\|mathbb{P}\\(\\\\\\\\\\\\\\\\text\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex)",
+      "Bash(grep -n \"x - \\\\\\\\\\\\\\\\zeta\\(y\\)}{\\\\\\\\\\\\\\\\zeta\\(y\\) - y}\\\\|frac{\\\\\\\\\\\\\\\\zeta\\(y\\)\\(t-1\\)\\\\|To evaluate the integral, we use the partial-fraction\\\\|Since \\\\\\\\\\\\$\\\\\\\\\\\\\\\\pi\\(0,0\\)\\\\\\\\\\\\$ and \\\\\\\\\\\\$\\\\\\\\\\\\\\\\zeta\\(y\\)\\\\\\\\\\\\$ come out\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
+      "Bash(grep -n \"Since \\\\$\\\\\\\\\\\\\\\\pi\\(0,0\\)\\\\$ and \\\\$\\\\\\\\\\\\\\\\zeta\\(y\\)\\\\$ come out of the integral\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
+      "Bash(grep -c \"With the LST and expectation of the effective service time seen by Class-\\\\$2\\\\$ customers, and thanks to the constant arrival rate \\\\$\\\\\\\\\\\\\\\\lambda_2\\\\$ from the Poisson arrival process, we apply the Pollaczek--Khinchine formula:\" chapters/08_model_c2.tex)",
+      "Bash(grep -n 'event $A\\\\|event $B\\\\| A\\\\\\\\cap B\\\\|$A$\\\\|$B$' chapters/08_model_c2.tex)",
+      "Bash(awk 'NR>=329 && NR<=331 {printf \"%d:[%s]\\\\n\", NR, $0}' /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
+      "Bash(python3 -c ' *)",
+      "Bash(grep -rn 'eq:C2:P1y\\\\|eq:C2:EN2\\\\|marginal PGF of $N_2$\\\\|mean-from-PGF\\\\|standard PGF identity' /Users/victor/GitVictor/M-Thesis---Notes/chapters/)",
+      "Bash(python3 /tmp/fix_c2.py)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
