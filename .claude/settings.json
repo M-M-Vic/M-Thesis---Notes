@@ -62,7 +62,8 @@
       "Bash(git stash *)",
       "Bash(git reset *)",
       "Bash(git rev-list *)",
-      "Bash(latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex)"
+      "Bash(latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex)",
+      "Bash(echo \"EXIT: $?\")"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
