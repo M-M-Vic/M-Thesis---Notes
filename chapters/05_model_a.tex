@@ -318,151 +318,178 @@ term $\mu(x-y)P_y(y)$ vanishes:
 
 \subsubsection{Partial-PGF recurrence approach for Model~$A$ in state space $S$}
 
-The third and final proof in $S$ keeps the priority index $n_1$ discrete and transforms
-only the secondary queue. This is the partial-generating-function technique of
-Cohen~\cite{cohen1956delay}: rather than solving for $P(x,y)$ in both variables at once,
-one builds the PPGF $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$
-of~\eqref{eq:gen:ppgf_n1} for each fixed $n_1$, exploiting that the priority class evolves
-as a standalone $M/M/1$ queue. Summing the balance equations against $y^{n_2}$ produces a
-single \emph{fundamental equation for the PPGF} --- a second-order linear recurrence in
-$n_1$ --- whose decaying geometric mode reconstructs $P(x,y)$ and recovers
-Theorem~\ref{thm:A:PGF}.
+This proof follows Cohen~\cite{cohen1956delay}. It consists in keeping the class-$1$
+index $n_1$ as a discrete parameter and forming a generating function only with respect
+to $N_2$, namely the PPGF $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$
+introduced in~\eqref{eq:gen:ppgf_n1}. Multiplying the balance equations by $y^{n_2}$ and
+summing over $n_2$ turns the two-dimensional balance equations into a second-order linear
+recurrence in $n_1$, whose characteristic roots fix the geometric structure of the
+solution in the priority index.
 
-\begin{proof}
-We start from the reduced Model-$A$ balance equations, obtained by setting
-$\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the interior
-equation~\eqref{eq:gen:balance_interior} and the $x$-boundary
-equation~\eqref{eq:gen:balance_x_boundary}:
+\paragraph{Reduced balance equations.}
+Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the interior
+equation~\eqref{eq:gen:balance_interior} and in the $x$-boundary
+equation~\eqref{eq:gen:balance_x_boundary} gives, for Model~$A$,
 \begin{align}
     (\lambda_1+\lambda_2+\mu)\,\pi(n_1,n_2)
         &= \mu\,\pi(n_1+1,n_2) + \lambda_1\,\pi(n_1-1,n_2) + \lambda_2\,\pi(n_1,n_2-1),
         && n_1\geq1,\ n_2\geq1, \label{eq:A:ppgf_interior}\\
     (\lambda_1+\lambda_2+\mu)\,\pi(n_1,0)
         &= \mu\,\pi(n_1+1,0) + \lambda_1\,\pi(n_1-1,0),
-        && n_1\geq1. \label{eq:A:ppgf_xbound}
+        && n_1\geq1,\ n_2=0. \label{eq:A:ppgf_xbound}
 \end{align}
 
-Fix $n_1\geq1$, multiply the interior equation~\eqref{eq:A:ppgf_interior} by $y^{n_2}$,
-and sum over $n_2\geq1$. Two elementary manipulations build the PPGF: the last term is
-reindexed via $\sum_{n_2\geq1}\pi(n_1,n_2-1)y^{n_2}=y\,\widetilde{P}(n_1,y)$, and each
-remaining partial sum is completed to a full sum through
-$\sum_{n_2\geq1}\pi(\cdot\,,n_2)y^{n_2}=\widetilde{P}(\cdot\,,y)-\pi(\cdot\,,0)$. This
-yields the fundamental equation for the PPGF, step by step:
-\begin{align}
-    \begin{split}
-        (\lambda_1+\lambda_2+\mu)\sum_{n_2=1}^{\infty}\pi(n_1,n_2)y^{n_2}
-        ={}& \mu\sum_{n_2=1}^{\infty}\pi(n_1+1,n_2)y^{n_2}
-        + \lambda_1\sum_{n_2=1}^{\infty}\pi(n_1-1,n_2)y^{n_2} \\
-        &+ \lambda_2\sum_{n_2=1}^{\infty}\pi(n_1,n_2-1)y^{n_2}
-    \end{split} \label{eq:A:ppgf_summed} \\
-    \begin{split}
-        (\lambda_1+\lambda_2+\mu)\bigl[\widetilde{P}(n_1,y)-\pi(n_1,0)\bigr]
-        ={}& \mu\bigl[\widetilde{P}(n_1+1,y)-\pi(n_1+1,0)\bigr] \\
-        &+ \lambda_1\bigl[\widetilde{P}(n_1-1,y)-\pi(n_1-1,0)\bigr]
-        + \lambda_2 y\,\widetilde{P}(n_1,y)
-    \end{split} \label{eq:A:ppgf_withboundary} \\
-    \begin{split}
-        & \bigl[\mu+\lambda_1+\lambda_2(1-y)\bigr]\widetilde{P}(n_1,y)
-        - \mu\widetilde{P}(n_1+1,y) - \lambda_1\widetilde{P}(n_1-1,y) \\
-        & \quad = \quad (\lambda_1+\lambda_2+\mu)\pi(n_1,0) - \mu\pi(n_1+1,0) - \lambda_1\pi(n_1-1,0).
-    \end{split} \label{eq:A:ppgf_collected}
-\end{align}
-The right-hand side of~\eqref{eq:A:ppgf_collected} vanishes identically: by the
-$x$-boundary equation~\eqref{eq:A:ppgf_xbound},
-$\mu\pi(n_1+1,0)+\lambda_1\pi(n_1-1,0)=(\lambda_1+\lambda_2+\mu)\pi(n_1,0)$. The boundary
-terms cancel exactly, leaving the homogeneous recurrence
+\paragraph{Recurrence in $n_1$.}
+Fix $n_1\geq1$. Multiplying the interior equation~\eqref{eq:A:ppgf_interior} by $y^{n_2}$
+and summing over $n_2\geq1$ yields
+\begin{equation}
+    (\lambda_1+\lambda_2+\mu)\sum_{n_2=1}^{\infty}\pi(n_1,n_2)y^{n_2}
+    = \mu\sum_{n_2=1}^{\infty}\pi(n_1+1,n_2)y^{n_2}
+    + \lambda_1\sum_{n_2=1}^{\infty}\pi(n_1-1,n_2)y^{n_2}
+    + \lambda_2\sum_{n_2=1}^{\infty}\pi(n_1,n_2-1)y^{n_2}.
+    \label{eq:A:ppgf_summed}
+\end{equation}
+Reindexing the last sum ($m=n_2-1$) gives
+$\lambda_2\sum_{n_2\geq1}\pi(n_1,n_2-1)y^{n_2}=\lambda_2 y\,\widetilde{P}(n_1,y)$.
+Completing the remaining partial sums to full sums by adding and subtracting the
+$n_2=0$ terms, $\sum_{n_2\geq1}\pi(n_1,n_2)y^{n_2}=\widetilde{P}(n_1,y)-\pi(n_1,0)$, turns
+\eqref{eq:A:ppgf_summed} into
+\begin{equation}
+    (\lambda_1+\lambda_2+\mu)\bigl[\widetilde{P}(n_1,y)-\pi(n_1,0)\bigr]
+    = \mu\bigl[\widetilde{P}(n_1+1,y)-\pi(n_1+1,0)\bigr]
+    + \lambda_1\bigl[\widetilde{P}(n_1-1,y)-\pi(n_1-1,0)\bigr]
+    + \lambda_2 y\,\widetilde{P}(n_1,y).
+    \label{eq:A:ppgf_withboundary}
+\end{equation}
+Collecting the bare boundary terms of~\eqref{eq:A:ppgf_withboundary} on the right-hand
+side leaves
+\begin{equation*}
+    \bigl[\mu+\lambda_1+\lambda_2(1-y)\bigr]\widetilde{P}(n_1,y)
+    -\mu\widetilde{P}(n_1+1,y)-\lambda_1\widetilde{P}(n_1-1,y)
+    = (\lambda_1+\lambda_2+\mu)\pi(n_1,0)
+      -\mu\pi(n_1+1,0)-\lambda_1\pi(n_1-1,0).
+\end{equation*}
+The right-hand side vanishes identically: by the $x$-boundary
+equation~\eqref{eq:A:ppgf_xbound}, $\mu\pi(n_1+1,0)+\lambda_1\pi(n_1-1,0)
+=(\lambda_1+\lambda_2+\mu)\pi(n_1,0)$. The boundary terms therefore cancel exactly,
+and we obtain the homogeneous recurrence
 \begin{equation}
     \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] \widetilde{P}(n_1,y)
-    = \mu \widetilde{P}(n_1+1,y) + \lambda_1 \widetilde{P}(n_1-1,y),
+    = \mu \widetilde{P}(n_1+1,y)
+    + \lambda_1 \widetilde{P}(n_1-1,y),
     \qquad n_1\geq1.
     \label{eq:A:ppgf_recurrence}
 \end{equation}
 
-This is a second-order linear recurrence in $n_1$ with coefficients constant in $n_1$, so
-its general solution is a linear combination of the geometric sequences
-$[\widetilde{x}^{\pm}(y)]^{n_1}$, where $\widetilde{x}^{\pm}(y)$ solve the characteristic
-equation $\mu\widetilde{x}^2-[\mu+\lambda_1+\lambda_2(1-y)]\widetilde{x}+\lambda_1=0$:
+\paragraph{Characteristic roots and mode selection.}
+Equation~\eqref{eq:A:ppgf_recurrence} is a second-order linear recurrence in $n_1$ with
+coefficients constant in $n_1$, so its general solution is a linear combination of the
+two geometric sequences $[\widetilde{x}^{\pm}(y)]^{n_1}$, where $\widetilde{x}^{\pm}(y)$
+solve the characteristic equation
+\begin{equation}
+    \mu\,\widetilde{x}^2 - \left[ \mu + \lambda_1 + \lambda_2(1-y) \right]\widetilde{x} + \lambda_1 = 0,
+    \label{eq:A:ppgf_char}
+\end{equation}
+that is,
 \begin{equation}
     \widetilde{x}^{\pm}(y)
     = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
             \pm \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}.
     \label{eq:A:xtilde_roots}
 \end{equation}
-This characteristic polynomial is the reciprocal of the kernel polynomial
-$\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$ of \S\ref{sssec:A:analytical}, so its
-roots are the reciprocals of the kernel roots: $\widetilde{x}^{+}(y)=1/x^*(y)$ and
-$\widetilde{x}^{-}(y)=1/x^{+}(y)$, with Vieta product
-$\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$. Since
-$x^*(y)<1<x^{+}(y)$ for $y\in[0,1)$, exactly the negative-sign root
-$\widetilde{x}^{-}(y)=1/x^{+}(y)$ lies in the open unit disk.
+The characteristic polynomial~\eqref{eq:A:ppgf_char} is the reciprocal of the kernel
+polynomial $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$ of the analytical
+approach; hence its roots are the reciprocals of the kernel roots,
+$\widetilde{x}^{+}(y)=1/x^*(y)$ and $\widetilde{x}^{-}(y)=1/x^{+}(y)$. By
+Vieta's formulas, $\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$.
+Since $x^*(y)<1<x^{+}(y)$ for $y\in[0,1)$ (shown in
+\S\ref{sssec:A:analytical}), exactly one characteristic root lies in the open unit disk,
+namely the negative-sign root $\widetilde{x}^{-}(y)=1/x^{+}(y)$.
 
-Only this root is admissible, by summability. For $y\in[0,1]$ the terms
-$\widetilde{P}(n_1,y)$ are nonnegative and
-$\sum_{n_1\geq0}\widetilde{P}(n_1,y)=P(1,y)\le P(1,1)=1-\pi_0=\rho<\infty$, so the
-sequence $\{\widetilde{P}(n_1,y)\}_{n_1\geq0}$ is summable. The growing mode
-$[\widetilde{x}^{+}(y)]^{n_1}$ with $\widetilde{x}^{+}(y)\geq1$ is not summable --- at
-$y=1$ the roots are $\widetilde{x}^{-}(1)=\rho_1$ and $\widetilde{x}^{+}(1)=1$, the latter
-a non-summable constant sequence --- so its coefficient vanishes. Setting
-$\widetilde{x}^*(y):=\widetilde{x}^{-}(y)$, and noting that $\widetilde{x}^*$ and $x^*$
-share the same numerator and differ only in the denominator ($2\mu$ versus $2\lambda_1$),
-\begin{align}
-    \widetilde{x}^*(y)
-    &= \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
+Selection of this root is forced by summability rather than by analyticity on $|x|<1$.
+For $y\in[0,1]$ the terms $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)y^{n_2}$ are
+nonnegative, and
+\begin{equation*}
+    \sum_{n_1=0}^{\infty}\widetilde{P}(n_1,y) = P(1,y) \le P(1,1) = 1-\pi_0 = \rho < \infty,
+\end{equation*}
+so the sequence $\{\widetilde{P}(n_1,y)\}_{n_1\geq0}$ must be summable. The mode
+$[\widetilde{x}^{+}(y)]^{n_1}$ with $\widetilde{x}^{+}(y)\geq1$ is not summable (at $y=1$
+the two roots are $\widetilde{x}^{-}(1)=\rho_1$ and $\widetilde{x}^{+}(1)=1$, the latter
+giving a non-summable constant sequence), so its coefficient must vanish. Writing
+$\widetilde{x}^*(y):=\widetilde{x}^{-}(y)$,
+\begin{equation}
+    \widetilde{x}^*(y) = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
             - \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}
-    = \rho_1\,x^*(y), \label{eq:A:xtildestar}\\
-    \widetilde{P}(n_1, y) &= \widetilde{P}(0,y)\,[\widetilde{x}^*(y)]^{n_1},
-    \qquad n_1\geq0. \label{eq:A:ppgf_geometric}
-\end{align}
-At $y=1$ this recovers the class-$1$ traffic intensity, $\widetilde{x}^*(1)=\rho_1$, so
-$\widetilde{P}(n_1,1)=\widetilde{P}(0,1)\,\rho_1^{n_1}=\rho(1-\rho_1)\rho_1^{n_1}$ by
-$\widetilde{P}(0,1)=P_y(1)=\rho(1-\rho_1)$~\eqref{eq:A:Py1} --- the geometric marginal
-$\mathbb{P}(N_1=n_1,\ \text{busy})$ of the priority class.
+    = \rho_1\,x^*(y),
+    \label{eq:A:xtildestar}
+\end{equation}
+the last identity because $\widetilde{x}^*$ and $x^*$ share the same numerator and differ
+only in the denominator ($2\mu$ versus $2\lambda_1$). Consequently
+\begin{equation}
+    \widetilde{P}(n_1, y) = \widetilde{P}(0,y)\,[\widetilde{x}^*(y)]^{n_1},
+    \qquad n_1\geq0,
+    \label{eq:A:ppgf_geometric}
+\end{equation}
+where the relation also holds at $n_1=0$ trivially.
 
-The constant $\widetilde{P}(0,y)$ needs no extra work: by definition
-$\widetilde{P}(0,y)=\sum_{n_2\geq0}\pi(0,n_2)y^{n_2}=P(0,y)=P_y(y)$, determined in the two
-preceding approaches as $P_y(y)=\frac{x^*(y)(1-y)}{x^*(y)-y}\rho(1-\rho)$~\eqref{eq:A:Py}.
-Summing~\eqref{eq:A:ppgf_geometric} over $n_1$ reconstructs the joint PGF, for $|x|\le1$,
+At $y=1$ the surviving root recovers the class-$1$ traffic intensity,
+\begin{equation}
+    \widetilde{x}^*(1) = \frac{\lambda_1}{\mu} = \rho_1,
+    \label{eq:A:xtildestar_at1}
+\end{equation}
+so that, by~\eqref{eq:A:ppgf_geometric},
+$\widetilde{P}(n_1,1)=\widetilde{P}(0,1)\,\rho_1^{n_1}$. Since
+$\widetilde{P}(0,1)=P_y(1)=\rho(1-\rho_1)$ (cf.~\eqref{eq:A:Py1}), this is the geometric
+marginal
+$\mathbb{P}(N_1=n_1,\ \text{busy})=\rho(1-\rho_1)\rho_1^{n_1}$
+of the priority class, as expected.
+
+\paragraph{Recovery of $P(x,y)$.}
+The constant $\widetilde{P}(0,y)$ requires no further work: by definition
+\begin{equation*}
+    \widetilde{P}(0,y) = \sum_{n_2=0}^{\infty}\pi(0,n_2)\,y^{n_2} = P(0,y) = P_y(y),
+\end{equation*}
+which was determined in the two preceding approaches,
+$P_y(y)=\dfrac{x^*(y)(1-y)}{x^*(y)-y}\,\rho(1-\rho)$ (Equation~\eqref{eq:A:Py}). Summing
+the geometric law~\eqref{eq:A:ppgf_geometric} over $n_1$ then reconstructs the joint PGF,
+for $|x|\le1$,
 \begin{equation}
     P(x,y) = \sum_{n_1=0}^{\infty}\widetilde{P}(n_1,y)\,x^{n_1}
            = P_y(y)\sum_{n_1=0}^{\infty}\bigl[\widetilde{x}^*(y)\,x\bigr]^{n_1}
            = \frac{P_y(y)}{1-\widetilde{x}^*(y)\,x}.
     \label{eq:A:ppgf_reconstruct}
 \end{equation}
-To bring this to the exact form of Theorem~\ref{thm:A:PGF}, factor the kernel of the
-fundamental equation~\eqref{eq:A:fundamental}, divided by $\mu$,
+It remains to bring~\eqref{eq:A:ppgf_reconstruct} to the exact form of
+Theorem~\ref{thm:A:PGF}. Writing the kernel of the fundamental
+equation~\eqref{eq:A:fundamental}, divided by $\mu$, as
 \begin{equation}
     K(x,y) := (1+\rho_1+\rho_2)xy - y - \rho_1 x^2 y - \rho_2 x y^2
             = -y\rho_1\bigl(x-x^*(y)\bigr)\bigl(x-x^{+}(y)\bigr),
     \label{eq:A:kernel_factored}
 \end{equation}
-with kernel roots $x^*(y),x^{+}(y)$ of Vieta product $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$.
-By~\eqref{eq:A:xtildestar} and $x^*x^{+}=1/\rho_1$, the admissible root is
-$\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$, so the geometric denominator
-of~\eqref{eq:A:ppgf_reconstruct} becomes, using~\eqref{eq:A:kernel_factored},
-\begin{align}
-    1-\widetilde{x}^*(y)\,x
-    &= 1 - \frac{x}{x^{+}(y)} = \frac{x^{+}(y)-x}{x^{+}(y)}
-     = \frac{K(x,y)}{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)}. \label{eq:A:ppgf_denom}
-\end{align}
-Substituting~\eqref{eq:A:ppgf_denom} and
+where $x^*(y)$ and $x^{+}(y)$ are the two kernel roots of \S\ref{sssec:A:analytical},
+with Vieta product $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. By~\eqref{eq:A:xtildestar}
+together with $x^*x^{+}=1/\rho_1$, the admissible characteristic root satisfies
+$\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$, whence
+\begin{equation*}
+    1-\widetilde{x}^*(y)\,x = 1 - \frac{x}{x^{+}(y)} = \frac{x^{+}(y)-x}{x^{+}(y)}
+    = \frac{K(x,y)}{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)},
+\end{equation*}
+the last equality by the factorization~\eqref{eq:A:kernel_factored}. Substituting this and
 $P_y(y)=\frac{x^*(y)(1-y)}{x^*(y)-y}\rho(1-\rho)$ into~\eqref{eq:A:ppgf_reconstruct}, and
-collapsing $\rho_1\,x^*(y)\,x^{+}(y)=1$,
-\begin{align}
-    \begin{split}
-        P(x,y)
-        &= \frac{x^*(y)(1-y)}{x^*(y)-y}\,\rho(1-\rho)
-           \cdot \frac{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)}{K(x,y)} \\
-        &= \underbrace{\rho_1\,x^*(y)\,x^{+}(y)}_{=\,1}\;
-           \frac{1}{K(x,y)}\, y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho) \\
-        &= \bigl[(1+\rho_1+\rho_2)xy - y - \rho_1 x^2 y - \rho_2 x y^2\bigr]^{-1}
-           \cdot y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho),
-    \end{split}
-\end{align}
-which is precisely Equation~\eqref{eq:A:PGF}.
-\end{proof}
-
-The same recurrence structure in the discrete index reappears, in inhomogeneous form, in
-state space $\widetilde{S}$ below.
+using $\rho_1\,x^*(y)\,x^{+}(y)=1$,
+\begin{align*}
+    P(x,y)
+    &= \frac{x^*(y)(1-y)}{x^*(y)-y}\,\rho(1-\rho)
+       \cdot \frac{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)}{K(x,y)} \\
+    &= \underbrace{\rho_1\,x^*(y)\,x^{+}(y)}_{=\,1}\;
+       \frac{1}{K(x,y)}\, y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho) \\
+    &= \bigl[(1+\rho_1+\rho_2)xy - y - \rho_1 x^2 y - \rho_2 x y^2\bigr]^{-1}
+       \cdot y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho),
+\end{align*}
+which is precisely Equation~\eqref{eq:A:PGF}. This third route therefore reproduces
+Theorem~\ref{thm:A:PGF}; the same recurrence structure in the discrete index reappears,
+in inhomogeneous form, in state space $\widetilde{S}$ below.
 
 \subsection{Analysis of Model~$A$: state space $\widetilde{S}$}
 
