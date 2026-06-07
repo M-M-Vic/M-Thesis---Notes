@@ -459,19 +459,37 @@ for $|x|\le1$,
            = \frac{P_y(y)}{1-\widetilde{x}^*(y)\,x}.
     \label{eq:A:ppgf_reconstruct}
 \end{equation}
-This coincides with Theorem~\ref{thm:A:PGF}. Indeed, using
-$\widetilde{x}^*(y)=1/x^{+}(y)$ and the kernel Vieta relation
-$x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$,
+It remains to bring~\eqref{eq:A:ppgf_reconstruct} to the exact form of
+Theorem~\ref{thm:A:PGF}. Writing the kernel of the fundamental
+equation~\eqref{eq:A:fundamental}, divided by $\mu$, as
+\begin{equation}
+    K(x,y) := (1+\rho_1+\rho_2)xy - y - \rho_1 x^2 y - \rho_2 x y^2
+            = -y\rho_1\bigl(x-x^*(y)\bigr)\bigl(x-x^{+}(y)\bigr),
+    \label{eq:A:kernel_factored}
+\end{equation}
+where $x^*(y)$ and $x^{+}(y)$ are the two kernel roots of \S\ref{sssec:A:analytical},
+with Vieta product $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. By~\eqref{eq:A:xtildestar}
+together with $x^*x^{+}=1/\rho_1$, the admissible characteristic root satisfies
+$\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$, whence
 \begin{equation*}
-    P(x,y)
-    = \frac{x^{+}(y)\,P_y(y)}{x^{+}(y)-x}
-    = \frac{x^*(y)\,x^{+}(y)\,(1-y)\,\rho(1-\rho)}{\bigl(x^*(y)-y\bigr)\bigl(x^{+}(y)-x\bigr)}
-    = \frac{(1-y)\,\rho(1-\rho)}{\rho_1\bigl(x^*(y)-y\bigr)\bigl(x^{+}(y)-x\bigr)},
+    1-\widetilde{x}^*(y)\,x = 1 - \frac{x}{x^{+}(y)} = \frac{x^{+}(y)-x}{x^{+}(y)}
+    = \frac{K(x,y)}{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)},
 \end{equation*}
-which equals~\eqref{eq:A:PGF} after factoring its kernel as
-$(1+\rho_1+\rho_2)xy-y-\rho_1 x^2y-\rho_2 xy^2=-y\rho_1\bigl(x-x^*(y)\bigr)\bigl(x-x^{+}(y)\bigr)$.
-This recurrence structure in the discrete index reappears, in inhomogeneous form, in
-state space $\widetilde{S}$ below.
+the last equality by the factorization~\eqref{eq:A:kernel_factored}. Substituting this and
+$P_y(y)=\frac{x^*(y)(1-y)}{x^*(y)-y}\rho(1-\rho)$ into~\eqref{eq:A:ppgf_reconstruct}, and
+using $\rho_1\,x^*(y)\,x^{+}(y)=1$,
+\begin{align*}
+    P(x,y)
+    &= \frac{x^*(y)(1-y)}{x^*(y)-y}\,\rho(1-\rho)
+       \cdot \frac{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)}{K(x,y)} \\
+    &= \underbrace{\rho_1\,x^*(y)\,x^{+}(y)}_{=\,1}\;
+       \frac{1}{K(x,y)}\, y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho) \\
+    &= \bigl[(1+\rho_1+\rho_2)xy - y - \rho_1 x^2 y - \rho_2 x y^2\bigr]^{-1}
+       \cdot y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho),
+\end{align*}
+which is precisely Equation~\eqref{eq:A:PGF}. This third route therefore reproduces
+Theorem~\ref{thm:A:PGF}; the same recurrence structure in the discrete index reappears,
+in inhomogeneous form, in state space $\widetilde{S}$ below.
 
 \subsection{Analysis of Model~$A$: state space $\widetilde{S}$}
 
