@@ -287,6 +287,7 @@ While Cohen originally developed this framework for multi-server systems, we app
 We define the PPGF with respect to the second variable $N_2$, conditioned on the first queue being in state $n_1$, as:
 \begin{equation}
     \widetilde{P}(n_1, y) = \mathbb{E} \left[y^{N_2} \mathbb{1}_{\{ N_1=n_1\}} \right] = \sum_{n_2=0}^{\infty} \pi(n_1,n_2) y^{n_2}.
+    \label{eq:gen:ppgf_n1}
 \end{equation}
 
 Similarly, the transform with respect to the first variable $N_1$, while maintaining the discrete state $n_2$ for the second queue, is defined as:
