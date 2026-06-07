@@ -319,8 +319,8 @@ term $\mu(x-y)P_y(y)$ vanishes:
 \subsubsection{Partial-PGF recurrence approach for Model~$A$ in state space $S$}
 
 
-This proof follows Cohen~\cite{cohen1956delay}. It consists of keeping the class index $1$
- $n_1$ as a discrete parameter and forming a generating function only with respect
+This proof follows Cohen~\cite{cohen1956delay}. It consists in keeping the class-$1$
+index $n_1$ as a discrete parameter and forming a generating function only with respect
 to $N_2$, namely the PPGF $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$
 introduced in~\eqref{eq:gen:ppgf_n1}. Multiplying the balance equations by $y^{n_2}$ and
 summing over $n_2$ turns the two-dimensional balance equations into a second-order linear
@@ -328,7 +328,7 @@ recurrence in $n_1$, whose characteristic roots fix the geometric structure of t
 solution in the priority class index.
 
 \begin{proof}
-    We start by stating the balance equations for Model~$A$, with all jockeying and abandonment parameters set to zero (i.e. $\gamma_1=\gamma_2=\theta_1=\theta_2=0$) in the interioir balance equation (Equation \eqref{eq:gen:balance_interior}) and our $x$-boundary equation (Equation \eqref{eq:gen:balance_x_boundary}). We have
+    We start by stating the balance equations for Model~$A$, with all jockeying and abandonment parameters set to zero (i.e. $\gamma_1=\gamma_2=\theta_1=\theta_2=0$) in the interior balance equation (Equation \eqref{eq:gen:balance_interior}) and our $x$-boundary equation (Equation \eqref{eq:gen:balance_x_boundary}). We have
     \begin{align}
         (\lambda_1+\lambda_2+\mu)\,\pi(n_1,n_2)
             &= \mu\,\pi(n_1+1,n_2) + \lambda_1\,\pi(n_1-1,n_2) + \lambda_2\,\pi(n_1,n_2-1),
@@ -398,16 +398,16 @@ solution in the priority class index.
     \begin{equation}
         \mu\,\widetilde{x}^2 - \left[ \mu + \lambda_1 + \lambda_2(1-y) \right]\widetilde{x} + \lambda_1 = 0,
         \label{eq:A:ppgf_char}
-    \end{equation},
-    i.e.
+    \end{equation}
+    that is,
     \begin{equation}
         \widetilde{x}^{\pm}(y)
         = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
                 \pm \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}.
         \label{eq:A:xtilde_roots}
     \end{equation}
-    The \emph{characteristic polynomial} (Equation \eqref{eq:A:ppgf_char}) is the reciprocal to that of the bivariate PGF approaches (i.e. the reciprocal of $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$), thus its roots are the reciprocals of that kernel's roots: the positive is the reciprocal of the negative ($\widetilde{x}^{+}(y)=1/x^*(y)$), and conversely $\widetilde{x}^{-}(y)=1/x^{+}(y)$. By vieta's formulas, $\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$. As seen in \S\ref{sssec:A:analytical}), only one cgaracteristic root —$\widetilde{x}^{-}(y)=1/x^{+}(y)$— lies inside the unit disk: for the bivariate PGF approach, that was the root with the negative sign $x^*(y)$; since $x^*(y)<1<x^{+}(y)$, we choose $\widetilde{x}^{-}(y)=1/x^{+}(y) \leq 1$.
-    The selection of the negative sum is motivated by the fact that we need the sequence $\{\widetilde{P}(n_1,y)\}_{n_1\geq0}$ to be summable. In fact, we need
+    The \emph{characteristic polynomial} (Equation \eqref{eq:A:ppgf_char}) is the reciprocal to that of the bivariate PGF approaches (i.e. the reciprocal of $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$), thus its roots are the reciprocals of that kernel's roots: the positive root is the reciprocal of the negative one ($\widetilde{x}^{+}(y)=1/x^*(y)$), and conversely $\widetilde{x}^{-}(y)=1/x^{+}(y)$. By Vieta's formulas, $\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$. Recall from \S\ref{sssec:A:analytical} that $x^*(y)<1<x^{+}(y)$ for $y\in[0,1)$.
+    The selection of the negative-sign root is motivated by the fact that we need the sequence $\{\widetilde{P}(n_1,y)\}_{n_1\geq0}$ to be summable. In fact, we need
     \begin{equation*}
         \sum_{n_1=0}^{\infty}\widetilde{P}(n_1,y) = P(1,y) \le P(1,1) = 1-\pi_0 = \rho < \infty.
     \end{equation*}
@@ -415,13 +415,14 @@ solution in the priority class index.
     \begin{equation*}
         \widetilde{x}^{-}(1)=\rho_1 \quad \text{and} \quad \widetilde{x}^{+}(1)=1,
     \end{equation*}
-    with the latter braking the condition $[\widetilde{x}^{+}(y)]^{n_1}$, yielding a non-summable sequence. We will therefore difine $\widetilde{x}^*(y):=\widetilde{x}^{-}(y)$.
-    \begin{equation*}
+    the latter making the geometric sequence $[\widetilde{x}^{+}(y)]^{n_1}$ non-summable. We therefore define $\widetilde{x}^*(y):=\widetilde{x}^{-}(y)$,
+    \begin{equation}
         \widetilde{x}^*(y):=\widetilde{x}^{-}(y) = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
                 - \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}
         = \rho_1\,x^*(y).
-    \end{equation*}
-    The last identity holds due to the fact that $\widetilde{x}^*$ and $x^*$ differ only in the denominator. Next,
+        \label{eq:A:xtildestar}
+    \end{equation}
+    The last identity holds because $\widetilde{x}^*$ and $x^*$ share the same numerator and differ only in the denominator ($2\mu$ versus $2\lambda_1$). Next,
     \begin{equation}
         \widetilde{P}(n_1, y) = \widetilde{P}(0,y)\,[\widetilde{x}^*(y)]^{n_1},
         \qquad n_1\geq0,
@@ -433,7 +434,7 @@ solution in the priority class index.
         \widetilde{P}(0,y) = \sum_{n_2=0}^{\infty}\pi(0,n_2)\,y^{n_2} = P(0,y) = P_y(y),
     \end{equation*}
     as determined in the bivariate PGF approaches.
-    Sunning the geometric recurrence (Equation \eqref{eq:A:ppgf_geometric}) over $n_1 \geq 0$ in for $x \in (0,1]$ recovers
+    Summing the geometric law (Equation~\eqref{eq:A:ppgf_geometric}) over $n_1 \geq 0$ for $x \in (0,1]$ recovers
     \begin{equation}
         P(x,y) = \sum_{n_1=0}^{\infty}\widetilde{P}(n_1,y)\,x^{n_1}
                = P_y(y)\sum_{n_1=0}^{\infty}\bigl[\widetilde{x}^*(y)\,x\bigr]^{n_1}
@@ -446,8 +447,8 @@ solution in the priority class index.
                 = -y\rho_1\bigl(x-x^*(y)\bigr)\bigl(x-x^{+}(y)\bigr),
         \label{eq:A:kernel_factored}
     \end{equation}
-    with $x^*(y)$ and $x^{+}(y)$ are the roots found in \S\ref{sssec:A:analytical}. By Vieta's product formulas, we have $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. This, together with $\widetilde{x}^*(y)$ (Equation \eqref{eq:A:xtildestar}), gives $\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$.
-    Now, looking at the denominator of our reconstructed PGF (Equation \eqref{eq:A:ppgf_reconstruct}), and using the factorisation of $K(x,y)$ (Equation \eqref{eq:A:kernel_factored})we see that
+    where $x^*(y)$ and $x^{+}(y)$ are the roots found in \S\ref{sssec:A:analytical}. By Vieta's product formula, $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. This, together with $\widetilde{x}^*(y)$ (Equation \eqref{eq:A:xtildestar}), gives $\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$.
+    Now, looking at the denominator of our reconstructed PGF (Equation \eqref{eq:A:ppgf_reconstruct}), and using the factorisation of $K(x,y)$ (Equation~\eqref{eq:A:kernel_factored}), we see that
     \begin{equation*}
         1-\widetilde{x}^*(y)\,x = 1 - \frac{x}{x^{+}(y)} = \frac{x^{+}(y)-x}{x^{+}(y)}
         = \frac{K(x,y)}{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)}.
@@ -463,7 +464,7 @@ solution in the priority class index.
         &= \bigl[(1+\rho_1+\rho_2)xy - y - \rho_1 x^2 y - \rho_2 x y^2\bigr]^{-1}
            \cdot y(1-y)\,\frac{x-x^*(y)}{x^*(y)-y}\,\rho(1-\rho),
     \end{align*}
-    which recovers Equation~\eqref{eq:A:PGF}.from Theorem~\ref{thm:A:PGF} and concludes the proof.
+    which recovers Equation~\eqref{eq:A:PGF} from Theorem~\ref{thm:A:PGF} and concludes the proof.
 \end{proof}
 
 

@@ -54,7 +54,15 @@
       "Bash(grep -n \"thm\\\\|theorem\\\\|Theorem\\\\|\\\\\\\\\\\\\\\\begin{theorem}\\\\|P\\(x,y\\)\\\\|eq:B2:Pxy\\\\|eq:A:Pxy\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex)",
       "Bash(grep -n \"thm\\\\|theorem\\\\|Theorem\\\\|\\\\\\\\\\\\\\\\begin{theorem}\\\\|P\\(x,y\\)\\\\|eq:C2:Pxy\\\\|eq:C2:integral\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
       "Bash(latexmk -pdf -interaction=nonstopmode -g main.tex)",
-      "Bash(echo \"exit: $?\")"
+      "Bash(echo \"exit: $?\")",
+      "Bash(git checkout *)",
+      "Bash(git branch *)",
+      "Bash(git revert *)",
+      "Bash(git commit *)",
+      "Bash(git stash *)",
+      "Bash(git reset *)",
+      "Bash(git rev-list *)",
+      "Bash(latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
