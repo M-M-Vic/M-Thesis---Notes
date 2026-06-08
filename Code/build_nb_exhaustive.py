@@ -115,6 +115,7 @@ from scipy.integrate import quad
 
 from model_master import (
     Params, solve_exact, simulate, diagnostics, mean_queue_lengths, marginals,
+    model_B21, model_C21,
 )
 from model_master_tilde import solve_exact_tilde, marginals_tilde
 
@@ -127,9 +128,13 @@ plt.rcParams.update({
 })
 
 # ── Consistent cross-notebook colour scheme ───────────────────────────────────
-C_A,  LS_A  = "black",     "-"     # Model A  = black solid (reference baseline)
-C_B2, LS_B2 = "steelblue", "--"    # Model B2 = steelblue dashed
-C_C2, LS_C2 = "crimson",   "-."    # Model C2 = crimson dash-dot
+C_A,   LS_A   = "black",     "-"          # Model A    = black solid (reference baseline)
+C_B2,  LS_B2  = "steelblue", "--"         # Model B2   = steelblue dashed (full-rate jockeying)
+C_C2,  LS_C2  = "crimson",   "-."         # Model C2   = crimson dash-dot (full-rate abandonment)
+C_B21, LS_B21 = "teal",      ":"          # Model B2^1 = teal dotted  (head-of-line jockeying)
+C_C21, LS_C21 = "darkviolet",":"          # Model C2^1 = violet dotted (head-of-line abandonment)
+# (string fmt only: plot() loops pass the linestyle as a positional format string, which
+#  does not accept tuple dash patterns; B2^1/C2^1 are told apart by colour, not dash.)
 
 # ── Output directory + savefig helper ─────────────────────────────────────────
 SAVE_DIR = "../figures/results/"
@@ -292,7 +297,41 @@ def E_BC_value(lam1, mu, theta1):
         return 1.0 / (mu - lam1)
     return hyp1f1(1, mu/theta1 + 1, lam1/theta1) / mu
 
-print("closed-form evaluators defined")
+# ── Head-of-line experiment models B2^1 and C2^1 (rational closed forms) ───────
+# These are the closed-form descriptors of Sections (Model B2^1) and (Model C2^1):
+# the head-of-line mechanism fires at the constant rate gamma1 / theta1 * 1{n1>=1},
+# which keeps P(x,y) rational. They mirror Model A with mu -> mu+gamma1 y (B2^1) or
+# mu -> mu+theta1 (C2^1) in the kernel.
+def b21_closed(lam1, lam2, mu, gamma1):
+    """Model B2^1 descriptors (eq:B21:pi0_pi00, EN1, EN, EN2). Jockeying conserves N,
+    so pi0=1-rho and pi(0,0)=rho(1-rho) exactly, as in Model A."""
+    lam = lam1 + lam2; rho = lam/mu
+    rhoB = lam1/(mu + gamma1)               # jockeying-reduced priority load
+    EN1  = rho*rhoB/(1 - rhoB)
+    EN   = rho**2/(1 - rho)                 # M/M/1 total (conservation)
+    EN2  = EN - EN1
+    Lam2 = lam2 + gamma1*rho*rhoB           # mixed Queue-2 entrance rate (P(N1>=1)=rho rhoB)
+    return dict(pi0=1-rho, pi00=rho*(1-rho), EN1=EN1, EN2=EN2, EN=EN,
+                EW1=EN1/lam1, EW2=EN2/Lam2, rhoB=rhoB)
+
+def c21_closed(lam1, lam2, mu, theta1):
+    """Model C2^1 descriptors (eq:C21:pi0_pi00, EN1, EN2). Abandonment is a true
+    departure, so conservation is broken: pi0 > 1-rho and EN < rho^2/(1-rho)."""
+    lam = lam1 + lam2
+    rhoC = lam1/(mu + theta1)               # abandonment-reduced priority load
+    D0   = mu*(mu + theta1) + lam1*theta1
+    npi0 = (mu + theta1)*(mu - lam) + lam1*theta1   # stability numerator (>0 iff stable)
+    pi0  = npi0/D0
+    pi00 = lam*pi0/mu
+    one_minus_pi0 = lam*(mu + theta1)/D0
+    EN1  = one_minus_pi0*rhoC/(1 - rhoC)
+    EN2  = (lam2*lam*(mu + theta1)*((mu + theta1)**2 - lam1*theta1)) \
+           / ((mu + theta1 - lam1)*D0*npi0)
+    EN   = EN1 + EN2
+    return dict(pi0=pi0, pi00=pi00, EN1=EN1, EN2=EN2, EN=EN,
+                EW1=EN1/lam1, EW2=EN2/lam2, rhoC=rhoC)
+
+print("closed-form evaluators defined (incl. head-of-line B2^1, C2^1)")
 ''')
 
 # ======================================================================
@@ -307,10 +346,13 @@ stops immediately rather than propagating wrong numbers.
 **Which identity applies to which model (CLAUDE.md).** $\pi_0=1-\rho$, $\pi(0,0)=\rho(1-\rho)$,
 and the diagonal $P(z,z)=\pi(0,0)/(1-\rho z)$ are **Model-A baseline identities**. Jockeying
 conserves the total count $N$, so the total-count chain is still M/M/1 and they hold
-**exactly for B₂**. Abandonment is a true departure: it makes $\pi_0>1-\rho$ and destroys
-the M/M/1 total-count structure, so for **C₂** these three are recorded as *informational
-deviations*, not asserted. $P(1,1)=1-\pi_0$, normalisation, and Little's-Law consistency
-hold for **all** models and are asserted everywhere.""")
+**exactly for B₂ and the head-of-line variant B$_2^1$**. Abandonment is a true departure: it
+makes $\pi_0>1-\rho$ and destroys the M/M/1 total-count structure, so for **C₂ and C$_2^1$**
+these three are recorded as *informational deviations*, not asserted. $P(1,1)=1-\pi_0$,
+normalisation, and Little's-Law consistency hold for **all** models and are asserted
+everywhere. For the two head-of-line experiment models the **rational closed forms** of their
+sections (e.g.\ $\pi_0,\pi(0,0),\mathbb{E}[N_1],\mathbb{E}[N_2]$, and the flow balance
+throughput $+$ abandonment $=$ offered load) are additionally asserted against the CTMC.""")
 
 md(r"""### [Sanity suite — baseline identities]
 **Validation method:** CTMC exact solver + `pgf_series`.
@@ -326,21 +368,38 @@ CANON_SETS = [
 Z_DIAG = [0.3, 0.5, 0.7, 0.9]
 
 def build_models(lam1, lam2):
+    # (name, Params, mm1_identities_hold, closed_form_or_None)
     return [
-        ("A",  Params(lam1, lam2, MU),                          True),
-        ("B2", Params(lam1, lam2, MU, gamma1=GAMMA1_CANON),     True),
-        ("C2", Params(lam1, lam2, MU, theta1=THETA1_CANON),     False),  # mm1-identities don't hold
+        ("A",    Params(lam1, lam2, MU),                       True,  None),
+        ("B2",   Params(lam1, lam2, MU, gamma1=GAMMA1_CANON),  True,  None),
+        ("B2^1", model_B21(lam1, lam2, MU, GAMMA1_CANON),      True,
+                 b21_closed(lam1, lam2, MU, GAMMA1_CANON)),    # head-of-line jockeying: conserves N
+        ("C2",   Params(lam1, lam2, MU, theta1=THETA1_CANON),  False, None),  # mm1-identities don't hold
+        ("C2^1", model_C21(lam1, lam2, MU, THETA1_CANON),      False,
+                 c21_closed(lam1, lam2, MU, THETA1_CANON)),    # head-of-line abandonment: breaks conservation
     ]
 
 rows = []
 failures = []
 for setname, lam1, lam2 in CANON_SETS:
     rho = (lam1 + lam2) / MU
-    for mname, p, mm1 in build_models(lam1, lam2):
+    for mname, p, mm1, cf in build_models(lam1, lam2):
         r, d, nm, tail = solve_adaptive(p, N_max=N_MAX_DEFAULT)
         pij, pi0 = r["pi_joint"], r["pi_idle"]
         pi00 = pij[0, 0]
         P11 = pgf_series(pij, 1.0, 1.0).real
+
+        # --- head-of-line experiment models: assert rational closed forms vs CTMC ---
+        if cf is not None:
+            En1c, En2c = EN1_EN2(pij)
+            assert abs(pi0 - cf["pi0"]) < 1e-4,   f"{mname} pi0 closed-form {setname}: {pi0} vs {cf['pi0']}"
+            assert abs(pi00 - cf["pi00"]) < 1e-4, f"{mname} pi00 closed-form {setname}"
+            assert abs(En1c - cf["EN1"]) < 1e-3,  f"{mname} E[N1] closed-form {setname}: {En1c} vs {cf['EN1']}"
+            assert abs(En2c - cf["EN2"]) < 1e-3,  f"{mname} E[N2] closed-form {setname}: {En2c} vs {cf['EN2']}"
+            # flow balance (steady state): throughput + abandonment rate = offered load
+            assert abs(d["carried_plus_lost"] - d["offered_load"]) < 1e-4, f"{mname} flow balance {setname}"
+            rows.append((setname, mname, "closed-form E[N1] vs CTMC", En1c, cf["EN1"], "PASS"))
+            rows.append((setname, mname, "closed-form E[N2] vs CTMC", En2c, cf["EN2"], "PASS"))
 
         # --- universal checks (all models) ---
         norm = pi0 + pij.sum()
@@ -389,17 +448,22 @@ print("ALL ASSERTED CHECKS PASSED." if not failures else f"FAILURES: {failures}"
 md(r"""## Section 2 — Traffic-intensity sweep (all models)
 
 **Theorem reference:** Corollary A ($\pi_0=1-\rho$, $\pi(0,0)=\rho(1-\rho)$),
-Theorem B₂, Corollary C₂. We sweep $\rho\in$ `RHO_SWEEP`, holding $\mu=1$ and scaling
-$(\lambda_1,\lambda_2)$ proportionally from the standard split $0.3:0.4$ so the ratio is
-fixed and $\rho=\lambda_1+\lambda_2$. Models: A, B₂ ($\gamma_1=0.5$), C₂ ($\theta_1=0.5$).
+Theorem B₂, Corollary C₂, and the head-of-line variants B$_2^1$, C$_2^1$. We sweep
+$\rho\in$ `RHO_SWEEP`, holding $\mu=1$ and scaling $(\lambda_1,\lambda_2)$ proportionally
+from the standard split $0.3:0.4$ so the ratio is fixed and $\rho=\lambda_1+\lambda_2$.
+Models: A, B₂ ($\gamma_1=0.5$), B$_2^1$ ($\gamma_1=0.5$, head-of-line jockeying),
+C₂ ($\theta_1=0.5$), C$_2^1$ ($\theta_1=0.5$, head-of-line abandonment).
 
 Near $\rho\to1$ the geometric tail is heavy; the dense 2-D truncation is capped, so the
 boundary tail mass is reported and high-$\rho$ points carry small truncation error.""")
 
 md(r"""### [Comparative Analysis — traffic-intensity sweep]
 **Purpose:** how mean queue/wait, idle probability, and throughput respond to load under
-each mechanism. **Models contrasted:** A, B₂, C₂. **Expected behaviour:** all metrics rise
-with $\rho$; C₂ keeps $\pi_0>1-\rho$ and bounds $E[N_1]$; B₂ matches A in $E[N]$ and $\pi_0$.
+each mechanism, contrasting full-rate ($\gamma_1 n_1$, $\theta_1 n_1$) and head-of-line
+($\gamma_1\mathbf{1}_{\{n_1\geq1\}}$, $\theta_1\mathbf{1}_{\{n_1\geq1\}}$) versions.
+**Models contrasted:** A, B₂, B$_2^1$, C₂, C$_2^1$. **Expected behaviour:** all metrics
+rise with $\rho$; both abandonment models keep $\pi_0>1-\rho$ (C₂ more than C$_2^1$) and
+bound $E[N_1]$; both jockeying models match A in $E[N]$ and $\pi_0$ (conservation of $N$).
 **Parameters:** $\mu=1$, $\lambda_1{:}\lambda_2=3{:}4$, $\gamma_1=0.5$, $\theta_1=0.5$.""")
 
 code(r'''
@@ -408,16 +472,19 @@ def split_lams(rho):
     frac1 = LAM1_STD / (LAM1_STD + LAM2_STD)
     return rho * frac1 * MU, rho * (1 - frac1) * MU
 
+SWEEP_MODELS = ("A", "B2", "B2^1", "C2", "C2^1")
 sweep = {m: {k: [] for k in ("En1","En2","En","Ew1","Ew2","pi0","pi00","thr","tail")}
-         for m in ("A","B2","C2")}
+         for m in SWEEP_MODELS}
 
 for rho in RHO_SWEEP:
     lam1, lam2 = split_lams(rho)
     cap = 100 if rho <= 0.90 else 120
     tol = 1e-8 if rho <= 0.85 else 1e-6
-    cfgs = {"A":  Params(lam1, lam2, MU),
-            "B2": Params(lam1, lam2, MU, gamma1=GAMMA1_CANON),
-            "C2": Params(lam1, lam2, MU, theta1=THETA1_CANON)}
+    cfgs = {"A":    Params(lam1, lam2, MU),
+            "B2":   Params(lam1, lam2, MU, gamma1=GAMMA1_CANON),
+            "B2^1": model_B21(lam1, lam2, MU, GAMMA1_CANON),
+            "C2":   Params(lam1, lam2, MU, theta1=THETA1_CANON),
+            "C2^1": model_C21(lam1, lam2, MU, THETA1_CANON)}
     for m, p in cfgs.items():
         try:
             r, d, nm, tail = solve_adaptive(p, N_max=60, tail_tol=tol, cap=cap)
@@ -439,9 +506,13 @@ print("max boundary tail mass across sweep:",
 
 md(r"""### Figure 2a — $E[N]$, $E[N_1]$, $E[W_1]$, $\pi_0$ vs $\rho$ (4-panel)""")
 code(r'''
-STYLE = {"A": (C_A, LS_A, "Model A"),
-         "B2": (C_B2, LS_B2, r"Model B$_2$ ($\gamma_1=0.5$)"),
-         "C2": (C_C2, LS_C2, r"Model C$_2$ ($\theta_1=0.5$)")}
+STYLE = {"A":    (C_A,   LS_A,   "Model A"),
+         "B2":   (C_B2,  LS_B2,  r"Model B$_2$ ($\gamma_1=0.5$)"),
+         "B2^1": (C_B21, LS_B21, r"Model B$_2^1$ ($\gamma_1=0.5$)"),
+         "C2":   (C_C2,  LS_C2,  r"Model C$_2$ ($\theta_1=0.5$)"),
+         "C2^1": (C_C21, LS_C21, r"Model C$_2^1$ ($\theta_1=0.5$)")}
+
+SHORT = {"A": "A", "B2": r"B$_2$", "B2^1": r"B$_2^1$", "C2": r"C$_2$", "C2^1": r"C$_2^1$"}
 
 fig, ax = plt.subplots(2, 2, figsize=(12, 8))
 
@@ -464,7 +535,7 @@ for m,(c,ls,lab) in STYLE.items():
 ax[1,0].axvline(0.70, color="grey", ls=":", lw=1)
 # annotate values near rho=0.90
 i90 = int(np.argmin(np.abs(rho_arr - 0.90)))
-txt = "\n".join(f"{STYLE[m][2]}: {sweep[m]['Ew1'][i90]:.2f}" for m in ("A","B2","C2"))
+txt = "\n".join(f"{SHORT[m]}: {sweep[m]['Ew1'][i90]:.2f}" for m in STYLE)
 ax[1,0].annotate(rf"$E[W_1]$ at $\rho={rho_arr[i90]:.2f}$:" + "\n" + txt,
                  xy=(rho_arr[i90], sweep["A"]["Ew1"][i90]),
                  xytext=(0.12, 0.62), textcoords="axes fraction",
@@ -486,7 +557,7 @@ ax[1,1].set_title(r"Idle probability $\pi_0$ vs $\rho$")
 ax[1,1].legend(loc="best"); ax[1,1].grid(alpha=0.3)
 
 fig.suptitle(r"Traffic-intensity sweep ($\mu=1$, $\lambda_1{:}\lambda_2=3{:}4$): "
-             r"A vs B$_2$ vs C$_2$", fontsize=12)
+             r"A, B$_2$, B$_2^1$ (jockeying) vs C$_2$, C$_2^1$ (abandonment)", fontsize=12)
 fig.tight_layout()
 savefig("fig_sweep_EN_vs_rho")
 plt.show()
@@ -496,16 +567,19 @@ md(r"""### Figure 2b — $\pi(0,0)$ vs $\rho$: the $\rho(1-\rho)$ parabola and t
 code(r'''
 fig, ax = plt.subplots(figsize=(8, 5))
 rr = np.linspace(0.05, 0.97, 200)
-ax.plot(rr, rr*(1-rr), ":", color="black", lw=1.5, label=r"$\rho(1-\rho)$ (Models A, B$_2$)")
+ax.plot(rr, rr*(1-rr), ":", color="black", lw=1.5,
+        label=r"$\rho(1-\rho)$ (Models A, B$_2$, B$_2^1$)")
 for m,(c,ls,lab) in STYLE.items():
     ax.plot(rho_arr, sweep[m]["pi00"], ls, color=c, lw=2, marker="o", ms=4, label=lab)
-ax.annotate(r"C$_2$ deviates $above$ the parabola" "\n" r"at high $\rho$ (abandonment)",
+ax.annotate("abandonment lifts " r"$\pi(0,0)$ above the parabola:" "\n"
+            r"C$_2$ (full) more than C$_2^1$ (head-of-line)",
             xy=(0.90, np.interp(0.90, rho_arr, sweep["C2"]["pi00"])),
-            xytext=(0.35, 0.30), textcoords="axes fraction", fontsize=9, color=C_C2,
+            xytext=(0.30, 0.28), textcoords="axes fraction", fontsize=9, color=C_C2,
             arrowprops=dict(arrowstyle="->", color=C_C2, lw=0.9))
 ax.text(0.45, 0.245, r"$\pi(0,0)=\rho(1-\rho)$", fontsize=10, color="black")
 ax.set_xlabel(r"$\rho$"); ax.set_ylabel(r"$\pi(0,0)$")
-ax.set_title(r"$\pi(0,0)$ vs $\rho$: A and B$_2$ track the parabola; C$_2$ rises above it")
+ax.set_title(r"$\pi(0,0)$ vs $\rho$: A, B$_2$, B$_2^1$ track the parabola; "
+             r"C$_2$, C$_2^1$ rise above")
 ax.legend(loc="best"); ax.grid(alpha=0.3)
 fig.tight_layout()
 savefig("fig_sweep_pi00_vs_rho")
@@ -804,6 +878,94 @@ plt.show()
 ''')
 
 # ======================================================================
+# Section 4b — Head-of-line vs full-rate mechanisms (experiment models)
+# ======================================================================
+md(r"""## Section 4b — Head-of-line versus full-rate mechanisms (Models B$_2^1$, C$_2^1$)
+
+**Theorem reference:** Theorems/Corollaries for Models B$_2^1$ and C$_2^1$. The experiment
+models replace the *length-proportional* mechanism rate of B₂/C₂
+($\gamma_1 n_1$, $\theta_1 n_1$ — every waiting class-1 customer participates) by a
+*head-of-line* rate ($\gamma_1\mathbf{1}_{\{n_1\geq1\}}$, $\theta_1\mathbf{1}_{\{n_1\geq1\}}$ —
+only the customer at the head of Queue 1 jockeys/abandons). The aggregate class-1 outflow is
+therefore **bounded by the single rate** $\gamma_1$ or $\theta_1$ instead of growing with the
+queue, so the head-of-line mechanism is a strictly *weaker* drain of the priority queue. This
+section quantifies that gap at fixed load $\rho=0.70$.""")
+
+md(r"""### [Comparative Analysis — head-of-line vs full-rate]
+**Purpose:** isolate the effect of replacing $\gamma_1 n_1\to\gamma_1\mathbf{1}_{\{n_1\geq1\}}$
+(jockeying) and $\theta_1 n_1\to\theta_1\mathbf{1}_{\{n_1\geq1\}}$ (abandonment).
+**Models contrasted:** B₂ vs B$_2^1$ (top), C₂ vs C$_2^1$ (bottom).
+**Expected behaviour:** the head-of-line drain is weaker, so $E[N_1]$ stays higher than under
+the full rate; both jockeying models keep $\pi_0=1-\rho$; both abandonment models raise
+$\pi_0$, C₂ more than C$_2^1$. **Parameters:** $\mu=1,\lambda_1=0.3,\lambda_2=0.4$.""")
+
+code(r'''
+RATE_VALS = np.array([0.05,0.1,0.2,0.5,1.0,2.0,5.0,10.0,25.0,50.0])
+hol = {m: {k: [] for k in ("En1","pi0")} for m in ("B2","B2^1","C2","C2^1")}
+for rv in RATE_VALS:
+    cfgs = {"B2":   Params(LAM1_STD, LAM2_STD, MU, gamma1=float(rv)),
+            "B2^1": model_B21(LAM1_STD, LAM2_STD, MU, float(rv)),
+            "C2":   Params(LAM1_STD, LAM2_STD, MU, theta1=float(rv)),
+            "C2^1": model_C21(LAM1_STD, LAM2_STD, MU, float(rv))}
+    for m, p in cfgs.items():
+        r, d, _, _ = solve_adaptive(p, N_max=60, cap=100)
+        hol[m]["En1"].append(d["E_n1"]); hol[m]["pi0"].append(r["pi_idle"])
+for m in hol:
+    for k in hol[m]: hol[m][k] = np.array(hol[m][k])
+lr = np.log10(RATE_VALS)
+
+fig, ax = plt.subplots(2, 2, figsize=(13, 9))
+
+# Row 1 — jockeying: B2 (full) vs B2^1 (head-of-line)
+ax[0,0].plot(lr, hol["B2"]["En1"],   "o-", color=C_B2,  lw=2, ms=5, label=r"B$_2$ ($\gamma_1 n_1$, full)")
+ax[0,0].plot(lr, hol["B2^1"]["En1"], "^"+":", color=C_B21, lw=2, ms=6,
+             label=r"B$_2^1$ ($\gamma_1\mathbf{1}_{\{n_1\geq1\}}$, head)")
+ax[0,0].axhline(dA["E_n1"], color="black", ls=":", lw=1.2, label=rf"Model A: {dA['E_n1']:.4f}")
+ax[0,0].set_xlabel(r"$\log_{10}\gamma_1$"); ax[0,0].set_ylabel(r"$E[N_1]$")
+ax[0,0].set_title(r"Jockeying: $E[N_1]$ — head-of-line drains slower than full rate")
+ax[0,0].legend(fontsize=8); ax[0,0].grid(alpha=0.3)
+
+ax[0,1].plot(lr, hol["B2"]["pi0"],   "o-", color=C_B2,  lw=2, ms=5, label=r"B$_2$")
+ax[0,1].plot(lr, hol["B2^1"]["pi0"], "^"+":", color=C_B21, lw=2, ms=6, label=r"B$_2^1$")
+ax[0,1].axhline(1-RHO_STD, color="black", ls=":", lw=1.3, label=rf"$1-\rho={1-RHO_STD:.3f}$")
+ax[0,1].set_ylim(1-RHO_STD-0.02, 1-RHO_STD+0.02)
+ax[0,1].set_xlabel(r"$\log_{10}\gamma_1$"); ax[0,1].set_ylabel(r"$\pi_0$")
+ax[0,1].set_title(r"Jockeying: $\pi_0\equiv1-\rho$ for both (conservation of $N$)")
+ax[0,1].legend(fontsize=8); ax[0,1].grid(alpha=0.3)
+
+# Row 2 — abandonment: C2 (full) vs C2^1 (head-of-line)
+ax[1,0].plot(lr, hol["C2"]["En1"],   "o-", color=C_C2,  lw=2, ms=5, label=r"C$_2$ ($\theta_1 n_1$, full)")
+ax[1,0].plot(lr, hol["C2^1"]["En1"], "v"+":", color=C_C21, lw=2, ms=6,
+             label=r"C$_2^1$ ($\theta_1\mathbf{1}_{\{n_1\geq1\}}$, head)")
+ax[1,0].axhline(dA["E_n1"], color="black", ls=":", lw=1.2, label=rf"Model A: {dA['E_n1']:.4f}")
+ax[1,0].set_xlabel(r"$\log_{10}\theta_1$"); ax[1,0].set_ylabel(r"$E[N_1]$")
+ax[1,0].set_title(r"Abandonment: $E[N_1]$ — head-of-line valve is weaker")
+ax[1,0].legend(fontsize=8); ax[1,0].grid(alpha=0.3)
+
+ax[1,1].plot(lr, hol["C2"]["pi0"],   "o-", color=C_C2,  lw=2, ms=5, label=r"C$_2$")
+ax[1,1].plot(lr, hol["C2^1"]["pi0"], "v"+":", color=C_C21, lw=2, ms=6, label=r"C$_2^1$")
+ax[1,1].axhline(1-RHO_STD, color="black", ls=":", lw=1.3, label=rf"$1-\rho={1-RHO_STD:.3f}$ (Model A)")
+ax[1,1].set_xlabel(r"$\log_{10}\theta_1$"); ax[1,1].set_ylabel(r"$\pi_0$")
+ax[1,1].set_title(r"Abandonment: $\pi_0>1-\rho$ — full rate frees the server more")
+ax[1,1].legend(fontsize=8); ax[1,1].grid(alpha=0.3)
+
+fig.suptitle(r"Head-of-line ($\mathbf{1}_{\{n_1\geq1\}}$) vs full-rate ($n_1$) mechanisms "
+             r"at $\rho=0.70$", fontsize=12)
+fig.tight_layout()
+savefig("fig_hol_vs_full")
+plt.show()
+
+# quantitative read-outs for the thesis prose
+i05 = int(np.argmin(np.abs(RATE_VALS - 0.5)))
+print(f"At rate 0.5:  E[N1]  B2={hol['B2']['En1'][i05]:.4f}  B2^1={hol['B2^1']['En1'][i05]:.4f}  "
+      f"C2={hol['C2']['En1'][i05]:.4f}  C2^1={hol['C2^1']['En1'][i05]:.4f}  (A={dA['E_n1']:.4f})")
+print(f"At rate 0.5:  pi0    C2={hol['C2']['pi0'][i05]:.4f}  C2^1={hol['C2^1']['pi0'][i05]:.4f}  "
+      f"(1-rho={1-RHO_STD:.4f})")
+print(f"At rate 5.0:  E[N1]  B2={hol['B2']['En1'][-3]:.4f}  B2^1={hol['B2^1']['En1'][-3]:.4f}  "
+      f"C2={hol['C2']['En1'][-3]:.4f}  C2^1={hol['C2^1']['En1'][-3]:.4f}")
+''')
+
+# ======================================================================
 # Section 5 — Convergence analysis
 # ======================================================================
 md(r"""## Section 5 — Convergence analysis (mathematical heart)
@@ -973,6 +1135,71 @@ savefig("fig_conv_B2_inf_jockeying")
 plt.show()
 ''')
 
+md(r"""### 5d. Experiment models $\to$ A: B$_2^1$ as $\gamma_1\to0$, C$_2^1$ as $\theta_1\to0$
+**Theorem reference:** the B$_2^1$ and C$_2^1$ closed forms reduce to Model A as their
+mechanism parameter $\to0$ (the kernel quadratic loses the $\gamma_1$/$\theta_1$ shift).
+**Validation:** CTMC $L_1$ distance to Model A, with log-log slope. Reuses the Model-A
+reference `piA5` and the grids `gamma1_conv`, `theta1_conv` from Section 5a/5b.""")
+
+code(r'''
+# B2^1 -> A as gamma1 -> 0 (head-of-line jockeying; conserves N like B2, so pi0/pi00 invariant)
+L1_B21, dpi0_B21, dpi00_B21 = [], [], []
+for g in gamma1_conv:
+    p = model_B21(LAM1_STD, LAM2_STD, MU, float(g))
+    r, d, _, _ = solve_adaptive(p, N_max=80, cap=100)
+    L1_B21.append(L1_distance(r["pi_joint"], piA5))
+    dpi0_B21.append(abs(r["pi_idle"] - rA5["pi_idle"]))
+    dpi00_B21.append(abs(r["pi_joint"][0,0] - piA5[0,0]))
+L1_B21, dpi0_B21, dpi00_B21 = map(np.array, (L1_B21, dpi0_B21, dpi00_B21))
+
+# C2^1 -> A as theta1 -> 0 (head-of-line abandonment; pi0,pi00 vary)
+L1_C21, dpi0_C21, dpi00_C21 = [], [], []
+for th in theta1_conv:
+    p = model_C21(LAM1_STD, LAM2_STD, MU, float(th))
+    r, d, _, _ = solve_adaptive(p, N_max=80, cap=100)
+    L1_C21.append(L1_distance(r["pi_joint"], piA5))
+    dpi0_C21.append(abs(r["pi_idle"] - rA5["pi_idle"]))
+    dpi00_C21.append(abs(r["pi_joint"][0,0] - piA5[0,0]))
+L1_C21, dpi0_C21, dpi00_C21 = map(np.array, (L1_C21, dpi0_C21, dpi00_C21))
+
+slope_L1_B21, fit_L1_B21 = loglog_slope(gamma1_conv, L1_B21)
+slope_L1_C21, fit_L1_C21 = loglog_slope(theta1_conv, L1_C21)
+slope_pi0_C21,  _ = loglog_slope(theta1_conv, dpi0_C21)
+slope_pi00_C21, _ = loglog_slope(theta1_conv, dpi00_C21)
+print(f"B2^1->A  L1 log-log slope (gamma1<1): {slope_L1_B21:.3f}")
+print(f"C2^1->A  L1 log-log slope (theta1<1): {slope_L1_C21:.3f}")
+print("note: B2^1 conserves N, so pi0,pi(0,0) are gamma1-invariant (deviations at machine floor).")
+''')
+
+md(r"""### Figure 5d — $L_1$ convergence of B$_2^1$ ($\gamma_1\to0$) and C$_2^1$ ($\theta_1\to0$) to A""")
+code(r'''
+fig, ax = plt.subplots(1, 2, figsize=(13, 4.8))
+
+mB = L1_B21 > 0
+ax[0].loglog(gamma1_conv[mB], L1_B21[mB], "^", color=C_B21, ms=6, label=r"$\|\pi_{B_2^1}-\pi_A\|_1$")
+s, b = fit_L1_B21
+xs = gamma1_conv[(gamma1_conv < 1) & mB]
+ax[0].loglog(xs, 10**b * xs**s, "-", color="black", lw=1.5, label=rf"slope $\approx{s:.2f}$ ($\gamma_1<1$)")
+ax[0].set_xlabel(r"$\gamma_1$"); ax[0].set_ylabel(r"$\|\pi_{B_2^1}-\pi_A\|_1$")
+ax[0].set_title(r"B$_2^1\to$A as $\gamma_1\to0$ (head-of-line jockeying)")
+ax[0].legend(); ax[0].grid(alpha=0.3, which="both")
+
+mC = L1_C21 > 0
+ax[1].loglog(theta1_conv[mC], L1_C21[mC], "v", color=C_C21, ms=6, label=r"$\|\pi_{C_2^1}-\pi_A\|_1$")
+s, b = fit_L1_C21
+xs = theta1_conv[(theta1_conv < 1) & mC]
+ax[1].loglog(xs, 10**b * xs**s, "-", color="black", lw=1.5, label=rf"slope $\approx{s:.2f}$ ($\theta_1<1$)")
+ax[1].set_xlabel(r"$\theta_1$"); ax[1].set_ylabel(r"$\|\pi_{C_2^1}-\pi_A\|_1$")
+ax[1].set_title(r"C$_2^1\to$A as $\theta_1\to0$ (head-of-line abandonment)")
+ax[1].legend(); ax[1].grid(alpha=0.3, which="both")
+
+fig.suptitle(r"Convergence of the head-of-line experiment models to Model A "
+             r"($\lambda_1=0.3,\lambda_2=0.4,\mu=1$)", fontsize=11)
+fig.tight_layout()
+savefig("fig_conv_experiment_to_A")
+plt.show()
+''')
+
 # ======================================================================
 # Section 6 — Class asymmetry
 # ======================================================================
@@ -989,10 +1216,14 @@ shrinks the gap, C₂ reshapes it. **Parameters:** $\rho=0.70,\mu=1,\gamma_1=\th
 
 code(r'''
 ALPHA6 = np.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9])
-asym = {m: {k: [] for k in ("En1","En2","Ew1","Ew2")} for m in ("A","B2","C2")}
+asym = {m: {k: [] for k in ("En1","En2","Ew1","Ew2")} for m in STYLE}
 for a in ALPHA6:
     l1, l2 = a*RHO_STD*MU, (1-a)*RHO_STD*MU
-    cfgs = {"A":Params(l1,l2,MU),"B2":Params(l1,l2,MU,gamma1=0.5),"C2":Params(l1,l2,MU,theta1=0.5)}
+    cfgs = {"A":   Params(l1,l2,MU),
+            "B2":  Params(l1,l2,MU,gamma1=0.5),
+            "B2^1":model_B21(l1,l2,MU,0.5),
+            "C2":  Params(l1,l2,MU,theta1=0.5),
+            "C2^1":model_C21(l1,l2,MU,0.5)}
     for m, p in cfgs.items():
         r, d, _, _ = solve_adaptive(p, N_max=60, cap=100)
         w1, w2 = EW1_EW2(p, r["pi_joint"])
@@ -1051,9 +1282,10 @@ def metrics_at(p):
                 pi0=r["pi_idle"], pi00=r["pi_joint"][0,0])
 
 lines = [r"\begin{table}[t]\centering",
-         r"\caption{Comparison of Models A, B$_2$ ($\gamma_1=0.5$), and C$_2$ "
-         r"($\theta_1=0.5$) at three traffic intensities with "
-         r"$\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$.}",
+         r"\caption{Comparison of Models A, B$_2$ and B$_2^1$ ($\gamma_1=0.5$), and C$_2$ "
+         r"and C$_2^1$ ($\theta_1=0.5$) at three traffic intensities with "
+         r"$\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$. The primed models use the head-of-line "
+         r"rate $\mathbf{1}_{\{n_1\geq1\}}$; the unprimed use the full rate $n_1$.}",
          r"\label{tab:comp:main}",
          r"\begin{tabular}{llrrrrrrr}", r"\toprule",
          r"$\rho$ & Model & $E[N_1]$ & $E[N_2]$ & $E[N]$ & $E[W_1]$ & $E[W_2]$ & $\pi_0$ & $\pi(0,0)$ \\",
@@ -1062,10 +1294,12 @@ for ri, rho in enumerate((0.50, 0.70, 0.90)):
     l1, l2 = split_lams(rho)
     mods = [("A", Params(l1,l2,MU)),
             ("B$_2$", Params(l1,l2,MU,gamma1=0.5)),
-            ("C$_2$", Params(l1,l2,MU,theta1=0.5))]
+            ("B$_2^1$", model_B21(l1,l2,MU,0.5)),
+            ("C$_2$", Params(l1,l2,MU,theta1=0.5)),
+            ("C$_2^1$", model_C21(l1,l2,MU,0.5))]
     for k,(name,p) in enumerate(mods):
         mm = metrics_at(p)
-        rcell = rf"\multirow{{3}}{{*}}{{{rho:.2f}}}" if k == 0 else ""
+        rcell = rf"\multirow{{5}}{{*}}{{{rho:.2f}}}" if k == 0 else ""
         lines.append(f"{rcell} & {name} & {mm['En1']:.4f} & {mm['En2']:.4f} & {mm['En']:.4f} & "
                      f"{mm['Ew1']:.4f} & {mm['Ew2']:.4f} & {mm['pi0']:.4f} & {mm['pi00']:.4f} \\\\")
     if ri < 2: lines.append(r"\midrule")
@@ -1078,24 +1312,31 @@ print("\nsaved:", os.path.abspath(os.path.join(SAVE_DIR, "tab_comparison_main.te
 
 md(r"""### Table 7.2 — empirical convergence rates (`tab:conv:rates`)""")
 code(r'''
+def _slp(s):
+    return 'n/a' if not np.isfinite(s) else f'{s:.3f}'
+
 lines = [r"\begin{table}[t]\centering",
-         r"\caption{Empirical convergence rates of Models C$_2$ and B$_2$ to Model A, "
-         r"from log-log regression of the deviation against the mechanism parameter "
-         r"(fit over parameter $<1$).}",
+         r"\caption{Empirical convergence rates of Models C$_2$, C$_2^1$, B$_2$ and B$_2^1$ "
+         r"to Model A, from log-log regression of the deviation against the mechanism "
+         r"parameter (fit over parameter $<1$). The primed (head-of-line) models converge "
+         r"at the same first order as their full-rate counterparts.}",
          r"\label{tab:conv:rates}",
          r"\begin{tabular}{llrrrl}", r"\toprule",
          r"Limit & Parameter & $L_1$ slope & $\pi_0$ slope & $\pi(0,0)$ slope & Valid range \\",
          r"\midrule",
-         rf"C$_2\to$A & $\theta_1\to0$ & {slope_L1_C2:.3f} & {slope_pi0_C2:.3f} & "
-         rf"{slope_pi00_C2:.3f} & $\theta_1\in[10^{{-3}},1)$ \\",
-         rf"B$_2\to$A & $\gamma_1\to0$ & {slope_L1_B2:.3f} & "
-         rf"{('n/a' if not np.isfinite(slope_pi0_B2) else f'{slope_pi0_B2:.3f}')} & "
-         rf"{('n/a' if not np.isfinite(slope_pi00_B2) else f'{slope_pi00_B2:.3f}')} & "
+         rf"C$_2\to$A & $\theta_1\to0$ & {slope_L1_C2:.3f} & {_slp(slope_pi0_C2)} & "
+         rf"{_slp(slope_pi00_C2)} & $\theta_1\in[10^{{-3}},1)$ \\",
+         rf"C$_2^1\to$A & $\theta_1\to0$ & {slope_L1_C21:.3f} & {_slp(slope_pi0_C21)} & "
+         rf"{_slp(slope_pi00_C21)} & $\theta_1\in[10^{{-3}},1)$ \\",
+         r"\midrule",
+         rf"B$_2\to$A & $\gamma_1\to0$ & {slope_L1_B2:.3f} & {_slp(slope_pi0_B2)} & "
+         rf"{_slp(slope_pi00_B2)} & $\gamma_1\in[10^{{-3}},1)$ \\",
+         rf"B$_2^1\to$A & $\gamma_1\to0$ & {slope_L1_B21:.3f} & n/a & n/a & "
          rf"$\gamma_1\in[10^{{-3}},1)$ \\",
          r"\bottomrule", r"\end{tabular}",
-         r"\footnotesize\par\vspace{2pt}For B$_2$, $\pi_0$ and $\pi(0,0)$ are "
-         r"$\gamma_1$-invariant (jockeying conserves $N$), so their deviations are at the "
-         r"numerical floor and the slope is not meaningful (n/a).",
+         r"\footnotesize\par\vspace{2pt}For the jockeying models B$_2$ and B$_2^1$, $\pi_0$ "
+         r"and $\pi(0,0)$ are $\gamma_1$-invariant (jockeying conserves $N$), so their "
+         r"deviations sit at the numerical floor and the slope is not meaningful (n/a).",
          r"\end{table}"]
 tab72 = "\n".join(lines)
 print(tab72)
@@ -1169,6 +1410,40 @@ fig.tight_layout()
 savefig("fig_sim_vs_ctmc")
 plt.show()
 print("simulation/CTMC cross-validation passed (max abs error < 1e-2 for all models)")
+''')
+
+md(r"""### [Cross-validation — head-of-line experiment models]
+The event-driven `simulate` and the truncated `solve_exact` both honour the head-of-line
+flag `hol1` (the class-1 jockeying/abandonment rate is $\gamma_1\mathbf{1}_{\{n_1\geq1\}}$ /
+$\theta_1\mathbf{1}_{\{n_1\geq1\}}$), so this is an independent check of the new CTMC.
+**Parameters:** $\mu=1,\lambda_1=0.3,\lambda_2=0.4$; B$_2^1$ ($\gamma_1=0.5$),
+C$_2^1$ ($\theta_1=0.5$).""")
+
+code(r'''
+sim_cfgs_exp = [(r"Model B$_2^1$ ($\gamma_1=0.5$)", model_B21(LAM1_STD, LAM2_STD, MU, 0.5), C_B21),
+                (r"Model C$_2^1$ ($\theta_1=0.5$)", model_C21(LAM1_STD, LAM2_STD, MU, 0.5), C_C21)]
+fig, ax = plt.subplots(1, 2, figsize=(11, 4.8))
+for a, (name, p, col) in zip(ax, sim_cfgs_exp):
+    sim = simulate(p, n_events=5_000_000, seed=42)
+    exact = solve_exact(p, N_max=50)
+    M = min(sim["pi_joint"].shape[0], exact["pi_joint"].shape[0])
+    pe = exact["pi_joint"][:M, :M]; ps = sim["pi_joint"][:M, :M]
+    mask = pe > 1e-4
+    max_err = float(np.abs(pe - ps).max())
+    err_idle = abs(sim["pi_idle"] - exact["pi_idle"])
+    a.scatter(pe[mask], ps[mask], s=18, color=col, alpha=0.7)
+    lim = max(pe[mask].max(), ps[mask].max()) * 1.05
+    a.plot([0, lim], [0, lim], "k--", lw=1)
+    a.set_xlabel(r"CTMC $\pi(n_1,n_2)$"); a.set_ylabel("simulation frequency")
+    a.set_title(f"{name}\nmax|err|={max_err:.2e}, "+r"$|\Delta\pi_0|$="+f"{err_idle:.2e}")
+    a.grid(alpha=0.3)
+    assert max_err < 1e-2, f"sim/CTMC mismatch {name}: {max_err}"
+fig.suptitle(r"Simulation vs CTMC for the head-of-line models B$_2^1$, C$_2^1$ "
+             r"($5\times10^6$ events)", fontsize=12)
+fig.tight_layout()
+savefig("fig_sim_vs_ctmc_experiment")
+plt.show()
+print("head-of-line simulation/CTMC cross-validation passed (max abs error < 1e-2)")
 ''')
 
 # ======================================================================

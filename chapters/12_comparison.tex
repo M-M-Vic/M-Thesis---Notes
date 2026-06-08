@@ -238,16 +238,18 @@ $\pi(0,0)$ against the Model-A parabola $\rho(1-\rho)$.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/results/fig_sweep_EN_vs_rho.pdf}
-  \caption{Performance versus traffic intensity $\rho$ for Models $A$, $B_2$
-  ($\gamma_1=0.5$) and $C_2$ ($\theta_1=0.5$), at $\mu=1$ and
+  \caption{Performance versus traffic intensity $\rho$ for the five solved models ---
+  the baseline $A$, the jockeying pair $B_2$, $B_2^1$ ($\gamma_1=0.5$), and the
+  abandonment pair $C_2$, $C_2^1$ ($\theta_1=0.5$) --- at $\mu=1$ and
   $\lambda_1{:}\lambda_2=3{:}4$; the vertical line marks the canonical $\rho=0.70$.
-  \emph{Top-left:} total queue $\mathbb{E}[N]$ --- $A$ and $B_2$ coincide because
-  jockeying conserves $N$ (Corollary~\ref{cor:A:pi0}), while $C_2$ lies strictly below
-  because abandonment removes customers. \emph{Top-right:} priority queue
-  $\mathbb{E}[N_1]$. \emph{Bottom-left:} priority waiting time $\mathbb{E}[W_1]$.
-  \emph{Bottom-right:} idle probability $\pi_0$, with the $1-\rho$ law (Model~$A$/$B_2$)
-  shown dotted; $C_2$ sits above it for every $\rho$, as predicted by
-  Corollary~\ref{cor:C2:pi00}.}
+  \emph{Top-left:} total queue $\mathbb{E}[N]$ --- $A$, $B_2$ and $B_2^1$ coincide because
+  jockeying conserves $N$ (Corollaries~\ref{cor:A:pi0}, \ref{cor:B21:pi0}), while $C_2$ and
+  $C_2^1$ lie strictly below because abandonment removes customers ($C_2^1$ by less).
+  \emph{Top-right:} priority queue $\mathbb{E}[N_1]$ --- the head-of-line variants drain it
+  less than their full-rate cousins. \emph{Bottom-left:} priority waiting time
+  $\mathbb{E}[W_1]$. \emph{Bottom-right:} idle probability $\pi_0$, with the $1-\rho$ law
+  (Models~$A$, $B_2$, $B_2^1$) shown dotted; $C_2$ and $C_2^1$ sit above it for every $\rho$,
+  as predicted by Corollaries~\ref{cor:C2:pi00}, \ref{cor:C21:pi0}.}
   \label{fig:comp:sweep_en}
 \end{figure}
 %% END SIMULATION RESULTS — fig_sweep_EN_vs_rho %%
@@ -276,11 +278,13 @@ should be read as lower bounds.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.78\textwidth]{figures/results/fig_sweep_pi00_vs_rho.pdf}
-  \caption{$\pi(0,0)$ versus $\rho$. Models $A$ and $B_2$ lie exactly on the parabola
-  $\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0} and Corollary~\ref{cor:B2:pi00}: jockeying
-  preserves $N$, hence the busy-but-empty probability), whereas $C_2$ rises strictly above
-  it --- abandonment inflates $\pi(0,0)$ through the enlarged idle probability
-  $\pi(0,0)=\rho\,\pi_0$ of Corollary~\ref{cor:C2:pi00}.}
+  \caption{$\pi(0,0)$ versus $\rho$. The three customer-conserving models $A$, $B_2$ and
+  $B_2^1$ lie exactly on the parabola $\rho(1-\rho)$ (Corollaries~\ref{cor:A:pi0},
+  \ref{cor:B2:pi00}, \ref{cor:B21:pi0}: jockeying preserves $N$, hence the busy-but-empty
+  probability), whereas the abandonment models $C_2$ and $C_2^1$ rise strictly above it ---
+  abandonment inflates $\pi(0,0)$ through the enlarged idle probability $\pi(0,0)=\rho\,\pi_0$
+  (Corollaries~\ref{cor:C2:pi00}, \ref{cor:C21:pi0}), the full rate ($C_2$) lifting it more
+  than the head-of-line rate ($C_2^1$).}
   \label{fig:comp:pi00}
 \end{figure}
 %% END SIMULATION RESULTS — fig_sweep_pi00_vs_rho %%
@@ -292,6 +296,18 @@ the total occupancy $N$, and jockeying leaves the law of $N$ unchanged. For $C_2
 identity $\pi(0,0)=\rho\,\pi_0$ still holds, but $\pi_0>1-\rho$, so the curve is lifted ---
 at $\rho=0.70$, $\pi(0,0)=0.2587$ against the baseline $0.2100$
 (Table~\ref{tab:comp:main}).
+
+The two head-of-line variants $B_2^1$ and $C_2^1$ added to
+Figures~\ref{fig:comp:sweep_en}--\ref{fig:comp:pi00} confirm that the qualitative split
+survives the head-of-line simplification but in a muted form. Model~$B_2^1$ conserves $N$
+exactly like $B_2$ (Corollary~\ref{cor:B21:pi0}), so its $\mathbb{E}[N]$ and $\pi_0$ curves
+are indistinguishable from the $A$/$B_2$ pair and lie on the same $\rho(1-\rho)$ parabola in
+Figure~\ref{fig:comp:pi00}; it departs only in the split of $\mathbb{E}[N_1]$ (at
+$\rho=0.70$, $\mathbb{E}[N_1]=0.1750$ against $0.1545$ for $B_2$, Table~\ref{tab:comp:main}).
+Model~$C_2^1$ tracks $C_2$ but bleeds the priority queue more gently --- at $\rho=0.70$ it
+gives $\mathbb{E}[N]=0.9015$ and $\pi_0=0.3636$, both lying between the baseline and the
+full-rate $C_2$ values ($0.8358$ and $0.3696$). The structural reason for this systematic
+``weaker-mechanism'' behaviour is isolated in \S\ref{subsec:comp:hol}.
 
 %% BEGIN SIMULATION RESULTS — tab_comparison_main %%
 \input{figures/results/tab_comparison_main.tex}
@@ -517,3 +533,61 @@ opposite direction at high load ($6.30$ at $\rho=0.90$, below the baseline $10.0
 because it compresses both waiting times by shedding load. The two mechanisms are thus not
 substitutes: jockeying redistributes delay between classes at fixed total work, whereas
 abandonment reduces total work at the cost of served throughput.
+
+\subsection{Head-of-line versus full-rate mechanisms (Models \texorpdfstring{$B_2^1$}{B21} and \texorpdfstring{$C_2^1$}{C21})}
+\label{subsec:comp:hol}
+
+The head-of-line models of \S\ref{sec:model_b21}--\ref{sec:model_c21} replace the
+\emph{length-proportional} mechanism rate of $B_2$ and $C_2$ --- $\gamma_1 n_1$ or
+$\theta_1 n_1$, in which every waiting class-1 customer participates --- by a
+\emph{head-of-line} rate $\gamma_1\mathbf 1_{\{n_1\ge1\}}$ or $\theta_1\mathbf 1_{\{n_1\ge1\}}$,
+in which only the customer at the head of Queue~1 may jockey or abandon. The aggregate
+class-1 outflow is therefore capped at the single rate $\gamma_1$ (or $\theta_1$) instead of
+growing with the queue, so each head-of-line mechanism is a strictly \emph{weaker} drain of
+the priority queue than its full-rate counterpart. Figure~\ref{fig:comp:hol} quantifies the
+gap at fixed load $\rho=0.70$.
+
+%% BEGIN SIMULATION RESULTS — fig_hol_vs_full %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_hol_vs_full.pdf}
+  \caption{Head-of-line ($\mathbf 1_{\{n_1\ge1\}}$) versus full-rate ($n_1$) mechanisms at
+  $\rho=0.70$ ($\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$). \emph{Top row, jockeying:}
+  $\mathbb{E}[N_1]$ and $\pi_0$ for $B_2$ (full) versus $B_2^1$ (head-of-line). The
+  head-of-line rate drains the priority queue more slowly, so $\mathbb{E}[N_1]$ stays above
+  the $B_2$ curve, while $\pi_0\equiv1-\rho$ for both (jockeying conserves $N$,
+  Corollaries~\ref{cor:B2:pi00}, \ref{cor:B21:pi0}). \emph{Bottom row, abandonment:}
+  $\mathbb{E}[N_1]$ and $\pi_0$ for $C_2$ (full) versus $C_2^1$ (head-of-line). The
+  head-of-line valve is weaker, so $C_2^1$ retains a slightly longer priority queue and a
+  slightly smaller idle gain than $C_2$, both models exceeding the $1-\rho$ baseline
+  (Corollaries~\ref{cor:C2:pi00}, \ref{cor:C21:pi0}).}
+  \label{fig:comp:hol}
+\end{figure}
+%% END SIMULATION RESULTS — fig_hol_vs_full %%
+
+The contrast is governed by the number of \emph{waiting} class-1 customers. When the
+priority queue holds $n_1\ge2$, the full rate ejects customers at $n_1\gamma_1$ (or
+$n_1\theta_1$), a factor of $n_1$ faster than the head-of-line rate $\gamma_1$ (or
+$\theta_1$); when $n_1\le1$ the two rates coincide. The head-of-line model is therefore the
+weaker drain precisely to the extent that $\mathbb{P}(N_1\ge2)$ carries mass, which is
+greatest at intermediate mechanism rates and vanishes both as the rate $\to0$ (the queue is
+rarely occupied beyond the head) and as the rate $\to\infty$ (the queue is emptied). The top
+panels of Figure~\ref{fig:comp:hol} show this directly: at $\gamma_1=0.5$ the full rate cuts
+$\mathbb{E}[N_1]$ from the Model-$A$ value $0.3000$ to $0.1545$ ($-48.5\%$), whereas the
+head-of-line rate reaches only $0.1750$ ($-41.7\%$); by $\gamma_1=50$ both have collapsed to
+$\mathbb{E}[N_1]\approx0.004$ and the curves are indistinguishable.
+
+Because jockeying conserves the total customer count under either rate
+(Corollary~\ref{cor:B21:pi0}), the milder class-1 drain of $B_2^1$ is mirrored by a milder
+class-2 inflation: at $\rho=0.70$, $\mathbb{E}[N_2]=1.4583$ for $B_2^1$ against $1.4788$ for
+$B_2$, and the priority ratio $\mathbb{E}[W_2]/\mathbb{E}[W_1]$ is $6.25$ for $B_2^1$ versus
+$7.18$ for $B_2$ (Table~\ref{tab:comp:main}). Head-of-line jockeying thus erodes the
+priority structure less aggressively than the full mechanism. The abandonment pair tells the
+same story on the throughput--quality axis: at $\rho=0.70$ the full rate $C_2$ lifts $\pi_0$
+to $0.3696$ and compresses $\mathbb{E}[N]$ to $0.8358$, while the head-of-line $C_2^1$ stops
+at $\pi_0=0.3636$ and $\mathbb{E}[N]=0.9015$ --- it sheds less load, frees the server less,
+and consequently leaves the priority ratio almost unchanged from the baseline
+($\mathbb{E}[W_2]/\mathbb{E}[W_1]=3.50$ for $C_2^1$ against $3.33$ for $A$ and $3.76$ for
+$C_2$). In every descriptor the head-of-line variant interpolates monotonically between
+Model~$A$ and its full-rate parent, confirming that restricting a mechanism to the head of
+the queue yields a genuine but attenuated version of the same effect.

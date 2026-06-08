@@ -54,6 +54,11 @@ class Params:
     gamma2: float = 0.0
     theta1: float = 0.0
     theta2: float = 0.0
+    hol1: bool = False   # head-of-line class-1 mechanisms: the gamma1 / theta1 rate
+                         # fires as gamma1 * 1{n1>=1} / theta1 * 1{n1>=1} (only the
+                         # customer at the head of Queue 1 jockeys/abandons) instead of
+                         # the length-proportional gamma1 * n1 / theta1 * n1. Models
+                         # B2^1 (gamma1>0) and C2^1 (theta1>0).
 
     @property
     def rho1(self) -> float:
@@ -76,6 +81,13 @@ class Params:
         return (self.gamma1 > 0.0) or (self.gamma2 > 0.0)
 
     def is_stable(self) -> bool:
+        if self.hol1 and self.theta1 > 0.0:
+            # Model C2^1: head-of-line abandonment caps the class-1 outflow at theta1,
+            # so a genuine stability condition is required (eq:C21:stability):
+            #   (mu+theta1)(mu-lambda) + lambda_1 theta1 > 0,  lambda = lam1+lam2.
+            # This is weaker than rho<1 (large theta1 can stabilise rho>=1).
+            lam = self.lam1 + self.lam2
+            return (self.mu + self.theta1) * (self.mu - lam) + self.lam1 * self.theta1 > 0.0
         return self.has_abandonments or (self.rho < 1.0)
 
     def label(self) -> str:
@@ -101,6 +113,16 @@ def model_B1(lam1, lam2, mu, gamma2):
 
 def model_B2(lam1, lam2, mu, gamma1):
     return Params(lam1, lam2, mu, gamma1=gamma1, gamma2=0.0)
+
+def model_B21(lam1, lam2, mu, gamma1):
+    """Model B2^1: head-of-line one-way jockeying 1->2 at the constant rate
+    gamma1 * 1{n1>=1} (only the head of Queue 1 jockeys)."""
+    return Params(lam1, lam2, mu, gamma1=gamma1, gamma2=0.0, hol1=True)
+
+def model_C21(lam1, lam2, mu, theta1):
+    """Model C2^1: head-of-line class-1 abandonment at the constant rate
+    theta1 * 1{n1>=1} (only the head of Queue 1 abandons)."""
+    return Params(lam1, lam2, mu, theta1=theta1, hol1=True)
 
 def model_theta1_only(lam1, lam2, mu, theta1):
     return Params(lam1, lam2, mu, theta1=theta1)
@@ -180,9 +202,9 @@ def simulate(p: Params,
             r_lam1 = p.lam1
             r_lam2 = p.lam2
             r_mu   = p.mu
-            r_g1   = p.gamma1 * n1
+            r_g1   = (p.gamma1 if n1 >= 1 else 0.0) if p.hol1 else p.gamma1 * n1
             r_g2   = p.gamma2 * n2
-            r_t1   = p.theta1 * n1
+            r_t1   = (p.theta1 if n1 >= 1 else 0.0) if p.hol1 else p.theta1 * n1
             r_t2   = p.theta2 * n2
             rate = r_lam1 + r_lam2 + r_mu + r_g1 + r_g2 + r_t1 + r_t2
 
@@ -299,7 +321,7 @@ def solve_exact(p: Params, N_max: int = 100):
                 out += p.mu
             # class-1 jockeying (n1 -> n1-1, n2 -> n2+1)
             if n1 >= 1 and n2 + 1 < M:
-                rate = p.gamma1 * n1
+                rate = p.gamma1 if p.hol1 else p.gamma1 * n1
                 if rate > 0.0:
                     Q[i, idx(n1 - 1, n2 + 1)] += rate
                     out += rate
@@ -311,7 +333,7 @@ def solve_exact(p: Params, N_max: int = 100):
                     out += rate
             # class-1 abandonment (n1 -> n1-1)
             if n1 >= 1:
-                rate = p.theta1 * n1
+                rate = p.theta1 if p.hol1 else p.theta1 * n1
                 if rate > 0.0:
                     Q[i, idx(n1 - 1, n2)] += rate
                     out += rate
@@ -387,7 +409,13 @@ def diagnostics(p: Params, pi_idle: float, pi_joint: np.ndarray):
     E_n = E_n1 + E_n2
     P_busy = 1.0 - pi_idle
     throughput = p.mu * P_busy
-    aban = p.theta1 * E_n1 + p.theta2 * E_n2
+    if p.hol1:
+        # head-of-line: class-1 abandonment fires at rate theta1 only while N1>=1,
+        # so the long-run class-1 abandonment rate is theta1 * P(N1>=1), not theta1 E[N1].
+        P_N1_ge1 = float(pi_joint[1:, :].sum())
+        aban = p.theta1 * P_N1_ge1 + p.theta2 * E_n2
+    else:
+        aban = p.theta1 * E_n1 + p.theta2 * E_n2
     return dict(
         E_n1=E_n1, E_n2=E_n2, E_n=E_n,
         P_busy=P_busy, throughput=throughput,

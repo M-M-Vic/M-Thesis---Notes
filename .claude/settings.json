@@ -127,7 +127,12 @@
       "Bash(latexmk -pdf -g -interaction=nonstopmode main.tex)",
       "Bash(git mv *)",
       "Bash(python3 build_nb_exhaustive.py)",
-      "Bash(sort -t'\\(' -k2 -rn)"
+      "Bash(sort -t'\\(' -k2 -rn)",
+      "Bash(python build_nb_exhaustive.py)",
+      "Bash(ls -la --time-style=+%H:%M:%S ../figures/results/fig_sweep_EN_vs_rho.pdf ../figures/results/fig_summary_dashboard.pdf)",
+      "Read(//Users/victor/GitVictor/figures/results/**)",
+      "Bash(python3 -c \"import os,glob,time; [print\\(time.strftime\\('%H:%M:%S',time.localtime\\(os.path.getmtime\\(f\\)\\)\\), os.path.basename\\(f\\)\\) for f in sorted\\(glob.glob\\('figures/results/fig_*.pdf'\\), key=os.path.getmtime\\)[-6:]]\")",
+      "Bash(python3 -c 'import os,glob,time *)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"

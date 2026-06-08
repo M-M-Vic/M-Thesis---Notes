@@ -13,20 +13,29 @@ The interplay of these two mechanisms within a priority discipline and how they 
 The combination of jockeying and abandonment in full generality defines Model~$X$. The bivariate PGF satisfies a functional equation that involves terms of three kinds: algebraic coefficients, a partial derivative term in $x$ —from jockeying and abandonments in Class-$1$— and a partial derivative term in $y$ —from the same mechanisms in Class-$2$. When derivative terms of the two kinds are present, the equation belongs to a family of integro-differential equations for which no close-form solution is known, and it becomes a substantially challenging problem. 
 
 The strategy adopted here is to explore less complex models that require a use of less advanced mathematical tools by setting some of the jockeying and/or abandonment parameters equal to zero. The table below (Table \ref{tab:model_overview_intro}) lists the models studied in this work and provide some insight of the challenge they imply:
-\begin{center}
+\begin{table}[H]
+\centering
 \renewcommand{\arraystretch}{1.3}
+\caption{Models studied in this thesis, with the active mechanism, the resulting
+functional-equation type, and the solution status. The head-of-line variants
+$B_2^1$ and $C_2^1$ restrict the mechanism to the customer at the head of Queue~1, which
+collapses the derivative term to an algebraic one and renders the model solvable in closed
+form.}
+\label{tab:model_overview_intro}
     \begin{tabular}{clll}
         \hline
             \textbf{Model} & \textbf{Active mechanism} & \textbf{Equation type} & \textbf{Status} \\
             \hline
-            A   & none                          & algebraic PGF equation    & solved  \\
-            B   & bidirectional jockeying        & PDE, Volterra family      & open \\
-            B$_2$ & one-way jockeying ($1\to2$) & ODE in $x$, Kummer        & solved \\
-            C$_2$ & class-1 abandonment         & ODE in $x$, Kummer        & solved \\
+            A     & none                                    & algebraic PGF equation & solved  \\
+            B     & bidirectional jockeying                 & PDE, Volterra family   & open \\
+            B$_2$   & one-way jockeying ($1\to2$)           & ODE in $x$, Kummer     & solved \\
+            B$_2^1$ & one-way jockeying, head-of-line       & algebraic PGF equation & solved \\
+            C$_2$   & class-1 abandonment                   & ODE in $x$, Kummer     & solved \\
+            C$_2^1$ & class-1 abandonment, head-of-line     & algebraic PGF equation & solved \\
         \hline
-    \end{tabular} \label{tab:model_overview_intro}
-\end{center}
-As one can see, some models —in particular, Model-$X$ and Model $B$— have been left incomplete, as they involve derivative terms in $y$, and some other models such a potential Model-$B_1$, Model-$C$ or Model-$C_1$ have not even been considered for the same reason: they all reduce to a Volterra integral equation that falls beyond the scope of the work carried out in this thesis. Here Model-$B$ serves as an example of how this sort of problems reduce to such an integral equation, whereas the other models correspond to problems we can solve.
+    \end{tabular}
+\end{table}
+As one can see, some models —in particular, Model-$X$ and Model $B$— have been left incomplete, as they involve derivative terms in $y$, and some other models such a potential Model-$B_1$, Model-$C$ or Model-$C_1$ have not even been considered for the same reason: they all reduce to a Volterra integral equation that falls beyond the scope of the work carried out in this thesis. Here Model-$B$ serves as an example of how this sort of problems reduce to such an integral equation, whereas the other models correspond to problems we can solve. The last two entries, Models~$B_2^1$ and~$C_2^1$ (Sections~\ref{sec:model_b21} and~\ref{sec:model_c21}), are \emph{head-of-line} simplifications in which only the customer at the head of Queue~1 may jockey or abandon: the mechanism then acts at the constant rate $\gamma_1\mathbf 1_{\{n_1\ge1\}}$ or $\theta_1\mathbf 1_{\{n_1\ge1\}}$ rather than the length-proportional $\gamma_1 n_1$ or $\theta_1 n_1$, so the fundamental equation stays algebraic and is solved by the Kernel Method exactly as in Model-$A$.
 
 \subsection*{Methods}
 
