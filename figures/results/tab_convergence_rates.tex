@@ -1,13 +1,16 @@
 \begin{table}[t]\centering
-\caption{Empirical convergence rates of Models C$_2$ and B$_2$ to Model A, from log-log regression of the deviation against the mechanism parameter (fit over parameter $<1$).}
+\caption{Empirical convergence rates of Models C$_2$, C$_2^1$, B$_2$ and B$_2^1$ to Model A, from log-log regression of the deviation against the mechanism parameter (fit over parameter $<1$). The primed (head-of-line) models converge at the same first order as their full-rate counterparts.}
 \label{tab:conv:rates}
 \begin{tabular}{llrrrl}
 \toprule
 Limit & Parameter & $L_1$ slope & $\pi_0$ slope & $\pi(0,0)$ slope & Valid range \\
 \midrule
 C$_2\to$A & $\theta_1\to0$ & 0.847 & 0.869 & 0.869 & $\theta_1\in[10^{-3},1)$ \\
+C$_2^1\to$A & $\theta_1\to0$ & 0.903 & 0.914 & 0.914 & $\theta_1\in[10^{-3},1)$ \\
+\midrule
 B$_2\to$A & $\gamma_1\to0$ & 0.873 & 0.348 & 0.211 & $\gamma_1\in[10^{-3},1)$ \\
+B$_2^1\to$A & $\gamma_1\to0$ & 0.929 & n/a & n/a & $\gamma_1\in[10^{-3},1)$ \\
 \bottomrule
 \end{tabular}
-\footnotesize\par\vspace{2pt}For B$_2$, $\pi_0$ and $\pi(0,0)$ are $\gamma_1$-invariant (jockeying conserves $N$), so their deviations are at the numerical floor and the slope is not meaningful (n/a).
+\footnotesize\par\vspace{2pt}For the jockeying models B$_2$ and B$_2^1$, $\pi_0$ and $\pi(0,0)$ are $\gamma_1$-invariant (jockeying conserves $N$), so their deviations sit at the numerical floor and the slope is not meaningful (n/a).
 \end{table}
