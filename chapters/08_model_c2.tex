@@ -1,4 +1,4 @@
-\section{Analysis of Model~$C_2$ ($\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$)}\label{sec:model_c2}
+\section{Analysis of Model~\texorpdfstring{$C_2$}{C2} (\texorpdfstring{$\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$}{theta1>0, gamma1=gamma2=theta2=0})}\label{sec:model_c2}
 
 In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account.
 
@@ -63,7 +63,7 @@ which vanishes at $x=0$ and $x=1$ because $\alpha,\beta(y)>0$.
     where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:erlangA:bp_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model~$A$ results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
 \end{corollary}
 
-\subsection{Setup: reduction to a first-order linear ODE in $x$}
+\subsection{Setup: reduction to a first-order linear ODE in \texorpdfstring{$x$}{x}}
 
 Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the general fundamental equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation}) annihilates the $\partial P/\partial y$ term entirely, since its coefficient $xy\bigl[\gamma_2(y-x)+\theta_2(y-1)\bigr]$ vanishes identically, and reduces the $\partial P/\partial x$ coefficient $xy\bigl[\gamma_1(x-y)+\theta_1(x-1)\bigr]$ to its single surviving abandonment term $\theta_1\,xy(x-1)$. What remains is
 \begin{equation}
@@ -85,7 +85,7 @@ We close the setup with the conditional-expectation decomposition that will driv
     \label{eq:C2:Py_prob_decomp}
 \end{equation}
 
-\subsection{Probabilistic derivation of $P_y(y)$}\label{ssec:C2:prob}
+\subsection{Probabilistic derivation of \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:prob}
 
 The idea is, again, to adopt the perspective of a Class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from Class-$1$ truly abandon the system, leaving the Poisson arrival process of Class-$2$ undisturbed. Because Class-$1$ holds non-preemptive priority (\S\ref{ssec:priority}), a waiting Class-$2$ customer is not taken into service while any Class-$1$ customer is present ($N_1>0$); its \emph{effective service time} is therefore the duration of one complete busy period $B_C$ of the Class-$1$ subsystem---now an $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$, rather than the pure $M/M/1$ of Model~$A$. By the \emph{memorylessness} of the exponential service, arrival and abandonment clocks, these effective service times are i.i.d., so from Class-$2$'s viewpoint the system is an $M/G/1$ queue with Poisson arrivals at rate $\lambda_2$ and general service times distributed as $B_C$.
 
@@ -133,7 +133,7 @@ so that $\mathbb{P}(\text{busy},\,N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$.
 \end{equation}
 This is structurally the same expression as in the probabilistic argument for Model~$A$ (Equation~\eqref{eq:A:Py}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
 
-\subsection{Analytical re-derivation of $P_y(y)$ via boundedness at $x=1$}\label{ssec:C2:anal}
+\subsection{Analytical re-derivation of \texorpdfstring{$P_y(y)$}{Py(y)} via boundedness at \texorpdfstring{$x=1$}{x=1}}\label{ssec:C2:anal}
 
 For an analytic counterpart of the previous derivation, we put~\eqref{eq:C2:fundamental} in standard form:
 \begin{align}
@@ -228,7 +228,7 @@ Setting $s=\lambda_2(1-y)$ — so that $b=\beta(y)$ matches the exponent in~\eqr
 \end{equation}
 Dividing numerator and denominator of~\eqref{eq:C2:Py_anal_raw} by $\mathcal{J}_0(y)$ then recovers exactly Equation~\eqref{eq:C2:Py}. The boundedness route, which uses no probabilistic structure, reaches the same Pollaczek--Khinchine form only through the Beta-integral identity~\eqref{eq:C2:Bc_Kummer}, which is the analytic shadow of the $M/G/1$/busy-period decomposition used in \S\ref{ssec:C2:prob}.
 
-\subsection{Recovery of $P(x,y)$ from $P_y(y)$}\label{ssec:C2:recovery}
+\subsection{Recovery of \texorpdfstring{$P(x,y)$}{P(x,y)} from \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:recovery}
 
 With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:C2:fundamental} and substitute~\eqref{eq:C2:Py} into its right-hand side. Writing $\zeta(y) \equiv \widetilde{B}_C(\lambda_2(1-y))$ for brevity,
 \begin{align*}
@@ -355,7 +355,7 @@ no companion equation closes the system; consequently no closed form for $P(z,z)
 ---and hence for the total $\mathbb{E}[N_1]+\mathbb{E}[N_2]$---is available.
 Abandonment removes customers and reduces both means relative to Model~$A$.
 
-\subsubsection*{Class-2 mean queue length via $P(1,y)$}
+\subsubsection*{Class-2 mean queue length via \texorpdfstring{$P(1,y)$}{P(1,y)}}
 
 Setting $x=1$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
 abandonment term $\theta_1 xy(x-1)\partial_xP$ vanishes identically, and
