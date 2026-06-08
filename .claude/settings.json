@@ -103,7 +103,24 @@
       "Bash(awk 'NR>=329 && NR<=331 {printf \"%d:[%s]\\\\n\", NR, $0}' /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
       "Bash(python3 -c ' *)",
       "Bash(grep -rn 'eq:C2:P1y\\\\|eq:C2:EN2\\\\|marginal PGF of $N_2$\\\\|mean-from-PGF\\\\|standard PGF identity' /Users/victor/GitVictor/M-Thesis---Notes/chapters/)",
-      "Bash(python3 /tmp/fix_c2.py)"
+      "Bash(python3 /tmp/fix_c2.py)",
+      "Bash(python3 -c \"import numpy, scipy, sympy; print\\('numpy',numpy.__version__,'scipy',scipy.__version__,'sympy',sympy.__version__\\)\")",
+      "Bash(time python3 verify_exp.py)",
+      "Bash(kill 4961)",
+      "Bash(sed -i '' 's/N = M = 200/N = M = 80/' verify_exp.py)",
+      "Bash(sed -i '' 's/def run_C21\\(lam1, lam2, mu, th1, N=200, M=200, tag=\"\"\\)/def run_C21\\(lam1, lam2, mu, th1, N=80, M=80, tag=\"\"\\)/' verify_exp.py)",
+      "Bash(python3 debug_en2.py)",
+      "Bash(python3 en2_series.py)",
+      "Bash(pkill -f en2_series.py)",
+      "Bash(pkill -f \"until \\\\[ -s\")",
+      "Bash(timeout 100 python3 en2_fast.py)",
+      "Bash(python3 en2_fast.py)",
+      "Bash(python3 final_check.py)",
+      "Bash(grep -n \"lem:gen:fundamental_equation\\\\|label{sec:model_a}\\\\|label{sec:model_b2}\\\\|label{sec:model_c2}\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/04_model_x.tex /Users/victor/GitVictor/M-Thesis---Notes/chapters/05_model_a.tex /Users/victor/GitVictor/M-Thesis---Notes/chapters/07_model_b2.tex /Users/victor/GitVictor/M-Thesis---Notes/chapters/08_model_c2.tex)",
+      "Bash(grep -rn \"label{eq:C2:pi00}\\\\|label{eq:C2:pi0}\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/)",
+      "Bash(grep -n 'At $y=0$ this gives' chapters/11_experiment.tex)",
+      "Bash(echo \"EXIT2 $?\")",
+      "Bash(python3 -c \"import re;d=open\\('main.pdf','rb'\\).read\\(\\);print\\('pages tag count approx:', d.count\\(b'/Type /Page'\\)\\)\")"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
