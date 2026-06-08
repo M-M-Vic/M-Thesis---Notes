@@ -120,7 +120,14 @@
       "Bash(grep -rn \"label{eq:C2:pi00}\\\\|label{eq:C2:pi0}\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/)",
       "Bash(grep -n 'At $y=0$ this gives' chapters/11_experiment.tex)",
       "Bash(echo \"EXIT2 $?\")",
-      "Bash(python3 -c \"import re;d=open\\('main.pdf','rb'\\).read\\(\\);print\\('pages tag count approx:', d.count\\(b'/Type /Page'\\)\\)\")"
+      "Bash(python3 -c \"import re;d=open\\('main.pdf','rb'\\).read\\(\\);print\\('pages tag count approx:', d.count\\(b'/Type /Page'\\)\\)\")",
+      "Bash(grep '\\\\$')",
+      "Bash(sed -n '149p' /Users/victor/GitVictor/M-Thesis---Notes/chapters/09_comparison.tex)",
+      "Bash(sed -n '203p' /Users/victor/GitVictor/M-Thesis---Notes/chapters/10_results.tex)",
+      "Bash(latexmk -pdf -g -interaction=nonstopmode main.tex)",
+      "Bash(git mv *)",
+      "Bash(python3 build_nb_exhaustive.py)",
+      "Bash(sort -t'\\(' -k2 -rn)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"

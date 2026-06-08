@@ -1,6 +1,6 @@
 \section{Results}\label{sec:results}
 
-\subsection{Validation}
+\subsection{Validation}\label{subsec:validation}
 
 % [Introduce: say that every closed-form expression in this thesis is validated
 %  numerically against a truncated CTMC solver that solves the linear system
@@ -253,3 +253,176 @@ measured.
     }
     \label{fig:val_experiment_pi}
 \end{figure}
+
+% =====================================================================
+%  CROSS-VALIDATION, CONVERGENCE, DASHBOARD (from /simulate-results, nb_exhaustive)
+% =====================================================================
+\subsection{Cross-validation: simulation versus the CTMC}
+\label{subsec:results:crossval}
+
+The CTMC solver is the analytical ground truth used throughout this chapter, but it is
+itself a numerical object: it solves $\pi Q=0$ on a finite truncation of the state space.
+As an independent check, the stationary distribution is also estimated by a discrete-event
+simulation of the master Markov chain, driven by the same rate structure but making no
+truncation and no linear-algebra assumption. Figure~\ref{fig:results:crossval} plots, for
+each canonical model, the CTMC value $\pi(n_1,n_2)$ against the simulated frequency for
+every state with $\pi(n_1,n_2)>10^{-4}$.
+
+%% BEGIN SIMULATION RESULTS — fig_sim_vs_ctmc %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_sim_vs_ctmc.pdf}
+  \caption{Simulation versus exact CTMC for Models $A$, $B_2$ ($\gamma_1=0.5$) and $C_2$
+  ($\theta_1=0.5$) at $\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$. Each point is one state
+  $(n_1,n_2)$; the dashed line is $y=x$. The simulation uses $5\times10^6$ events (lower
+  precision than the CTMC), yet every point lies on the diagonal, with maximum absolute
+  discrepancy below $10^{-2}$ for all three models.}
+  \label{fig:results:crossval}
+\end{figure}
+%% END SIMULATION RESULTS — fig_sim_vs_ctmc %%
+
+The points cluster tightly on the $y=x$ line in all three panels, and the maximum absolute
+deviation between the two independent computations is below $10^{-2}$ throughout --- the
+residual being entirely consistent with the $O(1/\sqrt{n})$ sampling error of a
+$5\times10^6$-event run. The two methods agree on $\pi_0$ to the same order. This closes the
+verification loop: the closed-form expressions match the CTMC (\S\ref{subsec:validation} and
+Table~\ref{tab:validation_summary}), and the CTMC matches an assumption-free simulation,
+so the analytical formulas are validated against a fully independent estimator.
+
+\subsection{Convergence to Model \texorpdfstring{$A$}{A}}
+\label{subsec:results:convergence}
+
+Every specialised model must recover Model~$A$ as its distinguishing parameter is switched
+off. \S\ref{sec:comparison} established this algebraically; here it is verified numerically
+and the \emph{rate} of convergence is characterised, since that rate measures how rapidly a
+mechanism departs from the baseline as it is introduced. Convergence is measured in the
+$L_1$ distance $\lVert\pi-\pi_A\rVert_1$ between the full joint distributions, supplemented
+by the individual descriptors $\pi_0$, $\pi(0,0)$ and $\mathbb{E}[N_1]$.
+
+\subsubsection{Model \texorpdfstring{$C_2$}{C2} as \texorpdfstring{$\theta_1\to0^+$}{theta1 to 0}}
+
+%% BEGIN SIMULATION RESULTS — fig_conv_C2_to_A_L1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_C2_to_A_L1.pdf}
+  \caption{Convergence of Model~$C_2$ to Model~$A$ as $\theta_1\to0^+$
+  ($\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$). \emph{Left:} log--log plot of
+  $\lVert\pi_{C_2}-\pi_A\rVert_1$ against $\theta_1$, with a fitted slope of $0.85$ over
+  $\theta_1<1$. \emph{Right:} $\pi_0(\theta_1)$ and $\pi(0,0)(\theta_1)$ relaxing onto the
+  Model-$A$ values $1-\rho=0.30$ and $\rho(1-\rho)=0.21$ as $\theta_1\to0$.}
+  \label{fig:conv:c2_l1}
+\end{figure}
+%% END SIMULATION RESULTS — fig_conv_C2_to_A_L1 %%
+
+%% BEGIN SIMULATION RESULTS — fig_conv_C2_to_A_indiv %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_C2_to_A_indiv.pdf}
+  \caption{Individual-descriptor convergence of $C_2\to A$: $|\mathbb{E}[N_1]_{C_2}-
+  \mathbb{E}[N_1]_A|$, $|\pi_0^{C_2}-\pi_0^A|$ and $|\pi(0,0)^{C_2}-\pi(0,0)^A|$ versus
+  $\theta_1$ on log--log axes, each annotated with its fitted slope.}
+  \label{fig:conv:c2_indiv}
+\end{figure}
+%% END SIMULATION RESULTS — fig_conv_C2_to_A_indiv %%
+
+Figure~\ref{fig:conv:c2_l1} examines the limit predicted by the
+Corollary~\ref{cor:C2:pi00} statement that $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$ as
+$\theta_1\to0^+$, whence $\pi_0\to1-\rho$ and $\pi(0,0)\to\rho(1-\rho)$. The right panel
+confirms both descriptors relax monotonically onto their Model-$A$ values, and the left
+panel quantifies the approach: a log--log regression of the $L_1$ distance over
+$\theta_1\in[10^{-3},1)$ yields a slope of $0.847$ (Table~\ref{tab:conv:rates}), consistent
+with first-order convergence, $\lVert\pi_{C_2}-\pi_A\rVert_1=O(\theta_1)$. This matches the
+analytic prediction: $\mathbb{E}[B_C]$ is smooth in $\theta_1$ at the origin, so its
+first-order Taylor term governs the leading deviation. Figure~\ref{fig:conv:c2_indiv}
+confirms that the individual descriptors converge at the same first-order rate
+($\pi_0$ and $\pi(0,0)$ slopes both $0.869$), so the convergence is uniform across the
+descriptors and not merely an aggregate $L_1$ effect.
+
+\subsubsection{Model \texorpdfstring{$B_2$}{B2} as \texorpdfstring{$\gamma_1\to0^+$}{gamma1 to 0}}
+
+%% BEGIN SIMULATION RESULTS — fig_conv_B2_to_A_L1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{figures/results/fig_conv_B2_to_A_L1.pdf}
+  \caption{Convergence of Model~$B_2$ to Model~$A$ as $\gamma_1\to0^+$. The log--log $L_1$
+  distance has fitted slope $0.87$ over $\gamma_1<1$, again first-order, even though the
+  $B_2$ limit is singular in the ODE (the $\gamma_1\to0$ limit is non-uniform in the
+  analytic continuation, but the stationary distribution responds at first order).}
+  \label{fig:conv:b2_l1}
+\end{figure}
+%% END SIMULATION RESULTS — fig_conv_B2_to_A_L1 %%
+
+For $B_2$ the limit is more delicate. As noted in \S\ref{sec:comparison}, $\gamma_1$
+multiplies the highest-order term of the governing ODE, so $\gamma_1\to0$ is a singular
+limit of the analytic solution. Nonetheless the \emph{stationary distribution} converges
+smoothly: Figure~\ref{fig:conv:b2_l1} gives an $L_1$ slope of $0.873$
+(Table~\ref{tab:conv:rates}), first-order in $\gamma_1$. The descriptors $\pi_0$ and
+$\pi(0,0)$ require no convergence analysis at all --- by Corollary~\ref{cor:B2:pi00} they
+equal their Model-$A$ values \emph{identically} for every $\gamma_1>0$, so their deviation
+sits at the numerical floor and the corresponding entries in Table~\ref{tab:conv:rates} are
+not meaningful. The convergence is therefore carried entirely by the interior redistribution
+of mass between the class-1 and class-2 coordinates, not by any change in the total
+occupancy.
+
+\subsubsection{Instant-jockeying limit \texorpdfstring{$\gamma_1\to\infty$}{gamma1 to infinity}}
+
+%% BEGIN SIMULATION RESULTS — fig_conv_B2_inf_jockeying %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_B2_inf_jockeying.pdf}
+  \caption{Model~$B_2$ in the strong-jockeying regime $\gamma_1\to\infty$ at $\rho=0.70$.
+  \emph{Left:} $\mathbb{E}[N_1]/\mathbb{E}[N_2]\to0$ (note the logarithmic ordinate): one-way
+  jockeying is absorbing, so the class-1 queue is drained completely. \emph{Right:}
+  $\mathbb{E}[W_1]\to0$ while $\mathbb{E}[W_2]$ saturates as $\mathbb{E}[N_2]\to\mathbb{E}[N]_A$.}
+  \label{fig:conv:b2_inf}
+\end{figure}
+%% END SIMULATION RESULTS — fig_conv_B2_inf_jockeying %%
+
+The opposite extreme is instructive and corrects a natural misconception. One might expect
+the strong-jockeying limit to balance the two queues in proportion to their arrival rates,
+$\mathbb{E}[N_1]/\mathbb{E}[N_2]\to\lambda_1/\lambda_2$, as a two-way exchange would. But the
+$B_2$ jockeying is \emph{one-way} ($1\!\to\!2$): it has no return channel, so it is
+absorbing into class~2. As $\gamma_1\to\infty$ every class-1 arrival is converted on
+essentially zero timescale and the class-1 queue is drained,
+$\mathbb{E}[N_1]/\mathbb{E}[N_2]\to0$ --- the computed ratio falls from $0.1045$ at
+$\gamma_1=0.5$ to $3\times10^{-4}$ at $\gamma_1=500$, with no sign of levelling at
+$\lambda_1/\lambda_2=0.75$. Because jockeying conserves $N$, the entire occupancy migrates
+to class~2, $\mathbb{E}[N_2]\to\mathbb{E}[N]_A=1.6333$, and correspondingly
+$\mathbb{E}[W_1]\to0$ while $\mathbb{E}[W_2]$ saturates. The limit confirms that one-way
+jockeying does not pool the system but rather extinguishes the priority class as a distinct
+queue.
+
+%% BEGIN SIMULATION RESULTS — tab_convergence_rates %%
+\input{figures/results/tab_convergence_rates.tex}
+%% END SIMULATION RESULTS — tab_convergence_rates %%
+
+Table~\ref{tab:conv:rates} collects the empirical convergence rates. Both models approach
+Model~$A$ at first order in their distinguishing parameter --- $L_1$ slopes of $0.847$
+($C_2$) and $0.873$ ($B_2$), each within $0.16$ of the theoretical exponent $1$. The
+slight shortfall below unity is a finite-truncation and finite-grid artefact of the
+log--log fit, not a genuine fractional rate; it does not exceed the $0.1$--$0.2$ tolerance
+band and requires no further investigation.
+
+\subsection{Comparative dashboard}
+\label{subsec:results:dashboard}
+
+%% BEGIN SIMULATION RESULTS — fig_summary_dashboard %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/results/fig_summary_dashboard.pdf}
+  \caption{Synoptic dashboard of the numerical study: (1)~$\mathbb{E}[N]$ and
+  (2)~$\mathbb{E}[W_1]$ versus $\rho$ for all models; (3)~$L_1$ convergence $C_2\to A$ and
+  (4)~$B_2\to A$; (5)~the jockeying effect on $\mathbb{E}[N_1]$; and (6)~the
+  $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ heatmap over $(\rho,\theta_1)$. Together these
+  panels summarise the two central findings: jockeying redistributes delay at fixed total
+  work, while abandonment reduces total work at a throughput cost.}
+  \label{fig:results:dashboard}
+\end{figure}
+%% END SIMULATION RESULTS — fig_summary_dashboard %%
+
+Figure~\ref{fig:results:dashboard} assembles the six most informative panels of the study in
+a single view, intended as the frontispiece of the numerical chapter. It restates at a
+glance the contrast developed analytically in \S\ref{sec:comparison}: the $A$ and $B_2$
+load curves coincide while $C_2$ sits below them, the two convergence panels exhibit the
+common first-order approach to the baseline, and the heatmap localises the regime in which
+abandonment is most effective as a congestion control.

@@ -218,3 +218,302 @@ this limit is not uniform, consistent with $\gamma_1$ multiplying the
 highest-order term of the ODE.  Model~$C_2$ degenerates to Model~$A$ uniformly
 as $\theta_1\to0^+$: $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, and all
 C$_2$ formulas recover their Model-A counterparts.
+
+% =====================================================================
+%  COMPARATIVE PERFORMANCE ANALYSIS (from /simulate-results, nb_exhaustive)
+% =====================================================================
+\subsection{Traffic-intensity sweep}
+\label{subsec:comp:sweep}
+
+The structural comparison above is now made quantitative. Holding the service rate at
+$\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, the offered load
+$\rho=\lambda_1+\lambda_2$ is swept across $[0.10,0.95]$ and the stationary performance of
+the three models is solved exactly on the truncated CTMC. Figure~\ref{fig:comp:sweep_en}
+collects the mean queue length $\mathbb{E}[N]$, the priority-class queue
+$\mathbb{E}[N_1]$, the priority waiting time $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$
+(Little's Law), and the idle probability $\pi_0$; Figure~\ref{fig:comp:pi00} isolates
+$\pi(0,0)$ against the Model-A parabola $\rho(1-\rho)$.
+
+%% BEGIN SIMULATION RESULTS — fig_sweep_EN_vs_rho %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_sweep_EN_vs_rho.pdf}
+  \caption{Performance versus traffic intensity $\rho$ for Models $A$, $B_2$
+  ($\gamma_1=0.5$) and $C_2$ ($\theta_1=0.5$), at $\mu=1$ and
+  $\lambda_1{:}\lambda_2=3{:}4$; the vertical line marks the canonical $\rho=0.70$.
+  \emph{Top-left:} total queue $\mathbb{E}[N]$ --- $A$ and $B_2$ coincide because
+  jockeying conserves $N$ (Corollary~\ref{cor:A:pi0}), while $C_2$ lies strictly below
+  because abandonment removes customers. \emph{Top-right:} priority queue
+  $\mathbb{E}[N_1]$. \emph{Bottom-left:} priority waiting time $\mathbb{E}[W_1]$.
+  \emph{Bottom-right:} idle probability $\pi_0$, with the $1-\rho$ law (Model~$A$/$B_2$)
+  shown dotted; $C_2$ sits above it for every $\rho$, as predicted by
+  Corollary~\ref{cor:C2:pi00}.}
+  \label{fig:comp:sweep_en}
+\end{figure}
+%% END SIMULATION RESULTS — fig_sweep_EN_vs_rho %%
+
+Two mechanisms produce two qualitatively different responses. Jockeying is internal: the
+$1\!\to\!2$ transition relabels a waiting customer without changing the total count, so the
+$B_2$ and $A$ curves for $\mathbb{E}[N]$ and $\pi_0$ are indistinguishable across the entire
+sweep --- the server sees the same workload. Abandonment is a true departure at rate
+$\theta_1 n_1$, so $C_2$ carries a strictly lighter queue and a strictly larger idle
+fraction: the priority backlog is bled off before it can be served. At $\rho=0.70$
+(Table~\ref{tab:comp:main}) this gives $\pi_0=0.3696$ for $C_2$ against $0.3000$ for
+$A$ and $B_2$, and $\mathbb{E}[N]=0.8358$ against $1.6333$.
+
+The divergence widens with load. At $\rho=0.90$ the baseline class-2 queue reaches
+$\mathbb{E}[N_2]=7.5346$, whereas $C_2$ holds it to $1.9245$ --- a factor of nearly four ---
+because the self-regulating valve $\theta_1 n_1$ acts most strongly precisely when the queue
+is long. The priority queue $\mathbb{E}[N_1]$ is bounded for $C_2$ for the same reason and
+never exceeds $0.2292$ over the sweep, while the $A$ value grows monotonically toward the
+$\rho\to1$ singularity. We note for completeness that near criticality the dense CTMC
+truncation leaves a boundary tail mass of order $6\times10^{-4}$ for $A$ and $B_2$ at
+$\rho=0.95$ (against $1.5\times10^{-7}$ for $C_2$, whose tail is light); the $\rho\ge0.92$
+points for the non-abandoning models therefore carry a small downward truncation bias and
+should be read as lower bounds.
+
+%% BEGIN SIMULATION RESULTS — fig_sweep_pi00_vs_rho %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{figures/results/fig_sweep_pi00_vs_rho.pdf}
+  \caption{$\pi(0,0)$ versus $\rho$. Models $A$ and $B_2$ lie exactly on the parabola
+  $\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0} and Corollary~\ref{cor:B2:pi00}: jockeying
+  preserves $N$, hence the busy-but-empty probability), whereas $C_2$ rises strictly above
+  it --- abandonment inflates $\pi(0,0)$ through the enlarged idle probability
+  $\pi(0,0)=\rho\,\pi_0$ of Corollary~\ref{cor:C2:pi00}.}
+  \label{fig:comp:pi00}
+\end{figure}
+%% END SIMULATION RESULTS — fig_sweep_pi00_vs_rho %%
+
+The invariance of $\pi(0,0)=\rho(1-\rho)$ along the $A$ and $B_2$ curves of
+Figure~\ref{fig:comp:pi00} is not a numerical coincidence but a direct reading of
+Corollary~\ref{cor:B2:pi00}: the event ``server busy, both queues empty'' depends only on
+the total occupancy $N$, and jockeying leaves the law of $N$ unchanged. For $C_2$ the
+identity $\pi(0,0)=\rho\,\pi_0$ still holds, but $\pi_0>1-\rho$, so the curve is lifted ---
+at $\rho=0.70$, $\pi(0,0)=0.2587$ against the baseline $0.2100$
+(Table~\ref{tab:comp:main}).
+
+%% BEGIN SIMULATION RESULTS — tab_comparison_main %%
+\input{figures/results/tab_comparison_main.tex}
+%% END SIMULATION RESULTS — tab_comparison_main %%
+
+%% BEGIN SIMULATION RESULTS — tab_EN_sweep %%
+\input{figures/results/tab_EN_sweep.tex}
+%% END SIMULATION RESULTS — tab_EN_sweep %%
+
+Table~\ref{tab:comp:main} reads off the full set of stationary descriptors at three loads.
+Two columns deserve a reviewer's caution. First, the priority waiting time
+$\mathbb{E}[W_1]$ is smallest for $C_2$ at every load (Table~\ref{tab:comp:EN_sweep}:
+$0.5941$ at $\rho=0.90$ against $0.6808$ for $B_2$ and $1.4651$ for $A$), but
+$\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ is the mean time a customer is \emph{counted in
+queue~$i$}, and that residence is shortened by every departure mode --- service,
+\emph{and} attrition. In $C_2$ a class-1 customer leaves the count by being served
+\emph{or} by abandoning; in $B_2$ by being served \emph{or} by jockeying into class~2.
+A smaller $\mathbb{E}[W_1]$ therefore does not by itself certify faster service, and
+cross-model $\mathbb{E}[W_1]$ comparisons conflate latency reduction with customer loss.
+[AUTHOR: if a like-for-like service-latency comparison is wanted, report the conditional
+mean time-to-service of \emph{served} customers, which the present $\mathbb{E}[W_1]$ does
+not isolate.]
+
+Second, the $\mathbb{E}[W_2]$ column shows that jockeying actively \emph{harms} class~2:
+at $\rho=0.70$, $B_2$ raises $\mathbb{E}[W_2]$ to $3.6970$ from the baseline $3.3333$
+($+10.9\%$), and at $\rho=0.90$ to $15.2388$ from $14.6506$. This is the direct cost of the
+$1\!\to\!2$ transition --- displaced class-1 customers arrive at the tail of the class-2
+queue and lengthen it ($\mathbb{E}[N_2]$ rises from $1.3333$ to $1.4788$ at $\rho=0.70$).
+Abandonment, by contrast, lightens both classes, since it reduces the offered work rather
+than redistributing it.
+
+\subsection{The jockeying mechanism (Model \texorpdfstring{$B_2$}{B2})}
+\label{subsec:comp:jockeying}
+
+Figure~\ref{fig:b2:jockeying} isolates the action of $\gamma_1$ at fixed load $\rho=0.70$,
+sweeping $\gamma_1\in[10^{-3},50]$.
+
+%% BEGIN SIMULATION RESULTS — fig_B2_jockeying_EN_vs_gamma1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_B2_jockeying_EN_vs_gamma1.pdf}
+  \caption{Model~$B_2$ at $\rho=0.70$ ($\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$).
+  \emph{Left:} $\mathbb{E}[N_1]$ decreases and $\mathbb{E}[N_2]$ increases monotonically in
+  $\gamma_1$ (Model-$A$ values dotted). \emph{Centre:} $\mathbb{E}[N]$ is flat ---
+  jockeying conserves the total count. \emph{Right:} $\pi(0,0)\equiv\rho(1-\rho)=0.21$ for
+  all $\gamma_1$, the numerical signature of Corollary~\ref{cor:B2:pi00}.}
+  \label{fig:b2:jockeying}
+\end{figure}
+%% END SIMULATION RESULTS — fig_B2_jockeying_EN_vs_gamma1 %%
+
+The monotone decrease of $\mathbb{E}[N_1]$ in $\gamma_1$ follows directly from the rate
+structure: each waiting class-1 customer generates a jockeying event at rate $\gamma_1$, so
+the expected outflow from the class-1 queue is $\gamma_1\mathbb{E}[N_1]$, an additional
+drain that acts independently of the service process and grows with $\gamma_1$. At
+$\gamma_1=0.5$ this halves the priority queue, from $\mathbb{E}[N_1]=0.3000$ to $0.1545$
+($-48.5\%$, Table~\ref{tab:comp:main}). The mass is not destroyed but transferred:
+$\mathbb{E}[N_2]$ rises correspondingly from $1.3333$ to $1.4788$, and the centre panel
+confirms $\mathbb{E}[N]=1.6333$ is held constant to plotting precision. The right panel is
+the cleanest empirical check of Corollary~\ref{cor:B2:pi00}: because every jockeying
+transition preserves $N$, the load on the server --- and therefore $\pi_0=1-\rho$ and
+$\pi(0,0)=\rho(1-\rho)=0.21$ --- is exactly $\gamma_1$-invariant.
+
+%% BEGIN SIMULATION RESULTS — fig_B2_priority_ratio_vs_gamma1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{figures/results/fig_B2_priority_ratio_vs_gamma1.pdf}
+  \caption{Class-1 queue-residence ratio $\mathbb{E}[W_1]/\mathbb{E}[W_2]$ versus
+  $\gamma_1$ at $\rho=0.70$, with the Model-$A$ value dotted. The ratio decreases toward
+  zero because $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ measures time spent in the
+  class-1 queue, which the jockeying drain $\gamma_1\mathbb{E}[N_1]$ collapses; it does not
+  measure time to service.}
+  \label{fig:b2:priority}
+\end{figure}
+%% END SIMULATION RESULTS — fig_B2_priority_ratio_vs_gamma1 %%
+
+Figure~\ref{fig:b2:priority} must be read with the residence-time caveat of
+\S\ref{subsec:comp:sweep} firmly in mind. As $\gamma_1$ grows the ratio
+$\mathbb{E}[W_1]/\mathbb{E}[W_2]$ falls monotonically from the Model-$A$ value of $0.300$
+toward zero, which would naively suggest an ever-improving class-1 service. The mechanism
+is the opposite: a large $\gamma_1$ ejects class-1 customers from their own queue almost
+immediately, so the \emph{count} $\mathbb{E}[N_1]$ and hence $\mathbb{E}[W_1]$ vanish, but
+the ejected customers simply wait out their delay at the back of the class-2 queue. The
+falling ratio records the dissolution of the class-1 queue, not an acceleration of class-1
+service. This is the precise sense in which strong one-way jockeying \emph{erodes the
+priority structure}: in the limit there is effectively a single class.
+
+\subsection{Class asymmetry}
+\label{subsec:comp:asymmetry}
+
+Fixing $\rho=0.70$ and varying the split $\alpha=\lambda_1/(\lambda_1+\lambda_2)$ exposes
+how the mechanisms interact with the class mix. Figure~\ref{fig:comp:asymmetry} compares the
+three models; Figure~\ref{fig:b2:asymmetry} resolves the jockeying case at three rates.
+
+%% BEGIN SIMULATION RESULTS — fig_class_asymmetry %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_class_asymmetry.pdf}
+  \caption{Class-asymmetry sweep at $\rho=0.70$: $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, the
+  priority ratio $\mathbb{E}[W_1]/\mathbb{E}[W_2]$ (with each model's maximiser $\alpha^\ast$
+  marked), and the absolute priority benefit $\mathbb{E}[W_2]-\mathbb{E}[W_1]$, for Models
+  $A$, $B_2$ ($\gamma_1=0.5$) and $C_2$ ($\theta_1=0.5$).}
+  \label{fig:comp:asymmetry}
+\end{figure}
+%% END SIMULATION RESULTS — fig_class_asymmetry %%
+
+As $\alpha\to0$ the priority class is vanishingly rare and its mechanism barely engages:
+all three models converge in $\mathbb{E}[N_1]$. As $\alpha\to1$ the priority class
+dominates the offered load and the non-preemptive discipline gives it near-exclusive access
+to the server, driving $\mathbb{E}[N_1]\to0$ in every model. The interesting behaviour is
+interior. The absolute priority benefit $\mathbb{E}[W_2]-\mathbb{E}[W_1]$ (bottom-right) is
+largest where class~2 bears the most displaced load; jockeying narrows this gap relative to
+$A$ by exporting class-1 delay into the class-2 statistic, while abandonment reshapes it by
+removing class-1 work outright. [AUTHOR: the maximisers $\alpha^\ast$ of the priority ratio
+are marked on the bottom-left panel; quote the three values once read off the figure.]
+
+%% BEGIN SIMULATION RESULTS — fig_B2_class_asymmetry_gamma1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_B2_class_asymmetry_gamma1.pdf}
+  \caption{Model~$B_2$: $\mathbb{E}[N_1]$ and $\mathbb{E}[N_2]$ versus the split $\alpha$
+  for three jockeying rates $\gamma_1\in\{0.1,1.0,10.0\}$ at $\rho=0.70$. Stronger
+  jockeying flattens $\mathbb{E}[N_1]$ toward zero across the whole range of $\alpha$ and
+  loads the difference onto $\mathbb{E}[N_2]$.}
+  \label{fig:b2:asymmetry}
+\end{figure}
+%% END SIMULATION RESULTS — fig_B2_class_asymmetry_gamma1 %%
+
+The family in Figure~\ref{fig:b2:asymmetry} shows that the jockeying drain dominates the
+class mix: at $\gamma_1=10$ the priority queue is essentially empty for every $\alpha$,
+because the per-customer ejection rate $\gamma_1$ overwhelms the arrival rate $\lambda_1$
+regardless of the split. At $\gamma_1=0.1$ the curves still track the Model-$A$ shape, the
+drain being a small perturbation. The crossover between these regimes occurs where
+$\gamma_1$ is comparable to the effective class-1 service rate, consistent with the
+singular role of $\gamma_1$ in the $B_2$ ODE noted above.
+
+\subsection{The abandonment mechanism and the throughput--quality tradeoff (Model \texorpdfstring{$C_2$}{C2})}
+\label{subsec:comp:abandonment}
+
+Figure~\ref{fig:c2:abandonment} sweeps $\theta_1\in[10^{-3},50]$ at $\rho=0.70$.
+
+%% BEGIN SIMULATION RESULTS — fig_C2_abandonment_EN_vs_theta1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/results/fig_C2_abandonment_EN_vs_theta1.pdf}
+  \caption{Model~$C_2$ at $\rho=0.70$. \emph{Top-left:} $\mathbb{E}[N_1]\to0$ as the
+  abandonment valve $\theta_1 n_1$ strengthens. \emph{Top-right:} $\mathbb{E}[N_2]$
+  \emph{decreases monotonically} (no rebound at these parameters). \emph{Bottom-left:}
+  $\pi_0>1-\rho$ for all $\theta_1>0$ (Corollary~\ref{cor:C2:pi00}). \emph{Bottom-right:}
+  the throughput--quality tradeoff --- throughput falls and the abandonment rate rises with
+  $\theta_1$.}
+  \label{fig:c2:abandonment}
+\end{figure}
+%% END SIMULATION RESULTS — fig_C2_abandonment_EN_vs_theta1 %%
+
+The priority queue $\mathbb{E}[N_1]$ collapses toward zero as $\theta_1$ grows: the
+abandonment outflow $\theta_1\mathbb{E}[N_1]$ is a self-regulating valve that opens wider
+the longer the queue, so no class-1 backlog can persist. The idle-probability panel is the
+empirical face of Corollary~\ref{cor:C2:pi00}: every positive $\theta_1$ lifts $\pi_0$
+strictly above the Model-$A$ value $1-\rho=0.30$, because customers who abandon never reach
+the server and the busy fraction shrinks accordingly. We flag one departure from the
+expectation set in the simulation brief: $\mathbb{E}[N_2]$ here is \emph{monotonically
+decreasing} in $\theta_1$ (from $1.1627$ at $\theta_1=0.05$ to $0.4094$ at $\theta_1=5.0$),
+with no initial rise. The conjectured non-monotonicity --- class-1 exits freeing the server
+for class~2 --- is dominated at this load by the competing effect that faster class-1
+clearance also lowers the total work the class-2 queue inherits; the net effect on
+class~2 is a uniform reduction. The bottom-right panel quantifies the price: throughput
+falls from the Model-$A$ value $\mu\rho=0.70$ to $0.6304$ at $\theta_1=0.5$, the missing
+$0.0696$ being exactly the abandonment rate $\theta_1\mathbb{E}[N_1]$ --- carried load plus
+lost load equals offered load, as it must in steady state.
+
+%% BEGIN SIMULATION RESULTS — fig_C2_E_BC_vs_theta1 %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{figures/results/fig_C2_E_BC_vs_theta1.pdf}
+  \caption{Mean class-1 busy period $\mathbb{E}[B_C]$ of the $M/M/1{+}M$ subsystem versus
+  $\theta_1$, computed in closed form from
+  $\mathbb{E}[B_C]={}_1F_1(1;\mu/\theta_1+1;\lambda_1/\theta_1)/\mu$
+  (cf.\ \eqref{eq:comp:1F1}). The horizontal asymptote is the Model-$A$ busy period
+  $(\mu-\lambda_1)^{-1}=1.4286$, attained as $\theta_1\to0^+$ (Corollary~\ref{cor:C2:pi00}
+  limit).}
+  \label{fig:c2:ebc}
+\end{figure}
+%% END SIMULATION RESULTS — fig_C2_E_BC_vs_theta1 %%
+
+The busy-period curve in Figure~\ref{fig:c2:ebc} is the engine of the $C_2$ corollary: the
+confluent hypergeometric ${}_1F_1(1;\mu/\theta_1+1;\lambda_1/\theta_1)$ of
+\eqref{eq:comp:1F1} interpolates between the abandonment-free busy period and the
+fast-clearance regime. As $\theta_1\to0^+$ the Kummer function tends to unity in the
+relevant ratio and $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}=1.4286$, recovering the Model-$A$
+class-1 busy period; as $\theta_1$ grows the busy period shortens because the server is
+relieved by abandonment as well as by service.
+
+%% BEGIN SIMULATION RESULTS — fig_C2_rho_theta_heatmap %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/results/fig_C2_rho_theta_heatmap.pdf}
+  \caption{Ratio $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ over the $(\rho,\theta_1)$ plane;
+  the diverging scale is centred at $1.0$ (the Model-$A$ value). Abandonment delivers its
+  largest relative reduction in the priority queue at high load and high $\theta_1$
+  (bottom-right region), exactly where the baseline backlog is most severe.}
+  \label{fig:c2:heatmap}
+\end{figure}
+%% END SIMULATION RESULTS — fig_C2_rho_theta_heatmap %%
+
+The heatmap of Figure~\ref{fig:c2:heatmap} summarises where abandonment is most effective
+as a congestion control. The ratio is everywhere below unity --- abandonment can only
+shorten the class-1 queue --- and is smallest in the high-$\rho$, high-$\theta_1$ corner,
+where the Model-$A$ baseline is largest and the valve acts hardest. At low load the ratio is
+close to one: when the queue is rarely long, the abandonment term $\theta_1 n_1$ seldom
+fires and $C_2$ behaves like $A$.
+
+%% BEGIN SIMULATION RESULTS — tab_priority_benefit %%
+\input{figures/results/tab_priority_benefit.tex}
+%% END SIMULATION RESULTS — tab_priority_benefit %%
+
+Table~\ref{tab:prio:benefit} contrasts the priority structure directly. The ratio
+$\mathbb{E}[W_2]/\mathbb{E}[W_1]$ measures how strongly the discipline favours class~1.
+Jockeying inflates this ratio sharply --- to $7.18$ at $\rho=0.70$ and $22.38$ at
+$\rho=0.90$, against the baseline $3.33$ and $10.00$ --- but, as established above, the
+inflation reflects the collapse of the class-1 \emph{queue} (its residence time, not its
+service time) and a simultaneous lengthening of class~2. Abandonment moves the ratio in the
+opposite direction at high load ($6.30$ at $\rho=0.90$, below the baseline $10.00$),
+because it compresses both waiting times by shedding load. The two mechanisms are thus not
+substitutes: jockeying redistributes delay between classes at fixed total work, whereas
+abandonment reduces total work at the cost of served throughput.
