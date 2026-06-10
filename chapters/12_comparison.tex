@@ -327,9 +327,15 @@ queue~$i$}, and that residence is shortened by every departure mode --- service,
 \emph{or} by abandoning; in $B_2$ by being served \emph{or} by jockeying into class~2.
 A smaller $\mathbb{E}[W_1]$ therefore does not by itself certify faster service, and
 cross-model $\mathbb{E}[W_1]$ comparisons conflate latency reduction with customer loss.
-[AUTHOR: if a like-for-like service-latency comparison is wanted, report the conditional
-mean time-to-service of \emph{served} customers, which the present $\mathbb{E}[W_1]$ does
-not isolate.]
+The magnitude of that confound is exactly the class-1 loss fraction
+$L_1=\theta_1\mathbb{E}[N_1]/\lambda_1$ derived in \S\ref{subsec:comp:abandonment}
+(eq.~\eqref{eq:comp:lossfrac}): in $C_2$ at $\rho=0.70$ a fraction $L_1=0.232$ of class-1
+arrivals leaves by abandonment rather than by service, so the reported
+$\mathbb{E}[W_1]=0.4639$ averages the queue residence over a population nearly a quarter of
+which never reaches the server. A strict like-for-like comparison would instead report the
+conditional mean time-to-service of \emph{served} customers, which the count-based
+$\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ does not isolate; for the lossless Models $A$ and
+$B_2$ ($L_1=0$) the distinction is vacuous, and the caveat bites only for $C_2$ and $C_2^1$.
 
 Second, the $\mathbb{E}[W_2]$ column shows that jockeying actively \emph{harms} class~2:
 at $\rho=0.70$, $B_2$ raises $\mathbb{E}[W_2]$ to $3.6970$ from the baseline $3.3333$
@@ -406,22 +412,42 @@ three models; Figure~\ref{fig:b2:asymmetry} resolves the jockeying case at three
   \centering
   \includegraphics[width=0.98\textwidth]{figures/results/fig_class_asymmetry.pdf}
   \caption{Class-asymmetry sweep at $\rho=0.70$: $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, the
-  priority ratio $\mathbb{E}[W_1]/\mathbb{E}[W_2]$ (with each model's maximiser $\alpha^\ast$
-  marked), and the absolute priority benefit $\mathbb{E}[W_2]-\mathbb{E}[W_1]$, for Models
-  $A$, $B_2$ ($\gamma_1=0.5$) and $C_2$ ($\theta_1=0.5$).}
+  priority ratio $\mathbb{E}[W_1]/\mathbb{E}[W_2]$ (vertical dotted lines mark each model's
+  ratio-extremising split over the swept range $[0.1,0.9]$), and the absolute priority
+  benefit $\mathbb{E}[W_2]-\mathbb{E}[W_1]$, for Models $A$, $B_2$ and $B_2^1$
+  ($\gamma_1=0.5$), and $C_2$ and $C_2^1$ ($\theta_1=0.5$).}
   \label{fig:comp:asymmetry}
 \end{figure}
 %% END SIMULATION RESULTS — fig_class_asymmetry %%
 
 As $\alpha\to0$ the priority class is vanishingly rare and its mechanism barely engages:
-all three models converge in $\mathbb{E}[N_1]$. As $\alpha\to1$ the priority class
+all models converge in $\mathbb{E}[N_1]$. As $\alpha\to1$ the priority class
 dominates the offered load and the non-preemptive discipline gives it near-exclusive access
 to the server, driving $\mathbb{E}[N_1]\to0$ in every model. The interesting behaviour is
 interior. The absolute priority benefit $\mathbb{E}[W_2]-\mathbb{E}[W_1]$ (bottom-right) is
 largest where class~2 bears the most displaced load; jockeying narrows this gap relative to
 $A$ by exporting class-1 delay into the class-2 statistic, while abandonment reshapes it by
-removing class-1 work outright. [AUTHOR: the maximisers $\alpha^\ast$ of the priority ratio
-are marked on the bottom-left panel; quote the three values once read off the figure.]
+removing class-1 work outright.
+
+The priority ratio $\mathbb{E}[W_1]/\mathbb{E}[W_2]$ (bottom-left) carries the sharpest
+structural signal. For Model-$A$ it is \emph{exactly $\alpha$-invariant}: writing the ratio
+as $\mathbb{E}[W_1]/\mathbb{E}[W_2]=(\mathbb{E}[N_1]\,\lambda_2)/(\mathbb{E}[N_2]\,\lambda_1)$
+and substituting the closed forms $\mathbb{E}[N_1]=\rho\rho_1/(1-\rho_1)$ and
+$\mathbb{E}[N]=\rho^2/(1-\rho)$ collapses the split dependence entirely,
+\begin{equation}\label{eq:comp:Awratio}
+  \left.\frac{\mathbb{E}[W_1]}{\mathbb{E}[W_2]}\right|_{A}=1-\rho
+  \qquad\text{for every }\alpha\in(0,1),
+\end{equation}
+the flat line at $0.300=1-\rho$ in the panel. The two mechanisms break this invariance in
+opposite directions, and \emph{monotonically} in $\alpha$: jockeying makes the ratio strictly
+decreasing (from $0.188$ at $\alpha=0.1$ to $0.031$ at $\alpha=0.9$), since a larger priority
+share feeds the $1\!\to\!2$ drain harder; abandonment makes it strictly increasing ($0.214$
+to $0.357$), since a larger priority share is exactly where the abandonment valve sheds the
+most class-1 work. The head-of-line variants $B_2^1$ and $C_2^1$ track their parents and are
+likewise monotone. No curve turns over: each ratio is extremised at a \emph{boundary} of the
+swept range $[0.1,0.9]$, not at an interior $\alpha^\ast$, so the dotted markers sit at the
+endpoints ($\alpha=0.1$ for $A$ and the jockeying models, $\alpha=0.9$ for the abandonment
+models) and record this monotonicity rather than an interior optimum.
 
 %% BEGIN SIMULATION RESULTS — fig_B2_class_asymmetry_gamma1 %%
 \begin{figure}[H]
@@ -477,6 +503,63 @@ class~2 is a uniform reduction. The bottom-right panel quantifies the price: thr
 falls from the Model-$A$ value $\mu\rho=0.70$ to $0.6304$ at $\theta_1=0.5$, the missing
 $0.0696$ being exactly the abandonment rate $\theta_1\mathbb{E}[N_1]$ --- carried load plus
 lost load equals offered load, as it must in steady state.
+
+Written as a fraction, this balance defines the model's \emph{loss}. The server delivers
+carried work at rate $\mu(1-\pi_0)$ whenever it is busy, and the offered rate is
+$\lambda_1+\lambda_2=\mu\rho$; since in steady state every arrival is either served or
+abandons, flow conservation forces the total abandonment rate to equal the \emph{idle excess}
+that abandonment creates over the no-attrition baseline,
+\begin{equation}\label{eq:comp:loss}
+  \Lambda_{\mathrm{loss}}
+  \;=\;\mu\rho-\mu(1-\pi_0)
+  \;=\;\mu\bigl(\pi_0-(1-\rho)\bigr),
+\end{equation}
+the strictly positive gap $\pi_0-(1-\rho)>0$ of Corollary~\ref{cor:C2:pi00}. The identity
+\eqref{eq:comp:loss} holds for either abandonment rate --- the full-rate mechanism realises
+$\Lambda_{\mathrm{loss}}=\theta_1\mathbb{E}[N_1]$ and the head-of-line mechanism
+$\Lambda_{\mathrm{loss}}=\theta_1\,\mathbb{P}(N_1\ge1)$ --- because it uses only the carried
+rate $\mu(1-\pi_0)$. As $\theta_2=0$ all loss is borne by the priority class, so the class-1
+and system loss fractions are
+\begin{equation}\label{eq:comp:lossfrac}
+  L_1=\frac{\Lambda_{\mathrm{loss}}}{\lambda_1}=\frac{\pi_0-(1-\rho)}{\rho_1},
+  \qquad
+  L=\frac{\Lambda_{\mathrm{loss}}}{\lambda_1+\lambda_2}=\frac{\pi_0-(1-\rho)}{\rho},
+\end{equation}
+both closed-form through the $C_2$ idle probability $\pi_0$, and both $\to0$ as
+$\theta_1\to0^+$ (where $\pi_0\to1-\rho$), recovering the lossless Model-$A$ limit. At
+$\rho=0.70$, $\theta_1=0.5$ this gives $L_1=0.232$ --- \emph{$23.2\%$ of the priority class is
+shed} --- against a system loss of only $L=0.099$, the difference reflecting that the
+non-priority class never abandons. Table~\ref{tab:comp:loss} collects the loss fractions at
+the three reference loads for the full-rate $C_2$ and the head-of-line $C_2^1$; the
+head-of-line valve, capped at $\theta_1$ rather than scaling as $\theta_1 n_1$, sheds
+uniformly less at every load.
+
+\begin{table}[H]
+\centering
+\caption{Loss fractions under class-1 abandonment ($\theta_1=0.5$, $\lambda_1{:}\lambda_2=3{:}4$,
+$\mu=1$), from \eqref{eq:comp:lossfrac} with the model's idle probability $\pi_0$. $L_1$ is the
+fraction of class-1 arrivals shed; $L$ is the system-wide fraction. The head-of-line model
+$C_2^1$ sheds uniformly less than the full-rate $C_2$.}
+\label{tab:comp:loss}
+\begin{tabular}{lrrrr}
+\hline
+ & \multicolumn{2}{c}{\textbf{Model-$C_2$}} & \multicolumn{2}{c}{\textbf{Model-$C_2^1$}} \\
+$\rho$ & $L_1$ & $L$ & $L_1$ & $L$ \\
+\hline
+$0.50$ & $0.166$ & $0.071$ & $0.156$ & $0.067$ \\
+$0.70$ & $0.232$ & $0.099$ & $0.212$ & $0.091$ \\
+$0.90$ & $0.297$ & $0.127$ & $0.266$ & $0.114$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The loss fraction rises with load --- abandonment is most active precisely where the priority
+queue is longest --- but never approaches one: even at $\rho=0.90$ roughly seventy per cent of
+class-1 customers are still served. The same closed form \eqref{eq:comp:lossfrac} fed by the
+$\theta_1$-sweep of Figure~\ref{fig:c2:abandonment} gives $L_1$ growing from $0.044$ at
+$\theta_1=0.05$ to $0.468$ at $\theta_1=5.0$ (at $\rho=0.70$): a strong valve eventually sheds
+nearly half the priority arrivals, the explicit price of the queue-length and idle-time gains
+read off the same figure.
 
 %% BEGIN SIMULATION RESULTS — fig_C2_E_BC_vs_theta1 %%
 \begin{figure}[H]

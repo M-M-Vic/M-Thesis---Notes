@@ -132,7 +132,14 @@
       "Bash(ls -la --time-style=+%H:%M:%S ../figures/results/fig_sweep_EN_vs_rho.pdf ../figures/results/fig_summary_dashboard.pdf)",
       "Read(//Users/victor/GitVictor/figures/results/**)",
       "Bash(python3 -c \"import os,glob,time; [print\\(time.strftime\\('%H:%M:%S',time.localtime\\(os.path.getmtime\\(f\\)\\)\\), os.path.basename\\(f\\)\\) for f in sorted\\(glob.glob\\('figures/results/fig_*.pdf'\\), key=os.path.getmtime\\)[-6:]]\")",
-      "Bash(python3 -c 'import os,glob,time *)"
+      "Bash(python3 -c 'import os,glob,time *)",
+      "Bash(grep -oP \"Model[~\\\\s\\\\-]*\\\\\\\\\\\\$[^$]+\\\\\\\\\\\\$|Model[~\\\\s\\\\-]+[A-Z][_\\\\^0-9]*\")",
+      "Bash(grep -roh 'Model-[^$ \\\\\\\\{]*\\\\$[^$]*\\\\$\\\\|Model-[A-Z][_^0-9]*' /Users/victor/GitVictor/M-Thesis---Notes --include=\"*.tex\")",
+      "Bash(python3 -c \"import json; nb=json.load\\(open\\('Code/nb_results.ipynb'\\)\\); print\\(''.join\\(nb['cells'][0]['source']\\)[:1500]\\); print\\('...CELL1...'\\); print\\(''.join\\(nb['cells'][1]['source']\\)[:1500]\\)\")",
+      "Bash(sed -n '52,55p' chapters/06_model_a.tex)",
+      "Bash(sed -n '417,420p' chapters/05_model_x.tex)",
+      "Bash(echo \"EXIT CODE: $?\")",
+      "Bash(awk ' *)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
