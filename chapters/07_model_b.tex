@@ -387,7 +387,19 @@ $P_y$ from the known remainder, this limit splits as
 \end{align}
 Each limit is a Hadamard finite part: the vanishing prefactor
 $P_h^{\,\mathrm{diag}}(z):=\lim_{x\to z^-}P_h\bigl(x,y(x;z)\bigr)$ regularises the
-divergent integral, and neither factor is meaningful in isolation. Writing the kernel
+divergent integral, and neither factor is meaningful in isolation.
+% TODO(citation): add a standard reference for Hadamard finite-part integrals
+% (e.g. Hadamard, Lectures on Cauchy's Problem, 1923) -- the bibliography currently
+% lacks a suitable entry; comment only, no PDF output.
+Only the product limit~\eqref{eq:B:diag_limit} is a well-defined object; the vanishing
+prefactor and the divergent integral acquire meaning solely through it. That this limit is
+finite and equals the known diagonal value $\pi(0,0)/(1-\rho z)$ is not a fresh assumption
+but was established in Step~2, where the asymptotic expansion
+$y(t;z)-t\sim(\Gamma/\gamma_1)(z-t)$ as $t\to z^-$ matches the integrand's non-integrable
+singularity $(y(t;z)-t)^{-1-E}$ against the vanishing of $P_h^{\,\mathrm{diag}}(z)$ at the
+same order. The finite-part prescription therefore introduces no new analytic content: it is
+a bookkeeping device for a limit already shown to exist, not a means of assigning a value to
+a genuinely divergent expression. Writing the kernel
 and known term \emph{formally} as
 \begin{align}
     \mathcal{K}(z,t) &:= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)}
