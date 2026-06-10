@@ -25,7 +25,7 @@ Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ a
     \resizebox{\textwidth}{!}{%
         \input{figures/models-queue-overview.tikz}%
     }
-    \caption{Physical queue layout for Model-$X$ (left) and its four specializations
+    \caption{Physical queue layout for Model-$X$ (left) and its four specialisations
     (right, $2\times2$ grid). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
     Solid arrows: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
     Dashed arrows: jockeying ($\gamma_i$), which transfers a waiting customer between
@@ -108,7 +108,7 @@ Regarding the parameters of the system, the arrival process for each class follo
 Poisson process (i.e., the interarrival times are exponentially distributed). By the
 properties of Poisson processes, the total number of arrivals will also form a
 Poisson process. Furthermore, we have a common service rate for exponentially
-distributed service times. We can organize our notation into class-specific
+distributed service times. We can organise our notation into class-specific
 parameters (alongside our common service rate) and class-blind totals.
 For the class-specific metrics and service rate, we define:
 \begin{itemize}
@@ -274,13 +274,13 @@ The derivation that will be carried out here includes the boundary terms, where 
 Note that both of these terms include the state where the server is busy but both queues are empty, which is represented by $\pi(0,0)$, while the state where the entire system is empty (the idle state) is treated separately.
 
 
-Another term that arises during the application of the balance equations characterizes the boundary dynamics when the class-$1$ queue contains exactly one waiting customer:
+Another term that arises during the application of the balance equations characterises the boundary dynamics when the class-$1$ queue contains exactly one waiting customer:
 \begin{equation}
     P_1(y) = \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2}.
 \end{equation}
 This term serves as an intermediate step; as the derivation proceeds, it will be possible to express it in terms of the primary boundary functions $P_x(x)$ and $P_y(y)$.
 
-In the same fashion, we introduce the concept of the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably utilized by Cohen \cite{cohen1956delay}, consists of transforming only a subset of the random variables while maintaining the discrete indices of the remainder. In the context of a priority queue, this method is particularly advantageous: it allows us to exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and focus the analytical effort on the non-trivial PGF of the non-priority class.
+In the same fashion, we introduce the concept of the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably utilised by Cohen \cite{cohen1956delay}, consists of transforming only a subset of the random variables while maintaining the discrete indices of the remainder. In the context of a priority queue, this method is particularly advantageous: it allows us to exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and focus the analytical effort on the non-trivial PGF of the non-priority class.
 
 While Cohen originally developed this framework for multi-server systems, we apply it here to the single-server case. To avoid the potential confusion stemming from mid-20th-century notation, we provide a modern formulation consistent with the variables defined above.
 

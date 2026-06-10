@@ -130,6 +130,13 @@ X  (parent model, all mechanisms)    intractable; A–C₂ are its tractable spe
 `graphicx`; `hyperref` colorlinks=blue; `tikz` with `arrows.meta, positioning, matrix`;
 `xcolor`; `float`). Add a package only if genuinely needed and say so in the PR.
 
+- **Spelling: British English throughout** (standing convention). Use `-ise`/`-isation`
+  (analyse, utilise, characterise, generalise, specialisation, normalise), `-our` (behaviour,
+  colour), `-re` (centre), and doubled-`l` (modelling, labelled). Never US variants
+  (`-ize`, `behavior`, `center`, `modeling`). Exempt: LaTeX command names that are literally
+  US-spelled — `\itemize`, `\centering`, `\begin{center}`, `colorlinks`, `\color`,
+  `\footnotesize` — leave these untouched. When unsure, match the dominant form already in
+  the document.
 - **Theorem environments** already declared (independent counters): `theorem`, `lemma`,
   `corollary`. Reuse them; don't redeclare.
 - **Existing macros:** `\tpi` = `\widetilde{\pi}`, `\tP` = `\widetilde{P}`. Use them; if you
