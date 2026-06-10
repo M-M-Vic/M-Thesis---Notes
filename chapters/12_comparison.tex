@@ -329,13 +329,21 @@ A smaller $\mathbb{E}[W_1]$ therefore does not by itself certify faster service,
 cross-model $\mathbb{E}[W_1]$ comparisons conflate latency reduction with customer loss.
 The magnitude of that confound is exactly the class-1 loss fraction
 $L_1=\theta_1\mathbb{E}[N_1]/\lambda_1$ derived in \S\ref{subsec:comp:abandonment}
-(eq.~\eqref{eq:comp:lossfrac}): in $C_2$ at $\rho=0.70$ a fraction $L_1=0.232$ of class-1
-arrivals leaves by abandonment rather than by service, so the reported
-$\mathbb{E}[W_1]=0.4639$ averages the queue residence over a population nearly a quarter of
-which never reaches the server. A strict like-for-like comparison would instead report the
-conditional mean time-to-service of \emph{served} customers, which the count-based
-$\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ does not isolate; for the lossless Models $A$ and
-$B_2$ ($L_1=0$) the distinction is vacuous, and the caveat bites only for $C_2$ and $\CH$.
+(eq.~\eqref{eq:comp:lossfrac}): in $C_2$ at $\rho=0.70$ a fraction $L_1=\lossCtwoSeventy$ of
+class-1 arrivals leaves by abandonment rather than by service, so the reported
+$\mathbb{E}[W_1]=\uncondWoneCtwo$ averages the queue residence over a population of which only a
+fraction $\fracServedCtwo$ ever reaches the server. Tagging served class-1 customers in simulation
+(\S\ref{sec:results}) isolates the fair latency: the conditional mean time-to-service of
+served class-1 customers is $\condWoneCtwo$ for $C_2$, against the count-based unconditional
+$\uncondWoneCtwo$ and against $\condWoneA$ for Model-$A$ (where the conditional latency
+coincides with the unconditional $\uncondWoneA$ up to simulation error, since no class-1
+customer is lost). The genuine service-latency advantage over Model-$A$ is therefore real,
+but the part of the apparent $\mathbb{E}[W_1]$ gap that is \emph{attrition} rather than faster
+service is exactly the fraction $L_1=\lossCtwoSeventy$ of class-1 demand that $C_2$ sheds
+outright. The same caveat applies to $B_2$ for a different reason --- only a fraction
+$\fracServedBtwo$ of its class-1 customers are served directly from queue~1, the rest jockeying
+into class~2, which pulls its conditional time-to-service $\condWoneBtwo$ below the count-based
+$\uncondWoneBtwo$ --- so only Model-$A$ has a genuinely vacuous distinction.
 
 Second, the $\mathbb{E}[W_2]$ column shows that jockeying actively \emph{harms} class~2:
 at $\rho=0.70$, $B_2$ raises $\mathbb{E}[W_2]$ to $3.6970$ from the baseline $3.3333$
@@ -438,16 +446,20 @@ $\mathbb{E}[N]=\rho^2/(1-\rho)$ collapses the split dependence entirely,
   \left.\frac{\mathbb{E}[W_1]}{\mathbb{E}[W_2]}\right|_{A}=1-\rho
   \qquad\text{for every }\alpha\in(0,1),
 \end{equation}
-the flat line at $0.300=1-\rho$ in the panel. The two mechanisms break this invariance in
-opposite directions, and \emph{monotonically} in $\alpha$: jockeying makes the ratio strictly
-decreasing (from $0.188$ at $\alpha=0.1$ to $0.031$ at $\alpha=0.9$), since a larger priority
-share feeds the $1\!\to\!2$ drain harder; abandonment makes it strictly increasing ($0.214$
-to $0.357$), since a larger priority share is exactly where the abandonment valve sheds the
-most class-1 work. The head-of-line variants $\BH$ and $\CH$ track their parents and are
-likewise monotone. No curve turns over: each ratio is extremised at a \emph{boundary} of the
-swept range $[0.1,0.9]$, not at an interior $\alpha^\ast$, so the dotted markers sit at the
-endpoints ($\alpha=0.1$ for $A$ and the jockeying models, $\alpha=0.9$ for the abandonment
-models) and record this monotonicity rather than an interior optimum.
+the flat line at $\ratioPeakA=1-\rho$ in the panel. The two mechanisms break this invariance
+in \emph{opposite, monotone} directions. Jockeying makes the ratio strictly \emph{decreasing}
+in $\alpha$, so it peaks at $\ratioPeakBtwo$ at the left endpoint $\alpha^\ast=\alphaStarBtwo$
+(a larger priority share feeds the $1\!\to\!2$ drain harder); abandonment makes it strictly
+\emph{increasing}, peaking at $\ratioPeakCtwo$ at the right endpoint
+$\alpha^\ast=\alphaStarCtwo$ (a larger priority share is exactly where the abandonment valve
+sheds the most class-1 work). The head-of-line variants track their parents --- $\BH$ peaks at
+$\ratioPeakBH$ ($\alpha^\ast=\alphaStarBH$) and $\CH$ at $\ratioPeakCH$
+($\alpha^\ast=\alphaStarCH$) --- and are likewise monotone. No curve turns over: across all
+five models the maximiser $\alpha^\ast$ sits at a \emph{boundary} of the swept range
+$[0.1,0.9]$, never at an interior point. An interior $\alpha^\ast$ would require mechanism
+engagement (which strengthens as the priority class grows) to balance class dominance at some
+intermediate split; here the two effects pull the ratio the same way throughout, so the
+extremum is always pushed to an endpoint.
 
 %% BEGIN SIMULATION RESULTS — fig_B2_class_asymmetry_gamma1 %%
 \begin{figure}[H]
