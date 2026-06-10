@@ -36,10 +36,10 @@ Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ a
 
 The model discussed in this section is an $M/M/1$ queueing system with $2$ priority
 classes, where customers are served on a First-Come, First-Served (FCFS) basis
-within their own class and those coming from the priority class (Class-$1$) have
-non-preemptive priority over those of the non-priority class (Class-$2$); that is,
-when a Class-$2$ customer is in service, that service will not be interrupted by a
-potential arrival of a Class-$1$ customer. Beyond basic dynamics, Model-$X$
+within their own class and those coming from the priority class (class-$1$) have
+non-preemptive priority over those of the non-priority class (class-$2$); that is,
+when a class-$2$ customer is in service, that service will not be interrupted by a
+potential arrival of a class-$1$ customer. Beyond basic dynamics, Model-$X$
 incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a
 waiting customer can abandon its own queue and \emph{join the other queue}, at a
 per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for 
@@ -56,9 +56,9 @@ linear-reneging mechanism of the $M/M/1+M$ queue introduced in Section~\ref{ssec
 This model, being an $M/M/1$ queueing model according to Kendall's notation,
 features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for
 Class-$i$, exponentially distributed service times with rate $\mu$, and a service
-capacity of $1$ customer at a time. In addition, a waiting customer of Class-$1$
+capacity of $1$ customer at a time. In addition, a waiting customer of class-$1$
 jockeys in the class-$2$ queue at the per-customer rate $\gamma_1$ and a waiting
-customer of Class-$2$ jockeys in the class-$1$ queue at the per-customer rate
+customer of class-$2$ jockeys in the class-$1$ queue at the per-customer rate
 $\gamma_2$ (transfers that conserve the total), while a waiting customer of
 Class-$i$ abandons the system at the per-customer rate $\theta_i$ (a true departure
 that reduces the total).
@@ -81,7 +81,7 @@ number of customers in the queue for class-$i$. This is the most conventional wa
 define the state space, namely $S$, in such a queueing system. However, we can also
 look at the total number of customers in the queues. We can define an alternative
 state space $\widetilde{S}$ using the idle state $(0)$ and the pair $(n_2,n)$ —we
-could also choose $(n_1,n)$—, which gives that we have $(n-n_2)$ Class-$1$ customers
+could also choose $(n_1,n)$—, which gives that we have $(n-n_2)$ class-$1$ customers
 in the priority queue. Note that, since $n$ is the total number of customers, we
 need the constraint $n \geq n_2$.
 Therefore, we define our state spaces as follows:
@@ -129,7 +129,7 @@ For the aggregate system parameters, we define:
 
 \textbf{Computation of $\pi_0$ and $\pi(0,0)$.}
 
-The following relation between $\pi_0$ and $\pi(0,0)$ holds no only for Model-$X$ but also for every other model we will see in this work. The only transition into state $(0)$ is a service completion from $(0,0)$, and the only transition out from $(0,0)$ is an arrival of a customer from any class to an idle system, leaving us whe following balance equation: $\lambda\pi_0=\mu\,\pi(0,0)$. Therefore
+The following relation between $\pi_0$ and $\pi(0,0)$ holds not only for Model-$X$ but also for every other model we will see in this work. The only transition into state $(0)$ is a service completion from $(0,0)$, and the only transition out from $(0,0)$ is an arrival of a customer from any class to an idle system, leaving us the following balance equation: $\lambda\pi_0=\mu\,\pi(0,0)$. Therefore
 \begin{equation}
     \pi(0,0) \;=\; \frac{\lambda}{\mu}\,\pi_0 \;=\; \rho\,\pi_0 .
     \label{eq:gen:pi00_general}
@@ -142,7 +142,7 @@ For models \emph{without} abandonment, the total number of customers in the syst
     \pi(0,0)=\rho\,\pi_0=(1-\rho)\rho.
     \label{eq:gen:pi0_noaband}
 \end{equation}
-However, for models \emph{with} abandonments, the total number of customers is no longer conserved. For a busy state, the departure rate is $\mu+\theta_1 n_1+\theta_2 n_2$, so the rate of state $(n_1,n_2)$ depends on the split between $n_1$ and $n_2$. Indeed, the states $(n,0)$ and $(0,n)$ carry departure rates $\mu+\theta_1 n$ and $\mu+\theta_2 n$, which differ whenever for assymetric abandonment rates $\theta_1\neq\theta_2$. To determine $\pi_0$, we will need our bivariate PGF, which will be defined in Section \ref{ssec:pgf_derivation}.
+However, for models \emph{with} abandonments, the total number of customers is no longer conserved. For a busy state, the departure rate is $\mu+\theta_1 n_1+\theta_2 n_2$, so the rate of state $(n_1,n_2)$ depends on the split between $n_1$ and $n_2$. Indeed, the states $(n,0)$ and $(0,n)$ carry departure rates $\mu+\theta_1 n$ and $\mu+\theta_2 n$, which differ whenever for asymmetric abandonment rates $\theta_1\neq\theta_2$. To determine $\pi_0$, we will need our bivariate PGF, which will be defined in Section \ref{ssec:pgf_derivation}.
 
 \subsection{Balance equations}
 

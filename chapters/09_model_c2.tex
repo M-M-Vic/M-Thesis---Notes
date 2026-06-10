@@ -1,6 +1,6 @@
 \section{Analysis of Model-\texorpdfstring{$C_2$}{C2} (\texorpdfstring{$\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$}{theta1>0, gamma1=gamma2=theta2=0})}\label{sec:model_c2}
 
-In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from Class-$1$ take place, while no abandonments in Class-$2$ or jockeying of any sort are taken into account.
+In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from class-$1$ take place, while no abandonments in class-$2$ or jockeying of any sort are taken into account.
 
 \begin{figure}[H]
     \centering
@@ -11,7 +11,7 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
     at rate $\theta_1$ per waiting customer (dotted arrow, upward from Queue~1).
     Class-2 never abandons ($\theta_2=0$) and there is no jockeying.}
     \label{fig:model-c2-queue}
-\end{figure} The rationale behind using this combination of parameters is that, thanks to the fact that Class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model-$A$ will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
+\end{figure} The rationale behind using this combination of parameters is that, thanks to the fact that class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model-$A$ will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
 
 \begin{theorem}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
@@ -76,7 +76,7 @@ where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{
 
 For any fixed $y$, Equation~\eqref{eq:C2:fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
 \begin{enumerate}
-    \item Identify $P_y(y)$ — first by a probabilistic argument exploiting the $M/G/1$ structure seen by Class-$2$ (\S\ref{ssec:C2:prob}), then re-derived analytically from boundedness of $P(x,y)$ at $x=1$ (\S\ref{ssec:C2:anal}).
+    \item Identify $P_y(y)$ — first by a probabilistic argument exploiting the $M/G/1$ structure seen by class-$2$ (\S\ref{ssec:C2:prob}), then re-derived analytically from boundedness of $P(x,y)$ at $x=1$ (\S\ref{ssec:C2:anal}).
     \item Recover $P(x,y)$ by solving the ODE with $P_y(y)$ now known (\S\ref{ssec:C2:recovery}).
 \end{enumerate}
 We close the setup with the conditional-expectation decomposition that will drive the probabilistic derivation. By the law of total expectation, restricting the defining sum of $P_y(y)=\mathbb{E}[\mathbf{1}\{\text{busy},N_1=0\}\,y^{N_2}]$ to the event $\{\text{busy},N_1=0\}$ factors it into the mass of that event and the conditional PGF of $N_2$ given it:
@@ -87,11 +87,11 @@ We close the setup with the conditional-expectation decomposition that will driv
 
 \subsection{Probabilistic derivation of \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:prob}
 
-The idea is, again, to adopt the perspective of a Class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from Class-$1$ truly abandon the system, leaving the Poisson arrival process of Class-$2$ undisturbed. Because Class-$1$ holds non-preemptive priority (\S\ref{ssec:priority}), a waiting Class-$2$ customer is not taken into service while any Class-$1$ customer is present ($N_1>0$); its \emph{effective service time} is therefore the duration of one complete busy period $B_C$ of the Class-$1$ subsystem---now an $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$, rather than the pure $M/M/1$ of Model-$A$. By the \emph{memorylessness} of the exponential service, arrival and abandonment clocks, these effective service times are i.i.d., so from Class-$2$'s viewpoint the system is an $M/G/1$ queue with Poisson arrivals at rate $\lambda_2$ and general service times distributed as $B_C$.
+The idea is, again, to adopt the perspective of a class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from class-$1$ truly abandon the system, leaving the Poisson arrival process of class-$2$ undisturbed. Because class-$1$ holds non-preemptive priority (\S\ref{ssec:priority}), a waiting class-$2$ customer is not taken into service while any class-$1$ customer is present ($N_1>0$); its \emph{effective service time} is therefore the duration of one complete busy period $B_C$ of the class-$1$ subsystem---now an $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$, rather than the pure $M/M/1$ of Model-$A$. By the \emph{memorylessness} of the exponential service, arrival and abandonment clocks, these effective service times are i.i.d., so from class-$2$'s viewpoint the system is an $M/G/1$ queue with Poisson arrivals at rate $\lambda_2$ and general service times distributed as $B_C$.
 
 The LST $\widetilde{B}_C(s)$ and mean $\mathbb{E}[B_C]$ of this busy period are derived via the first-step analysis in \S\ref{ssec:erlangA}; see Equations~\eqref{eq:erlangA:bp_lst}--\eqref{eq:erlangA:bp_mean}.
 
-The stability condition required for the Class-$2$ subsystem is that of the $M/G/1$ defined above, i.e.\ $\lambda_2\,\mathbb{E}[B_C]<1$:
+The stability condition required for the class-$2$ subsystem is that of the $M/G/1$ defined above, i.e.\ $\lambda_2\,\mathbb{E}[B_C]<1$:
 \begin{equation}
     \rho_2 \cdot {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right) \;<\; 1.
     \label{eq:C2:stability}
@@ -294,17 +294,17 @@ which is the statement of the theorem. This closed form is the product of a prob
     \end{equation}
     so $\pi(0,0) = (\rho_1+\rho_2)\,\pi_0$.
 
-    To fix $\pi_0$, we exploit the $M/G/1$ structure used in \S\ref{ssec:C2:prob}. Class-$2$ customers form an $M/G/1$ queue with arrival rate $\lambda_2$ and effective service time $B_C$. By the standard $M/G/1$ work-conservation (utilisation) identity, the long-run fraction of time this $M/G/1$ is busy is $\rho_B=\lambda_2\,\mathbb{E}[B_C]$, so its idle probability is $1-\rho_B$. The event ``this $M/G/1$ is idle'' coincides with the absence of any Class-$2$ customer from the system, so
+    To fix $\pi_0$, we exploit the $M/G/1$ structure used in \S\ref{ssec:C2:prob}. Class-$2$ customers form an $M/G/1$ queue with arrival rate $\lambda_2$ and effective service time $B_C$. By the standard $M/G/1$ work-conservation (utilisation) identity, the long-run fraction of time this $M/G/1$ is busy is $\rho_B=\lambda_2\,\mathbb{E}[B_C]$, so its idle probability is $1-\rho_B$. The event ``this $M/G/1$ is idle'' coincides with the absence of any class-$2$ customer from the system, so
     \begin{equation}
-        \mathbb{P}(\text{no Class-$2$ present}) \;=\; 1 - \lambda_2\,\mathbb{E}[B_C].
+        \mathbb{P}(\text{no class-$2$ present}) \;=\; 1 - \lambda_2\,\mathbb{E}[B_C].
     \end{equation}
-    Conditional on no Class-$2$ being present, the priority subsystem evolves freely as the same $M/M/1+M$ queue used to define $B_C$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$. This subsystem alternates between idle periods (no Class-$1$ customer present) and busy periods $B_C$, the successive idle$+$busy spans forming an alternating renewal process whose regeneration epochs are the instants at which the subsystem empties. An idle period lasts until the next Class-$1$ arrival; by the memorylessness of the exponential interarrival clock this duration is $\mathrm{Exp}(\lambda_1)$, with mean $1/\lambda_1$. The mean regeneration cycle is therefore $1/\lambda_1+\mathbb{E}[B_C]$, and by the renewal--reward theorem the stationary fraction of time the subsystem is idle equals the ratio of the mean idle period to the mean cycle:
+    Conditional on no class-$2$ being present, the priority subsystem evolves freely as the same $M/M/1+M$ queue used to define $B_C$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$. This subsystem alternates between idle periods (no class-$1$ customer present) and busy periods $B_C$, the successive idle$+$busy spans forming an alternating renewal process whose regeneration epochs are the instants at which the subsystem empties. An idle period lasts until the next class-$1$ arrival; by the memorylessness of the exponential interarrival clock this duration is $\mathrm{Exp}(\lambda_1)$, with mean $1/\lambda_1$. The mean regeneration cycle is therefore $1/\lambda_1+\mathbb{E}[B_C]$, and by the renewal--reward theorem the stationary fraction of time the subsystem is idle equals the ratio of the mean idle period to the mean cycle:
     \begin{equation}
-        \mathbb{P}(\text{Class-$1$ absent} \mid \text{no Class-$2$ present})
+        \mathbb{P}(\text{class-$1$ absent} \mid \text{no class-$2$ present})
         \;=\; \frac{1/\lambda_1}{1/\lambda_1+\mathbb{E}[B_C]}
         \;=\; \frac{1}{1+\lambda_1\,\mathbb{E}[B_C]}.
     \end{equation}
-    The fully idle event $\{\text{server idle},\,N_1=N_2=0\}$ is exactly the intersection $A\cap B$ of the events $B=\{\text{no Class-$2$ present}\}$ and $A=\{\text{Class-$1$ absent}\}$, since the server is idle precisely when no customer of either class is in the system. By the multiplication (chain) rule $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$---using the conditional idle fraction just computed for the factor $\mathbb{P}(A\mid B)$, and \emph{not} independence of $A$ and $B$---we obtain
+    The fully idle event $\{\text{server idle},\,N_1=N_2=0\}$ is exactly the intersection $A\cap B$ of the events $B=\{\text{no class-$2$ present}\}$ and $A=\{\text{class-$1$ absent}\}$, since the server is idle precisely when no customer of either class is in the system. By the multiplication (chain) rule $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$---using the conditional idle fraction just computed for the factor $\mathbb{P}(A\mid B)$, and \emph{not} independence of $A$ and $B$---we obtain
     \begin{equation}
         \pi_0 \;=\; \bigl(1-\lambda_2\,\mathbb{E}[B_C]\bigr)\cdot\frac{1}{1+\lambda_1\,\mathbb{E}[B_C]} \;=\; \frac{1-\lambda_2\,\mathbb{E}[B_C]}{1+\lambda_1\,\mathbb{E}[B_C]},
     \end{equation}
