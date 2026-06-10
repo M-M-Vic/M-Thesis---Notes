@@ -861,7 +861,7 @@ for j, rho in enumerate(RHO_HM):
 fig, ax = plt.subplots(figsize=(9, 5.5))
 vmin = np.nanmin(ratio_grid); vmax = max(np.nanmax(ratio_grid), 1.0 + 1e-6)
 norm = TwoSlopeNorm(vmin=vmin, vcenter=1.0, vmax=vmax)
-im = ax.imshow(ratio_grid, origin="lower", aspect="auto", cmap="RdBu_r", norm=norm)
+im = ax.imshow(ratio_grid, origin="lower", aspect="auto", cmap="RdYlGn_r", norm=norm)
 ax.set_xticks(range(len(RHO_HM))); ax.set_xticklabels([f"{r:.2f}" for r in RHO_HM])
 ax.set_yticks(range(len(TH_HM)));  ax.set_yticklabels([f"{t:g}" for t in TH_HM])
 ax.set_xlabel(r"$\rho$"); ax.set_ylabel(r"$\theta_1$")
@@ -1493,7 +1493,7 @@ ax[1,1].grid(alpha=0.3)
 # (6) heatmap E[N1]_C2 / E[N1]_A
 norm = TwoSlopeNorm(vmin=np.nanmin(ratio_grid), vcenter=1.0,
                     vmax=max(np.nanmax(ratio_grid), 1.0+1e-6))
-im = ax[1,2].imshow(ratio_grid, origin="lower", aspect="auto", cmap="RdBu_r", norm=norm)
+im = ax[1,2].imshow(ratio_grid, origin="lower", aspect="auto", cmap="RdYlGn_r", norm=norm)
 ax[1,2].set_xticks(range(len(RHO_HM))); ax[1,2].set_xticklabels([f"{r:.2f}" for r in RHO_HM], fontsize=7)
 ax[1,2].set_yticks(range(len(TH_HM)));  ax[1,2].set_yticklabels([f"{t:g}" for t in TH_HM], fontsize=7)
 ax[1,2].set_xlabel(r"$\rho$"); ax[1,2].set_ylabel(r"$\theta_1$")
