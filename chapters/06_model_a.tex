@@ -1,6 +1,6 @@
-\section{Analysis of Model~\texorpdfstring{$A$}{A} (\texorpdfstring{$\gamma_1=\gamma_2=0$}{gamma1=gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_a}
+\section{Analysis of Model-\texorpdfstring{$A$}{A} (\texorpdfstring{$\gamma_1=\gamma_2=0$}{gamma1=gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_a}
 
-Model~$A$ is the baseline of this collection of models: all jockeying and abandonment
+Model-$A$ is the baseline of this collection of models: all jockeying and abandonment
 parameters are set to zero, leaving an ordinary two-class $M/M/1$ queueing model with
 non-preemptive priority. The analysis is carried out in both state spaces $S$ and
 $\widetilde{S}$: on the former, two complete proofs are presented; while on the latter,
@@ -24,18 +24,18 @@ and only if the total traffic intensity satisfies
     \label{eq:A:stability}
 \end{equation}
 
-The figure below corresponds to the queueing diagram of Model~$A$.
+The figure below corresponds to the queueing diagram of Model-$A$.
 \begin{figure}[H]
     \centering
     \resizebox{0.62\textwidth}{!}{%
         \input{figures/model-a-queue.tikz}%
     }
-    \caption{Queue layout for Model~$A$. Only Poisson arrivals and exponential service
+    \caption{Queue layout for Model-$A$. Only Poisson arrivals and exponential service
     are present; all jockeying and abandonment rates are zero.}
     \label{fig:model-a-queue}
 \end{figure}
 
-\subsection{Analysis of Model~\texorpdfstring{$A$}{A}: state space \texorpdfstring{$S$}{S}}
+\subsection{Analysis of Model-\texorpdfstring{$A$}{A}: state space \texorpdfstring{$S$}{S}}
 We begin from Equation~\eqref{eq:gen:fundamental_equation} with
 $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, in which the marginal $P_y(y)=P(0,y)$ is
 still to be determined:
@@ -74,7 +74,7 @@ proofs are given, one analytical and one probabilistic.
 
 \begin{corollary}\label{cor:A:pi0}
     Under the stability condition~\eqref{eq:A:stability}, the empty-state probabilities
-    for Model~$A$ are
+    for Model-$A$ are
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho). \label{eq:A:pi0_pi00}
     \end{equation}
@@ -116,12 +116,12 @@ term $\mu(x-y)P_y(y)$ vanishes:
     and therefore $\pi(0,0) = \rho(1-\rho)$.
 \end{proof}
 
-\subsubsection{Analytical approach for Model~\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
+\subsubsection{Analytical approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
 
 \begin{proof}
 % TODO: cite — add a reference for the Kernel Method (e.g., Bayer \& Boxma, or Cohen's book).
 
-    We begin from the fundamental equation for Model~$A$~\eqref{eq:A:fundamental}:
+    We begin from the fundamental equation for Model-$A$~\eqref{eq:A:fundamental}:
     \begin{equation*}
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
         = \mu(x-y) P_y(y)  - \mu x(1-y) \pi(0,0).
@@ -245,7 +245,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
 \end{proof}
 
 
-\subsubsection{Probabilistic approach for Model~\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:probabilistic}
+\subsubsection{Probabilistic approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:probabilistic}
 \begin{proof}
     The proof is similar to the analytical approach, but deriving the Class-2 marginal PGF $P_y(y)$ by means of probabilistic arguments. We begin by stating the fundamental blobal balance equation for Model-$A$ (Equation \eqref{eq:A:fundamental}):
     \begin{equation}
@@ -316,7 +316,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
 \end{proof}
 
 
-\subsubsection{Partial-PGF recurrence approach for Model~\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}
+\subsubsection{Partial-PGF recurrence approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}
 
 
 This proof follows Cohen~\cite{cohen1956delay}. It consists in keeping the class-$1$
@@ -328,7 +328,7 @@ recurrence in $n_1$, whose characteristic roots fix the geometric structure of t
 solution in the priority class index.
 
 \begin{proof}
-    We start by stating the balance equations for Model~$A$, with all jockeying and abandonment parameters set to zero (i.e. $\gamma_1=\gamma_2=\theta_1=\theta_2=0$) in the interior balance equation (Equation \eqref{eq:gen:balance_interior}) and our $x$-boundary equation (Equation \eqref{eq:gen:balance_x_boundary}). We have
+    We start by stating the balance equations for Model-$A$, with all jockeying and abandonment parameters set to zero (i.e. $\gamma_1=\gamma_2=\theta_1=\theta_2=0$) in the interior balance equation (Equation \eqref{eq:gen:balance_interior}) and our $x$-boundary equation (Equation \eqref{eq:gen:balance_x_boundary}). We have
     \begin{align}
         (\lambda_1+\lambda_2+\mu)\,\pi(n_1,n_2)
             &= \mu\,\pi(n_1+1,n_2) + \lambda_1\,\pi(n_1-1,n_2) + \lambda_2\,\pi(n_1,n_2-1),
@@ -467,7 +467,7 @@ solution in the priority class index.
 \end{proof}
 
 
-\subsection{Analysis of Model~\texorpdfstring{$A$}{A}: state space \texorpdfstring{$\widetilde{S}$}{S~}}
+\subsection{Analysis of Model-\texorpdfstring{$A$}{A}: state space \texorpdfstring{$\widetilde{S}$}{S~}}
 
 Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the $\widetilde{S}$ balance
 equations~\eqref{eq:gen:tilde_balance_interior}--\eqref{eq:gen:tilde_balance_idle}

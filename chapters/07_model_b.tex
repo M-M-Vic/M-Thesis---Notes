@@ -1,6 +1,6 @@
-\section{Analysis of Model~\texorpdfstring{$B$}{B} (\texorpdfstring{$\gamma_1,\gamma_2>0$}{gamma1,gamma2>0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b}
+\section{Analysis of Model-\texorpdfstring{$B$}{B} (\texorpdfstring{$\gamma_1,\gamma_2>0$}{gamma1,gamma2>0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b}
 
-Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaining no abandonment ($\theta_1=\theta_2=0$). Jockeying conserves the total number of customers in the system, so the stationary distribution still exists under the same condition as Model~$A$. However, jockeying breaks the per-class Poisson/renewal structure: a Class-2 customer can no longer identify its effective service time with a Class-1 busy period, so the Pollaczek--Khinchine probabilistic route is unavailable. Applying the method of characteristics to the fundamental equation yields a general solution, but closing it~---~i.e., determining the unknown boundary function $P_y(y)$~---~requires solving a Volterra-type integral equation that does not admit a closed form. Model~$B$ is therefore intentionally left open, in structural parallel with Model~$X$; its role is to motivate the tractable specialisation Model~$B_2$.
+Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaining no abandonment ($\theta_1=\theta_2=0$). Jockeying conserves the total number of customers in the system, so the stationary distribution still exists under the same condition as Model-$A$. However, jockeying breaks the per-class Poisson/renewal structure: a Class-2 customer can no longer identify its effective service time with a Class-1 busy period, so the Pollaczek--Khinchine probabilistic route is unavailable. Applying the method of characteristics to the fundamental equation yields a general solution, but closing it~---~i.e., determining the unknown boundary function $P_y(y)$~---~requires solving a Volterra-type integral equation that does not admit a closed form. Model-$B$ is therefore intentionally left open, in structural parallel with Model-$X$; its role is to motivate the tractable specialisation Model-$B_2$.
 
 \textbf{Stability.} $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect this condition.
 
@@ -9,7 +9,7 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     \resizebox{0.62\textwidth}{!}{%
         \input{figures/model-b-queue.tikz}%
     }
-    \caption{Queue layout for Model~$B$. Dashed arrows indicate bidirectional
+    \caption{Queue layout for Model-$B$. Dashed arrows indicate bidirectional
     jockeying: $\gamma_1$ moves a Class-1 customer down to Queue~2 and $\gamma_2$
     moves a Class-2 customer up to Queue~1. Both transfers conserve the total~$n$.}
     \label{fig:model-b-queue}
@@ -17,8 +17,8 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
 
 \begin{corollary}\label{cor:B:pi00}
     The empty-system probability $\pi_0$ (server idle, no one waiting) and the
-    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model~$B$
-    coincide with the Model~$A$ baseline,
+    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model-$B$
+    coincide with the Model-$A$ baseline,
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
         \label{eq:B:pi00}
@@ -48,14 +48,14 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     completion at rate $\mu$ returns to it), whence $\pi(0,0)=\rho\pi_0$. Evaluating
     \eqref{eq:B:Pxx} at $x=1$ with $P(1,1)=1-\pi_0$ gives
     $1-\pi_0=\rho\pi_0/(1-\rho)$, so $(1-\pi_0)(1-\rho)=\rho\pi_0$, i.e.\ $\pi_0=1-\rho$
-    and $\pi(0,0)=\rho(1-\rho)$. This matches Model~$A$~\eqref{eq:A:pi0_pi00}: jockeying
+    and $\pi(0,0)=\rho(1-\rho)$. This matches Model-$A$~\eqref{eq:A:pi0_pi00}: jockeying
     conserves the total-customer process and cannot change the marginal idle probability.
     The same identities hold in Models~$B_2$ and~$C_2$ for the same conservation
     reason~\eqref{eq:gen:pi0_noaband}.
 \end{proof}
 
 \begin{claim}\label{clm:B:volterra}
-    Under stability, $\rho<1$, the bivariate PGF of Model~$B$ satisfies, on each
+    Under stability, $\rho<1$, the bivariate PGF of Model-$B$ satisfies, on each
     characteristic curve $\gamma_2 x + \gamma_1 y = C_1$ of the fundamental equation,
     the integral representation
     \begin{equation}
@@ -77,7 +77,7 @@ Model~$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     (defined in~\eqref{eq:B:kernel}--\eqref{eq:B:rhs} below). The kernel
     $\mathcal{K}$ does not factorise for general $(\gamma_1,\gamma_2)$,
     so~\eqref{eq:B:volterra} does not reduce to a closed-form solution for $P_y$.
-    Model~$B$ is therefore left open.
+    Model-$B$ is therefore left open.
 \end{claim}
 
 \begin{proof}[Proof of Claim~\ref{clm:B:volterra}]
@@ -411,20 +411,20 @@ confirming Claim~\ref{clm:B:volterra}.
 % and known term F a rigorous finite-part meaning -- is itself the analytical obstruction.
 % The displayed K, B are formal (the prefactor P_h^diag(z)=0 pointwise). A rigorous
 % treatment (matched asymptotics near t=z, or a change of variable removing the
-% (y-t)^{-1-E} singularity before passing to the limit) is what places Model B beyond
+% (y-t)^{-1-E} singularity before passing to the limit) is what places Model-$B$ beyond
 % scope. Flagged so this reads as a deliberate open end, not an oversight.]
 The kernel $\mathcal{K}$ depends on $P_h$ through both arguments and does not simplify for
 general $(\gamma_1,\gamma_2)$, so~\eqref{eq:B:rhs} does not yield a closed form.  Resolving
 it would require Volterra inversion methods well beyond the scope of this thesis.
 \end{proof}
 
-Model~$B$ is therefore left open at this point.  Its role in the hierarchy is
+Model-$B$ is therefore left open at this point.  Its role in the hierarchy is
 structural: it identifies the precise obstruction~---~the Volterra equation
 for $P_y$~---~that the tractable special cases $B_2$ and $C_2$ circumvent, each
 by a different mechanism.  Setting $\gamma_2=0$ collapses the characteristic
 family from a two-parameter set of oblique lines to a one-parameter set of
 vertical lines, degenerating the PDE to an ODE in $x$ alone; the boundary
 function $P_y(y)$ is then pinned by an analyticity argument at the interior
-singular point $x=y$.  Model~$C_2$ removes jockeying entirely and pins $P_y$ by
+singular point $x=y$.  Model-$C_2$ removes jockeying entirely and pins $P_y$ by
 a boundedness argument at the boundary of the domain.  Both specialisations are
 analysed in the following sections.

@@ -1,11 +1,11 @@
-\section{Analysis of Model~\texorpdfstring{$X$}{X} (\texorpdfstring{$\gamma_1,\gamma_2>0,\ \theta_1,\theta_2>0$}{gamma1,gamma2>0, theta1,theta2>0})}\label{sec:model_x_anal}
+\section{Analysis of Model-\texorpdfstring{$X$}{X} (\texorpdfstring{$\gamma_1,\gamma_2>0,\ \theta_1,\theta_2>0$}{gamma1,gamma2>0, theta1,theta2>0})}\label{sec:model_x_anal}
 
-Model~$X$ is the full model: it retains \emph{both} bidirectional jockeying
+Model-$X$ is the full model: it retains \emph{both} bidirectional jockeying
 ($\gamma_1,\gamma_2>0$) \emph{and} two-class abandonment ($\theta_1,\theta_2>0$). It is
 the parent of the hierarchy, and every other model analysed in this work is recovered
 from it by zeroing parameters. Jockeying conserves the total number of customers while
 abandonment removes them; the second mechanism makes the chain positive recurrent for
-all loads, so the stationary distribution always exists. As in Model~$B$, jockeying
+all loads, so the stationary distribution always exists. As in Model-$B$, jockeying
 breaks the per-class Poisson/renewal structure~---~a Class-2 customer can no longer
 identify its effective service time with a Class-1 busy period~---~and abandonment,
 although it leaves each arrival stream Poisson, couples the two queues through the
@@ -14,26 +14,26 @@ probabilistic route is unavailable. Applying the method of characteristics to th
 fundamental equation still yields a general solution, but closing it~---~i.e.,
 determining the unknown boundary function $P_y(y)$~---~requires solving a Volterra-type
 integral equation that does not admit a closed form. In fact the obstruction is
-strictly more severe than in Model~$B$, on two counts developed below: the
+strictly more severe than in Model-$B$, on two counts developed below: the
 characteristics are no longer straight lines but integral curves of a nonlinear ODE,
-and the diagonal value $P(z,z)$ that anchored the reduction in Model~$B$ is itself no
-longer known. Model~$X$ is therefore intractable and is left open; its role is to
+and the diagonal value $P(z,z)$ that anchored the reduction in Model-$B$ is itself no
+longer known. Model-$X$ is therefore intractable and is left open; its role is to
 expose the precise obstructions that its tractable specialisations
 $A$, $B$, $B_2$ and $C_2$ each circumvent. The queue layout is the left panel of
 Figure~\ref{fig:models-queue-overview}.
 
-\textbf{Stability.} Model~$X$ has abandonment from both classes, so the total departure
+\textbf{Stability.} Model-$X$ has abandonment from both classes, so the total departure
 rate in state $(n_1,n_2)$ is $\mu+\theta_1 n_1+\theta_2 n_2$, which grows without bound
 in every direction of the $(n_1,n_2)$-plane. The chain is therefore positive recurrent
 for \emph{all} $\lambda_1,\lambda_2,\mu>0$ and all $\theta_1,\theta_2>0$; no
 traffic-intensity restriction is required (cf.\ the Erlang-A queue,
 \S\ref{ssec:erlangA}). Setting $\theta_1=\theta_2=0$ removes this and returns the
-Model~$B$/Model~$A$ condition $\rho=(\lambda_1+\lambda_2)/\mu<1$.
+Model-$B$/Model-$A$ condition $\rho=(\lambda_1+\lambda_2)/\mu<1$.
 
 \begin{corollary}\label{cor:X:pi00}
     The empty-system probability $\pi_0$ (server idle, no one waiting) and the
     both-queues-empty busy probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of
-    Model~$X$ satisfy the universal idle balance
+    Model-$X$ satisfy the universal idle balance
     \begin{equation}
         \pi(0,0) = \rho\,\pi_0,
         \qquad \rho=\frac{\lambda_1+\lambda_2}{\mu},
@@ -54,7 +54,7 @@ Model~$B$/Model~$A$ condition $\rho=(\lambda_1+\lambda_2)/\mu<1$.
         \label{eq:X:diagonal}
     \end{equation}
     As $\theta_1,\theta_2\to 0^+$ the gradient terms drop out and~\eqref{eq:X:diagonal}
-    returns the Model~$B$ identities $P(z,z)=\pi(0,0)/(1-\rho z)$, $\pi_0=1-\rho$ and
+    returns the Model-$B$ identities $P(z,z)=\pi(0,0)/(1-\rho z)$, $\pi_0=1-\rho$ and
     $\pi(0,0)=\rho(1-\rho)$~\eqref{eq:B:pi00},~\eqref{eq:A:pi0_pi00}.
 \end{corollary}
 
@@ -81,13 +81,13 @@ Model~$B$/Model~$A$ condition $\rho=(\lambda_1+\lambda_2)/\mu<1$.
     $P(z,z)=\pi(0,0)/(1-\rho z)$; evaluating at $z=1$ with $P(1,1)=1-\pi_0$ then forces
     $(1-\pi_0)(1-\rho)=\rho\pi_0$, i.e.\ $\pi_0=1-\rho$. With abandonment those gradient
     terms are present and \emph{not} known~---~exactly the phenomenon isolated for
-    Model~$C_2$~\eqref{eq:C2:diag}~---~so the diagonal no longer determines $P(z,z)$, and
+    Model-$C_2$~\eqref{eq:C2:diag}~---~so the diagonal no longer determines $P(z,z)$, and
     $\pi_0$ cannot be read off in closed form: it follows only from the full solution
     via normalisation.
 \end{proof}
 
 \begin{claim}\label{clm:X:volterra}
-    Under positive recurrence, the bivariate PGF of Model~$X$ satisfies, on each
+    Under positive recurrence, the bivariate PGF of Model-$X$ satisfies, on each
     characteristic curve $\Phi(x,y)=C_1$ of the fundamental equation, the integral
     representation
     \begin{equation}
@@ -97,7 +97,7 @@ Model~$B$/Model~$A$ condition $\rho=(\lambda_1+\lambda_2)/\mu<1$.
     \end{equation}
     where $P_h$ is the homogeneous solution~\eqref{eq:X:Ph}, $y(t)=y(t;C_1)$ is the
     characteristic parametrisation, $\Phi$ is the first integral~\eqref{eq:X:first_integral}
-    (a transcendental function of $(x,y)$, not the linear form of Model~$B$), and
+    (a transcendental function of $(x,y)$, not the linear form of Model-$B$), and
     $h(t;C_1)$ is a forcing function depending on the unknown boundary trace
     $P_y(y)=P(0,y)$. Evaluating~\eqref{eq:X:integral_rep} along the characteristic
     through a diagonal point $(z,z)$ reduces the problem to a \emph{Volterra integral
@@ -109,21 +109,21 @@ Model~$B$/Model~$A$ condition $\rho=(\lambda_1+\lambda_2)/\mu<1$.
     whose kernel $\mathcal{K}$ and right-hand side $\mathcal{F}$ are defined
     in~\eqref{eq:X:kernel}--\eqref{eq:X:rhs} below. The kernel $\mathcal{K}$ is built
     from the non-elementary homogeneous solution $P_h$ and does not simplify for general
-    $(\gamma_1,\gamma_2,\theta_1,\theta_2)$; moreover, in contrast to Model~$B$, the
+    $(\gamma_1,\gamma_2,\theta_1,\theta_2)$; moreover, in contrast to Model-$B$, the
     right-hand side $\mathcal{F}$ is \emph{not} fully known~---~it is coupled
     through~\eqref{eq:X:diagonal} to the diagonal gradient
     $[\theta_1\partial_x P+\theta_2\partial_y P]_{(z,z)}$. Equation~\eqref{eq:X:volterra}
-    therefore does not reduce to a closed-form solution for $P_y$, and Model~$X$ is left
+    therefore does not reduce to a closed-form solution for $P_y$, and Model-$X$ is left
     open.
 \end{claim}
 
 \begin{proof}[Proof of Claim~\ref{clm:X:volterra}]
-The proof follows the five steps of Model~$B$: (i)~homogeneous solution via
+The proof follows the five steps of Model-$B$: (i)~homogeneous solution via
 characteristics, (ii)~behaviour of $P_h$ at the boundaries, (iii)~particular solution
 via variation of parameters, (iv)~pinning the free function from the boundary condition,
 and (v)~diagonal evaluation yielding the Volterra equation. At each step we point out
 where the abandonment terms $\theta_i$ obstruct the closed-form algebra available in
-Model~$B$.
+Model-$B$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \medskip\noindent\textbf{Step~1: Homogeneous solution via the method of characteristics.}
@@ -137,7 +137,7 @@ homogeneous PDE
     = -A(x,y)\,P,
     \label{eq:X:homogeneous_pde}
 \end{equation}
-with the same coefficient polynomial as Model~$B$,
+with the same coefficient polynomial as Model-$B$,
 \begin{equation}
     A(x,y) := (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy ;
     \label{eq:X:Adef}
@@ -160,7 +160,7 @@ Taking the ratio of the first two differentials, the common factor $x$ cancels:
            {(\gamma_1+\theta_1)x - \gamma_1 y - \theta_1}.
     \label{eq:X:char_ode}
 \end{equation}
-In Model~$B$ ($\theta_1=\theta_2=0$) both affine forms shared the factor $(x-y)$ and the
+In Model-$B$ ($\theta_1=\theta_2=0$) both affine forms shared the factor $(x-y)$ and the
 ratio collapsed to the constant $-\gamma_2/\gamma_1$, integrating to the straight lines
 $\gamma_2 x+\gamma_1 y=\mathrm{const}$. With abandonment this collapse no longer occurs:
 \eqref{eq:X:char_ode} is a genuine first-order ODE whose right-hand side is a ratio of
@@ -212,14 +212,14 @@ cancel and we obtain the first integral
     = C_1,
     \label{eq:X:first_integral}
 \end{equation}
-constant along each characteristic. Unlike Model~$B$'s linear constant
+constant along each characteristic. Unlike Model-$B$'s linear constant
 $\gamma_2 x+\gamma_1 y$, the first integral~\eqref{eq:X:first_integral} is a product of
 non-integer powers of two linear forms~---~a transcendental level curve. As a
 consistency check, letting $\theta_1,\theta_2\to0^+$ gives
 $Q(v)\to(\gamma_1 v+\gamma_2)(v-1)$, so $v_+\to1$, $v_-\to-\gamma_2/\gamma_1$, and
 $(a_+,a_-)\to(0,-1)$; then
 $\Phi(x,y)\to\bigl[(y-1)+(\gamma_2/\gamma_1)(x-1)\bigr]^{-1}$, whose level curves are
-exactly the straight lines $\gamma_2 x+\gamma_1 y=\mathrm{const}$ of Model~$B$.
+exactly the straight lines $\gamma_2 x+\gamma_1 y=\mathrm{const}$ of Model-$B$.
 
 To find $P$ along a characteristic we take the ratio of the first and third differentials
 in~\eqref{eq:X:char_system},
@@ -243,18 +243,18 @@ yields the general homogeneous solution
 \end{equation}
 where $F$ is an arbitrary differentiable function of the characteristic constant and
 $x_\star$ is an arbitrary base point (its choice is absorbed into $F$). Here the
-parallel with Model~$B$ ends in closed form: because $y(s)$ is the transcendental
+parallel with Model-$B$ ends in closed form: because $y(s)$ is the transcendental
 characteristic~\eqref{eq:X:first_integral}, the integrand in~\eqref{eq:X:Ph} is not a
-rational function of $s$, and the quadrature is not elementary. Model~$B$, by contrast,
+rational function of $s$, and the quadrature is not elementary. Model-$B$, by contrast,
 could substitute the linear $y(s)$, partial-fraction the rational integrand, and read
 off the explicit factors $x^{-\mu/C_1}(x-y)^{E}$ with a closed-form exponent $E$. No such
-explicit $P_h$ exists for Model~$X$.
+explicit $P_h$ exists for Model-$X$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \medskip\noindent\textbf{Step~2: Boundary behaviour of $P_h$.}
 
 Although the quadrature~\eqref{eq:X:Ph} is not elementary, the two qualitative features
-needed downstream survive, and a third feature of Model~$B$ is lost.
+needed downstream survive, and a third feature of Model-$B$ is lost.
 
 \smallskip\noindent\textit{(a) Blow-up at $x=0$.}
 A characteristic meets the axis $x=0$ at a finite height $y_0:=y(0;C_1)\in(0,1]$, where
@@ -267,14 +267,14 @@ in~\eqref{eq:X:Ph} behaves like $-\mu/[(\gamma_1 y_0+\theta_1)\,s]$ as $s\to0^+$
     \label{eq:X:Ph_at_zero}
 \end{equation}
 with a strictly negative exponent because $\gamma_1 y_0+\theta_1>0$. This is exactly the
-factor $x^{-\mu/C_1}$ of Model~$B$, now with the denominator shifted by $\theta_1$; it
+factor $x^{-\mu/C_1}$ of Model-$B$, now with the denominator shifted by $\theta_1$; it
 drives the pinning of $F$ in Step~4.
 
 \smallskip\noindent\textit{(b) Regularity on the diagonal.}
-In Model~$B$ the convection coefficient was $\gamma_1 x(x-y)$, which \emph{vanishes} on
+In Model-$B$ the convection coefficient was $\gamma_1 x(x-y)$, which \emph{vanishes} on
 the diagonal $x=y$; the resulting factor $(x-y)^{E}$ with $E>0$ made $P_h\to0$ there and
-forced the delicate Hadamard finite-part regularisation of Model~$B$'s Step~5. For
-Model~$X$ the coefficient is $x[\gamma_1(x-y)+\theta_1(x-1)]$, which at $x=y=z$ equals
+forced the delicate Hadamard finite-part regularisation of Model-$B$'s Step~5. For
+Model-$X$ the coefficient is $x[\gamma_1(x-y)+\theta_1(x-1)]$, which at $x=y=z$ equals
 $z\,\theta_1(z-1)\neq0$ for $z\in(0,1)$: the abandonment term $\theta_1(x-1)$ keeps the
 characteristic field away from zero on the diagonal. Consequently the integrand
 in~\eqref{eq:X:Ph} is regular as $x\to z$ along the diagonal-crossing characteristic, and
@@ -283,11 +283,11 @@ in~\eqref{eq:X:Ph} is regular as $x\to z$ along the diagonal-crossing characteri
     \quad\text{is finite and non-zero.}
     \label{eq:X:Ph_diag}
 \end{equation}
-The diagonal singularity of Model~$B$ thus disappears; as we will see in Step~5, the
+The diagonal singularity of Model-$B$ thus disappears; as we will see in Step~5, the
 obstruction migrates instead to the right-hand side of the Volterra equation.
 
 \smallskip\noindent\textit{Branch convention.}
-As in Model~$B$, the non-integer powers in~\eqref{eq:X:first_integral} and the quadrature
+As in Model-$B$, the non-integer powers in~\eqref{eq:X:first_integral} and the quadrature
 in~\eqref{eq:X:Ph} may carry a complex phase off the real region; this phase is absorbed
 into the arbitrary function $F(C_1)$ and cancels exactly in the ratio
 $P_h(x,y(x))/P_h(t,y(t))$ appearing in~\eqref{eq:X:integral_rep}, since numerator and
@@ -324,12 +324,12 @@ with coefficient and forcing
     \label{eq:X:hdef}
 \end{align}
 where $A$ is as in~\eqref{eq:X:Adef} and the right-hand side of the fundamental equation
-is, as in Model~$B$,
+is, as in Model-$B$,
 \begin{equation}
     G(x,y) := \mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0).
     \label{eq:X:Gdef}
 \end{equation}
-Comparing~\eqref{eq:X:fdef}--\eqref{eq:X:hdef} with their Model~$B$ counterparts, the
+Comparing~\eqref{eq:X:fdef}--\eqref{eq:X:hdef} with their Model-$B$ counterparts, the
 denominator $\gamma_1 x(x-y)$ is replaced throughout by
 $x[\gamma_1(x-y)+\theta_1(x-1)]$~---~the only footprint of abandonment, and the source of
 all the difficulty. Since $P_h$ from~\eqref{eq:X:Ph} satisfies the homogeneous equation
@@ -362,7 +362,7 @@ Claim~\ref{clm:X:volterra},
     P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt.
     \label{eq:X:integral_rep_body}
 \end{equation}
-This argument is identical to Model~$B$'s; abandonment shifts the blow-up exponent
+This argument is identical to Model-$B$'s; abandonment shifts the blow-up exponent
 in~\eqref{eq:X:Ph_at_zero} from $\mu/C_1$ to $\mu/(\gamma_1 y_0+\theta_1)$ but leaves it
 strictly positive, so the conclusion $F\equiv0$ is unchanged.
 
@@ -388,7 +388,7 @@ satisfies $y(z;z)=z$. Setting $x=z$,
 By the regularity~\eqref{eq:X:Ph_diag}, $P_h(z,z)=P_h^{\,\mathrm{diag}}(z)$ is finite and
 non-zero and the integrand is regular as $t\to z$ (its numerator
 $t-y(t;z)\to0$), so~\eqref{eq:X:diag_eval} is a \emph{proper} integral~---~no
-finite-part regularisation is needed, in contrast to Model~$B$. Substituting the two
+finite-part regularisation is needed, in contrast to Model-$B$. Substituting the two
 pieces of~\eqref{eq:X:h_simplified} and separating the term containing the unknown $P_y$
 from the known remainder, define the kernel and remainder
 \begin{align}
@@ -414,42 +414,42 @@ where the expression for $P(z,z)$ is the abandonment-corrected
 diagonal~\eqref{eq:X:diagonal}, equation~\eqref{eq:X:diag_eval} becomes the Volterra
 integral equation of the first kind~\eqref{eq:X:volterra}, confirming
 Claim~\ref{clm:X:volterra}.
-% [AUTHOR: Model B closes because, with theta_i=0, (i) the characteristics are straight
+% [AUTHOR: Model-$B$ closes because, with theta_i=0, (i) the characteristics are straight
 % lines so K is explicit, and (ii) the diagonal gradient term in F vanishes, leaving
 % F(z)=pi(0,0)/(1-rho z) - R(z) fully known -- a clean (if unsolved) first-kind Volterra
-% equation. Model X obstructs BOTH: K rests on the non-elementary P_h, AND F is coupled
+% equation. Model-$X$ obstructs BOTH: K rests on the non-elementary P_h, AND F is coupled
 % to the unknown diagonal gradient [theta_1 P_x + theta_2 P_y]_(z,z). The second coupling
 % is the genuinely new obstruction; it is the same phenomenon that prevents the diagonal
 % from closing in Model C_2 (eq:C2:diag). Flagged so this reads as a deliberate open end.]
-Two features distinguish~\eqref{eq:X:volterra} from its Model~$B$ analogue, and both make
-Model~$X$ strictly less tractable. First, the kernel~\eqref{eq:X:kernel} is built from the
+Two features distinguish~\eqref{eq:X:volterra} from its Model-$B$ analogue, and both make
+Model-$X$ strictly less tractable. First, the kernel~\eqref{eq:X:kernel} is built from the
 non-elementary homogeneous solution $P_h$ along transcendental characteristics, so it has
-no closed form for general parameters (in Model~$B$, $P_h$ and the straight-line
+no closed form for general parameters (in Model-$B$, $P_h$ and the straight-line
 characteristics were explicit). Second, and decisively, the right-hand
 side~\eqref{eq:X:rhs} is \emph{not} known data: through~\eqref{eq:X:diagonal} it is
 coupled to the diagonal gradient $[\theta_1\partial_x P+\theta_2\partial_y P]_{(z,z)}$,
 which is precisely the quantity that abandonment prevents the diagonal from
-determining~\eqref{eq:C2:diag}. Where Model~$B$ left a clean first-kind Volterra equation
+determining~\eqref{eq:C2:diag}. Where Model-$B$ left a clean first-kind Volterra equation
 with explicit kernel and known forcing (itself already beyond closed-form inversion),
-Model~$X$ leaves one whose kernel is implicit and whose forcing is entangled with the
+Model-$X$ leaves one whose kernel is implicit and whose forcing is entangled with the
 unknown solution. Resolving it lies well beyond the scope of this thesis.
 \end{proof}
 
-Model~$X$ is therefore left open at this point. Its role in the hierarchy is to make the
+Model-$X$ is therefore left open at this point. Its role in the hierarchy is to make the
 two obstructions explicit and to show how each tractable specialisation removes them. The
-limit $\theta_1=\theta_2\to0$ (Model~$B$) restores both at once: the
+limit $\theta_1=\theta_2\to0$ (Model-$B$) restores both at once: the
 characteristics~\eqref{eq:X:first_integral} straighten to the lines
 $\gamma_2 x+\gamma_1 y=\mathrm{const}$, so the kernel~\eqref{eq:X:kernel} becomes
 explicit, and the gradient coupling in~\eqref{eq:X:rhs} vanishes, so
 $\mathcal{F}(z)=\pi(0,0)/(1-\rho z)-\mathcal{R}(z)$ becomes known data~---~leaving the
 clean (still unsolved) Volterra equation of Section~\ref{sec:model_b}. Removing one
 mechanism at a time then closes the problem entirely: setting in addition $\gamma_2=0$
-(Model~$B_2$) collapses the characteristic family to vertical lines and degenerates the
+(Model-$B_2$) collapses the characteristic family to vertical lines and degenerates the
 PDE to an ODE in $x$ alone, whose boundary function $P_y(y)$ is pinned by an analyticity
 argument at the interior singular point $x=y$ (Section~\ref{sec:model_b2}); removing
-jockeying entirely while keeping only class-1 abandonment (Model~$C_2$) likewise
+jockeying entirely while keeping only class-1 abandonment (Model-$C_2$) likewise
 degenerates the PDE to an ODE in $x$, whose $P_y(y)$ is pinned by a boundedness argument
 at $x=1$ (Section~\ref{sec:model_c2}); and zeroing all four parameters returns the fully
-solvable baseline Model~$A$ (Section~\ref{sec:model_a}). The full model~$X$, retaining
+solvable baseline Model-$A$ (Section~\ref{sec:model_a}). The full model~$X$, retaining
 all mechanisms, retains both obstructions simultaneously and is the one case that does
 not close.

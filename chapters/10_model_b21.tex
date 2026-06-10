@@ -1,8 +1,8 @@
-\section{Analysis of Model~\texorpdfstring{$B_2^1$}{B21} (\texorpdfstring{$\gamma_1>0$}{gamma1>0} head-of-line, \texorpdfstring{$\gamma_2=\theta_1=\theta_2=0$}{gamma2=theta1=theta2=0})}
+\section{Analysis of Model-\texorpdfstring{$B_2^1$}{B21} (\texorpdfstring{$\gamma_1>0$}{gamma1>0} head-of-line, \texorpdfstring{$\gamma_2=\theta_1=\theta_2=0$}{gamma2=theta1=theta2=0})}
 \label{sec:model_b21}
 
-Model~$B_2^1$ is a deliberately simplified variant of the one-way jockeying model
-Model~$B_2$. In Model~$B_2$ \emph{every} waiting class-$1$ customer may jockey to the
+Model-$B_2^1$ is a deliberately simplified variant of the one-way jockeying model
+Model-$B_2$. In Model-$B_2$ \emph{every} waiting class-$1$ customer may jockey to the
 class-$2$ queue, so the aggregate jockeying rate out of a state grows linearly with the
 queue length, $\gamma_1 n_1$. Here, by contrast, only the \emph{customer at the head of
 Queue~1} --- the one that would be the next class-$1$ customer to enter service --- is
@@ -10,22 +10,22 @@ allowed to jockey, at the fixed rate $\gamma_1$ whenever $n_1\ge 1$. The aggrega
 jockeying rate is therefore $\gamma_1\,\mathbf{1}_{\{n_1\ge 1\}}$ rather than
 $\gamma_1 n_1$.
 
-This single change is decisive for tractability. In Model~$B_2$ the linear coefficient
+This single change is decisive for tractability. In Model-$B_2$ the linear coefficient
 $\gamma_1 n_1$ produces, upon forming the joint PGF, a term proportional to
 $xy(x-y)\,\partial P/\partial x$, turning the fundamental equation into a first-order
 linear ODE in $x$ that requires the integrating-factor machinery of
 Section~\ref{sec:model_b2}. The flat rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$, on the
 other hand, contributes only the \emph{algebraic} factor $\gamma_1 y(x-y)$ to the
 coefficient of $P(x,y)$; \emph{no derivative of $P$ appears}. The fundamental equation is
-then purely algebraic and can be solved by the Kernel Method exactly as in Model~$A$
+then purely algebraic and can be solved by the Kernel Method exactly as in Model-$A$
 (Section~\ref{sec:model_a}). The analysis below mirrors the analytical treatment of
-Model~$A$ step by step, and the resulting PGF turns out to be \emph{structurally
-identical} to that of Model~$A$, the only difference being a shift in the characteristic
+Model-$A$ step by step, and the resulting PGF turns out to be \emph{structurally
+identical} to that of Model-$A$, the only difference being a shift in the characteristic
 roots.
 
 \textbf{Stability.} Jockeying relocates a waiting customer between the two queues but does
 not remove anyone from the system; the total number of customers is therefore conserved by
-the jockeying mechanism, exactly as in Model~$A$. Since there is no abandonment, the chain
+the jockeying mechanism, exactly as in Model-$A$. Since there is no abandonment, the chain
 is positive recurrent if and only if the total traffic intensity satisfies
 \begin{equation}
     \rho = \frac{\lambda_1+\lambda_2}{\mu} < 1,
@@ -82,11 +82,11 @@ in~\eqref{eq:B21:interior} and the $\gamma_1\pi(1,n_2-1)$ in~\eqref{eq:B21:yboun
 Second, when $n_2=0$ there is no jockeying in-flow, since it would have to originate from
 the non-existent state $(n_1+1,-1)$; and when $n_1=0$ there is no jockeying out-flow. The
 remaining transitions --- Poisson arrivals at $\lambda_1,\lambda_2$ and service
-completions at $\mu$ --- are exactly those of Model~$A$.
+completions at $\mu$ --- are exactly those of Model-$A$.
 
 \subsection{Fundamental PGF equation}
 
-\begin{lemma}[Fundamental equation for Model~$B_2^1$]\label{lem:B21:fundamental}
+\begin{lemma}[Fundamental equation for Model-$B_2^1$]\label{lem:B21:fundamental}
 Assume positive recurrence, so that the stationary distribution exists and
 $P(x,y)=\sum_{n_1,n_2\ge0}\pi(n_1,n_2)x^{n_1}y^{n_2}$ is analytic on the closed unit
 polydisc. Then $P(x,y)$ and the boundary function $P_y(y)=P(0,y)$ satisfy
@@ -103,7 +103,7 @@ polydisc. Then $P(x,y)$ and the boundary function $P_y(y)=P(0,y)$ satisfy
 
 \begin{proof}
 Apart from the jockeying terms, equations~\eqref{eq:B21:interior}--\eqref{eq:B21:idle}
-coincide with the balance equations of Model~$A$. Multiplying each balance equation by
+coincide with the balance equations of Model-$A$. Multiplying each balance equation by
 $x^{n_1}y^{n_2}$, summing over its domain and multiplying through by $xy$, the
 Model-$A$ part reproduces exactly the left- and right-hand sides of the Model-$A$
 fundamental equation~\eqref{eq:A:fundamental},
@@ -132,16 +132,16 @@ equation and moving the $P_y$ part to the right-hand side yields~\eqref{eq:B21:f
 \noindent\textit{Remark.}
 Equation~\eqref{eq:B21:fundamental} contains \emph{no derivative} of $P$. The flat
 jockeying rate has contributed the algebraic factor $\gamma_1 y(x-y)$ to the coefficient of
-$P(x,y)$ where Model~$B_2$, with its linear rate $\gamma_1 n_1$, contributes the
+$P(x,y)$ where Model-$B_2$, with its linear rate $\gamma_1 n_1$, contributes the
 convective term $\gamma_1 xy(x-y)\,\partial P/\partial x$. Setting $\gamma_1=0$
 recovers~\eqref{eq:A:fundamental} verbatim.
 
 \subsection{Closed-form solution}
 
 The following theorem is the main result of this section; its proof follows the
-analytical (Kernel Method) treatment of Model~$A$ in~\S\ref{sssec:A:analytical}.
+analytical (Kernel Method) treatment of Model-$A$ in~\S\ref{sssec:A:analytical}.
 
-\begin{theorem}[Closed-form PGF for Model~$B_2^1$]\label{thm:B21:PGF}
+\begin{theorem}[Closed-form PGF for Model-$B_2^1$]\label{thm:B21:PGF}
 Consider the two-class non-preemptive priority queue with Poisson arrival rates
 $\lambda_1,\lambda_2$, common exponential service rate $\mu$, and head-of-line class-$1$
 jockeying at rate $\gamma_1>0$ (with $\gamma_2=\theta_1=\theta_2=0$). Under the stability
@@ -158,13 +158,13 @@ where $x^*(y)$ and $x^+(y)$ are the two roots of the kernel quadratic
     \label{eq:B21:quad}
 \end{equation}
 with $x^*(y)$ the root inside the unit disk. This is the \emph{same rational form} as
-Model~$A$ (Theorem~\ref{thm:A:PGF}); the two differ only in the kernel, where $\mu$ has been
+Model-$A$ (Theorem~\ref{thm:A:PGF}); the two differ only in the kernel, where $\mu$ has been
 replaced by $\mu+\gamma_1 y$.
 \end{theorem}
 
 \begin{corollary}\label{cor:B21:pi0}
-Under~\eqref{eq:B21:stability}, the empty-state probabilities of Model~$B_2^1$ coincide with
-those of Model~$A$,
+Under~\eqref{eq:B21:stability}, the empty-state probabilities of Model-$B_2^1$ coincide with
+those of Model-$A$,
 \begin{equation}
     \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho).
     \label{eq:B21:pi0_pi00}
@@ -198,7 +198,7 @@ $\lambda\pi_0=\mu\pi(0,0)$, i.e.\ $\pi(0,0)=\rho\pi_0$; substituting,
 $(1-\pi_0)(1-\rho)=\rho\pi_0$, hence $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$.
 \end{proof}
 
-\subsubsection{Analytical approach for Model~\texorpdfstring{$B_2^1$}{B21}}\label{sssec:B21:analytical}
+\subsubsection{Analytical approach for Model-\texorpdfstring{$B_2^1$}{B21}}\label{sssec:B21:analytical}
 
 \begin{proof}[Proof of Theorem~\ref{thm:B21:PGF}]
 We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}.
@@ -245,9 +245,9 @@ $\tfrac{d}{dy}x^*(1)=-f_y/f_x$:
     \frac{d}{dy}x^*(1) = \frac{\lambda_2+\gamma_1}{\mu+\gamma_1-\lambda_1}.
     \label{eq:B21:xstar_deriv}
 \end{equation}
-Unlike Model~$A$'s~\eqref{eq:A:xstar_deriv}, the numerator carries an extra $\gamma_1$:
+Unlike Model-$A$'s~\eqref{eq:A:xstar_deriv}, the numerator carries an extra $\gamma_1$:
 the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself
-$y$-dependent here, whereas in Model~$A$ (and in Model~$C_2^1$ below) the constant term is
+$y$-dependent here, whereas in Model-$A$ (and in Model-$C_2^1$ below) the constant term is
 independent of $y$.
 
 Setting $x=x^*(y)$ in~\eqref{eq:B21:fundamental} and equating the right-hand side to zero,
@@ -286,13 +286,13 @@ $\bigl(x-x^*(y)\bigr)$ cancels and we obtain
 which is~\eqref{eq:B21:PGF} and concludes the proof.
 \end{proof}
 
-\subsubsection{Probabilistic approach for Model~\texorpdfstring{$B_2^1$}{B21}}\label{sssec:B21:probabilistic}
+\subsubsection{Probabilistic approach for Model-\texorpdfstring{$B_2^1$}{B21}}\label{sssec:B21:probabilistic}
 
-For Model~$A$, the boundary function $P_y(y)$ admits an independent derivation by the
+For Model-$A$, the boundary function $P_y(y)$ admits an independent derivation by the
 \emph{Pollaczek--Khinchine} (PK) formula (\S\ref{sssec:A:probabilistic}): conditional on
 $N_1=0$, class~$2$ experiences an $M/G/1$ queue whose service times are i.i.d.\ copies of a
 class-$1$ busy period, and the PK formula then delivers $P_y(y)$. \emph{This route does not
-transfer to Model~$B_2^1$.} Head-of-line jockeying injects class-$1$ customers into Queue~2
+transfer to Model-$B_2^1$.} Head-of-line jockeying injects class-$1$ customers into Queue~2
 at the instants when $N_1\ge1$; the resulting arrival stream into Queue~2 is the
 superposition of the exogenous Poisson stream $\lambda_2$ and a state-dependent jockeying
 stream. This merged stream is \emph{neither} Poisson \emph{nor} independent of the system
@@ -306,10 +306,10 @@ as the discussion of Models~$B$ and~$B_2$.
 
 \subsection{Limits and sanity checks}
 
-As $\gamma_1\to0^+$ the kernel quadratic~\eqref{eq:B21:quad} reduces to Model~$A$'s
+As $\gamma_1\to0^+$ the kernel quadratic~\eqref{eq:B21:quad} reduces to Model-$A$'s
 quadratic~\eqref{eq:A:xstar}, so $x^*(y)\to x_A^*(y)$, and formula~\eqref{eq:B21:PGF}
 reduces to the factored form of Theorem~\ref{thm:A:PGF}; the empty-state probabilities
-already equal those of Model~$A$ by Corollary~\ref{cor:B21:pi0}. Setting $x=y=1$
+already equal those of Model-$A$ by Corollary~\ref{cor:B21:pi0}. Setting $x=y=1$
 in~\eqref{eq:B21:PGF} through the diagonal identity~\eqref{eq:B21:Pzz} gives
 $P(1,1)=\rho=1-\pi_0$, confirming normalisation, and the diagonal
 $P(z,z)=\pi(0,0)/(1-\rho z)$ is exactly that of the combined $M/M/1(\lambda,\mu)$
@@ -342,7 +342,7 @@ $x=1$,
     \;=\; \frac{\rho\,\rho_B}{1-\rho_B}.
     \label{eq:B21:EN1}
 \end{equation}
-This is Model~$A$'s formula~\eqref{eq:A:EN1} with the priority load $\rho_1$ replaced by the
+This is Model-$A$'s formula~\eqref{eq:A:EN1} with the priority load $\rho_1$ replaced by the
 \emph{jockeying-reduced} load $\rho_B=\lambda_1/(\mu+\gamma_1)\le\rho_1$.
 
 \subsubsection{Total queue length from the diagonal}
@@ -359,7 +359,7 @@ $\tfrac{d}{dz}P(z,z)\big|_{z=1}=\mathbb{E}[N_1]+\mathbb{E}[N_2]$, differentiatin
     \;=\; \frac{\rho^2}{1-\rho},
     \label{eq:B21:EN}
 \end{equation}
-identical to the combined $M/M/1$ result of Model~$A$~\eqref{eq:A:EN2}.
+identical to the combined $M/M/1$ result of Model-$A$~\eqref{eq:A:EN2}.
 
 \subsubsection{Class-2 mean queue length by subtraction}
 
@@ -383,7 +383,7 @@ The excess load admits a transparent decomposition,
 \end{equation*}
 so $\rho-\rho_B$ exceeds the bare class-$2$ load $\rho_2$ precisely by the load that
 jockeying transfers from Queue~1 into Queue~2. At $\gamma_1=0$ it collapses to $\rho_2$
-and~\eqref{eq:B21:EN2} recovers Model~$A$'s
+and~\eqref{eq:B21:EN2} recovers Model-$A$'s
 $\mathbb{E}[N_2]=\rho\rho_2/[(1-\rho_1)(1-\rho)]$.
 
 \subsubsection{Mean waiting times via Little's Law}
@@ -402,7 +402,7 @@ $\Lambda_1=\lambda_1$ and
     \;=\; \frac{\rho}{\mu+\gamma_1-\lambda_1}.
     \label{eq:B21:EW1}
 \end{equation}
-Compared with Model~$A$'s $\mathbb{E}[W_1]=\rho/(\mu-\lambda_1)$~\eqref{eq:A:EW1}, the
+Compared with Model-$A$'s $\mathbb{E}[W_1]=\rho/(\mu-\lambda_1)$~\eqref{eq:A:EW1}, the
 denominator is enlarged by $\gamma_1$: head-of-line jockeying drains the priority queue
 faster and shortens class-$1$ waits.
 
@@ -424,7 +424,7 @@ mean residence time per Queue-2 entrant,
     \label{eq:B21:EW2}
 \end{equation}
 As $\gamma_1\to0^+$ the jockeying stream disappears, $\Lambda_2\to\lambda_2$ and
-$\rho_B\to\rho_1$, and~\eqref{eq:B21:EW2} recovers Model~$A$'s
+$\rho_B\to\rho_1$, and~\eqref{eq:B21:EW2} recovers Model-$A$'s
 $\mathbb{E}[W_2]=\rho/[\mu(1-\rho_1)(1-\rho)]$~\eqref{eq:A:EW2}.
 
 

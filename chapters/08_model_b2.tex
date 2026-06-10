@@ -1,6 +1,6 @@
-\section{Analysis of Model~\texorpdfstring{$B_2$}{B2} (\texorpdfstring{$\gamma_1>0$}{gamma1>0}, \texorpdfstring{$\gamma_2=0$}{gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b2}
+\section{Analysis of Model-\texorpdfstring{$B_2$}{B2} (\texorpdfstring{$\gamma_1>0$}{gamma1>0}, \texorpdfstring{$\gamma_2=0$}{gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b2}
 
-Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\gamma_2=0$) and retains no abandonment ($\theta_1=\theta_2=0$). Setting $\gamma_2=0$ eliminates the $\partial P/\partial y$ term from the fundamental equation, reducing it to a first-order linear ODE in $x$ for each fixed $y\in[0,1]$. An integrating factor then yields a formal integral expression for $P(x,y)$; the boundary function $P_y(y)$ is pinned by requiring $P(\cdot,y)$ to be holomorphic at the interior singular point $x=y$, where the integrating factor carries a branch singularity with negative exponent. This analyticity condition replaces the boundedness argument used for Model~$C_2$.
+Model-$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\gamma_2=0$) and retains no abandonment ($\theta_1=\theta_2=0$). Setting $\gamma_2=0$ eliminates the $\partial P/\partial y$ term from the fundamental equation, reducing it to a first-order linear ODE in $x$ for each fixed $y\in[0,1]$. An integrating factor then yields a formal integral expression for $P(x,y)$; the boundary function $P_y(y)$ is pinned by requiring $P(\cdot,y)$ to be holomorphic at the interior singular point $x=y$, where the integrating factor carries a branch singularity with negative exponent. This analyticity condition replaces the boundedness argument used for Model-$C_2$.
 
 \textbf{Stability.} As in Models~$A$ and~$B$, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect the stability condition.
 
@@ -9,7 +9,7 @@ Model~$B_2$ restricts jockeying to the direction $1\to2$ only ($\gamma_1>0$, $\g
     \resizebox{0.62\textwidth}{!}{%
         \input{figures/model-b2-queue.tikz}%
     }
-    \caption{Queue layout for Model~$B_2$. Only the $1\to2$ jockeying direction
+    \caption{Queue layout for Model-$B_2$. Only the $1\to2$ jockeying direction
     is active (dashed, downward): Class-1 customers may defect to Queue~2,
     but no customer can move in the reverse direction ($\gamma_2=0$).}
     \label{fig:model-b2-queue}
@@ -32,7 +32,7 @@ For each fixed $y\in(0,1]$ this is a first-order linear ODE in $x$; the entire a
 of this section is built on it.
 
 \begin{theorem}\label{thm:B2}
-    Consider the two-class non-preemptive priority queueing system of Model~$B_2$ with
+    Consider the two-class non-preemptive priority queueing system of Model-$B_2$ with
     per-customer jockeying rate $\gamma_1>0$ from Queue~1 to Queue~2 ($\gamma_2=0$,
     $\theta_1=\theta_2=0$). Under the stability condition $\rho=\lambda/\mu<1$,
     $\lambda=\lambda_1+\lambda_2$, the boundary generating function is
@@ -71,12 +71,12 @@ of this section is built on it.
 
 \begin{corollary}\label{cor:B2:pi00}
     The empty-system probability $\pi_0$ (server idle, no one waiting) and the
-    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model~$B_2$ are
+    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model-$B_2$ are
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
         \label{eq:B2:pi00}
     \end{equation}
-    identical to the Model~$A$ baseline.
+    identical to the Model-$A$ baseline.
 \end{corollary}
 
 \begin{proof}
@@ -138,7 +138,7 @@ Write the numerator of $p$ as a polynomial in $x$,
     N(x) = -\lambda_1 x^2 + \bigl[(\lambda_1+\lambda_2+\mu)-\lambda_2 y\bigr]x - \mu
          = -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
 \]
-which factors through the roots $x^*(y),x^+(y)$ of the Model~$A$ kernel
+which factors through the roots $x^*(y),x^+(y)$ of the Model-$A$ kernel
 (Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$. The partial-fraction
 coefficients of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ follow by residues:
 \begin{align}
@@ -211,7 +211,7 @@ Unlike Models~$A$ and~$C_2$, no probabilistic (Pollaczek--Khinchine) route is av
 here. One-way jockeying makes the effective service experienced by a Class-2 customer
 depend on the Class-1 queue contents at the (random) jockeying instants, so the Class-2
 input is no longer a Poisson stream feeding an $M/G/1$ subsystem and no busy-period
-reduction applies (cf.\ the discussion of Model~$B$ in \S\ref{sec:model_b}). We therefore
+reduction applies (cf.\ the discussion of Model-$B$ in \S\ref{sec:model_b}). We therefore
 determine $P_y(y)$ \emph{purely analytically}, by imposing holomorphy of $P(\cdot,y)$ at
 the interior point $x=y$, where the solution~\eqref{eq:B2:Pxy_real} is \emph{a priori}
 singular.
@@ -388,7 +388,7 @@ $P(y,y)=\rho(1-\rho)/(1-\rho y)$ as computed in~\eqref{eq:B2:regular_value}.
 On $y<x\le1$ the same formula holds with $\mathcal{H}_1,\mathcal{H}_2$ read as their
 finite-part continuations; $\pi(0,0)=\rho(1-\rho)$ from Corollary~\ref{cor:B2:pi00} makes
 the solution fully explicit.
-\smallskip\noindent\textit{Reduction to Model~$A$ as $\gamma_1\to0^{+}$.}
+\smallskip\noindent\textit{Reduction to Model-$A$ as $\gamma_1\to0^{+}$.}
 The no-jockeying limit is cleanest at the level of the fundamental equation, but
 $\gamma_1\to0^{+}$ is a \emph{singular} perturbation --- the coefficient $\gamma_1 xy(x-y)$
 of the highest derivative $\partial_x P$ vanishes --- so one must check that the convection
@@ -398,19 +398,19 @@ probability generating function, so $|P|\le1$ on the closed unit polydisc \emph{
 in $\gamma_1$; by Cauchy's estimate $\partial_x P$ is then bounded uniformly in $\gamma_1$ on
 every compact subset of the open polydisc, whence $\gamma_1 xy(x-y)\,\partial_x P\to0$ there.
 The fundamental equation~\eqref{eq:B2:fundamental} therefore degenerates to the purely
-algebraic Model~$A$ equation~\eqref{eq:A:fundamental} (the coefficients of $P$ and the
+algebraic Model-$A$ equation~\eqref{eq:A:fundamental} (the coefficients of $P$ and the
 right-hand side are $\gamma_1$-independent, and $\pi(0,0)=\rho(1-\rho)$ by
 Corollary~\ref{cor:B2:pi00}). Since $\{P\}_{\gamma_1}$ is uniformly bounded it is a normal
 family, so it converges --- along subsequences, hence in full by uniqueness of the
 polydisc-analytic generating-function solution of~\eqref{eq:A:fundamental} --- to the
-Model~$A$ PGF~\eqref{eq:A:PGF}. In particular the boundary function reduces to the Model~$A$
+Model-$A$ PGF~\eqref{eq:A:PGF}. In particular the boundary function reduces to the Model-$A$
 value~\eqref{eq:A:Py},
 \begin{equation}
     P_y(y)\;\xrightarrow[\ \gamma_1\to0^{+}\ ]{}\;
     \pi(0,0)\,\frac{x^*(y)\,(1-y)}{x^*(y)-y},
     \label{eq:B2:Py_limit}
 \end{equation}
-with $x^*(y)$ the Model~$A$ kernel root~\eqref{eq:A:xstar}; this recovery needs no
+with $x^*(y)$ the Model-$A$ kernel root~\eqref{eq:A:xstar}; this recovery needs no
 special-function asymptotics.
 
 It is instructive to read the same limit off the closed form~\eqref{eq:B2:Py}. Its prefactor
@@ -440,7 +440,7 @@ of~\eqref{eq:B2:ratio_limit}.
 Setting $x=y=z$ in the reduced fundamental equation~\eqref{eq:B2:fundamental}, the
 jockeying convection term $\gamma_1 xy(x-y)\partial_xP$ vanishes at $x=y=z$
 (factor $(x-y)=0$), as does the boundary term $\mu(x-y)P_y(y)$.  The remaining
-balance is identical to Model~$A$'s, so the same diagonal cancellation gives:
+balance is identical to Model-$A$'s, so the same diagonal cancellation gives:
 \begin{align}
     \begin{split}
         P(z,z) \;=\; \frac{\rho(1-\rho)}{1-\rho z},
@@ -462,7 +462,7 @@ differentiating by the quotient rule and evaluating at $z=1$:
     \label{eq:B2:EN}
 \end{align}
 One-way jockeying does not alter the total mean queue length relative to
-Model~$A$, since the diagonal PGF is unchanged.
+Model-$A$, since the diagonal PGF is unchanged.
 
 \subsubsection*{Class-1 mean queue length}
 
@@ -552,7 +552,7 @@ factor $(\lambda_1-\mu)<0$ (since $\rho_1=\lambda_1/\mu<1$), confirming that
 $e^{\lambda_1/\gamma_1}(\lambda_1-\mu)\mathcal{J}(1)/\gamma_1 + 1 > 0$.
 No elementary simplification of~\eqref{eq:B2:EN1} is known; the expression
 is evaluated numerically.  As $\gamma_1\to0^+$ the
-Model~$A$ value~\eqref{eq:A:EN1} is recovered.
+Model-$A$ value~\eqref{eq:A:EN1} is recovered.
 
 \subsubsection*{Class-2 mean queue length by subtraction}
 
@@ -565,8 +565,8 @@ Model~$A$ value~\eqref{eq:A:EN1} is recovered.
     \label{eq:B2:EN2}
 \end{align}
 Since jockeying defections reduce the class-1 queue,
-$\mathbb{E}[N_1]$ is smaller than the Model~$A$ value $\rho\rho_1/(1-\rho_1)$,
-so $\mathbb{E}[N_2]$ correspondingly exceeds the Model~$A$ value.
+$\mathbb{E}[N_1]$ is smaller than the Model-$A$ value $\rho\rho_1/(1-\rho_1)$,
+so $\mathbb{E}[N_2]$ correspondingly exceeds the Model-$A$ value.
 
 \subsubsection*{Mean waiting times via Little's Law}
 
@@ -619,4 +619,4 @@ Models~$A$ and~$C_2$: the naive denominator $\lambda_2$ would undercount the ent
 Queue~2 and is correct only in the no-jockeying limit. Indeed, as $\gamma_1\to0^{+}$ the
 transfer rate $\gamma_1\,\mathbb{E}[N_1]\to0$, so~\eqref{eq:B2:EW2} reduces to
 $\mathbb{E}[N_2]/\lambda_2$ and both~\eqref{eq:B2:EW} and~\eqref{eq:B2:EW2} recover the
-Model~$A$ values~\eqref{eq:A:EW1}--\eqref{eq:A:EW2}.
+Model-$A$ values~\eqref{eq:A:EW1}--\eqref{eq:A:EW2}.

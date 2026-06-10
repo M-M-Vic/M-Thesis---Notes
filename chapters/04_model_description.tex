@@ -1,6 +1,6 @@
-\section{Model description: Model~\texorpdfstring{$X$}{X}}\label{sec:model_x}
+\section{Model description: Model-\texorpdfstring{$X$}{X}}\label{sec:model_x}
 
-This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this full model as \emph{Model~$X$}. The simpler variants studied are recovered as special cases by zeroing the appropriate parameters, as summarised in the table below (Table \ref{tab:model_family}):
+This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this full model as \emph{Model-$X$}. The simpler variants studied are recovered as special cases by zeroing the appropriate parameters, as summarised in the table below (Table \ref{tab:model_family}):
 \begin{table}[H]
     \centering
     \begin{tabular}{cccl}
@@ -14,18 +14,18 @@ This section defines the general two-class system with both jockeying ($\gamma_i
         $C_2$ & none                            & class $1$ only     & $\theta_1 \geq 0,\ \theta_2=0,\ \gamma_1=\gamma_2=0$ \\
         \hline
     \end{tabular}
-    \caption{Nested family of models. Model~$X$ is the parent; Models $A$, $B$, $B_2$ and $C_2$
+    \caption{Nested family of models. Model-$X$ is the parent; Models $A$, $B$, $B_2$ and $C_2$
     are obtained by restricting the jockeying directions and the abandoning classes.}
     \label{tab:model_family}
 \end{table}
 
-Figure~\ref{fig:models-queue-overview} provides a visual overview of Model~$X$ and each of the variants that we will consider:
+Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ and each of the variants that we will consider:
 \begin{figure}[H]
     \centering
     \resizebox{\textwidth}{!}{%
         \input{figures/models-queue-overview.tikz}%
     }
-    \caption{Physical queue layout for Model~$X$ (left) and its four specializations
+    \caption{Physical queue layout for Model-$X$ (left) and its four specializations
     (right, $2\times2$ grid). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
     Solid arrows: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
     Dashed arrows: jockeying ($\gamma_i$), which transfers a waiting customer between
@@ -39,7 +39,7 @@ classes, where customers are served on a First-Come, First-Served (FCFS) basis
 within their own class and those coming from the priority class (Class-$1$) have
 non-preemptive priority over those of the non-priority class (Class-$2$); that is,
 when a Class-$2$ customer is in service, that service will not be interrupted by a
-potential arrival of a Class-$1$ customer. Beyond basic dynamics, Model~$X$
+potential arrival of a Class-$1$ customer. Beyond basic dynamics, Model-$X$
 incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a
 waiting customer can abandon its own queue and \emph{join the other queue}, at a
 per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for 
@@ -146,7 +146,7 @@ However, for models \emph{with} abandonments, the total number of customers is n
 
 \subsection{Balance equations}
 
-This subsection presents the state-transition diagrams of Model~$X$ on both state spaces $S$ and $\widetilde{S}$, and derives the corresponding sets of balance equations.
+This subsection presents the state-transition diagrams of Model-$X$ on both state spaces $S$ and $\widetilde{S}$, and derives the corresponding sets of balance equations.
 
 \subsubsection{Balance equations for state space \texorpdfstring{$S$}{S}} \label{sec:gen:balance_equations}
 

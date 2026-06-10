@@ -1,22 +1,22 @@
-\section{Analysis of Model~\texorpdfstring{$C_2^1$}{C21} (\texorpdfstring{$\theta_1>0$}{theta1>0} head-of-line, \texorpdfstring{$\gamma_1=\gamma_2=\theta_2=0$}{gamma1=gamma2=theta2=0})}
+\section{Analysis of Model-\texorpdfstring{$C_2^1$}{C21} (\texorpdfstring{$\theta_1>0$}{theta1>0} head-of-line, \texorpdfstring{$\gamma_1=\gamma_2=\theta_2=0$}{gamma1=gamma2=theta2=0})}
 \label{sec:model_c21}
 
-Model~$C_2^1$ is the abandonment counterpart of Model~$B_2^1$, and a simplified variant of
-the class-$1$ abandonment model Model~$C_2$. In Model~$C_2$ \emph{every} waiting class-$1$
+Model-$C_2^1$ is the abandonment counterpart of Model-$B_2^1$, and a simplified variant of
+the class-$1$ abandonment model Model-$C_2$. In Model-$C_2$ \emph{every} waiting class-$1$
 customer is impatient and reneges at the linear rate $\theta_1 n_1$, turning the class-$1$
 subsystem into an $M/M/1{+}M$ (Erlang-A) queue and the fundamental equation into a
 first-order ODE. Here only the \emph{customer at the head of Queue~1} may abandon, at the
 fixed rate $\theta_1$ whenever $n_1\ge1$; the aggregate abandonment rate is
-$\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ rather than $\theta_1 n_1$. As with Model~$B_2^1$, the
+$\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ rather than $\theta_1 n_1$. As with Model-$B_2^1$, the
 flat rate contributes an \emph{algebraic} term to the fundamental equation rather than a
 derivative, and the Kernel Method applies directly. Unlike jockeying, abandonment is a
 \emph{true departure}: it removes a customer from the system and so breaks the conservation
-of the total customer count that Model~$B_2^1$ enjoyed. The empty-state probabilities and
+of the total customer count that Model-$B_2^1$ enjoyed. The empty-state probabilities and
 the class-$2$ mean queue length consequently require a separate argument.
 
 \textbf{Stability.} Because only the head of Queue~1 abandons, the aggregate abandonment
 rate is bounded by $\theta_1$ regardless of queue length, so --- in contrast to the Erlang-A
-class-$1$ subsystem of Model~$C_2$, which is positive recurrent for all loads --- a genuine
+class-$1$ subsystem of Model-$C_2$, which is positive recurrent for all loads --- a genuine
 stability condition is required. As shown in Corollary~\ref{cor:C21:pi0} below, the chain is
 positive recurrent if and only if $\pi_0>0$, that is
 \begin{equation}
@@ -68,13 +68,13 @@ $\mu+\theta_1$ on the in-flows. On $S$,
         &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
     \end{split} &&\label{eq:C21:idle}
 \end{align}
-The contrast with Model~$C_2$ is the same as before: there the in-flow coefficients
+The contrast with Model-$C_2$ is the same as before: there the in-flow coefficients
 $\mu+\theta_1(n_1+1)$ and the out-flow coefficient $\theta_1 n_1$ grow with the queue
 length, whereas here they are the constants $\mu+\theta_1$ and $\theta_1$ throughout.
 
 \subsection{Fundamental PGF equation}
 
-\begin{lemma}[Fundamental equation for Model~$C_2^1$]\label{lem:C21:fundamental}
+\begin{lemma}[Fundamental equation for Model-$C_2^1$]\label{lem:C21:fundamental}
 Assume positive recurrence. Then the joint PGF $P(x,y)$ and the boundary function
 $P_y(y)=P(0,y)$ satisfy
 \begin{equation}
@@ -112,14 +112,14 @@ rearranging yields~\eqref{eq:C21:fundamental}.
 
 \noindent\textit{Remark.}
 Again no derivative of $P$ appears: the algebraic factor $\theta_1 y(x-1)$ replaces the
-convective term $\theta_1 xy(x-1)\,\partial P/\partial x$ of Model~$C_2$. Setting
+convective term $\theta_1 xy(x-1)\,\partial P/\partial x$ of Model-$C_2$. Setting
 $\theta_1=0$ recovers~\eqref{eq:A:fundamental}. Unlike the jockeying factor of
-Model~$B_2^1$, the abandonment factor $\theta_1 y(x-1)$ does \emph{not} vanish on the
+Model-$B_2^1$, the abandonment factor $\theta_1 y(x-1)$ does \emph{not} vanish on the
 diagonal $x=y$, which is the analytic signature of the broken conservation.
 
 \subsection{Closed-form solution}
 
-\begin{theorem}[Closed-form PGF for Model~$C_2^1$]\label{thm:C21:PGF}
+\begin{theorem}[Closed-form PGF for Model-$C_2^1$]\label{thm:C21:PGF}
 Consider the two-class non-preemptive priority queue with Poisson arrival rates
 $\lambda_1,\lambda_2$, common exponential service rate $\mu$, and head-of-line class-$1$
 abandonment at rate $\theta_1>0$ (with $\gamma_1=\gamma_2=\theta_2=0$). Under the stability
@@ -138,12 +138,12 @@ where $x^*(y)$ and $x^+(y)$ are the two roots of the kernel quadratic
     \label{eq:C21:quad}
 \end{equation}
 with $x^*(y)$ the root inside the unit disk, and $\pi(0,0)$ is given by
-Corollary~\ref{cor:C21:pi0}. As $\theta_1\to0^+$ the formula recovers Model~$A$
+Corollary~\ref{cor:C21:pi0}. As $\theta_1\to0^+$ the formula recovers Model-$A$
 (Theorem~\ref{thm:A:PGF}) exactly.
 \end{theorem}
 
 \begin{corollary}\label{cor:C21:pi0}
-Under~\eqref{eq:C21:stability}, the empty-state probabilities of Model~$C_2^1$ are
+Under~\eqref{eq:C21:stability}, the empty-state probabilities of Model-$C_2^1$ are
 \begin{equation}
     \pi_0 = \frac{(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1}
                  {\mu(\mu+\theta_1)+\lambda_1\theta_1},
@@ -153,7 +153,7 @@ Under~\eqref{eq:C21:stability}, the empty-state probabilities of Model~$C_2^1$ a
     \label{eq:C21:pi0_pi00}
 \end{equation}
 with $\lambda=\lambda_1+\lambda_2$. At $\theta_1\to0^+$ these reduce to $\pi_0\to1-\rho$ and
-$\pi(0,0)\to\rho(1-\rho)$, recovering Model~$A$.
+$\pi(0,0)\to\rho(1-\rho)$, recovering Model-$A$.
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor:C21:pi0}]
@@ -207,7 +207,7 @@ The denominator $\mu(\mu+\theta_1)+\lambda_1\theta_1$ is strictly positive, so $
 equivalent to the stability condition~\eqref{eq:C21:stability}.
 \end{proof}
 
-\subsubsection{Analytical approach for Model~\texorpdfstring{$C_2^1$}{C21}}\label{sssec:C21:analytical}
+\subsubsection{Analytical approach for Model-\texorpdfstring{$C_2^1$}{C21}}\label{sssec:C21:analytical}
 
 \begin{proof}[Proof of Theorem~\ref{thm:C21:PGF}]
 We again apply the Kernel Method to~\eqref{eq:C21:fundamental}. Dividing the coefficient of
@@ -276,10 +276,10 @@ $\bigl(x-x^*(y)\bigr)$ cancels and
 which is~\eqref{eq:C21:PGF} and concludes the proof.
 \end{proof}
 
-\subsubsection{Probabilistic approach for Model~\texorpdfstring{$C_2^1$}{C21}}\label{sssec:C21:probabilistic}
+\subsubsection{Probabilistic approach for Model-\texorpdfstring{$C_2^1$}{C21}}\label{sssec:C21:probabilistic}
 
-As for Model~$B_2^1$, the Pollaczek--Khinchine route used for Models~$A$ and~$C_2$ does not
-transfer. In Model~$C_2$ the class-$1$ subsystem seen by class~$2$ is a clean $M/M/1{+}M$
+As for Model-$B_2^1$, the Pollaczek--Khinchine route used for Models~$A$ and~$C_2$ does not
+transfer. In Model-$C_2$ the class-$1$ subsystem seen by class~$2$ is a clean $M/M/1{+}M$
 (Erlang-A) queue whose busy period $B_C$ is an i.i.d.\ renewal quantity, and class~$2$ sees
 an $M/G/1$ queue with service $B_C$. Under head-only abandonment this clean renewal
 structure is lost: abandonment acts at the fixed rate $\theta_1$ only while a class-$1$
@@ -293,7 +293,7 @@ operative one.
 
 \subsection{Limits and sanity checks}
 
-As $\theta_1\to0^+$ the kernel quadratic~\eqref{eq:C21:quad} reduces to Model~$A$'s, so
+As $\theta_1\to0^+$ the kernel quadratic~\eqref{eq:C21:quad} reduces to Model-$A$'s, so
 $x^*(y)\to x_A^*(y)$ and $\Delta(y)\to \mu(x_A^*(y)-y)$; together with
 $\pi(0,0)\to\rho(1-\rho)$ from Corollary~\ref{cor:C21:pi0}, formula~\eqref{eq:C21:PGF}
 reduces to the factored Model-$A$ PGF of Theorem~\ref{thm:A:PGF}. Setting $x=1$
@@ -314,19 +314,19 @@ Differentiating and evaluating at $x=1$,
     \label{eq:C21:EN1}
 \end{equation}
 with $1-\pi_0=\lambda(\mu+\theta_1)/\bigl[\mu(\mu+\theta_1)+\lambda_1\theta_1\bigr]$ from
-Corollary~\ref{cor:C21:pi0}. As in Model~$B_2^1$, the priority queue behaves as an $M/M/1$
+Corollary~\ref{cor:C21:pi0}. As in Model-$B_2^1$, the priority queue behaves as an $M/M/1$
 queue with effective clearance rate $\mu+\theta_1$, the only difference from
-Model~$B_2^1$'s~\eqref{eq:B21:EN1} being the prefactor $1-\pi_0$, which here is no longer
+Model-$B_2^1$'s~\eqref{eq:B21:EN1} being the prefactor $1-\pi_0$, which here is no longer
 equal to $\rho$ because abandonment alters the idle probability.
 
 \subsubsection{Class-2 mean queue length}
 
 Abandonment is a true departure and so breaks the \emph{conservation of the total customer
-count} that underlies the diagonal argument: in Model~$B_2^1$ the jockeying factor
+count} that underlies the diagonal argument: in Model-$B_2^1$ the jockeying factor
 $\gamma_1 y(x-y)$ vanishes on the diagonal $x=y$, whereas here the abandonment factor
 $\theta_1 y(x-1)$ does not. Concretely, setting $x=y=z$ in~\eqref{eq:C21:fundamental} leaves
 the term $\theta_1 z(z-1)P_y(z)$ on the right-hand side, so the diagonal equation no longer
-closes and the route that furnished $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ for Model~$B_2^1$ is
+closes and the route that furnished $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ for Model-$B_2^1$ is
 unavailable. We instead differentiate the class-$2$ marginal. From the
 marginal relation~\eqref{eq:C21:P1y}, $P(1,y)=\mu\bigl[P_y(y)-\pi(0,0)\bigr]/(\lambda_2 y)$,
 and since $\mathbb{E}[N_2]=\tfrac{d}{dy}P(1,y)\big|_{y=1}$,
@@ -367,7 +367,7 @@ stability numerator of $\pi_0$ from~\eqref{eq:C21:pi0_pi00}, so $\mathbb{E}[N_2]
 precisely under the stability condition~\eqref{eq:C21:stability} and diverges as
 $\pi_0\to0^+$. As $\theta_1\to0^+$ the right-hand side reduces to
 $\lambda_2\lambda/[(\mu-\lambda_1)(\mu-\lambda)]=\rho\rho_2/[(1-\rho_1)(1-\rho)]$, recovering
-Model~$A$'s~\eqref{eq:A:EN2}.
+Model-$A$'s~\eqref{eq:A:EN2}.
 
 \subsubsection{Mean waiting times via Little's Law}
 
@@ -392,7 +392,7 @@ simply $\Lambda_2=\lambda_2$:
                 \bigl[(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1\bigr]}.
     \label{eq:C21:EW2}
 \end{equation}
-Both reduce to the corresponding Model~$A$ expressions as $\theta_1\to0^+$.
+Both reduce to the corresponding Model-$A$ expressions as $\theta_1\to0^+$.
 
 \subsection{Comparison of the head-of-line models}
 
@@ -401,8 +401,8 @@ head-of-line variants and their full-rate counterparts. The common thread is tha
 a length-proportional mechanism rate ($\gamma_1 n_1$ or $\theta_1 n_1$) by a head-of-line
 rate ($\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$ or $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$) converts
 the governing ODE into an algebraic equation, so that $P(x,y)$ becomes rational. For
-Model~$B_2^1$ the result is structurally identical to Model~$A$, the sole change being
-$\mu\to\mu+\gamma_1 y$ in the kernel; for Model~$C_2^1$ the broken conservation introduces
+Model-$B_2^1$ the result is structurally identical to Model-$A$, the sole change being
+$\mu\to\mu+\gamma_1 y$ in the kernel; for Model-$C_2^1$ the broken conservation introduces
 the extra factor $(\mu+\theta_1)$ and the modified boundary denominator $\Delta(y)$, and
 shifts the stability boundary to~\eqref{eq:C21:stability}.
 
@@ -438,7 +438,7 @@ $P(x,y)$ form
  & \textbf{rational}
  & integral$+{}_1F_1$
  & \textbf{rational} \\
-Same form as Model~$A$?
+Same form as Model-$A$?
  & \checkmark
  & $\times$
  & \textbf{\checkmark}

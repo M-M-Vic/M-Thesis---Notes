@@ -32,15 +32,15 @@ and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
 \hline
 L1   & Lemma~\ref{lem:gen:fundamental_equation}  & A, B, B$_2$, C$_2$ & PGF eq.\ residual             & $<5\times10^{-9}$  & Accept \\
 L2   & Lemma~\ref{lem:gen:PPGF_dynamics}         & A, B$_2$, C$_2$    & PPGF dynamics residual        & $<2\times10^{-15}$ & Accept \\
-T-A  & Theorem (Model~$A$)                         & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
+T-A  & Theorem (Model-$A$)                         & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
 C-A  & Corollary~\ref{cor:A:pi0}                 & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
-T-B2 & Theorem (Model~$B_2$)                     & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
-T-C2 & Theorem (Model~$C_2$)                     & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
+T-B2 & Theorem (Model-$B_2$)                     & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
+T-C2 & Theorem (Model-$C_2$)                     & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
 C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 cfgs  & $<10^{-4}$         & Accept \\
 T-S  & Theorem~\ref{thm:A:PPGF_Stilde}           & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
 \hline
-E-B  & Theorem~\ref{thm:B21:PGF} — Model~$B_2^1$  & B$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
-E-C  & Theorem~\ref{thm:C21:PGF} — Model~$C_2^1$ & C$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
+E-B  & Theorem~\ref{thm:B21:PGF} — Model-$B_2^1$  & B$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
+E-C  & Theorem~\ref{thm:C21:PGF} — Model-$C_2^1$ & C$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
 \hline
 \end{tabular}
 \end{table}
@@ -79,8 +79,8 @@ discrete variable.
 % [Discuss: the three theorems (A, B₂, C₂) give explicit formulas for P(x,y).
 %  Because all three are tested on the same 5×5 grid with the same base
 %  parameters (only the extra mechanism changes), the errors are directly
-%  comparable.  Model~$C$₂ achieves near-machine precision because the
-%  Pollaczek–Khinchine ratio evaluates exactly; Model~$B$₂ is limited by the
+%  comparable.  Model-$C_2$ achieves near-machine precision because the
+%  Pollaczek–Khinchine ratio evaluates exactly; Model-$B$₂ is limited by the
 %  finite-part quadrature near the branch singularity at x=y.]
 
 Figures~\ref{fig:val_pxy} and~\ref{fig:val_py} compare the three analytic
@@ -129,7 +129,7 @@ corollary.  All points lie on the diagonal to within $10^{-4}$.
     configurations each.  Perfect agreement lies on the diagonal.
     % [Discuss: the C₂ corollary is non-trivial — it involves the confluent
     %  hypergeometric function and the M/M/1+M busy period — yet it matches
-    %  CTMC to the same tolerance as the simple Model~$A$ formula.]
+    %  CTMC to the same tolerance as the simple Model-$A$ formula.]
     }
     \label{fig:val_corollaries}
 \end{figure}
@@ -164,32 +164,32 @@ $\varepsilon_\infty(\rho_1,\rho_2)$ over the parameter space.
 \subsection{Mean queue lengths and mean waiting times}
 
 % [Introduce: Little's Law holds for all three models. Mention the conservation
-%  property of B₂ (E[N] is the same as Model~$A$) vs C₂ (E[N] decreases with θ₁).
+%  property of B₂ (E[N] is the same as Model-$A$) vs C₂ (E[N] decreases with θ₁).
 %  Note that for C₂ the arrival rate λ_i (not the throughput) is used in L=λW.]
 
 Figure~\ref{fig:meanq_all} shows $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, and the
 implied waiting times $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ as the
-mechanism parameter ($\gamma_1$ for Model~$B_2$, $\theta_1$ for Model~$C_2$)
-varies from zero (Model~$A$ limit, dashed) to three.
+mechanism parameter ($\gamma_1$ for Model-$B_2$, $\theta_1$ for Model-$C_2$)
+varies from zero (Model-$A$ limit, dashed) to three.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_meanq_all.pdf}
     \caption{Mean queue lengths (top row) and mean waiting times (bottom row)
     for Models $B_2$ (left column) and C$_2$ (right column) as their respective
-    mechanism parameters vary.  Dashed lines indicate the Model~$A$ baseline.
+    mechanism parameters vary.  Dashed lines indicate the Model-$A$ baseline.
     % [Discuss B₂ left panels: jockeying transfers load from Class-1 to Class-2
     %  while conserving the total E[N]. Class-1 benefits; Class-2 is penalised.
     %  The total E[N] = ρ²/(1-ρ) is the grey dotted line — perfectly flat.]
     % [Discuss C₂ right panels: abandonment reduces E[N₁] directly (class-1
     %  customers leave the queue). Class-2 also benefits indirectly because
-    %  the server is freed sooner. Both curves fall below the Model~$A$ dashed lines.
-    %  The limit θ₁→0 recovers the Model~$A$ values.]
+    %  the server is freed sooner. Both curves fall below the Model-$A$ dashed lines.
+    %  The limit θ₁→0 recovers the Model-$A$ values.]
     }
     \label{fig:meanq_all}
 \end{figure}
 
-For reference, Model~$A$ admits the closed-form expressions
+For reference, Model-$A$ admits the closed-form expressions
 \begin{align}
     \mathbb{E}[N_1] &= \frac{\rho\rho_1}{1-\rho_1}, &
     \mathbb{E}[N_2] &= \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)},
@@ -199,9 +199,9 @@ with sum $\rho^2/(1-\rho)$ (the M/M/1 queue-length formula for the combined
 system).  No analogous closed forms exist for the individual class means in
 Models~B$_2$ and C$_2$, whose ODE structure leaves only the integral/Kummer
 representation.  The head-of-line variants, by contrast, \emph{do} admit closed-form means:
-Model~$B_2^1$ gives $\mathbb{E}[N_1]=\rho\rho_B/(1-\rho_B)$ with
+Model-$B_2^1$ gives $\mathbb{E}[N_1]=\rho\rho_B/(1-\rho_B)$ with
 $\rho_B=\lambda_1/(\mu+\gamma_1)$ \eqref{eq:B21:EN1} and the conserved total
-$\rho^2/(1-\rho)$, while Model~$C_2^1$ gives the rational $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$
+$\rho^2/(1-\rho)$, while Model-$C_2^1$ gives the rational $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$
 of \eqref{eq:C21:EN1}--\eqref{eq:C21:EN2}; these are the analogues of~\eqref{eq:results:EN_A}
 with $\mu$ replaced by the effective clearance rate $\mu+\gamma_1$ or $\mu+\theta_1$, and
 they are reported alongside $B_2$, $C_2$ in the comparison of \S\ref{sec:comparison}.
@@ -232,7 +232,7 @@ measured.
     tolerance.
     \textit{Bottom row}: boundary function $P_y(y)=P(0,y)$ comparing the
     rational closed-form formula against the CTMC.
-    % [Discuss: B₂¹ achieves the same accuracy as Model~$A$ (~10⁻⁷);
+    % [Discuss: B₂¹ achieves the same accuracy as Model-$A$ (~10⁻⁷);
     %  C₂¹ achieves near-machine precision (~10⁻¹¹) because the denominator
     %  D₁ in the C₂¹ formula never passes close to zero in the test range.
     %  Both lemma residuals are far below 10⁻⁶, confirming the algebraic
@@ -320,7 +320,7 @@ test of the new transition structure underlying Models~$B_2^1$ and~$C_2^1$.
 \subsection{Convergence to Model \texorpdfstring{$A$}{A}}
 \label{subsec:results:convergence}
 
-Every specialised model must recover Model~$A$ as its distinguishing parameter is switched
+Every specialised model must recover Model-$A$ as its distinguishing parameter is switched
 off. \S\ref{sec:comparison} established this algebraically; here it is verified numerically
 and the \emph{rate} of convergence is characterised, since that rate measures how rapidly a
 mechanism departs from the baseline as it is introduced. Convergence is measured in the
@@ -333,7 +333,7 @@ by the individual descriptors $\pi_0$, $\pi(0,0)$ and $\mathbb{E}[N_1]$.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_C2_to_A_L1.pdf}
-  \caption{Convergence of Model~$C_2$ to Model~$A$ as $\theta_1\to0^+$
+  \caption{Convergence of Model-$C_2$ to Model-$A$ as $\theta_1\to0^+$
   ($\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$). \emph{Left:} log--log plot of
   $\lVert\pi_{C_2}-\pi_A\rVert_1$ against $\theta_1$, with a fitted slope of $0.85$ over
   $\theta_1<1$. \emph{Right:} $\pi_0(\theta_1)$ and $\pi(0,0)(\theta_1)$ relaxing onto the
@@ -372,7 +372,7 @@ descriptors and not merely an aggregate $L_1$ effect.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.78\textwidth]{figures/results/fig_conv_B2_to_A_L1.pdf}
-  \caption{Convergence of Model~$B_2$ to Model~$A$ as $\gamma_1\to0^+$. The log--log $L_1$
+  \caption{Convergence of Model-$B_2$ to Model-$A$ as $\gamma_1\to0^+$. The log--log $L_1$
   distance has fitted slope $0.87$ over $\gamma_1<1$, again first-order, even though the
   $B_2$ limit is singular in the ODE (the $\gamma_1\to0$ limit is non-uniform in the
   analytic continuation, but the stationary distribution responds at first order).}
@@ -398,7 +398,7 @@ occupancy.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_B2_inf_jockeying.pdf}
-  \caption{Model~$B_2$ in the strong-jockeying regime $\gamma_1\to\infty$ at $\rho=0.70$.
+  \caption{Model-$B_2$ in the strong-jockeying regime $\gamma_1\to\infty$ at $\rho=0.70$.
   \emph{Left:} $\mathbb{E}[N_1]/\mathbb{E}[N_2]\to0$ (note the logarithmic ordinate): one-way
   jockeying is absorbing, so the class-1 queue is drained completely. \emph{Right:}
   $\mathbb{E}[W_1]\to0$ while $\mathbb{E}[W_2]$ saturates as $\mathbb{E}[N_2]\to\mathbb{E}[N]_A$.}
@@ -422,9 +422,9 @@ queue.
 
 \subsubsection{Head-of-line models \texorpdfstring{$B_2^1$}{B21} and \texorpdfstring{$C_2^1$}{C21}}
 
-The two head-of-line experiment models must also recover Model~$A$ as their mechanism
-parameter is switched off: as $\gamma_1\to0^+$ (Model~$B_2^1$) or $\theta_1\to0^+$
-(Model~$C_2^1$) the kernel quadratic loses its $\gamma_1$/$\theta_1$ shift and the rational
+The two head-of-line experiment models must also recover Model-$A$ as their mechanism
+parameter is switched off: as $\gamma_1\to0^+$ (Model-$B_2^1$) or $\theta_1\to0^+$
+(Model-$C_2^1$) the kernel quadratic loses its $\gamma_1$/$\theta_1$ shift and the rational
 PGF of Theorems~\ref{thm:B21:PGF} and~\ref{thm:C21:PGF} collapses to the Model-$A$ form of
 Theorem~\ref{thm:A:PGF}. Figure~\ref{fig:conv:experiment} verifies both limits numerically.
 
@@ -432,7 +432,7 @@ Theorem~\ref{thm:A:PGF}. Figure~\ref{fig:conv:experiment} verifies both limits n
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_experiment_to_A.pdf}
-  \caption{Convergence of the head-of-line experiment models to Model~$A$
+  \caption{Convergence of the head-of-line experiment models to Model-$A$
   ($\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$). \emph{Left:} log--log plot of
   $\lVert\pi_{B_2^1}-\pi_A\rVert_1$ against $\gamma_1$, with the fitted first-order slope.
   \emph{Right:} $\lVert\pi_{C_2^1}-\pi_A\rVert_1$ against $\theta_1$, likewise first-order.
@@ -458,7 +458,7 @@ in $\theta_1$ at zero.
 %% END SIMULATION RESULTS — tab_convergence_rates %%
 
 Table~\ref{tab:conv:rates} collects the empirical convergence rates for all four specialised
-models. Each approaches Model~$A$ at first order in its distinguishing parameter --- $L_1$
+models. Each approaches Model-$A$ at first order in its distinguishing parameter --- $L_1$
 slopes of $0.847$ ($C_2$), $0.903$ ($C_2^1$), $0.873$ ($B_2$) and $0.929$
 ($B_2^1$), each within the $0.1$--$0.2$ tolerance band of the theoretical exponent $1$. The
 slight shortfall below unity is a finite-truncation and finite-grid artefact of the
