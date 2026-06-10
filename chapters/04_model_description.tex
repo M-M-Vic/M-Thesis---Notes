@@ -1,6 +1,6 @@
 \section{Model description: Model-\texorpdfstring{$X$}{X}}\label{sec:model_x}
 
-This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this full model as \emph{Model-$X$}. The simpler variants studied are recovered as special cases by zeroing the appropriate parameters, as summarised in the table below (Table \ref{tab:model_family}):
+This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this full model as \emph{Model-$X$}. The simpler variants studied are recovered as special cases by zeroing the appropriate parameters, as summarised in the table below (Table~\ref{tab:model_family}):
 \begin{table}[H]
     \centering
     \begin{tabular}{cccl}
@@ -51,7 +51,7 @@ decreases by one. Concretely, each Class-$i$ customer that is waiting in line
 patience clock and abandons the system when it expires; consequently, the aggregate
 Class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear
 term $\theta_i n_i$ that appears in the balance equations. This is precisely the
-linear-reneging mechanism of the $M/M/1+M$ queue introduced in Section~\ref{ssec:erlangA}.
+linear-reneging mechanism of the $M/M/1+M$ queue introduced in \S\ref{ssec:erlangA}.
 
 This model, being an $M/M/1$ queueing model according to Kendall's notation,
 features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for
@@ -124,7 +124,7 @@ For the aggregate system parameters, we define:
     \item $\rho=\frac{\lambda}{\mu}$: total system load.
 \end{itemize}
 
-\textbf{Stability.} The stability conditions depend on the abandonments; jockeying does not affect this condition, since customers are merely relocated. Model-$X$, having abandonments from both classes, is always stable, as the total number of customers behaves like some sort of $M/M/1+M$ —which is always stable, as stated before \ref{ssec:erlangA}. The rate out is $\mu+\theta_1 n_1+\theta_2 n_2$, which grows to infinity in every direction of the $(n_1,n_2)$-plane, so the system is always positive-recurrent. In contrast, Model-$A$, having no abandonments whatsoever, requires $\rho \leq 1$, since the total number of customers behaves exactly like an $M/M/1$ queueing system (\ref{ssec:erlangA}). It is more complex for models where only one type of abandonment is possible, this will be discussed in the dedicated section for Model-$C_2$ (\ref{sec:model_c2}) .
+\textbf{Stability.} The stability conditions depend on the abandonments; jockeying does not affect this condition, since customers are merely relocated. Model-$X$, having abandonments from both classes, is always stable, as the total number of customers behaves like some sort of $M/M/1+M$ —which is always stable, as stated in \S\ref{ssec:erlangA}. The rate out is $\mu+\theta_1 n_1+\theta_2 n_2$, which grows to infinity in every direction of the $(n_1,n_2)$-plane, so the system is always positive-recurrent. In contrast, Model-$A$, having no abandonments whatsoever, requires $\rho < 1$, since the total number of customers behaves exactly like an $M/M/1$ queueing system (\S\ref{ssec:mm1}). It is more complex for models where only one type of abandonment is possible, this will be discussed in the dedicated section for Model-$C_2$ (\S\ref{sec:model_c2}).
 
 
 \textbf{Computation of $\pi_0$ and $\pi(0,0)$.}
