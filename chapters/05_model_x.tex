@@ -1,25 +1,22 @@
 \section{Analysis of Model-\texorpdfstring{$X$}{X} (\texorpdfstring{$\gamma_1,\gamma_2>0,\ \theta_1,\theta_2>0$}{gamma1,gamma2>0, theta1,theta2>0})}\label{sec:model_x_anal}
 
-Model-$X$ is the full model: it retains \emph{both} bidirectional jockeying
-($\gamma_1,\gamma_2>0$) \emph{and} two-class abandonment ($\theta_1,\theta_2>0$). It is
-the parent of the hierarchy, and every other model analysed in this work is recovered
-from it by zeroing parameters. Jockeying conserves the total number of customers while
-abandonment removes them; the second mechanism makes the chain positive recurrent for
-all loads, so the stationary distribution always exists. As in Model-$B$, jockeying
-breaks the per-class Poisson/renewal structure~---~a class-2 customer can no longer
-identify its effective service time with a class-1 busy period~---~and abandonment,
-although it leaves each arrival stream Poisson, couples the two queues through the
-state-dependent rates $\theta_i n_i$; in either case the Pollaczek--Khinchine
-probabilistic route is unavailable. Applying the method of characteristics to the
-fundamental equation still yields a general solution, but closing it~---~i.e.,
-determining the unknown boundary function $P_y(y)$~---~requires solving a Volterra-type
-integral equation that does not admit a closed form. In fact the obstruction is
-strictly more severe than in Model-$B$, on two counts developed below: the
-characteristics are no longer straight lines but integral curves of a nonlinear ODE,
-and the diagonal value $P(z,z)$ that anchored the reduction in Model-$B$ is itself no
-longer known. Model-$X$ is therefore intractable and is left open; its role is to
-expose the precise obstructions that its tractable specialisations
-$A$, $B$, $B_2$ and $C_2$ each circumvent. The queue layout is the left panel of
+Having solved the baseline Model-$A$ (\S\ref{sec:model_a}) and identified the
+Volterra-type obstruction that leaves Model-$B$ open (\S\ref{sec:model_b}), we now turn
+to the full model, Model-$X$, which retains \emph{both} bidirectional jockeying
+($\gamma_1,\gamma_2>0$) \emph{and} two-class abandonment ($\theta_1,\theta_2>0$), and from
+which every other model in this work is recovered by zeroing parameters. As in Model-$B$,
+jockeying breaks the per-class Poisson/renewal structure---a class-2 customer can no
+longer identify its effective service time with a class-1 busy period---so the
+Pollaczek--Khinchine route is unavailable; abandonment leaves each arrival stream Poisson
+but additionally couples the two queues through the state-dependent rates $\theta_i n_i$.
+Applying the method of characteristics still yields a general solution, but closing
+it---determining the unknown boundary function $P_y(y)$---requires a Volterra-type integral
+equation that admits no closed form. The obstruction is in fact strictly more severe than
+in Model-$B$: the characteristics are no longer straight lines but integral curves of a
+nonlinear ODE, and the diagonal value $P(z,z)$ that anchored the reduction in Model-$B$ is
+itself no longer known. Model-$X$ is therefore intractable and is left open; its role is to
+expose the precise obstructions that its tractable specialisations $A$, $B$, $B_2$ and
+$C_2$ each circumvent, and its queue layout is the left panel of
 Figure~\ref{fig:models-queue-overview}.
 
 \textbf{Stability.} Model-$X$ has abandonment from both classes, so the total departure
