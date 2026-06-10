@@ -283,7 +283,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
     \begin{equation*}
         P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0] = \mathbb{P}(\text{busy},N_1=0)\cdot L_2(y).
     \end{equation*}
-    We now can obtain $\mathbb{P}(\text{busy},N_1=0)$, from $\mathbb{P}(\text{busy})=\rho$ and $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$. So 
+    We now can obtain $\mathbb{P}(\text{busy},N_1=0)$, from $\mathbb{P}(\text{busy})=\rho$ and $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$. The latter holds because, under non-preemptive priority with a common service rate $\mu$, the class-$1$ queue-plus-service process is exactly the queue-length process of an autonomous $M/M/1(\lambda_1,\mu)$: a class-$1$ arrival and a class-$1$ departure occur at rates $\lambda_1$ and $\mu$ regardless of the class currently in service, since the residual service time is $\mathrm{Exp}(\mu)$ by memorylessness whether the server holds a class-$1$ or class-$2$ customer (cf.\ \S\ref{ssec:priority}); the class-$2$ occupancy is thus exchangeable with class-$1$ occupancy for the purpose of counting class-$1$ customers, so the count obeys the geometric law and $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$. So
     \begin{equation*}
         \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)
     \end{equation*}

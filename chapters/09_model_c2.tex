@@ -96,6 +96,7 @@ The stability condition required for the class-$2$ subsystem is that of the $M/G
     \rho_2 \cdot {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right) \;<\; 1.
     \label{eq:C2:stability}
 \end{equation}
+This condition is also necessary, not merely sufficient. The quantity $\lambda_2\,\mathbb{E}[B_C]$ is precisely the utilisation of the embedded $M/G/1$ queue of class-$2$ customers (Poisson input $\lambda_2$, effective service time $B_C$), so when $\lambda_2\,\mathbb{E}[B_C]\ge 1$ that $M/G/1$ is null recurrent (at equality) or transient (strictly above) and its number-in-system has no proper stationary law. Because the class-$2$ population is a deterministic function of the joint state $(n_1,n_2)$, a divergent class-$2$ queue rules out positive recurrence of the joint chain, so~\eqref{eq:C2:stability} is sharp. We argue this at the level of the embedded $M/G/1$, whose marginal dynamics are exact, rather than by constructing a Lyapunov function on the joint generator.
 Compared to Model-$A$, this stability condition is strictly weaker than the classical $\rho_1+\rho_2<1$, which aligns with the fact that abandonments lower the load of the system: for all $\theta_1>0$ the series is termwise dominated by the geometric series for $1/(1-\rho_1)$. Indeed, since $1^{(n)}=n!$ the Kummer series~\eqref{eq:kummer:series} reduces to
 \[
     {}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right)
