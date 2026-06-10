@@ -11,9 +11,14 @@ abandonment* (Victor Dominguez Sainz). Compiled file: `main.tex` (`article` clas
 ## 1. Repository structure
 
 ### Main file & assembly
-- [main.tex](../main.tex) — root document. `\input`s the 13 chapter files (in order)
-  and runs `\bibliography{references}`. Build artifacts (`main.aux/.bbl/.log/...`) are
-  git-ignored.
+- [main.tex](../main.tex) — root document. `\input`s the 13 chapter files and runs
+  `\bibliography{references}`. Build artifacts (`main.aux/.bbl/.log/...`) are git-ignored.
+
+> ⚠️ **File number ≠ PDF section number.** As of the Model-X reorder, `main.tex` `\input`s
+> the analysis of Model-$X$ (`05_model_x.tex`) **after** Model-$B$ (`07_model_b.tex`), so the
+> rendered order is A→B→X→B₂→C₂. PDF section numbers: 4 = model description, **5 = Model-A
+> (`06_`), 6 = Model-B (`07_`), 7 = Model-X (`05_`)**, 8 = B₂, 9 = C₂, 10/11 = head-of-line,
+> 12 = comparison, 13 = results. Always reference by `\label`, never by hardcoded number.
 
 ### Bibliography
 - [references.bib](../references.bib) — single BibTeX database (e.g. `adan2002queueing`).
@@ -95,7 +100,7 @@ solutions in-memory and emit `.pdf`/`.png`/`.tex` directly into `figures/`.
 
 ## 3. Build baseline (latexmk -pdf, clean rebuild)
 
-- **Result: PASS.** Exit 0. `main.pdf` = **91 pages**, ~1.52 MB.
+- **Result: PASS.** Exit 0. `main.pdf` = **93 pages**, ~1.52 MB (was 91pp before the Model-X reorder).
 - Compile log saved to `/tmp/main_build.log` (copy of `main.log` from a clean rebuild).
 
 ### Undefined references / citations
