@@ -467,7 +467,7 @@ solution in the priority class index.
 \end{proof}
 
 
-\subsection{Analysis of Model-\texorpdfstring{$A$}{A}: state space \texorpdfstring{$\widetilde{S}$}{S~}}
+\subsection{Analysis of Model-\texorpdfstring{$A$}{A} on \texorpdfstring{$\widetilde{S}$}{S~}: scope and limitations of the partial-PGF recursion}\label{ssec:A:Stilde}
 
 Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the $\widetilde{S}$ balance
 equations~\eqref{eq:gen:tilde_balance_interior}--\eqref{eq:gen:tilde_balance_idle}
@@ -481,10 +481,35 @@ yields the inhomogeneous recurrence:
     \end{split} \label{eq:A:ppgf_Stilde_dynamics}
 \end{align}
 
-\begin{theorem}[Approximate PPGF on $\widetilde{S}$, heuristic]\label{thm:A:PPGF_Stilde}
-    \emph{(The following result rests on an unproved decay assumption; see the proof.)}
-    Under the approximation that neglects the boundary-diagonal forcing term
-    $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics}, the
+The forcing term in~\eqref{eq:A:ppgf_Stilde_dynamics} is controlled by the diagonal
+probabilities $\tpi(n+1,n+1)=\pi(0,n+1)$, whose decay we first establish from the exact
+$S$-solution.
+
+\begin{lemma}[Geometric decay of the boundary probabilities]\label{lem:A:diag_decay}
+    For Model-$A$ the boundary probabilities $\pi(0,n)$ satisfy $\pi(0,n)=O(r^{-n})$ for
+    every $r<1/\rho$; equivalently they decay geometrically with rate $\rho$.
+\end{lemma}
+
+\begin{proof}
+    By definition $P_y(y)=P(0,y)=\sum_{n\ge0}\pi(0,n)\,y^n$ is the generating function of
+    $\{\pi(0,n)\}$, and from~\eqref{eq:A:Py} with $\pi(0,0)=\rho(1-\rho)$,
+    \begin{equation*}
+        P_y(y)=\rho(1-\rho)\,\frac{x^*(y)(1-y)}{x^*(y)-y}.
+    \end{equation*}
+    Evaluating the kernel quadratic~\eqref{eq:A:xstar_def} at $x=y$ gives
+    $\lambda_1 y^2-[\mu+\lambda_1+\lambda_2(1-y)]y+\mu=(\lambda y-\mu)(y-1)$ with
+    $\lambda=\lambda_1+\lambda_2$, so $x^*(y)=y$ holds only at $y=1$ and $y=\mu/\lambda=1/\rho$.
+    At $y=1$ the simple zeros of $(1-y)$ and $(x^*(y)-y)$ cancel and $P_y$ is analytic with
+    $P_y(1)=\rho$; the branch point of $x^*$ lies beyond $1/\rho$. Hence the singularity of
+    $P_y$ nearest the origin is the simple pole at $y=1/\rho>1$, so $P_y$ is analytic on the
+    disc $|y|<1/\rho$. By the Cauchy coefficient estimates, for every $r<1/\rho$ there is
+    $C_r<\infty$ with $\pi(0,n)\le C_r\,r^{-n}$, i.e.\ geometric decay at rate $\rho$.
+\end{proof}
+
+\begin{approximation}[Heuristic PPGF on $\widetilde{S}$]\label{apx:A:PPGF_Stilde}
+    Neglecting the boundary-diagonal forcing term
+    $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics} --- which is
+    exponentially small by Lemma~\ref{lem:A:diag_decay} --- the
     homogeneous recurrence admits the geometric solution
     \begin{equation}
         \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, \label{eq:A:Ptilde_approx}
@@ -495,16 +520,15 @@ yields the inhomogeneous recurrence:
     \end{equation}
     At $y=1$ this recovers $\widetilde{P}(1,n)=(1-\rho)\rho^{n+1}$, consistent with
     the $M/M/1(\lambda,\mu)$ steady-state marginal for $n$ customers waiting.
-\end{theorem}
+\end{approximation}
 
-\begin{proof}[Proof of Theorem~\ref{thm:A:PPGF_Stilde}]
+\begin{proof}[Justification of Approximation~\ref{apx:A:PPGF_Stilde}]
 The inhomogeneous term $\mu y^n(1-y)\tpi(n+1,n+1)$ prevents the direct application
 of a geometric-sequence ansatz. The diagonal probabilities $\tpi(n,n)=\pi(0,n)$
-correspond to states where all $n$ waiting customers are class~$2$; from the exact
-formula in Theorem~\ref{thm:A:PGF} one can verify that $\pi(0,n)$ decays
-geometrically in $n$, but this is not derived here. \emph{Assuming} this geometric
-decay, the forcing term is exponentially small and we obtain an approximation by
-neglecting it. The resulting homogeneous recurrence is
+correspond to states where all $n$ waiting customers are class~$2$, and by
+Lemma~\ref{lem:A:diag_decay} they decay geometrically in $n$ at rate $\rho$; the
+forcing term is therefore exponentially small, and neglecting it yields an
+approximation whose accuracy is quantified below. The resulting homogeneous recurrence is
 \begin{equation}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1).
 \end{equation}
@@ -535,6 +559,23 @@ $n+1$ is the total number in the system, so evaluating at $y=1$:
 which matches the $M/M/1(\lambda,\mu)$ stationary distribution for $n+1$ customers
 in the system~\cite{adan2002queueing}.
 \end{proof}
+
+\paragraph{Failure mechanism.}
+The neglected forcing $\mu y^n(1-y)\,\tpi(n+1,n+1)$ feeds in the diagonal states, in which
+all waiting customers are class~$2$; using $\tpi(n,n)=\pi(0,n)$ and the rate just proved
+in Lemma~\ref{lem:A:diag_decay}, this term decays in $n$ like $\rho^{\,n}$ (modulated by
+$y^n$), whereas the homogeneous solution decays like $[\widetilde{y}^*(y)]^n$. The
+approximation is therefore accurate exactly when the forcing rate is the faster of the two,
+$\rho<\widetilde{y}^*(y)$ on the relevant range of $y$ --- which holds when the priority
+class carries most of the load, i.e.\ when $\rho_1/\rho$ is large and $\rho$ moderate, and
+this is precisely the empirical validity region mapped in Figure~\ref{fig:val_ppgf}. The
+obstruction is structural and recurs throughout this thesis: an unknown boundary/diagonal
+trace --- here the sequence $\pi(0,n)$ --- couples into an otherwise solvable recursion,
+exactly as the unknown diagonal $P(z,z)$ enters the Volterra forcing of Models~$B$ and~$X$
+(\S\ref{sec:model_b}, \S\ref{sec:model_x_anal}). A rigorous closure would retain the forcing
+and solve~\eqref{eq:A:ppgf_Stilde_dynamics} by variation of constants in $n$, which
+reintroduces the very diagonal sequence $\{\pi(0,n)\}$ as an unknown to be determined
+self-consistently; see \S\ref{sec:future_work}.
 
 \subsection{Mean queue lengths and mean waiting times}
 
