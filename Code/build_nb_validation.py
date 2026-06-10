@@ -1556,9 +1556,9 @@ md(r"""
 # 11. Experiment models B₂¹ and C₂¹
 # ===========================================================================
 md(r"""
-## 11. Experiment models — B$_2^1$ and C$_2^1$
+## 11. Experiment models — $B_2^{\mathrm{H}}$ and $C_2^{\mathrm{H}}$
 
-Models B$_2^1$ and C$_2^1$ replace the linear departure rates of B$_2$ and C$_2$
+Models $B_2^{\mathrm{H}}$ and $C_2^{\mathrm{H}}$ replace the linear departure rates of B$_2$ and C$_2$
 ($\gamma_1 n_1$, $\theta_1 n_1$) with a flat rate applied only to the **head of
 Queue~1** ($\gamma_1$ or $\theta_1$ whenever $n_1\ge1$).  This eliminates
 derivative terms from the PGF equation, making it algebraic, and yields a
@@ -1743,7 +1743,7 @@ fig, axes = plt.subplots(2, 3, figsize=(14, 8.5))
 
 for col, err, title, cmap in zip(
         [0,1], [err_B21, err_C21],
-        [r"Thm B$_2^1$  ($\gamma_1=0.5$)", r"Thm C$_2^1$  ($\theta_1=0.5$)"],
+        [r"Thm $B_2^{\mathrm{H}}$  ($\gamma_1=0.5$)", r"Thm $C_2^{\mathrm{H}}$  ($\theta_1=0.5$)"],
         ["Blues_r", "Oranges_r"]):
     ax = axes[0, col]
     le = np.log10(err+1e-17); vmax=np.nanmax(le); vmin=vmax-9
@@ -1759,7 +1759,7 @@ for col, err, title, cmap in zip(
 
 # Lemma residuals
 ax = axes[0,2]
-bars = ax.bar(["B$_2^1$","C$_2^1$"], [res_B21.max(),res_C21.max()],
+bars = ax.bar(["$B_2^{\mathrm{H}}$","$C_2^{\mathrm{H}}$"], [res_B21.max(),res_C21.max()],
               color=["#4393c3","#d6604d"], edgecolor="k", linewidth=0.8)
 ax.set_yscale("log")
 ax.axhline(1e-6, color="red", ls="--", lw=1.5, label="tol $=10^{-6}$")
@@ -1773,7 +1773,7 @@ for bar,val in zip(bars,[res_B21.max(),res_C21.max()]):
 for col, Py_th, Py_ct, title, col_ in zip(
         [0,1,2], [Py_B21_th, Py_C21_th, None],
         [Py_B21_ct, Py_C21_ct, None],
-        [r"$P_y(y)$ — Model B$_2^1$", r"$P_y(y)$ — Model C$_2^1$", ""],
+        [r"$P_y(y)$ — Model $B_2^{\mathrm{H}}$", r"$P_y(y)$ — Model $C_2^{\mathrm{H}}$", ""],
         ["#2166ac","#d6604d",""]):
     ax = axes[1, col]
     if Py_th is None: ax.axis("off"); continue
@@ -1816,13 +1816,13 @@ for ax, y_B21, y_C21_ct, y_C21_fm, y_A, ylabel, title in zip(
         [1-rho_e, rho_e*(1-rho_e)],
         [r"$\pi_0$", r"$\pi(0,0)$"],
         [r"Idle probability $\pi_0$", r"Empty-state probability $\pi(0,0)$"]):
-    ax.plot(sweep, y_B21,    "steelblue", lw=2.5, label=r"B$_2^1$ (CTMC)")
+    ax.plot(sweep, y_B21,    "steelblue", lw=2.5, label=r"$B_2^{\mathrm{H}}$ (CTMC)")
     ax.axhline(y_A, color="steelblue", ls="--", lw=1.4,
-               label=r"B$_2^1$ = const.  (Model A value)")
-    ax.plot(sweep, y_C21_fm, "darkorange", lw=2.5, label=r"C$_2^1$ (formula)")
-    ax.plot(sweep, y_C21_ct, "darkorange", ls="--", lw=1.4, label=r"C$_2^1$ (CTMC)")
+               label=r"$B_2^{\mathrm{H}}$ = const.  (Model A value)")
+    ax.plot(sweep, y_C21_fm, "darkorange", lw=2.5, label=r"$C_2^{\mathrm{H}}$ (formula)")
+    ax.plot(sweep, y_C21_ct, "darkorange", ls="--", lw=1.4, label=r"$C_2^{\mathrm{H}}$ (CTMC)")
     ax.axhline(y_A, color="gray", ls=":", lw=1.2, alpha=0.6, label="Model A")
-    ax.set_xlabel(r"Parameter ($\gamma_1$ for B$_2^1$, $\theta_1$ for C$_2^1$)")
+    ax.set_xlabel(r"Parameter ($\gamma_1$ for $B_2^{\mathrm{H}}$, $\theta_1$ for $C_2^{\mathrm{H}}$)")
     ax.set_ylabel(ylabel); ax.set_title(title)
     ax.legend(fontsize=7); ax.grid(alpha=0.3)
 
@@ -1842,10 +1842,10 @@ The rational closed-form $P(x,y)$ matches the CTMC to $<10^{-5}$ on the
 5$\times$5 test grid.
 
 Key observations:
-- **B$_2^1$**: $\pi_0=1{-}\rho$ and $\pi(0,0)=\rho(1{-}\rho)$ regardless of $\gamma_1$
-  — jockeying conserves total customers.  $P_{B_2^1}(x,y)$ has the same rational
+- **$B_2^{\mathrm{H}}$**: $\pi_0=1{-}\rho$ and $\pi(0,0)=\rho(1{-}\rho)$ regardless of $\gamma_1$
+  — jockeying conserves total customers.  $P_{B_2^{\mathrm{H}}}(x,y)$ has the same rational
   structure as Model~A, with roots shifted by $\mu\to\mu+\gamma_1 y$.
-- **C$_2^1$**: $\pi_0$ increases and $\pi(0,0)$ decreases with $\theta_1$
+- **$C_2^{\mathrm{H}}$**: $\pi_0$ increases and $\pi(0,0)$ decreases with $\theta_1$
   (abandonment clears Queue~1 faster, increasing server idle time).
   The closed-form $\pi_0(\theta_1)$ formula tracks the CTMC exactly.
 """)

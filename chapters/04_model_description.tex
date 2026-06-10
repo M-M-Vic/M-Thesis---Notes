@@ -13,10 +13,20 @@ This section defines the general two-class system with both jockeying ($\gamma_i
         $B_2$ & $1\!\to\!2$ only                & none               & $\gamma_1 \geq 0,\ \gamma_2=0,\ \theta_1=\theta_2=0$ \\
         $C_2$ & none                            & class $1$ only     & $\theta_1 \geq 0,\ \theta_2=0,\ \gamma_1=\gamma_2=0$ \\
         \hline
+        $\BH$ & $1\!\to\!2$, head-of-line       & none                    & $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}>0,\ \gamma_2=\theta_1=\theta_2=0$ \\
+        $\CH$ & none                            & class $1$, head-of-line & $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}>0,\ \gamma_1=\gamma_2=\theta_2=0$ \\
+        \hline
     \end{tabular}
     \caption{Nested family of models. Model-$X$ is the parent; Models $A$, $B$, $B_2$ and $C_2$
-    are obtained by restricting the jockeying directions and the abandoning classes.}
+    are obtained by restricting the jockeying directions and the abandoning classes. The two
+    head-of-line variants $\BH$ and $\CH$ are listed for completeness.$^{\dagger}$}
     \label{tab:model_family}
+    \par\smallskip
+    {\footnotesize $^{\dagger}$Unlike the others, the head-of-line variants are \emph{not}
+    obtained by zeroing parameters of Model-$X$: their mechanism fires at the constant
+    head-of-line rate $\mathbf{1}_{\{n_1\ge1\}}$ rather than the length-proportional rate
+    $n_1$ of the parent (jockeying $\gamma_1 n_1$, abandonment $\theta_1 n_1$), so they are
+    standalone simplifications, as explained in \S\ref{sec:model_b21}.}
 \end{table}
 
 Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ and each of the variants that we will consider:

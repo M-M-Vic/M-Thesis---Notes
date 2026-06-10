@@ -36,6 +36,11 @@
 \newcommand{\tpi}{\widetilde{\pi}}
 \newcommand{\tP}{\widetilde{P}}
 
+% Head-of-line variants (constant rate 1{n1>=1}); superscript H = "head-of-line".
+% Math-mode only: use inside $...$.
+\newcommand{\BH}{B_2^{\mathrm{H}}}
+\newcommand{\CH}{C_2^{\mathrm{H}}}
+
 \title{Thesis}
 \author{Victor Dominguez Sainz}
 
@@ -46,7 +51,7 @@
 
 \begin{abstract}
 
-We study the stationary queue-length behaviour of a 2-class $M/M/1$ queueing system with non-preemptive priority with two added mechanisms: \emph{jockeying}, in which a customer in line switches to the other queue; and \emph{abandonment}, in which a waiting customer may abandon the system entirely. While the former preserves the total number of customers in the system, it is not the case for the latter. Since combining both jockeying and abandonments leads to a very complex model (Model-$X$), we analyse a series of less mathematically involved submodels: Model-$A$ (baseline), Model-$B$ (bidirectional jockeying), Model-$B_2$ (one-way jockeying class-$1$ to class-$2$), and Model-$C_2$ (class-$1$ abandonment). We further study two \emph{head-of-line} variants, Model-$B_2^1$ and Model-$C_2^1$, in which the jockeying or abandonment acts only on the customer at the head of Queue-$1$; this flat-rate restriction keeps the functional equation algebraic and yields rational generating functions in closed form.
+We study the stationary queue-length behaviour of a 2-class $M/M/1$ queueing system with non-preemptive priority with two added mechanisms: \emph{jockeying}, in which a customer in line switches to the other queue; and \emph{abandonment}, in which a waiting customer may abandon the system entirely. While the former preserves the total number of customers in the system, it is not the case for the latter. Since combining both jockeying and abandonments leads to a very complex model (Model-$X$), we analyse a series of less mathematically involved submodels: Model-$A$ (baseline), Model-$B$ (bidirectional jockeying), Model-$B_2$ (one-way jockeying class-$1$ to class-$2$), and Model-$C_2$ (class-$1$ abandonment). We further study two \emph{head-of-line} variants, Model-$\BH$ and Model-$\CH$, in which the jockeying or abandonment acts only on the customer at the head of Queue-$1$; this flat-rate restriction keeps the functional equation algebraic and yields rational generating functions in closed form.
 
 The derivation of an expression for the probability generating function (PGF) $P(x,y)$ of each of these models is carried out using purely analytical techniques and, where possible, by means of probabilistic arguments. Model-$A$, widely studied, reduces to an algebraic expression solved by the kernel method; Model-$B$ is left open, with a Volterra-type integral equation when it comes to finding the boundary for the queue length of class-$2$. This falls beyond the scope of this thesis. However, Model-$B_2$ reduces to a first-order linear ODE in $x$, where we use the analyticity of the PGF to derive the boundary function of class-$2$ at an interior point; and Model-$C_2$ reduces to another first-order linear ODE in $x$ where we use the boundedness of our PGF at the boundary of its domain to determine the boundary function. 
 

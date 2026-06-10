@@ -39,8 +39,8 @@ T-C2 & Theorem (Model-$C_2$)                     & C$_2$              & $P(x,y)$
 C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
 T-S  & Theorem~\ref{thm:A:PPGF_Stilde}           & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
 \hline
-E-B  & Theorem~\ref{thm:B21:PGF} — Model-$B_2^1$  & B$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
-E-C  & Theorem~\ref{thm:C21:PGF} — Model-$C_2^1$ & C$_2^1$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
+E-B  & Theorem~\ref{thm:B21:PGF} — Model-$\BH$  & $\BH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
+E-C  & Theorem~\ref{thm:C21:PGF} — Model-$\CH$ & $\CH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
 \hline
 \end{tabular}
 \end{table}
@@ -199,9 +199,9 @@ with sum $\rho^2/(1-\rho)$ (the M/M/1 queue-length formula for the combined
 system).  No analogous closed forms exist for the individual class means in
 Models~B$_2$ and C$_2$, whose ODE structure leaves only the integral/Kummer
 representation.  The head-of-line variants, by contrast, \emph{do} admit closed-form means:
-Model-$B_2^1$ gives $\mathbb{E}[N_1]=\rho\rho_B/(1-\rho_B)$ with
+Model-$\BH$ gives $\mathbb{E}[N_1]=\rho\rho_B/(1-\rho_B)$ with
 $\rho_B=\lambda_1/(\mu+\gamma_1)$ \eqref{eq:B21:EN1} and the conserved total
-$\rho^2/(1-\rho)$, while Model-$C_2^1$ gives the rational $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$
+$\rho^2/(1-\rho)$, while Model-$\CH$ gives the rational $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$
 of \eqref{eq:C21:EN1}--\eqref{eq:C21:EN2}; these are the analogues of~\eqref{eq:results:EN_A}
 with $\mu$ replaced by the effective clearance rate $\mu+\gamma_1$ or $\mu+\theta_1$, and
 they are reported alongside $B_2$, $C_2$ in the comparison of \S\ref{sec:comparison}.
@@ -223,7 +223,7 @@ measured.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_experiment.pdf}
-    \caption{Validation of Models $B_2^1$ and C$_2^1$.
+    \caption{Validation of Models $\BH$ and $\CH$.
     \textit{Top row, left and centre}: relative error
     $|P_{\rm formula}(x,y)-P_{\rm CTMC}(x,y)|/|P_{\rm CTMC}(x,y)|$
     on the 5$\times$5 test grid.
@@ -246,9 +246,9 @@ measured.
     \includegraphics[width=0.85\textwidth]{figures/validation/val_experiment_pi.pdf}
     \caption{Empty-state probabilities $\pi_0$ and $\pi(0,0)$ as the mechanism
     parameter increases from $0$ to $2.5$.
-    \textit{Left}: B$_2^1$ (blue) maintains $\pi_0=1-\rho$ exactly for all
+    \textit{Left}: $\BH$ (blue) maintains $\pi_0=1-\rho$ exactly for all
     $\gamma_1$ — jockeying conserves total customers.
-    C$_2^1$ (orange) shows $\pi_0$ increasing with $\theta_1$: abandonment
+    $\CH$ (orange) shows $\pi_0$ increasing with $\theta_1$: abandonment
     clears the priority queue faster, raising the server's idle fraction.
     \textit{Right}: same story for $\pi(0,0)$.
     Solid orange = closed-form formula~\eqref{eq:C21:pi0_pi00}; dashed orange
@@ -301,14 +301,14 @@ The same cross-check is run for the two head-of-line experiment models, whose CT
 $\theta_1\mathbf{1}_{\{n_1\ge1\}}$ rather than the length-proportional $\gamma_1 n_1$ or
 $\theta_1 n_1$ of $B_2$, $C_2$. Both the event-driven simulator and the truncated solver
 honour this head-of-line rate, so Figure~\ref{fig:results:crossval_exp} is an independent
-test of the new transition structure underlying Models~$B_2^1$ and~$C_2^1$.
+test of the new transition structure underlying Models~$\BH$ and~$\CH$.
 
 %% BEGIN SIMULATION RESULTS — fig_sim_vs_ctmc_experiment %%
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.82\textwidth]{figures/results/fig_sim_vs_ctmc_experiment.pdf}
-  \caption{Simulation versus exact CTMC for the head-of-line models $B_2^1$
-  ($\gamma_1=0.5$) and $C_2^1$ ($\theta_1=0.5$) at $\lambda_1=0.3$, $\lambda_2=0.4$,
+  \caption{Simulation versus exact CTMC for the head-of-line models $\BH$
+  ($\gamma_1=0.5$) and $\CH$ ($\theta_1=0.5$) at $\lambda_1=0.3$, $\lambda_2=0.4$,
   $\mu=1$. Each point is one state $(n_1,n_2)$; the dashed line is $y=x$. As for the
   full-rate models, every point lies on the diagonal, with maximum absolute discrepancy
   below $10^{-2}$, confirming that the constant-rate $\mathbf{1}_{\{n_1\ge1\}}$ transition is
@@ -420,11 +420,11 @@ $\mathbb{E}[W_1]\to0$ while $\mathbb{E}[W_2]$ saturates. The limit confirms that
 jockeying does not pool the system but rather extinguishes the priority class as a distinct
 queue.
 
-\subsubsection{Head-of-line models \texorpdfstring{$B_2^1$}{B21} and \texorpdfstring{$C_2^1$}{C21}}
+\subsubsection{Head-of-line models \texorpdfstring{$\BH$}{B2-H} and \texorpdfstring{$\CH$}{C2-H}}
 
 The two head-of-line experiment models must also recover Model-$A$ as their mechanism
-parameter is switched off: as $\gamma_1\to0^+$ (Model-$B_2^1$) or $\theta_1\to0^+$
-(Model-$C_2^1$) the kernel quadratic loses its $\gamma_1$/$\theta_1$ shift and the rational
+parameter is switched off: as $\gamma_1\to0^+$ (Model-$\BH$) or $\theta_1\to0^+$
+(Model-$\CH$) the kernel quadratic loses its $\gamma_1$/$\theta_1$ shift and the rational
 PGF of Theorems~\ref{thm:B21:PGF} and~\ref{thm:C21:PGF} collapses to the Model-$A$ form of
 Theorem~\ref{thm:A:PGF}. Figure~\ref{fig:conv:experiment} verifies both limits numerically.
 
@@ -434,8 +434,8 @@ Theorem~\ref{thm:A:PGF}. Figure~\ref{fig:conv:experiment} verifies both limits n
   \includegraphics[width=0.98\textwidth]{figures/results/fig_conv_experiment_to_A.pdf}
   \caption{Convergence of the head-of-line experiment models to Model-$A$
   ($\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1$). \emph{Left:} log--log plot of
-  $\lVert\pi_{B_2^1}-\pi_A\rVert_1$ against $\gamma_1$, with the fitted first-order slope.
-  \emph{Right:} $\lVert\pi_{C_2^1}-\pi_A\rVert_1$ against $\theta_1$, likewise first-order.
+  $\lVert\pi_{\BH}-\pi_A\rVert_1$ against $\gamma_1$, with the fitted first-order slope.
+  \emph{Right:} $\lVert\pi_{\CH}-\pi_A\rVert_1$ against $\theta_1$, likewise first-order.
   Both head-of-line variants approach the baseline at the same order as their full-rate
   counterparts $B_2$ and $C_2$.}
   \label{fig:conv:experiment}
@@ -446,10 +446,10 @@ The mechanism is the analytic counterpart of the full-rate case: because both
 $\gamma_1\mathbf{1}_{\{n_1\ge1\}}$ and $\theta_1\mathbf{1}_{\{n_1\ge1\}}$ enter the
 fundamental equation linearly in the mechanism parameter, the stationary distribution is
 smooth at the origin and its first-order Taylor term governs the leading deviation. For
-$B_2^1$ the conserved descriptors $\pi_0$ and $\pi(0,0)$ equal their Model-$A$ values
+$\BH$ the conserved descriptors $\pi_0$ and $\pi(0,0)$ equal their Model-$A$ values
 identically for every $\gamma_1>0$ (Corollary~\ref{cor:B21:pi0}), exactly as for $B_2$, so
 the $L_1$ approach is again carried entirely by the interior redistribution of mass between
-the two coordinates; for $C_2^1$ the descriptors $\pi_0$ and $\pi(0,0)$ relax onto the
+the two coordinates; for $\CH$ the descriptors $\pi_0$ and $\pi(0,0)$ relax onto the
 baseline at the same first order, since the closed forms~\eqref{eq:C21:pi0_pi00} are smooth
 in $\theta_1$ at zero.
 
@@ -459,8 +459,8 @@ in $\theta_1$ at zero.
 
 Table~\ref{tab:conv:rates} collects the empirical convergence rates for all four specialised
 models. Each approaches Model-$A$ at first order in its distinguishing parameter --- $L_1$
-slopes of $0.847$ ($C_2$), $0.903$ ($C_2^1$), $0.873$ ($B_2$) and $0.929$
-($B_2^1$), each within the $0.1$--$0.2$ tolerance band of the theoretical exponent $1$. The
+slopes of $0.847$ ($C_2$), $0.903$ ($\CH$), $0.873$ ($B_2$) and $0.929$
+($\BH$), each within the $0.1$--$0.2$ tolerance band of the theoretical exponent $1$. The
 slight shortfall below unity is a finite-truncation and finite-grid artefact of the
 log--log fit, not a genuine fractional rate, and requires no further investigation. The
 head-of-line variants thus inherit the first-order convergence of their full-rate parents,
@@ -474,8 +474,8 @@ as anticipated from the linearity of the mechanism term in the fundamental equat
   \centering
   \includegraphics[width=\textwidth]{figures/results/fig_summary_dashboard.pdf}
   \caption{Synoptic dashboard of the numerical study: (1)~$\mathbb{E}[N]$ and
-  (2)~$\mathbb{E}[W_1]$ versus $\rho$ for all five solved models (A, $B_2$, $B_2^1$, $C_2$,
-  $C_2^1$); (3)~$L_1$ convergence $C_2\to A$ and
+  (2)~$\mathbb{E}[W_1]$ versus $\rho$ for all five solved models (A, $B_2$, $\BH$, $C_2$,
+  $\CH$); (3)~$L_1$ convergence $C_2\to A$ and
   (4)~$B_2\to A$; (5)~the jockeying effect on $\mathbb{E}[N_1]$; and (6)~the
   $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ heatmap over $(\rho,\theta_1)$. Together these
   panels summarise the two central findings: jockeying redistributes delay at fixed total
