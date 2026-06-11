@@ -2,16 +2,14 @@
 
 \subsection{Validation}\label{subsec:validation}
 
-% [Introduce: say that every closed-form expression in this thesis is validated
-%  numerically against a truncated CTMC solver that solves the linear system
-%  π Q = 0 directly.  The CTMC is the ground truth — it makes no approximation
-%  beyond the finite truncation at N_max = 40, whose effect is controlled and
-%  small for the parameter regimes tested.]
-
-Each theoretical result — two lemmas, three theorems, two corollaries, one
-approximation theorem, and two experiment-model theorems — is verified
-numerically against the exact stationary distribution obtained from a truncated
-CTMC solver ($N_{\max}=40$).  All models share base parameters
+Every closed-form expression in this thesis is validated numerically against a
+truncated CTMC solver, which serves as the ground truth: it solves the linear
+system $\pi Q=0$ directly and makes no approximation beyond the finite
+truncation at $N_{\max}=40$, whose effect is controlled and small in the
+parameter regimes tested. Each theoretical result — two lemmas, three theorems,
+two corollaries, one approximation theorem, and two experiment-model theorems —
+is verified against the exact stationary distribution so obtained.
+All models share base parameters
 $\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1.0$; the mechanism parameter
 ($\gamma_1$ or $\theta_1$) is set to $0.5$ where applicable.
 
@@ -48,15 +46,14 @@ E-C  & Theorem~\ref{thm:C21:PGF} — Model-$\CH$ & $\CH$            & $P(x,y)$ o
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection*{Structural lemmas}
 
-% [Discuss: the lemmas state that the stationary distribution satisfies a
-%  specific functional equation.  A non-zero residual would indicate either a
-%  derivation error or a coding error in the CTMC.  Residuals below 10^{-9}
-%  are consistent with truncation noise at N_max=40, not formula error.]
-
+The lemmas assert that the stationary distribution satisfies a specific
+functional equation, so a non-vanishing residual would indicate either a
+derivation error in the lemma or a coding error in the solver.
 Figure~\ref{fig:val_lemmas} shows the maximum relative residual
 $|{\rm LHS}-{\rm RHS}|/|{\rm RHS}|$ of each lemma's functional equation,
 evaluated on the exact CTMC distribution across all model variants.
-Both lemmas hold to better than $10^{-9}$; Lemma~2 reaches floating-point
+Both lemmas hold to better than $10^{-9}$ — consistent with truncation noise at
+$N_{\max}=40$, not formula error — and Lemma~2 reaches floating-point
 precision (${\sim}10^{-15}$) because its recurrence involves only one
 discrete variable.
 
@@ -76,16 +73,14 @@ discrete variable.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection*{Closed-form and integral-form theorems}
 
-% [Discuss: the three theorems (A, B₂, C₂) give explicit formulas for P(x,y).
-%  Because all three are tested on the same 5×5 grid with the same base
-%  parameters (only the extra mechanism changes), the errors are directly
-%  comparable.  Model-$C_2$ achieves near-machine precision because the
-%  Pollaczek–Khinchine ratio evaluates exactly; Model-$B$₂ is limited by the
-%  finite-part quadrature near the branch singularity at x=y.]
-
 Figures~\ref{fig:val_pxy} and~\ref{fig:val_py} compare the three analytic
 formulas against the CTMC on a uniform grid, using identical parameters and
-the same error metric.
+the same error metric; since only the extra mechanism changes between panels,
+the errors are directly comparable. Model-$C_2$ reaches near-machine precision
+because its closed form evaluates exactly through the Pollaczek--Khinchine
+ratio; Model-$B_2$'s accuracy (${\sim}10^{-7}$) is limited instead by the
+numerical quadrature of its integral representation, whose integrand steepens
+near the branch point at $x=y$.
 
 \begin{figure}[H]
     \centering
@@ -101,22 +96,21 @@ the same error metric.
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_theorems_py.pdf}
     \caption{Boundary function $P_y(y)=P(0,y)$ for Models $A$, B$_2$, and C$_2$:
-    analytic formula (solid) vs CTMC (dashed).
-    % [Discuss: note the qualitative similarity — P_y rises monotonically to
-    %  P(0,1)=P(busy, N_1=0) — but the values differ across models because
-    %  each mechanism changes how class-1 customers block class-2 service.]
-    }
+    analytic formula (solid) vs CTMC (dashed). All three curves rise
+    monotonically to $P(0,1)$, the probability that the server is busy with an
+    empty priority queue, but their levels differ: each mechanism changes how
+    class-1 customers block class-2 service.}
     \label{fig:val_py}
 \end{figure}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection*{Corollaries}
 
-% [Discuss: Corollary A says π₀ and π(0,0) depend only on ρ for all
-%  no-abandonment models (A, B, B₂).  Corollary C₂ gives more complex
-%  expressions involving E[B_C].  Both are tested over random configurations
-%  with the same structure (60 configs, tol = 10^{-4}).]
-
+The two corollaries are structurally very different: for the conserving models
+($A$, $B$, $B_2$) the empty-state probabilities depend on the parameters only
+through the total load $\rho$, whereas the Model-$C_2$ expressions run through
+the busy-period mean $\mathbb{E}[B_C]$ and hence the confluent hypergeometric
+function. Both are tested identically.
 Figure~\ref{fig:val_corollaries} shows the scatter of formula vs CTMC values
 for $\pi_0$ and $\pi(0,0)$ across 60 random parameter configurations for each
 corollary.  All points lie on the diagonal to within $10^{-4}$.
@@ -126,25 +120,24 @@ corollary.  All points lie on the diagonal to within $10^{-4}$.
     \includegraphics[width=0.80\textwidth]{figures/validation/val_corollaries.pdf}
     \caption{Corollaries A (blue) and C$_2$ (red): formula vs CTMC for
     $\pi_0$ (left column) and $\pi(0,0)$ (right column) over 60 random
-    configurations each.  Perfect agreement lies on the diagonal.
-    % [Discuss: the C₂ corollary is non-trivial — it involves the confluent
-    %  hypergeometric function and the M/M/1+M busy period — yet it matches
-    %  CTMC to the same tolerance as the simple Model-$A$ formula.]
-    }
+    configurations each.  Perfect agreement lies on the diagonal. The C$_2$
+    corollary, despite running through the $M/M/1+M$ busy period and the
+    confluent hypergeometric function, matches the CTMC to the same tolerance
+    as the rational Model-$A$ formula.}
     \label{fig:val_corollaries}
 \end{figure}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection*{PPGF approximation (Approximation~\ref{apx:A:PPGF_Stilde})}
 
-% [Discuss: unlike the other results, this theorem is approximate by design.
-%  The approximation drops the inhomogeneous forcing term, which decays as ρ^n.
-%  It is exact at y=1 for all parameter regimes.  It should only be used as
-%  an approximation when ρ₁/ρ is large — i.e., when the priority class
-%  dominates.]
-
-Figure~\ref{fig:val_ppgf} maps the maximum relative error
-$\varepsilon_\infty(\rho_1,\rho_2)$ over the parameter space.
+Unlike every other entry of Table~\ref{tab:validation_summary}, this result is
+approximate by design: the recursion drops the boundary-diagonal forcing term,
+which decays geometrically in $n$, so the approximation is exact at $y=1$ for
+all parameters but degrades wherever the neglected forcing competes with the
+homogeneous solution. Figure~\ref{fig:val_ppgf} maps the maximum relative error
+$\varepsilon_\infty(\rho_1,\rho_2)$ over the parameter space and confirms the
+validity region characterised in \S\ref{ssec:A:Stilde}: the priority-dominated,
+moderately loaded regime.
 
 \begin{figure}[H]
     \centering
