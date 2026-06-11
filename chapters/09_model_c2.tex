@@ -180,7 +180,7 @@ and the boundary term vanishes, yielding
     \label{eq:C2:Pxy_implicit}
 \end{equation}
 
-Now, in the same fashion as the root-cancellation argument used for Model-$A$, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$. Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:C2:Pxy_implicit} bounded is
+Now, in the same fashion as the root-cancellation argument used for Model-$A$, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$, for fixed $y\in[0,1)$: there $\beta(y)>0$, so $\mu_I(x;y)\to 0$ as $x\to1$. (At the endpoint $y=1$ the exponent $\beta(1)=0$ and $\mu_I(\,\cdot\,;1)$ no longer vanishes at $x=1$; the value $P_y(1)$ is recovered from the resulting formula by continuity, $y\to1^-$.) Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:C2:Pxy_implicit} bounded is
 \begin{equation}
     \int_0^1 q(t;y)\,\mu_I(t;y)\,dt \;=\; 0.
     \label{eq:C2:boundedness}
@@ -222,7 +222,7 @@ The continued-fraction representation~\eqref{eq:erlangA:bp_lst} admits an equiva
     \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)}.
     \label{eq:C2:Bc_Kummer}
 \end{equation}
-That this ratio equals the continued fraction~\eqref{eq:erlangA:bp_lst} follows from the first-passage recursion~\eqref{eq:erlangA:r_recursion} derived in~\S\ref{ssec:erlangA}, equivalently from the contiguous-function relations for $\,{}_1F_1$~\cite{dlmf}.
+That this ratio equals the continued fraction~\eqref{eq:erlangA:bp_lst} is exactly the closed-form summation~\eqref{eq:erlangA:cf_kummer} proved in~\S\ref{ssec:erlangA}: the integrals satisfy the three-term recurrence~\eqref{eq:erlangA:threeterm}, they form its minimal solution, and Pincherle's theorem identifies the convergent continued fraction with the minimal-solution ratio.
 
 Setting $s=\lambda_2(1-y)$ — so that $b=\beta(y)$ matches the exponent in~\eqref{eq:C2:exponents} — yields exactly the ratio of our $\mathcal{J}_i$:
 \begin{equation}

@@ -62,7 +62,7 @@ separately.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}
 
-Another relevant queueing model for this thesis is the so-called $M/M/1+M$ model, also known as the \emph{Erlang A} model. It's based on the $M/M/1$ queue —Poisson arrivals at a rate $\lambda$ and exponentially distributed waiting times with parameter $\mu$-, but adds customer impatience to it: each waiting customer can independently abandon at an exponentially distributed waiting time with parameter $\theta$. The key difference of this model with respect to the $M/M/1$ is that the $M/M/1+M$ does not require $\rho=\lambda / \mu \leq 1$ to be stable: it is positive recurrent for all $\lambda, \mu, \theta > 0$.
+Another relevant queueing model for this thesis is the so-called $M/M/1+M$ model, also known as the \emph{Erlang A} model. It is based on the $M/M/1$ queue ---Poisson arrivals at rate $\lambda$ and exponentially distributed service times with rate $\mu$--- but adds customer impatience: each \emph{waiting} customer (the one in service is not impatient) independently abandons after an exponentially distributed patience time with rate $\theta$. The key difference of this model with respect to the $M/M/1$ is that the $M/M/1+M$ does not require $\rho=\lambda / \mu < 1$ to be stable: it is positive recurrent for all $\lambda, \mu, \theta > 0$.
 
 The steady state distribution follows, naturally, from its balance equations. At state $n \geq 0$ —for $n$ being the number of customers in the \emph{system}— we have
 \begin{equation}
@@ -77,16 +77,16 @@ Iterating yields
 \end{equation}
 Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$).
 
-The \emph{Busy Period} of the $M/M/1+M$ defined here is far more complex than the one expressed in the $M/M/1$ queueing system. We record it for the class-1 subsystem used in Model-$C_2$, taking arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. The LST and the expectation are given by
+The \emph{Busy Period} of the $M/M/1+M$ defined here is far more complex than the one expressed in the $M/M/1$ queueing system. We record it for the class-1 subsystem used in Model-$C_2$, taking arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this class-1 busy period, its LST and expectation are
 \begin{align}
     \begin{split}
-    \widetilde{B}(s) = \cfrac{\mu}{\lambda_1+\mu+s
+    \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
       -\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s
       -\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
     \label{eq:erlangA:bp_lst}
     \end{split} \\
     \begin{split}
-        \mathbb{E}[B] = \frac{1}{\lambda_1}\Bigl({}_1F_1\bigl(1;\,\mu/\theta_1;\,\lambda_1/\theta_1\bigr) - 1\Bigr)
+        \mathbb{E}[B_C] = \frac{1}{\lambda_1}\Bigl({}_1F_1\bigl(1;\,\mu/\theta_1;\,\lambda_1/\theta_1\bigr) - 1\Bigr)
         \label{eq:erlangA:bp_mean}
     \end{split}
 \end{align}
@@ -99,25 +99,61 @@ each impatient at rate $\theta_1$) to state $n-1$---the strong Markov property g
 \begin{equation}
     \phi_n(s) \;=\; \frac{\mu+(n-1)\theta_1}
         {\lambda_1+\mu+(n-1)\theta_1+s-\lambda_1\,\phi_{n+1}(s)},
-    \qquad n\ge 1, \qquad \widetilde{B}(s)=\phi_1(s).
+    \qquad n\ge 1, \qquad \widetilde{B}_C(s)=\phi_1(s).
     \label{eq:erlangA:r_recursion}
 \end{equation}
 Unrolling~\eqref{eq:erlangA:r_recursion} from $n=1$ reproduces the continued
-fraction~\eqref{eq:erlangA:bp_lst} term by term. The continued fraction also sums in closed
-form: \emph{linearising} the Riccati-type recursion~\eqref{eq:erlangA:r_recursion} yields the
-three-term contiguous recurrence for ${}_1F_1$~\cite[\S13.3]{dlmf}, and by Pincherle's
-theorem the convergent continued fraction selects its minimal (recessive) solution, so
-$\phi_1(s)$ equals a ratio of contiguous ${}_1F_1$ functions of the
-form~\eqref{eq:kummer:ratio}. The explicit parameter identification ($a=\mu/\theta_1$,
-$b=s/\theta_1$, $c=\lambda_1/\theta_1$) is carried out in the boundedness route for
-Model-$C_2$ (\S\ref{sec:model_c2}, Equation~\eqref{eq:C2:Bc_Kummer}).
+fraction~\eqref{eq:erlangA:bp_lst} term by term. The continued fraction also sums in
+closed form, and the argument is short enough to give in full. Fix $s>0$ and scale the
+rates by $\theta_1$, setting
+\begin{equation}
+    a=\frac{\mu}{\theta_1}, \qquad b=\frac{s}{\theta_1}, \qquad c=\frac{\lambda_1}{\theta_1},
+    \nonumber
+\end{equation}
+so that~\eqref{eq:erlangA:r_recursion} reads
+$\phi_n(s)=(a+n-1)\big/\bigl((a+n-1)+b+c-c\,\phi_{n+1}(s)\bigr)$. Consider the integrals
+\begin{equation}
+    I(p) \;=\; \int_0^1 t^{\,p}\,(1-t)^{\,b-1}\,e^{-ct}\,dt,
+    \qquad p>-1,
+    \label{eq:erlangA:Ip}
+\end{equation}
+which by the Euler representation~\eqref{eq:kummer:euler} are Beta-function multiples of
+Kummer values, $I(p)=B(p+1,\,b)\,{}_1F_1(p+1;\,p+1+b;\,-c)$. Integrating the exact
+derivative $\frac{d}{dt}\bigl[t^{\,p}(1-t)^{\,b}e^{-ct}\bigr]$ over $[0,1]$ --- the
+boundary terms vanish for $p,b>0$ --- and splitting
+$(1-t)^{b}=(1-t)^{b-1}-t\,(1-t)^{b-1}$ in the two terms where it appears yields the
+three-term recurrence
+\begin{equation}
+    (p+b+c)\,I(p) \;=\; p\,I(p-1) \;+\; c\,I(p+1),
+    \label{eq:erlangA:threeterm}
+\end{equation}
+a relation of contiguous type for ${}_1F_1$ (obtainable equivalently by combining the
+contiguous relations of~\cite[\S13.3]{dlmf}). Dividing~\eqref{eq:erlangA:threeterm} at
+$p=a+n-1$ by $I(a+n-2)$ shows that the ratios $R_n:=I(a+n-1)/I(a+n-2)$ satisfy exactly
+the recursion of $\phi_n$. Two further facts pin the identification. First, by
+Laplace's method at the endpoint $t=1$, $I(p)\sim e^{-c}\,\Gamma(b)\,p^{-b}$ as
+$p\to\infty$: the solution $\{I(p)\}$ decays only polynomially, whereas the dominant
+solution of~\eqref{eq:erlangA:threeterm} grows superexponentially (its consecutive
+ratio grows like $p/c$), so $\{I(p)\}$ is the \emph{minimal (recessive)} solution.
+Second, by \emph{Pincherle's theorem} the convergent continued fraction equals
+precisely the ratio built from the minimal solution. Hence
+\begin{equation}
+    \widetilde{B}_C(s)\;=\;\phi_1(s)\;=\;\frac{I(a)}{I(a-1)}
+    \;=\;\frac{B(a+1,\,b)\;{}_1F_1\bigl(a+1;\,a+1+b;\,-c\bigr)}
+              {B(a,\,b)\;{}_1F_1\bigl(a;\,a+b;\,-c\bigr)},
+    \label{eq:erlangA:cf_kummer}
+\end{equation}
+a contiguous ratio of the form~\eqref{eq:kummer:ratio}. This identity is used, with
+$s=\lambda_2(1-y)$, in the boundedness route for Model-$C_2$ (\S\ref{sec:model_c2},
+Equation~\eqref{eq:C2:Bc_Kummer}).
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Pollaczek--Khinchine formula}\label{ssec:pk}
 
 The $M/G/1$ queue~\cite{adan2002queueing} is a single-server queue with Poisson arrivals
-at rate $\lambda$ and generally distributed i.i.d.\ service times $B$ with mean and LST $\widetilde{B}(s) = \mathbb{E}[e^{-sB}]$. 
-For stability purposes, the system load $\rho = \lambda\,\mathbb{E}[B] < 1$ is required.
+at rate $\lambda$ and generally distributed i.i.d.\ service times $B$ with LST $\widetilde{B}(s) = \mathbb{E}[e^{-sB}]$.
+For stability purposes, the system load $\rho_B = \lambda\,\mathbb{E}[B] < 1$ is required
+(written $\rho_B$ to keep the symbol $\rho$ for the two-class load of this thesis).
 Under these two conditions —Poisson arrivals and stability— the Pollaczek--Khinchine (PK) formula
 gives the PGF of the stationary number of customers in the system:
 \begin{equation}
@@ -151,11 +187,21 @@ First, the \emph{Euler integral representation}, for $a,b>0$ we have:
     \label{eq:kummer:euler}
 \end{equation}
 where $B$ is the \emph{Beta function} $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$, and $\Gamma$ is the \emph{Gamma function}.
-Secondly, the \emph{Contiguous-function ratio}:
+Secondly, \emph{contiguous ratios}: ratios of two ${}_1F_1$ values whose parameters
+differ by integer shifts. Two patterns arise in this thesis. The \emph{simultaneous
+shift}
 \begin{equation}
-    \frac{{}_1F_1(a+1;\,b;\,z)}{{}_1F_1(a;\,b;\,z)}.
+    \frac{{}_1F_1(a+1;\,a+1+b;\,z)}{{}_1F_1(a;\,a+b;\,z)},
     \label{eq:kummer:ratio}
 \end{equation}
+in which both parameters move by one so that their difference $b$ is preserved, is by
+the Euler representation~\eqref{eq:kummer:euler} a ratio of two weighted Beta integrals
+differing only in the exponent of $t$; it appears as the closed-form value of the
+Erlang-A busy-period continued fraction (\S\ref{ssec:erlangA},
+Equation~\eqref{eq:erlangA:cf_kummer}) and hence in the boundary function of
+Model-$C_2$. The \emph{first-parameter shift}
+${}_1F_1(a+1;\,b;\,z)\big/{}_1F_1(a;\,b;\,z)$, with the second parameter fixed, appears
+instead in the boundary function of Model-$B_2$ (\S\ref{sec:model_b2}).
 
 
 % ─────────────────────────────────────────────────────────────────────────────
