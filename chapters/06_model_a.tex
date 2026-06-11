@@ -95,10 +95,9 @@ term $\mu(x-y)P_y(y)$ vanishes:
         &= - \mu (1-z) \pi(0,0).
     \end{align*}
     Cancelling $(1-z)\neq 0$ for $z\in[0,1)$ and rearranging:
-    \begin{equation}
+    \begin{equation*}
         P(z,z) = \frac{\mu\,\pi(0,0)}{\mu - \lambda z} = \frac{\pi(0,0)}{1-\rho z},
-        \label{eq:A:Pzz_proof}
-    \end{equation}
+    \end{equation*}
     where $\lambda = \lambda_1+\lambda_2$ and the second equality follows by dividing
     numerator and denominator by $\mu$.
 
@@ -260,21 +259,20 @@ term $\mu(x-y)P_y(y)$ vanishes:
     complete Busy Period, of the single-class $M/M/1$ sub-queue with arrival rate $\lambda_1$ and service rate $\mu$, so from class-$2$'s viewpoint the system is an $M/G/1$ queue with arrival rate $\lambda_2$ and generally distributed service times $B$ with mean $\mathbb{E}[B]$. The LST and mean of $B$ are presented
     in~\S\ref{ssec:mm1} (Equations~\eqref{eq:mm1:bp_lst}--\eqref{eq:mm1:bp_mean}), now
     with $\lambda_1$ instead of $\lambda$:
-    \begin{align}
-        \widetilde{B}(s) &= \frac{(\mu+\lambda_1+s) - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \label{eq:A:B_lst}\\
-        \mathbb{E}[B] &= \frac{1}{\mu(1-\rho_1)}. \label{eq:A:B_mean}
-    \end{align}
+    \begin{align*}
+        \widetilde{B}(s) &= \frac{(\mu+\lambda_1+s) - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \\
+        \mathbb{E}[B] &= \frac{1}{\mu(1-\rho_1)}. 
+    \end{align*}
     Applying the Pollaczek--Khinchine (PK) formula (\S\ref{ssec:pk},
     Equation~\eqref{eq:pk:pgf}) to this $M/G/1$ system, with
     $\widetilde{B}(\lambda_2(1-y))=x^*(y)$ (cf.~\eqref{eq:A:xstar}) and
     $\lambda_2\mathbb{E}[B]=\rho_2/(1-\rho_1)$:
-    \begin{align}
+    \begin{align*}
         \begin{split}
             L_2(y) = \frac{(1 - \lambda_2 \mathbb{E}[B]) (1-y) \widetilde{B}(\lambda_2(1-y))}{\widetilde{B}(\lambda_2(1-y)) - y}
                     = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \end{split}
-        \label{eq:A:pk_formula}
-    \end{align}
+    \end{align*}
     By the PASTA property, the time-average distribution of $N_2$ conditional on
     $(\text{busy},N_1=0)$ coincides with the $M/G/1$ steady-state distribution, so
     $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
@@ -332,7 +330,7 @@ solution in the priority class index.
     \begin{align}
         (\lambda_1+\lambda_2+\mu)\,\pi(n_1,n_2)
             &= \mu\,\pi(n_1+1,n_2) + \lambda_1\,\pi(n_1-1,n_2) + \lambda_2\,\pi(n_1,n_2-1),
-            && n_1\geq1,\ n_2\geq1, \label{eq:A:ppgf_interior}\\
+            && n_1\geq1,\ n_2\geq1, \nonumber\\
         (\lambda_1+\lambda_2+\mu)\,\pi(n_1,0)
             &= \mu\,\pi(n_1+1,0) + \lambda_1\,\pi(n_1-1,0),
             && n_1\geq1,\ n_2=0. \label{eq:A:ppgf_xbound}
@@ -399,12 +397,11 @@ solution in the priority class index.
         \label{eq:A:ppgf_char}
     \end{equation}
     that is,
-    \begin{equation}
+    \begin{equation*}
         \widetilde{x}^{\pm}(y)
         = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
                 \pm \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}.
-        \label{eq:A:xtilde_roots}
-    \end{equation}
+    \end{equation*}
     The \emph{characteristic polynomial} (Equation \eqref{eq:A:ppgf_char}) is the reciprocal to that of the bivariate PGF approaches (i.e. the reciprocal of $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$), thus its roots are the reciprocals of that kernel's roots: the positive root is the reciprocal of the negative one ($\widetilde{x}^{+}(y)=1/x^*(y)$), and conversely $\widetilde{x}^{-}(y)=1/x^{+}(y)$. By Vieta's formulas, $\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$. Recall from \S\ref{sssec:A:analytical} that $x^*(y)<1<x^{+}(y)$ for $y\in[0,1)$.
     The selection of the negative-sign root is motivated by the fact that we need the sequence $\{\widetilde{P}(n_1,y)\}_{n_1\geq0}$ to be summable. In fact, we need
     \begin{equation*}
@@ -511,13 +508,13 @@ $S$-solution.
     $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics} --- which is
     exponentially small by Lemma~\ref{lem:A:diag_decay} --- the
     homogeneous recurrence admits the geometric solution
-    \begin{equation}
-        \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, \label{eq:A:Ptilde_approx}
-    \end{equation}
+    \begin{equation*}
+        \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, 
+    \end{equation*}
     where
-    \begin{equation}
-        \widetilde{y}^*(y) = \frac{(\lambda+\mu) - \sqrt{(\lambda+\mu)^2 - 4\mu(\lambda_1+\lambda_2 y)}}{2\mu}, \qquad \lambda = \lambda_1+\lambda_2. \label{eq:A:ytildestar}
-    \end{equation}
+    \begin{equation*}
+        \widetilde{y}^*(y) = \frac{(\lambda+\mu) - \sqrt{(\lambda+\mu)^2 - 4\mu(\lambda_1+\lambda_2 y)}}{2\mu}, \qquad \lambda = \lambda_1+\lambda_2. 
+    \end{equation*}
     At $y=1$ this recovers $\widetilde{P}(1,n)=(1-\rho)\rho^{n+1}$, consistent with
     the $M/M/1(\lambda,\mu)$ steady-state marginal for $n$ customers waiting.
 \end{approximation}
@@ -529,33 +526,33 @@ correspond to states where all $n$ waiting customers are class~$2$, and by
 Lemma~\ref{lem:A:diag_decay} they decay geometrically in $n$ at rate $\rho$; the
 forcing term is therefore exponentially small, and neglecting it yields an
 approximation whose accuracy is quantified below. The resulting homogeneous recurrence is
-\begin{equation}
+\begin{equation*}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1).
-\end{equation}
+\end{equation*}
 The characteristic polynomial of this recurrence is
-\begin{equation}
+\begin{equation*}
     \mu [\widetilde{y}(y)]^2 - (\lambda_1 + \lambda_2 + \mu) \widetilde{y}(y) + (\lambda_1 + \lambda_2 y) = 0,
-\end{equation}
+\end{equation*}
 with roots
-\begin{equation}
+\begin{equation*}
     \widetilde{y}^{\pm}(y) = \frac{(\lambda_1 + \lambda_2 + \mu) \pm \sqrt{(\lambda_1 + \lambda_2 + \mu)^2 - 4\mu(\lambda_1 + \lambda_2 y)}}{2\mu}.
-\end{equation}
+\end{equation*}
 At $y=1$ the roots are $\widetilde{y}_{+}(1)=1$ and $\widetilde{y}_{-}(1)=\rho$.
 The root $\widetilde{y}_{+}=1$ would produce a non-summable geometric series as
 $n\to\infty$, so only the negative-sign root is admissible:
-\begin{equation}
+\begin{equation*}
     \widetilde{y}^*(y) = \frac{(\lambda_1 + \lambda_2 + \mu) - \sqrt{(\lambda_1 + \lambda_2 + \mu)^2 - 4\mu(\lambda_1 + \lambda_2 y)}}{2\mu}.
-\end{equation}
+\end{equation*}
 The geometric ansatz gives $\tP(y,n)=\tP(y,0) \cdot [\widetilde{y}^*(y)]^n$.
 Using $\tP(y,0)=\tpi(0,0)=\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0}):
-\begin{equation}
+\begin{equation*}
     \tP(y,n)=\rho(1-\rho) \cdot  [\widetilde{y}^*(y)]^n.
-\end{equation}
+\end{equation*}
 Since $n$ counts customers \emph{waiting} (the customer in service is not counted),
 $n+1$ is the total number in the system, so evaluating at $y=1$:
-\begin{equation}
+\begin{equation*}
     \tP(1,n)= \rho(1-\rho) \cdot\rho^n= (1-\rho) \rho^{n+1}, \qedhere
-\end{equation}
+\end{equation*}
 which matches the $M/M/1(\lambda,\mu)$ stationary distribution for $n+1$ customers
 in the system~\cite{adan2002queueing}.
 \end{proof}
@@ -582,34 +579,32 @@ self-consistently; see \S\ref{sec:future_work}.
 \subsubsection{Class-1 marginal PGF and mean queue length}
 
 Setting $y=1$ in the fundamental equation~\eqref{eq:A:fundamental} gives
-\begin{align}
+\begin{align*}
     \begin{split}
         \bigl[-\lambda_1(x-1)(x-1/\rho_1)\bigr]\,P(x,1)
         \;=\; \mu(x-1)\,P_y(1).
     \end{split}
-\end{align}
+\end{align*}
 Cancelling the common factor $(x-1)$ for $x\neq1$ and rearranging:
-\begin{align}
+\begin{align*}
     \begin{split}
         P(x,1) \;=\; \frac{\mu\,P_y(1)}{\mu-\lambda_1 x}.
     \end{split}
-    \label{eq:A:Px1}
-\end{align}
+\end{align*}
 The constant $P_y(1)$ is pinned by the normalisation $P(1,1)=1-\pi_0=\rho$:
-\begin{align}
+\begin{align*}
     \begin{split}
         \rho \;=\; \frac{\mu\,P_y(1)}{\mu-\lambda_1}
         \quad\Longrightarrow\quad
         P_y(1) \;=\; \rho\,(1-\rho_1),
     \end{split}
-    \label{eq:A:Py1}
-\end{align}
+\end{align*}
 so that
-\begin{align}
+\begin{align*}
     \begin{split}
         P(x,1) \;=\; \frac{\rho(1-\rho_1)}{1-\rho_1 x}.
     \end{split}
-\end{align}
+\end{align*}
 Differentiating by the quotient rule and evaluating at $x=1$:
 \begin{align}
     \begin{split}
@@ -629,12 +624,12 @@ shows that $x^*(z)=z$ iff $z\in\{1,\,1/\rho\}$; hence $x^*(z)\neq z$ for all
 $z\in(0,1)$ with $\rho<1$. Therefore the ratio
 $(z-x^*(z))/(x^*(z)-z)=-1$ throughout $(0,1)$, and the formula of
 Theorem~\ref{thm:A:PGF} reduces to:
-\begin{align}
+\begin{align*}
     \begin{split}
         P(z,z)
         \;=\; \frac{z(1-z)\,\rho(1-\rho)}{D(z,z)}\cdot(-1).
     \end{split}
-\end{align}
+\end{align*}
 The denominator at $x=y=z$ is
 $D(z,z)=(1+\rho)z^2-z-\rho z^3=-\rho z(z-1)(z-1/\rho)$,
 so:
@@ -653,7 +648,7 @@ Since $\tfrac{d}{dz}P(z,z)\big|_{z=1}
 =\tfrac{\partial P}{\partial x}(1,1)+\tfrac{\partial P}{\partial y}(1,1)
 =\mathbb{E}[N_1]+\mathbb{E}[N_2]$, differentiating by the quotient rule and
 evaluating at $z=1$ gives:
-\begin{align}
+\begin{align*}
     \begin{split}
         \mathbb{E}[N_1]+\mathbb{E}[N_2]
         \;=\; \left.\frac{d}{dz}\,\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
@@ -661,8 +656,7 @@ evaluating at $z=1$ gives:
         \;=\; \frac{\rho^2(1-\rho)}{(1-\rho)^2}
         \;=\; \frac{\rho^2}{1-\rho}.
     \end{split}
-    \label{eq:A:EN}
-\end{align}
+\end{align*}
 This is the $M/M/1(\lambda,\mu)$ queue-length formula for the combined
 system~\cite{adan2002queueing}, as expected: the two classes together behave as a
 single $M/M/1$ queue.

@@ -50,20 +50,20 @@ $\mu+\theta_1$ on the in-flows. On $S$,
           \;=\; (\mu+\theta_1)\pi(n_1+1,0)
           +\lambda_1\pi(n_1-1,0)
     \end{split}
-    &&n_1\ge1,\;n_2=0, \label{eq:C21:xboundary} \\
+    &&n_1\ge1,\;n_2=0, \nonumber \\
     \begin{split}
         &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2) \\
         &\quad=\quad (\mu+\theta_1)\pi(1,n_2)
           +\lambda_2\pi(0,n_2-1)
           +\mu\,\pi(0,n_2+1)
     \end{split}
-    &&n_1=0,\;n_2\ge1, \label{eq:C21:yboundary} \\
+    &&n_1=0,\;n_2\ge1, \nonumber \\
     \begin{split}
         &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
           = (\lambda_1+\lambda_2)\pi_0
           + (\mu+\theta_1)\pi(1,0)
           + \mu\,\pi(0,1),
-    \end{split} &&\label{eq:C21:zero} \\
+    \end{split} &&\nonumber \\
     \begin{split}
         &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
     \end{split} &&\label{eq:C21:idle}
@@ -375,24 +375,22 @@ Model-$A$'s~\eqref{eq:A:EN2}.
 We apply \textbf{Little's Law} to each queue. Every class-$1$ customer enters Queue~1 once
 by exogenous arrival and later leaves it either by entering service or by abandoning from the
 head; in both cases it leaves Queue~1, so the entrance rate is $\Lambda_1=\lambda_1$ and
-\begin{equation}
+\begin{equation*}
     \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1}
     \;=\; \frac{(1-\pi_0)\,\rho_C}{\lambda_1(1-\rho_C)}.
-    \label{eq:C21:EW1}
-\end{equation}
+\end{equation*}
 Here $\mathbb{E}[W_1]$ is the mean time a class-$1$ customer spends \emph{waiting} in
 Queue~1, averaged over all class-$1$ arrivals, whether they are eventually served or
 abandon. Queue~2, by contrast, receives no jockeying input and its customers never abandon
 ($\theta_2=0$), so every class-$2$ arrival is eventually served and the entrance rate is
 simply $\Lambda_2=\lambda_2$:
-\begin{equation}
+\begin{equation*}
     \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}
     \;=\; \frac{\lambda\,(\mu+\theta_1)\bigl[(\mu+\theta_1)^2-\lambda_1\theta_1\bigr]}
                {(\mu+\theta_1-\lambda_1)\,
                 \bigl[\mu(\mu+\theta_1)+\lambda_1\theta_1\bigr]\,
                 \bigl[(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1\bigr]}.
-    \label{eq:C21:EW2}
-\end{equation}
+\end{equation*}
 Both reduce to the corresponding Model-$A$ expressions as $\theta_1\to0^+$.
 
 \subsection{Comparison of the head-of-line models}

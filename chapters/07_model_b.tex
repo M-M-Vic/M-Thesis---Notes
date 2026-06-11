@@ -31,11 +31,10 @@ Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retai
     $\theta_1=\theta_2=0$, both jockeying terms carry the factor $(x-y)$ and vanish, as
     does the boundary term $\mu(x-y)P_y(y)$; dividing the surviving terms by the common
     factor $x$ leaves
-    \begin{equation}
+    \begin{equation*}
         \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
         = -\mu(1-x)\,\pi(0,0).
-        \label{eq:B:diagonal_ode}
-    \end{equation}
+    \end{equation*}
     Writing $\lambda=\lambda_1+\lambda_2$, the bracket factors,
     \begin{equation}
         (\lambda+\mu)x-\mu-\lambda x^{2}
@@ -99,28 +98,25 @@ and (v)~diagonal evaluation yielding the Volterra equation.
 The fundamental equation~\eqref{eq:gen:fundamental_equation} with
 $\theta_1=\theta_2=0$ is a first-order linear PDE in $P(x,y)$. Setting the
 right-hand side to zero and dividing through by $y$ yields the homogeneous PDE
-\begin{equation}
+\begin{equation*}
     \gamma_1 x(x-y)\,\frac{\partial P}{\partial x}
     - \gamma_2 x(x-y)\,\frac{\partial P}{\partial y}
     = -\bigl[(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2
              - \lambda_2 xy\bigr]P.
-    \label{eq:B:homogeneous_pde}
-\end{equation}
+\end{equation*}
 Following the method of characteristics (\S\ref{sssec:moc}), we associate to
 this PDE the characteristic system
-\begin{equation}
+\begin{equation*}
     \frac{dx}{\gamma_1 x(x-y)}
     = \frac{dy}{-\gamma_2 x(x-y)}
     = \frac{dP}{-\bigl[(\lambda_1+\lambda_2+\mu)x - \mu
                - \lambda_1 x^2 - \lambda_2 xy\bigr]P}.
-    \label{eq:B:char_system}
-\end{equation}
+\end{equation*}
 Taking the ratio of the first two differentials, the $x(x-y)$ factors cancel,
 giving $dx/\gamma_1 = dy/(-\gamma_2)$.  Integrating yields the first integral
-\begin{equation}
+\begin{equation*}
     C_1 = \gamma_2 x + \gamma_1 y \quad\text{(constant along each characteristic)}.
-    \label{eq:B:char_constant}
-\end{equation}
+\end{equation*}
 The characteristics are therefore the straight lines of slope $-\gamma_2/\gamma_1$
 in the $(x,y)$-plane. Fix one such line and parametrise $y$ by
 $y(x) = (C_1-\gamma_2 x)/\gamma_1$.  To extract the equation for $P$ along this
@@ -133,7 +129,7 @@ substitution.  Setting
 and substituting $y = (C_1-\gamma_2 x)/\gamma_1$ so that
 $\lambda_2 xy = (\lambda_2 C_1/\gamma_1)x - (\lambda_2\gamma_2/\gamma_1)x^2$,
 we obtain, collecting by powers of $x$,
-\begin{align}
+\begin{align*}
     \begin{split}
     A\bigl(x,y(x)\bigr)
     &= (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2
@@ -142,20 +138,18 @@ we obtain, collecting by powers of $x$,
        + \frac{\gamma_1(\lambda_1+\lambda_2+\mu)-\lambda_2 C_1}{\gamma_1}\,x
        - \mu.
     \end{split}
-    \label{eq:B:Axy}
-\end{align}
+\end{align*}
 Similarly, $x - y(x) = [(\gamma_1+\gamma_2)x-C_1]/\gamma_1$, so
 $\gamma_1 x(x-y(x)) = x[(\gamma_1+\gamma_2)x-C_1]$.  The $dP/P$ equation from
 the characteristic system therefore becomes
-\begin{align}
+\begin{align*}
     \frac{dP}{P}
     &= \frac{-A(x,y(x))}{\gamma_1 x(x-y(x))}\,dx
      = \frac{(\gamma_1\lambda_1 - \lambda_2\gamma_2)x^2
              - \bigl[\gamma_1(\lambda_1+\lambda_2+\mu) - \lambda_2 C_1\bigr]x
              + \gamma_1\mu}
             {\gamma_1 x\bigl[(\gamma_1+\gamma_2)x - C_1\bigr]}\,dx.
-    \label{eq:B:dPP}
-\end{align}
+\end{align*}
 To integrate this, we decompose the integrand via partial fractions.  Writing the
 integrand as $(1/\gamma_1)\,I(x)\,dx$ with
 $I(x) = K + M/x + N(C_1)/[(\gamma_1+\gamma_2)x - C_1]$,
@@ -209,12 +203,11 @@ Integrating $dP/P = (1/\gamma_1)\,I(x)\,dx$ term by term gives
 \end{equation}
 where $f(C_1)$ is an arbitrary function of the characteristic constant.
 Now observe that
-\begin{equation}
+\begin{equation*}
     (\gamma_1+\gamma_2)x - C_1
     = (\gamma_1+\gamma_2)x - (\gamma_2 x + \gamma_1 y)
     = \gamma_1(x-y),
-    \label{eq:B:simplify}
-\end{equation}
+\end{equation*}
 so $\ln[(\gamma_1+\gamma_2)x-C_1] = \ln\gamma_1 + \ln(x-y)$. Exponentiating
 \eqref{eq:B:lnP} term by term,
 \begin{equation}
@@ -251,43 +244,38 @@ where $F$ is an arbitrary differentiable function to be determined.
 Recall $\lambda = \lambda_1+\lambda_2$ and $\Gamma = \gamma_1+\gamma_2$. Along any
 fixed characteristic, $C_1 = \gamma_2 x + \gamma_1 y$ is constant, so the
 exponent~\eqref{eq:B:E} depends only on $u := C_1\in(0,\Gamma)$:
-\begin{equation}
+\begin{equation*}
     E(u) = \frac{\lambda}{\Gamma^2}\,u - \frac{\lambda+\mu}{\Gamma} + \frac{\mu}{u}.
-    \label{eq:B:E_u}
-\end{equation}
+\end{equation*}
 (For $(x,y)\in(0,1)^2$ we have $u = \gamma_2 x+\gamma_1 y \in (0,\Gamma)$; $E(u)$ is
 continuous there, with $E(u)\to+\infty$ as $u\to0^+$ and $E(u)\to0^+$ as
 $u\to\Gamma^-$, so it is finite at every interior point although not uniformly bounded.)
 Multiplying through by
 $u\Gamma^2>0$ gives the equivalent quadratic
-\begin{equation}
+\begin{equation*}
     q(u) := \lambda u^2 - (\lambda+\mu)\Gamma u + \mu\Gamma^2.
-    \label{eq:B:quadratic}
-\end{equation}
+\end{equation*}
 The sign of $E$ on $(0,\Gamma)$ equals the sign of $q(u)$ there.  We
 factor $q$ by finding its roots.  The discriminant is
 $\Delta = (\lambda+\mu)^2\Gamma^2 - 4\lambda\mu\Gamma^2 = \Gamma^2(\mu-\lambda)^2$,
 so (using $\rho<1 \Rightarrow \mu>\lambda \Rightarrow \mu-\lambda>0$)
-\begin{equation}
+\begin{equation*}
     u_{1,2} = \frac{(\lambda+\mu)\Gamma \pm \Gamma(\mu-\lambda)}{2\lambda}
     \quad\Longrightarrow\quad
     u_1 = \frac{2\lambda\Gamma}{2\lambda} = \Gamma,
     \quad
     u_2 = \frac{2\mu\Gamma}{2\lambda} = \frac{\Gamma}{\rho} > \Gamma.
-    \label{eq:B:roots}
-\end{equation}
+\end{equation*}
 Hence
-\begin{equation}
+\begin{equation*}
     q(u) = \lambda(u - \Gamma)\!\left(u - \tfrac{\Gamma}{\rho}\right).
-    \label{eq:B:q_factored}
-\end{equation}
+\end{equation*}
 For every $u\in(0,\Gamma)$ both factors are strictly negative
 ($(u-\Gamma)<0$ and $(u-\Gamma/\rho)<0$ since $\Gamma/\rho>\Gamma$),
 so $q(u)=\lambda\cdot(\text{neg})\cdot(\text{neg})>0$, and therefore
-\begin{equation}
+\begin{equation*}
     E(x,y) > 0 \quad \text{for all } (x,y)\in(0,1)^2.
-    \label{eq:B:E_positive}
-\end{equation}
+\end{equation*}
 Note that $E\to0$ as $u\to\Gamma^-$ (i.e.\ as $(x,y)\to(1,1)$), while $E$ is
 bounded and bounded away from zero in any compact subset of $(0,1)^2$.
 
@@ -334,7 +322,7 @@ reduces the PDE to the first-order linear ODE (for fixed $C_1$)
 where the coefficient $f$ and the forcing term $h$ are
 \begin{align}
     f(x;C_1) &= -\frac{A(x,\,y(x))}{\gamma_1 x\bigl(x-y(x)\bigr)},
-    \label{eq:B:fdef}\\[4pt]
+    \nonumber\\[4pt]
     h(x;C_1) &= \frac{G(x,\,y(x))}{\gamma_1 x\,y(x)\bigl(x-y(x)\bigr)},
     \label{eq:B:hdef}
 \end{align}
@@ -412,12 +400,11 @@ diagonal and $P_h\bigl(x,y(x;z)\bigr)\to0$ as $x\to z^-$; simultaneously the int
 in~\eqref{eq:B:integral_rep_body} develops a non-integrable singularity
 $\sim(y(t;z)-t)^{-1-E}$ as $t\to z^-$, so the integral diverges. Their product is the
 finite $0\cdot\infty$ limit
-\begin{equation}
+\begin{equation*}
     \frac{\pi(0,0)}{1-\rho z}
     = \lim_{x\to z^-} P_h\bigl(x,y(x;z)\bigr)
       \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt,
-    \label{eq:B:diag_limit}
-\end{equation}
+\end{equation*}
 whose value is $P(z,z)=\pi(0,0)/(1-\rho z)$ by Corollary~\ref{cor:B:pi00}.
 Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown
 $P_y$ from the known remainder, this limit splits as
@@ -442,13 +429,12 @@ characteristic is exactly linear,
 \end{equation}
 and along this characteristic ($C_1=\Gamma z$) the exponent of Step~2 takes the
 closed form
-\begin{equation}
+\begin{equation*}
     E_z \;:=\; E(\Gamma z)
     \;=\; \frac{\lambda z^{2}-(\lambda+\mu)z+\mu}{\Gamma z}
     \;=\; \frac{(\mu-\lambda z)(1-z)}{\Gamma z}\;>\;0,
     \qquad z\in(0,1).
-    \label{eq:B:Ez}
-\end{equation}
+\end{equation*}
 Every factor of $P_h$ in~\eqref{eq:B:Ph} other than the exponential, the power of
 $x$, and $(x-y)^{E}$ depends on $(x,y)$ only through $C_1$, so along the
 characteristic the homogeneous ratio is \emph{exact}:
@@ -465,7 +451,7 @@ integrand behaves as $w(z)\,(z-t)^{-1-E_z}$ near $t=z$, with
 $w(z)=\mu\,\pi(0,0)\,(1-z)/(\Gamma z)$; the truncated integral diverges like
 $(z-x)^{-E_z}/E_z$, the prefactor vanishes like $(z-x)^{E_z}$, and the product
 converges:
-\begin{align}
+\begin{align*}
     \begin{split}
         \lim_{x\to z^-}\;(z-x)^{E_z}\!\int^{x}\! w(z)\,(z-t)^{-1-E_z}\,dt
         \;&=\; \frac{w(z)}{E_z}
@@ -474,8 +460,7 @@ converges:
         &=\; \frac{\mu\,\pi(0,0)}{\mu-\lambda z}
         \;=\; \frac{\pi(0,0)}{1-\rho z}\,.
     \end{split}
-    \label{eq:B:second_limit}
-\end{align}
+\end{align*}
 The second limit alone thus reproduces the full diagonal value --- an independent
 confirmation that the representation~\eqref{eq:B:integral_rep_body} is consistent
 with Corollary~\ref{cor:B:pi00}. The \emph{first} limit, by contrast, vanishes: its
@@ -503,7 +488,7 @@ Writing the kernel and known term \emph{formally} as
                         \int_0^z
                         \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}
                         \,dt,
-    \label{eq:B:Bdef}
+    \nonumber
 \end{align}
 \emph{to be read through the regularised limit~\eqref{eq:B:split} rather than pointwise},
 and setting $\mathcal{F}(z)=\pi(0,0)/(1-\rho z)-\mathcal{B}(z)$,
