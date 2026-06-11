@@ -21,6 +21,9 @@
 
 \usepackage{amssymb}
 \usepackage{graphicx}
+% float must be loaded before hyperref: [H] floats otherwise emit duplicate
+% pdfTeX destination identifiers (one per figure/table in the document).
+\usepackage{float}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 \usepackage{tikz}
@@ -30,7 +33,6 @@
 
 
 
-\usepackage{float}
 \usepackage{booktabs}
 \usepackage{multirow}
 

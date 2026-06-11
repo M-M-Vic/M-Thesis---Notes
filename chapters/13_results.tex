@@ -221,7 +221,9 @@ they are reported alongside $B_2$, $C_2$ in the comparison of \S\ref{sec:compari
 The two experiment models possess algebraic fundamental equations.  The lemma
 check therefore requires no differentiation of $P$: only the CTMC values of
 $P(x,y)$ and $P_y(y)$ are substituted into each side and the residual is
-measured.
+measured. Figure~\ref{fig:val_experiment} reports both checks, and
+Figure~\ref{fig:val_experiment_pi} tracks the empty-state probabilities $\pi_0$
+and $\pi(0,0)$ as the mechanism parameter grows.
 
 \begin{figure}[H]
     \centering
@@ -415,7 +417,8 @@ $\mathbb{E}[N_1]/\mathbb{E}[N_2]\to\lambda_1/\lambda_2$, as a two-way exchange w
 $B_2$ jockeying is \emph{one-way} ($1\!\to\!2$): it has no return channel, so it is
 absorbing into class~2. As $\gamma_1\to\infty$ every class-1 arrival is converted on
 essentially zero timescale and the class-1 queue is drained,
-$\mathbb{E}[N_1]/\mathbb{E}[N_2]\to0$ --- the computed ratio falls from $0.1045$ at
+$\mathbb{E}[N_1]/\mathbb{E}[N_2]\to0$ --- the computed ratio
+(Figure~\ref{fig:conv:b2_inf}, left) falls from $0.1045$ at
 $\gamma_1=0.5$ to $3\times10^{-4}$ at $\gamma_1=500$, with no sign of levelling at
 $\lambda_1/\lambda_2=0.75$. Because jockeying conserves $N$, the entire occupancy migrates
 to class~2, $\mathbb{E}[N_2]\to\mathbb{E}[N]_A=1.6333$, and correspondingly
