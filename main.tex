@@ -46,7 +46,13 @@
 % Code/compute_derived_metrics.py; see task D1). Numbers are macros, not hardcoded.
 \input{results/derived_metrics}
 
-\title{Thesis}
+% TODO-confirm: working title (candidate 1 of 3 proposed to the author). Alternatives:
+%  (2) Two-Class Priority M/M/1 Queues with Jockeying and Abandonment:
+%      A Unified Probability-Generating-Function Framework
+%  (3) Stationary Queue-Length Analysis of Non-Preemptive Priority M/M/1 Queues
+%      under Jockeying and Reneging: Exact PGFs and an Obstruction Taxonomy
+\title{Exact Generating-Function Analysis of a Two-Class Non-Preemptive Priority
+\texorpdfstring{$M/M/1$}{M/M/1} Queue with Jockeying and Abandonment}
 \author{Victor Dominguez Sainz}
 
 \begin{document}
@@ -56,11 +62,11 @@
 
 \begin{abstract}
 
-We study the stationary queue-length behaviour of a 2-class $M/M/1$ queueing system with non-preemptive priority with two added mechanisms: \emph{jockeying}, in which a customer in line switches to the other queue; and \emph{abandonment}, in which a waiting customer may abandon the system entirely. While the former preserves the total number of customers in the system, it is not the case for the latter. Since combining both jockeying and abandonments leads to a very complex model (Model-$X$), we analyse a series of less mathematically involved submodels: Model-$A$ (baseline), Model-$B$ (bidirectional jockeying), Model-$B_2$ (one-way jockeying class-$1$ to class-$2$), and Model-$C_2$ (class-$1$ abandonment). We further study two \emph{head-of-line} variants, Model-$\BH$ and Model-$\CH$, in which the jockeying or abandonment acts only on the customer at the head of Queue-$1$; this flat-rate restriction keeps the functional equation algebraic and yields rational generating functions in closed form.
+We study the stationary queue-length distribution of a two-class, non-preemptive priority $M/M/1$ queue augmented with two waiting-room mechanisms: \emph{jockeying}, in which a waiting customer switches queue, and \emph{abandonment}, in which a waiting customer leaves the system. Jockeying conserves the total number of customers, whereas abandonment does not, and combining both yields a model (Model-$X$) that is analytically intractable. We therefore organise the analysis as a hierarchy that isolates one mechanism at a time: the baseline Model-$A$ (no mechanism); Model-$B$ (bidirectional jockeying); the full Model-$X$; and the tractable specialisations Model-$B_2$ (one-way jockeying, class~1 to class~2) and Model-$C_2$ (class-1 abandonment). We also treat \emph{head-of-line} variants $\BH$ and $\CH$, in which a mechanism acts only on the customer at the head of the priority queue.
 
-The derivation of an expression for the probability generating function (PGF) $P(x,y)$ of each of these models is carried out using purely analytical techniques and, where possible, by means of probabilistic arguments. Model-$A$, widely studied, reduces to an algebraic expression solved by the kernel method; Model-$B$ is left open, with a Volterra-type integral equation when it comes to finding the boundary for the queue length of class-$2$. This falls beyond the scope of this thesis. However, Model-$B_2$ reduces to a first-order linear ODE in $x$, where we use the analyticity of the PGF to derive the boundary function of class-$2$ at an interior point; and Model-$C_2$ reduces to another first-order linear ODE in $x$ where we use the boundedness of our PGF at the boundary of its domain to determine the boundary function. 
+The central object is the bivariate probability generating function (PGF) $P(x,y)$ of the two queue lengths, obtained by analytical and, where the structure permits, probabilistic arguments. Model-$A$ is classical and follows from the kernel method; the contribution of this work is the unified functional-equation framework built around it, within which each solvable model is closed by a single pinning principle --- a kernel root inside the unit disc for Model-$A$, analyticity at an interior point for Model-$B_2$, and boundedness on the unit-circle boundary for Model-$C_2$ --- while the head-of-line restriction collapses the functional equation to an algebraic one and yields rational PGFs in closed form. Two models are left open, with their obstructions named: Model-$B$ reduces the class-2 boundary function to a Volterra-type integral equation, and Model-$X$ compounds this with transcendental characteristics, so that even the kernel root ceases to be available in closed form. For Model-$A$ we additionally develop the partial-PGF recursion on an alternative total-count state space and characterise it as a heuristic approximation, accurate in the priority-dominated, moderate-load regime and quantified there against the exact solution.
 
-Lastly, the findings are validated numerically through simulations, showing how the models reduce to the baseline Model-$A$ as the jockeying and/or abandonment parameters approximate $0$.
+Every closed form is validated against a truncated continuous-time Markov chain and recovers the baseline as the mechanism rates vanish. The comparison yields the central applied finding: the two mechanisms are not interchangeable, for jockeying merely redistributes delay between the classes at fixed total work, whereas abandonment shortens every queue only by shedding a substantial fraction of priority demand --- nearly one class-1 arrival in four at moderate load --- so that its apparent waiting-time gains are in part attrition rather than faster service.
 \end{abstract}
 
 
