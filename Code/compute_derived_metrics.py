@@ -346,6 +346,21 @@ def write_macros(out):
         w = RHO_WORD[rho]
         for nm, mac in (("A", "A"), ("B2", "Btwo"), ("C2", "Ctwo"), ("BH", "BH"), ("CH", "CH")):
             cmd(f"PNGetwo{mac}{w}", f"{out['P_N1_ge2'][rho][nm]:.4f}")
+    L.append("")
+
+    # (6) priority premium E[W2]/E[W1] (2 d.p.) for A/B2/C2 at rho=0.70 and 0.90
+    for rho in ["0.7", "0.9"]:
+        w = RHO_WORD[rho]
+        for nm, mac in (("A", "A"), ("B2", "Btwo"), ("C2", "Ctwo")):
+            c = out["ctmc"][rho][nm]
+            cmd(f"premium{mac}{w}", f"{c['E_W2'] / c['E_W1']:.2f}")
+    L.append("")
+
+    # (7) throughput/loss decomposition for C2 at canonical rho=0.70 (4 d.p.; offered 2 d.p.)
+    c27 = out["ctmc"]["0.7"]["C2"]
+    cmd("throughputCtwoSeventy", f"{c27['throughput']:.4f}")
+    cmd("lostflowCtwoSeventy", f"{c27['aband_rate']:.4f}")
+    cmd("offeredSeventy", f"{c27['offered']:.2f}")
 
     path = os.path.join(os.path.dirname(__file__), "..", "results", "derived_metrics.tex")
     with open(path, "w") as f:

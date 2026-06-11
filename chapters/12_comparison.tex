@@ -295,7 +295,13 @@ Corollary~\ref{cor:B2:pi00}: the event ``server busy, both queues empty'' depend
 the total occupancy $N$, and jockeying leaves the law of $N$ unchanged. For $C_2$ the
 identity $\pi(0,0)=\rho\,\pi_0$ still holds, but $\pi_0>1-\rho$, so the curve is lifted ---
 at $\rho=0.70$, $\pi(0,0)=0.2587$ against the baseline $0.2100$
-(Table~\ref{tab:comp:main}).
+(Table~\ref{tab:comp:main}). The lift is also asymmetric: whereas the conserving parabola
+$\rho(1-\rho)$ is symmetric about $\rho=\tfrac12$, the $C_2$ curve in
+Figure~\ref{fig:comp:pi00} attains its maximum to the \emph{right} of that point, the
+signature of abandonment renormalising the effective load --- the busy-but-empty probability
+keeps climbing past the symmetric-load peak because the self-regulating valve blunts
+congestion fastest exactly where the baseline is heaviest, before the shrinking busy fraction
+finally pulls it down.
 
 The two head-of-line variants $\BH$ and $\CH$ added to
 Figures~\ref{fig:comp:sweep_en}--\ref{fig:comp:pi00} confirm that the qualitative split
@@ -505,16 +511,24 @@ abandonment outflow $\theta_1\mathbb{E}[N_1]$ is a self-regulating valve that op
 the longer the queue, so no class-1 backlog can persist. The idle-probability panel is the
 empirical face of Corollary~\ref{cor:C2:pi00}: every positive $\theta_1$ lifts $\pi_0$
 strictly above the Model-$A$ value $1-\rho=0.30$, because customers who abandon never reach
-the server and the busy fraction shrinks accordingly. We flag one departure from the
-expectation set in the simulation brief: $\mathbb{E}[N_2]$ here is \emph{monotonically
-decreasing} in $\theta_1$ (from $1.1627$ at $\theta_1=0.05$ to $0.4094$ at $\theta_1=5.0$),
-with no initial rise. The conjectured non-monotonicity --- class-1 exits freeing the server
-for class~2 --- is dominated at this load by the competing effect that faster class-1
-clearance also lowers the total work the class-2 queue inherits; the net effect on
-class~2 is a uniform reduction. The bottom-right panel quantifies the price: throughput
-falls from the Model-$A$ value $\mu\rho=0.70$ to $0.6304$ at $\theta_1=0.5$, the missing
-$0.0696$ being exactly the abandonment rate $\theta_1\mathbb{E}[N_1]$ --- carried load plus
-lost load equals offered load, as it must in steady state.
+the server and the busy fraction shrinks accordingly. This sweep also settles, as a \emph{negative finding}, a question flagged in the simulation
+brief. Two effects compete in $\mathbb{E}[N_2]$ as $\theta_1$ rises: abandonment is
+class-1-specific, so clearing the priority backlog lets the server reach class~2 sooner --- an
+effect that could in principle make $\mathbb{E}[N_2]$ rise transiently before falling --- set
+against the plain reduction in the total work the class-2 queue inherits once class~1 is bled
+off faster. At $\rho=0.70$ the second effect dominates throughout: $\mathbb{E}[N_2]$ is
+\emph{monotonically decreasing} in $\theta_1$ with no initial hump, contradicting the
+conjectured non-monotonicity. We observed no rebound at any load tested and conjecture that
+$\mathbb{E}[N_2]$ is monotone decreasing in $\theta_1$ for every $\rho<1$; a proof, or a
+counterexample at extreme class asymmetry, is left to future work (\S\ref{sec:future_work}). The bottom-right panel quantifies the price and, in doing so, supplies an independent
+numerical check. Throughput falls from the Model-$A$ value $\mu\rho=\offeredSeventy$ to
+$\throughputCtwoSeventy$ at $\theta_1=0.5$, a deficit of $\lostflowCtwoSeventy$; computed
+\emph{separately} as the abandonment flow $\theta_1\mathbb{E}[N_1]$, the lost rate reproduces
+that same $\lostflowCtwoSeventy$, so carried plus lost returns the offered $\offeredSeventy$.
+Because the throughput deficit $\mu\rho-\mu(1-\pi_0)$ and the abandonment integral
+$\theta_1\mathbb{E}[N_1]$ are distinct functionals of the stationary law --- one read from the
+idle probability of Corollary~\ref{cor:C2:pi00}, the other from the mean queue length --- their
+agreement is not a restatement of flow balance but an independent validation of both.
 
 Written as a fraction, this balance defines the model's \emph{loss}. The server delivers
 carried work at rate $\mu(1-\pi_0)$ whenever it is busy, and the offered rate is
@@ -573,6 +587,21 @@ $\theta_1=0.05$ to $0.468$ at $\theta_1=5.0$ (at $\rho=0.70$): a strong valve ev
 nearly half the priority arrivals, the explicit price of the queue-length and idle-time gains
 read off the same figure.
 
+\subsubsection{The price in lost customers}\label{subsubsec:comp:loss_price}
+
+The loss fraction is the strongest applied statement this thesis makes, and it is blunt: at
+$\rho=0.70$ with $\theta_1=0.5$ a fraction $L_1=\lossCtwoSeventy$ of class-1 arrivals ---
+almost one in four --- \emph{never reach the server at all}. This is the cost hidden behind
+the headline latency gain: the priority waiting time collapses from the Model-$A$ value
+$\mathbb{E}[W_1]=\uncondWoneA$ to $\uncondWoneCtwo$ under $C_2$, but the queue shortens partly
+because the server works it down and partly because roughly a quarter of it walks away. In the
+healthcare setting that motivates this work, an ``abandonment'' is not a customer defecting to
+a competitor but a patient whose condition deteriorates past the point of benefit, or who
+leaves the waiting list by death or transfer; $L_1$ is then a direct estimate of the fraction
+of high-priority demand lost to delay. A waiting-time figure that reads as an improvement can
+therefore encode a worsening of the outcome that matters most, so any operational use of a
+$C_2$-type policy must report $L_1$ \emph{alongside} $\mathbb{E}[W_1]$, never in its place.
+
 %% BEGIN SIMULATION RESULTS — fig_C2_E_BC_vs_theta1 %%
 \begin{figure}[H]
   \centering
@@ -616,7 +645,10 @@ as a congestion control. The ratio is everywhere below unity --- abandonment can
 shorten the class-1 queue --- and is smallest in the high-$\rho$, high-$\theta_1$ corner,
 where the Model-$A$ baseline is largest and the valve acts hardest. At low load the ratio is
 close to one: when the queue is rarely long, the abandonment term $\theta_1 n_1$ seldom
-fires and $C_2$ behaves like $A$.
+fires and $C_2$ behaves like $A$. Read across the panel, the ratio varies far more strongly
+down the $\theta_1$ axis than along the $\rho$ axis --- the map is nearly separable in
+$\theta_1$ --- so it is the \emph{valve strength}, not the offered load, that is the
+first-order control on how much abandonment helps the priority class.
 
 %% BEGIN SIMULATION RESULTS — tab_priority_benefit %%
 \input{figures/results/tab_priority_benefit.tex}
@@ -624,14 +656,26 @@ fires and $C_2$ behaves like $A$.
 
 Table~\ref{tab:prio:benefit} contrasts the priority structure directly. The ratio
 $\mathbb{E}[W_2]/\mathbb{E}[W_1]$ measures how strongly the discipline favours class~1.
-Jockeying inflates this ratio sharply --- to $7.18$ at $\rho=0.70$ and $22.38$ at
-$\rho=0.90$, against the baseline $3.33$ and $10.00$ --- but, as established above, the
-inflation reflects the collapse of the class-1 \emph{queue} (its residence time, not its
-service time) and a simultaneous lengthening of class~2. Abandonment moves the ratio in the
-opposite direction at high load ($6.30$ at $\rho=0.90$, below the baseline $10.00$),
-because it compresses both waiting times by shedding load. The two mechanisms are thus not
-substitutes: jockeying redistributes delay between classes at fixed total work, whereas
-abandonment reduces total work at the cost of served throughput.
+Jockeying inflates this ratio sharply --- to $\premiumBtwoSeventy$ at $\rho=0.70$ and
+$\premiumBtwoNinety$ at $\rho=0.90$, against the baseline $\premiumASeventy$ and
+$\premiumANinety$ --- but, as established above, the inflation reflects the collapse of the
+class-1 \emph{queue} (its residence time, not its service time) and a simultaneous lengthening
+of class~2. Abandonment moves the ratio in the opposite direction at high load
+($\premiumCtwoNinety$ at $\rho=0.90$, below the baseline $\premiumANinety$), because it
+compresses both waiting times by shedding load. The two mechanisms are thus not substitutes:
+jockeying redistributes delay between classes at fixed total work, whereas abandonment reduces
+total work at the cost of served throughput.
+
+The $\rho=0.90$ row of Table~\ref{tab:prio:benefit} is the single sharpest statement of this
+dichotomy. Under one and the same non-preemptive discipline the priority premium
+$\mathbb{E}[W_2]/\mathbb{E}[W_1]$ moves to $\premiumBtwoNinety$ under jockeying and to
+$\premiumCtwoNinety$ under abandonment, straddling the Model-$A$ baseline of $\premiumANinety$
+in \emph{opposite} directions. Both models look ``better for class~1'' on the raw
+$\mathbb{E}[W_1]$ column, yet for incompatible reasons --- jockeying widens the premium by
+exporting class-1 delay onto class~2 at conserved total work, abandonment narrows it by
+deleting class-1 work outright. Neither improvement is the naive one, faster service: reading
+the premium without the loss fraction of \S\ref{subsubsec:comp:loss_price} would mistake
+redistribution and attrition for speed.
 
 \subsection{Head-of-line versus full-rate mechanisms (Models \texorpdfstring{$\BH$}{B2-H} and \texorpdfstring{$\CH$}{C2-H})}
 \label{subsec:comp:hol}
@@ -675,6 +719,16 @@ panels of Figure~\ref{fig:comp:hol} show this directly: at $\gamma_1=0.5$ the fu
 $\mathbb{E}[N_1]$ from the Model-$A$ value $0.3000$ to $0.1545$ ($-48.5\%$), whereas the
 head-of-line rate reaches only $0.1750$ ($-41.7\%$); by $\gamma_1=50$ both have collapsed to
 $\mathbb{E}[N_1]\approx0.004$ and the curves are indistinguishable.
+
+This proxy can be read off the numbers directly. The full-versus-head-of-line gap in
+$\mathbb{E}[N_1]$ grows with load --- $\gapENoneFifty$, $\gapENoneSeventy$, $\gapENoneNinety$
+at $\rho=0.50,0.70,0.90$ --- and tracks the second-tail mass $\mathbb{P}(N_1\ge2)$, which over
+the same loads is $\PNGetwoBtwoFifty$, $\PNGetwoBtwoSeventy$, $\PNGetwoBtwoNinety$ (Model-$B_2$).
+The two move together because the full and head-of-line rates differ only on states with
+$n_1\ge2$: where the priority queue seldom holds two or more waiting customers the cap costs
+almost nothing, and where it often does the gap widens. The head-of-line $\mathbb{E}[N_1]$
+excess is therefore an operational proxy for $\mathbb{P}(N_1\ge2)$, both vanishing at low load
+and growing into the congested regime.
 
 Because jockeying conserves the total customer count under either rate
 (Corollary~\ref{cor:B21:pi0}), the milder class-1 drain of $\BH$ is mirrored by a milder
