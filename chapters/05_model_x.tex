@@ -22,16 +22,13 @@ Figure~\ref{fig:models-queue-overview}.
 
 \textbf{Stability.} Model-$X$ has abandonment from both classes, so the total departure
 rate in state $(n_1,n_2)$ is $\mu+\theta_1 n_1+\theta_2 n_2$, which grows without bound
-in every direction of the $(n_1,n_2)$-plane. This is made precise by a Foster--Lyapunov
-argument with the linear test function $V(n_1,n_2)=n_1+n_2$: in any busy state the mean
-one-step drift is $\mathbb{E}[\Delta V]=\lambda-\mu-\theta_1 n_1-\theta_2 n_2$ (arrivals
-raise $V$ at rate $\lambda=\lambda_1+\lambda_2$, service and abandonment lower it at rate
-$\mu+\theta_1 n_1+\theta_2 n_2$), which for any $\theta_1,\theta_2>0$ is bounded above by
-$-\varepsilon<0$ for all $(n_1,n_2)$ outside the finite set $\{n_1+n_2\le(\lambda+\varepsilon)/\min(\theta_1,\theta_2)\}$;
-by Foster's criterion~\cite{foster1953stochastic,meyn2009markov} the chain is therefore positive recurrent
-for \emph{all} $\lambda_1,\lambda_2,\mu>0$ and all $\theta_1,\theta_2>0$, with no
-traffic-intensity restriction required (cf.\ the Erlang-A queue,
-\S\ref{ssec:erlangA}). Setting $\theta_1=\theta_2=0$ removes this unbounded downward
+in every direction of the $(n_1,n_2)$-plane while the total arrival rate stays fixed at
+$\lambda=\lambda_1+\lambda_2$: far from the origin the chain drifts strictly towards
+smaller queues, so for any $\theta_1,\theta_2>0$ no traffic-intensity restriction of the
+form $\rho<1$ is to be expected (cf.\ the Erlang-A queue, \S\ref{ssec:erlangA}, which is
+stable at all loads). Throughout this section we therefore work under the hypothesis
+that the chain is positive recurrent, so that the stationary distribution exists.
+Setting $\theta_1=\theta_2=0$ removes this unbounded downward
 drift, and the condition reverts to $\rho=(\lambda_1+\lambda_2)/\mu<1$ as in the
 non-abandoning models (\S\S\ref{sec:model_a}--\ref{sec:model_b}).
 
