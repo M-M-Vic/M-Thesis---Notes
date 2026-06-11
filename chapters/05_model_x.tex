@@ -87,12 +87,11 @@ non-abandoning models (\S\S\ref{sec:model_a}--\ref{sec:model_b}).
     \end{align}
     and the surviving right-hand side is $-\mu z(1-z)\pi(0,0)=\mu z(z-1)\pi(0,0)$.
     Collecting,
-    \begin{align}
+    \begin{align*}
         z(z-1)(\mu-\lambda z)P(z,z)
         + z^2(z-1)\bigl[\theta_1\,\partial_x P + \theta_2\,\partial_y P\bigr]_{(z,z)}
         = \mu z(z-1)\,\pi(0,0),
-        \label{eq:X:diagonal_full}
-    \end{align}
+    \end{align*}
     and dividing by the common factor $z(z-1)\neq0$ (for $z\in(0,1)$)
     gives~\eqref{eq:X:diagonal}. The idle state $(0)$ exchanges probability flux only
     with the both-queues-empty busy state, so global balance across the idle--busy cut
@@ -232,18 +231,16 @@ Naming the quadratic in the numerator $Q(v)$, the variables separate:
 The quadratic $Q$ has discriminant
 $D=(\gamma_2+\theta_2-\gamma_1-\theta_1)^2+4\gamma_1\gamma_2>0$ and real roots of opposite
 sign (their product is $-\gamma_2/\gamma_1<0$),
-\begin{equation}
+\begin{equation*}
     v_{\pm}=\frac{-(\gamma_2+\theta_2-\gamma_1-\theta_1)\pm\sqrt{D}}{2\gamma_1},
     \qquad v_-<0<v_+ .
-    \label{eq:X:roots}
-\end{equation}
+\end{equation*}
 Decompose the left-hand side of~\eqref{eq:X:char_separated} by partial fractions over
 $Q(v)=\gamma_1(v-v_+)(v-v_-)$: writing
-\begin{equation}
+\begin{equation*}
     \frac{(\gamma_1+\theta_1)-\gamma_1 v}{\gamma_1(v-v_+)(v-v_-)}
     = \frac{a_+}{v-v_+} + \frac{a_-}{v-v_-}
-    \label{eq:X:pf_ansatz}
-\end{equation}
+\end{equation*}
 and clearing denominators,
 \begin{equation}
     (\gamma_1+\theta_1)-\gamma_1 v
@@ -313,12 +310,11 @@ case.
 
 To find $P$ along a characteristic we take the ratio of the first and third differentials
 in~\eqref{eq:X:char_system},
-\begin{equation}
+\begin{equation*}
     \frac{dP}{P}
     = \frac{-A\bigl(x,y(x)\bigr)}
            {x\bigl[\gamma_1(x-y(x))+\theta_1(x-1)\bigr]}\,dx ,
-    \label{eq:X:dPP}
-\end{equation}
+\end{equation*}
 where $y(x)=y(x;C_1)$ is the characteristic~\eqref{eq:X:first_integral}. Integrating
 yields the general homogeneous solution
 \begin{equation}
@@ -533,14 +529,14 @@ from the known remainder, define the kernel and remainder
     \mathcal{R}(z) &:= -\,\mu\,\pi(0,0)\,P_h^{\,\mathrm{diag}}(z)
         \int_0^z \frac{1-y(t;z)}
         {y(t;z)\bigl[\gamma_1(t-y(t;z))+\theta_1(t-1)\bigr]\,P_h\bigl(t,y(t;z)\bigr)}\,dt,
-    \label{eq:X:Rdef}
+    \nonumber
 \end{align}
 so that~\eqref{eq:X:diag_eval} reads
 $P(z,z)=\int_0^z\mathcal{K}(z,t)\,P_y(y(t;z))\,dt+\mathcal{R}(z)$. It remains to
 express the left-hand side $P(z,z)$. Solving the diagonal
 relation~\eqref{eq:X:diagonal} for $P(z,z)$ and using
 $\mu/(\mu-\lambda z)=1/(1-\rho z)$,
-\begin{align}
+\begin{align*}
     \begin{split}
         (\mu-\lambda z)\,P(z,z)
         &= \mu\,\pi(0,0)
@@ -551,8 +547,7 @@ $\mu/(\mu-\lambda z)=1/(1-\rho z)$,
         - \frac{z}{\mu-\lambda z}
           \bigl[\theta_1\partial_x P+\theta_2\partial_y P\bigr]_{(z,z)} .
     \end{split}
-    \label{eq:X:diag_solved}
-\end{align}
+\end{align*}
 Setting
 \begin{equation}
     \mathcal{F}(z) := P(z,z) - \mathcal{R}(z)

@@ -98,8 +98,7 @@ Therefore, we define our state spaces as follows:
 \begin{align}
     \begin{split}
         &S := \{(0)\} \cup \{ (n_1,n_2) \mid n_1,n_2 \geq 0 \},
-        \label{eq:gen:state_space_S}
-    \end{split} \\
+    \end{split} \nonumber \\
     \begin{split}
         &\widetilde{S} := \{(0)\} \cup \{ (n_2,n) \mid n \geq n_2 \geq 0 \}.
         \label{eq:gen:state_space_Stilde}
@@ -271,23 +270,23 @@ The balance equations, after combining the equations where $\tpi_0$ shows up, ar
 \subsection{Derivation of equations for (Partial) Probability Generating functions} \label{ssec:pgf_derivation}
 
 In order to study the limiting behaviour of this two-class system, we define the bivariate Probability Generating Function (PGF) of the joint number of customers in the queue for each class, $N_1$ and $N_2$:
-\begin{equation}
+\begin{equation*}
     P(x,y) = \mathbb{E}[x^{N_1} y^{N_2}] = \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1} y^{n_2}.
-\end{equation}
+\end{equation*}
 
 The derivation that will be carried out here includes the boundary terms, where at least one of the two queues is empty:
-\begin{align}
+\begin{align*}
     P_x(x) &= P(x,0) = \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} \\
     P_y(y) &= P(0,y) = \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}.
-\end{align}
+\end{align*}
 
 Note that both of these terms include the state where the server is busy but both queues are empty, which is represented by $\pi(0,0)$, while the state where the entire system is empty (the idle state) is treated separately.
 
 
 Another term that arises during the application of the balance equations characterises the boundary dynamics when the class-$1$ queue contains exactly one waiting customer:
-\begin{equation}
+\begin{equation*}
     P_1(y) = \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2}.
-\end{equation}
+\end{equation*}
 This term serves as an intermediate step; as the derivation proceeds, it will be possible to express it in terms of the primary boundary functions $P_x(x)$ and $P_y(y)$.
 
 In the same fashion, we introduce the concept of the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably utilised by Cohen \cite{cohen1956delay}, consists of transforming only a subset of the random variables while maintaining the discrete indices of the remainder. In the context of a priority queue, this method is particularly advantageous: it allows us to exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and focus the analytical effort on the non-trivial PGF of the non-priority class.
@@ -301,14 +300,14 @@ We define the PPGF with respect to the second variable $N_2$, conditioned on the
 \end{equation}
 
 Similarly, the transform with respect to the first variable $N_1$, while maintaining the discrete state $n_2$ for the second queue, is defined as:
-\begin{equation}
+\begin{equation*}
     \widetilde{P}(x, n_2) = \mathbb{E} \left[x^{N_1} \mathbb{1}_{\{ N_2=n_2\}} \right] = \sum_{n_1=0}^{\infty} \pi(n_1,n_2) x^{n_1}.
-\end{equation}
+\end{equation*}
 
 These partial transforms are linked to the joint PGF by the following relations:
-\begin{equation}
+\begin{equation*}
     P(x,y) = \sum_{n_1=0}^{\infty} \widetilde{P}(n_1, y) x^{n_1} = \sum_{n_2=0}^{\infty} \widetilde{P}(x, n_2) y^{n_2}.
-\end{equation}
+\end{equation*}
 
 
 \subsubsection{Equation for PGF in state space \texorpdfstring{$S$}{S}}
@@ -346,7 +345,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
     We multiply each balance equation by $x^{n_1}y^{n_2}$ and sum over its domain.
 
     From the interior equation~\eqref{eq:gen:balance_interior}:
-    \begin{align}
+    \begin{align*}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2) x^{n_1}y^{n_2} \\
             &+ \gamma_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1}y^{n_2} \\
@@ -365,10 +364,10 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
             & LHS_1 + LHS_2 + LHS_3 + LHS_4 + LHS_5 \\
             & \quad = \quad RHS_1 + RHS_2 + RHS_3 + RHS_4 + RHS_5 + RHS_6 + RHS_7
         \end{split}
-    \end{align}
+    \end{align*}
     
     Evaluating each summand:
-    \begin{align}
+    \begin{align*}
         \begin{split}
             & LHS_1 \\
             & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} \pi(n_1,n_2)x^{n_1}y^{n_2} \\
@@ -557,7 +556,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
                 \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) - P_x(x | n_2=1) + \pi(0, 1)
             \right]
         \end{split}
-    \end{align}
+    \end{align*}
     
     Collecting and multiplying through by $xy$ to clear the $x^{-1}$ factor:
     \begin{align}
@@ -751,7 +750,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
     \end{align}
     
     Isolating $[\mu+\gamma_1 y+\theta_1]\,xy\,P_y(y|n_1=1)$ from~\eqref{eq:gen:transform_y_boundary} and substituting into~\eqref{eq:gen:plugged_interior_x}:
-    \begin{align}
+    \begin{align*}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
             & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
@@ -767,7 +766,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
             & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
             & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
         \end{split}.
-    \end{align}
+    \end{align*}
 \end{proof}
 
 
@@ -785,7 +784,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
     \]
     a polynomial of degree $n$ in $y$. Then, for every $n\ge 1$, the family
     $\{\widetilde{P}(y,n)\}_{n\ge 0}$ satisfies the differential--difference equation
-    \begin{equation}
+    \begin{equation*}
     \begin{split}
         & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n)
           + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
@@ -794,8 +793,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
         & \quad \quad + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1)
           + \mu y^{n} (1-y)\, \tpi(n+1,n+1).
     \end{split}
-    \label{eq:gen:PPGF_dynamics}
-    \end{equation}
+    \end{equation*}
 \end{lemma}
 
 \begin{proof}
@@ -837,7 +835,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
     \end{align*}
     
     Evaluating each summand:
-    \begin{align}
+    \begin{align*}
         \begin{split}
             & LHS_1 \\
             & \quad = \quad (\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
@@ -922,7 +920,7 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
             & \quad = \quad \theta_2 \left[ \sum_{k=1}^{n+1} k \tpi(k,n+1) y^{k-1} - 1 \cdot \tpi(1,n+1) y^0 \right] \\
             & \quad = \quad \theta_2 \left[ \frac{d}{dy} \widetilde{P}(y,n+1) - \tpi(1,n+1) \right]
         \end{split}
-    \end{align}
+    \end{align*}
     
     Collecting:
     \begin{align*}
@@ -952,13 +950,13 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
         \end{split}
     \end{align*}
     The $y$-boundary equation~\eqref{eq:gen:tilde_balance_y_boundary} makes the bracketed terms vanish; since $\tpi(n,n-1)=0$ (outside $\widetilde{S}$):
-    \begin{align}
+    \begin{align*}
         \begin{split}
             & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
             & \quad = \quad (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \left[ \mu + \theta_1 (n+1) \right] \widetilde{P}(y,n+1) + (\theta_2 - \theta_1 y) \frac{d}{dy} \widetilde{P}(y,n+1) \\
             & \quad \quad + \mu y^n (1-y) \tpi(n+1,n+1)
         \end{split}
-    \end{align}
+    \end{align*}
 \end{proof}
 
 

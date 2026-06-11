@@ -72,10 +72,9 @@ of this section is built on it.
 \begin{corollary}\label{cor:B2:pi00}
     The empty-system probability $\pi_0$ (server idle, no one waiting) and the
     both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model-$B_2$ are
-    \begin{equation}
+    \begin{equation*}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
-        \label{eq:B2:pi00}
-    \end{equation}
+    \end{equation*}
     identical to the Model-$A$ baseline.
 \end{corollary}
 
@@ -93,18 +92,16 @@ of this section is built on it.
     equation~\eqref{eq:B2:fundamental}. The convection term $\gamma_1 xy(x-y)\partial_x P$
     and the boundary term $\mu(x-y)P_y(y)$ both carry the factor $(x-y)$ and vanish on the
     diagonal; dividing the surviving terms by the common factor $x$ leaves
-    \begin{equation}
+    \begin{equation*}
         \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
         = -\mu(1-x)\,\pi(0,0).
-        \label{eq:B2:diagonal_ode}
-    \end{equation}
+    \end{equation*}
     Factoring the bracket and cancelling $(x-1)$ against $-(1-x)=(x-1)$ on the right:
-    \begin{align}
+    \begin{align*}
         \bigl[{-\lambda x^2} + (\lambda+\mu)x - \mu\bigr]P(x,x)
         &= (\mu-\lambda x)(x-1)\,P(x,x) \nonumber\\
         &= \mu(x-1)\,\pi(0,0),
-        \label{eq:B2:diagonal_factored}
-    \end{align}
+    \end{align*}
     so that
     \begin{equation}
         P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
@@ -141,13 +138,12 @@ Write the numerator of $p$ as a polynomial in $x$,
 which factors through the roots $x^*(y),x^+(y)$ of the Model-$A$ kernel
 (Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$. The partial-fraction
 coefficients of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ follow by residues:
-\begin{align}
+\begin{align*}
     A &= -\lambda_1 && \text{(ratio of leading $x^2$ terms)}, \nonumber\\
     B &= \frac{N(0)}{0-y} = \frac{-\mu}{-y} = \frac{\mu}{y}, \nonumber\\
     C &= \frac{N(y)}{y} = \frac{-(\lambda y-\mu)(y-1)}{y}
        = \frac{(1-y)(\lambda y-\mu)}{y},
-    \label{eq:B2:pfrac_coeffs}
-\end{align}
+\end{align*}
 where $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Hence
 \begin{equation}
     p(x;y) = \frac{1}{\gamma_1}\!\left[
@@ -166,10 +162,9 @@ the partial-fraction form~\eqref{eq:B2:pfrac} term by term gives, up to an addit
 \]
 Exponentiating (an integrating factor is determined only up to a multiplicative constant,
 which we drop) yields the \emph{real} integrating factor
-\begin{equation}
+\begin{equation*}
     \mu_I(x;y) = e^{-\lambda_1 x/\gamma_1}\,x^{\,\alpha(y)}\,(y-x)^{\,\beta(y)},
-    \label{eq:B2:mu_I}
-\end{equation}
+\end{equation*}
 with exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and
 $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$ as in~\eqref{eq:B2:exponents_thm}; one verifies
 directly that $\mu_I'/\mu_I = -\lambda_1/\gamma_1 + \alpha/x + \beta/(x-y) = p(x;y)$, using
@@ -177,21 +172,19 @@ $\tfrac{d}{dx}\ln(y-x)^{\beta}=\beta/(x-y)$. Working with $(y-x)>0$ in place of 
 base $(x-y)$ keeps every quantity manifestly real throughout the principal triangle. Since
 $\alpha>0$ we have $\mu_I\to0$ as $x\to0^{+}$, so the boundary term $P(0,y)\,\mu_I(0;y)$
 vanishes when we integrate $\tfrac{d}{dx}[P\cdot\mu_I]=q\cdot\mu_I$ over $(0,x]$:
-\begin{equation}
+\begin{equation*}
     P(x,y)\,\mu_I(x;y) = \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
-    \label{eq:B2:ODE_integral}
-\end{equation}
+\end{equation*}
 It remains to evaluate the right-hand side. Multiplying $q$ from~\eqref{eq:B2:qxy} by
 $\mu_I$ and rewriting the second term with the elementary identity
 $(y-t)^{\beta}/(t-y)=-(y-t)^{\beta-1}$, the integrand separates into two manifestly real
 pieces,
-\begin{equation}
+\begin{equation*}
     q(t;y)\,\mu_I(t;y) = \frac{\mu}{\gamma_1 y}\Bigl[
         P_y(y)\,e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(y-t)^{\beta}
         + (1-y)\pi(0,0)\,e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(y-t)^{\beta-1}
     \Bigr],
-    \label{eq:B2:integrand}
-\end{equation}
+\end{equation*}
 the minus sign of~\eqref{eq:B2:qxy} having been absorbed by that identity. With the
 auxiliary integrals $\mathcal{H}_1,\mathcal{H}_2$ of~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and
 dividing through by $\mu_I(x;y)=e^{-\lambda_1 x/\gamma_1}x^{\alpha}(y-x)^{\beta}$, the
@@ -238,11 +231,10 @@ ODE~\eqref{eq:B2:pxy}--\eqref{eq:B2:qxy} at $x=y$. By the partial fraction~\eqre
 $p$ has a simple pole at $x=y$ with residue $\beta$; by~\eqref{eq:B2:qxy}, $q$ has the leading
 singularity $-D/(x-y)$ with $D=\mu(1-y)\pi(0,0)/(\gamma_1 y)$.  The local model equation is
 therefore
-\begin{equation}
+\begin{equation*}
     P'(x,y) + \frac{\beta}{x-y}\,P(x,y)
     = \frac{-D}{x-y} + (\text{analytic near }x=y).
-    \label{eq:B2:local_ode}
-\end{equation}
+\end{equation*}
 A constant particular solution $P\equiv P_*$ requires $\beta P_* = -D$, so, cancelling the
 common factor $(1-y)/(\gamma_1 y)$ shared by $D$ and $\beta$,
 \begin{equation}
@@ -267,14 +259,13 @@ As $x\to y^{-}$ each integral admits a local expansion, obtained by Taylor-expan
 smooth integrand factor --- $g_1(t)=e^{-\lambda_1 t/\gamma_1}t^{\alpha-1}$ for
 $\mathcal{H}_1$, $g_2(t)=e^{-\lambda_1 t/\gamma_1}t^{\alpha}$ for $\mathcal{H}_2$ --- about
 $t=y$ and integrating the leading power of $(y-t)$:
-\begin{align}
+\begin{align*}
     \mathcal{H}_1(x,y) &= \mathrm{f.p.}\,\mathcal{H}_1(y,y)
         \;-\; \frac{g_1(y)}{\beta+1}\,(y-x)^{\beta+1} + \cdots,
-    \label{eq:B2:I1_expansion}\\
+    \\
     \mathcal{H}_2(x,y) &= \mathrm{f.p.}\,\mathcal{H}_2(y,y)
         \;-\; \frac{g_2(y)}{\beta}\,(y-x)^{\beta} + \cdots,
-    \label{eq:B2:I2_expansion}
-\end{align}
+\end{align*}
 where $\mathrm{f.p.}$ denotes the Hadamard finite part (the $x\to y$ limit of the integral
 once its singular term has been subtracted) and the omitted terms are of higher order.
 Multiplying by $\Psi(x)(y-x)^{-\beta}$ sorts the contributions to $P(x,y)$ by their power of
@@ -369,7 +360,7 @@ $P_y(0)=\sum_{n_2}\pi(0,n_2)\cdot0^{n_2}=\pi(0,0)$.
 
 Substituting~\eqref{eq:B2:Py} into the real-form expression~\eqref{eq:B2:Pxy_real}
 gives, for $0\le x\le y$,
-\begin{align}
+\begin{align*}
     P(x,y) &= \frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
     \biggl[
         \frac{\mu\,\pi(0,0)}{\mu-\lambda y}
@@ -380,8 +371,7 @@ gives, for $0\le x\le y$,
     &\hspace{5.8cm}
         + (1-y)\pi(0,0)\cdot\mathcal{H}_2(x,y)
     \biggr],
-    \label{eq:B2:Pxy_proof}
-\end{align}
+\end{align*}
 which is the statement of the theorem (Equation~\eqref{eq:B2:Pxy}).
 The no-branch condition~\eqref{eq:B2:nobranch} guarantees that this extends
 analytically across $x=y$, with diagonal value
@@ -447,17 +437,16 @@ Setting $x=y=z$ in the reduced fundamental equation~\eqref{eq:B2:fundamental}, t
 jockeying convection term $\gamma_1 xy(x-y)\partial_xP$ vanishes at $x=y=z$
 (factor $(x-y)=0$), as does the boundary term $\mu(x-y)P_y(y)$.  The remaining
 balance is identical to Model-$A$'s, so the same diagonal cancellation gives:
-\begin{align}
+\begin{align*}
     \begin{split}
         P(z,z) \;=\; \frac{\rho(1-\rho)}{1-\rho z},
     \end{split}
-    \label{eq:B2:Pzz}
-\end{align}
+\end{align*}
 the same formula as~\eqref{eq:A:Pzz}.  Since $P(z,z)=\mathbb{E}[z^{N_1+N_2}]=\mathbb{E}[z^{N}]$
 is the PGF of the total in-queue count $N$, the generating-function identity
 $\tfrac{d}{dz}P(z,z)\big|_{z=1}=\mathbb{E}[N_1]+\mathbb{E}[N_2]$ holds;
 differentiating by the quotient rule and evaluating at $z=1$:
-\begin{align}
+\begin{align*}
     \begin{split}
         \mathbb{E}[N_1]+\mathbb{E}[N_2]
         \;=\; \left.\frac{d}{dz}\,\frac{\rho(1-\rho)}{1-\rho z}\right|_{z=1}
@@ -465,8 +454,7 @@ differentiating by the quotient rule and evaluating at $z=1$:
         \;=\; \frac{\rho^2(1-\rho)}{(1-\rho)^2}
         \;=\; \frac{\rho^2}{1-\rho}.
     \end{split}
-    \label{eq:B2:EN}
-\end{align}
+\end{align*}
 One-way jockeying does not alter the total mean queue length relative to
 Model-$A$, since the diagonal PGF is unchanged.
 
@@ -482,34 +470,32 @@ $(\lambda_1+\mu)x-\mu-\lambda_1 x^2=-\lambda_1(x-1)(x-1/\rho_1)$, the convection
 coefficient is $\gamma_1 x(x-1)$, and the right-hand side reduces to $\mu(x-1)P_y(1)$
 (the $\pi(0,0)$ term carries the factor $(1-y)=0$). Every term therefore shares the common
 factor $(x-1)$; cancelling it leaves the first-order linear ODE in $x$:
-\begin{align}
+\begin{align*}
     \begin{split}
         -\lambda_1(x-1/\rho_1)\,P(x,1)
         \;+\; \gamma_1 x\,\frac{d}{dx}P(x,1)
         \;=\; \mu\,P_y(1).
     \end{split}
-    \label{eq:B2:ode_y1}
-\end{align}
+\end{align*}
 The integrating factor for this ODE is $e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}$
 (noting $\lambda_1/\rho_1=\mu$), and integrating from $0$ to $x$ (the boundary term
 vanishes since $0^{\mu/\gamma_1}=0$):
-\begin{align}
+\begin{align*}
     \begin{split}
         P(x,1)\,e^{-\lambda_1 x/\gamma_1}\,x^{\,\mu/\gamma_1}
         \;=\; \frac{\mu\,P_y(1)}{\gamma_1}
         \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\mu/\gamma_1-1}\,dt.
     \end{split}
-\end{align}
+\end{align*}
 Rearranging and writing $\alpha=\mu/\gamma_1$ and
 $\mathcal{J}(x)=\int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}\,dt$:
-\begin{align}
+\begin{align*}
     \begin{split}
         P(x,1)
         \;=\; \frac{\mu\,P_y(1)}{\gamma_1}
         \cdot e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}\,\mathcal{J}(x).
     \end{split}
-    \label{eq:B2:Px1}
-\end{align}
+\end{align*}
 The constant $P_y(1)$ follows from $P(1,1)=1-\pi_0=\rho$, which gives
 $P_y(1)=\rho\gamma_1/\bigl(\mu\,e^{\lambda_1/\gamma_1}\,\mathcal{J}(1)\bigr)$.
 
@@ -518,16 +504,16 @@ Writing $P(x,1)=C\cdot f(x)\cdot\mathcal{J}(x)$ with $C=\mu P_y(1)/\gamma_1$ and
 $f(x)=e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}$, the product rule together with
 Leibniz's rule ($d\mathcal{J}/dx = e^{-\lambda_1 x/\gamma_1}\,x^{\alpha-1}$, the integrand
 at the upper limit) gives:
-\begin{align}
+\begin{align*}
     \begin{split}
         \frac{d}{dx}P(x,1)
         &\;=\; C\Bigl[f'(x)\,\mathcal{J}(x)+f(x)\cdot e^{-\lambda_1 x/\gamma_1}\,x^{\alpha-1}\Bigr].
     \end{split}
-\end{align}
+\end{align*}
 The logarithmic derivative $f'(x)/f(x)=\lambda_1/\gamma_1-\alpha/x=(\lambda_1 x-\mu)/(\gamma_1 x)$,
 and the second product term simplifies as
 $f(x)\,e^{-\lambda_1 x/\gamma_1}x^{\alpha-1}=x^{-1}$, so:
-\begin{align}
+\begin{align*}
     \begin{split}
         \frac{d}{dx}P(x,1)
         &\;=\; \frac{\mu\,P_y(1)}{\gamma_1}\left[
@@ -536,7 +522,7 @@ $f(x)\,e^{-\lambda_1 x/\gamma_1}x^{\alpha-1}=x^{-1}$, so:
             \;+\; x^{-1}
         \right].
     \end{split}
-\end{align}
+\end{align*}
 
 \medskip\noindent\textit{Step~3: evaluate at $x=1$.}\enspace
 \begin{align}
@@ -562,14 +548,13 @@ Model-$A$ value~\eqref{eq:A:EN1} is recovered.
 
 \subsubsection*{Class-2 mean queue length by subtraction}
 
-\begin{align}
+\begin{align*}
     \begin{split}
         \mathbb{E}[N_2]
         \;=\; \bigl(\mathbb{E}[N_1]+\mathbb{E}[N_2]\bigr)-\mathbb{E}[N_1]
         \;=\; \frac{\rho^2}{1-\rho}-\mathbb{E}[N_1].
     \end{split}
-    \label{eq:B2:EN2}
-\end{align}
+\end{align*}
 Since jockeying defections reduce the class-1 queue,
 $\mathbb{E}[N_1]$ is smaller than the Model-$A$ value $\rho\rho_1/(1-\rho_1)$,
 so $\mathbb{E}[N_2]$ correspondingly exceeds the Model-$A$ value.
