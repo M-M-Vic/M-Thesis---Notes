@@ -356,11 +356,17 @@ def write_macros(out):
             cmd(f"premium{mac}{w}", f"{c['E_W2'] / c['E_W1']:.2f}")
     L.append("")
 
-    # (7) throughput/loss decomposition for C2 at canonical rho=0.70 (4 d.p.; offered 2 d.p.)
-    c27 = out["ctmc"]["0.7"]["C2"]
-    cmd("throughputCtwoSeventy", f"{c27['throughput']:.4f}")
-    cmd("lostflowCtwoSeventy", f"{c27['aband_rate']:.4f}")
-    cmd("offeredSeventy", f"{c27['offered']:.2f}")
+    # (7) throughput (all five models), abandonment flow (C2, CH) and offered load, at the
+    #     three loads -- for the loss-accounting companion table (tab:comp:loss_acct) and the
+    #     throughput-deficit validation. C2/CH have light tails so these are exact to 4 d.p.;
+    #     the conserving models A/B2/BH carry zero abandonment by construction.
+    for rho in ["0.5", "0.7", "0.9"]:
+        w = RHO_WORD[rho]
+        cmd(f"offered{w}", f"{out['ctmc'][rho]['A']['offered']:.2f}")
+        for nm, mac in (("A", "A"), ("B2", "Btwo"), ("BH", "BH"), ("C2", "Ctwo"), ("CH", "CH")):
+            cmd(f"throughput{mac}{w}", f"{out['ctmc'][rho][nm]['throughput']:.4f}")
+        for nm, mac in (("C2", "Ctwo"), ("CH", "CH")):
+            cmd(f"lostflow{mac}{w}", f"{out['ctmc'][rho][nm]['aband_rate']:.4f}")
 
     path = os.path.join(os.path.dirname(__file__), "..", "results", "derived_metrics.tex")
     with open(path, "w") as f:

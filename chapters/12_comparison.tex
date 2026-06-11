@@ -319,12 +319,52 @@ full-rate $C_2$ values ($0.8358$ and $0.3696$). The structural reason for this s
 \input{figures/results/tab_comparison_main.tex}
 %% END SIMULATION RESULTS — tab_comparison_main %%
 
+% Companion loss-accounting table. Hand-authored but every number is sourced from
+% results/derived_metrics.tex (D1 pipeline); re-run Code/compute_derived_metrics.py to
+% regenerate the macros. Kept separate from Table~\ref{tab:comp:main} to stay within margins.
+\begin{table}[t]\centering
+\caption{Class-1 loss accounting accompanying Table~\ref{tab:comp:main}, at the same three
+loads and parameters ($\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$; mechanism parameter $0.5$).
+\emph{Throughput} is the carried rate $\mu(1-\pi_0)$; \emph{abandonment rate} is the class-1
+loss flow ($\theta_1\mathbb{E}[N_1]$ for the full rate, $\theta_1\mathbb{P}(N_1\ge1)$ for
+head-of-line); and $P_{\mathrm{loss}}^{(1)}=\theta_1\mathbb{E}[N_1]/\lambda_1$ is the fraction
+of class-1 arrivals shed before service (eq.~\eqref{eq:comp:lossfrac}). The conserving models
+$A$, $B_2$, $\BH$ lose nothing; only $C_2$ and $\CH$ have $P_{\mathrm{loss}}^{(1)}>0$, and at
+every row throughput${}+{}$abandonment rate${}={}$offered load $\rho$.}
+\label{tab:comp:loss_acct}
+\begin{tabular}{llrrr}
+\toprule
+$\rho$ & Model & Throughput & Aband.\ rate & $P_{\mathrm{loss}}^{(1)}$ \\
+\midrule
+\multirow{5}{*}{0.50} & A & \throughputAFifty & $0$ & $0$ \\
+ & B$_2$ & \throughputBtwoFifty & $0$ & $0$ \\
+ & $\BH$ & \throughputBHFifty & $0$ & $0$ \\
+ & C$_2$ & \throughputCtwoFifty & \lostflowCtwoFifty & \lossCtwoFifty \\
+ & $\CH$ & \throughputCHFifty & \lostflowCHFifty & \lossCHFifty \\
+\midrule
+\multirow{5}{*}{0.70} & A & \throughputASeventy & $0$ & $0$ \\
+ & B$_2$ & \throughputBtwoSeventy & $0$ & $0$ \\
+ & $\BH$ & \throughputBHSeventy & $0$ & $0$ \\
+ & C$_2$ & \throughputCtwoSeventy & \lostflowCtwoSeventy & \lossCtwoSeventy \\
+ & $\CH$ & \throughputCHSeventy & \lostflowCHSeventy & \lossCHSeventy \\
+\midrule
+\multirow{5}{*}{0.90} & A & \throughputANinety & $0$ & $0$ \\
+ & B$_2$ & \throughputBtwoNinety & $0$ & $0$ \\
+ & $\BH$ & \throughputBHNinety & $0$ & $0$ \\
+ & C$_2$ & \throughputCtwoNinety & \lostflowCtwoNinety & \lossCtwoNinety \\
+ & $\CH$ & \throughputCHNinety & \lostflowCHNinety & \lossCHNinety \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 %% BEGIN SIMULATION RESULTS — tab_EN_sweep %%
 \input{figures/results/tab_EN_sweep.tex}
 %% END SIMULATION RESULTS — tab_EN_sweep %%
 
-Table~\ref{tab:comp:main} reads off the full set of stationary descriptors at three loads.
-Two columns deserve a reviewer's caution. First, the priority waiting time
+Table~\ref{tab:comp:main} reads off the full set of stationary descriptors at three loads;
+the class-1 loss accounting --- throughput, abandonment flow, and the loss fraction
+$P_{\mathrm{loss}}^{(1)}$ --- is carried in the compact companion Table~\ref{tab:comp:loss_acct}
+so the main table stays within the margins. Two columns deserve a reviewer's caution. First, the priority waiting time
 $\mathbb{E}[W_1]$ is smallest for $C_2$ at every load (Table~\ref{tab:comp:EN_sweep}:
 $0.5941$ at $\rho=0.90$ against $0.6808$ for $B_2$ and $1.4651$ for $A$), but
 $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ is the mean time a customer is \emph{counted in
