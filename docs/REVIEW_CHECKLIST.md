@@ -15,7 +15,7 @@
 | B2 | Move Model-X analysis after Model-B; rewrite roadmap | `bc8e108`, repo-map note `5ef1807` | ✅ done — roadmap order verified against `main.tex` input order |
 | C1 | Interpretive paragraph after Lemma 1 | `2169873` | ✅ done |
 | C2 | Justify Hadamard finite part in Model-B | `6f7a0aa` | ✅ done |
-| C3 | Promote γ₁→0⁺ singular-limit discussion to a Remark (Model-B₂) | — | ❌ **not addressed** — the discussion still sits inside the proof of the theorem in `chapters/08_model_b2.tex` (after `eq:B2:Pxy_proof`); no `remark` environment is declared in the preamble |
+| C3 | Promote γ₁→0⁺ singular-limit discussion to a Remark (Model-B₂) | `c81b0ee` | ✅ done — Remark 1 (`rem:B2:singular_limit`), `remark` environment added to preamble |
 | C4 | Rigor patches (Foster–Lyapunov, C₂ necessity, P(N₁=0\|busy)) | `e9052e6` | ✅ done |
 | C5 | Reframe §6.2 / demote Theorem 2 to characterised approximation | `26835e4` | ✅ done — audit grep confirms "Theorem 2" no longer appears |
 | D1 | Derived metrics pipeline (`results/derived_metrics.tex`) | `51938ad` | ✅ done |
@@ -87,7 +87,7 @@
   `Code/compute_derived_metrics.py` and regenerating.
 
 ## Open items for the author
-1. **C3 is the only unaddressed playbook task** (singular-limit Remark in B₂).
+1. ~~C3~~ Done in `c81b0ee` — all playbook tasks are now addressed.
 2. Confirm the working title (`main.tex:49`).
 3. Supply the two missing citations (Kernel Method; Hadamard finite part).
 4. Resolve the remaining `[AUTHOR]`/`[Discuss]` comment flags listed above.
