@@ -159,9 +159,14 @@ moderately loaded regime.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Mean queue lengths and mean waiting times}
 
-% [Introduce: Little's Law holds for all three models. Mention the conservation
-%  property of B₂ (E[N] is the same as Model-$A$) vs C₂ (E[N] decreases with θ₁).
-%  Note that for C₂ the arrival rate λ_i (not the throughput) is used in L=λW.]
+Throughout this subsection waiting times are obtained from \emph{Little's Law},
+$\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$, applied per class. For Model-$C_2$
+the \emph{offered} rate $\lambda_i$ is used, not the carried throughput, so
+$\mathbb{E}[W_1]$ is the mean time in queue per arriving class-1 customer,
+including those who eventually abandon. The two mechanisms separate cleanly at
+the aggregate level: jockeying conserves the total queue length
+($\mathbb{E}[N]=\rho^2/(1-\rho)$ for every $\gamma_1$, as in Model-$A$),
+whereas abandonment strictly reduces it as $\theta_1$ grows.
 
 Figure~\ref{fig:meanq_all} shows $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, and the
 implied waiting times $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ as the
@@ -174,14 +179,13 @@ varies from zero (Model-$A$ limit, dashed) to three.
     \caption{Mean queue lengths (top row) and mean waiting times (bottom row)
     for Models $B_2$ (left column) and C$_2$ (right column) as their respective
     mechanism parameters vary.  Dashed lines indicate the Model-$A$ baseline.
-    % [Discuss B₂ left panels: jockeying transfers load from Class-1 to Class-2
-    %  while conserving the total E[N]. Class-1 benefits; Class-2 is penalised.
-    %  The total E[N] = ρ²/(1-ρ) is the grey dotted line — perfectly flat.]
-    % [Discuss C₂ right panels: abandonment reduces E[N₁] directly (class-1
-    %  customers leave the queue). Class-2 also benefits indirectly because
-    %  the server is freed sooner. Both curves fall below the Model-$A$ dashed lines.
-    %  The limit θ₁→0 recovers the Model-$A$ values.]
-    }
+    \emph{Left}: jockeying transfers occupancy from class~1 to class~2 at
+    conserved total --- the grey dotted total
+    $\mathbb{E}[N]=\rho^2/(1-\rho)$ is perfectly flat; class~1 benefits,
+    class~2 is penalised. \emph{Right}: abandonment reduces
+    $\mathbb{E}[N_1]$ directly and $\mathbb{E}[N_2]$ indirectly (the server is
+    freed sooner); both curves fall below the Model-$A$ baseline, which is
+    recovered as $\theta_1\to0$.}
     \label{fig:meanq_all}
 \end{figure}
 
@@ -203,18 +207,13 @@ with $\mu$ replaced by the effective clearance rate $\mu+\gamma_1$ or $\mu+\thet
 they are reported alongside $B_2$, $C_2$ in the comparison of \S\ref{sec:comparison}.
 
 % ─────────────────────────────────────────────────────────────────────────────
-\subsection{Experiment models B\texorpdfstring{$_2^1$}{21} and C\texorpdfstring{$_2^1$}{21}}
+\subsection{Head-of-line models \texorpdfstring{$\BH$}{B2-H} and \texorpdfstring{$\CH$}{C2-H}}
 
-% [Introduce: these are the two new models from §11.  Their fundamental
-%  equations are algebraic (no derivative terms), so the lemma check reduces
-%  to verifying that D(x,y)·P(x,y) = RHS purely by plugging in the CTMC —
-%  no numerical differentiation needed.  The theorem check is the same
-%  P(x,y) grid comparison used for A, B₂, and C₂.]
-
-The two experiment models possess algebraic fundamental equations.  The lemma
+The two head-of-line models possess algebraic fundamental equations.  The lemma
 check therefore requires no differentiation of $P$: only the CTMC values of
 $P(x,y)$ and $P_y(y)$ are substituted into each side and the residual is
-measured. Figure~\ref{fig:val_experiment} reports both checks, and
+measured. The theorem check is the same $P(x,y)$ grid comparison used for
+Models~$A$, $B_2$, and $C_2$. Figure~\ref{fig:val_experiment} reports both checks, and
 Figure~\ref{fig:val_experiment_pi} tracks the empty-state probabilities $\pi_0$
 and $\pi(0,0)$ as the mechanism parameter grows.
 
@@ -230,12 +229,11 @@ and $\pi(0,0)$ as the mechanism parameter grows.
     tolerance.
     \textit{Bottom row}: boundary function $P_y(y)=P(0,y)$ comparing the
     rational closed-form formula against the CTMC.
-    % [Discuss: B₂¹ achieves the same accuracy as Model-$A$ (~10⁻⁷);
-    %  C₂¹ achieves near-machine precision (~10⁻¹¹) because the denominator
-    %  D₁ in the C₂¹ formula never passes close to zero in the test range.
-    %  Both lemma residuals are far below 10⁻⁶, confirming the algebraic
-    %  derivation.]
-    }
+    $\BH$ matches the Model-$A$ accuracy (${\sim}10^{-7}$), while $\CH$
+    reaches near-machine precision (${\sim}10^{-11}$) because the denominator
+    of its rational formula stays well away from zero over the test range;
+    both lemma residuals lie far below the $10^{-6}$ tolerance, confirming the
+    algebraic derivation.}
     \label{fig:val_experiment}
 \end{figure}
 
@@ -251,11 +249,9 @@ and $\pi(0,0)$ as the mechanism parameter grows.
     \textit{Right}: same story for $\pi(0,0)$.
     Solid orange = closed-form formula~\eqref{eq:C21:pi0_pi00}; dashed orange
     = CTMC.  The two are indistinguishable (max error $<10^{-4}$).
-    % [Discuss: the B₂¹ conservation result (π₀=1−ρ regardless of γ₁) is a
-    %  structural theorem, not just a numerical observation.  For C₂¹, the
-    %  formula shows π₀→1 as θ₁→∞ (all class-1 customers abandon immediately,
-    %  leaving only class-2, which eventually also clears at rate μ).]
-    }
+    The flat $\BH$ line is a structural result, not merely a numerical
+    observation: $\pi_0=1-\rho$ holds identically for every $\gamma_1$ by the
+    conservation corollary.}
     \label{fig:val_experiment_pi}
 \end{figure}
 
