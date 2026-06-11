@@ -183,7 +183,17 @@
       "Bash(awk '{print $NF, $\\(NF-1\\)}')",
       "Bash(awk '{print $\\(NF\\), $\\(NF-1\\), $5}')",
       "Bash(pdftoppm -png -r 150 figures/validation/val_ppgf_heatmap.pdf /tmp/fig_diff/after/val_ppgf_heatmap)",
-      "Bash(git status *)"
+      "Bash(git status *)",
+      "Bash(pdftoppm -png -r 130 figures/results/fig_C2_rho_theta_heatmap.pdf /tmp/fig_recheck/fig16_committed)",
+      "Bash(python3 compute_derived_metrics.py)",
+      "Read(//Users/victor/GitVictor/results/**)",
+      "Bash(pdftotext main.pdf /tmp/main.txt)",
+      "Bash(pdftotext main.pdf /tmp/m2.txt)",
+      "Bash(pdftoppm -png -r 110 -f 78 -l 78 main.pdf /tmp/p78/page)",
+      "Bash(pdftotext main.pdf -)",
+      "Bash(pdftotext -f 1 -l 3 main.pdf -)",
+      "Bash(pdftoppm -png -r 100 -f 2 -l 2 main.pdf /tmp/abspage/p)",
+      "Bash(pdftoppm -png -r 100 -f 3 -l 3 main.pdf /tmp/abspage/p3)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
