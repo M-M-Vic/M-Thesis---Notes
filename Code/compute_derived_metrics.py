@@ -219,7 +219,8 @@ def models_at(rho):
 def main():
     out = {"params": {"mu": MU, "mech": MECH, "split": list(SPLIT), "rhos": RHOS},
            "ctmc": {}, "conditional_latency": {}, "alpha_star": {},
-           "EN1_gap_B2_vs_BH": {}, "P_N1_ge2": {}, "conservation_C2": {}}
+           "EN1_gap_B2_vs_BH": {}, "P_N1_ge2": {}, "conservation_C2": {},
+           "loss_fraction_system": {}, "loss_theta_sweep": {}}
 
     # ---- (1,4,5) CTMC metrics across the rho grid ----
     for rho in RHOS:
@@ -245,6 +246,20 @@ def main():
             "offered": c2["offered"], "carried_plus_lost": c2["carried_plus_lost"],
             "abs_err": abs(c2["offered"] - c2["carried_plus_lost"]),
             "ok": abs(c2["offered"] - c2["carried_plus_lost"]) < 1e-6}
+        # system-wide loss fraction L = (pi_idle - (1-rho))/rho = L1 * rho1/rho,
+        # cf. eq:comp:lossfrac, for C2 and CH
+        out["loss_fraction_system"][f"{rho}"] = {}
+        for nm in ("C2", "CH"):
+            pi0 = out["ctmc"][f"{rho}"][nm]["pi_idle"]
+            out["loss_fraction_system"][f"{rho}"][nm] = (pi0 - (1 - rho)) / rho
+
+    # off-grid theta1 sweep (Figure~\ref{fig:c2:abandonment}) at the canonical
+    # rho=0.70 split: class-1 loss fraction L1 for the full-rate C2 model
+    l1_canon, l2_canon = split_lams(0.70)
+    for theta1, key in ((0.05, "0.05"), (5.0, "5.0")):
+        p = model_theta1_only(l1_canon, l2_canon, MU, theta1)
+        m = ctmc_metrics(p, 0.70)
+        out["loss_theta_sweep"][key] = m["aband_rate"] / l1_canon
 
     # ---- (2) conditional latency at canonical rho=0.70 ----
     canon = models_at(0.70)
@@ -315,6 +330,20 @@ def write_macros(out):
     # canonical aliases
     cmd("lossCtwoCanon", f"{out['ctmc']['0.7']['C2']['loss_fraction_class1']:.3f}")
     cmd("lossCHCanon",   f"{out['ctmc']['0.7']['CH']['loss_fraction_class1']:.3f}")
+    L.append("")
+
+    # (1b) system-wide loss fraction L = (pi0-(1-rho))/rho = L1*rho1/rho (3 d.p.)
+    for rho in ["0.5", "0.7", "0.9"]:
+        w = RHO_WORD[rho]
+        cmd(f"lossSysCtwo{w}", f"{out['loss_fraction_system'][rho]['C2']:.3f}")
+        cmd(f"lossSysCH{w}",   f"{out['loss_fraction_system'][rho]['CH']:.3f}")
+    cmd("lossSysCtwoCanon", f"{out['loss_fraction_system']['0.7']['C2']:.3f}")
+    L.append("")
+
+    # (1c) off-grid theta1 sweep: class-1 loss fraction L1 for full-rate C2 at
+    # rho=0.70, theta1 in {0.05, 5.0} (Figure~\ref{fig:c2:abandonment})
+    cmd("lossCtwoThetaLow",  f"{out['loss_theta_sweep']['0.05']:.3f}")
+    cmd("lossCtwoThetaHigh", f"{out['loss_theta_sweep']['5.0']:.3f}")
     L.append("")
 
     # (2) conditional vs unconditional class-1 latency at canonical rho=0.70

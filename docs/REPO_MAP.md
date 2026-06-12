@@ -100,29 +100,39 @@ solutions in-memory and emit `.pdf`/`.png`/`.tex` directly into `figures/`.
 
 ## 3. Build baseline (latexmk -pdf, clean rebuild)
 
-- **Result: PASS.** Exit 0. `main.pdf` = **93 pages**, ~1.52 MB (was 91pp before the Model-X reorder).
-- Compile log saved to `/tmp/main_build.log` (copy of `main.log` from a clean rebuild).
+- **Result: PASS.** Exit 0. `main.pdf` = **105 pages** (was 99pp at the G1 audit,
+  93pp before that). Snapshot date for this baseline: 2026-06-12 (Phase 1 follow-up,
+  see `docs/REVIEW_CHECKLIST.md`).
+- Compile log: `main.log` from a clean `latexmk -pdf main.tex` rebuild.
 
 ### Undefined references / citations
-- **None.** No `LaTeX Warning` lines at all → no undefined refs, no undefined citations.
+- **None.** No `LaTeX Warning` / `Package ... Warning` lines at all → no undefined
+  refs, no undefined citations. 297 labels (all unique), 285 `\ref`/`\eqref`/`\Cref`
+  targets (all resolve).
 
 ### Multiply-defined labels
 - **No true LaTeX multiply-defined labels.**
-- **44 cosmetic pdfTeX warnings**: `destination with the same identifier (name{figure.N}/name{table.N}) has been already used` — one per float (table.1–10, figure.1–30+). These are hyperref duplicate-anchor warnings (every float is anchored twice), not label clashes; they don't affect refs or the PDF. Worth investigating later but harmless.
+- **10 cosmetic pdfTeX warnings**: `destination with the same identifier
+  (name{figure.N}/name{table.N}) has been already used` — hyperref duplicate-anchor
+  warnings, not label clashes; harmless (down from 44 at G1 after the
+  float-before-hyperref reorder).
 
 ### Overfull / underfull boxes
-- Overfull `\hbox`: **17**; Underfull `\hbox`: **5**; vbox: 0.
-- Most overfull boxes are minor (<15 pt). Worst offenders (widths, with `at lines` from log; file attribution approximate):
+- Overfull `\hbox`: **17**; Underfull `\hbox`: **4**; vbox: 0. Total 21 (down from
+  24 pre-Phase-1).
+- The four worst boxes flagged by the 2026-06-12 audit (61.97pt, 57.85pt, 43.37pt,
+  41.57pt) were fixed in Phase 1 (task C3, formatting-only). Remaining boxes are all
+  <15pt. Current worst offenders:
 
-| too wide | location (source lines) | likely file |
-|---|---|---|
-| 57.85 pt | detected at line 209 | 06_model_a.tex region |
-| 56.29 pt | paragraph at lines 29–46 | 13_results.tex region |
-| 48.15 pt | paragraph at lines 98–118 | 01_introduction.tex |
-| 43.37 pt | detected at line 264 | model-a/b region |
-| 41.57 pt | detected at line 74 | model section |
+| too wide | file:lines |
+|---|---|
+| 36.86 pt | `chapters/02_literature.tex:41-59` |
+| 14.85 pt | `chapters/06_model_a.tex:240` |
+| 14.85 pt | `chapters/06_model_a.tex:311` |
+| 13.48 pt | `chapters/08_model_b2.tex:297-304` |
+| 13.48 pt | `chapters/09_model_c2.tex:273` |
 
-Remaining 12 are 0.2–14.9 pt (negligible). Full list: log lines 788–1160.
+Remaining 16 are <8pt (negligible).
 
 ---
 
@@ -133,9 +143,14 @@ deliberate author notes (commented-out, prefixed `%`), none are blocking:
 
 | File:line | Marker | Note |
 |---|---|---|
+| [main.tex:59](../main.tex#L59) | `TODO-confirm:` | working title (1 of 3 candidates) |
 | [06_model_a.tex:52](../chapters/06_model_a.tex#L52) | `[AUTHOR:` | canonical section spine (§6 step 5) — Probabilistic/Analytical ordering note |
-| [06_model_a.tex:122](../chapters/06_model_a.tex#L122) | `TODO:` | add a citation for the Kernel Method (Bayer & Boxma, or Cohen's book) |
-| [07_model_b.tex:410](../chapters/07_model_b.tex#L410) | `[AUTHOR:` | regularisation of the 0·∞ limit (`eq:B:split`) giving the kernel K |
-| [05_model_x.tex:417](../chapters/05_model_x.tex#L417) | `[AUTHOR:` | why Model-B closes when θ_i=0 (characteristics are straight) |
+| [06_model_a.tex:121](../chapters/06_model_a.tex#L121) | `TODO:` | add a citation for the Kernel Method (Bayer & Boxma, or Cohen's book) |
+| [07_model_b.tex:479](../chapters/07_model_b.tex#L479) | `TODO(citation):` | Hadamard finite-part integrals reference |
+
+The G1-era `[AUTHOR:` flags on `07_model_b.tex` (kernel regularisation) and
+`05_model_x.tex` (Model-B-vs-X closure), plus the `13_results.tex`
+`[Discuss:]`/`[Introduce:]` scaffolding, have since been resolved into narrative
+(verified 2026-06-12) and no longer appear.
 
 No `FIXME`, `XXX`, or stray `??` (no undefined-ref `??` in PDF, consistent with clean refs).

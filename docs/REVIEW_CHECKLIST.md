@@ -4,6 +4,45 @@
 > `Prompts for claude - Review/claude_code_prompts_thesis_edits.md` to the commit
 > that addressed it, and records the residual findings of the audit itself.
 
+## Phase 1 follow-up (2026-06-12)
+
+> Source: `docs/REVIEW_2026-06-12.md` (full audit) → Phase 1 of its "Recommended
+> Execution Order" (tasks C1–C4, all independent, no author input required).
+
+- **Build**: still PASS, 0 errors / 0 LaTeX warnings. **105 pages** (was 99pp at
+  G1; growth is the head-of-line experiment chapters 10/11 plus narrative additions
+  since G1). 10 cosmetic pdfTeX `destination with the same identifier` warnings
+  remain (unchanged, harmless — see G1 notes).
+- **Overfull/underfull hboxes**: down from 24 (20 overfull + 4 underfull, per the
+  2026-06-12 audit) to **21** (17 overfull + 4 underfull). The four largest boxes
+  flagged by the audit were addressed (task C3):
+  - 61.97pt `chapters/13_results.tex:27` (validation-summary table) → fixed with
+    `\footnotesize`.
+  - 57.85pt `chapters/06_model_a.tex:208` (single-line `align*` chain) → broken
+    into 4 `\\`-separated rows.
+  - 43.37pt `chapters/09_model_c2.tex:265` and a duplicate 43.37pt instance in
+    `chapters/11_model_c21.tex:265` (same derivation pattern, copied into the
+    head-of-line $C_2^1$ section) → both `align*` blocks re-broken across rows.
+  - 41.57pt `chapters/09_model_c2.tex:74` (`eq:C2:fundamental`, single-line
+    `equation`) → converted to `multline` (now 1.99pt, under threshold).
+  - Remaining 21 boxes are all <15pt and left alone, per the no-content-change rule.
+- **Cross-reference added** (task C2): `chapters/10_model_b21.tex` "Limits and
+  sanity checks" now points forward to the $k$-ladder discussion in
+  `chapters/14_conclusion.tex` (`sec:future_work`), tying $\BH$ to the $k=1$ rung
+  and Model-$B_2$ to the $k\to\infty$ limit.
+- **Derived-metrics pipeline extended** (task C4): `Code/compute_derived_metrics.py`
+  now also emits (i) the system-wide loss fraction $L=(\pi_0-(1-\rho))/\rho$ for
+  $C_2$/$\CH$ at all three grid loads (`\lossSysCtwo*`, `\lossSysCH*`,
+  `\lossSysCtwoCanon`), and (ii) the off-grid $\theta_1\in\{0.05,5.0\}$ class-1 loss
+  fraction at $\rho=0.70$ (`\lossCtwoThetaLow`, `\lossCtwoThetaHigh`). All three
+  previously-hardcoded numbers in `chapters/12_comparison.tex` (lines ~600, ~601,
+  ~629–630) and Table 9's (`tab:comp:loss`) system-wide $L$ column now route through
+  these macros — closes item 5 below.
+- **Citations**: still 16 cited keys, all resolve; `abate2000asymptotic` and
+  `tian2006vacation` remain defined but unused in `references.bib`.
+- **Labels/refs**: 297 labels, all unique; 285 `\ref`/`\eqref`/`\Cref` targets, all
+  resolve. No duplicates, no `??`.
+
 ## Task → commit map
 
 | Task | Description | Commit | Status |
@@ -88,8 +127,16 @@
 
 ## Open items for the author
 1. ~~C3~~ Done in `c81b0ee` — all playbook tasks are now addressed.
-2. Confirm the working title (`main.tex:49`).
-3. Supply the two missing citations (Kernel Method; Hadamard finite part).
-4. Resolve the remaining `[AUTHOR]`/`[Discuss]` comment flags listed above.
-5. Optionally extend the metrics script with system-wide loss macros ($L$) and a
-   percent-form macro so no loss number is hardcoded anywhere.
+2. Confirm the working title (`main.tex:59`, three candidates listed inline).
+3. Supply the two missing citations:
+   - `chapters/06_model_a.tex:121` — Kernel Method (e.g. Bayer & Boxma, or Cohen's
+     book).
+   - `chapters/07_model_b.tex:479` — Hadamard finite-part integrals.
+4. `chapters/06_model_a.tex:52` — `[AUTHOR]` flag on the Probabilistic/Analytical
+   subsubsection ordering vs. the canonical spine (CLAUDE.md §6 step 5). The
+   `07_model_b.tex`/`05_model_x.tex` regularisation/closure `[AUTHOR]` flags and the
+   `13_results.tex` `[Discuss:]`/`[Introduce:]` scaffolding from G1 have since been
+   resolved into narrative (verified in the 2026-06-12 audit) — only this one
+   remains.
+5. ~~Extend the metrics script with system-wide loss macros ($L$)~~ Done
+   (Phase 1, C4, 2026-06-12) — see above.

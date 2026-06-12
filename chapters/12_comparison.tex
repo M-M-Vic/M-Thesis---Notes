@@ -598,7 +598,7 @@ and system loss fractions are
 both closed-form through the $C_2$ idle probability $\pi_0$, and both $\to0$ as
 $\theta_1\to0^+$ (where $\pi_0\to1-\rho$), recovering the lossless Model-$A$ limit. At
 $\rho=0.70$, $\theta_1=0.5$ this gives $L_1=\lossCtwoSeventy$ --- \emph{$23.2\%$ of the priority class is
-shed} --- against a system loss of only $L=0.099$, the difference reflecting that the
+shed} --- against a system loss of only $L=\lossSysCtwoCanon$, the difference reflecting that the
 non-priority class never abandons. Table~\ref{tab:comp:loss} collects the loss fractions at
 the three reference loads for the full-rate $C_2$ and the head-of-line $\CH$; the
 head-of-line valve, capped at $\theta_1$ rather than scaling as $\theta_1 n_1$, sheds
@@ -616,9 +616,9 @@ $\CH$ sheds uniformly less than the full-rate $C_2$.}
  & \multicolumn{2}{c}{\textbf{Model-$C_2$}} & \multicolumn{2}{c}{\textbf{Model-$\CH$}} \\
 $\rho$ & $L_1$ & $L$ & $L_1$ & $L$ \\
 \hline
-$0.50$ & $\lossCtwoFifty$ & $0.071$ & $\lossCHFifty$ & $0.067$ \\
-$0.70$ & $\lossCtwoSeventy$ & $0.099$ & $\lossCHSeventy$ & $0.091$ \\
-$0.90$ & $\lossCtwoNinety$ & $0.127$ & $\lossCHNinety$ & $0.114$ \\
+$0.50$ & $\lossCtwoFifty$ & $\lossSysCtwoFifty$ & $\lossCHFifty$ & $\lossSysCHFifty$ \\
+$0.70$ & $\lossCtwoSeventy$ & $\lossSysCtwoSeventy$ & $\lossCHSeventy$ & $\lossSysCHSeventy$ \\
+$0.90$ & $\lossCtwoNinety$ & $\lossSysCtwoNinety$ & $\lossCHNinety$ & $\lossSysCHNinety$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -626,8 +626,8 @@ $0.90$ & $\lossCtwoNinety$ & $0.127$ & $\lossCHNinety$ & $0.114$ \\
 The loss fraction rises with load --- abandonment is most active precisely where the priority
 queue is longest --- but never approaches one: even at $\rho=0.90$ roughly seventy per cent of
 class-1 customers are still served. The same closed form \eqref{eq:comp:lossfrac} fed by the
-$\theta_1$-sweep of Figure~\ref{fig:c2:abandonment} gives $L_1$ growing from $0.044$ at
-$\theta_1=0.05$ to $0.468$ at $\theta_1=5.0$ (at $\rho=0.70$): a strong valve eventually sheds
+$\theta_1$-sweep of Figure~\ref{fig:c2:abandonment} gives $L_1$ growing from $\lossCtwoThetaLow$ at
+$\theta_1=0.05$ to $\lossCtwoThetaHigh$ at $\theta_1=5.0$ (at $\rho=0.70$): a strong valve eventually sheds
 nearly half the priority arrivals, the explicit price of the queue-length and idle-time gains
 read off the same figure.
 
