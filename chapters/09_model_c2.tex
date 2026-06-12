@@ -66,12 +66,12 @@ which vanishes at $x=0$ and $x=1$ because $\alpha,\beta(y)>0$.
 \subsection{Setup: reduction to a first-order linear ODE in \texorpdfstring{$x$}{x}}
 
 Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the general fundamental equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation}) annihilates the $\partial P/\partial y$ term entirely, since its coefficient $xy\bigl[\gamma_2(y-x)+\theta_2(y-1)\bigr]$ vanishes identically, and reduces the $\partial P/\partial x$ coefficient $xy\bigl[\gamma_1(x-y)+\theta_1(x-1)\bigr]$ to its single surviving abandonment term $\theta_1\,xy(x-1)$. What remains is
-\begin{equation}
+\begin{multline}
     \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
-    + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y)
+    + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y) \\
     \;=\; \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
     \label{eq:C2:fundamental}
-\end{equation}
+\end{multline}
 where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{n_2}$ is, as in Model-$A$, the partial PGF restricted to states where the server is busy and the priority queue is empty ($N_1=0$).
 
 For any fixed $y$, Equation~\eqref{eq:C2:fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
@@ -263,7 +263,8 @@ with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}.
 Multiplying the source $q(t;y)$ by the integrating factor $\mu_I(t;y)=e^{-\lambda_1 t/\theta_1}t^{\alpha}(1-t)^{\beta(y)}$ and inserting the partial fraction, the integrand splits into the two pieces defining $\mathcal{H}_1,\mathcal{H}_2$:
 \begin{align*}
     q(t;y)\,\mu_I(t;y)
-    &\;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}
+    &\;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)} \\
+    &\qquad \times
       \left[\frac{\zeta(y)}{t} + \frac{1-\zeta(y)}{t-1}\right]
       e^{-\lambda_1 t/\theta_1}\,t^{\alpha}(1-t)^{\beta(y)} \\
     &\;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}
