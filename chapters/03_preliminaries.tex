@@ -73,7 +73,7 @@ Iterating yields
     \pi_n = \pi_0\,\frac{(\lambda/\theta)^n}{(\mu/\theta)^{(n)}} \quad n \ge 0;
     \quad \text{where} \quad a^{(n)} = a(a+1)\cdots(a+n-1)
 \end{equation*}
-Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$).
+Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF is correspondingly a \emph{ratio} of Kummer functions, $\Pi(z) = {}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)\,/\,{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)$. The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
 
 The \emph{Busy Period} of the $M/M/1+M$ defined here is far more complex than the one expressed in the $M/M/1$ queueing system. We record it for the class-1 subsystem used in Model-$C_2$, taking arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this class-1 busy period, its LST and expectation are
 \begin{align}
