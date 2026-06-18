@@ -58,8 +58,10 @@ The method of characteristics yields a general solution of the fundamental equat
     $1-\pi_0=\rho\pi_0/(1-\rho)$, so $(1-\pi_0)(1-\rho)=\rho\pi_0$, i.e.\ $\pi_0=1-\rho$
     and $\pi(0,0)=\rho(1-\rho)$. This matches Model-$A$~\eqref{eq:A:pi0_pi00}: jockeying
     conserves the total-customer process and cannot change the marginal idle probability.
-    The same identities hold in Models~$B_2$ and~$C_2$ for the same conservation
-    reason~\eqref{eq:gen:pi0_noaband}.
+    The same identities therefore hold in the other no-abandonment model, Model-$B_2$;
+    Model-$C_2$ retains the universal idle balance $\pi(0,0)=\rho\pi_0$~\eqref{eq:gen:pi00_general}
+    but, with abandonment present, attains $\pi_0=1-\rho$ only in the limit
+    $\theta_1\to0^+$.
 \end{proof}
 
 \begin{claim}\label{clm:B:volterra}
@@ -523,3 +525,37 @@ function $P_y(y)$ is then pinned by an analyticity argument at the interior
 singular point $x=y$.  Model-$C_2$ removes jockeying entirely and pins $P_y$ by
 a boundedness argument at the boundary of the domain.  Both specialisations are
 analysed in the following sections.
+
+\begin{remark}[The full model $X$ is \emph{a fortiori} intractable]\label{rem:B:modelX}
+Model-$B$ already exhibits the central obstruction of this work: even with
+abandonment switched off, pinning the boundary function $P_y(y)$~---~and hence
+the joint PGF $P(x,y)$~---~still reduces to the first-kind Volterra
+equation~\eqref{eq:B:volterra}, which has no closed form. Reinstating
+abandonment ($\theta_1,\theta_2>0$) to recover the full parent model,
+Model-$X$, can only deepen the difficulty, and it does so in two ways.
+
+First, the characteristics cease to be straight lines. For
+$\theta_1=\theta_2=0$ the characteristic slope is the constant
+$-\gamma_2/\gamma_1$, giving the lines $\gamma_2 x+\gamma_1 y=C_1$ of
+Claim~\ref{clm:B:volterra}. Once $\theta_i>0$ it becomes a genuine ratio of
+affine forms,
+\begin{equation*}
+    \frac{dy}{dx}=\frac{-\gamma_2 x+(\gamma_2+\theta_2)\,y-\theta_2}
+                       {(\gamma_1+\theta_1)\,x-\gamma_1 y-\theta_1},
+\end{equation*}
+whose integral curves are level sets of a product of two \emph{non-integer}
+powers of linear forms in $(x,y)$~---~transcendental curves, not straight lines.
+Along them $y(x)$ is only implicitly defined, so the homogeneous solution
+$P_h$ becomes a non-elementary quadrature and the Volterra kernel loses the
+explicit form it keeps for Model-$B$.
+
+Second, the diagonal anchor is lost. For Model-$B$ the diagonal value
+$P(z,z)=\pi(0,0)/(1-\rho z)$ is known outright (Corollary~\ref{cor:B:pi00}) and
+supplies the forcing of~\eqref{eq:B:volterra}; under abandonment, setting
+$x=y=z$ in the fundamental equation no longer isolates $P(z,z)$, leaving a
+surviving diagonal-gradient term
+$[\theta_1\partial_x P+\theta_2\partial_y P]_{(z,z)}$, so the forcing is itself
+coupled to the unknown solution. Model-$X$ is therefore left open. Model-$B$ is
+the simplest model in which the obstruction already appears in full, and the
+sections that follow retreat to specialisations that remove it.
+\end{remark}
