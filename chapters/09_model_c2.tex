@@ -13,7 +13,7 @@ In this section we derive $P(x,y)$ for the model in which only class-$1$ custome
     \label{fig:model-c2-queue}
 \end{figure} The rationale for this parameter choice is twofold. First, class-$2$ still sees Poisson arrivals, so the probabilistic arguments used for Model-$A$ carry over. Second, substituting these parameters into the fundamental equation~\eqref{eq:C2:fundamental} yields a \textit{first-order linear ODE} in $x$ in which $P_y(y)$ can be taken outside the integral, sparing us a Volterra-type equation.
 
-\begin{theorem}
+\begin{theorem}\label{thm:C2:PGF}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
     \begin{equation*}
         \rho_2\cdot{}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right) \;<\; 1
@@ -134,7 +134,7 @@ This is structurally the same expression as in the probabilistic argument for Mo
 
 \subsection{Analytical re-derivation of \texorpdfstring{$P_y(y)$}{Py(y)} via boundedness at \texorpdfstring{$x=1$}{x=1}}\label{ssec:C2:anal}
 
-Here the surviving abandonment factor $(x-1)$ places the operative singularity on the boundary $x=1$, exactly the boundedness-pinning regime anticipated in the remark following Lemma~\ref{lem:gen:fundamental_equation}.
+Here the surviving abandonment factor $(x-1)$ places the operative singularity on the boundary $x=1$, exactly the boundedness-pinning regime anticipated in Remark~\ref{rem:gen:reading}.
 For an analytic counterpart of the previous derivation, we put~\eqref{eq:C2:fundamental} in standard form:
 \begin{align*}
     \frac{\partial P}{\partial x} \;+\; \underbrace{\frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}{\theta_1\,x(x-1)}}_{p(x;\,y)}\,P
@@ -516,20 +516,3 @@ Using the throughput $\mu(1-\pi_0)$ instead would give the conditional
 waiting time of customers who complete service only --- a different object.
 As $\theta_1\to0^+$ both means recover the Model-$A$
 values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
