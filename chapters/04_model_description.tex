@@ -19,82 +19,32 @@ This section defines the general two-class system with both jockeying ($\gamma_i
     \end{tabular}
     \caption{Nested family of models. Model-$X$ is the parent; Models $A$, $B$, $B_2$ and $C_2$
     are obtained by restricting the jockeying directions and the abandoning classes. The two
-    head-of-line variants $\BH$ and $\CH$ are listed for completeness.$^{\dagger}$}
+    head-of-line variants $\BH$ and $\CH$ are listed separately, as their zeroing mechanism involves $\mathbf{1}_{\{n_1\ge1\}}$ rather than being proportional to the queue length.$^{\dagger}$}
     \label{tab:model_family}
     \par\smallskip
-    {\footnotesize $^{\dagger}$Unlike the others, the head-of-line variants are \emph{not}
-    obtained by zeroing parameters of Model-$X$: their mechanism fires at the constant
-    head-of-line rate $\mathbf{1}_{\{n_1\ge1\}}$ rather than the length-proportional rate
-    $n_1$ of the parent (jockeying $\gamma_1 n_1$, abandonment $\theta_1 n_1$), so they are
-    standalone simplifications, as explained in \S\ref{sec:model_b21}.}
 \end{table}
 
-Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ and each of the variants that we will consider:
+Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ and each of the variants that we will consider, but omits the two head-of-line model, as it is less conventional and a diagram like these would not be of much help:
 \begin{figure}[H]
     \centering
     \resizebox{\textwidth}{!}{%
         \input{figures/models-queue-overview.tikz}%
     }
-    \caption{Physical queue layout for Model-$X$ (left) and its four specialisations
-    (right, $2\times2$ grid). Queue~1 (top buffer) has non-preemptive priority over Queue~2.
-    Solid arrows: Poisson arrivals ($\lambda_i$) and exponential service ($\mu$).
-    Dashed arrows: jockeying ($\gamma_i$), which transfers a waiting customer between
-    queues and conserves the total~$n$.
-    Dotted arrows: abandonment ($\theta_i$), a true departure that reduces~$n$.}
+    \caption{Physical queue layout for Model-$X$ (left) and its four specialisations (right, $2\times2$ grid). Queue~$1$ (top buffer) has non-preemptive priority over Queue~$2$. Solid arrows are for Poisson arrivals ($\lambda_i$) and exponential service ($\mu$); dashed arrows are for jockeying($\gamma_i$); and dotted arrows are for abandonments ($\theta_i$)
+    }
     \label{fig:models-queue-overview}
 \end{figure}
 
-The model discussed in this section is an $M/M/1$ queueing system with $2$ priority
-classes, where customers are served on a First-Come, First-Served (FCFS) basis
-within their own class and those coming from the priority class (class-$1$) have
-non-preemptive priority over those of the non-priority class (class-$2$); that is,
-when a class-$2$ customer is in service, that service will not be interrupted by a
-potential arrival of a class-$1$ customer. Beyond basic dynamics, Model-$X$
-incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a
-waiting customer can abandon its own queue and \emph{join the other queue}, at a
-per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for 
-direction $2\to1$, so the total number of customers is preserved. Second,
-\emph{abandonment} (reneging): a waiting customer may completely leave the \emph{system
-} at a rate per-customer $\theta_i$, so the total number of customers
-decreases by one. Concretely, each Class-$i$ customer that is waiting in line
-(i.e.\ not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$
-patience clock and abandons the system when it expires; consequently, the aggregate
-Class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear
-term $\theta_i n_i$ that appears in the balance equations. This is precisely the
-linear-reneging mechanism of the $M/M/1+M$ queue introduced in \S\ref{ssec:erlangA}.
+The model discussed in this section is an $M/M/1$ queueing system with two priority classes, where customers are served on a First-Come, First-Served (FCFS) basis within their own class and those coming from the priority class (class-$1$) have non-preemptive priority over those of the non-priority class (class-$2$); that is, when a class-$2$ customer is in service, that service will not be interrupted by apotential arrival of a class-$1$ customer. Beyond basic dynamics, Model-$X$ incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a waiting customer can abandon its own queue and \emph{join the other queue}, at a per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for direction $2\to1$, so the total number of customers is preserved. Second, \emph{abandonment} (reneging): a waiting customer may completely leave the \emph{system} at a rate per-customer $\theta_i$, so the total number of customers decreases by one. Concretely, each Class-$i$ customer that is waiting in line (i.e.\ not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$ patience clock and abandons the system when it expires; consequently, the aggregate class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear term $\theta_i n_i$ that appears in the balance equations. This is precisely the linear-reneging mechanism of the $M/M/1+M$ queue introduced in \S\ref{ssec:erlangA}.
 
-This model, being an $M/M/1$ queueing model according to Kendall's notation,
-features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for
-Class-$i$, exponentially distributed service times with rate $\mu$, and a service
-capacity of $1$ customer at a time. In addition, a waiting customer of class-$1$
-jockeys in the class-$2$ queue at the per-customer rate $\gamma_1$ and a waiting
-customer of class-$2$ jockeys in the class-$1$ queue at the per-customer rate
-$\gamma_2$ (transfers that conserve the total), while a waiting customer of
-Class-$i$ abandons the system at the per-customer rate $\theta_i$ (a true departure
-that reduces the total).
-
-In order to define the stochastic processes that drive this queueing system, it is
-necessary to introduce the following random variables:
+This model, being an $M/M/1$ queueing model according to Kendall's notation, features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for class-$i$, exponentially distributed service times with rate $\mu$, and a service capacity of $1$ customer at a time. In addition, a waiting customer of class-$1$ jockeys in the class-$2$ queue at the per-customer rate $\gamma_1$ and a waiting customer of class-$2$ jockeys in the class-$1$ queue at the per-customer rate $\gamma_2$ (transfers that conserve the total), while a waiting customer of Class-$i$ abandons the system at the per-customer rate $\theta_i$ (a true departure that reduces the total).
+In order to define the stochastic processes that drive this queueing system, it is necessary to introduce the following random variables:
 \begin{itemize}
     \item $\mathcal{B}:$ binary indicator for the server being idle or busy, $\mathcal{B}\in \{0,1\}$;
     \item $N_1, N_2:$ number of customers of class $1$ and $2$, respectively, in their respective queues;
     \item $N:$ total number of customers in the queues.
 \end{itemize}
-Note that the variables $N_1$, $N_2$ and $N$ count the number of customers in the
-queues, as opposed to the customers in the system. This definition is convenient
-given that we have a common service rate for both priority classes, and hence the
-states of the system are equivalent regardless of the priority class the customer
-in service comes from. Since having customers in line directly implies that someone
-is in service, we will denote the idle state as $(0)$ and the rest of the states by
-the number of people in each queue as the tuple $(n_1,n_2)$, where $n_i$ denotes the
-number of customers in the queue for class-$i$. This is the most conventional way to
-define the state space, namely $S$, in such a queueing system. However, we can also
-look at the total number of customers in the queues. We can define an alternative
-state space $\widetilde{S}$ using the idle state $(0)$ and the pair $(n_2,n)$ —we
-could also choose $(n_1,n)$—, which gives that we have $(n-n_2)$ class-$1$ customers
-in the priority queue. Note that, since $n$ is the total number of customers, we
-need the constraint $n \geq n_2$.
-Therefore, we define our state spaces as follows:
+Note that the variables $N_1$, $N_2$ and $N$ count customers in the \emph{queues}, not the \emph{system}. Since service rate is common to both classes, we denote the idle system state as $(0)$ and all other states by $(n_1,n_2)$, so state $(0,0)$ implies someone is in service and the queues are empty. Alternatively, we can define another state space by total queue depth using an auxiliary state space $\widetilde{S}$, tracking only $n_2$ and $n = n_1 + n_2$ with the constraint $n \geq n_2 \geq 0$. We define:
 \begin{align}
     \begin{split}
         &S := \{(0)\} \cup \{ (n_1,n_2) \mid n_1,n_2 \geq 0 \},
@@ -105,21 +55,14 @@ Therefore, we define our state spaces as follows:
     \end{split}
 \end{align}
 
-For these state spaces, we define the limiting —as opposed to time-dependent—
-probabilities of finding the system in that state in the long run as follows:
+For these state spaces, we define the long-run probabilities of finding the system in that state as follows:
 \begin{itemize}
-    \item $\pi_0$ for the idle state $(0)$, which belongs to both spaces $S$ and $\widetilde{S}$;
+    \item $\pi_0$ for the idle state $(0)$, it belongs to both spaces $S$ and $\widetilde{S}$;
     \item $\pi(n_1,n_2)$ for states $(n_1,n_2) \in S$, where $n_1,n_2 \geq 0$;
     \item $\widetilde{\pi}(n_2,n)$ for states $(n_2,n) \in \widetilde{S}$, where $n \geq n_2 \geq 0$.
 \end{itemize}
 
-Regarding the parameters of the system, the arrival process for each class follows a
-Poisson process (i.e., the interarrival times are exponentially distributed). By the
-properties of Poisson processes, the total number of arrivals will also form a
-Poisson process. Furthermore, we have a common service rate for exponentially
-distributed service times. We can organise our notation into class-specific
-parameters (alongside our common service rate) and class-blind totals.
-For the class-specific metrics and service rate, we define:
+We assume Poisson arrivals for each class and exponential service times (common across classes). We adopt the following notation:
 \begin{itemize}
     \item $\lambda_1, \lambda_2$: arrival rates of classes $1$ and $2$, respectively;
     \item $\mu$: service rate of a customer, regardless of class;
@@ -133,25 +76,14 @@ For the aggregate system parameters, we define:
     \item $\rho=\frac{\lambda}{\mu}$: total system load.
 \end{itemize}
 
-\textbf{Stability.} The stability conditions depend on the abandonments; jockeying does not affect this condition, since customers are merely relocated. Model-$X$, having abandonments from both classes, is always stable, as the total number of customers behaves like some sort of $M/M/1+M$ —which is always stable, as stated in \S\ref{ssec:erlangA}. The rate out is $\mu+\theta_1 n_1+\theta_2 n_2$, which grows to infinity in every direction of the $(n_1,n_2)$-plane, so the system is always positive-recurrent. In contrast, Model-$A$, having no abandonments whatsoever, requires $\rho < 1$, since the total number of customers behaves exactly like an $M/M/1$ queueing system (\S\ref{ssec:mm1}). It is more complex for models where only one type of abandonment is possible, this will be discussed in the dedicated section for Model-$C_2$ (\S\ref{sec:model_c2}).
+\textbf{Stability.} Jockeying does not affect stability (customers are merely relocated). Model-$X$ has abandonments from both classes, so the departure rate $\mu + \theta_1 n_1 + \theta_2 n_2$ grows unbounded, ensuring positive recurrence for all loads. In contrast, models without abandonments require $\rho < 1$ (they behave like M/M/1). Mixed cases, such as Model-$C_2$, are discussed separately (\S\ref{sec:model_c2}).
 
-
-\textbf{Computation of $\pi_0$ and $\pi(0,0)$.}
-
-The following relation between $\pi_0$ and $\pi(0,0)$ holds not only for Model-$X$ but also for every other model we will see in this work. The only transition into state $(0)$ is a service completion from $(0,0)$, and the only transition out from $(0,0)$ is an arrival of a customer from any class to an idle system, leaving us the following balance equation: $\lambda\pi_0=\mu\,\pi(0,0)$. Therefore
+\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} Balance between state $(0)$ and $(0,0)$ gives $\lambda\pi_0 = \mu,\pi(0,0)$. Hence,
 \begin{equation}
-    \pi(0,0) \;=\; \frac{\lambda}{\mu}\,\pi_0 \;=\; \rho\,\pi_0 .
+    \pi(0,0) ;=; \rho,\pi_0.
     \label{eq:gen:pi00_general}
 \end{equation}
-Note that this holds regardless jockeying and abandonments, as in neither of these states we have waiting customers. However, what does depend on the abandonment parameters —not on the jockeying ones— is the value of $\pi_0$ itself.
-For models \emph{without} abandonment, the total number of customers in the system behaves like that of an ordinary $M/M/1$ single-class system, giving
-\begin{equation}
-    \pi_0 = 1-\rho = 1-\frac{\lambda_1+\lambda_2}{\mu},
-    \qquad
-    \pi(0,0)=\rho\,\pi_0=(1-\rho)\rho.
-    \label{eq:gen:pi0_noaband}
-\end{equation}
-However, for models \emph{with} abandonments, the total number of customers is no longer conserved. For a busy state, the departure rate is $\mu+\theta_1 n_1+\theta_2 n_2$, so the rate of state $(n_1,n_2)$ depends on the split between $n_1$ and $n_2$. Indeed, the states $(n,0)$ and $(0,n)$ carry departure rates $\mu+\theta_1 n$ and $\mu+\theta_2 n$, which differ whenever for asymmetric abandonment rates $\theta_1\neq\theta_2$. To determine $\pi_0$, we will need our bivariate PGF, which will be defined in Section \ref{ssec:pgf_derivation}.
+This holds regardless of jockeying and abandonments (neither mechanism acts when there are no waiting customers). However, $\pi_0$ itself depends on the abandonment model. For models \emph{without} abandonment, $\pi_0 = 1-\rho$ (M/M/1 reduction). For models \emph{with} abandonment, the departure rate depends on the split $(n_1, n_2)$, so $\pi_0$ must be determined from the bivariate PGF (\S\ref{ssec:pgf_derivation}).
 
 \subsection{Balance equations}
 
