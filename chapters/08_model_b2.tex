@@ -31,7 +31,7 @@ $\gamma_1$ contribution to the $\partial P/\partial x$ term:
 For each fixed $y\in(0,1]$ this is a first-order linear ODE in $x$; the entire analysis
 of this section is built on it.
 
-\begin{theorem}\label{thm:B2}
+\begin{theorem}\label{thm:B2:PGF}
     Consider the two-class non-preemptive priority queueing system of Model-$B_2$ with
     per-customer jockeying rate $\gamma_1>0$ from Queue~1 to Queue~2 ($\gamma_2=0$,
     $\theta_1=\theta_2=0$). Under the stability condition $\rho=\lambda/\mu<1$,
@@ -111,7 +111,7 @@ of this section is built on it.
     yields $\pi(0,0)=\rho(1-\rho)$.
 \end{proof}
 
-\begin{proof}[Proof of Theorem~\ref{thm:B2}]
+\begin{proof}[Proof of Theorem~\ref{thm:B2:PGF}]
 
 % ─────────────────────────────────────────────────────────────────
 \noindent\textit{Stage~1: Standard form and the integrating factor.}
@@ -200,7 +200,7 @@ which still contains the unknown boundary function $P_y(y)$; Stage~2 determines 
 \medskip\noindent\textit{Stage~2: Determination of $P_y(y)$ by analyticity at $x=y$.}
 \medskip
 
-The factor $(x-y)$ surviving in the $x$-convection coefficient places the operative singularity at the interior point $x=y$, exactly the analyticity-pinning regime anticipated in the remark following Lemma~\ref{lem:gen:fundamental_equation}.
+The factor $(x-y)$ surviving in the $x$-convection coefficient places the operative singularity at the interior point $x=y$, exactly the analyticity-pinning regime anticipated in Remark~\ref{rem:gen:reading}.
 Unlike Models~$A$ and~$C_2$, no probabilistic (Pollaczek--Khinchine) route is available
 here. One-way jockeying makes the effective service experienced by a class-2 customer
 depend on the class-1 queue contents at the (random) jockeying instants, so the class-2

@@ -24,7 +24,7 @@ Figure~\ref{fig:val_lemmas} shows the maximum relative residual
 $|{\rm LHS}-{\rm RHS}|/|{\rm RHS}|$ of each lemma's functional equation,
 evaluated on the exact CTMC distribution across all model variants.
 Both lemmas hold to better than $10^{-9}$ --- consistent with truncation noise at
-$N_{\max}=40$, not formula error --- and Lemma~2 reaches floating-point
+$N_{\max}=40$, not formula error --- and Lemma~\ref{lem:gen:PPGF_dynamics} reaches floating-point
 precision (${\sim}10^{-15}$) because its recurrence involves only one
 discrete variable.
 
@@ -268,6 +268,11 @@ finally pulls it down.
 
 \subsubsection{Companion loss-accounting and queue-length tables}
 
+The class-1 loss accounting that accompanies Table~\ref{tab:comp:main} is collected in
+Table~\ref{tab:comp:loss_acct}: in every row the carried throughput and the abandonment
+rate sum to the offered load $\rho$, and only the abandonment models $C_2$ and $\CH$ carry a
+positive loss fraction $L_1$.
+
 % Companion loss-accounting table. Hand-authored but every number is sourced from
 % results/derived_metrics.tex (D1 pipeline); re-run Code/compute_derived_metrics.py to
 % regenerate the macros. Kept separate from Table~\ref{tab:comp:main} to stay within margins.
@@ -276,14 +281,14 @@ finally pulls it down.
 loads and parameters ($\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$; mechanism parameter $0.5$).
 \emph{Throughput} is the carried rate $\mu(1-\pi_0)$; \emph{abandonment rate} is the class-1
 loss flow ($\theta_1\mathbb{E}[N_1]$ for the full rate, $\theta_1\mathbb{P}(N_1\ge1)$ for
-head-of-line); and $P_{\mathrm{loss}}^{(1)}=\theta_1\mathbb{E}[N_1]/\lambda_1$ is the fraction
+head-of-line); and $L_1=\theta_1\mathbb{E}[N_1]/\lambda_1$ is the fraction
 of class-1 arrivals shed before service (eq.~\eqref{eq:comp:lossfrac}). The conserving models
-$A$, $B_2$, $\BH$ lose nothing; only $C_2$ and $\CH$ have $P_{\mathrm{loss}}^{(1)}>0$, and at
+$A$, $B_2$, $\BH$ lose nothing; only $C_2$ and $\CH$ have $L_1>0$, and at
 every row throughput${}+{}$abandonment rate${}={}$offered load $\rho$.}
 \label{tab:comp:loss_acct}
 \begin{tabular}{llrrr}
 \toprule
-$\rho$ & Model & Throughput & Aband.\ rate & $P_{\mathrm{loss}}^{(1)}$ \\
+$\rho$ & Model & Throughput & Aband.\ rate & $L_1$ \\
 \midrule
 \multirow{5}{*}{0.50} & A & \throughputAFifty & $0$ & $0$ \\
  & B$_2$ & \throughputBtwoFifty & $0$ & $0$ \\

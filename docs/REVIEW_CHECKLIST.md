@@ -4,6 +4,44 @@
 > `Prompts for claude - Review/claude_code_prompts_thesis_edits.md` to the commit
 > that addressed it, and records the residual findings of the audit itself.
 
+## 2026-06-19 full audit — Phase 1 & 2 executed
+
+> Source: `docs/REVIEW_2026-06-19.md` (full whole-thesis audit). This entry supersedes the
+> structural facts of the 2026-06-12/G1 sections (the document was restructured in the
+> interim: Model-X analysis deleted → `rem:B:modelX`; `12_comparison.tex` nested inside
+> `13_results.tex`; new `15_appendix_numerics.tex`). See `docs/REPO_MAP.md` (refreshed
+> 2026-06-19) for the current layout.
+
+- **Build**: still PASS, 0 errors / 0 LaTeX warnings. **98 pages** (was 105 pp). 275
+  unique labels (no duplicates); 636 `\ref`/`\eqref`/`\Cref` targets, all resolve. 16
+  overfull + 4 underfull hboxes (cosmetic, no regression); 3 cosmetic pdfTeX
+  duplicate-anchor warnings.
+- **Phase 1 + Phase 2 fixes** (branch `phase1-2-review-fixes`) — autonomous tasks C1–C9:
+  - **C1** `docs/REPO_MAP.md` + this file refreshed to the post-restructure layout (98 pp,
+    no `05_model_x`, `12`→nested in `13`, `15_appendix_numerics` added).
+  - **C2** Hardcoded "Lemma~2" → `Lemma~\ref{lem:gen:PPGF_dynamics}` (`15_appendix:27`).
+  - **C3** Added `\label{thm:C2:PGF}` to the C₂ theorem; renamed `thm:B2`→`thm:B2:PGF`;
+    validation-table T-A/T-B₂/T-C₂ rows now `\ref` the theorems (`13_results.tex`).
+  - **C4** "Reading the fundamental equation" paragraph promoted to
+    `\begin{remark}\label{rem:gen:reading}` (`04_model_description.tex`); the 4 "remark
+    following Lemma 1" citations (B₂, C₂, C₂ᴴ, conclusion) now `\ref{rem:gen:reading}`.
+  - **C5** Loss-fraction symbol unified to `L_1` (was `P_{\mathrm{loss}}^{(1)}` in the
+    appendix loss-accounting table + conclusion).
+  - **C6** Abstract uses `\BH`/`\CH` macros (was literal `$B_2^H$`/`$C_2^H$`) and
+    "head-of-line" (was "head-of-the-line").
+  - **C7** Orphaned `tab:comp:loss_acct` now cross-referenced in prose (`15_appendix`).
+  - **C8** `eq:results:EN_A` → `eq:comp:EN_A` (namespace consistency, `12_comparison`).
+  - **C9** Trailing blank lines trimmed from `09_model_c2.tex`. (The 36.86 pt literature
+    box was left as-is — content-touching, deferred.)
+- **Open items for the author (as of 2026-06-19)** — unchanged carry-forwards:
+  1. Confirm working title (`main.tex:59`, 3 candidates).
+  2. Kernel-Method citation (`06_model_a.tex:121`).
+  3. Hadamard finite-part citation (`07_model_b.tex:483`).
+  4. `[AUTHOR]` Probabilistic/Analytical ordering in Model-A (`06_model_a.tex:52`).
+  5. S̃ state-space policy (half-applied: general in `04`, used only in Model-A).
+  6. Cite or remove `abate2000asymptotic` / `tian2006vacation` from `references.bib`.
+  7. Whether to macro-ise the inline hardcoded CTMC sweep numbers (drift risk).
+
 ## Phase 1 follow-up (2026-06-12)
 
 > Source: `docs/REVIEW_2026-06-12.md` (full audit) → Phase 1 of its "Recommended
