@@ -368,7 +368,9 @@ $\rho$ & Model & Throughput & Aband.\ rate & $P_{\mathrm{loss}}^{(1)}$ \\
 Table~\ref{tab:comp:main} reads off the full set of stationary descriptors at three loads;
 the class-1 loss accounting --- throughput, abandonment flow, and the loss fraction
 $P_{\mathrm{loss}}^{(1)}$ --- is carried in the compact companion Table~\ref{tab:comp:loss_acct}
-so the main table stays within the margins. Two columns deserve a reviewer's caution. First, the priority waiting time
+so the main table stays within the margins.
+
+Two columns deserve a reviewer's caution. First, the priority waiting time
 $\mathbb{E}[W_1]$ is smallest for $C_2$ at every load (Table~\ref{tab:comp:EN_sweep}:
 $0.5941$ at $\rho=0.90$ against $0.6808$ for $B_2$ and $1.4651$ for $A$), but
 $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ is the mean time a customer is \emph{counted in
@@ -377,6 +379,7 @@ queue~$i$}, and that residence is shortened by every departure mode --- service,
 \emph{or} by abandoning; in $B_2$ by being served \emph{or} by jockeying into class~2.
 A smaller $\mathbb{E}[W_1]$ therefore does not by itself certify faster service, and
 cross-model $\mathbb{E}[W_1]$ comparisons conflate latency reduction with customer loss.
+
 The magnitude of that confound is exactly the class-1 loss fraction
 $L_1=\theta_1\mathbb{E}[N_1]/\lambda_1$ derived in \S\ref{subsec:comp:abandonment}
 (eq.~\eqref{eq:comp:lossfrac}): in $C_2$ at $\rho=0.70$ a fraction $L_1=\lossCtwoSeventy$ of

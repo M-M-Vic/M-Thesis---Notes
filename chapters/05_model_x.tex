@@ -2,22 +2,24 @@
 
 This section analyses the full model, Model-$X$, which retains \emph{both} bidirectional
 jockeying ($\gamma_1,\gamma_2>0$) \emph{and} two-class abandonment
-($\theta_1,\theta_2>0$), and from which every other model in this work is recovered by
+($\theta_1,\theta_2>0$), and from which every other model is recovered by
 zeroing parameters. No probabilistic route is available: jockeying breaks the per-class
 Poisson/renewal structure---a class-2 customer cannot identify its effective service time
 with a class-1 busy period---so the Pollaczek--Khinchine relation does not apply, while
-abandonment, though it leaves each arrival stream Poisson, couples the two queues through
-the state-dependent rates $\theta_i n_i$. The analysis therefore proceeds analytically.
-The method of characteristics yields the homogeneous solution of the fundamental
-equation; variation of parameters produces the general solution; the boundary behaviour
-at $x=0$ pins the free function; and evaluating the result along the characteristic
-through a diagonal point reduces the determination of the unknown boundary function
-$P_y(y)$ to a Volterra integral equation of the first kind. There the analysis stops, for
-two reasons established below: the kernel of that equation is built from a non-elementary
-quadrature along transcendental characteristics, and its right-hand side is itself
-coupled to an unknown diagonal gradient. Model-$X$ is therefore left open; its role in
-the hierarchy is to expose the precise obstructions that its tractable specialisations
-circumvent, and its queue layout is the left panel of
+abandonment, though it keeps each arrival stream Poisson, couples the two queues through
+the state-dependent rates $\theta_i n_i$.
+
+The analysis therefore proceeds analytically. The method of characteristics yields the
+homogeneous solution of the fundamental equation; variation of parameters gives the
+general solution; the boundary behaviour at $x=0$ pins the free function; and evaluating
+along the characteristic through a diagonal point reduces the determination of the unknown
+boundary function $P_y(y)$ to a Volterra integral equation of the first kind.
+
+There the analysis stops, for two reasons established below: the kernel of that equation
+is built from a non-elementary quadrature along transcendental characteristics, and its
+right-hand side is itself coupled to an unknown diagonal gradient. Model-$X$ is therefore
+left open; its role in the hierarchy is to expose the precise obstructions that its
+tractable specialisations circumvent, and its queue layout is the left panel of
 Figure~\ref{fig:models-queue-overview}.
 
 \textbf{Stability.} Model-$X$ has abandonment from both classes, so the total departure
@@ -574,7 +576,7 @@ Model-$X$ leaves one whose kernel is implicit and whose forcing is entangled wit
 unknown solution. Resolving it lies well beyond the scope of this thesis.
 \end{proof}
 
-Model-$X$ is therefore left open at this point. Its role in the hierarchy is to make the
+Model-$X$ is therefore left open. Its role in the hierarchy is to make the
 two obstructions explicit and to show how each tractable specialisation removes them. The
 limit $\theta_1=\theta_2\to0$ (Model-$B$) restores both at once: the
 characteristics~\eqref{eq:X:first_integral} straighten to the lines
@@ -589,6 +591,6 @@ argument at the interior singular point $x=y$ (\S\ref{sec:model_b2}); removing
 jockeying entirely while keeping only class-1 abandonment (Model-$C_2$) likewise
 degenerates the PDE to an ODE in $x$, whose $P_y(y)$ is pinned by a boundedness argument
 at $x=1$ (\S\ref{sec:model_c2}); and zeroing all four parameters returns the fully
-solvable baseline Model-$A$ (\S\ref{sec:model_a}). The full model~$X$, retaining
-all mechanisms, retains both obstructions simultaneously and is the one case that does
+solvable baseline Model-$A$ (\S\ref{sec:model_a}). The full model~$X$, with
+all mechanisms active, retains both obstructions simultaneously and is the one case that does
 not close.

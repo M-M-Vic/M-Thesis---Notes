@@ -1,6 +1,8 @@
 \section{Analysis of Model-\texorpdfstring{$B$}{B} (\texorpdfstring{$\gamma_1,\gamma_2>0$}{gamma1,gamma2>0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b}
 
-Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) while retaining no abandonment ($\theta_1=\theta_2=0$). Jockeying conserves the total number of customers in the system, so the stationary distribution still exists under the same condition as Model-$A$. However, jockeying breaks the per-class Poisson/renewal structure: a class-2 customer can no longer identify its effective service time with a class-1 busy period, so the Pollaczek--Khinchine probabilistic route is unavailable. Applying the method of characteristics to the fundamental equation yields a general solution, but closing it~---~i.e., determining the unknown boundary function $P_y(y)$~---~requires solving a Volterra-type integral equation that does not admit a closed form. Model-$B$ is therefore intentionally left open, in structural parallel with Model-$X$; its role is to motivate the tractable specialisation Model-$B_2$.
+Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) with no abandonment ($\theta_1=\theta_2=0$). Jockeying conserves the total number of customers, so the stationary distribution exists under the same condition as Model-$A$. But it breaks the per-class Poisson/renewal structure: a class-2 customer can no longer identify its effective service time with a class-1 busy period, so the Pollaczek--Khinchine route is unavailable.
+
+The method of characteristics yields a general solution of the fundamental equation, but closing it~---~determining the unknown boundary function $P_y(y)$~---~requires solving a Volterra-type integral equation with no closed form. Model-$B$ is therefore left open, in structural parallel with Model-$X$; its role is to motivate the tractable specialisation Model-$B_2$.
 
 \textbf{Stability.} $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect this condition. Figure~\ref{fig:model-b-queue} shows the queue layout.
 
@@ -511,7 +513,7 @@ the open problem, not solved here; resolving it would require Volterra inversion
 methods together with the regularisation just described.
 \end{proof}
 
-Model-$B$ is therefore left open at this point.  Its role in the hierarchy is
+Model-$B$ is therefore left open.  Its role in the hierarchy is
 structural: it identifies the precise obstruction~---~the Volterra equation
 for $P_y$~---~that the tractable special cases $B_2$ and $C_2$ circumvent, each
 by a different mechanism.  Setting $\gamma_2=0$ collapses the characteristic

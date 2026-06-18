@@ -1,6 +1,6 @@
 \section{Analysis of Model-\texorpdfstring{$C_2$}{C2} (\texorpdfstring{$\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$}{theta1>0, gamma1=gamma2=theta2=0})}\label{sec:model_c2}
 
-In this section, we will derive $P(x,y)$ for this model where only true abandonments coming from class-$1$ take place, while no abandonments in class-$2$ or jockeying of any sort are taken into account. Figure~\ref{fig:model-c2-queue} shows the queue layout.
+In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandon, with no class-$2$ abandonment and no jockeying. Figure~\ref{fig:model-c2-queue} shows the queue layout.
 
 \begin{figure}[H]
     \centering
@@ -11,7 +11,7 @@ In this section, we will derive $P(x,y)$ for this model where only true abandonm
     at rate $\theta_1$ per waiting customer (dotted arrow, upward from Queue~1).
     Class-2 never abandons ($\theta_2=0$) and there is no jockeying.}
     \label{fig:model-c2-queue}
-\end{figure} The rationale behind using this combination of parameters is that, thanks to the fact that class-$2$ still sees Poisson arrivals, the same sort of probabilistic arguments we used for Model-$A$ will hold. Moreover, we will see that the resulting equation when plugging this combination of parameters in our fundamental equation (Equation~\eqref{eq:C2:fundamental}) yields a \textit{first-order linear ODE} in $x$ and, $P_y(y)$ can be taken out of the integral, saving us from having to solve an equation of the Volterra family.
+\end{figure} The rationale for this parameter choice is twofold. First, class-$2$ still sees Poisson arrivals, so the probabilistic arguments used for Model-$A$ carry over. Second, substituting these parameters into the fundamental equation~\eqref{eq:C2:fundamental} yields a \textit{first-order linear ODE} in $x$ in which $P_y(y)$ can be taken outside the integral, sparing us a Volterra-type equation.
 
 \begin{theorem}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition

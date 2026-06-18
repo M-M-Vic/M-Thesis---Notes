@@ -1,6 +1,6 @@
 \section{Model description: Model-\texorpdfstring{$X$}{X}}\label{sec:model_x}
 
-This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonments ($\theta_i$). We refer to this full model as \emph{Model-$X$}. The simpler variants studied are recovered as special cases by zeroing the appropriate parameters, as summarised in the table below (Table~\ref{tab:model_family}):
+This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonment ($\theta_i$); we call this full model \emph{Model-$X$}. The simpler variants are recovered as special cases by zeroing the appropriate parameters, as summarised in Table~\ref{tab:model_family}:
 \begin{table}[H]
     \centering
     \begin{tabular}{cccl}
@@ -24,7 +24,7 @@ This section defines the general two-class system with both jockeying ($\gamma_i
     \par\smallskip
 \end{table}
 
-Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ and each of the variants that we will consider, but omits the two head-of-line model, as it is less conventional and a diagram like these would not be of much help:
+Figure~\ref{fig:models-queue-overview} gives a visual overview of Model-$X$ and each variant we consider. It omits the two head-of-line variants, which are less conventional and for which such a diagram would add little:
 \begin{figure}[H]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -35,16 +35,16 @@ Figure~\ref{fig:models-queue-overview} provides a visual overview of Model-$X$ a
     \label{fig:models-queue-overview}
 \end{figure}
 
-The model discussed in this section is an $M/M/1$ queueing system with two priority classes, where customers are served on a First-Come, First-Served (FCFS) basis within their own class and those coming from the priority class (class-$1$) have non-preemptive priority over those of the non-priority class (class-$2$); that is, when a class-$2$ customer is in service, that service will not be interrupted by apotential arrival of a class-$1$ customer. Beyond basic dynamics, Model-$X$ incorporates two distinct queue-leaving mechanisms. First, \emph{jockeying}: a waiting customer can abandon its own queue and \emph{join the other queue}, at a per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for direction $2\to1$, so the total number of customers is preserved. Second, \emph{abandonment} (reneging): a waiting customer may completely leave the \emph{system} at a rate per-customer $\theta_i$, so the total number of customers decreases by one. Concretely, each Class-$i$ customer that is waiting in line (i.e.\ not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$ patience clock and abandons the system when it expires; consequently, the aggregate class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear term $\theta_i n_i$ that appears in the balance equations. This is precisely the linear-reneging mechanism of the $M/M/1+M$ queue introduced in \S\ref{ssec:erlangA}.
+The model in this section is an $M/M/1$ queue with two priority classes. Customers are served First-Come, First-Served (FCFS) within their own class, and class-$1$ (the priority class) has non-preemptive priority over class-$2$: a service in progress is never interrupted, so a class-$2$ customer in service is not displaced by an arriving class-$1$ customer. Beyond these basic dynamics, Model-$X$ adds two queue-leaving mechanisms. First, \emph{jockeying}: a waiting customer leaves its own queue to \emph{join the other queue}, at per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for $2\to1$, so the total number of customers is preserved. Second, \emph{abandonment} (reneging): a waiting customer leaves the \emph{system} at per-customer rate $\theta_i$, decreasing the total by one. Concretely, each waiting class-$i$ customer (not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$ patience clock and abandons when it expires, so the aggregate class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear term $\theta_i n_i$ in the balance equations. This is precisely the linear-reneging mechanism of the $M/M/1+M$ queue from \S\ref{ssec:erlangA}.
 
-This model, being an $M/M/1$ queueing model according to Kendall's notation, features arrivals driven by a Poisson process with arrival rates $\lambda_i$ for class-$i$, exponentially distributed service times with rate $\mu$, and a service capacity of $1$ customer at a time. In addition, a waiting customer of class-$1$ jockeys in the class-$2$ queue at the per-customer rate $\gamma_1$ and a waiting customer of class-$2$ jockeys in the class-$1$ queue at the per-customer rate $\gamma_2$ (transfers that conserve the total), while a waiting customer of Class-$i$ abandons the system at the per-customer rate $\theta_i$ (a true departure that reduces the total).
-In order to define the stochastic processes that drive this queueing system, it is necessary to introduce the following random variables:
+In Kendall's notation this is an $M/M/1$-type model: Poisson arrivals at rate $\lambda_i$ for class-$i$, exponentially distributed service times at rate $\mu$, and a single server.
+To define the stochastic processes that drive this system, we introduce the following random variables:
 \begin{itemize}
     \item $\mathcal{B}:$ binary indicator for the server being idle or busy, $\mathcal{B}\in \{0,1\}$;
     \item $N_1, N_2:$ number of customers of class $1$ and $2$, respectively, in their respective queues;
     \item $N:$ total number of customers in the queues.
 \end{itemize}
-Note that the variables $N_1$, $N_2$ and $N$ count customers in the \emph{queues}, not the \emph{system}. Since service rate is common to both classes, we denote the idle system state as $(0)$ and all other states by $(n_1,n_2)$, so state $(0,0)$ implies someone is in service and the queues are empty. Alternatively, we can define another state space by total queue depth using an auxiliary state space $\widetilde{S}$, tracking only $n_2$ and $n = n_1 + n_2$ with the constraint $n \geq n_2 \geq 0$. We define:
+Note that $N_1$, $N_2$ and $N$ count customers in the \emph{queues}, not the \emph{system}. Since the service rate is common to both classes, we write the idle state as $(0)$ and all other states as $(n_1,n_2)$, so $(0,0)$ means someone is in service and the queues are empty. Alternatively, an auxiliary state space $\widetilde{S}$ tracks only $n_2$ and the total $n = n_1 + n_2$, subject to $n \geq n_2 \geq 0$. Formally:
 \begin{align}
     \begin{split}
         &S := \{(0)\} \cup \{ (n_1,n_2) \mid n_1,n_2 \geq 0 \},
@@ -55,14 +55,14 @@ Note that the variables $N_1$, $N_2$ and $N$ count customers in the \emph{queues
     \end{split}
 \end{align}
 
-For these state spaces, we define the long-run probabilities of finding the system in that state as follows:
+We define the long-run probabilities of finding the system in each state:
 \begin{itemize}
     \item $\pi_0$ for the idle state $(0)$, it belongs to both spaces $S$ and $\widetilde{S}$;
     \item $\pi(n_1,n_2)$ for states $(n_1,n_2) \in S$, where $n_1,n_2 \geq 0$;
     \item $\widetilde{\pi}(n_2,n)$ for states $(n_2,n) \in \widetilde{S}$, where $n \geq n_2 \geq 0$.
 \end{itemize}
 
-We assume Poisson arrivals for each class and exponential service times (common across classes). We adopt the following notation:
+Arrivals are Poisson for each class and service times exponential (common across classes), with the following notation:
 \begin{itemize}
     \item $\lambda_1, \lambda_2$: arrival rates of classes $1$ and $2$, respectively;
     \item $\mu$: service rate of a customer, regardless of class;
@@ -144,7 +144,7 @@ The state-transition diagram of Model-$X$ on $S$ is given in Figure~\ref{fig:dia
 
 Recall the state space $\widetilde{S}$ defined in~\eqref{eq:gen:state_space_Stilde}.
 
-For the sake of readability, we will denote the limiting probabilities associated to this state space with $\tpi(n_2,n)$, for state $(n_2,n)\in \widetilde{S}$. Figure~\ref{fig:diagram-gen-stilde} shows the corresponding state transition diagram.
+For readability we denote its limiting probabilities by $\tpi(n_2,n)$, for $(n_2,n)\in \widetilde{S}$. Figure~\ref{fig:diagram-gen-stilde} shows the corresponding state transition diagram.
 
 \begin{figure}[H]
   \centering
@@ -201,42 +201,42 @@ The balance equations, after combining the equations where $\tpi_0$ shows up, ar
 
 \subsection{Derivation of equations for (Partial) Probability Generating functions} \label{ssec:pgf_derivation}
 
-In order to study the limiting behaviour of this two-class system, we define the bivariate Probability Generating Function (PGF) of the joint number of customers in the queue for each class, $N_1$ and $N_2$:
+To study the limiting behaviour of this two-class system, we define the bivariate Probability Generating Function (PGF) of the joint queue lengths $N_1$ and $N_2$:
 \begin{equation*}
     P(x,y) = \mathbb{E}[x^{N_1} y^{N_2}] = \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} \pi(n_1,n_2) x^{n_1} y^{n_2}.
 \end{equation*}
 
-The derivation that will be carried out here includes the boundary terms, where at least one of the two queues is empty:
+The derivation also uses the boundary terms, where at least one queue is empty:
 \begin{align*}
     P_x(x) &= P(x,0) = \sum_{n_1=0}^{\infty} \pi(n_1,0) x^{n_1} \\
     P_y(y) &= P(0,y) = \sum_{n_2=0}^{\infty} \pi(0,n_2) y^{n_2}.
 \end{align*}
 
-Note that both of these terms include the state where the server is busy but both queues are empty, which is represented by $\pi(0,0)$, while the state where the entire system is empty (the idle state) is treated separately.
+Note that both terms include the busy-but-empty state $\pi(0,0)$, whereas the fully idle state is treated separately.
 
 
-Another term that arises during the application of the balance equations characterises the boundary dynamics when the class-$1$ queue contains exactly one waiting customer:
+A further term arises in the balance equations, describing the boundary dynamics when the class-$1$ queue holds exactly one waiting customer:
 \begin{equation*}
     P_1(y) = \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2}.
 \end{equation*}
-This term serves as an intermediate step; as the derivation proceeds, it will be possible to express it in terms of the primary boundary functions $P_x(x)$ and $P_y(y)$.
+This is an intermediate term; as the derivation proceeds, it will be expressed in terms of the primary boundary functions $P_x(x)$ and $P_y(y)$.
 
-In the same fashion, we introduce the concept of the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably utilised by Cohen \cite{cohen1956delay}, consists of transforming only a subset of the random variables while maintaining the discrete indices of the remainder. In the context of a priority queue, this method is particularly advantageous: it allows us to exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and focus the analytical effort on the non-trivial PGF of the non-priority class.
+In the same fashion, we introduce the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably used by Cohen \cite{cohen1956delay}, transforms only a subset of the random variables while keeping the discrete indices of the rest. For a priority queue it is particularly advantageous: it lets us exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and concentrate the analytical effort on the non-trivial PGF of the non-priority class.
 
-While Cohen originally developed this framework for multi-server systems, we apply it here to the single-server case. To avoid the potential confusion stemming from mid-20th-century notation, we provide a modern formulation consistent with the variables defined above.
+Cohen developed this framework for multi-server systems; we apply it here to the single-server case. To avoid confusion from mid-20th-century notation, we give a modern formulation consistent with the variables defined above.
 
-We define the PPGF with respect to the second variable $N_2$, conditioned on the first queue being in state $n_1$, as:
+We define the PPGF with respect to $N_2$, conditioned on the first queue being in state $n_1$:
 \begin{equation}
     \widetilde{P}(n_1, y) = \mathbb{E} \left[y^{N_2} \mathbb{1}_{\{ N_1=n_1\}} \right] = \sum_{n_2=0}^{\infty} \pi(n_1,n_2) y^{n_2}.
     \label{eq:gen:ppgf_n1}
 \end{equation}
 
-Similarly, the transform with respect to the first variable $N_1$, while maintaining the discrete state $n_2$ for the second queue, is defined as:
+Similarly, the transform with respect to $N_1$, keeping the second queue in discrete state $n_2$, is:
 \begin{equation*}
     \widetilde{P}(x, n_2) = \mathbb{E} \left[x^{N_1} \mathbb{1}_{\{ N_2=n_2\}} \right] = \sum_{n_1=0}^{\infty} \pi(n_1,n_2) x^{n_1}.
 \end{equation*}
 
-These partial transforms are linked to the joint PGF by the following relations:
+These partial transforms relate to the joint PGF by:
 \begin{equation*}
     P(x,y) = \sum_{n_1=0}^{\infty} \widetilde{P}(n_1, y) x^{n_1} = \sum_{n_2=0}^{\infty} \widetilde{P}(x, n_2) y^{n_2}.
 \end{equation*}
@@ -270,7 +270,13 @@ satisfies the first-order linear partial differential equation
 \end{lemma}
 
 \paragraph{Reading the fundamental equation.}
-Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical reading, since its structure dictates the entire analysis that follows. The bracketed algebraic coefficient multiplying $P(x,y)$ is exactly the kernel of the baseline Model-$A$: it is the flux balance between the arrival contributions $\lambda_1 x^2 y$ and $\lambda_2 x y^2$, the service contribution $\mu y$, and the total outflow $(\lambda_1+\lambda_2+\mu)xy$. The two convection coefficients carry the added mechanisms. In the $x$-convection coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$, the jockeying factor $(x-y)$ vanishes on the diagonal $x=y$, the analytic signature that jockeying merely relocates a customer and so conserves the total count, while the abandonment factor $(x-1)$ vanishes at $x=1$, the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The $y$-convection coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$. The right-hand side carries the two boundary unknowns that any solution must pin down: the marginal $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty. The position of these vanishing factors fixes, model by model, where the operative singularity sits and hence which technique applies: with both convection terms absent (Model-$A$, \S\ref{sec:model_a}) the equation is algebraic and $P_y(y)$ is recovered from the kernel root $x^*(y)$ inside the unit disc; with one-way jockeying alone (Model-$B_2$, \S\ref{sec:model_b2}) the factor $(x-y)$ places the singularity at the interior point $x=y$ with a negative exponent, and $P_y(y)$ is pinned by analyticity there; with class-$1$ abandonment alone (Model-$C_2$, \S\ref{sec:model_c2}) the factor $(x-1)$ places it on the boundary $x=1$ with a positive exponent, and $P_y(y)$ is pinned by mere boundedness; and restricting a mechanism to the head of the queue removes the derivative outright, collapsing the equation to the algebraic Model-$A$ form (Models~$\BH$ and $\CH$, \S\ref{sec:model_b21}). These four regimes are gathered side by side in Table~\ref{tab:comparison} of \S\ref{sec:comparison}.
+Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical reading, since its structure dictates the entire analysis that follows. The bracketed algebraic coefficient multiplying $P(x,y)$ is exactly the kernel of the baseline Model-$A$: the flux balance between the arrival contributions $\lambda_1 x^2 y$ and $\lambda_2 x y^2$, the service contribution $\mu y$, and the total outflow $(\lambda_1+\lambda_2+\mu)xy$.
+
+The two convection coefficients carry the added mechanisms. In the $x$-convection coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$, the jockeying factor $(x-y)$ vanishes on the diagonal $x=y$ --- the analytic signature that jockeying merely relocates a customer and so conserves the total count --- while the abandonment factor $(x-1)$ vanishes at $x=1$, the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The $y$-convection coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$.
+
+The right-hand side carries the two boundary unknowns that any solution must pin down: the marginal $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty.
+
+The position of these vanishing factors fixes, model by model, where the operative singularity sits and hence which technique applies. With both convection terms absent (Model-$A$, \S\ref{sec:model_a}) the equation is algebraic and $P_y(y)$ is recovered from the kernel root $x^*(y)$ inside the unit disc. With one-way jockeying alone (Model-$B_2$, \S\ref{sec:model_b2}) the factor $(x-y)$ places the singularity at the interior point $x=y$ with a negative exponent, and $P_y(y)$ is pinned by analyticity there. With class-$1$ abandonment alone (Model-$C_2$, \S\ref{sec:model_c2}) the factor $(x-1)$ places it on the boundary $x=1$ with a positive exponent, and $P_y(y)$ is pinned by mere boundedness. Restricting a mechanism to the head of the queue removes the derivative outright, collapsing the equation to the algebraic Model-$A$ form (Models~$\BH$ and $\CH$, \S\ref{sec:model_b21}). These four regimes are gathered side by side in Table~\ref{tab:comparison} of \S\ref{sec:comparison}.
 
 \begin{proof}
 
