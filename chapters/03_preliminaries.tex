@@ -1,29 +1,29 @@
 \section{Preliminaries}\label{sec:prelim}
 
-This section collects background material referenced throughout the derivations. Introducing these building blocks here allows the subsequent arguments to remain focused on their primary objectives.
+This section collects the background material used throughout the derivations, so that the later arguments can stay focused on their primary objectives.
 
-The central mathematical object in our derivations will be the (P)PGF of the model in question, as well as the idle probability of the system for some corollaries.
+The central object throughout is the (P)PGF of the model in question, together with the system's idle probability for some corollaries.
 
 
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
-The model described here is the canonical $M/M/1$ queue, well studied in multiple textbooks and manuals and considered the absolute foundation of queueing theory. Here, we will use \cite{adan2002queueing} as our reference, but there is a lot of good quality literature and sources about it. 
-Customers arrive at the system according to a Poisson process —i.e., the inter-arrival times are exponentially distributed with parameter $\lambda$—, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-serve (FCFS) —also known as first-in-first-out (FIFO)— order. The system is stable if and only if the system's load $\rho = \lambda/\mu < 1$. 
+The canonical $M/M/1$ queue is the foundation of queueing theory and is treated in many textbooks; we follow \cite{adan2002queueing}.
+Customers arrive according to a Poisson process —i.e. the inter-arrival times are exponentially distributed with parameter $\lambda$—, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-serve (FCFS) —also known as first-in-first-out (FIFO)— order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
 
 Let $\pi_n$ be the limiting probability of finding $n$ customers in the system. Under stability, the detailed balance equations $\lambda\,\pi_n = \mu\,\pi_{n+1}$ ($n \geq 0$) together with the normalisation $\sum_{n=0}^{\infty}\pi_n=1$ give us the geometric steady-state distribution of the number of customers in the system:
 \begin{equation*}
     \pi_n = (1-\rho)\,\rho^n, \quad n \ge 0. 
 \end{equation*}
-By the PASTA property (\S\ref{ssec:priority}), this also corresponds to the distribution seen by the arriving customers. Let $L$ be the random variable that tells us how many customers—including the one that might be in service—are in the system. The expected number of customers in the system is the following:
+By the PASTA property (\S\ref{ssec:priority}), this also corresponds to the distribution seen by arriving customers. Let $L$ be the number of customers in the system, including any in service. Its expectation is
 \begin{equation*}
     \mathbb{E}[L] = \frac{\rho}{1-\rho}.
 \end{equation*}
-From this, the expected sojourn time $W$—the time that elapses between a customer's arrival and their departure after service completion—is derived by Little's Law ($\mathbb{E}[L] = \lambda\mathbb{E}[W]$):
+From this, the expected sojourn time $W$—the time between a customer's arrival and their departure after service—follows by Little's Law ($\mathbb{E}[L] = \lambda\mathbb{E}[W]$):
 \begin{equation*}
     \mathbb{E}[W] = \frac{\mathbb{E}[L]}{\lambda} = \frac{1/\mu}{1-\rho}.
 \end{equation*}
 
-Another concept, more rare but highly relevant for the content that will be discussed in this thesis, is the Busy Period ($BP$) of the system, i.e., the time elapsed between the arrival of a customer to an idle system and the departure of a customer who leaves the system empty again after service completion. The Laplace-Stieltjes Transform (LST) and the expectation of this system's busy period are known:
+A less common but highly relevant concept is the Busy Period ($BP$): the time between a customer arriving to an idle system and the departure that next leaves it empty. Its Laplace--Stieltjes Transform (LST) and expectation are known:
 \begin{align}
     \widetilde{BP}(s) &= \frac{(\mu+\lambda+s) - \sqrt{(\mu+\lambda+s)^2 - 4\mu\lambda}}{2\lambda},\label{eq:mm1:bp_lst} \\
     \mathbb{E}[BP]    &= \frac{1}{\mu(1-\rho)}. \label{eq:mm1:bp_mean}
@@ -62,9 +62,9 @@ separately.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}
 
-Another relevant queueing model for this thesis is the so-called $M/M/1+M$ model, also known as the \emph{Erlang A} model. It is based on the $M/M/1$ queue ---Poisson arrivals at rate $\lambda$ and exponentially distributed service times with rate $\mu$--- but adds customer impatience: each \emph{waiting} customer (the one in service is not impatient) independently abandons after an exponentially distributed patience time with rate $\theta$. The key difference of this model with respect to the $M/M/1$ is that the $M/M/1+M$ does not require $\rho=\lambda / \mu < 1$ to be stable: it is positive recurrent for all $\lambda, \mu, \theta > 0$.
+Another model relevant to this thesis is the $M/M/1+M$ queue, also known as the \emph{Erlang-A} model. It extends the $M/M/1$ queue ---Poisson arrivals at rate $\lambda$, exponential service at rate $\mu$--- with customer impatience: each \emph{waiting} customer (the one in service is not impatient) independently abandons after an exponentially distributed patience time with rate $\theta$. Crucially, unlike the $M/M/1$ it does not require $\rho=\lambda/\mu<1$ for stability: it is positive recurrent for all $\lambda, \mu, \theta > 0$.
 
-The steady state distribution follows, naturally, from its balance equations. At state $n \geq 0$ —for $n$ being the number of customers in the \emph{system}— we have
+The steady-state distribution follows from its balance equations, where $n$ denotes the number of customers in the \emph{system}:
 \begin{equation*}
     \lambda\,\pi_n = (\mu + n\theta)\,\pi_{n+1}, \qquad n \ge 0.
 \end{equation*}
@@ -75,7 +75,7 @@ Iterating yields
 \end{equation*}
 Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF is correspondingly a \emph{ratio} of Kummer functions, $\Pi(z) = {}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)\,/\,{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)$. The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
 
-The \emph{Busy Period} of the $M/M/1+M$ defined here is far more complex than the one expressed in the $M/M/1$ queueing system. We record it for the class-1 subsystem used in Model-$C_2$, taking arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this class-1 busy period, its LST and expectation are
+The \emph{Busy Period} of this $M/M/1+M$ is far more complex than its $M/M/1$ counterpart. We record it for the class-1 subsystem used in Model-$C_2$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this busy period, its LST and expectation are
 \begin{align}
     \begin{split}
     \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
@@ -161,7 +161,7 @@ gives the PGF of the stationary number of customers in the system:
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Confluent hypergeometric function}\label{ssec:kummer}
 
-The \emph{Kummer confluent hypergeometric function of the first kind} function will come up in some of the derivations of this thesis, and it reads as follows:
+The \emph{Kummer confluent hypergeometric function of the first kind} appears in several derivations in this thesis; it reads as follows:
 \begin{equation}
     {}_1F_1(a;\,b;\,z) \;=\;
         \sum_{n=0}^{\infty} \frac{a^{(n)}}{b^{(n)}\,n!}\,z^n,
@@ -172,10 +172,9 @@ where $b$ is not $0$ or a negative integer —i.e. $b \notin \{0,-1,-2,\dots\}$�
 $z\in\mathbb{C}$.
 The function ${}_1F_1(a;\,b;\,z)$ is the unique solution of \emph{Kummer's equation}~\cite{dlmf}:
 \begin{equation*}
-    z\,u'' + (b - z)\,u' - a\,u = 0, 
+    z\,u'' + (b - z)\,u' - a\,u = 0,
 \end{equation*}
-normalised by ${}_1F_1(a;\,b;\,0) = 1$. The \emph{Kummer series} (Equation \eqref{eq:kummer:series}) converges
-for all $z\in\mathbb{C}$ and $b \notin \{0,-1,-2,\ldots\}$.
+normalised by ${}_1F_1(a;\,b;\,0) = 1$.
 
 For this thesis, two identities related to it are used.
 First, the \emph{Euler integral representation}, for $a,b>0$ we have:
@@ -204,7 +203,7 @@ instead in the boundary function of Model-$B_2$ (\S\ref{sec:model_b2}).
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{First-order linear ODEs and PDEs}\label{ssec:ode}
 
-Since jockeying and abandonment add state-dependent rates to the balance equations, derivative terms end showing up in the derivations  and they require solving first-order linear ODEs and PDEs for the PGF. The three methods below are invoked at specific steps of the analysis.
+Since jockeying and abandonment add state-dependent rates to the balance equations, derivative terms appear in the derivations, requiring us to solve first-order linear ODEs and PDEs for the PGF. The three methods below are invoked at specific steps of the analysis.
 
 \subsubsection{Integrating factor}\label{sssec:if}
 
