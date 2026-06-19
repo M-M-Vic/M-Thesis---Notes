@@ -117,11 +117,12 @@ def ctmc_metrics(p: Params, rho):
     pij = res["pi_joint"]
     P_N1_ge1 = float(pij[1:, :].sum())
     P_N1_ge2 = float(pij[2:, :].sum())
+    pi00 = float(pij[0, 0])             # server busy, both queues empty (!= pi_idle)
     E_W1 = d["E_n1"] / p.lam1
     E_W2 = d["E_n2"] / p.lam2
     return dict(E_n1=d["E_n1"], E_n2=d["E_n2"], E_n=d["E_n"],
                 E_W1=E_W1, E_W2=E_W2, ratio_W=E_W1 / E_W2,
-                pi_idle=res["pi_idle"], P_busy=d["P_busy"],
+                pi_idle=res["pi_idle"], pi00=pi00, P_busy=d["P_busy"],
                 P_N1_ge1=P_N1_ge1, P_N1_ge2=P_N1_ge2,
                 aband_rate=d["abandonment_rate"], throughput=d["throughput"],
                 offered=d["offered_load"], carried_plus_lost=d["carried_plus_lost"],
@@ -396,6 +397,45 @@ def write_macros(out):
             cmd(f"throughput{mac}{w}", f"{out['ctmc'][rho][nm]['throughput']:.4f}")
         for nm, mac in (("C2", "Ctwo"), ("CH", "CH")):
             cmd(f"lostflow{mac}{w}", f"{out['ctmc'][rho][nm]['aband_rate']:.4f}")
+    L.append("")
+
+    # (8) full per-model per-load descriptor grid (macro-ises the inline CTMC readouts
+    #     quoted in chapters/12_comparison.tex and chapters/15_appendix_numerics.tex; D7).
+    #     pi0 (idle), pi00 (busy-empty, != pi0), E[N], E[N2], E[W1], E[W2] for all five
+    #     models at the three reference loads. E[N1] is emitted in block (4) for B2/BH, so
+    #     only A/C2/CH are added here to complete that family without redefining a macro.
+    MODELMAC = (("A", "A"), ("B2", "Btwo"), ("C2", "Ctwo"), ("BH", "BH"), ("CH", "CH"))
+    for rho in ["0.5", "0.7", "0.9"]:
+        w = RHO_WORD[rho]
+        for nm, mac in MODELMAC:
+            c = out["ctmc"][rho][nm]
+            cmd(f"piZero{mac}{w}", f"{c['pi_idle']:.4f}")
+            cmd(f"piZZ{mac}{w}",   f"{c['pi00']:.4f}")
+            cmd(f"EN{mac}{w}",     f"{c['E_n']:.4f}")
+            cmd(f"ENtwo{mac}{w}",  f"{c['E_n2']:.4f}")
+            cmd(f"EWone{mac}{w}",  f"{c['E_W1']:.4f}")
+            cmd(f"EWtwo{mac}{w}",  f"{c['E_W2']:.4f}")
+        for nm, mac in (("A", "A"), ("C2", "Ctwo"), ("CH", "CH")):
+            cmd(f"ENone{mac}{w}", f"{out['ctmc'][rho][nm]['E_n1']:.4f}")
+    L.append("")
+
+    # (9) priority premium E[W2]/E[W1] for the head-of-line models (block 6 covers A/B2/C2)
+    for rho in ["0.7", "0.9"]:
+        w = RHO_WORD[rho]
+        for nm, mac in (("BH", "BH"), ("CH", "CH")):
+            c = out["ctmc"][rho][nm]
+            cmd(f"premium{mac}{w}", f"{c['E_W2'] / c['E_W1']:.2f}")
+    L.append("")
+
+    # (10) derived percentage changes quoted in the comparison/appendix prose (1 d.p.):
+    #      class-2 wait inflation under B2, and class-1 queue reduction under B2 / BH, at rho=0.70
+    c7 = out["ctmc"]["0.7"]
+    cmd("EWtwoBtwoInflationSeventy",
+        f"{100.0 * (c7['B2']['E_W2'] - c7['A']['E_W2']) / c7['A']['E_W2']:.1f}")
+    cmd("ENoneBtwoReductionSeventy",
+        f"{100.0 * (c7['A']['E_n1'] - c7['B2']['E_n1']) / c7['A']['E_n1']:.1f}")
+    cmd("ENoneBHReductionSeventy",
+        f"{100.0 * (c7['A']['E_n1'] - c7['BH']['E_n1']) / c7['A']['E_n1']:.1f}")
 
     path = os.path.join(os.path.dirname(__file__), "..", "results", "derived_metrics.tex")
     with open(path, "w") as f:

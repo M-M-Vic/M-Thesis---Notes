@@ -49,9 +49,6 @@ still to be determined:
 
 The following theorem summarises the main result of this subsection; two standalone
 proofs are given, one analytical and one probabilistic.
-% [AUTHOR: the canonical section spine (CLAUDE.md \S6 step~5) specifies Probabilistic
-% before Analytical. The current order is reversed relative to Models~$B_2$ and~$C_2$.
-% Consider swapping \S\ref{sssec:A:analytical} and \S\ref{sssec:A:probabilistic}.]
 \begin{theorem}\label{thm:A:PGF}
     Consider a queueing system with two priority classes with Poisson arrival rates
     $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority
@@ -118,14 +115,13 @@ term $\mu(x-y)P_y(y)$ vanishes:
 \subsubsection{Analytical approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
 
 \begin{proof}
-% TODO: cite — add a reference for the Kernel Method (e.g., Bayer \& Boxma, or Cohen's book).
 
     We begin from the fundamental equation for Model-$A$~\eqref{eq:A:fundamental}:
     \begin{equation*}
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
         = \mu(x-y) P_y(y)  - \mu x(1-y) \pi(0,0).
     \end{equation*}
-    We apply the \emph{Kernel Method}: fix $y\in(0,1]$ and find $x^*(y)$ such that the
+    We apply the \emph{Kernel Method}~\cite{cohen1956delay}: fix $y\in(0,1]$ and find $x^*(y)$ such that the
     LHS of the expression above is zero. Since $P(x,y)$ is a PGF, it is bounded. At any
     such root the LHS vanishes, so the RHS must also vanish:
     \[

@@ -257,7 +257,7 @@ Figure~\ref{fig:comp:pi00} is not a numerical coincidence but a direct reading o
 Corollary~\ref{cor:B2:pi00}: the event ``server busy, both queues empty'' depends only on
 the total occupancy $N$, and jockeying leaves the law of $N$ unchanged. For $C_2$ the
 identity $\pi(0,0)=\rho\,\pi_0$ still holds, but $\pi_0>1-\rho$, so the curve is lifted ---
-at $\rho=0.70$, $\pi(0,0)=0.2587$ against the baseline $0.2100$
+at $\rho=0.70$, $\pi(0,0)=\piZZCtwoSeventy$ against the baseline $\piZZASeventy$
 (Table~\ref{tab:comp:main}). The lift is also asymmetric: whereas the conserving parabola
 $\rho(1-\rho)$ is symmetric about $\rho=\tfrac12$, the $C_2$ curve in
 Figure~\ref{fig:comp:pi00} attains its maximum to the \emph{right} of that point, the
@@ -317,7 +317,7 @@ $\rho$ & Model & Throughput & Aband.\ rate & $L_1$ \\
 
 Table~\ref{tab:comp:EN_sweep} reads off the per-class queue lengths and waiting times across
 the sweep. The priority waiting time $\mathbb{E}[W_1]$ is smallest for $C_2$ at every load
-($0.5941$ at $\rho=0.90$ against $0.6808$ for $B_2$ and $1.4651$ for $A$), but
+($\EWoneCtwoNinety$ at $\rho=0.90$ against $\EWoneBtwoNinety$ for $B_2$ and $\EWoneANinety$ for $A$), but
 $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ is the mean time a customer is \emph{counted in
 queue~$i$}, and that residence is shortened by every departure mode --- service,
 \emph{and} attrition. In $C_2$ a class-1 customer leaves the count by being served
@@ -350,10 +350,10 @@ The monotone decrease of $\mathbb{E}[N_1]$ in $\gamma_1$ follows directly from t
 structure: each waiting class-1 customer generates a jockeying event at rate $\gamma_1$, so
 the expected outflow from the class-1 queue is $\gamma_1\mathbb{E}[N_1]$, an additional
 drain that acts independently of the service process and grows with $\gamma_1$. At
-$\gamma_1=0.5$ this halves the priority queue, from $\mathbb{E}[N_1]=0.3000$ to $0.1545$
-($-48.5\%$, Table~\ref{tab:comp:main}). The mass is not destroyed but transferred:
-$\mathbb{E}[N_2]$ rises correspondingly from $1.3333$ to $1.4788$, and the centre panel
-confirms $\mathbb{E}[N]=1.6333$ is held constant to plotting precision. The right panel is
+$\gamma_1=0.5$ this halves the priority queue, from $\mathbb{E}[N_1]=\ENoneASeventy$ to $\ENoneBtwoSeventy$
+($-\ENoneBtwoReductionSeventy\%$, Table~\ref{tab:comp:main}). The mass is not destroyed but transferred:
+$\mathbb{E}[N_2]$ rises correspondingly from $\ENtwoASeventy$ to $\ENtwoBtwoSeventy$, and the centre panel
+confirms $\mathbb{E}[N]=\ENASeventy$ is held constant to plotting precision. The right panel is
 the cleanest empirical check of Corollary~\ref{cor:B2:pi00}: because every jockeying
 transition preserves $N$, the load on the server --- and therefore $\pi_0=1-\rho$ and
 $\pi(0,0)=\rho(1-\rho)=0.21$ --- is exactly $\gamma_1$-invariant.
@@ -589,8 +589,8 @@ weaker drain precisely to the extent that $\mathbb{P}(N_1\ge2)$ carries mass, wh
 greatest at intermediate mechanism rates and vanishes both as the rate $\to0$ (the queue is
 rarely occupied beyond the head) and as the rate $\to\infty$ (the queue is emptied). The top
 panels of Figure~\ref{fig:comp:hol} show this directly: at $\gamma_1=0.5$ the full rate cuts
-$\mathbb{E}[N_1]$ from the Model-$A$ value $0.3000$ to $0.1545$ ($-48.5\%$), whereas the
-head-of-line rate reaches only $0.1750$ ($-41.7\%$); by $\gamma_1=50$ both have collapsed to
+$\mathbb{E}[N_1]$ from the Model-$A$ value $\ENoneASeventy$ to $\ENoneBtwoSeventy$ ($-\ENoneBtwoReductionSeventy\%$), whereas the
+head-of-line rate reaches only $\ENoneBHSeventy$ ($-\ENoneBHReductionSeventy\%$); by $\gamma_1=50$ both have collapsed to
 $\mathbb{E}[N_1]\approx0.004$ and the curves are indistinguishable.
 
 This proxy can be read off the numbers directly. The full-versus-head-of-line gap in
@@ -605,15 +605,15 @@ and growing into the congested regime.
 
 Because jockeying conserves the total customer count under either rate
 (Corollary~\ref{cor:B21:pi0}), the milder class-1 drain of $\BH$ is mirrored by a milder
-class-2 inflation: at $\rho=0.70$, $\mathbb{E}[N_2]=1.4583$ for $\BH$ against $1.4788$ for
-$B_2$, and the priority ratio $\mathbb{E}[W_2]/\mathbb{E}[W_1]$ is $6.25$ for $\BH$ versus
-$7.18$ for $B_2$ (Table~\ref{tab:comp:main}). Head-of-line jockeying thus erodes the
+class-2 inflation: at $\rho=0.70$, $\mathbb{E}[N_2]=\ENtwoBHSeventy$ for $\BH$ against $\ENtwoBtwoSeventy$ for
+$B_2$, and the priority ratio $\mathbb{E}[W_2]/\mathbb{E}[W_1]$ is $\premiumBHSeventy$ for $\BH$ versus
+$\premiumBtwoSeventy$ for $B_2$ (Table~\ref{tab:comp:main}). Head-of-line jockeying thus erodes the
 priority structure less aggressively than the full mechanism. The abandonment pair tells the
 same story on the throughput--quality axis: at $\rho=0.70$ the full rate $C_2$ lifts $\pi_0$
-to $0.3696$ and compresses $\mathbb{E}[N]$ to $0.8358$, while the head-of-line $\CH$ stops
-at $\pi_0=0.3636$ and $\mathbb{E}[N]=0.9015$ --- it sheds less load, frees the server less,
+to $\piZeroCtwoSeventy$ and compresses $\mathbb{E}[N]$ to $\ENCtwoSeventy$, while the head-of-line $\CH$ stops
+at $\pi_0=\piZeroCHSeventy$ and $\mathbb{E}[N]=\ENCHSeventy$ --- it sheds less load, frees the server less,
 and consequently leaves the priority ratio almost unchanged from the baseline
-($\mathbb{E}[W_2]/\mathbb{E}[W_1]=3.50$ for $\CH$ against $3.33$ for $A$ and $3.76$ for
+($\mathbb{E}[W_2]/\mathbb{E}[W_1]=\premiumCHSeventy$ for $\CH$ against $\premiumASeventy$ for $A$ and $\premiumCtwoSeventy$ for
 $C_2$). In every descriptor the head-of-line variant interpolates monotonically between
 Model-$A$ and its full-rate parent, confirming that restricting a mechanism to the head of
 the queue yields a genuine but attenuated version of the same effect.
@@ -719,7 +719,7 @@ $\mathbb{E}[N_1]/\mathbb{E}[N_2]\to0$ --- the computed ratio
 (Figure~\ref{fig:conv:b2_inf}, left) falls from $0.1045$ at
 $\gamma_1=0.5$ to $3\times10^{-4}$ at $\gamma_1=500$, with no sign of levelling at
 $\lambda_1/\lambda_2=0.75$. Because jockeying conserves $N$, the entire occupancy migrates
-to class~2, $\mathbb{E}[N_2]\to\mathbb{E}[N]_A=1.6333$, and correspondingly
+to class~2, $\mathbb{E}[N_2]\to\mathbb{E}[N]_A=\ENASeventy$, and correspondingly
 $\mathbb{E}[W_1]\to0$ while $\mathbb{E}[W_2]$ saturates. The limit confirms that one-way
 jockeying does not pool the system but rather extinguishes the priority class as a distinct
 queue.

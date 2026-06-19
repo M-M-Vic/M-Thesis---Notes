@@ -185,17 +185,20 @@ this spine:
    stated on `S` (and on `S~` only if `S~` is committed to globally).
 4. **Theorem** (closed form for `P(x,y)`) **+ Corollary** (`π₀`, `π(0,0)`). Always pull
    `π(0,0)` into a Corollary uniformly — not "inside the proof" or "inside the theorem".
-5. **Determination of `P_y(y)`** — two parallel subsubsections, *Probabilistic* then
-   *Analytical*, in the same order each time. If a route doesn't apply, keep the heading and
+5. **Determination of `P_y(y)`** — two parallel subsubsections, *Analytical* then
+   *Probabilistic*, in the same order each time. If a route doesn't apply, keep the heading and
    explain why.
 6. **Recovery of `P(x,y)`** from `P_y(y)`.
 7. **Limits & sanity checks** — recover Model A as the extra parameter → 0 (e.g.
    `θ1 → 0⁺ ⇒ E[B_C] → (μ−λ1)⁻¹`, giving `π(0,0)=ρ(1−ρ)`, `π₀=1−ρ`); verify `P(1,1)=1−π₀`
    and the diagonal `P(z,z)=π(0,0)/(1−ρz)`.
 
-State-space policy: `S~` currently appears only in Model A. Either present `S~` once in
-Preliminaries as an alternative coordinatization, or add a short `S~` subsection to every
-model — don't leave it half-applied. (Author's call; flag the choice.)
+State-space policy (resolved): `S~` is retained **only** in Model A, by design. The
+partial-PGF recursion on `S~` is a deliberate negative result — it fails to close for any
+model with an active mechanism (it reintroduces the unknown diagonal `{π(0,n)}` as a
+self-consistency unknown), and is documented as a failed simplification in the remark under
+Lemma 2 (`rem:gen:Stilde_failed`). The `S` formulation is used everywhere else; do not add
+`S~` subsections to the other models.
 
 ---
 
