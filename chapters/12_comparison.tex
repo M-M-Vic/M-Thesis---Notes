@@ -312,14 +312,14 @@ sweep --- the server sees the same workload, and the busy-but-empty probability 
 $\rho(1-\rho)$ parabola of Corollary~\ref{cor:B2:pi00}. Abandonment is a true departure at
 rate $\theta_1 n_1$, so $C_2$ carries a strictly lighter queue and a strictly larger idle
 fraction: the priority backlog is bled off before it can be served. At $\rho=0.70$
-(Table~\ref{tab:comp:main}) this gives $\pi_0=0.3696$ for $C_2$ against $0.3000$ for $A$ and
-$B_2$, and $\mathbb{E}[N]=0.8358$ against $1.6333$. The divergence widens with load: at
-$\rho=0.90$ the baseline class-2 queue reaches $\mathbb{E}[N_2]=7.5346$, whereas $C_2$ holds
-it to $1.9245$ --- a factor of nearly four --- because the self-regulating valve $\theta_1 n_1$
+(Table~\ref{tab:comp:main}) this gives $\pi_0=\piZeroCtwoSeventy$ for $C_2$ against $\piZeroASeventy$ for $A$ and
+$B_2$, and $\mathbb{E}[N]=\ENCtwoSeventy$ against $\ENASeventy$. The divergence widens with load: at
+$\rho=0.90$ the baseline class-2 queue reaches $\mathbb{E}[N_2]=\ENtwoANinety$, whereas $C_2$ holds
+it to $\ENtwoCtwoNinety$ --- a factor of nearly four --- because the self-regulating valve $\theta_1 n_1$
 acts most strongly precisely when the queue is long. The two head-of-line variants interpolate
 monotonically between Model-$A$ and their full-rate parents in every descriptor: $\BH$ conserves
 $N$ exactly like $B_2$ and departs only in the $\mathbb{E}[N_1]$ split, while $\CH$ sheds less
-load than $C_2$ ($\pi_0=0.3636$, $\mathbb{E}[N]=0.9015$ at $\rho=0.70$). The full sweep suite
+load than $C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$). The full sweep suite
 --- $\pi(0,0)$, the loss-accounting and per-class tables, the isolated $\gamma_1$ and $\theta_1$
 sweeps, the class-asymmetry study, and the head-of-line versus full-rate comparison --- is
 collected in Appendix~\ref{app:numerics:sweep}.
@@ -330,8 +330,8 @@ time a customer is \emph{counted in queue~$i$}, and that residence is shortened 
 departure mode --- service \emph{and} attrition. A smaller $\mathbb{E}[W_1]$ therefore does not
 by itself certify faster service; its attrition component is exactly the loss fraction $L_1$
 quantified in \S\ref{subsec:comp:abandonment} below. Second, jockeying actively \emph{harms}
-class~2: at $\rho=0.70$, $B_2$ raises $\mathbb{E}[W_2]$ to $3.6970$ from the baseline $3.3333$
-($+10.9\%$), the direct cost of displaced class-1 customers joining the tail of the class-2
+class~2: at $\rho=0.70$, $B_2$ raises $\mathbb{E}[W_2]$ to $\EWtwoBtwoSeventy$ from the baseline $\EWtwoASeventy$
+($+\EWtwoBtwoInflationSeventy\%$), the direct cost of displaced class-1 customers joining the tail of the class-2
 queue. Finally, near criticality the dense CTMC truncation leaves a boundary tail mass of order
 $6\times10^{-4}$ for $A$ and $B_2$ at $\rho=0.95$ (against $1.5\times10^{-7}$ for $C_2$), so the
 $\rho\ge0.92$ points for the non-abandoning models carry a small downward truncation bias and

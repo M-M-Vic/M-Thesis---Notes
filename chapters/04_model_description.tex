@@ -898,4 +898,21 @@ The position of these vanishing factors fixes, model by model, where the operati
     \end{align*}
 \end{proof}
 
+\begin{remark}[The $\widetilde{S}$ recursion is a failed simplification]\label{rem:gen:Stilde_failed}
+The partial-PGF recurrence of Lemma~\ref{lem:gen:PPGF_dynamics} was introduced in the
+expectation that generating only over the class-$2$ index, while carrying the total count $n$
+as a discrete parameter, would \emph{simplify} the analysis~---~collapsing the
+two-dimensional balance on $S$ to a one-dimensional recurrence in $n$. It does the opposite.
+The forcing term $\mu y^{n}(1-y)\,\tpi(n+1,n+1)$ ties each level $n$ to the unknown diagonal
+sequence $\{\pi(0,n)\}$, so the recurrence does not close on itself: solving it would require
+precisely the boundary probabilities it was meant to deliver. Only for the baseline Model-$A$
+does that forcing decay fast enough to be dropped, and even there the result is an
+\emph{approximation}, accurate only in a restricted parameter region
+(Approximation~\ref{apx:A:PPGF_Stilde}). For every model with an active mechanism the
+$\widetilde{S}$ route is strictly harder than the $S$ analysis it was meant to replace. We
+therefore record it as a deliberate negative result: the $\widetilde{S}$ coordinatisation is
+retained only for Model-$A$, and the $S$ formulation is used throughout the remainder of this
+thesis.
+\end{remark}
+
 
