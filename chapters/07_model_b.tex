@@ -16,38 +16,20 @@ Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) and no aban
     \label{fig:model-b-queue}
 \end{figure}
 
+The following result is stated as a corollary, so that it stays at the same hierarchy level of the equivalent result for other models. However, since this model is not solved, there is no theorem to it.
 \begin{corollary}\label{cor:B:pi00}
-    The empty-system probability $\pi_0$ (server idle, no one waiting) and the
-    both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model-$B$
-    coincide with the Model-$A$ baseline,
+    The empty-system probability $\pi_0$and the empty-queues probability $\pi(0,0)$ of Model-$B$ coincide with those of Model-$A$ baseline,
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho),
         \label{eq:B:pi00}
     \end{equation}
     and the diagonal of the PGF is $P(z,z)=\pi(0,0)/(1-\rho z)$.
 \end{corollary}
+The proof follows immediately by setting $x=y=z$ in the fundamental equation for Model-$B$ (Equation \eqref{eq:gen:fundamental_equation}, with $\theta_1=\theta_2=0$), as both jockeying terms with derivatives carry the factor $(x-y)$ vanish, also dragging the term $\mu(x-y)P_y(y)$ with it. The surviving diagonal equation is therefore \emph{identical} to that of Model-$A$ with $x=y=z$:, so the proof of Corollary~\ref{cor:B:pi00} reduces to the proof of Corollary~\ref{cor:A:pi0}.
 
-\begin{proof}
-    Setting $x=y=z$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} with
-    $\theta_1=\theta_2=0$, both jockeying terms carry the factor $(x-y)$ and vanish, dragging
-    the boundary term $\mu(x-y)P_y(y)$ with it. The surviving diagonal equation is therefore
-    \emph{identical} to that of Model-$A$, and reduces as in the proof of
-    Corollary~\ref{cor:A:pi0} (with $\lambda=\lambda_1+\lambda_2$) to
-    \begin{equation}
-        P(z,z) = \frac{\mu\,\pi(0,0)}{\mu-\lambda z} = \frac{\pi(0,0)}{1-\rho z}.
-        \label{eq:B:Pxx}
-    \end{equation}
-    The empty-state probabilities $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$ then follow by
-    the same global-balance and normalisation argument as in Corollary~\ref{cor:A:pi0}:
-    jockeying conserves the total-customer process and cannot change the marginal idle
-    probability. The same identities therefore hold in the other no-abandonment model,
-    Model-$B_2$; Model-$C_2$ retains the universal idle balance
-    $\pi(0,0)=\rho\pi_0$~\eqref{eq:gen:pi00_general} but, with abandonment present, attains
-    $\pi_0=1-\rho$ only in the limit $\theta_1\to0^+$.
-\end{proof}
-
+For Model-$B$, we do not provide a solution. However, working it out illustrates the nature of the mathematical challenge it involves. The following claim is made:
 \begin{claim}\label{clm:B:volterra}
-    Under stability, $\rho<1$, the bivariate PGF of Model-$B$ satisfies, on each
+    Under stability —$\rho<1$— the bivariate PGF of Model-$B$ satisfies, on each
     characteristic curve $\gamma_2 x + \gamma_1 y = C_1$ of the fundamental equation,
     the integral representation
     \begin{equation}
