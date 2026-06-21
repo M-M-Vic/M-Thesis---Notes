@@ -29,37 +29,21 @@ Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) and no aban
 
 \begin{proof}
     Setting $x=y=z$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} with
-    $\theta_1=\theta_2=0$, both jockeying terms carry the factor $(x-y)$ and vanish, dragging the boundary term $\mu(x-y)P_y(y)$ with it; dividing the surviving terms by the common
-    factor $z$ leaves
-    \begin{equation*}
-        \bigl[(\lambda_1+\lambda_2+\mu)z - \mu - (\lambda_1+\lambda_2)z^2\bigr]P(z,z)
-        = -\mu(1-z)\,\pi(0,0).
-    \end{equation*}
-    Writing $\lambda=\lambda_1+\lambda_2$, the bracket factors,
-    \begin{equation}
-        (\lambda+\mu)x-\mu-\lambda z^{2}
-        = -\bigl(\lambda z^{2}-(\lambda+\mu)z+\mu\bigr)
-        = -(\lambda z-\mu)(z-1)
-        = (\mu-\lambda z)(z-1);
-        \nonumber
-    \end{equation}
-    cancelling $(z-1)$ against $-(1-z)=(z-1)$ on the right gives
+    $\theta_1=\theta_2=0$, both jockeying terms carry the factor $(x-y)$ and vanish, dragging
+    the boundary term $\mu(x-y)P_y(y)$ with it. The surviving diagonal equation is therefore
+    \emph{identical} to that of Model-$A$, and reduces as in the proof of
+    Corollary~\ref{cor:A:pi0} (with $\lambda=\lambda_1+\lambda_2$) to
     \begin{equation}
         P(z,z) = \frac{\mu\,\pi(0,0)}{\mu-\lambda z} = \frac{\pi(0,0)}{1-\rho z}.
         \label{eq:B:Pxx}
     \end{equation}
-    The idle state $(0)$ exchanges probability flux only with the both-queues-empty busy
-    state, so the global balance across the idle--busy cut reads
-    $\lambda\pi_0=\mu\pi(0,0)$ (an arrival at total rate $\lambda$ leaves $(0)$; a service
-    completion at rate $\mu$ returns to it), whence $\pi(0,0)=\rho\pi_0$. Evaluating
-    \eqref{eq:B:Pxx} at $z=1$ with $P(1,1)=1-\pi_0$ gives
-    $1-\pi_0=\rho\pi_0/(1-\rho)$, so $(1-\pi_0)(1-\rho)=\rho\pi_0$, i.e.\ $\pi_0=1-\rho$
-    and $\pi(0,0)=\rho(1-\rho)$. This matches Model-$A$~\eqref{eq:A:pi0_pi00}: jockeying
-    conserves the total-customer process and cannot change the marginal idle probability.
-    The same identities therefore hold in the other no-abandonment model, Model-$B_2$;
-    Model-$C_2$ retains the universal idle balance $\pi(0,0)=\rho\pi_0$~\eqref{eq:gen:pi00_general}
-    but, with abandonment present, attains $\pi_0=1-\rho$ only in the limit
-    $\theta_1\to0^+$.
+    The empty-state probabilities $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$ then follow by
+    the same global-balance and normalisation argument as in Corollary~\ref{cor:A:pi0}:
+    jockeying conserves the total-customer process and cannot change the marginal idle
+    probability. The same identities therefore hold in the other no-abandonment model,
+    Model-$B_2$; Model-$C_2$ retains the universal idle balance
+    $\pi(0,0)=\rho\pi_0$~\eqref{eq:gen:pi00_general} but, with abandonment present, attains
+    $\pi_0=1-\rho$ only in the limit $\theta_1\to0^+$.
 \end{proof}
 
 \begin{claim}\label{clm:B:volterra}
