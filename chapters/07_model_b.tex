@@ -192,45 +192,39 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(ii): The exponent $E(x,y)$ is strictly positive in $(0,1)^2$.}
     
-    Recall $\lambda = \lambda_1+\lambda_2$. Along any
-    fixed characteristic, $C_1 = \gamma_2 x + \gamma_1 y$ is constant, so the
-    exponent~\eqref{eq:B:E} depends only on $u := C_1\in(0,\gamma_1+\gamma_2)$:
+    Recall $\lambda = \lambda_1+\lambda_2$. Along any fixed characteristic
+    $C_1 = \gamma_2 x + \gamma_1 y$ is constant, so the exponent~\eqref{eq:B:E}
+    depends only on $u := C_1$, which ranges over $(0,\gamma_1+\gamma_2)$ as
+    $(x,y)$ runs through $(0,1)^2$:
     \begin{equation*}
         E(u) = \frac{\lambda}{(\gamma_1+\gamma_2)^2}\,u - \frac{\lambda+\mu}{\gamma_1+\gamma_2} + \frac{\mu}{u}.
     \end{equation*}
-    (For $(x,y)\in(0,1)^2$ we have $u = \gamma_2 x+\gamma_1 y \in (0,\gamma_1+\gamma_2)$; $E(u)$ is
-    continuous there, with $E(u)\to+\infty$ as $u\to0^+$ and $E(u)\to0^+$ as
-    $u\to(\gamma_1+\gamma_2)^-$, so it is finite at every interior point although not uniformly bounded.)
-    Multiplying through by
-    $u(\gamma_1+\gamma_2)^2>0$ gives the equivalent quadratic
+    It suffices to show $E(u)>0$ on $(0,\gamma_1+\gamma_2)$, which follows at once
+    from two facts. First, $E$ vanishes at the right endpoint,
     \begin{equation*}
-        q(u) := \lambda u^2 - (\lambda+\mu)(\gamma_1+\gamma_2) u + \mu(\gamma_1+\gamma_2)^2.
+        E(\gamma_1+\gamma_2)
+        = \frac{\lambda-(\lambda+\mu)+\mu}{\gamma_1+\gamma_2} = 0.
     \end{equation*}
-    The sign of $E$ on $(0,\gamma_1+\gamma_2)$ equals the sign of $q(u)$ there.  We
-    factor $q$ by finding its roots.  The discriminant is
-    $\Delta = (\lambda+\mu)^2(\gamma_1+\gamma_2)^2 - 4\lambda\mu(\gamma_1+\gamma_2)^2 = (\gamma_1+\gamma_2)^2(\mu-\lambda)^2$,
-    so (using $\rho<1 \Rightarrow \mu>\lambda \Rightarrow \mu-\lambda>0$)
+    Second, $E$ is strictly decreasing on $(0,\gamma_1+\gamma_2]$:
+    \begin{align*}
+        \begin{split}
+            E'(u) &= \frac{\lambda}{(\gamma_1+\gamma_2)^2} - \frac{\mu}{u^2}
+        \end{split}\\
+        \begin{split}
+            &\le \frac{\lambda}{(\gamma_1+\gamma_2)^2} - \frac{\mu}{(\gamma_1+\gamma_2)^2}
+            = \frac{\lambda-\mu}{(\gamma_1+\gamma_2)^2} < 0,
+        \end{split}
+    \end{align*}
+    where the middle step uses $u\le\gamma_1+\gamma_2$ and the last uses
+    $\mu>\lambda$ (i.e.\ $\rho<1$). A function that decreases strictly to $0$ at
+    its right endpoint is positive to the left of it, so
     \begin{equation*}
-        u_{1,2} = \frac{(\lambda+\mu)(\gamma_1+\gamma_2) \pm (\gamma_1+\gamma_2)(\mu-\lambda)}{2\lambda},
+        E(u) > E(\gamma_1+\gamma_2) = 0 \qquad\text{for all } u\in(0,\gamma_1+\gamma_2),
     \end{equation*}
-    so that
-    \begin{equation*}
-        u_1 = \frac{2\lambda(\gamma_1+\gamma_2)}{2\lambda} = \gamma_1+\gamma_2,
-        \qquad
-        u_2 = \frac{2\mu(\gamma_1+\gamma_2)}{2\lambda} = \frac{\gamma_1+\gamma_2}{\rho} > \gamma_1+\gamma_2.
-    \end{equation*}
-    Hence
-    \begin{equation*}
-        q(u) = \lambda(u - (\gamma_1+\gamma_2))\!\left(u - \tfrac{\gamma_1+\gamma_2}{\rho}\right).
-    \end{equation*}
-    For every $u\in(0,\gamma_1+\gamma_2)$ both factors are strictly negative
-    ($(u-(\gamma_1+\gamma_2))<0$ and $(u-(\gamma_1+\gamma_2)/\rho)<0$ since $(\gamma_1+\gamma_2)/\rho>(\gamma_1+\gamma_2)$),
-    so $q(u)=\lambda\cdot(\text{neg})\cdot(\text{neg})>0$, and therefore
-    \begin{equation*}
-        E(x,y) > 0 \quad \text{for all } (x,y)\in(0,1)^2.
-    \end{equation*}
-    Note that $E\to0$ as $u\to(\gamma_1+\gamma_2)^-$ (i.e.\ as $(x,y)\to(1,1)$), while $E$ is
-    bounded and bounded away from zero in any compact subset of $(0,1)^2$.
+    that is, $E(x,y) > 0$ for all $(x,y)\in(0,1)^2$. In particular $E\to0$ as
+    $u\to(\gamma_1+\gamma_2)^-$ (i.e.\ as $(x,y)\to(1,1)$), while the $\mu/u$ term
+    forces $E\to+\infty$ as $u\to0^+$; hence $E$ is bounded and bounded away from
+    zero on every compact subset of $(0,1)^2$, though not uniformly on all of it.
     
     \smallskip\noindent\textit{Sign convention and diagonal limit.}
     Because $E>0$, the factor $(x-y)^{E}$ in $P_h$ carries the complex phase
