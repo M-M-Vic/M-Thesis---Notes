@@ -192,20 +192,22 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(ii): The exponent $E(x,y)$ is strictly positive in $(0,1)^2$.}
     
-    Recall $\lambda = \lambda_1+\lambda_2$. Along any fixed characteristic
-    $C_1 = \gamma_2 x + \gamma_1 y$ is constant, so the exponent~\eqref{eq:B:E}
-    depends only on $u := C_1$, which ranges over $(0,\gamma_1+\gamma_2)$ as
-    $(x,y)$ runs through $(0,1)^2$:
+    As one of the building blocks for this proof, we need to see that $E(x,y)$ is strictly positive in $(0,1)^2$
+    
+    Recall $\lambda = \lambda_1+\lambda_2$. Along any fixed characteristic, $C_1 = \gamma_2 x + \gamma_1 y$ is constant, so the exponent function~\eqref{eq:B:E} depends only on $C_1$, which ranges over $(0,\gamma_1+\gamma_2)$ as $(x,y)\in(0,1)^2$:
     \begin{equation*}
-        E(u) = \frac{\lambda}{(\gamma_1+\gamma_2)^2}\,u - \frac{\lambda+\mu}{\gamma_1+\gamma_2} + \frac{\mu}{u}.
+        E(C_1) = 
+        \frac{\lambda}{(\gamma_1+\gamma_2)^2}\,C_1
+        - \frac{\lambda+\mu}{\gamma_1+\gamma_2}
+        + \frac{\mu}{C_1}.
     \end{equation*}
-    It suffices to show $E(u)>0$ on $(0,\gamma_1+\gamma_2)$, which follows at once
-    from two facts. First, $E$ vanishes at the right endpoint,
+    
+    Showing that $E(C_1)>0$ on $C_1\in(0,\gamma_1+\gamma_2)$, follows from two facts. First, $E$ vanishes at the right endpoint,
     \begin{equation*}
         E(\gamma_1+\gamma_2)
         = \frac{\lambda-(\lambda+\mu)+\mu}{\gamma_1+\gamma_2} = 0.
     \end{equation*}
-    Second, $E$ is strictly decreasing on $(0,\gamma_1+\gamma_2]$:
+    Second, $E$ is strictly decreasing in $(0,\gamma_1+\gamma_2]$, using $u\le\gamma_1+\gamma_2$ and $\mu>\lambda$ (i.e.\ $\rho<1$):
     \begin{align*}
         \begin{split}
             E'(u) &= \frac{\lambda}{(\gamma_1+\gamma_2)^2} - \frac{\mu}{u^2}
@@ -215,33 +217,13 @@ As said before, this model is therefore left open.
             = \frac{\lambda-\mu}{(\gamma_1+\gamma_2)^2} < 0,
         \end{split}
     \end{align*}
-    where the middle step uses $u\le\gamma_1+\gamma_2$ and the last uses
-    $\mu>\lambda$ (i.e.\ $\rho<1$). A function that decreases strictly to $0$ at
-    its right endpoint is positive to the left of it, so
+    Since $E$ decreases strictly to $0$ at its right endpoint, it is strictly positive too for every point in the left, so:
     \begin{equation*}
-        E(u) > E(\gamma_1+\gamma_2) = 0 \qquad\text{for all } u\in(0,\gamma_1+\gamma_2),
+        E(C_1) > E(\gamma_1+\gamma_2) = 0 \qquad\text{for all } C_1\in(0,\gamma_1+\gamma_2),
     \end{equation*}
-    that is, $E(x,y) > 0$ for all $(x,y)\in(0,1)^2$. In particular $E\to0$ as
-    $u\to(\gamma_1+\gamma_2)^-$ (i.e.\ as $(x,y)\to(1,1)$), while the $\mu/u$ term
-    forces $E\to+\infty$ as $u\to0^+$; hence $E$ is bounded and bounded away from
-    zero on every compact subset of $(0,1)^2$, though not uniformly on all of it.
+    that is, $E(x,y) > 0$ for all $(x,y)\in(0,1)^2$. For this proof, the crucial boundary behaviour is that $E \to 0$ as $(x,y) \to (1,1)$; the blow-up caused by $\mu/C_1$ as $C_1 \to 0^+$ is irrelevant.
     
-    \smallskip\noindent\textit{Sign convention and diagonal limit.}
-    Because $E>0$, the factor $(x-y)^{E}$ in $P_h$ carries the complex phase
-    $e^{i\pi E}$ whenever $x<y$. This phase is absorbed into the arbitrary function
-    $F(C_1)$, and the ratio $P_h(x,y(x))/P_h(t,y(t))$ that appears in the integral
-    representation is always real and positive: both numerator and denominator lie on
-    the same characteristic (same $C_1$, same constant value of $E$), so the phases
-    cancel exactly.  Crucially, since $E>0$ the factor $(y(t;z)-t)^E\to0$ as
-    $t\to z^-$, meaning $P_h$ formally vanishes on the diagonal $x=y$.  The diagonal
-    equation that appears in Step~5 below is therefore understood as the
-    $\lim_{x\to z^-}$ of~\eqref{eq:B:integral_rep_body}; the limit-by-limit analysis
-    carried out there, using the exact linear relation
-    $y(t;z)-t=((\gamma_1+\gamma_2)/\gamma_1)(z-t)$, confirms that the $0\cdot\infty$ limit is
-    finite and equals $\pi(0,0)/(1-\rho z)$.
-    
-    % ─────────────────────────────────────────────────────────────────────────────
-    \medskip\noindent\textbf{Step~3: Particular solution via variation of parameters.}
+    \medskip\noindent\textbf{Step~(iii): Particular solution via variation of parameters.}
     
     We now work with the full (inhomogeneous) fundamental equation restricted to a
     fixed characteristic.  Along the curve $y(x)=(C_1-\gamma_2 x)/\gamma_1$, the
