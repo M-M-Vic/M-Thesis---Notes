@@ -29,29 +29,90 @@ The proof follows immediately by setting $x=y=z$ in the fundamental equation for
 
 For Model-$B$, we do not provide a solution. However, working it out illustrates the nature of the mathematical challenge it involves. The following claim is made:
 \begin{claim}\label{clm:B:volterra}
-    Under stability —$\rho<1$— the bivariate PGF of Model-$B$ satisfies, on each
-    characteristic curve $\gamma_2 x + \gamma_1 y = C_1$ of the fundamental equation,
-    the integral representation
+    Assume stability, $\rho<1$, and write $\lambda:=\lambda_1+\lambda_2$ and
+    $\Gamma:=\gamma_1+\gamma_2$. On each characteristic line
+    $\gamma_2 x+\gamma_1 y=C_1$, with $C_1\in(0,\Gamma)$, of the fundamental
+    equation~\eqref{eq:gen:fundamental_equation} (specialised to
+    $\theta_1=\theta_2=0$), parametrised by
     \begin{equation}
-        P(x,y(x)) \;=\; P_h(x,y(x))\int_{0}^{x}
+        y(x)=\frac{C_1-\gamma_2 x}{\gamma_1},
+        \label{eq:B:ychar}
+    \end{equation}
+    the bivariate PGF of Model-$B$ admits the integral representation
+    \begin{equation}
+        P\bigl(x,y(x)\bigr) \;=\; P_h\bigl(x,y(x)\bigr)\int_{0}^{x}
         \frac{h\bigl(t;\,C_1\bigr)}{P_h\bigl(t,\,y(t)\bigr)}\,dt,
         \label{eq:B:integral_rep}
     \end{equation}
-    where $P_h$ is the homogeneous solution~\eqref{eq:B:Ph}, $y(t)=(C_1-\gamma_2 t)/\gamma_1$
-    is the characteristic parametrisation, and $h(t;C_1)$ is an explicit forcing
-    function depending on the unknown boundary trace $P_y(y)=P(0,y)$.
-    Evaluating~\eqref{eq:B:integral_rep} along the diagonal $x=y=z$ and using the
-    conservation identity $P(z,z)=\pi(0,0)/(1-\rho z)$ reduces the problem to a
-    \emph{Volterra integral equation of the first kind} for $P_y$:
+    in which every constituent function is explicit, as follows.
+
+    \smallskip\noindent\emph{(i)~Homogeneous factor.} The homogeneous solution is
+    \begin{equation}
+        P_h(x,y)=F(\gamma_2 x+\gamma_1 y)\,
+        \exp\!\Bigl(\frac{\gamma_1\lambda_1-\lambda_2\gamma_2}{\gamma_1\Gamma}\,x\Bigr)\,
+        x^{-\mu/(\gamma_2 x+\gamma_1 y)}\,
+        (x-y)^{E(x,y)},
+        \label{eq:B:Ph}
+    \end{equation}
+    where $F$ is an arbitrary differentiable function of the characteristic
+    constant (it cancels between the prefactor and the denominator of the integrand
+    in~\eqref{eq:B:integral_rep}, so the representation is independent of its
+    choice), and the exponent is
+    \begin{equation}
+        E(x,y)=\frac{\lambda}{\Gamma^{2}}\,(\gamma_2 x+\gamma_1 y)
+        -\frac{\lambda+\mu}{\Gamma}
+        +\frac{\mu}{\gamma_2 x+\gamma_1 y}.
+        \label{eq:B:E}
+    \end{equation}
+
+    \smallskip\noindent\emph{(ii)~Forcing term.} The forcing along the
+    characteristic is
+    \begin{equation}
+        h(x;C_1)=\frac{G\bigl(x,y(x)\bigr)}{\gamma_1\,x\,y(x)\,\bigl(x-y(x)\bigr)},
+        \qquad
+        G(x,y):=\mu(x-y)\,P_y(y)-\mu\,x(1-y)\,\pi(0,0),
+        \label{eq:B:hdef}
+    \end{equation}
+    so that $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$ and
+    on the known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}.
+
+    \smallskip\noindent\emph{(iii)~Reduction to a Volterra equation.} Evaluating
+    the representation~\eqref{eq:B:integral_rep} along the diagonal characteristic
+    $C_1=\Gamma z$, which passes through $(z,z)$ and is parametrised by
+    \begin{equation}
+        y(t;z)=\frac{\Gamma z-\gamma_2 t}{\gamma_1},
+        \label{eq:B:ydiag}
+    \end{equation}
+    and using the conservation identity $P(z,z)=\pi(0,0)/(1-\rho z)$ of
+    Corollary~\ref{cor:B:pi00}, reduces the determination of $P_y$ to a
+    \emph{Volterra integral equation of the first kind}
     \begin{equation}
         \mathcal{F}(z) \;=\; \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt,
         \label{eq:B:volterra}
     \end{equation}
-    where $\mathcal{K}$ and $\mathcal{F}$ are fully explicit
-    (defined in~\eqref{eq:B:kernel}--\eqref{eq:B:rhs} below). The kernel
-    $\mathcal{K}$ does not factorise for general $(\gamma_1,\gamma_2)$,
-    so~\eqref{eq:B:volterra} does not reduce to a closed-form solution for $P_y$.
-    Model-$B$ is therefore left open.
+    whose kernel and data are, writing
+    $P_h^{\,\mathrm{diag}}(z):=\lim_{x\to z^-}P_h\bigl(x,y(x;z)\bigr)$,
+    \begin{align}
+        \mathcal{K}(z,t)&:=\frac{\mu\,P_h^{\,\mathrm{diag}}(z)}
+            {\gamma_1\,t\,y(t;z)\,P_h\bigl(t,y(t;z)\bigr)},
+        \label{eq:B:kernel}\\[4pt]
+        \mathcal{F}(z)&:=\frac{\pi(0,0)}{1-\rho z}-\mathcal{B}(z),
+        \qquad
+        \mathcal{B}(z):=\frac{\mu\,P_h^{\,\mathrm{diag}}(z)\,\pi(0,0)}{\gamma_1}
+            \int_0^z\frac{1-y(t;z)}
+            {y(t;z)\,\bigl(y(t;z)-t\bigr)\,P_h\bigl(t,y(t;z)\bigr)}\,dt.
+        \label{eq:B:Fdef}
+    \end{align}
+    The prefactor $P_h^{\,\mathrm{diag}}(z)$ vanishes pointwise, so the kernel
+    $\mathcal{K}$ and the known term $\mathcal{B}$ in~\eqref{eq:B:kernel}--\eqref{eq:B:Fdef}
+    are to be read through the regularised (Hadamard finite-part) limit made
+    precise in Step~5 of the proof. Every constituent
+    of~\eqref{eq:B:kernel}--\eqref{eq:B:Fdef} is an explicit function of the
+    parameters $(\gamma_1,\gamma_2,\lambda_1,\lambda_2,\mu)$ through the
+    homogeneous solution~\eqref{eq:B:Ph}; the kernel $\mathcal{K}$ nonetheless does
+    not factorise for general $(\gamma_1,\gamma_2)$, so~\eqref{eq:B:volterra} does
+    not reduce to a closed-form solution for $P_y$. Model-$B$ is therefore left
+    open.
 \end{claim}
 
 \begin{proof}[Proof of Claim~\ref{clm:B:volterra}]
@@ -188,22 +249,22 @@ so $\ln[(\gamma_1+\gamma_2)x-C_1] = \ln\gamma_1 + \ln(x-y)$. Exponentiating
 \end{equation}
 the factor $\gamma_1^{\,N(C_1)/(\gamma_1\Gamma)}$ depends on $(x,y)$ only through
 $C_1$ and is absorbed, together with $f$, into a redefined arbitrary function
-$F(C_1)$. Reading off the exponent of $(x-y)$:
-\begin{equation}
-    E(x,y) := \frac{N(C_1)}{\gamma_1(\gamma_1+\gamma_2)}\bigg|_{C_1=\gamma_2 x+\gamma_1 y}
+$F(C_1)$. Reading off the exponent of $(x-y)$ recovers the
+function~\eqref{eq:B:E} of the claim,
+\begin{equation*}
+    E(x,y) = \frac{N(C_1)}{\gamma_1(\gamma_1+\gamma_2)}\bigg|_{C_1=\gamma_2 x+\gamma_1 y}
     = \frac{\lambda_1+\lambda_2}{(\gamma_1+\gamma_2)^2}(\gamma_2 x+\gamma_1 y)
     - \frac{\lambda_1+\lambda_2+\mu}{\gamma_1+\gamma_2}
     + \frac{\mu}{\gamma_2 x+\gamma_1 y}.
-    \label{eq:B:E}
-\end{equation}
-Exponentiating~\eqref{eq:B:lnP} yields the general homogeneous solution
-\begin{equation}
+\end{equation*}
+Exponentiating~\eqref{eq:B:lnP} therefore yields the general homogeneous
+solution~\eqref{eq:B:Ph} of the claim,
+\begin{equation*}
     P_h(x,y) = F(\gamma_2 x+\gamma_1 y)
     \cdot \exp\!\left(\frac{\gamma_1\lambda_1-\lambda_2\gamma_2}{\gamma_1(\gamma_1+\gamma_2)}x\right)
     \cdot x^{-\mu/(\gamma_2 x+\gamma_1 y)}
     \cdot (x-y)^{E(x,y)},
-    \label{eq:B:Ph}
-\end{equation}
+\end{equation*}
 where $F$ is an arbitrary differentiable function to be determined.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -287,18 +348,13 @@ reduces the PDE to the first-order linear ODE (for fixed $C_1$)
     \frac{dP}{dx} = f(x;C_1)\,P + h(x;C_1),
     \label{eq:B:ode_char}
 \end{equation}
-where the coefficient $f$ and the forcing term $h$ are
-\begin{align}
-    f(x;C_1) &= -\frac{A(x,\,y(x))}{\gamma_1 x\bigl(x-y(x)\bigr)},
-    \nonumber\\[4pt]
-    h(x;C_1) &= \frac{G(x,\,y(x))}{\gamma_1 x\,y(x)\bigl(x-y(x)\bigr)},
-    \label{eq:B:hdef}
-\end{align}
-with $A$ as in~\eqref{eq:B:Adef} and
-\begin{equation}
-    G(x,y) := \mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0).
-    \label{eq:B:Gdef}
-\end{equation}
+where the coefficient $f$ is
+\begin{equation*}
+    f(x;C_1) = -\frac{A(x,\,y(x))}{\gamma_1 x\bigl(x-y(x)\bigr)},
+\end{equation*}
+with $A$ as in~\eqref{eq:B:Adef}, while the forcing term $h(x;C_1)$ and the
+inhomogeneity $G(x,y)$ are exactly those defined in~\eqref{eq:B:hdef} of the
+claim.
 Since $P_h(x,y(x))$ satisfies the homogeneous equation
 $\frac{d}{dx}P_h = f(x;C_1)\,P_h$, it is the fundamental solution of
 ODE~\eqref{eq:B:ode_char}.  Applying variation of parameters (\S\ref{sssec:vop}),
@@ -337,11 +393,11 @@ Claim~\ref{clm:B:volterra}:
 \medskip\noindent\textbf{Step~5: Reduction to the Volterra equation.}
 
 By Corollary~\ref{cor:B:pi00} the empty-state probabilities are $\pi_0=1-\rho$ and
-$\pi(0,0)=\rho(1-\rho)$, with diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$
-by~\eqref{eq:B:Pxx}; these are the inputs to the diagonal evaluation below.
+$\pi(0,0)=\rho(1-\rho)$, with diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$; these
+are the inputs to the diagonal evaluation below.
 
-We simplify the forcing function $h$ on the characteristic.  Substituting
-$G(t,y(t))$ from~\eqref{eq:B:Gdef} into~\eqref{eq:B:hdef}:
+We simplify the forcing function $h$ on the characteristic.  Substituting the
+inhomogeneity $G(t,y(t))$ into the forcing $h$ of~\eqref{eq:B:hdef}:
 \begin{align}
     h(t;C_1)
     &= \frac{\mu(t-y(t))\,P_y(y(t)) - \mu t(1-y(t))\,\pi(0,0)}
@@ -352,7 +408,8 @@ $G(t,y(t))$ from~\eqref{eq:B:Gdef} into~\eqref{eq:B:hdef}:
 \end{align}
 We will evaluate~\eqref{eq:B:integral_rep_body} along the diagonal characteristic,
 which passes through $(z,z)$ and has $C_1=(\gamma_1+\gamma_2)z$.  The parametrisation
-along that curve is $y(t;z)=((\gamma_1+\gamma_2)z-\gamma_2 t)/\gamma_1$, so
+along that curve is $y(t;z)=((\gamma_1+\gamma_2)z-\gamma_2 t)/\gamma_1$
+(equation~\eqref{eq:B:ydiag}), so
 $y(0;z)=(\gamma_1+\gamma_2)z/\gamma_1>z$ and $y(z;z)=z$.  Therefore $y(t;z)>t$
 for all $t\in[0,z)$, which means $t-y(t;z)<0$ throughout the integration interval.
 Writing $t-y(t;z)=-(y(t;z)-t)$ in the denominator of~\eqref{eq:B:h_intermediate}:
@@ -447,24 +504,22 @@ factor is meaningful in isolation.
 % TODO(citation): add a standard reference for Hadamard finite-part integrals
 % (e.g. Hadamard, Lectures on Cauchy's Problem, 1923) -- the bibliography currently
 % lacks a suitable entry; comment only, no PDF output.
-Writing the kernel and known term \emph{formally} as
-\begin{align}
-    \mathcal{K}(z,t) &:= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)}
+The kernel and known term so extracted are \emph{formally} the functions
+$\mathcal{K}$ of~\eqref{eq:B:kernel} and $\mathcal{B}$ of~\eqref{eq:B:Fdef}
+already stated in the claim,
+\begin{align*}
+    \mathcal{K}(z,t) &= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)}
                                 {\gamma_1\cdot t\cdot y(t;z)\cdot P_h\bigl(t,y(t;z)\bigr)},
-    \label{eq:B:kernel}\\[6pt]
-    \mathcal{B}(z) &:= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)\cdot\pi(0,0)}{\gamma_1}
+    \\[6pt]
+    \mathcal{B}(z) &= \frac{\mu\cdot P_h^{\,\mathrm{diag}}(z)\cdot\pi(0,0)}{\gamma_1}
                         \int_0^z
                         \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}
                         \,dt,
-    \nonumber
-\end{align}
-\emph{to be read through the regularised limit~\eqref{eq:B:split} rather than pointwise},
-and setting $\mathcal{F}(z)=\pi(0,0)/(1-\rho z)-\mathcal{B}(z)$,
-equation~\eqref{eq:B:split} becomes the Volterra integral equation of the first kind
-\begin{equation}
-    \mathcal{F}(z) = \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt,
-    \label{eq:B:rhs}
-\end{equation}
+\end{align*}
+both \emph{to be read through the regularised limit~\eqref{eq:B:split} rather than
+pointwise}; with $\mathcal{F}(z)=\pi(0,0)/(1-\rho z)-\mathcal{B}(z)$ as
+in~\eqref{eq:B:Fdef}, equation~\eqref{eq:B:split} becomes the Volterra integral
+equation~\eqref{eq:B:volterra} of the first kind,
 confirming Claim~\ref{clm:B:volterra}. The finite-part reading is not a decoration.
 As the limit-by-limit analysis shows, the displayed $\mathcal{K}$ and $\mathcal{B}$
 are formal --- the prefactor $P_h^{\,\mathrm{diag}}(z)$ vanishes pointwise --- and
@@ -474,7 +529,7 @@ change of variable removing the $(z-t)^{-1-E_z}$ singularity before passing to t
 limit, is itself the analytical obstruction: it is this step, together with the
 fact that the kernel $\mathcal{K}$ depends on $P_h$ through both arguments and does
 not simplify for general $(\gamma_1,\gamma_2)$, that places Model-$B$ beyond the
-scope of this thesis. Equation~\eqref{eq:B:rhs} is recorded as the precise form of
+scope of this thesis. Equation~\eqref{eq:B:volterra} is recorded as the precise form of
 the open problem, not solved here; resolving it would require Volterra inversion
 methods together with the regularisation just described.
 \end{proof}
