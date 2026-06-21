@@ -4,10 +4,9 @@ Model-$A$ is the baseline of this collection: all jockeying and abandonment
 parameters are zero, leaving an ordinary two-class $M/M/1$ queue with
 non-preemptive priority. We analyse it in both state spaces $S$ and
 $\widetilde{S}$: on the former we give two complete proofs, on the latter
-an approximate solution and its verification.
+a not very accurate approximate result, for which an evaluation is provided in \ref{apx:A:PPGF_Stilde}.
 
-The balance equations are obtained by plugging $\gamma_1=\gamma_2=0$ and
-$\theta_1=\theta_2=0$ into Equations~\eqref{eq:gen:balance_interior},
+The balance equations are obtained by plugging $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ into Equations~\eqref{eq:gen:balance_interior},
 \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary},
 \eqref{eq:gen:balance_zero}, and~\eqref{eq:gen:balance_idle} for state space $S$, and
 Equations~\eqref{eq:gen:tilde_balance_interior},
@@ -18,7 +17,7 @@ Lemma~\ref{lem:gen:fundamental_equation} for $S$ and
 Lemma~\ref{lem:gen:PPGF_dynamics} for $\widetilde{S}$.
 
 \textbf{Stability.} Since there is no abandonment, the system is positive recurrent if
-and only if the total traffic intensity satisfies
+and only if the total load satisfies
 \begin{equation}
     \rho = \frac{\lambda_1+\lambda_2}{\mu} < 1.
     \label{eq:A:stability}
@@ -31,7 +30,7 @@ Figure~\ref{fig:model-a-queue} shows the queueing diagram of Model-$A$.
         \input{figures/model-a-queue.tikz}%
     }
     \caption{Queue layout for Model-$A$. Only Poisson arrivals and exponential service
-    are present; all jockeying and abandonment rates are zero.}
+    are present; all active mechanisms rates are zero.}
     \label{fig:model-a-queue}
 \end{figure}
 
@@ -53,7 +52,7 @@ proofs are given, one analytical and one probabilistic.
     Consider a queueing system with two priority classes with Poisson arrival rates
     $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority
     over those of class~$2$, and exponentially distributed service times with rate $\mu$
-    independently of the class. Under the stability condition~\eqref{eq:A:stability}, the
+    independently of the class. Under the stability condition $\rho\leq 1$ ~\eqref{eq:A:stability}, the
     joint PGF $P(x,y) = \mathbb{E}[x^{N_1}y^{N_2}]$ is
     \begin{align}
         P(x,y) &= \left[ (1+\rho_1 +\rho_2)xy - y -\rho_1x^2y - \rho_2xy^2 \right]^{-1}
@@ -70,7 +69,7 @@ proofs are given, one analytical and one probabilistic.
 \end{theorem}
 
 \begin{corollary}\label{cor:A:pi0}
-    Under the stability condition~\eqref{eq:A:stability}, the empty-state probabilities
+    Under the stability condition $\rho \leq 1$~\eqref{eq:A:stability}, the empty-state probabilities
     for Model-$A$ are
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho). \label{eq:A:pi0_pi00}
@@ -114,16 +113,13 @@ term $\mu(x-y)P_y(y)$ vanishes:
 
 \subsubsection{Analytical approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
 
-\begin{proof}
-
+\begin{proof}[Proof of Theorem~\ref{thm:A:PGF}, analytical approach.]
     We begin from the fundamental equation for Model-$A$~\eqref{eq:A:fundamental}:
     \begin{equation*}
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
         = \mu(x-y) P_y(y)  - \mu x(1-y) \pi(0,0).
     \end{equation*}
-    We apply the \emph{Kernel Method}~\cite{cohen1956delay}: fix $y\in(0,1]$ and find $x^*(y)$ such that the
-    LHS of the expression above is zero. Since $P(x,y)$ is a PGF, it is bounded. At any
-    such root the LHS vanishes, so the RHS must also vanish:
+    We apply the \emph{Kernel Method}, used in ~\cite{cohen1956delay}: fix $y\in(0,1]$ and find $x^*(y)$ such that the LHS of the expression above is zero. Since $P(x,y)$ is a PGF, it is bounded. At anysuch root the LHS vanishes, so the RHS must also vanish:
     \[
         \mu\bigl[(x^*(y)-y)\,P_y(y) - x^*(y)(1-y)\,\pi(0,0)\bigr] = 0.
     \]
@@ -146,11 +142,13 @@ term $\mu(x-y)P_y(y)$ vanishes:
             2\lambda_1
         }.
     \end{equation*}
+    
     We label the root with the negative sign $x^*(y)$ and the root with the positive
     sign $x^+(y)$. At $y=1$:
     \begin{equation*}
         x^*(1) = 1 \quad \text{and} \quad x^+(1) = \mu/\lambda_1 > 1.
     \end{equation*}
+    
     We require our root to lie inside the closed unit disk for $y\in[0,1)$. Computing
     the derivative of $x^*(y)$:
     \begin{equation}
@@ -158,12 +156,11 @@ term $\mu(x-y)P_y(y)$ vanishes:
         \label{eq:A:xstar_prime}
     \end{equation}
     since $(\mu+\lambda_1+\lambda_2(1-y))^2>(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu$
-    whenever $\lambda_1\mu>0$. Therefore $x^*(y)$ is strictly increasing on $[0,1]$,
-    and since $x^*(1)=1$ we have $x^*(y)<1$ for $y\in[0,1)$.
-    By Vieta's formulas for the kernel polynomial
-    $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu=0$, the product of the two
+    whenever $\lambda_1\mu>0$, by squaring numerator and denominator in the inner fraction. So $x^*(y)$ is strictly increasing in $[0,1]$, and since $x^*(1)=1$ we have $x^*(y)<1$ for $y\in[0,1)$.
+    We make use of Vieta's formulas to discard the other root for the kernel polynomial
+    $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu=0$: the product of the two
     roots satisfies $x^*(y)\,x^+(y)= \mu/\lambda_1>1$, so
-    $x^+(y)=\mu/(\lambda_1 x^*(y))>1$ throughout $[0,1)$. Hence the only root
+    $x^+(y)=\mu/(\lambda_1 x^*(y))>1$ throughout $[0,1)$. So the only root
     strictly inside the unit disk for $y\in[0,1)$ is $x^*(y)$:
     \begin{equation}
         x^*(y) = \frac{
@@ -173,39 +170,6 @@ term $\mu(x-y)P_y(y)$ vanishes:
             2\lambda_1
         }.
         \label{eq:A:xstar}
-    \end{equation}
-    Since subsequent steps involve L'H\^{o}pital's rule at $y\to 1$, we evaluate
-    $\frac{d}{dy}x^*(y)$ from~\eqref{eq:A:xstar_prime} at $y=1$.
-    Under stability, $\rho_1 = \lambda_1/\mu < \rho < 1$ implies $\mu>\lambda_1$, so
-    $\sqrt{(\mu-\lambda_1)^2}=\mu-\lambda_1$:
-    \begin{align*}
-        \frac{d}{dy}x^*(1)
-        &= \frac{\lambda_2}{2 \lambda_1}
-        \left[
-            -1 + \frac{
-                \mu + \lambda_1
-            }{
-                \sqrt{(\mu+\lambda_1)^2- 4\lambda_1\mu}
-            }
-        \right] \\
-        &= \frac{\lambda_2}{2\lambda_1}
-        \left[
-            -1 + \frac{
-                \mu + \lambda_1
-            }{
-                \sqrt{(\mu-\lambda_1)^2}
-            }
-        \right] \\
-        &= \frac{\lambda_2}{2\lambda_1}
-        \left[
-            \frac{\mu + \lambda_1 - (\mu - \lambda_1)}{\mu - \lambda_1}
-        \right] \\
-        &= \frac{\lambda_2}{\mu - \lambda_1}.
-    \end{align*}
-    For future reference:
-    \begin{equation}
-        \frac{d}{dy}x^*(1) = \frac{\lambda_2}{\mu - \lambda_1} = \frac{\rho_2}{1-\rho_1}.
-        \label{eq:A:xstar_deriv}
     \end{equation}
 
     Returning to the fundamental equation~\eqref{eq:A:fundamental} at $x=x^*(y)$,
@@ -236,25 +200,24 @@ term $\mu(x-y)P_y(y)$ vanishes:
     \end{align*}
 
     Multiplying both sides by $\left[(1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2\right]^{-1}$
-    isolates $P(x,y)$ and concludes the proof.
+    recovers $P(x,y)$ in Theorem~\ref{thm:A:PGF} and concludes the proof.
 \end{proof}
 
 
 \subsubsection{Probabilistic approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:probabilistic}
-\begin{proof}
-    This proof mirrors the analytical one, but derives the class-2 marginal PGF $P_y(y)$ by probabilistic arguments. We again begin from the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
+\begin{proof}[Proof of Theorem~\ref{thm:A:PGF}, probabilistic approach.]
+    This proof mirrors the analytical one, but derives the class-$2$ marginal PGF $P_y(y)$ by means of probabilistic arguments. We again begin from the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
     \begin{equation}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
         \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].
         \label{eq:A:prob_starting}
     \end{equation}
 
-    \paragraph{Class-2 conditional distribution via $M/G/1$.}
+    \paragraph{Class-$2$ conditional distribution via $M/G/1$.}
     Since class~$1$ has non-preemptive priority, class-$2$ customers are not taken into service
-    whenever $N_1>0$; their \emph{effective service time} $B$ is therefore the duration of a
-    complete busy period of the single-class $M/M/1$ sub-queue with arrival rate $\lambda_1$ and service rate $\mu$. From class-$2$'s viewpoint the system is thus an $M/G/1$ queue with arrival rate $\lambda_2$ and generally distributed service times $B$ of mean $\mathbb{E}[B]$. The LST and mean of $B$ are presented
+    whenever the priority queue is not empty ($N_1>0$); their \emph{effective service time} $B$ is therefore the duration of a complete busy period of the single-class ordinary $M/M/1$ sub-queue with arrival rate $\lambda_1$ and service rate $\mu$. From class-$2$'s viewpoint the system is thus an $M/G/1$ queue with arrival rate $\lambda_2$ and generally distributed service times $B$ and mean $\mathbb{E}[B]$. The LST and mean of $B$ are presented
     in~\S\ref{ssec:mm1} (Equations~\eqref{eq:mm1:bp_lst}--\eqref{eq:mm1:bp_mean}), now
-    with $\lambda_1$ instead of $\lambda$:
+    with $\lambda_1$ instead of the generic $\lambda$:
     \begin{align*}
         \widetilde{B}(s) &= \frac{(\mu+\lambda_1+s) - \sqrt{(\mu + \lambda_1 + s)^2-4\mu\lambda_1}}{2\lambda_1}, \\
         \mathbb{E}[B] &= \frac{1}{\mu(1-\rho_1)}. 
@@ -277,9 +240,9 @@ term $\mu(x-y)P_y(y)$ vanishes:
     \begin{equation*}
         P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0] = \mathbb{P}(\text{busy},N_1=0)\cdot L_2(y).
     \end{equation*}
-    We now can obtain $\mathbb{P}(\text{busy},N_1=0)$, from $\mathbb{P}(\text{busy})=\rho$ and $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$. The latter holds because, under non-preemptive priority with a common service rate $\mu$, the class-$1$ queue-plus-service process is exactly the queue-length process of an autonomous $M/M/1(\lambda_1,\mu)$: a class-$1$ arrival and a class-$1$ departure occur at rates $\lambda_1$ and $\mu$ regardless of the class currently in service, since the residual service time is $\mathrm{Exp}(\mu)$ by memorylessness whether the server holds a class-$1$ or class-$2$ customer (cf.\ \S\ref{ssec:priority}); the class-$2$ occupancy is thus exchangeable with class-$1$ occupancy for the purpose of counting class-$1$ customers, so the count obeys the geometric law and $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$. So
+    Under non-preemptive priority, the priority queue operates autonomously (memorylessness of residual service time), so $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$ by the geometric law of the ordinary $M/M/1(\lambda_1,\mu)$. Combined with $\mathbb{P}(\text{busy})=\rho$, we have
     \begin{equation*}
-        \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1)
+        \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1);
     \end{equation*}
     and therefore
     \begin{equation}
@@ -306,14 +269,14 @@ term $\mu(x-y)P_y(y)$ vanishes:
         \end{split}
     \end{align*}
     Multiplying both sides by $\left[ (1+\rho_1+\rho_2)xy - y - \rho_1 x^2y - \rho_2 xy^2 \right]^{-1}$
-    isolates $P(x,y)$ and concludes the proof.
+    to isolate $P(x,y)$ recovers Theorem~\ref{thm:A:PGF} and concludes the proof.
 \end{proof}
 
 
 \subsubsection{Partial-PGF recurrence approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}
 
 
-This proof follows Cohen~\cite{cohen1956delay}. We keep the class-$1$
+This proof follows Cohen~\cite{cohen1956delay}'s method. We keep the class-$1$
 index $n_1$ as a discrete parameter and generate only with respect
 to $N_2$, via the PPGF $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$
 from~\eqref{eq:gen:ppgf_n1}. Multiplying the balance equations by $y^{n_2}$ and
@@ -331,7 +294,7 @@ solution in the priority-class index.
             &= \mu\,\pi(n_1+1,0) + \lambda_1\,\pi(n_1-1,0),
             && n_1\geq1,\ n_2=0. \label{eq:A:ppgf_xbound}
     \end{align}
-
+    Now we take transforms by summing all over their states, but only with respect to $n_2$, and we substitute our PPGF $\widetilde{P}(n_1,y)=\sum_{n_2=0}^{\infty} \pi(n_1,y)y^{n_2}$:
     \begin{align}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu)\sum_{n_2=1}^{\infty}\pi(n_1,n_2)y^{n_2} \\
@@ -573,6 +536,8 @@ self-consistently; see \S\ref{sec:future_work}.
 
 \subsection{Mean queue lengths and mean waiting times}
 
+The results for Model-$A$ are well-studied and standard. However, they will here appear in a slightly different way compared to what usually appears on textbooks —e.g. Adam el al. \cite{adan2002queueing} \cite{a}—, since our states are defined with the number of customers in the \emph{queues} with a busy server, as opposed to those in the system. The customer in service thus contributes to all those with a factor of $\rho$ to the standard results we would typically find. 
+
 \subsubsection{Class-1 marginal PGF and mean queue length}
 
 Setting $y=1$ in the fundamental equation~\eqref{eq:A:fundamental} gives
@@ -588,7 +553,7 @@ Cancelling the common factor $(x-1)$ for $x\neq1$ and rearranging:
         P(x,1) \;=\; \frac{\mu\,P_y(1)}{\mu-\lambda_1 x}.
     \end{split}
 \end{align*}
-The constant $P_y(1)$ is pinned by the normalisation $P(1,1)=1-\pi_0=\rho$:
+The constant $P_y(1)$ is obtained using normalisation for all busy states $P(1,1)=1-\pi_0=\rho$:
 \begin{align*}
     \begin{split}
         \rho \;=\; \frac{\mu\,P_y(1)}{\mu-\lambda_1}
@@ -642,7 +607,7 @@ so:
 \end{align}
 confirming the diagonal identity of Corollary~\ref{cor:A:pi0}.
 Since $\tfrac{d}{dz}P(z,z)\big|_{z=1}
-=\tfrac{\partial P}{\partial x}(1,1)+\tfrac{\partial P}{\partial y}(1,1)
+=\tfrac{\partial }{\partial x}P(1,1)+\tfrac{\partial }{\partial y}P(1,1)
 =\mathbb{E}[N_1]+\mathbb{E}[N_2]$, differentiating by the quotient rule and
 evaluating at $z=1$ gives:
 \begin{align*}
@@ -658,8 +623,8 @@ This is the $M/M/1(\lambda,\mu)$ queue-length formula for the combined
 system~\cite{adan2002queueing}, as expected: the two classes together behave as a
 single $M/M/1$ queue.
 
-\subsubsection{Class-2 mean queue length by subtraction}
-
+\subsubsection{Class-2 mean queue length}
+By subtracting the marginal for class-$1$ to the total number of customers, we find the marginal for class-$2$:
 \begin{align}
     \begin{split}
         \mathbb{E}[N_2]
@@ -675,11 +640,7 @@ single $M/M/1$ queue.
 
 \subsubsection{Mean waiting times via Little's Law}
 
-\textbf{Little's Law} applied to the \emph{waiting sub-system} of each class: since
-$N_i$ counts only customers \emph{waiting} in queue (excluding the customer in service),
-Little's Law gives $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$, where $\mathbb{E}[W_i]$
-is the mean waiting time in queue (time from arrival until service start, not including
-the service duration):
+To obtain ther expected waiting times, we can simply apply \emph{Little's Law} \ref{sec:prelim} to each class independently: we then have $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ where $\mathbb{E}[W_i]$ is the mean waiting time in the queue, excluding the time in service. Therefore:
 \begin{align}
     \begin{split}
         \mathbb{E}[W_1]
@@ -698,9 +659,4 @@ the service duration):
     \end{split}
     \label{eq:A:EW2}
 \end{align}
-Class-1 benefits from priority: $\mathbb{E}[W_2]$ carries the additional penalty
-factor $1/(1-\rho)$ relative to $\mathbb{E}[W_1]$, reflecting the delay that class-2
-customers incur while class-1 customers in the queue are served first. Note that both
-$\mathbb{E}[W_1]$ and $\mathbb{E}[W_2]$ depend on $\rho_2$ through the total load
-$\rho=\rho_1+\rho_2$; class-2 affects class-1 waiting times only via server
-utilisation, not through a direct queueing penalty.
+As expected, class-$1$ benefits from the priority discipline, and $\mathbb{E}[W_2]$ carries the additional penalty factor $1/(1-\rho)$ compared to $\mathbb{E}[W_1]$.
