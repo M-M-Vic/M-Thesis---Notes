@@ -225,47 +225,41 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(iii): Particular solution via variation of parameters.}
     
-    We now work with the full (inhomogeneous) fundamental equation restricted to a
-    fixed characteristic.  Along the curve $y(x)=(C_1-\gamma_2 x)/\gamma_1$, the
-    total derivative satisfies $\frac{d}{dx}P(x,y(x)) = \partial_x P + \frac{dy}{dx}\partial_y P = \partial_x P - \frac{\gamma_2}{\gamma_1}\partial_y P$,
-    so the jockeying terms in~\eqref{eq:gen:fundamental_equation} become
-    \[
-        \gamma_1 xy(x-y)\,\partial_x P + \gamma_2 xy(y-x)\,\partial_y P
-        = \gamma_1 xy(x-y)\!\left(\partial_x P - \tfrac{\gamma_2}{\gamma_1}\partial_y P\right)
-        = \gamma_1 xy(x-y)\,\frac{d}{dx}P(x,y(x)).
-    \]
-    The fundamental equation along the characteristic therefore reads, with its
-    algebraic coefficient factorised as $y\,A(x,y)$ (cf.~\eqref{eq:B:Adef}),
-    \begin{align}
+    We now restore the right-hand side of the full equation~\eqref{eq:gen:fundamental_equation},
+    whose algebraic coefficient is $y\,A(x,y)$ with $A$ from~\eqref{eq:B:Adef}. Along
+    the characteristic $y(x)=(C_1-\gamma_2 x)/\gamma_1$ we have $dy/dx=-\gamma_2/\gamma_1$,
+    so $\frac{d}{dx}P(x,y(x))=\partial_x P-\frac{\gamma_2}{\gamma_1}\partial_y P$ and the two
+    jockeying terms collapse into a single total derivative:
+    \begin{align*}
         \begin{split}
-            y\,A(x,y)\,P + \gamma_1 xy(x-y)\,\frac{dP}{dx} \;=\; G(x,y),
+            \gamma_1 xy(x-y)\,\partial_x P + \gamma_2 xy(y-x)\,\partial_y P
+            &= \gamma_1 xy(x-y)\Bigl(\partial_x P - \tfrac{\gamma_2}{\gamma_1}\partial_y P\Bigr)
+        \end{split}\\
+        \begin{split}
+            &= \gamma_1 xy(x-y)\,\frac{d}{dx}P\bigl(x,y(x)\bigr).
         \end{split}
-        \nonumber
-    \end{align}
-    and dividing through by $\gamma_1 xy(x-y(x))$
-    reduces the PDE to the first-order linear ODE (for fixed $C_1$)
+    \end{align*}
+    The fundamental equation along the characteristic is therefore
+    $y\,A(x,y)\,P+\gamma_1 xy(x-y)\frac{dP}{dx}=G(x,y)$, and dividing by
+    $\gamma_1 xy(x-y)$ reduces it, exactly as in \S\ref{sssec:moc}, to a first-order
+    linear ODE in $x$ at fixed $C_1$,
     \begin{equation}
-        \frac{dP}{dx} = f(x;C_1)\,P + h(x;C_1),
+        \frac{dP}{dx} = f(x;C_1)\,P + h(x;C_1).
         \label{eq:B:ode_char}
     \end{equation}
-    where the coefficient $f$ is
-    \begin{equation*}
-        f(x;C_1) = -\frac{A(x,\,y(x))}{\gamma_1 x\bigl(x-y(x)\bigr)},
-    \end{equation*}
-    with $A$ as in~\eqref{eq:B:Adef}, while the forcing term collects the right-hand
-    side $G(x,y)$ of~\eqref{eq:gen:fundamental_equation},
+    Its homogeneous part $\frac{dP}{dx}=f(x;C_1)\,P$ is precisely the equation
+    integrated in Step~(i), so $P_h$ of~\eqref{eq:B:Ph} is its fundamental solution and
+    $f$ need never be written out. The forcing term carries the right-hand side,
     \begin{equation}
         h(x;C_1)=\frac{G\bigl(x,y(x)\bigr)}{\gamma_1\,x\,y(x)\,\bigl(x-y(x)\bigr)},
         \qquad
         G(x,y):=\mu(x-y)\,P_y(y)-\mu\,x(1-y)\,\pi(0,0),
         \label{eq:B:hdef}
     \end{equation}
-    so that $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$ and on
-    the known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}.
-    Since $P_h(x,y(x))$ satisfies the homogeneous equation
-    $\frac{d}{dx}P_h = f(x;C_1)\,P_h$, it is the fundamental solution of
-    ODE~\eqref{eq:B:ode_char}.  Applying variation of parameters (\S\ref{sssec:vop}),
-    the general solution of the inhomogeneous ODE is
+    so $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$ and on the
+    known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}.
+    Varying the constant in $P_h$ (variation of parameters, \S\ref{sssec:vop}) then
+    gives the general solution of~\eqref{eq:B:ode_char} at once:
     \begin{equation}
         P(x,y(x)) = P_h(x,y(x))\!\left[F(C_1) + \int_{x_0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt\right].
         \label{eq:B:variation}
