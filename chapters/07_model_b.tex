@@ -238,12 +238,12 @@ As said before, this model is therefore left open.
     \medskip\noindent\textbf{Step~(iii): Particular solution via variation of parameters.}
     
     This step consists in upgrading the homogeneous solution $P_h$ (~\eqref{eq:B:Ph}) with its inhomogeneous part, along the characteristic.
-    We start by rewriting our fundamental equation for Model-$B$ (Equation~\eqref{eq:B:fundamental}). The coefficient of $P$ on the LHS can be written as $yA(x,y)$ —where $A(x,y)$ is defined as in  Step~(1) (Equation~\eqref{eq:B:Adef})—; and we define the RHS of the fundamental equation as follows:
+    We start by rewriting our fundamental equation for Model-$B$ (Equation~\eqref{eq:B:fundamental}). The coefficient of $P$ on the LHS can be written as $yA(x,y)$ —where $A(x,y)$ is defined as in Step~(i) (Equation~\eqref{eq:B:Adef})—; and we define the RHS of the fundamental equation as follows:
     \begin{equation}
         G(x,y) := \mu(x-y)\,P_y(y) - \mu\,x(1-y)\,\pi(0,0);
         \label{eq:B:Gdef}
     \end{equation}
-    this forcing involves the unknown boundary trace $P_y(y)=P(0,y)$ together with the known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}. Separating the terms that involve derivatives and the ones that do not, w have
+    this forcing involves the unknown boundary trace $P_y(y)=P(0,y)$ together with the known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}. Separating the terms that involve derivatives and the ones that do not, we have
     \begin{equation*}
         \gamma_1 xy(x-y)\,\partial_x P + \gamma_2 xy(y-x)\,\partial_y P = -\,y\,A(x,y)\,P + G(x,y),
     \end{equation*}
@@ -269,7 +269,7 @@ As said before, this model is therefore left open.
     \end{equation}
     
     % ─────────────────────────────────────────────────────────────────────────────
-    \medskip\noindent\textbf{Step~4: Pinning the free function from the boundary condition at $x=0$.}
+    \medskip\noindent\textbf{Step~(iv): Pinning the free function from the boundary condition at $x=0$.}
     
     Along any characteristic with constant $C_1>0$, the endpoint at $x=0$ is $y(0)=C_1/\gamma_1$, giving
     \begin{equation*}
@@ -288,7 +288,7 @@ As said before, this model is therefore left open.
     \end{equation}
     
     % ─────────────────────────────────────────────────────────────────────────────
-    \medskip\noindent\textbf{Step~5: Reduction to the Volterra equation.}
+    \medskip\noindent\textbf{Step~(v): Reduction to the Volterra equation.}
     
     By Corollary~\ref{cor:B:pi00} the empty-state probabilities are $\pi_0=1-\rho$ and
     $\pi(0,0)=\rho(1-\rho)$, with diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$; these
@@ -321,17 +321,16 @@ As said before, this model is therefore left open.
         \label{eq:B:h_simplified}
     \end{equation}
     
-    As established in Step~2, $E>0$, so the homogeneous factor $(x-y)^E$ vanishes on the
-    diagonal and $P_h\bigl(x,y(x;z)\bigr)\to0$ as $x\to z^-$; simultaneously the integrand
+    By Step~(ii), $E>0$, so $(x-y)^E$ vanishes on the diagonal and
+    $P_h\bigl(x,y(x;z)\bigr)\to0$ as $x\to z^-$, while the integrand
     in~\eqref{eq:B:integral_rep_body} develops a non-integrable singularity
-    $\sim(y(t;z)-t)^{-1-E}$ as $t\to z^-$, so the integral diverges. Their product is the
-    finite $0\cdot\infty$ limit
+    $\sim(y(t;z)-t)^{-1-E}$, so the integral diverges. Their product is a finite
+    $0\cdot\infty$ limit, equal by Corollary~\ref{cor:B:pi00} to the diagonal value:
     \begin{equation*}
-        \frac{\pi(0,0)}{1-\rho z}
+        P(z,z)=\frac{\pi(0,0)}{1-\rho z}
         = \lim_{x\to z^-} P_h\bigl(x,y(x;z)\bigr)
-          \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt,
+          \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt.
     \end{equation*}
-    whose value is $P(z,z)=\pi(0,0)/(1-\rho z)$ by Corollary~\ref{cor:B:pi00}.
     Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown
     $P_y$ from the known remainder, this limit splits as
     \begin{align}
@@ -353,7 +352,7 @@ As said before, this model is therefore left open.
         \;=\; \frac{(\gamma_1+\gamma_2)}{\gamma_1}\,(z-t),
         \label{eq:B:exact_linear}
     \end{equation}
-    and along this characteristic ($C_1=(\gamma_1+\gamma_2) z$) the exponent of Step~2 takes the
+    and along this characteristic ($C_1=(\gamma_1+\gamma_2) z$) the exponent of Step~(ii) takes the
     closed form
     \begin{equation*}
         E_z \;:=\; E((\gamma_1+\gamma_2) z)
@@ -397,11 +396,10 @@ As said before, this model is therefore left open.
     Hence \emph{at leading order the limit~\eqref{eq:B:split} reduces to the identity
     $\pi(0,0)/(1-\rho z)=\pi(0,0)/(1-\rho z)$ and carries no information about $P_y$}:
     the dependence on the boundary function enters only at the next order in $(z-x)$.
-    Each limit is accordingly a \emph{Hadamard finite part}: writing
-    $P_h^{\,\mathrm{diag}}(z):=\lim_{x\to z^-}P_h\bigl(x,y(x;z)\bigr)$ (which vanishes
-    pointwise), the kernel pairing below is the extraction of the
-    truncation-independent, subleading part of the divergent integrals, and neither
-    factor is meaningful in isolation.
+    The kernel pairing must therefore be read as a \emph{Hadamard finite part}: with
+    $P_h^{\,\mathrm{diag}}(z):=\lim_{x\to z^-}P_h\bigl(x,y(x;z)\bigr)$, which vanishes
+    pointwise, it extracts the truncation-independent, subleading part of the two
+    divergent integrals, neither factor being meaningful alone.
     % TODO(citation): add a standard reference for Hadamard finite-part integrals
     % (e.g. Hadamard, Lectures on Cauchy's Problem, 1923) -- the bibliography currently
     % lacks a suitable entry; comment only, no PDF output.
@@ -417,21 +415,18 @@ As said before, this model is therefore left open.
             {y(t;z)\,\bigl(y(t;z)-t\bigr)\,P_h\bigl(t,y(t;z)\bigr)}\,dt,
             \label{eq:B:Fdef}
     \end{align}
-    the kernel $\mathcal{K}$ and the known term $\mathcal{B}$ \emph{to be read through
-    the regularised limit~\eqref{eq:B:split} rather than pointwise}. With these,
-    equation~\eqref{eq:B:split} is exactly the Volterra integral
-    equation~\eqref{eq:B:volterra} of the first kind, proving the claim. The finite-part reading is not a decoration.
-    As the limit-by-limit analysis shows, the displayed $\mathcal{K}$ and $\mathcal{B}$
-    are formal --- the prefactor $P_h^{\,\mathrm{diag}}(z)$ vanishes pointwise --- and
-    the equation for $P_y$ lives entirely at subleading order in $(z-x)$. Giving that
-    extraction a rigorous meaning, whether by matched asymptotics near $t=z$ or by a
-    change of variable removing the $(z-t)^{-1-E_z}$ singularity before passing to the
-    limit, is itself the analytical obstruction: it is this step, together with the
-    fact that the kernel $\mathcal{K}$ depends on $P_h$ through both arguments and does
-    not simplify for general $(\gamma_1,\gamma_2)$, that places Model-$B$ beyond the
-    scope of this thesis. Equation~\eqref{eq:B:volterra} is recorded as the precise form of
-    the open problem, not solved here; resolving it would require Volterra inversion
-    methods together with the regularisation just described.
+    read through the regularised limit~\eqref{eq:B:split} rather than pointwise. With
+    these, \eqref{eq:B:split} is exactly the Volterra integral
+    equation~\eqref{eq:B:volterra} of the first kind, which proves the claim.
+
+    Making this finite-part extraction rigorous --- by matched asymptotics near $t=z$,
+    or by a change of variable that removes the $(z-t)^{-1-E_z}$ singularity before the
+    limit is taken --- is itself the analytical obstruction; together with the fact that
+    $\mathcal{K}$ depends on $P_h$ through both arguments and does not simplify for
+    general $(\gamma_1,\gamma_2)$, it places Model-$B$ beyond the scope of this thesis.
+    Equation~\eqref{eq:B:volterra} is thus recorded as the precise form of the open
+    problem; resolving it would require Volterra inversion together with this
+    regularisation.
 \end{proof}
 
 Model-$B$ is therefore left open.  Its role in the hierarchy is
