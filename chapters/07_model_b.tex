@@ -28,7 +28,7 @@ Setting $\theta_1=\theta_2=0$ in the general fundamental equation~\eqref{eq:gen:
 \end{equation}
 This equation governs the entire analysis of the section, and we refer to it throughout in place of the general equation~\eqref{eq:gen:fundamental_equation}. Its only derivative terms are the two jockeying convection terms, both carrying the diagonal factor $(x-y)$ that makes the Method of Characteristics applicable.
 
-The following result is stated as a corollary, so that it stays at the same hierarchy level as the equivalent result for other models. However, since this model is not solved, there is no theorem to it.
+The following result is stated as a corollary, so that it stays at the same hierarchy level as the equivalent result for other models. However, since this model is not solved, there is no theorem attached to it.
 \begin{corollary}\label{cor:B:pi00}
     The empty-system probability $\pi_0$ and the empty-queues probability $\pi(0,0)$ of Model-$B$ coincide with those of the Model-$A$ baseline,
     \begin{equation}
@@ -40,7 +40,7 @@ The following result is stated as a corollary, so that it stays at the same hier
 The proof follows immediately by setting $x=y=z$ in the Model-$B$ fundamental equation~\eqref{eq:B:fundamental}: both jockeying terms, which carry the factor $(x-y)$, vanish, dragging the term $\mu(x-y)P_y(y)$ with them. The surviving diagonal equation is therefore \emph{identical} to that of Model-$A$ with $x=y=z$, so the proof of Corollary~\ref{cor:B:pi00} reduces to that of Corollary~\ref{cor:A:pi0}.
 
 
-For Model-$B$ we do not provide a solution; however, working out the problem exposes the precise analytical obstacle, which we record as a claim. For the sake of readability, we will \emph{not} define here the auxiliary functions which will be defined throughout the proof. That being said, the following claim is made:
+For Model-$B$ we do not provide a solution; however, working out the problem exposes the precise analytical obstacle, which we record as a claim. For the sake of readability, we will \emph{not} define here the auxiliary functions; they are introduced throughout the proof. That being said, the following claim is made:
 \begin{claim}\label{clm:B:volterra}
  Assume stability $\rho<1$. Along the characteristic lines $\gamma_2 x+\gamma_1 y=C_1$ of the Model-$B$ fundamental equation~\eqref{eq:B:fundamental}, parametrised by $y(x)=(C_1-\gamma_2 x)/\gamma_1$, the bivariate PGF of Model-$B$ admits the following integral representation:
     \begin{equation}
@@ -57,7 +57,7 @@ For Model-$B$ we do not provide a solution; however, working out the problem exp
 As said before, this model is therefore left open.
 
 \begin{proof}[Proof of Claim~\ref{clm:B:volterra}]
-    The proof consists of five steps: (i)~homogeneous solution via the Method of Characteristics, (ii)~ sign analysis of the exponent function $E$, (iii)~particular solution via the Method of Variation of Parameters, (iv)~determining the arbitrary function from the boundary condition, and (v)~ evaluation at $x=y$ yielding a Volterra-type equation.
+    The proof consists of five steps: (i)~homogeneous solution via the Method of Characteristics, (ii)~sign analysis of the exponent function $E$, (iii)~particular solution via the Method of Variation of Parameters, (iv)~determining the arbitrary function from the boundary condition, and (v)~evaluation at $x=y$ yielding a Volterra-type equation.
     
     \medskip\noindent\textbf{Step~(i): Homogeneous solution via the Method of Characteristics.}
     
@@ -191,21 +191,18 @@ As said before, this model is therefore left open.
         + \frac{\mu}{\gamma_2 x+\gamma_1 y}.
         \label{eq:B:E}
     \end{equation}
-    So our general homogeneous solution reads as follows:
+    The general homogeneous solution is therefore $F(C_1)\,P_h(x,y)$, with $F$ an arbitrary, differentiable function of the characteristic constant $C_1$ and $P_h$ the particular homogeneous solution
     \begin{equation}
-        P_h(x,y) = F(\gamma_2 x+\gamma_1 y)
-        \cdot \exp\!\left(\frac{\gamma_1\lambda_1-\lambda_2\gamma_2}{\gamma_1(\gamma_1+\gamma_2)}x\right)
+        P_h(x,y) = \exp\!\left(\frac{\gamma_1\lambda_1-\lambda_2\gamma_2}{\gamma_1(\gamma_1+\gamma_2)}x\right)
         \cdot x^{-\mu/(\gamma_2 x+\gamma_1 y)}
-        \cdot (x-y)^{E(x,y)},
+        \cdot (x-y)^{E(x,y)}
         \label{eq:B:Ph}
     \end{equation}
-    where $F$ is an arbitrary and differentiable function of the characteristic constant $C_1$; we will see that it must be zero in Equation~\eqref{eq:B:integral_rep_body}.
+    that will serve as the integrating factor for variation of parameters in Step~(iii). We will see in Step~(iv) that $F$ must vanish.
     
     
     \medskip\noindent\textbf{Step~(ii): The exponent $E(x,y)$ is strictly positive in $(0,1)^2$.}
-    
-    As one of the building blocks for this proof, we need to see that $E(x,y)$ is strictly positive in $(0,1)^2$
-    
+
     Recall $\lambda = \lambda_1+\lambda_2$. Along any fixed characteristic, $C_1 = \gamma_2 x + \gamma_1 y$ is constant, so the exponent function~\eqref{eq:B:E} depends only on $C_1$, which ranges over $(0,\gamma_1+\gamma_2)$ as $(x,y)\in(0,1)^2$:
     \begin{equation*}
         E(C_1) = 
@@ -229,7 +226,7 @@ As said before, this model is therefore left open.
             = \frac{\lambda-\mu}{(\gamma_1+\gamma_2)^2} < 0,
         \end{split}
     \end{align*}
-    Since $E$ decreases strictly to $0$ at its right endpoint, it is strictly positive too for every point in the left, so:
+    Since $E$ decreases strictly to $0$ at its right endpoint, it is strictly positive at every point to its left, so:
     \begin{equation*}
         E(C_1) > E(\gamma_1+\gamma_2) = 0 \qquad\text{for all } C_1\in(0,\gamma_1+\gamma_2),
     \end{equation*}
@@ -237,7 +234,7 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(iii): Particular solution via variation of parameters.}
     
-    This step consists in upgrading the homogeneous solution $P_h$ (~\eqref{eq:B:Ph}) with its inhomogeneous part, along the characteristic.
+    This step consists in upgrading the homogeneous solution $P_h$ (Equation~\eqref{eq:B:Ph}) with its inhomogeneous part, along the characteristic.
     We start by rewriting our fundamental equation for Model-$B$ (Equation~\eqref{eq:B:fundamental}). The coefficient of $P$ on the LHS can be written as $yA(x,y)$ —where $A(x,y)$ is defined as in Step~(i) (Equation~\eqref{eq:B:Adef})—; and we define the RHS of the fundamental equation as follows:
     \begin{equation}
         G(x,y) := \mu(x-y)\,P_y(y) - \mu\,x(1-y)\,\pi(0,0);
@@ -353,7 +350,7 @@ As said before, this model is therefore left open.
     \end{equation}
     with $R$ smooth and $R(z,z)=1$.
 
-    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}. Substituting~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$ Hence their product converges to $w(z)/E_z$:
+    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}. Substituting~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$. Hence their product converges to $w(z)/E_z$:
     \begin{align*}
         & \lim_{x\to z^-}(z-x)^{E_z}\int^{x} w(z)(z-t)^{-1-E_z}dt \\
         & \quad = \quad \frac{w(z)}{E_z}
@@ -362,11 +359,9 @@ As said before, this model is therefore left open.
         = \frac{\pi(0,0)}{1-\rho z}.
     \end{align*}
     
-    The first limit, containing the unknown boundary function $P_y$, vanishes: 
-    
     The \emph{first} limit vanishes: its integrand behaves as $(z-t)^{-E_z}$, one power less singular than the second limit's $(z-t)^{-1-E_z}$, and is killed by the vanishing prefactor $(z-x)^{E_z}$. The \emph{second} limit reproduces the full diagonal value from $\pi(0,0)$. Thus the diagonal fixes no information about $P_y$ at leading order; determining $P_y$ requires the next order in $(z-x)$, which is the open problem.
 
-    Collecting the $P_y$-term of~\eqref{eq:B:split} into a kernel and the known $\pi(0,0)$-term into a "known" function gives
+    Collecting the $P_y$-term of~\eqref{eq:B:split} into a kernel and the remaining $\pi(0,0)$-term into a known datum gives
     \begin{align}
         \mathcal{K}(z,t)&:=\frac{\mu}{\gamma_1}\,
             \frac{R(z,t)}{t\,y(t;z)}\,(z-t)^{-E_z},
@@ -377,11 +372,11 @@ As said before, this model is therefore left open.
                  {y(t;z)\,\bigl(y(t;z)-t\bigr)}\,(z-t)^{-E_z}\,dt,
             \label{eq:B:Fdef}
     \end{align}
-    so that the diagonal identity~\eqref{eq:B:split} matches the first-kind Volterra equation~\eqref{eq:B:volterra}, which proves the claim.
+    so that the diagonal identity~\eqref{eq:B:split} matches the first-kind Volterra equation~\eqref{eq:B:volterra}, which proves the claim. Both integrals are singular at the endpoint $t=z$ —their integrands behave as $(z-t)^{-E_z}$ and $(z-t)^{-1-E_z}$— and must be read in a regularised, finite-part sense; carrying out that regularisation rigorously is precisely the analytical obstruction that leaves Model-$B$ open.
 \end{proof}
 
-Model-$B$ is beyond the scope of this thesis and, therefore, left open. Its role is to illustrate the mathematical obstacle —the Volterray-type integral equation. Model-$B_2$ and Model-$C_2$ avoid such a problem by shutting down all derivative terms in $y$. This allows us to take our boundary function $P_y(y)$ outside the integral, as we would only integrate with respect to $x$, as opposed to $y(x)$.
+Model-$B$ is beyond the scope of this thesis and, therefore, left open. Its role is to illustrate the mathematical obstacle —the Volterra-type integral equation. Model-$B_2$ and Model-$C_2$ avoid such a problem by shutting down all derivative terms in $y$. This allows us to take our boundary function $P_y(y)$ outside the integral, as we would only integrate with respect to $x$, as opposed to $y(x)$.
 
 \begin{remark}[The full Model-$X$ is \emph{a fortiori} intractable]\label{rem:B:modelX}
-    Model-$B$ already shows the central problem of taking this route. As one can imagine, reinstating the abandonment mechanism —$\theta_1,\theta_2>0$— does not precisely help simplifying the problem but quite the opposite. It deepens the difficulty in two ways: first, the characteristics cease to be straight lines; second, we loos the diagonal anchor —Corollary~\ref{cor:B:pi00} does not hold— and $P(1,1)$ will no longer be a constant. 
+    Model-$B$ already shows the central problem of taking this route. As one can imagine, reinstating the abandonment mechanism —$\theta_1,\theta_2>0$— does not help simplify the problem; quite the opposite. It deepens the difficulty in two ways: first, the characteristics cease to be straight lines; second, we lose the diagonal anchor —Corollary~\ref{cor:B:pi00} no longer holds—, so the diagonal $P(z,z)$ is no longer known in closed form.
 \end{remark}
