@@ -290,12 +290,7 @@ As said before, this model is therefore left open.
     % ─────────────────────────────────────────────────────────────────────────────
     \medskip\noindent\textbf{Step~(v): Reduction to the Volterra equation.}
     
-    By Corollary~\ref{cor:B:pi00} the empty-state probabilities are $\pi_0=1-\rho$ and
-    $\pi(0,0)=\rho(1-\rho)$, with diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$; these
-    are the inputs to the diagonal evaluation below.
-    
-    We simplify the forcing function $h$ on the characteristic.  Substituting the
-    inhomogeneity $G$ of~\eqref{eq:B:Gdef} into the forcing $h$ of~\eqref{eq:B:hdef}:
+    By Corollary~\ref{cor:B:pi00} the empty-state probabilities are $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$, with diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$. We plug those, along with our inhomogeneous part $G$ (Equation~\eqref{eq:B:Gdef}) into our forcing function (Equation~\eqref{eq:B:hdef})
     \begin{align}
         h(t;C_1)
         &= \frac{\mu(t-y(t))\,P_y(y(t)) - \mu t(1-y(t))\,\pi(0,0)}
@@ -304,35 +299,25 @@ As said before, this model is therefore left open.
            - \frac{\mu(1-y(t))\,\pi(0,0)}{\gamma_1\,y(t)\,(t-y(t))}.
         \label{eq:B:h_intermediate}
     \end{align}
-    We will evaluate~\eqref{eq:B:integral_rep_body} along the diagonal characteristic,
-    which passes through $(z,z)$ and has $C_1=(\gamma_1+\gamma_2)z$. The parametrisation
-    along that curve is
+    We will evaluate Equation~\eqref{eq:B:integral_rep_body} along the diagonal —i.e. $x=y=z$, with points of the form $(z,z)$—, which has $C_1=(\gamma_1+\gamma_2)z$ and thus the following parametrisation, for fixed $z$:
     \begin{equation}
         y(t;z)=\frac{(\gamma_1+\gamma_2)z-\gamma_2 t}{\gamma_1},
         \label{eq:B:ydiag}
     \end{equation}
-    so $y(0;z)=(\gamma_1+\gamma_2)z/\gamma_1>z$ and $y(z;z)=z$. Therefore $y(t;z)>t$
-    for all $t\in[0,z)$, which means $t-y(t;z)<0$ throughout the integration interval.
-    Writing $t-y(t;z)=-(y(t;z)-t)$ in the denominator of~\eqref{eq:B:h_intermediate}:
+    so $y(0;z)=(\gamma_1+\gamma_2)z/\gamma_1>z$ and $y(z;z)=z$. Thus $y(t;z)>t$ for all $t\in[0,z)$, which implies $t-y(t;z)<0$ inside the integration interval. Note the change of sign of the second summand when writing $t-y(t;z)=-(y(t;z)-t)$ in the denominator of~\eqref{eq:B:h_intermediate}:
     \begin{equation}
         h\bigl(t;\,(\gamma_1+\gamma_2)z\bigr)
         = \frac{\mu}{\gamma_1\,t\,y(t;z)}\,P_y\!\bigl(y(t;z)\bigr)
         + \frac{\mu\,(1-y(t;z))}{\gamma_1\,y(t;z)\,(y(t;z)-t)}\,\pi(0,0).
         \label{eq:B:h_simplified}
     \end{equation}
-    
-    By Step~(ii), $E>0$, so $(x-y)^E$ vanishes on the diagonal and
-    $P_h\bigl(x,y(x;z)\bigr)\to0$ as $x\to z^-$, while the integrand
-    in~\eqref{eq:B:integral_rep_body} develops a non-integrable singularity
-    $\sim(y(t;z)-t)^{-1-E}$, so the integral diverges. Their product is a finite
-    $0\cdot\infty$ limit, equal by Corollary~\ref{cor:B:pi00} to the diagonal value:
+    From Step~(ii), $E>0$, so the factor $(x-y(x;z))^E$ in $P_h$ vanishes as $x\to z^-$, giving $P_h\bigl(x,y(x;z)\bigr)\to0$. At the same time, the integrand in~\eqref{eq:B:integral_rep_body} has a singularity near $t=z$: the forcing function~\eqref{eq:B:h_simplified} contributes with a $(y(t;z)-t)^{-1}$ factor; and the denominator $P_h\bigl(t,y(t;z)\bigr)$, with a $(y(t;z)-t)^{-E}$. So together $h/P_h\sim(y(t;z)-t)^{-1-E}$; since $-1-E<-1$, the integral diverges as $x\to z^-$. Nevertheless, the product of the two factors is finite: by Step~(iv), $P_h\bigl(x,y(x;z)\bigr)\int_0^x\frac{h}{P_h},dt$ equals the PGF value $P\bigl(x,y(x;z)\bigr)$, which converges to $P(z,z)$ as $x\to z^-$. This behaviour aligns with the fact that we are working in the context of PGFs, which are always bounded. By Corollary~\ref{cor:B:pi00} that value is $\pi(0,0)/(1-\rho z)$, so the $0\cdot\infty$ limit resolves to
     \begin{equation*}
         P(z,z)=\frac{\pi(0,0)}{1-\rho z}
         = \lim_{x\to z^-} P_h\bigl(x,y(x;z)\bigr)
           \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt.
     \end{equation*}
-    Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown
-    $P_y$ from the known remainder, this limit splits as
+    Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown boundary function $P_y$ from the known remainder, this limit splits into"
     \begin{align}
         \frac{\pi(0,0)}{1-\rho z}
         &= \lim_{x\to z^-}\frac{\mu\,P_h\bigl(x,y(x;z)\bigr)}{\gamma_1}
@@ -343,49 +328,43 @@ As said before, this model is therefore left open.
            \int_0^x \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
         \label{eq:B:split}
     \end{align}
-    We now evaluate the two limits in~\eqref{eq:B:split} one by one; this both
-    clarifies in what sense the kernel pairing below is to be read and provides an
-    independent consistency check of the representation. The geometry on the diagonal
-    characteristic is exactly linear,
+    We evaluate the two limits in~\eqref{eq:B:split} separately. Three facts make the diagonal characteristic exactly solvable.
+
+    First, its geometry is linear:
     \begin{equation}
-        y(t;z)-t \;=\; \frac{(\gamma_1+\gamma_2)z-\gamma_2 t}{\gamma_1}\;-\;t
-        \;=\; \frac{(\gamma_1+\gamma_2)}{\gamma_1}\,(z-t),
-        \label{eq:B:exact_linear}
+        y(t;z)-t = \frac{(\gamma_1+\gamma_2)z-\gamma_2 t}{\gamma_1}-t
+        = \frac{\gamma_1+\gamma_2}{\gamma_1},(z-t).
+    \label{eq:B:exact_linear}
     \end{equation}
-    and along this characteristic ($C_1=(\gamma_1+\gamma_2) z$) the exponent of Step~(ii) takes the
-    closed form
+    Second, the exponent of Step~(ii) is constant along the characteristic ($C_1=(\gamma_1+\gamma_2)z$) and can be factored as follows:
     \begin{equation*}
-        E_z \;:=\; E((\gamma_1+\gamma_2) z)
-        \;=\; \frac{\lambda z^{2}-(\lambda+\mu)z+\mu}{(\gamma_1+\gamma_2) z}
-        \;=\; \frac{(\mu-\lambda z)(1-z)}{(\gamma_1+\gamma_2) z}\;>\;0,
+        E_z := E\bigl((\gamma_1+\gamma_2)z\bigr)
+        = \frac{\lambda z^{2}-(\lambda+\mu)z+\mu}{(\gamma_1+\gamma_2)z}
+        = \frac{(\mu-\lambda z)(1-z)}{(\gamma_1+\gamma_2)z}>0,
         \qquad z\in(0,1).
     \end{equation*}
-    Every factor of $P_h$ in~\eqref{eq:B:Ph} other than the exponential, the power of
-    $x$, and $(x-y)^{E}$ depends on $(x,y)$ only through $C_1$, so along the
-    characteristic the homogeneous ratio is \emph{exact}:
+    Third, every factor of $P_h$ in~\eqref{eq:B:Ph} except the exponential, the power of $x$, and $(x-y)^{E}$ depends on $(x,y)$ only through $C_1$, which is fixed on the characteristic. The ratio therefore splits nicely into a smooth part and a single power:
     \begin{equation}
         \frac{P_h\bigl(x,y(x;z)\bigr)}{P_h\bigl(t,y(t;z)\bigr)}
-        \;=\; R(x,t)\,\biggl(\frac{z-x}{z-t}\biggr)^{\!E_z},
-        \qquad
-        R(x,t):=e^{\frac{K}{\gamma_1}(x-t)}\,\Bigl(\frac{t}{x}\Bigr)^{\!\mu/((\gamma_1+\gamma_2) z)},
-        \label{eq:B:ratio_exact}
+        = R(x,t)\biggl(\frac{z-x}{z-t}\biggr)^{E_z},
+    \qquad
+    R(x,t):=e^{\frac{K}{\gamma_1}(x-t)}\Bigl(\frac{t}{x}\Bigr)^{\mu/((\gamma_1+\gamma_2)z)},
+    \label{eq:B:ratio_exact}
     \end{equation}
-    with $R$ smooth and $R(z,z)=1$. Substituting~\eqref{eq:B:ratio_exact} into the
-    \emph{second} limit of~\eqref{eq:B:split} and using~\eqref{eq:B:exact_linear}, its
-    integrand behaves as $w(z)\,(z-t)^{-1-E_z}$ near $t=z$, with
-    $w(z)=\mu\,\pi(0,0)\,(1-z)/((\gamma_1+\gamma_2) z)$; the truncated integral diverges like
-    $(z-x)^{-E_z}/E_z$, the prefactor vanishes like $(z-x)^{E_z}$, and the product
-    converges:
+    with $R$ smooth and $R(z,z)=1$.
+
+    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}.
+    
+    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}.. Substituting~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$ Hence their product converges to $w(z)/E_z$:
     \begin{align*}
-        \begin{split}
-            \lim_{x\to z^-}\;(z-x)^{E_z}\!\int^{x}\! w(z)\,(z-t)^{-1-E_z}\,dt
-            \;&=\; \frac{w(z)}{E_z}
-            \;=\; \frac{\mu\,\pi(0,0)\,(1-z)}{(\gamma_1+\gamma_2) z}\cdot
-                  \frac{(\gamma_1+\gamma_2) z}{(\mu-\lambda z)(1-z)} \\
-            &=\; \frac{\mu\,\pi(0,0)}{\mu-\lambda z}
-            \;=\; \frac{\pi(0,0)}{1-\rho z}\,.
-        \end{split}
+        & \lim_{x\to z^-}(z-x)^{E_z}\int^{x} w(z)(z-t)^{-1-E_z}dt \\
+        & \quad = \quad \frac{w(z)}{E_z}
+        = \frac{\mu\pi(0,0)(1-z)}{(\gamma_1+\gamma_2)z}\cdot \frac{(\gamma_1+\gamma_2)z}{(\mu-\lambda z)(1-z)}
+        = \frac{\mu\pi(0,0)}{\mu-\lambda z}
+        = \frac{\pi(0,0)}{1-\rho z}.
     \end{align*}
+    
+    
     The second limit alone thus reproduces the full diagonal value --- an independent
     confirmation that the representation~\eqref{eq:B:integral_rep_body} is consistent
     with Corollary~\ref{cor:B:pi00}. The \emph{first} limit, by contrast, vanishes: its
