@@ -271,23 +271,17 @@ As said before, this model is therefore left open.
     % ─────────────────────────────────────────────────────────────────────────────
     \medskip\noindent\textbf{Step~4: Pinning the free function from the boundary condition at $x=0$.}
     
-    Along any characteristic with constant $C_1>0$, the endpoint at $x=0$ is
-    $y(0)=C_1/\gamma_1$, giving
-    \[
+    Along any characteristic with constant $C_1>0$, the endpoint at $x=0$ is $y(0)=C_1/\gamma_1$, giving
+    \begin{equation*}
         P\!\left(0,\,\frac{C_1}{\gamma_1}\right) = P_y\!\left(\frac{C_1}{\gamma_1}\right),
-    \]
-    which is finite.  However, $P_h$ contains the factor
-    $x^{-\mu/C_1}\to+\infty$ as $x\to0^+$ (since $\mu/C_1>0$ for $C_1>0$), while
-    the integral in~\eqref{eq:B:variation} vanishes as $x_0\to0$ (the integration
-    interval collapses).  Therefore
-    \[
+    \end{equation*}
+    which is finite since it is a (marginal) PGF.  However, $P_h$ (Equation~\eqref{eq:B:Ph}) contains the factor $x^{-\mu/C_1}\to+\infty$ as $x\to0^+$ (since $\mu/C_1>0$ for $C_1>0$), while the integral in~\eqref{eq:B:variation} vanishes as $x_0\to0$, since the integration interval shrinks. Therefore
+    \begin{equation*}
         \lim_{x\to0^+}P(x,y(x))
         = \lim_{x\to0^+}P_h(x,y(x))\cdot F(C_1)
         = +\infty\cdot F(C_1),
-    \]
-    which can only be finite if $F(C_1)=0$.  Setting $x_0=0$ and $F(C_1)=0$
-    in~\eqref{eq:B:variation} gives the integral representation of
-    Claim~\ref{clm:B:volterra}:
+    \end{equation*}
+    which can only be finite if $F(C_1)=0$.  Setting $x_0=0$ and $F(C_1)=0$ in~\eqref{eq:B:variation} yields the integral representation of Claim~\ref{clm:B:volterra}:
     \begin{equation}
         P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt.
         \label{eq:B:integral_rep_body}
