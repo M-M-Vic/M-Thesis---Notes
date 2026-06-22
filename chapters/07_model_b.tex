@@ -14,7 +14,19 @@ Model-$B$ introduces bidirectional jockeying ($\gamma_1,\gamma_2>0$) and no aban
     \label{fig:model-b-queue}
 \end{figure}
 
-\textbf{Stability.} $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying preserves the total customer count and does not affect this condition, as the arriving customers can also be re-allocated. 
+\textbf{Stability.} $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying preserves the total customer count and does not affect this condition, as the arriving customers can also be re-allocated.
+
+Setting $\theta_1=\theta_2=0$ in the general fundamental equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation}) removes both abandonment factors $(x-1)$ and $(y-1)$ and leaves the \emph{Model-$B$ fundamental equation}
+\begin{equation}
+\begin{split}
+    & \bigl[(\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2\bigr]\,P(x,y) \\
+    & \qquad + \gamma_1\,xy(x-y)\,\frac{\partial P}{\partial x}(x,y)
+             + \gamma_2\,xy(y-x)\,\frac{\partial P}{\partial y}(x,y) \\
+    & \qquad\qquad = \mu(x-y)\,P_y(y) - \mu\,x(1-y)\,\pi(0,0).
+\end{split}
+\label{eq:B:fundamental}
+\end{equation}
+This equation governs the entire analysis of the section, and we refer to it throughout in place of the general equation~\eqref{eq:gen:fundamental_equation}. Its only derivative terms are the two jockeying convection terms, both carrying the diagonal factor $(x-y)$ that makes the Method of Characteristics applicable.
 
 The following result is stated as a corollary, so that it stays at the same hierarchy level as the equivalent result for other models. However, since this model is not solved, there is no theorem to it.
 \begin{corollary}\label{cor:B:pi00}
@@ -25,12 +37,12 @@ The following result is stated as a corollary, so that it stays at the same hier
     \end{equation}
     and the diagonal of the PGF is $P(z,z)=\pi(0,0)/(1-\rho z)$.
 \end{corollary}
-The proof follows immediately by setting $x=y=z$ in the fundamental equation for Model-$B$ (Equation~\eqref{eq:gen:fundamental_equation}, with $\theta_1=\theta_2=0$): both jockeying terms, which carry the factor $(x-y)$, vanish, dragging the term $\mu(x-y)P_y(y)$ with them. The surviving diagonal equation is therefore \emph{identical} to that of Model-$A$ with $x=y=z$, so the proof of Corollary~\ref{cor:B:pi00} reduces to that of Corollary~\ref{cor:A:pi0}.
+The proof follows immediately by setting $x=y=z$ in the Model-$B$ fundamental equation~\eqref{eq:B:fundamental}: both jockeying terms, which carry the factor $(x-y)$, vanish, dragging the term $\mu(x-y)P_y(y)$ with them. The surviving diagonal equation is therefore \emph{identical} to that of Model-$A$ with $x=y=z$, so the proof of Corollary~\ref{cor:B:pi00} reduces to that of Corollary~\ref{cor:A:pi0}.
 
 
 For Model-$B$ we do not provide a solution; however, working out the problem exposes the precise analytical obstacle, which we record as a claim. For the sake of readability, we will \emph{not} define here the auxiliary functions which will be defined throughout the proof. That being said, the following claim is made:
 \begin{claim}\label{clm:B:volterra}
- Assume stability $\rho<1$. Along the characteristic lines $\gamma_2 x+\gamma_1 y=C_1$ of the fundamental equation~\eqref{eq:gen:fundamental_equation} (with abandonment parameters $\theta_1=\theta_2=0$ set to zero), parametrised by $y(x)=(C_1-\gamma_2 x)/\gamma_1$, the bivariate PGF of Model-$B$ admits the following integral representation:
+ Assume stability $\rho<1$. Along the characteristic lines $\gamma_2 x+\gamma_1 y=C_1$ of the Model-$B$ fundamental equation~\eqref{eq:B:fundamental}, parametrised by $y(x)=(C_1-\gamma_2 x)/\gamma_1$, the bivariate PGF of Model-$B$ admits the following integral representation:
     \begin{equation}
         P\bigl(x,y(x)\bigr) \;=\; P_h\bigl(x,y(x)\bigr)\int_{0}^{x}
         \frac{h\bigl(t;C_1\bigr)}{P_h\bigl(t,y(t)\bigr)}\,dt,
@@ -49,8 +61,8 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(i): Homogeneous solution via the Method of Characteristics.}
     
-    The fundamental equation~\eqref{eq:gen:fundamental_equation} with
-    $\theta_1=\theta_2=0$ is a first-order linear PDE in $P(x,y)$. Setting the
+    The Model-$B$ fundamental equation~\eqref{eq:B:fundamental} is a first-order
+    linear PDE in $P(x,y)$. Setting the
     right-hand side to zero and dividing by $y$ yields the homogeneous PDE
     \begin{equation*}
         \gamma_1 x(x-y)\,\frac{\partial P}{\partial x}
@@ -225,7 +237,7 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(iii): Particular solution via variation of parameters.}
     
-    We now restore the right-hand side of the full equation~\eqref{eq:gen:fundamental_equation},
+    We now restore the right-hand side of the Model-$B$ fundamental equation~\eqref{eq:B:fundamental},
     whose algebraic coefficient is $y\,A(x,y)$ with $A$ from~\eqref{eq:B:Adef}. Along
     the characteristic $y(x)=(C_1-\gamma_2 x)/\gamma_1$ we have $dy/dx=-\gamma_2/\gamma_1$,
     so $\frac{d}{dx}P(x,y(x))=\partial_x P-\frac{\gamma_2}{\gamma_1}\partial_y P$ and the two
@@ -258,8 +270,11 @@ As said before, this model is therefore left open.
     \end{equation}
     so $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$ and on the
     known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}.
-    Varying the constant in $P_h$ (variation of parameters, \S\ref{sssec:vop}) then
-    gives the general solution of~\eqref{eq:B:ode_char} at once:
+    Equation~\eqref{eq:B:ode_char} now has exactly the form~\eqref{eq:ode:vop_standard}
+    with a known homogeneous solution $P_h$, so the variation-of-parameters
+    formula~\eqref{eq:ode:vop_general} of \S\ref{sssec:vop} gives its general solution
+    immediately, with the arbitrary constant promoted to the function $F(C_1)$ of the
+    characteristic label:
     \begin{equation}
         P(x,y(x)) = P_h(x,y(x))\!\left[F(C_1) + \int_{x_0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt\right].
         \label{eq:B:variation}
