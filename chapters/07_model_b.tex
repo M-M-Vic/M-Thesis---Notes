@@ -311,13 +311,13 @@ As said before, this model is therefore left open.
         + \frac{\mu\,(1-y(t;z))}{\gamma_1\,y(t;z)\,(y(t;z)-t)}\,\pi(0,0).
         \label{eq:B:h_simplified}
     \end{equation}
-    From Step~(ii), $E>0$, so the factor $(x-y(x;z))^E$ in $P_h$ vanishes as $x\to z^-$, giving $P_h\bigl(x,y(x;z)\bigr)\to0$. At the same time, the integrand in~\eqref{eq:B:integral_rep_body} has a singularity near $t=z$: the forcing function~\eqref{eq:B:h_simplified} contributes with a $(y(t;z)-t)^{-1}$ factor; and the denominator $P_h\bigl(t,y(t;z)\bigr)$, with a $(y(t;z)-t)^{-E}$. So together $h/P_h\sim(y(t;z)-t)^{-1-E}$; since $-1-E<-1$, the integral diverges as $x\to z^-$. Nevertheless, the product of the two factors is finite: by Step~(iv), $P_h\bigl(x,y(x;z)\bigr)\int_0^x\frac{h}{P_h},dt$ equals the PGF value $P\bigl(x,y(x;z)\bigr)$, which converges to $P(z,z)$ as $x\to z^-$. This behaviour aligns with the fact that we are working in the context of PGFs, which are always bounded. By Corollary~\ref{cor:B:pi00} that value is $\pi(0,0)/(1-\rho z)$, so the $0\cdot\infty$ limit resolves to
+    From Step~(ii), $E>0$, so the factor $(x-y(x;z))^E$ in $P_h$ vanishes as $x\to z^-$, giving $P_h\bigl(x,y(x;z)\bigr)\to0$. At the same time, the integrand in~\eqref{eq:B:integral_rep_body} has a singularity near $t=z$: the forcing function~\eqref{eq:B:h_simplified} contributes with a $(y(t;z)-t)^{-1}$ factor; and the denominator $P_h\bigl(t,y(t;z)\bigr)$, with a $(y(t;z)-t)^{-E}$. So together $h/P_h\sim(y(t;z)-t)^{-1-E}$; since $-1-E<-1$, the integral diverges as $x\to z^-$. Nevertheless, the product of the two factors is finite: by Step~(iv), $P_h\bigl(x,y(x;z)\bigr)\int_0^x\frac{h}{P_h}\,dt$ equals the PGF value $P\bigl(x,y(x;z)\bigr)$, which converges to $P(z,z)$ as $x\to z^-$. This behaviour aligns with the fact that we are working in the context of PGFs, which are always bounded. By Corollary~\ref{cor:B:pi00} that value is $\pi(0,0)/(1-\rho z)$, so the $0\cdot\infty$ limit resolves to
     \begin{equation*}
         P(z,z)=\frac{\pi(0,0)}{1-\rho z}
         = \lim_{x\to z^-} P_h\bigl(x,y(x;z)\bigr)
           \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt.
     \end{equation*}
-    Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown boundary function $P_y$ from the known remainder, this limit splits into"
+    Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown boundary function $P_y$ from the known remainder, this limit splits into
     \begin{align}
         \frac{\pi(0,0)}{1-\rho z}
         &= \lim_{x\to z^-}\frac{\mu\,P_h\bigl(x,y(x;z)\bigr)}{\gamma_1}
@@ -333,7 +333,7 @@ As said before, this model is therefore left open.
     First, its geometry is linear:
     \begin{equation}
         y(t;z)-t = \frac{(\gamma_1+\gamma_2)z-\gamma_2 t}{\gamma_1}-t
-        = \frac{\gamma_1+\gamma_2}{\gamma_1},(z-t).
+        = \frac{\gamma_1+\gamma_2}{\gamma_1}\,(z-t).
     \label{eq:B:exact_linear}
     \end{equation}
     Second, the exponent of Step~(ii) is constant along the characteristic ($C_1=(\gamma_1+\gamma_2)z$) and can be factored as follows:
@@ -353,9 +353,7 @@ As said before, this model is therefore left open.
     \end{equation}
     with $R$ smooth and $R(z,z)=1$.
 
-    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}.
-    
-    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}.. Substituting~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$ Hence their product converges to $w(z)/E_z$:
+    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}. Substituting~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$ Hence their product converges to $w(z)/E_z$:
     \begin{align*}
         & \lim_{x\to z^-}(z-x)^{E_z}\int^{x} w(z)(z-t)^{-1-E_z}dt \\
         & \quad = \quad \frac{w(z)}{E_z}
@@ -365,47 +363,40 @@ As said before, this model is therefore left open.
     \end{align*}
     
     
-    The second limit alone thus reproduces the full diagonal value --- an independent
-    confirmation that the representation~\eqref{eq:B:integral_rep_body} is consistent
-    with Corollary~\ref{cor:B:pi00}. The \emph{first} limit, by contrast, vanishes: its
-    integrand behaves as $(z-t)^{-E_z}$ near $t=z$, so for $E_z<1$ the integral
-    converges and is annihilated by the vanishing prefactor $(z-x)^{E_z}$, while for
-    $E_z\ge1$ the truncated integral grows only like $(z-x)^{1-E_z}$ (logarithmically
-    at $E_z=1$) and the product is still $O\bigl((z-x)^{\min(E_z,1)}\ln(z-x)\bigr)\to0$.
-    Hence \emph{at leading order the limit~\eqref{eq:B:split} reduces to the identity
-    $\pi(0,0)/(1-\rho z)=\pi(0,0)/(1-\rho z)$ and carries no information about $P_y$}:
-    the dependence on the boundary function enters only at the next order in $(z-x)$.
-    The kernel pairing must therefore be read as a \emph{Hadamard finite part}: with
-    $P_h^{\,\mathrm{diag}}(z):=\lim_{x\to z^-}P_h\bigl(x,y(x;z)\bigr)$, which vanishes
-    pointwise, it extracts the truncation-independent, subleading part of the two
-    divergent integrals, neither factor being meaningful alone.
-    % TODO(citation): add a standard reference for Hadamard finite-part integrals
-    % (e.g. Hadamard, Lectures on Cauchy's Problem, 1923) -- the bibliography currently
-    % lacks a suitable entry; comment only, no PDF output.
-    The kernel and data so extracted are
+    The second limit alone therefore already reproduces the full diagonal value: the
+    leading-order balance in~\eqref{eq:B:split} is fixed entirely by the known constant
+    $\pi(0,0)$. The \emph{first} limit --- the only one carrying the unknown $P_y$ ---
+    vanishes, because its integrand is one power less singular at $t=z$ (it behaves as
+    $(z-t)^{-E_z}$, against the $(z-t)^{-1-E_z}$ of the second) and is annihilated by the
+    vanishing prefactor $(z-x)^{E_z}$. Thus the diagonal value $P(z,z)$ fixes no
+    information about $P_y$ at leading order; the boundary function enters only at the
+    next order in $(z-x)$, and isolating that order is precisely the open problem.
+
+    Collecting the $P_y$-term of~\eqref{eq:B:split} into a kernel and the known
+    $\pi(0,0)$-term into a datum --- in each case using~\eqref{eq:B:ratio_exact} to set
+    $x=z$ in the smooth factor $R$ and stripping the vanishing prefactor $(z-x)^{E_z}$ ---
+    gives
     \begin{align}
-        \mathcal{K}(z,t)&:=\frac{\mu\,P_h^{\,\mathrm{diag}}(z)}
-            {\gamma_1\,t\,y(t;z)\,P_h\bigl(t,y(t;z)\bigr)},
+        \mathcal{K}(z,t)&:=\frac{\mu}{\gamma_1}\,
+            \frac{R(z,t)}{t\,y(t;z)}\,(z-t)^{-E_z},
             \label{eq:B:kernel}\\[4pt]
-        \mathcal{F}(z)&:=\frac{\pi(0,0)}{1-\rho z}-\mathcal{B}(z),
-            \qquad
-            \mathcal{B}(z):=\frac{\mu\,P_h^{\,\mathrm{diag}}(z)\,\pi(0,0)}{\gamma_1}
-            \int_0^z\frac{1-y(t;z)}
-            {y(t;z)\,\bigl(y(t;z)-t\bigr)\,P_h\bigl(t,y(t;z)\bigr)}\,dt,
+        \mathcal{F}(z)&:=\frac{\pi(0,0)}{1-\rho z}
+            -\frac{\mu\,\pi(0,0)}{\gamma_1}\int_0^z
+            \frac{R(z,t)\,\bigl(1-y(t;z)\bigr)}
+                 {y(t;z)\,\bigl(y(t;z)-t\bigr)}\,(z-t)^{-E_z}\,dt,
             \label{eq:B:Fdef}
     \end{align}
-    read through the regularised limit~\eqref{eq:B:split} rather than pointwise. With
-    these, \eqref{eq:B:split} is exactly the Volterra integral
-    equation~\eqref{eq:B:volterra} of the first kind, which proves the claim.
+    so that the diagonal identity~\eqref{eq:B:split} is exactly the first-kind Volterra
+    equation~\eqref{eq:B:volterra}, which proves the claim.
 
-    Making this finite-part extraction rigorous --- by matched asymptotics near $t=z$,
-    or by a change of variable that removes the $(z-t)^{-1-E_z}$ singularity before the
-    limit is taken --- is itself the analytical obstruction; together with the fact that
-    $\mathcal{K}$ depends on $P_h$ through both arguments and does not simplify for
-    general $(\gamma_1,\gamma_2)$, it places Model-$B$ beyond the scope of this thesis.
-    Equation~\eqref{eq:B:volterra} is thus recorded as the precise form of the open
-    problem; resolving it would require Volterra inversion together with this
-    regularisation.
+    Both kernels are singular at the endpoint $t=z$ (like $(z-t)^{-E_z}$ and
+    $(z-t)^{-1-E_z}$), so the integrals are read in the regularised, finite-part sense
+    --- the same notion used computationally in the analysis of Model-$B_2$. Making that
+    regularisation rigorous here --- by matched asymptotics near $t=z$, or a change of
+    variable that removes the singularity before the limit is taken --- is itself the
+    analytical obstruction; together with the fact that $\mathcal{K}$ does not simplify
+    for general $(\gamma_1,\gamma_2)$, it places Model-$B$ beyond the scope of this thesis.
+    Equation~\eqref{eq:B:volterra} thus records the precise form of the open problem.
 \end{proof}
 
 Model-$B$ is therefore left open.  Its role in the hierarchy is
