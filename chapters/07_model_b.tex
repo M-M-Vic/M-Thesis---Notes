@@ -362,20 +362,11 @@ As said before, this model is therefore left open.
         = \frac{\pi(0,0)}{1-\rho z}.
     \end{align*}
     
+    The first limit, containing the unknown boundary function $P_y$, vanishes: 
     
-    The second limit alone therefore already reproduces the full diagonal value: the
-    leading-order balance in~\eqref{eq:B:split} is fixed entirely by the known constant
-    $\pi(0,0)$. The \emph{first} limit --- the only one carrying the unknown $P_y$ ---
-    vanishes, because its integrand is one power less singular at $t=z$ (it behaves as
-    $(z-t)^{-E_z}$, against the $(z-t)^{-1-E_z}$ of the second) and is annihilated by the
-    vanishing prefactor $(z-x)^{E_z}$. Thus the diagonal value $P(z,z)$ fixes no
-    information about $P_y$ at leading order; the boundary function enters only at the
-    next order in $(z-x)$, and isolating that order is precisely the open problem.
+    The \emph{first} limit vanishes: its integrand behaves as $(z-t)^{-E_z}$, one power less singular than the second limit's $(z-t)^{-1-E_z}$, and is killed by the vanishing prefactor $(z-x)^{E_z}$. The \emph{second} limit reproduces the full diagonal value from $\pi(0,0)$. Thus the diagonal fixes no information about $P_y$ at leading order; determining $P_y$ requires the next order in $(z-x)$, which is the open problem.
 
-    Collecting the $P_y$-term of~\eqref{eq:B:split} into a kernel and the known
-    $\pi(0,0)$-term into a datum --- in each case using~\eqref{eq:B:ratio_exact} to set
-    $x=z$ in the smooth factor $R$ and stripping the vanishing prefactor $(z-x)^{E_z}$ ---
-    gives
+    Collecting the $P_y$-term of~\eqref{eq:B:split} into a kernel and the known $\pi(0,0)$-term into a "known" function gives
     \begin{align}
         \mathcal{K}(z,t)&:=\frac{\mu}{\gamma_1}\,
             \frac{R(z,t)}{t\,y(t;z)}\,(z-t)^{-E_z},
@@ -386,60 +377,11 @@ As said before, this model is therefore left open.
                  {y(t;z)\,\bigl(y(t;z)-t\bigr)}\,(z-t)^{-E_z}\,dt,
             \label{eq:B:Fdef}
     \end{align}
-    so that the diagonal identity~\eqref{eq:B:split} is exactly the first-kind Volterra
-    equation~\eqref{eq:B:volterra}, which proves the claim.
-
-    Both kernels are singular at the endpoint $t=z$ (like $(z-t)^{-E_z}$ and
-    $(z-t)^{-1-E_z}$), so the integrals are read in the regularised, finite-part sense
-    --- the same notion used computationally in the analysis of Model-$B_2$. Making that
-    regularisation rigorous here --- by matched asymptotics near $t=z$, or a change of
-    variable that removes the singularity before the limit is taken --- is itself the
-    analytical obstruction; together with the fact that $\mathcal{K}$ does not simplify
-    for general $(\gamma_1,\gamma_2)$, it places Model-$B$ beyond the scope of this thesis.
-    Equation~\eqref{eq:B:volterra} thus records the precise form of the open problem.
+    so that the diagonal identity~\eqref{eq:B:split} matches the first-kind Volterra equation~\eqref{eq:B:volterra}, which proves the claim.
 \end{proof}
 
-Model-$B$ is therefore left open.  Its role in the hierarchy is
-structural: it identifies the precise obstruction~---~the Volterra equation
-for $P_y$~---~that the tractable special cases $B_2$ and $C_2$ circumvent, each
-by a different mechanism.  Setting $\gamma_2=0$ collapses the characteristic
-family from a two-parameter set of oblique lines to a one-parameter set of
-vertical lines, degenerating the PDE to an ODE in $x$ alone; the boundary
-function $P_y(y)$ is then pinned by an analyticity argument at the interior
-singular point $x=y$.  Model-$C_2$ removes jockeying entirely and pins $P_y$ by
-a boundedness argument at the boundary of the domain.  Both specialisations are
-analysed in the following sections.
+Model-$B$ is beyond the scope of this thesis and, therefore, left open. Its role is to illustrate the mathematical obstacle —the Volterray-type integral equation. Model-$B_2$ and Model-$C_2$ avoid such a problem by shutting down all derivative terms in $y$. This allows us to take our boundary function $P_y(y)$ outside the integral, as we would only integrate with respect to $x$, as opposed to $y(x)$.
 
-\begin{remark}[The full model $X$ is \emph{a fortiori} intractable]\label{rem:B:modelX}
-Model-$B$ already exhibits the central obstruction of this work: even with
-abandonment switched off, pinning the boundary function $P_y(y)$~---~and hence
-the joint PGF $P(x,y)$~---~still reduces to the first-kind Volterra
-equation~\eqref{eq:B:volterra}, which has no closed form. Reinstating
-abandonment ($\theta_1,\theta_2>0$) to recover the full parent model,
-Model-$X$, can only deepen the difficulty, and it does so in two ways.
-
-First, the characteristics cease to be straight lines. For
-$\theta_1=\theta_2=0$ the characteristic slope is the constant
-$-\gamma_2/\gamma_1$, giving the lines $\gamma_2 x+\gamma_1 y=C_1$ of
-Claim~\ref{clm:B:volterra}. Once $\theta_i>0$ it becomes a genuine ratio of
-affine forms,
-\begin{equation*}
-    \frac{dy}{dx}=\frac{-\gamma_2 x+(\gamma_2+\theta_2)\,y-\theta_2}
-                       {(\gamma_1+\theta_1)\,x-\gamma_1 y-\theta_1},
-\end{equation*}
-whose integral curves are level sets of a product of two \emph{non-integer}
-powers of linear forms in $(x,y)$~---~transcendental curves, not straight lines.
-Along them $y(x)$ is only implicitly defined, so the homogeneous solution
-$P_h$ becomes a non-elementary quadrature and the Volterra kernel loses the
-explicit form it keeps for Model-$B$.
-
-Second, the diagonal anchor is lost. For Model-$B$ the diagonal value
-$P(z,z)=\pi(0,0)/(1-\rho z)$ is known outright (Corollary~\ref{cor:B:pi00}) and
-supplies the forcing of~\eqref{eq:B:volterra}; under abandonment, setting
-$x=y=z$ in the fundamental equation no longer isolates $P(z,z)$, leaving a
-surviving diagonal-gradient term
-$[\theta_1\partial_x P+\theta_2\partial_y P]_{(z,z)}$, so the forcing is itself
-coupled to the unknown solution. Model-$X$ is therefore left open. Model-$B$ is
-the simplest model in which the obstruction already appears in full, and the
-sections that follow retreat to specialisations that remove it.
+\begin{remark}[The full Model-$X$ is \emph{a fortiori} intractable]\label{rem:B:modelX}
+    Model-$B$ already shows the central problem of taking this route. As one can imagine, reinstating the abandonment mechanism —$\theta_1,\theta_2>0$— does not precisely help simplifying the problem but quite the opposite. It deepens the difficulty in two ways: first, the characteristics cease to be straight lines; second, we loos the diagonal anchor —Corollary~\ref{cor:B:pi00} does not hold— and $P(1,1)$ will no longer be a constant. 
 \end{remark}
