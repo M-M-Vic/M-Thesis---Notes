@@ -237,44 +237,41 @@ As said before, this model is therefore left open.
     
     \medskip\noindent\textbf{Step~(iii): Particular solution via variation of parameters.}
     
-    We now restore the right-hand side of the Model-$B$ fundamental equation~\eqref{eq:B:fundamental},
-    whose algebraic coefficient is $y\,A(x,y)$ with $A$ from~\eqref{eq:B:Adef}. Along
-    the characteristic $y(x)=(C_1-\gamma_2 x)/\gamma_1$ we have $dy/dx=-\gamma_2/\gamma_1$,
-    so $\frac{d}{dx}P(x,y(x))=\partial_x P-\frac{\gamma_2}{\gamma_1}\partial_y P$ and the two
-    jockeying terms collapse into a single total derivative:
-    \begin{align*}
-        \begin{split}
-            \gamma_1 xy(x-y)\,\partial_x P + \gamma_2 xy(y-x)\,\partial_y P
-            &= \gamma_1 xy(x-y)\Bigl(\partial_x P - \tfrac{\gamma_2}{\gamma_1}\partial_y P\Bigr)
-        \end{split}\\
-        \begin{split}
-            &= \gamma_1 xy(x-y)\,\frac{d}{dx}P\bigl(x,y(x)\bigr).
-        \end{split}
-    \end{align*}
-    The fundamental equation along the characteristic is therefore
-    $y\,A(x,y)\,P+\gamma_1 xy(x-y)\frac{dP}{dx}=G(x,y)$, and dividing by
-    $\gamma_1 xy(x-y)$ reduces it, exactly as in \S\ref{sssec:moc}, to a first-order
-    linear ODE in $x$ at fixed $C_1$,
+    This step upgrades the homogeneous solution $P_h$ of~\eqref{eq:B:Ph} to the full
+    solution along each characteristic. It needs two ingredients. The first is the
+    polynomial $A$ of~\eqref{eq:B:Adef} from Step~(i), through which the algebraic
+    bracket of~\eqref{eq:B:fundamental} factorises as $y\,A(x,y)$. The second is the
+    right-hand side of~\eqref{eq:B:fundamental}, which we name
+    \begin{equation}
+        G(x,y) := \mu(x-y)\,P_y(y) - \mu\,x(1-y)\,\pi(0,0);
+        \label{eq:B:Gdef}
+    \end{equation}
+    this forcing carries the unknown boundary trace $P_y(y)=P(0,y)$ together with the
+    known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}.
+
+    With these names the Model-$B$ fundamental equation~\eqref{eq:B:fundamental} is
+    $\gamma_1 xy(x-y)\,\partial_x P + \gamma_2 xy(y-x)\,\partial_y P = -\,y\,A(x,y)\,P + G(x,y)$,
+    which is the convection form~\eqref{eq:ode:pde} of the Method of Characteristics.
+    Hence, along the characteristic $\gamma_2 x+\gamma_1 y=C_1$ found in Step~(i)
+    (parametrised by $y(x)=(C_1-\gamma_2 x)/\gamma_1$), \S\ref{sssec:moc} reduces it to a
+    first-order linear ODE of the form~\eqref{eq:ode:vop_standard},
     \begin{equation}
         \frac{dP}{dx} = f(x;C_1)\,P + h(x;C_1).
         \label{eq:B:ode_char}
     \end{equation}
-    Its homogeneous part $\frac{dP}{dx}=f(x;C_1)\,P$ is precisely the equation
-    integrated in Step~(i), so $P_h$ of~\eqref{eq:B:Ph} is its fundamental solution and
-    $f$ need never be written out. The forcing term carries the right-hand side,
+    Its homogeneous part $\frac{dP}{dx}=f(x;C_1)\,P$ is exactly the equation integrated
+    in Step~(i), so $P_h$ is its fundamental solution and the coefficient $f$ need not be
+    written out; its forcing is the right-hand side divided by the coefficient of
+    $\partial_x P$,
     \begin{equation}
-        h(x;C_1)=\frac{G\bigl(x,y(x)\bigr)}{\gamma_1\,x\,y(x)\,\bigl(x-y(x)\bigr)},
-        \qquad
-        G(x,y):=\mu(x-y)\,P_y(y)-\mu\,x(1-y)\,\pi(0,0),
+        h(x;C_1)=\frac{G\bigl(x,y(x)\bigr)}{\gamma_1\,x\,y(x)\,\bigl(x-y(x)\bigr)}.
         \label{eq:B:hdef}
     \end{equation}
-    so $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$ and on the
-    known constant $\pi(0,0)=\rho(1-\rho)$ of Corollary~\ref{cor:B:pi00}.
-    Equation~\eqref{eq:B:ode_char} now has exactly the form~\eqref{eq:ode:vop_standard}
-    with a known homogeneous solution $P_h$, so the variation-of-parameters
-    formula~\eqref{eq:ode:vop_general} of \S\ref{sssec:vop} gives its general solution
-    immediately, with the arbitrary constant promoted to the function $F(C_1)$ of the
-    characteristic label:
+    Equation~\eqref{eq:B:ode_char} is thus an instance of~\eqref{eq:ode:vop_standard} with
+    the known homogeneous solution $P_h$, so the variation-of-parameters
+    formula~\eqref{eq:ode:vop_general} of \S\ref{sssec:vop} delivers its general solution
+    at once, the arbitrary constant becoming a function $F(C_1)$ of the characteristic
+    label:
     \begin{equation}
         P(x,y(x)) = P_h(x,y(x))\!\left[F(C_1) + \int_{x_0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt\right].
         \label{eq:B:variation}
@@ -313,7 +310,7 @@ As said before, this model is therefore left open.
     are the inputs to the diagonal evaluation below.
     
     We simplify the forcing function $h$ on the characteristic.  Substituting the
-    inhomogeneity $G(t,y(t))$ into the forcing $h$ of~\eqref{eq:B:hdef}:
+    inhomogeneity $G$ of~\eqref{eq:B:Gdef} into the forcing $h$ of~\eqref{eq:B:hdef}:
     \begin{align}
         h(t;C_1)
         &= \frac{\mu(t-y(t))\,P_y(y(t)) - \mu t(1-y(t))\,\pi(0,0)}
