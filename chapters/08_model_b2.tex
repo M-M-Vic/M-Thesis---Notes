@@ -62,7 +62,7 @@ of this section is built on it.
     and the empty-state probability $\pi(0,0)=\rho(1-\rho)$ is given by Corollary~\ref{cor:B2:pi00} below.
     On $y<x\le1$ the same expression~\eqref{eq:B2:Pxy} holds with $\mathcal{H}_1,\mathcal{H}_2$
     replaced by their finite-part continuations; that the right-hand side is genuinely analytic
-    across the interior point $x=y$ is the content of the no-branch condition established in
+    across the interior point $x=y$ is the content of the smoothness condition established in
     Step~(ii) of the proof.
 \end{theorem}
 
@@ -164,37 +164,18 @@ Under stability —$\rho\leq1$— $\mu-\lambda y>0$ for $y\in(0,1)$, so the seco
     \qquad 0<y<1.
     \label{eq:B2:beta_negative}
 \end{equation}
-Hence the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form. The resolution is the organizing idea of this step. A PGF must always be bounded, also in the interior point $x=y$; and we can use this condition to determine $P_y(y)$
+Hence the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form, whose resolution fixes $P_y(y)$.
 
-\smallskip\noindent\textit{Local analysis at $x=y$.}
-To exhibit the two modes explicitly, read off the local behaviour of the
-ODE~\eqref{eq:B2:pxy}--\eqref{eq:B2:qxy} at $x=y$. By the partial fraction~\eqref{eq:B2:pfrac},
-$p$ has a simple pole at $x=y$ with residue $\beta$; by~\eqref{eq:B2:qxy}, $q$ has the leading
-singularity $-D/(x-y)$ with $D=\mu(1-y)\pi(0,0)/(\gamma_1 y)$.  The local model equation is
-therefore
-\begin{equation*}
-    P'(x,y) + \frac{\beta}{x-y}\,P(x,y)
-    = \frac{-D}{x-y} + (\text{analytic near }x=y).
-\end{equation*}
-A constant particular solution $P\equiv P_*$ requires $\beta P_* = -D$, so, cancelling the
-common factor $(1-y)/(\gamma_1 y)$ shared by $D$ and $\beta$,
+On the diagonal the value is known outright. Setting $x=y$ in the fundamental
+equation~\eqref{eq:B2:fundamental} drops the jockeying and boundary terms (each carries a
+factor $x-y$) and leaves Model~$A$'s balance, so
 \begin{equation}
-    P(y,y) = P_* = -\frac{D}{\beta}
-    = -\frac{\mu\,\pi(0,0)}{\lambda y-\mu}
-    = \frac{\mu\,\pi(0,0)}{\mu-\lambda y}
-    = \frac{\rho(1-\rho)}{1-\rho y},
+    P(y,y) = \frac{\rho(1-\rho)}{1-\rho y},
     \label{eq:B2:regular_value}
 \end{equation}
-which is exactly the diagonal value $P(z,z)=\rho(1-\rho)/(1-\rho z)$ at $z=y$ --- the same value
-Model~$A$ returns~\eqref{eq:A:Pzz}, obtained there with no extra input by the diagonal
-cancellation. The general local solution adds a multiple of the homogeneous mode
-$(x-y)^{-\beta}=(x-y)^{|\beta|}$, a non-integer power of $(x-y)$ ($|\beta|\notin\mathbb{Z}$
-generically). But for fixed $y$ the PGF $P(\cdot,y)$ is a power series in $x$, convergent for
-$|x|<1$ and hence smooth at the interior point $x=y<1$, whereas a non-integer power of $(x-y)$
-is not; its coefficient must therefore vanish. It remains only to locate that coefficient
-inside the explicit solution~\eqref{eq:B2:Pxy_real}.
+the diagonal value~\eqref{eq:A:Pzz}.
 
-\smallskip\noindent\textit{No-branch condition and $P_y(y)$.}
+\smallskip\noindent\textit{Smoothness condition and $P_y(y)$.}
 Write the analytic, non-vanishing prefactor of~\eqref{eq:B2:Pxy_real} as
 $\Psi(x)=\mu\,e^{\lambda_1 x/\gamma_1}x^{-\alpha}/(\gamma_1 y)$, so that
 $P(x,y)=\Psi(x)\,(y-x)^{-\beta}\bigl[P_y(y)\,\mathcal{H}_1+(1-y)\pi(0,0)\,\mathcal{H}_2\bigr]$.
@@ -218,7 +199,7 @@ $x=y$ into three contributions, one per power of $(y-x)$:
         \Psi(x)(y-x)^{-\beta}\bigl[P_y(y)\,\mathrm{f.p.}\,\mathcal{H}_1
             + (1-y)\pi(0,0)\,\mathrm{f.p.}\,\mathcal{H}_2\bigr], \\
     \text{singular part of }\mathcal{H}_2:&\quad
-        -\Psi(y)(1-y)\pi(0,0)\,\frac{g_2(y)}{\beta} = -\frac{D}{\beta} = P_*, \\
+        -\Psi(y)(1-y)\pi(0,0)\,\frac{g_2(y)}{\beta} = \frac{\mu\,\pi(0,0)}{\mu-\lambda y}, \\
     \text{singular part of }\mathcal{H}_1:&\quad
         -\Psi(x)\,P_y(y)\,\frac{g_1(y)}{\beta+1}\,(y-x) \;\propto\; (y-x).
 \end{align*}
@@ -260,7 +241,7 @@ which is precisely the finite part --- and gives
            {}_1F_1\!\bigl(\alpha+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr).
     \label{eq:B2:fp2}
 \end{align}
-Solving the no-branch condition~\eqref{eq:B2:nobranch} for $P_y(y)$ and inserting the
+Solving the smoothness condition~\eqref{eq:B2:nobranch} for $P_y(y)$ and inserting the
 finite parts~\eqref{eq:B2:fp1}--\eqref{eq:B2:fp2}, the common factor $y^{\alpha+\beta}$
 cancels and
 \begin{equation}
@@ -322,7 +303,7 @@ gives, for $0\le x\le y$,
     \biggr],
 \end{align*}
 which is the statement of the theorem (Equation~\eqref{eq:B2:Pxy}).
-The no-branch condition~\eqref{eq:B2:nobranch} guarantees that this extends
+The smoothness condition~\eqref{eq:B2:nobranch} guarantees that this extends
 analytically across $x=y$, with diagonal value
 $P(y,y)=\rho(1-\rho)/(1-\rho y)$ as computed in~\eqref{eq:B2:regular_value}.
 On $y<x\le1$ the same formula holds with $\mathcal{H}_1,\mathcal{H}_2$ read as their
