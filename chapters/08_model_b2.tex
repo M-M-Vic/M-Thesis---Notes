@@ -1,19 +1,9 @@
 \section{Analysis of Model-\texorpdfstring{$B_2$}{B2} (\texorpdfstring{$\gamma_1>0$}{gamma1>0}, \texorpdfstring{$\gamma_2=0$}{gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b2}
 
-Model-$B_2$ keeps one-way jockeying ($\gamma_1>0$, $\gamma_2=0$) and no abandonment
-($\theta_1=\theta_2=0$); it is the specialisation of Model-$B$ in which only the $1\to2$
-transfer survives, and this single restriction is what makes it solvable. Setting $\gamma_2=0$
-removes the $\partial P/\partial y$ term from the fundamental equation, so the Method of
-Characteristics and variation of parameters that Model-$B$ required (\S\ref{sssec:moc},
-\S\ref{sssec:vop}) are no longer needed: for each fixed $y\in(0,1]$ the equation is an
-ordinary first-order linear ODE in $x$, solved by a single integrating factor
-(\S\ref{sssec:if}). The resulting solution carries a branch singularity at the interior point
-$x=y$ with a negative exponent, and demanding that $P(\cdot,y)$ be holomorphic there pins the
-boundary function $P_y(y)$. This interior-analyticity condition is the $B_2$ counterpart of
-the boundary-boundedness argument used for Model-$C_2$.
+Model-$B_2$ keeps one-way jockeying from class-$1$ to class-$2$ ($\gamma_1>0$, $\gamma_2=0$) and no abandonment ($\theta_1=\theta_2=0$). This model is more tractable than Model-$B$, as all the terms with derivatives in $y$ disappear, leaving us a first-order linear ODE in $x$, for each fixed $y\in(0,1]$. We will solve this using the integrating factor (\S\ref{sssec:if}). 
 
-\textbf{Stability.} As in Models~$A$ and~$B$, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect the stability condition. Figure~\ref{fig:model-b2-queue} shows the queue layout.
-
+\textbf{Stability.} As in Models~$A$ and~$B$, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect the stability condition.
+Figure~\ref{fig:model-b2-queue} shows the queue layout.
 \begin{figure}[H]
     \centering
     \resizebox{0.62\textwidth}{!}{%
@@ -27,11 +17,7 @@ the boundary-boundedness argument used for Model-$C_2$.
 
 \subsection{Reduced fundamental equation}\label{ssec:B2:reduction}
 
-Setting $\gamma_2=0$ and $\theta_1=\theta_2=0$ in the general fundamental
-equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation})
-annihilates the $\partial P/\partial y$ term, whose coefficient
-$xy\bigl[\gamma_2(y-x)+\theta_2(y-1)\bigr]$ vanishes identically, and leaves only the
-$\gamma_1$ contribution to the $\partial P/\partial x$ term:
+Setting $\gamma_2=0$ and $\theta_1=\theta_2=0$ in the general fundamental equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation}) annihilates the derivative terms in $y$, leaving:
 \begin{align}
     &\bigl[(\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 xy^2\bigr]P
     + \gamma_1 xy(x-y)\,\frac{\partial P}{\partial x} \nonumber \\
@@ -73,14 +59,14 @@ of this section is built on it.
         \mathcal{H}_2(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(y-t)^{\beta-1}\,dt,
         \label{eq:B2:I2}
     \end{align}
-    and the empty-state probability $\pi(0,0)=\rho(1-\rho)$ is given by
-    Corollary~\ref{cor:B2:pi00} below.
+    and the empty-state probability $\pi(0,0)=\rho(1-\rho)$ is given by Corollary~\ref{cor:B2:pi00} below.
     On $y<x\le1$ the same expression~\eqref{eq:B2:Pxy} holds with $\mathcal{H}_1,\mathcal{H}_2$
     replaced by their finite-part continuations; that the right-hand side is genuinely analytic
     across the interior point $x=y$ is the content of the no-branch condition established in
     Step~(ii) of the proof.
 \end{theorem}
 
+In the same fashion as in for Model-$B$, the result below is stated as a corollary in order for it to stay at the same level of hierarchy as that of other models.
 \begin{corollary}\label{cor:B2:pi00}
     The empty-system probability $\pi_0$ (server idle, no one waiting) and the
     both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model-$B_2$ are
@@ -89,39 +75,9 @@ of this section is built on it.
     \end{equation*}
     identical to the Model-$A$ baseline.
 \end{corollary}
+As in for Model-$B$, the proof follows trivially by setting $x=y=z$ in our fundamental equation (Equation~\eqref{eq:B2:fundamental}). The surviving equation is identical to the homologous in Model-$A$, and the result is proven in Corollary~\ref{cor:A:pi0}.
 
-\begin{proof}
-    Because one-way jockeying conserves the total customer count and there is no
-    abandonment, the total-count process $L$ (equal to the number in queue $N$ plus the
-    single customer in service whenever the server is busy) is itself a birth--death
-    chain: it increases at rate $\lambda=\lambda_1+\lambda_2$ on any arrival and decreases
-    at rate $\mu$ on any service completion, irrespective of class. Thus $L$ is an $M/M/1$
-    queue, and by the memorylessness of the exponential clocks its stationary law is
-    geometric, $\mathbb{P}(L=k)=(1-\rho)\rho^k$; in particular
-    $\pi_0=\mathbb{P}(L=0)=1-\rho$.
-
-    For $\pi(0,0)$, set $x=y$ in the reduced fundamental
-    equation~\eqref{eq:B2:fundamental}. The convection term $\gamma_1 xy(x-y)\partial_x P$
-    and the boundary term $\mu(x-y)P_y(y)$ both carry the factor $(x-y)$ and vanish on the
-    diagonal; dividing the surviving terms by the common factor $x$ leaves
-    \begin{equation*}
-        \bigl[(\lambda_1+\lambda_2+\mu)x - \mu - (\lambda_1+\lambda_2)x^2\bigr]P(x,x)
-        = -\mu(1-x)\,\pi(0,0).
-    \end{equation*}
-    Factoring the bracket and cancelling $(x-1)$ against $-(1-x)=(x-1)$ on the right:
-    \begin{align*}
-        \bigl[{-\lambda x^2} + (\lambda+\mu)x - \mu\bigr]P(x,x)
-        &= (\mu-\lambda x)(x-1)\,P(x,x) \\
-        &= \mu(x-1)\,\pi(0,0),
-    \end{align*}
-    so that
-    \begin{equation}
-        P(x,x) = \frac{\mu\,\pi(0,0)}{\mu-\lambda x} = \frac{\pi(0,0)}{1-\rho x}.
-        \label{eq:B2:Pxx}
-    \end{equation}
-    Evaluating at $x=1$ with $P(1,1)=1-\pi_0=\rho$ (using $\pi_0=1-\rho$ just established)
-    yields $\pi(0,0)=\rho(1-\rho)$.
-\end{proof}
+The proof of Theorem~\ref{thm:B2:PGF} consists of three steps: (i) obtaining the the standard form and the integration factor, (ii) determining $P_y(y)$ by analyticity in $x=y$, and (iii) recovering $P(x,y)$.
 
 \begin{proof}[Proof of Theorem~\ref{thm:B2:PGF}]
 
@@ -129,85 +85,68 @@ of this section is built on it.
 \noindent\textit{Step~(i): Standard form and the integrating factor.}
 \medskip
 
-Fix $y\in(0,1]$ and divide the reduced fundamental equation~\eqref{eq:B2:fundamental} by the
-coefficient $\gamma_1 xy(x-y)$ of $\partial P/\partial x$. The factor $y$ cancels against the
-overall $y$ in the bracket multiplying $P$, and the equation takes the standard first-order
-form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$ of \S\ref{sssec:if}
-(Equation~\eqref{eq:ode:standard}), with
+Fix $y\in(0,1]$, cancel a factor $y$ on both sides and divide the reduced fundamental equation~\eqref{eq:B2:fundamental} by the derivative term in $x$. The equation takes standard form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$ of \S\ref{sssec:if} (Equation~\eqref{eq:ode:standard}), with
 \begin{align}
-    p(x;y) &= \frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}
-                   {\gamma_1 x(x-y)},
-    \label{eq:B2:pxy}\\[4pt]
-    q(x;y) &= \frac{\mu\,P_y(y)}{\gamma_1 xy}
-             - \frac{\mu(1-y)\,\pi(0,0)}{\gamma_1 y(x-y)}.
-    \label{eq:B2:qxy}
+    \begin{split}
+        p(x;y) &= \frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}{\gamma_1 x(x-y)},
+        \label{eq:B2:pxy}\\[4pt]
+    \end{split} \\
+    \begin{split}
+        q(x;y) &= \frac{\mu\,P_y(y)}{\gamma_1 xy} - \frac{\mu(1-y)\,\pi(0,0)}{\gamma_1 y(x-y)}.
+        \label{eq:B2:qxy}
+    \end{split}
 \end{align}
 Write the numerator of $p$ as a polynomial in $x$,
-\[
+\begin{equation*}
     N(x) = -\lambda_1 x^2 + \bigl[(\lambda_1+\lambda_2+\mu)-\lambda_2 y\bigr]x - \mu
          = -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
-\]
-which factors through the roots $x^*(y),x^+(y)$ of the Model-$A$ kernel
-(Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$. The partial-fraction
-coefficients of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ follow by residues:
+\end{equation*}
+where the roots $x^*(y),x^+(y)$ are those found for the kernel in Model-$A$ (Equation~\eqref{eq:A:xstar}), with , with $\lambda_1 x^* x^+ = \mu$ following from Vieta's formula. The Partial Fraction Decomposition of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ read as rollows:
 \begin{align*}
-    A &= -\lambda_1 && \text{(ratio of leading $x^2$ terms)}, \nonumber\\
+    A &= -\lambda_1, \nonumber\\
     B &= \frac{N(0)}{0-y} = \frac{-\mu}{-y} = \frac{\mu}{y}, \nonumber\\
     C &= \frac{N(y)}{y} = \frac{-(\lambda y-\mu)(y-1)}{y}
        = \frac{(1-y)(\lambda y-\mu)}{y},
 \end{align*}
-where $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Hence
+with $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Thus
 \begin{equation}
     p(x;y) = \frac{1}{\gamma_1}\!\left[
         -\lambda_1 + \frac{\mu/y}{x} + \frac{(1-y)(\lambda y-\mu)/y}{x-y}
     \right].
     \label{eq:B2:pfrac}
 \end{equation}
-We work on the principal triangle $0\le x\le y$, where $x-y\le0$; the region $y<x\le1$ is
-recovered at the end by analytic continuation. On the triangle the antiderivative of the
-simple-pole term is $\beta\ln|x-y|=\beta\ln(y-x)$, so integrating the partial
-fraction~\eqref{eq:B2:pfrac} term by term gives, up to a constant,
+
+Since we will have a factor $(x-y)$ due to jockeying. we work on the region $0\leq x\leq y$, where $x-y\le0$; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y.-x)$, so integrating the partial fraction \eqref{eq:B2:pfrac} yields, up to a constant,
 \begin{align*}
     \int^{x}\! p(t;y)\,dt
     &= \frac{1}{\gamma_1}\Bigl[-\lambda_1 x + \frac{\mu}{y}\ln x
        + \frac{(1-y)(\lambda y-\mu)}{y}\,\ln(y-x)\Bigr] \\
     &= -\frac{\lambda_1}{\gamma_1}\,x + \alpha(y)\ln x + \beta(y)\ln(y-x),
 \end{align*}
-with the exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and
-$\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$ of~\eqref{eq:B2:exponents_thm}. Exponentiating,
-and dropping the multiplicative constant to which an integrating factor is indifferent, gives
+with the exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$of~\eqref{eq:B2:exponents_thm}. Exponentiating, and dropping the multiplicative constant to which an integrating factor is indifferent, gives our integrating factor
 \begin{equation*}
     \mu_I(x;y) = e^{-\lambda_1 x/\gamma_1}\,x^{\,\alpha(y)}\,(y-x)^{\,\beta(y)},
 \end{equation*}
-real-valued on the triangle because we take the base $(y-x)>0$ rather than $(x-y)$; its
-reciprocal $1/\mu_I$ is the homogeneous solution, playing here the role that $P_h$ played for
-Model-$B$ (\S\ref{sssec:vop}). It indeed solves $\mu_I'/\mu_I=p$:
+real-valued in our region because we take the base $(y-x)>0$ rather than $(x-y)$; its reciprocal $1/\mu_I$ is the homogeneous solution, playing here the role that $P_h$ played for Model-$B$ (\S\ref{sssec:vop}). It indeed solves $\mu_I'/\mu_I=p$:
 \begin{align*}
     \frac{\mu_I'(x;y)}{\mu_I(x;y)}
     &= -\frac{\lambda_1}{\gamma_1} + \frac{\alpha}{x} + \beta\,\frac{d}{dx}\ln(y-x) \\
     &= -\frac{\lambda_1}{\gamma_1} + \frac{\alpha}{x} + \frac{\beta}{x-y}
      = p(x;y).
 \end{align*}
-The general solution of \S\ref{sssec:if} (Equation~\eqref{eq:ode:general}) now applies, and its
-arbitrary function is fixed immediately: since $\alpha>0$ we have $\mu_I\to0$ as
-$x\to0^{+}$, so the boundary contribution $P(0,y)\,\mu_I(0;y)$ vanishes and integrating
-$\tfrac{d}{dx}[P\,\mu_I]=q\,\mu_I$ over $(0,x]$ leaves
+The general solution of \S\ref{sssec:if} (Equation~\eqref{eq:ode:general}) now applies, and its arbitrary function is fixed immediately: since $\alpha>0$ we have $\mu_I\to0$ as $x\to0^{+}$, so the boundary contribution $P(0,y)\,\mu_I(0;y)$ vanishes and integrating $\tfrac{d}{dx}[P\,\mu_I]=q\,\mu_I$ over $(0,x]$ leaves
 \begin{equation*}
     P(x,y)\,\mu_I(x;y) = \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
 \end{equation*}
 Multiplying $q$ from~\eqref{eq:B2:qxy} by $\mu_I$ and applying the identity
-$(y-t)^{\beta}/(t-y)=-(y-t)^{\beta-1}$ to the second term, the integrand separates into two
-real pieces,
+$(y-t)^{\beta}/(t-y)=-(y-t)^{\beta-1}$ to the second term, the integrand separates into two pieces,
 \begin{equation*}
     q(t;y)\,\mu_I(t;y) = \frac{\mu}{\gamma_1 y}\Bigl[
         P_y(y)\,e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(y-t)^{\beta}
         + (1-y)\pi(0,0)\,e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(y-t)^{\beta-1}
     \Bigr],
 \end{equation*}
-the minus sign of~\eqref{eq:B2:qxy} having been absorbed by that identity. With the
-auxiliary integrals $\mathcal{H}_1,\mathcal{H}_2$ of~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and
-dividing through by $\mu_I(x;y)=e^{-\lambda_1 x/\gamma_1}x^{\alpha}(y-x)^{\beta}$, the
-solution on the principal triangle $0\le x\le y$ is
+With the auxiliary integrals $\mathcal{H}_1,\mathcal{H}_2$ of~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and dividing through by $\mu_I(x;y)=e^{-\lambda_1 x/\gamma_1}x^{\alpha}(y-x)^{\beta}$, the solution on the principal region $0\le x\le y$ is
 \begin{equation}
     P(x,y) = \frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
     \Bigl[P_y(y)\,\mathcal{H}_1(x,y) + (1-y)\pi(0,0)\,\mathcal{H}_2(x,y)\Bigr],
@@ -216,38 +155,18 @@ solution on the principal triangle $0\le x\le y$ is
 which still contains the unknown boundary function $P_y(y)$; Step~(ii) determines it.
 
 % ─────────────────────────────────────────────────────────────────
-\medskip\noindent\textit{Step~(ii): Determination of $P_y(y)$ by analyticity at $x=y$.}
+\medskip\noindent\textit{Step~(ii): Determine $P_y(y)$ by analyticity at $x=y$.}
 \medskip
 
-The factor $(x-y)$ in the $x$-convection coefficient places the operative singularity at the
-interior point $x=y$, the analyticity-pinning regime anticipated in
-Remark~\ref{rem:gen:reading}. No probabilistic (Pollaczek--Khinchine) route is available, in
-contrast with Models~$A$ and~$C_2$: one-way jockeying makes the service a class-2 customer
-experiences depend on the class-1 contents at the (random) jockeying instants, so the class-2
-input is not a Poisson stream feeding an $M/G/1$ subsystem and no busy-period reduction applies
-(cf.\ the discussion of Model-$B$ in \S\ref{sec:model_b}). We therefore fix $P_y(y)$
-analytically.
-
-Under stability $\mu-\lambda y>0$ for $y\in(0,1)$, so the second exponent is negative,
+Under stability —$\rho\leq1$— $\mu-\lambda y>0$ for $y\in(0,1)$, so the second exponent is negative:
 \begin{equation}
     \beta(y) = \frac{(1-y)(\lambda y-\mu)}{\gamma_1 y} < 0,
     \qquad 0<y<1.
     \label{eq:B2:beta_negative}
 \end{equation}
-This sign is the crux of the $B$--$B_2$ parallel: Model-$B$ carries the same diagonal factor
-with exponent $E(x,y)>0$ (\S\ref{sec:model_b}, Equation~\eqref{eq:B:E}), which merely vanishes
-on the diagonal, whereas the one-way restriction flips the exponent to $\beta<0$, turning that
-factor into the branch term the analyticity condition must remove.
-Hence the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in~\eqref{eq:B2:Pxy_real} \emph{vanishes}
-as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge} there: the product is an
-indeterminate $0\cdot\infty$ form. The resolution is the organising idea of this step. A
-probability generating function is holomorphic on the open unit disc, so $P(\cdot,y)$ must be
-analytic at the interior point $x=y$; but the general solution carries a non-integer power
-$(y-x)^{|\beta|}$, a branch term that vanishes at $x=y$ yet is not analytic there. Holomorphy
-therefore forces the coefficient of that branch term to zero, and this single condition pins
-$P_y(y)$.
+Hence the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form. The resolution is the organizing idea of this step. A PGF must always be bounded, also in the interior point $x=y$; and we can use this condition to determine $P_y(y)$
 
-\smallskip\noindent\textit{Local analysis at $x=y$.}
+\smallskip\noindent\textit{Local analysis at $x=y=z$.}
 To exhibit the two modes explicitly, read off the local behaviour of the
 ODE~\eqref{eq:B2:pxy}--\eqref{eq:B2:qxy} at $x=y$. By the partial fraction~\eqref{eq:B2:pfrac},
 $p$ has a simple pole at $x=y$ with residue $\beta$; by~\eqref{eq:B2:qxy}, $q$ has the leading
