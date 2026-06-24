@@ -166,7 +166,7 @@ Under stability —$\rho\leq1$— $\mu-\lambda y>0$ for $y\in(0,1)$, so the seco
 \end{equation}
 Hence the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form. The resolution is the organizing idea of this step. A PGF must always be bounded, also in the interior point $x=y$; and we can use this condition to determine $P_y(y)$
 
-\smallskip\noindent\textit{Local analysis at $x=y=z$.}
+\smallskip\noindent\textit{Local analysis at $x=y$.}
 To exhibit the two modes explicitly, read off the local behaviour of the
 ODE~\eqref{eq:B2:pxy}--\eqref{eq:B2:qxy} at $x=y$. By the partial fraction~\eqref{eq:B2:pfrac},
 $p$ has a simple pole at $x=y$ with residue $\beta$; by~\eqref{eq:B2:qxy}, $q$ has the leading
@@ -185,10 +185,14 @@ common factor $(1-y)/(\gamma_1 y)$ shared by $D$ and $\beta$,
     = \frac{\rho(1-\rho)}{1-\rho y},
     \label{eq:B2:regular_value}
 \end{equation}
-consistent with the diagonal value~\eqref{eq:B2:Pxx}. The general local solution adds a
-multiple of the homogeneous mode $(x-y)^{-\beta}=(x-y)^{|\beta|}$ --- the branch term
-($|\beta|\notin\mathbb{Z}$ generically) whose coefficient holomorphy forces to zero. It
-remains only to locate that coefficient inside the explicit solution~\eqref{eq:B2:Pxy_real}.
+which is exactly the diagonal value $P(z,z)=\rho(1-\rho)/(1-\rho z)$ at $z=y$ --- the same value
+Model~$A$ returns~\eqref{eq:A:Pzz}, obtained there with no extra input by the diagonal
+cancellation. The general local solution adds a multiple of the homogeneous mode
+$(x-y)^{-\beta}=(x-y)^{|\beta|}$, a non-integer power of $(x-y)$ ($|\beta|\notin\mathbb{Z}$
+generically). But for fixed $y$ the PGF $P(\cdot,y)$ is a power series in $x$, convergent for
+$|x|<1$ and hence smooth at the interior point $x=y<1$, whereas a non-integer power of $(x-y)$
+is not; its coefficient must therefore vanish. It remains only to locate that coefficient
+inside the explicit solution~\eqref{eq:B2:Pxy_real}.
 
 \smallskip\noindent\textit{No-branch condition and $P_y(y)$.}
 Write the analytic, non-vanishing prefactor of~\eqref{eq:B2:Pxy_real} as
@@ -210,7 +214,7 @@ singular term has been subtracted) and the omitted terms are of higher order. Mu
 $\Psi(x)(y-x)^{-\beta}$, and using $\Psi(y)\,g_2(y)=\mu/(\gamma_1 y)$, sorts $P(x,y)$ near
 $x=y$ into three contributions, one per power of $(y-x)$:
 \begin{align*}
-    \text{branch part }(y-x)^{|\beta|}:&\quad
+    \text{non-integer power }(y-x)^{|\beta|}:&\quad
         \Psi(x)(y-x)^{-\beta}\bigl[P_y(y)\,\mathrm{f.p.}\,\mathcal{H}_1
             + (1-y)\pi(0,0)\,\mathrm{f.p.}\,\mathcal{H}_2\bigr], \\
     \text{singular part of }\mathcal{H}_2:&\quad
@@ -218,9 +222,10 @@ $x=y$ into three contributions, one per power of $(y-x)$:
     \text{singular part of }\mathcal{H}_1:&\quad
         -\Psi(x)\,P_y(y)\,\frac{g_1(y)}{\beta+1}\,(y-x) \;\propto\; (y-x).
 \end{align*}
-The second reproduces the regular value~\eqref{eq:B2:regular_value} and the third is analytic
-at $x=y$; only the first is non-analytic ($|\beta|\notin\mathbb{Z}$). Holomorphy of
-$P(\cdot,y)$ at $x=y$ therefore forces its bracket to vanish,
+The second reproduces the regular value~\eqref{eq:B2:regular_value} and the third is smooth
+at $x=y$; only the first is a non-integer power ($|\beta|\notin\mathbb{Z}$), hence not smooth
+there. As $P(\cdot,y)$ is a power series in $x$, and so smooth at $x=y$, its bracket must
+vanish,
 \begin{equation}
     P_y(y)\,\mathrm{f.p.}\,\mathcal{H}_1(y,y)
     + (1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal{H}_2(y,y) = 0.
