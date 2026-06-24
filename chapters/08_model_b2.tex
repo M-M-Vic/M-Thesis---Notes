@@ -176,43 +176,32 @@ factor $x-y$) and leaves Model~$A$'s balance, so
 the diagonal value~\eqref{eq:A:Pzz}.
 
 \smallskip\noindent\textit{Smoothness condition and $P_y(y)$.}
-Write the analytic, non-vanishing prefactor of~\eqref{eq:B2:Pxy_real} as
+Pull the analytic, non-vanishing prefactor of~\eqref{eq:B2:Pxy_real} into
 $\Psi(x)=\mu\,e^{\lambda_1 x/\gamma_1}x^{-\alpha}/(\gamma_1 y)$, so that
-$P(x,y)=\Psi(x)\,(y-x)^{-\beta}\bigl[P_y(y)\,\mathcal{H}_1+(1-y)\pi(0,0)\,\mathcal{H}_2\bigr]$.
-As $x\to y^{-}$ each integral admits a local expansion, obtained by Taylor-expanding its
-smooth integrand factor --- $g_1(t)=e^{-\lambda_1 t/\gamma_1}t^{\alpha-1}$ for
-$\mathcal{H}_1$, $g_2(t)=e^{-\lambda_1 t/\gamma_1}t^{\alpha}$ for $\mathcal{H}_2$ --- about
-$t=y$ and integrating the leading power of $(y-t)$:
-\begin{align*}
-    \mathcal{H}_1(x,y) &= \mathrm{f.p.}\,\mathcal{H}_1(y,y)
-        \;-\; \frac{g_1(y)}{\beta+1}\,(y-x)^{\beta+1} + \cdots,
-    \\
-    \mathcal{H}_2(x,y) &= \mathrm{f.p.}\,\mathcal{H}_2(y,y)
-        \;-\; \frac{g_2(y)}{\beta}\,(y-x)^{\beta} + \cdots,
-\end{align*}
-where $\mathrm{f.p.}$ denotes the finite part (the $x\to y$ limit of the integral once its
-singular term has been subtracted) and the omitted terms are of higher order. Multiplying by
-$\Psi(x)(y-x)^{-\beta}$, and using $\Psi(y)\,g_2(y)=\mu/(\gamma_1 y)$, sorts $P(x,y)$ near
-$x=y$ into three contributions, one per power of $(y-x)$:
-\begin{align*}
-    \text{non-integer power }(y-x)^{|\beta|}:&\quad
-        \Psi(x)(y-x)^{-\beta}\bigl[P_y(y)\,\mathrm{f.p.}\,\mathcal{H}_1
-            + (1-y)\pi(0,0)\,\mathrm{f.p.}\,\mathcal{H}_2\bigr], \\
-    \text{singular part of }\mathcal{H}_2:&\quad
-        -\Psi(y)(1-y)\pi(0,0)\,\frac{g_2(y)}{\beta} = \frac{\mu\,\pi(0,0)}{\mu-\lambda y}, \\
-    \text{singular part of }\mathcal{H}_1:&\quad
-        -\Psi(x)\,P_y(y)\,\frac{g_1(y)}{\beta+1}\,(y-x) \;\propto\; (y-x).
-\end{align*}
-The second reproduces the regular value~\eqref{eq:B2:regular_value} and the third is smooth
-at $x=y$; only the first is a non-integer power ($|\beta|\notin\mathbb{Z}$), hence not smooth
-there. As $P(\cdot,y)$ is a power series in $x$, and so smooth at $x=y$, its bracket must
-vanish,
+\begin{equation*}
+    P(x,y)=\Psi(x)\,(y-x)^{|\beta|}
+        \bigl[\,P_y(y)\,\mathcal{H}_1(x,y)+(1-y)\pi(0,0)\,\mathcal{H}_2(x,y)\,\bigr],
+    \qquad |\beta|=-\beta>0 .
+\end{equation*}
+We need only the leading behaviour of the two integrals as $x\to y^{-}$, not a full expansion.
+Each splits into its endpoint value $\mathcal{H}_i(y,y)=\int_0^y(\cdots)\,dt$ and a remainder
+set by the integrand near $t=y$ --- $\mathcal{H}_1$ carries $(y-t)^{\beta}$, $\mathcal{H}_2$
+carries $(y-t)^{\beta-1}$ --- so that, with constants $c_1,c_2$ whose values we never need,
+\begin{equation*}
+    \mathcal{H}_1(x,y)=\mathcal{H}_1(y,y)+c_1\,(y-x)^{\beta+1}+\cdots, \qquad
+    \mathcal{H}_2(x,y)=\mathcal{H}_2(y,y)+c_2\,(y-x)^{\beta}+\cdots .
+\end{equation*}
+Multiplied by $(y-x)^{-\beta}$, the $c_1,c_2$ remainders turn into a smooth $O(y-x)$ term and the
+constant regular value~\eqref{eq:B2:regular_value}; only the endpoint values retain the bare,
+non-integer power $(y-x)^{|\beta|}$ ($|\beta|\notin\mathbb{Z}$ generically). Since $P(\cdot,y)$
+is a power series in $x$ --- hence smooth at the interior point $x=y<1$, whereas that power is
+not --- its coefficient must vanish:
 \begin{equation}
-    P_y(y)\,\mathrm{f.p.}\,\mathcal{H}_1(y,y)
-    + (1-y)\,\pi(0,0)\,\mathrm{f.p.}\,\mathcal{H}_2(y,y) = 0.
+    P_y(y)\,\mathcal{H}_1(y,y) + (1-y)\,\pi(0,0)\,\mathcal{H}_2(y,y) = 0 ,
     \label{eq:B2:nobranch}
 \end{equation}
-To evaluate the finite parts, substitute $t=ys$ ($dt=y\,ds$)
+the endpoint integrals being read, since $\beta<0$, as the Euler--Beta continuations found next.
+To evaluate these endpoint integrals, substitute $t=ys$ ($dt=y\,ds$)
 in~\eqref{eq:B2:I1}--\eqref{eq:B2:I2}, which rescales the two integrands and pulls out a common
 $y^{\alpha+\beta}$,
 \begin{align*}
@@ -229,24 +218,24 @@ These are Euler integrals~\eqref{eq:kummer:euler},
 $\int_0^1 t^{a-1}(1-t)^{b-1}e^{zt}\,dt=B(a,b)\,{}_1F_1(a;a+b;z)$, with
 $(a,b,z)=(\alpha,\beta+1,-c)$ for $\mathcal{H}_1$ and $(\alpha+1,\beta,-c)$ for
 $\mathcal{H}_2$, so $a+b=b^\star(y)$ in both. As $\beta<0$ by~\eqref{eq:B2:beta_negative}, the
-representation is read as its analytic continuation in $b$ past the convergence range $b>0$ ---
-which is precisely the finite part --- and gives
+right-hand side is read as its analytic continuation in $b$ beyond the convergence range $b>0$,
+giving
 \begin{align}
-    \mathrm{f.p.}\,\mathcal{H}_1(y,y)
+    \mathcal{H}_1(y,y)
         &= B(\alpha,\,\beta+1)\,y^{\alpha+\beta}\,
            {}_1F_1\!\bigl(\alpha;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr),
     \label{eq:B2:fp1}\\[3pt]
-    \mathrm{f.p.}\,\mathcal{H}_2(y,y)
+    \mathcal{H}_2(y,y)
         &= B(\alpha+1,\,\beta)\,y^{\alpha+\beta}\,
            {}_1F_1\!\bigl(\alpha+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr).
     \label{eq:B2:fp2}
 \end{align}
 Solving the smoothness condition~\eqref{eq:B2:nobranch} for $P_y(y)$ and inserting the
-finite parts~\eqref{eq:B2:fp1}--\eqref{eq:B2:fp2}, the common factor $y^{\alpha+\beta}$
+endpoint values~\eqref{eq:B2:fp1}--\eqref{eq:B2:fp2}, the common factor $y^{\alpha+\beta}$
 cancels and
 \begin{equation}
     P_y(y)
-    = -(1-y)\,\pi(0,0)\,\frac{\mathrm{f.p.}\,\mathcal{H}_2(y,y)}{\mathrm{f.p.}\,\mathcal{H}_1(y,y)}
+    = -(1-y)\,\pi(0,0)\,\frac{\mathcal{H}_2(y,y)}{\mathcal{H}_1(y,y)}
     = -(1-y)\,\pi(0,0)\,\frac{B(\alpha+1,\,\beta)}{B(\alpha,\,\beta+1)}\,
         \frac{{}_1F_1\!\bigl(\alpha+1;\,b^\star;\,-\lambda_1 y/\gamma_1\bigr)}
              {{}_1F_1\!\bigl(\alpha;\,b^\star;\,-\lambda_1 y/\gamma_1\bigr)}.
