@@ -1,8 +1,6 @@
 \section{Analysis of Model-\texorpdfstring{$C_2$}{C2} (\texorpdfstring{$\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$}{theta1>0, gamma1=gamma2=theta2=0})}\label{sec:model_c2}
 
-In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandon, with no class-$2$ abandonment and no jockeying. 
-
-Figure~\ref{fig:model-c2-queue} shows the queue layout.
+In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandon, with no class-$2$ abandonment and no jockeying. Figure~\ref{fig:model-c2-queue} shows the queue layout.
 \begin{figure}[H]
     \centering
     \resizebox{0.62\textwidth}{!}{%
@@ -13,19 +11,20 @@ Figure~\ref{fig:model-c2-queue} shows the queue layout.
     Class-2 never abandons ($\theta_2=0$) and there is no jockeying.}
     \label{fig:model-c2-queue}
 \end{figure}
-This choice of parameters is motivated by two ideas: first, class-$2$ still sees Poisson arrivals, so the probabilistic argument used for Model-$A$ can still hold; second, substituting these parameters into the fundamental equation (Equation~\eqref{eq:gen:fundamental_equation}) yields to a first-order linear ODE in $x$, allowing us to take our boundary function $P_y(y)$ outside the integral and sparing us having to solve a Volterra-type integral equation.
+This parameter choice is motivated by two facts. First, class-$2$ still sees Poisson arrivals, so the probabilistic argument of Model-$A$ carries over. Second, substituting these values into the general fundamental equation~\eqref{eq:gen:fundamental_equation} leaves a first-order linear ODE in $x$: with no $y$-derivatives the boundary function $P_y(y)$ comes out of the integral, sparing us the Volterra equation that left Model-$B$ open (\S\ref{sec:model_b}).
 
-\textbf{Stability.} Unlike models without abandonments, stability is here non-trivial. As noted in the Preliminaries section (\S~\ref{ssec:erlangA}), the Erlang-A queue is always stable. In the bivariate case, [...]
+\textbf{Stability.} Unlike the models without abandonment, stability here is non-trivial. The class-$1$ queue is an $M/M/1{+}M$ (Erlang-A) subsystem, which is positive recurrent for \emph{every} load (\S\ref{ssec:erlangA}); abandonment keeps the priority queue from ever building up, so class-$1$ on its own never destabilises the system. The only constraint comes from class-$2$, which---as the probabilistic argument of \S\ref{ssec:C2:prob} makes precise---sees an $M/G/1$ queue whose service time is one class-$1$ busy period $B_C$. That queue is stable exactly when its utilisation stays below one:
+\begin{equation}
+    \lambda_2\,\mathbb{E}[B_C] \;<\; 1
+    \qquad\Longleftrightarrow\qquad
+    \rho_2\cdot{}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right) \;<\; 1,
+    \label{eq:C2:stability}
+\end{equation}
+the equivalence following from the mean busy period $\mathbb{E}[B_C]$ of~\eqref{eq:erlangA:bp_mean} together with the Kummer identity $\mu\bigl({}_1F_1(1;\tfrac{\mu}{\theta_1};\tfrac{\lambda_1}{\theta_1})-1\bigr)=\lambda_1\,{}_1F_1(1;\tfrac{\mu}{\theta_1}+1;\tfrac{\lambda_1}{\theta_1})$. We assume~\eqref{eq:C2:stability} throughout; under it the joint chain is positive recurrent and the stationary PGF $P(x,y)$ exists. The condition is strictly weaker than the no-abandonment requirement $\rho<1$ of Models~$A$, $B$ and~$B_2$: abandonment thins the priority queue, so class-$2$ can be stable even when $\rho\ge1$. The comparison and the sharpness of~\eqref{eq:C2:stability} are established in \S\ref{ssec:C2:prob}.
 
-The following theorem presents the result, obtained by both analytical and probabilistic approaches:
+The following theorem states the result, obtained by both an analytical and a probabilistic route.
 \begin{theorem}\label{thm:C2:PGF}
-    Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
-    \begin{equation*}
-        \rho_2\cdot{}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right) \;<\; 1
-        \quad\Longleftrightarrow\quad
-        \lambda_2\,\mathbb{E}[B_C] \;<\; 1,
-    \end{equation*}
-    the probability generating function $P(x,y)$ of such a system is given by
+    Consider the two-class non-preemptive priority system of Model-$C_2$ ($\theta_1>0$, $\gamma_1=\gamma_2=\theta_2=0$): Poisson arrivals at rates $\lambda_1,\lambda_2$, common exponential service at rate $\mu$, and per-customer abandonment of \emph{waiting} class-$1$ customers at rate $\theta_1$. Under the stability condition~\eqref{eq:C2:stability}, the probability generating function is
     \begin{align*}
         \begin{split}
             P(x,y) \;&=\; \frac{e^{\lambda_1 x/\theta_1}\,\mu\,\pi(0,0)\,(1-y)}{\theta_1\, x^{\mu/\theta_1}(1-x)^{\lambda_2(1-y)/\theta_1}\bigl(\widetilde{B}_C(\lambda_2(1-y))-y\bigr)}\\[4pt]
@@ -37,54 +36,47 @@ The following theorem presents the result, obtained by both analytical and proba
         \mathcal{H}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}(1-t)^{\,\lambda_2(1-y)/\theta_1}\,dt, \\
         \mathcal{H}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1}(1-t)^{\,\lambda_2(1-y)/\theta_1-1}\,dt,
     \end{align*}
-    $\widetilde{B}_C(s)$ is the LST of the busy period of the $M/M/1+M$ subsystem of class-$1$ given by Equation~\eqref{eq:erlangA:bp_lst}, and $\pi(0,0)$ is given by Corollary~\ref{cor:C2:pi00} below.
+    $\widetilde{B}_C(s)$ is the LST of the busy period of the class-$1$ $M/M/1{+}M$ subsystem given by~\eqref{eq:erlangA:bp_lst}, and $\pi(0,0)$ is given by Corollary~\ref{cor:C2:pi00} below.
 \end{theorem}
 
 \begin{proof}
-The proof is structured in three stages.
+The proof runs in three steps, carried out in \S\S\ref{ssec:C2:anal}--\ref{ssec:C2:recovery}.
 
-\emph{Stage 1: Reduction to a first-order ODE in $x$ and the integrating factor.}  Substituting $\theta_1>0$, $\gamma_1=\gamma_2=\theta_2=0$ into the general fundamental equation eliminates both convection terms in $y$, leaving a first-order linear ODE in $x$ for each fixed $y\in[0,1]$ (Equation~\eqref{eq:C2:fundamental}).  Partial-fraction decomposition of the ODE coefficient gives the integrating factor
+\emph{Step~(i): reduction to a first-order ODE in $x$.}  Substituting the Model-$C_2$ parameters into the general fundamental equation removes both $y$-derivatives and leaves, for each fixed $y$, a first-order linear ODE in $x$~\eqref{eq:C2:fundamental}.  Its integrating factor (\S\ref{sssec:if}) is
 \[
     \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\,x^{\alpha}\,(1-x)^{\beta(y)},
     \qquad \alpha=\tfrac{\mu}{\theta_1},\quad \beta(y)=\tfrac{\lambda_2(1-y)}{\theta_1},
 \]
-which vanishes at $x=0$ and $x=1$ because $\alpha,\beta(y)>0$.
+which vanishes at $x=0$ and, for $y<1$, at $x=1$, since $\alpha>0$ and $\beta(y)\ge0$.
 
-\emph{Stage 2: Determination of $P_y(y)$.}  Two independent routes are given in \S\S\ref{ssec:C2:anal}--\ref{ssec:C2:prob}:
-\begin{itemize}
-  \item \emph{Analytical (boundedness at $x=1$).}  Since $\mu_I(1;y)=0$, the only way for $P(x,y)$ to remain bounded as $x\to1$ is $\int_0^1 q(t;y)\mu_I(t;y)\,dt=0$ (Equation~\eqref{eq:C2:boundedness}).  Evaluating this integral via the Kummer--Euler identity~\eqref{eq:C2:Bc_Kummer} yields $P_y(y)$ (Equation~\eqref{eq:C2:Py}).
-  \item \emph{Probabilistic (Pollaczek--Khinchine).}  Because $\theta_2=\gamma_i=0$, the class-2 arrival stream remains Poisson; PASTA applies.  Class-2 customers see an $M/G/1$ queue with effective service time $B_C$ (the busy period of the class-1 $M/M/1{+}M$ subsystem), and the P-K formula recovers the same $P_y(y)$.
-\end{itemize}
+\emph{Step~(ii): determination of $P_y(y)$.}  We obtain $P_y(y)$ two independent ways.  \emph{Analytically} (\S\ref{ssec:C2:anal}), boundedness of $P(x,y)$ as $x\to1$ forces $\int_0^1 q(t;y)\,\mu_I(t;y)\,dt=0$~\eqref{eq:C2:boundedness}, which the Euler--Kummer identity~\eqref{eq:C2:Bc_Kummer} solves to give $P_y(y)$~\eqref{eq:C2:Py}.  \emph{Probabilistically} (\S\ref{ssec:C2:prob}), class-$2$ sees an $M/G/1$ queue with service time $B_C$, and the Pollaczek--Khinchine formula returns the same $P_y(y)$.
 
-\emph{Stage 3: Recovery of $P(x,y)$.}  With $P_y(y)$ known, the ODE is integrated against the integrating factor (\S\ref{ssec:C2:recovery}), yielding the closed form~\eqref{eq:C2:Pxy} stated in the theorem.
+\emph{Step~(iii): recovery of $P(x,y)$.}  With $P_y(y)$ known, integrating the ODE against $\mu_I$ (\S\ref{ssec:C2:recovery}) yields the closed form~\eqref{eq:C2:Pxy}.
 \end{proof}
 
 \begin{corollary}\label{cor:C2:pi00}
-    The limiting probability $\pi(0,0)$ of the joint state $(N_1,N_2)=(0,0)$ with the server busy, and the empty-system probability $\pi_0$, are given by
+    The limiting probability $\pi(0,0)$ of the busy state with both queues empty, and the empty-system probability $\pi_0$, are
     \begin{align}
         \pi(0,0) \;&=\; \frac{(\lambda_1+\lambda_2)\bigl(1 - \lambda_2\,\mathbb{E}[B_C]\bigr)}{\mu\,\bigl(1 + \lambda_1\,\mathbb{E}[B_C]\bigr)} \;=\; (\rho_1+\rho_2)\,\frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi00}\\[4pt]
         \pi_0 \;&=\; \frac{1 - \lambda_2\,\mathbb{E}[B_C]}{1 + \lambda_1\,\mathbb{E}[B_C]}, \label{eq:C2:pi0}
     \end{align}
-    where $\mathbb{E}[B_C]$ is the mean busy period of the $M/M/1+M$ subsystem of class-$1$, given by Equation~\eqref{eq:erlangA:bp_mean}. In the limit $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and the expressions above recover the classical Model-$A$ results $\pi(0,0) = \rho(1-\rho)$ and $\pi_0 = 1-\rho$.
+    where $\mathbb{E}[B_C]$ is the mean class-$1$ busy period~\eqref{eq:erlangA:bp_mean}. As $\theta_1\to 0^+$, $\mathbb{E}[B_C]\to (\mu-\lambda_1)^{-1}$ and these recover the Model-$A$ baseline $\pi(0,0) = \rho(1-\rho)$, $\pi_0 = 1-\rho$.
 \end{corollary}
 
-\subsection{Setup: reduction to a first-order linear ODE in \texorpdfstring{$x$}{x}}
+\subsection{Reduced fundamental equation}\label{ssec:C2:reduction}
 
-Plugging $\theta_1>0,\ \gamma_1=\gamma_2=\theta_2=0$ into the general fundamental equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation}) annihilates the $\partial P/\partial y$ term entirely, since its coefficient $xy\bigl[\gamma_2(y-x)+\theta_2(y-1)\bigr]$ vanishes identically, and reduces the $\partial P/\partial x$ coefficient $xy\bigl[\gamma_1(x-y)+\theta_1(x-1)\bigr]$ to its single surviving abandonment term $\theta_1\,xy(x-1)$. What remains is
+Setting $\theta_1>0$ and $\gamma_1=\gamma_2=\theta_2=0$ in the general fundamental equation~\eqref{eq:gen:fundamental_equation} (Lemma~\ref{lem:gen:fundamental_equation}) annihilates the $\partial P/\partial y$ term outright---its coefficient $xy\bigl[\gamma_2(y-x)+\theta_2(y-1)\bigr]$ vanishes identically---and trims the $\partial P/\partial x$ coefficient $xy\bigl[\gamma_1(x-y)+\theta_1(x-1)\bigr]$ down to its surviving abandonment part $\theta_1\,xy(x-1)$. What remains is
 \begin{multline}
     \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
     + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y) \\
     \;=\; \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
     \label{eq:C2:fundamental}
 \end{multline}
-where the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty} \pi(0,n_2)\,y^{n_2}$ is, as in Model-$A$, the partial PGF restricted to states where the server is busy and the priority queue is empty ($N_1=0$).
+where, as in Model-$A$, the boundary function $P_y(y)=P(0,y)=\sum_{n_2\ge0} \pi(0,n_2)\,y^{n_2}$ is the partial PGF over the states with the server busy and the priority queue empty ($N_1=0$).
 
-For any fixed $y$, Equation~\eqref{eq:C2:fundamental} is a \emph{first-order linear ODE in $x$} whose unknowns are the function $P(x,y)$ on $[0,1]^2$ and the boundary trace $P_y(y)=P(0,y)$. The strategy in what follows is in two stages:
-\begin{enumerate}
-    \item Identify $P_y(y)$ — first analytically, from boundedness of $P(x,y)$ at $x=1$ (\S\ref{ssec:C2:anal}), then re-derived by a probabilistic argument exploiting the $M/G/1$ structure seen by class-$2$ (\S\ref{ssec:C2:prob}).
-    \item Recover $P(x,y)$ by solving the ODE with $P_y(y)$ now known (\S\ref{ssec:C2:recovery}).
-\end{enumerate}
-We close the setup with the conditional-expectation decomposition that will drive the probabilistic re-derivation of \S\ref{ssec:C2:prob}. By the law of total expectation, restricting the defining sum of $P_y(y)=\mathbb{E}[\mathbf{1}\{\text{busy},N_1=0\}\,y^{N_2}]$ to the event $\{\text{busy},N_1=0\}$ factors it into the mass of that event and the conditional PGF of $N_2$ given it:
+For each fixed $y$, \eqref{eq:C2:fundamental} is a first-order linear ODE in $x$ with two unknowns: $P(x,y)$ on $[0,1]^2$ and its boundary trace $P_y(y)$. We first pin $P_y(y)$ down (\S\S\ref{ssec:C2:anal}--\ref{ssec:C2:prob}) and then recover $P(x,y)$ (\S\ref{ssec:C2:recovery}).
+
+The probabilistic route needs one identity. By the \emph{law of total expectation}, splitting $P_y(y)=\mathbb{E}[\mathbf{1}\{\text{busy},N_1=0\}\,y^{N_2}]$ over the event $\{\text{busy},N_1=0\}$ factors it into the mass of that event and the conditional PGF of $N_2$ given it:
 \begin{equation}
     P_y(y) \;=\; \mathbb{P}(\text{busy},\, N_1=0)\,\cdot\,\mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right].
     \label{eq:C2:Py_prob_decomp}
@@ -92,32 +84,23 @@ We close the setup with the conditional-expectation decomposition that will driv
 
 \subsection{Analytical derivation of \texorpdfstring{$P_y(y)$}{Py(y)} via boundedness at \texorpdfstring{$x=1$}{x=1}}\label{ssec:C2:anal}
 
-Here the surviving abandonment factor $(x-1)$ places the operative singularity on the boundary $x=1$, exactly the boundedness-pinning regime anticipated in Remark~\ref{rem:gen:reading}.
-To determine $P_y(y)$ analytically, we put~\eqref{eq:C2:fundamental} in standard form:
+The surviving abandonment factor $(x-1)$ places the operative singularity on the boundary $x=1$---the boundedness-pinning regime anticipated in Remark~\ref{rem:gen:reading}. Dividing~\eqref{eq:C2:fundamental} by the coefficient $\theta_1 xy(x-1)$ of the derivative puts it in the standard form~\eqref{eq:ode:standard} of \S\ref{sssec:if},
 \begin{align*}
     \frac{\partial P}{\partial x} \;+\; \underbrace{\frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}{\theta_1\,x(x-1)}}_{p(x;\,y)}\,P
     \;=\; \underbrace{\frac{\mu(x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0)}{\theta_1\,xy(x-1)}}_{q(x;\,y)}.
 \end{align*}
-The numerator of $p(x;y)$ is the same polynomial we have seen in every model so far. With $x^*(y)$ and $x^+(y)$ as its roots (Equation~\eqref{eq:A:xstar}), we can write
+The numerator of $p(x;y)$ is the kernel polynomial $A(x,y)$ of Model-$B$~\eqref{eq:B:Adef}, common to every model, with roots $x^*(y),x^+(y)$~\eqref{eq:A:xstar} satisfying $x^*(y)\,x^+(y)=\mu/\lambda_1$. Its partial-fraction decomposition is
 \begin{equation*}
-    (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy \;=\; -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
+    \frac{A(x,y)}{x(x-1)} \;=\; -\lambda_1 + \frac{B}{x} + \frac{C}{x-1},
 \end{equation*}
-with $x^*(y)\,x^+(y) = \mu/\lambda_1$. Partial fraction decomposition gives
-\begin{equation*}
-    \frac{-\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr)}{x(x-1)} \;=\; A + \frac{B}{x} + \frac{C}{x-1},
-\end{equation*}
-where $A=-\lambda_1$ is read off from the ratio of leading coefficients of the quadratic terms in numerator and denominator, $B=\mu$ from setting $x=0$ and using $\lambda_1\,x^*x^+=\mu$, and $C=\lambda_2(1-y)$ by the cover-up rule at $x=1$. Writing the numerator as $N(x)=(\lambda_1+\lambda_2+\mu)x-\mu-\lambda_1 x^2-\lambda_2 xy$, the coefficient of $1/(x-1)$ is its residue $C=N(1)=(\lambda_1+\lambda_2+\mu)-\mu-\lambda_1-\lambda_2 y=\lambda_2(1-y)$; equivalently, since $N(x)=-\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr)$, this is the identity $\bigl(1-x^*(y)\bigr)\bigl(1-x^+(y)\bigr)=-\lambda_2(1-y)/\lambda_1$ evaluated at $x=1$. Thus
+with $-\lambda_1$ the ratio of leading ($x^2$) coefficients, $B=A(0,y)/(0-1)=(-\mu)/(-1)=\mu$ by the cover-up rule at $x=0$, and $C=A(1,y)=\lambda_2(1-y)$ by the cover-up rule at $x=1$ (since $A(1,y)=(\lambda_1+\lambda_2+\mu)-\mu-\lambda_1-\lambda_2 y=\lambda_2(1-y)$). Thus
 \begin{equation}
     p(x;y) \;=\; \frac{1}{\theta_1}\!\left[-\lambda_1 + \frac{\mu}{x} + \frac{\lambda_2(1-y)}{x-1}\right].
     \label{eq:C2:pfd}
 \end{equation}
-Integrating term by term,
-\begin{equation*}
-    \int p(x;y)\,dx \;=\; \frac{1}{\theta_1}\!\left[-\lambda_1 x + \mu\ln x + \lambda_2(1-y)\ln(1-x)\right],
-\end{equation*}
-which yields the integrating factor
+Integrating term by term, $\int p\,dx = \theta_1^{-1}\bigl[-\lambda_1 x + \mu\ln x + \lambda_2(1-y)\ln(1-x)\bigr]$, which exponentiates to the integrating factor
 \begin{equation}
-    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\cdot x^{\alpha}\cdot (1-x)^{\beta(y)},
+    \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\, x^{\alpha}\, (1-x)^{\beta(y)},
     \label{eq:C2:integrating_factor}
 \end{equation}
 where, in parallel with Model-$B_2$, we set
@@ -125,119 +108,100 @@ where, in parallel with Model-$B_2$, we set
     \alpha \;=\; \frac{\mu}{\theta_1}, \qquad \beta(y) \;=\; \frac{\lambda_2(1-y)}{\theta_1}.
     \label{eq:C2:exponents}
 \end{equation}
-Under our stability assumptions both exponents are positive ($\alpha>0$ always; $\beta(y)\ge0$ for $y\in[0,1]$), so $\mu_I$ vanishes at both $x=0$ and $x=1$. From $\tfrac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$, integration over $(0,x]$ reads
-\begin{equation*}
-    P(x,y)\,\mu_I(x;y) - P(0,y)\,\mu_I(0;y) \;=\; \int_0^x q(t;y)\,\mu_I(t;y)\,dt,
-\end{equation*}
-and the boundary term vanishes, yielding
+Both exponents are non-negative ($\alpha>0$ always; $\beta(y)\ge0$ for $y\in[0,1]$), so $\mu_I$ vanishes at $x=0$ and at $x=1$. By the integrating-factor solution~\eqref{eq:ode:general} of \S\ref{sssec:if}---with the boundary term $P(0,y)\,\mu_I(0;y)$ killed by $\mu_I(0;y)=0$---we obtain
 \begin{equation}
     P(x,y) \;=\; \frac{1}{\mu_I(x;y)} \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
     \label{eq:C2:Pxy_implicit}
 \end{equation}
 
-Now, in the same fashion as the root-cancellation argument used for Model-$A$, we exploit boundedness of PGFs to determine $P_y(y)$ by observing the behaviour of $P(x,y)$ as $x\to 1$, for fixed $y\in[0,1)$: there $\beta(y)>0$, so $\mu_I(x;y)\to 0$ as $x\to1$. (At the endpoint $y=1$ the exponent $\beta(1)=0$ and $\mu_I(\,\cdot\,;1)$ no longer vanishes at $x=1$; the value $P_y(1)$ is recovered from the resulting formula by continuity, $y\to1^-$.) Since $\mu_I(x;y)\to 0$, the only way to keep the right-hand side of~\eqref{eq:C2:Pxy_implicit} bounded is
+We now pin $P_y(y)$ by the same boundedness argument used for Model-$A$, watching $P(x,y)$ as $x\to 1$ for fixed $y\in[0,1)$: there $\beta(y)>0$, so $\mu_I(x;y)\to0$. (At $y=1$ the exponent $\beta(1)=0$ and $\mu_I(\,\cdot\,;1)$ no longer vanishes at $x=1$; the value $P_y(1)$ is then recovered by continuity, $y\to1^-$.) Since the left-hand side $P(x,y)$ of~\eqref{eq:C2:Pxy_implicit} stays bounded while $1/\mu_I(x;y)\to\infty$, the integral must vanish in the limit:
 \begin{equation}
     \int_0^1 q(t;y)\,\mu_I(t;y)\,dt \;=\; 0.
     \label{eq:C2:boundedness}
 \end{equation}
-Substituting the explicit forms of $q$ and $\mu_I$ into~\eqref{eq:C2:boundedness}, the integrand is
+Substituting the explicit $q$ and $\mu_I$, the integrand is
 \begin{equation*}
     q(t;y)\,\mu_I(t;y)
     \;=\; \frac{\mu\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]}{\theta_1\,y}
     \cdot \frac{e^{-\lambda_1 t/\theta_1}\,t^{\alpha}(1-t)^{\beta(y)}}{t\,(t-1)},
 \end{equation*}
-where $t^{\alpha}/t = t^{\alpha-1}$ and, with $b=\beta(y)$, the elementary identity $(1-t)^{\beta(y)}/(t-1) = -(1-t)^{\beta(y)-1}$ flips the sign and lowers the exponent. The constant prefactor $-\mu/(\theta_1 y)$, nonzero for $y\in(0,1]$, divides out of the vanishing condition~\eqref{eq:C2:boundedness}, leaving
+where $t^{\alpha}/t=t^{\alpha-1}$ and the elementary identity $(1-t)^{\beta(y)}/(t-1)=-(1-t)^{\beta(y)-1}$ flips the sign and lowers the exponent. The constant prefactor $-\mu/(\theta_1 y)$, nonzero for $y\in(0,1]$, divides out of~\eqref{eq:C2:boundedness}, leaving
 \begin{equation*}
-    \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)-1}\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]\,dt \;=\; 0,
+    \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)-1}\bigl[(t-y)\,P_y(y) - t(1-y)\,\pi(0,0)\bigr]\,dt \;=\; 0.
 \end{equation*}
-with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}. Introducing the auxiliary integrals
+Introduce the auxiliary integrals
 \begin{align*}
     \mathcal{J}_0(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)-1}\,dt, \\
-    \mathcal{J}_1(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt,
+    \mathcal{J}_1(y) &\;=\; \int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt.
 \end{align*}
-and distributing the bracket over $t^{\alpha-1}$, note that $t\cdot t^{\alpha-1}=t^{\alpha}$ feeds $\mathcal{J}_1$ while $t^{\alpha-1}$ feeds $\mathcal{J}_0$. The two terms regroup as
-\[
-    P_y(y)\!\int_0^1\! e^{-\lambda_1 t/\theta_1}\bigl(t^{\alpha}-y\,t^{\alpha-1}\bigr)(1-t)^{\beta(y)-1}\,dt
-    \;-\; (1-y)\,\pi(0,0)\!\int_0^1\! e^{-\lambda_1 t/\theta_1}\,t^{\alpha}(1-t)^{\beta(y)-1}\,dt \;=\;0,
-\]
-so the boundedness condition~\eqref{eq:C2:boundedness} becomes
-\begin{equation*}
-    P_y(y)\bigl[\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)\bigr] \;=\; (1-y)\,\pi(0,0)\,\mathcal{J}_1(y),
-\end{equation*}
+Distributing the bracket over $t^{\alpha-1}$, the term $t\cdot t^{\alpha-1}=t^{\alpha}$ feeds $\mathcal{J}_1$ and $t^{\alpha-1}$ feeds $\mathcal{J}_0$, so the integral becomes
+\begin{align*}
+    0 \;&=\; P_y(y)\!\int_0^1\! e^{-\lambda_1 t/\theta_1}\bigl(t^{\alpha}-y\,t^{\alpha-1}\bigr)(1-t)^{\beta(y)-1}\,dt
+    \;-\; (1-y)\,\pi(0,0)\!\int_0^1\! e^{-\lambda_1 t/\theta_1}\,t^{\alpha}(1-t)^{\beta(y)-1}\,dt \\
+    \;&=\; P_y(y)\bigl[\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)\bigr] \;-\; (1-y)\,\pi(0,0)\,\mathcal{J}_1(y),
+\end{align*}
 which gives
 \begin{equation}
     P_y(y) \;=\; \pi(0,0)\,(1-y)\,\frac{\mathcal{J}_1(y)}{\mathcal{J}_1(y) - y\,\mathcal{J}_0(y)}.
     \label{eq:C2:Py_anal_raw}
 \end{equation}
 
-The continued-fraction representation~\eqref{eq:erlangA:bp_lst} admits an equivalent integral form.  Setting $a=\alpha=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$, the Euler integral representation~\eqref{eq:kummer:euler} identifies each of the integrals below as a Beta-function multiple of a $\,{}_1F_1$ value:
+It remains to evaluate the ratio $\mathcal{J}_1/\mathcal{J}_0$. Setting $a=\alpha=\mu/\theta_1$, $b=s/\theta_1$, $c=\lambda_1/\theta_1$, the Euler representation~\eqref{eq:kummer:euler} writes each $\mathcal{J}_i$ as a Beta multiple of a $\,{}_1F_1$ value, and the closed-form summation~\eqref{eq:erlangA:cf_kummer} of \S\ref{ssec:erlangA} identifies their ratio with the busy-period LST:
 \begin{equation}
     \widetilde{B}_C(s) \;=\; \frac{\displaystyle\int_{0}^{1} t^{a}(1-t)^{b-1}e^{-ct}\,dt}{\displaystyle\int_{0}^{1} t^{a-1}(1-t)^{b-1}e^{-ct}\,dt}
     \;=\; \frac{B(a+1,b)\,{}_1F_1(a+1;\,a+1+b;\,-c)}{B(a,b)\,{}_1F_1(a;\,a+b;\,-c)}.
     \label{eq:C2:Bc_Kummer}
 \end{equation}
-That this ratio equals the continued fraction~\eqref{eq:erlangA:bp_lst} is exactly the closed-form summation~\eqref{eq:erlangA:cf_kummer} proved in~\S\ref{ssec:erlangA}: the integrals satisfy the three-term recurrence~\eqref{eq:erlangA:threeterm}, they form its minimal solution, and Pincherle's theorem identifies the convergent continued fraction with the minimal-solution ratio.
-
-Setting $s=\lambda_2(1-y)$ — so that $b=\beta(y)$ matches the exponent in~\eqref{eq:C2:exponents} — yields exactly the ratio of our $\mathcal{J}_i$:
-\begin{equation*}
-    \widetilde{B}_C\bigl(\lambda_2(1-y)\bigr) \;=\; \frac{\mathcal{J}_1(y)}{\mathcal{J}_0(y)}.
-\end{equation*}
-Dividing numerator and denominator of~\eqref{eq:C2:Py_anal_raw} by $\mathcal{J}_0(y)$ gives the boundary generating function
+Taking $s=\lambda_2(1-y)$---so that $b=\beta(y)$ matches the exponent in~\eqref{eq:C2:exponents}---gives $\widetilde{B}_C(\lambda_2(1-y))=\mathcal{J}_1(y)/\mathcal{J}_0(y)$. Dividing the numerator and denominator of~\eqref{eq:C2:Py_anal_raw} by $\mathcal{J}_0(y)$ yields the boundary generating function
 \begin{equation}
     P_y(y) \;=\; \pi(0,0)\,\frac{(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
     \label{eq:C2:Py}
 \end{equation}
-This boundedness route uses no probabilistic structure: it reaches~\eqref{eq:C2:Py} only through the Beta-integral identity~\eqref{eq:C2:Bc_Kummer}, the analytic shadow of the $M/G/1$/busy-period decomposition that the probabilistic argument of \S\ref{ssec:C2:prob} makes explicit.
+This route uses no probabilistic structure: it reaches~\eqref{eq:C2:Py} through the Beta-integral identity~\eqref{eq:C2:Bc_Kummer} alone---the analytic shadow of the $M/G/1$/busy-period decomposition that the next subsection makes explicit.
 
 \subsection{Probabilistic re-derivation of \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:prob}
 
-The idea is, again, to adopt the perspective of a class-$2$ customer waiting in line while the server is busy. Unlike in the case of jockeying, the customers from class-$1$ truly abandon the system, leaving the Poisson arrival process of class-$2$ undisturbed. Because class-$1$ holds non-preemptive priority (\S\ref{ssec:priority}), a waiting class-$2$ customer is not taken into service while any class-$1$ customer is present ($N_1>0$); its \emph{effective service time} is therefore the duration of one complete busy period $B_C$ of the class-$1$ subsystem---now an $M/M/1+M$ queue with arrival rate $\lambda_1$, service rate $\mu$ and per-customer abandonment rate $\theta_1$, rather than the pure $M/M/1$ of Model-$A$. By the \emph{memorylessness} of the exponential service, arrival and abandonment clocks, these effective service times are i.i.d., so from class-$2$'s viewpoint the system is an $M/G/1$ queue with Poisson arrivals at rate $\lambda_2$ and general service times distributed as $B_C$.
+We again take the viewpoint of a class-$2$ customer waiting while the server is busy. Unlike under jockeying, class-$1$ customers here truly leave the system, so the class-$2$ Poisson arrival stream is undisturbed. Because class-$1$ holds non-preemptive priority (\S\ref{ssec:priority}), a waiting class-$2$ customer is not served while any class-$1$ customer is present ($N_1>0$); its \emph{effective service time} is therefore one full busy period $B_C$ of the class-$1$ subsystem---now an $M/M/1{+}M$ queue with rates $\lambda_1,\mu,\theta_1$, rather than the pure $M/M/1$ of Model-$A$. By the \emph{memorylessness} of the exponential service, arrival and abandonment clocks these effective service times are i.i.d., so class-$2$ sees an $M/G/1$ queue with Poisson input $\lambda_2$ and service distributed as $B_C$. Its LST $\widetilde{B}_C(s)$ and mean $\mathbb{E}[B_C]$ come from the first-step analysis of \S\ref{ssec:erlangA} (Equations~\eqref{eq:erlangA:bp_lst}--\eqref{eq:erlangA:bp_mean}).
 
-The LST $\widetilde{B}_C(s)$ and mean $\mathbb{E}[B_C]$ of this busy period are derived via the first-step analysis in \S\ref{ssec:erlangA}; see Equations~\eqref{eq:erlangA:bp_lst}--\eqref{eq:erlangA:bp_mean}.
+This $M/G/1$ is stable iff its utilisation $\lambda_2\,\mathbb{E}[B_C]$ is below one, the condition~\eqref{eq:C2:stability}. The condition is also necessary, not merely sufficient: when $\lambda_2\,\mathbb{E}[B_C]\ge1$ the embedded $M/G/1$ is null recurrent (at equality) or transient (strictly above) and its queue length has no stationary law; since the class-$2$ count is a deterministic function of the joint state $(n_1,n_2)$, a divergent class-$2$ queue rules out positive recurrence of the joint chain. We argue this at the level of the embedded $M/G/1$, whose marginal dynamics are exact, rather than through a Lyapunov function on the joint generator.
 
-The stability condition required for the class-$2$ subsystem is that of the $M/G/1$ defined above, i.e.\ $\lambda_2\,\mathbb{E}[B_C]<1$:
-\begin{equation}
-    \rho_2 \cdot {}_1F_1\!\left(1;\,\frac{\mu}{\theta_1}+1;\,\frac{\lambda_1}{\theta_1}\right) \;<\; 1.
-    \label{eq:C2:stability}
-\end{equation}
-This condition is also necessary, not merely sufficient. The quantity $\lambda_2\,\mathbb{E}[B_C]$ is precisely the utilisation of the embedded $M/G/1$ queue of class-$2$ customers (Poisson input $\lambda_2$, effective service time $B_C$), so when $\lambda_2\,\mathbb{E}[B_C]\ge 1$ that $M/G/1$ is null recurrent (at equality) or transient (strictly above) and its number-in-system has no proper stationary law. Because the class-$2$ population is a deterministic function of the joint state $(n_1,n_2)$, a divergent class-$2$ queue rules out positive recurrence of the joint chain, so~\eqref{eq:C2:stability} is sharp. We argue this at the level of the embedded $M/G/1$, whose marginal dynamics are exact, rather than by constructing a Lyapunov function on the joint generator.
-Compared to Model-$A$, this stability condition is strictly weaker than the classical $\rho_1+\rho_2<1$, which aligns with the fact that abandonments lower the load of the system: for all $\theta_1>0$ the series is termwise dominated by the geometric series for $1/(1-\rho_1)$. Indeed, since $1^{(n)}=n!$ the Kummer series~\eqref{eq:kummer:series} reduces to
+The condition is also strictly weaker than the no-abandonment requirement $\rho=\rho_1+\rho_2<1$, since for every $\theta_1>0$ the Kummer series is dominated term by term by the geometric series for $1/(1-\rho_1)$. Indeed, using $1^{(n)}=n!$, the series~\eqref{eq:kummer:series} reduces to
 \[
     {}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right)
     \;=\; \sum_{n=0}^{\infty}\frac{(\lambda_1/\theta_1)^n}{\bigl(\tfrac{\mu}{\theta_1}+1\bigr)^{(n)}}
     \;=\; \sum_{n=0}^{\infty}\frac{(\lambda_1/\theta_1)^n}{\prod_{k=1}^{n}\bigl(\tfrac{\mu}{\theta_1}+k\bigr)},
 \]
-and since $\tfrac{\mu}{\theta_1}+k>\tfrac{\mu}{\theta_1}$ for every $k\ge1$, the $n$-th term is bounded above by $(\lambda_1/\theta_1)^n/(\mu/\theta_1)^n=\rho_1^{\,n}$, with strict inequality for $n\ge1$. Summing gives ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1) < \sum_{n\ge0}\rho_1^{\,n}=1/(1-\rho_1)$. Abandonments in the priority queue therefore stabilise the non-priority queue.
+and since $\tfrac{\mu}{\theta_1}+k>\tfrac{\mu}{\theta_1}$ for every $k\ge1$, the $n$-th term is at most $(\lambda_1/\theta_1)^n/(\mu/\theta_1)^n=\rho_1^{\,n}$, strictly so for $n\ge1$. Summing, ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)<\sum_{n\ge0}\rho_1^{\,n}=1/(1-\rho_1)$: abandonment in the priority queue stabilises the non-priority queue.
 
-The class-$2$ subsystem is therefore an $M/G/1$ queue with Poisson arrival rate $\lambda_2$, service-time LST $\widetilde{B}_C(s)$ and utilisation $\rho_B=\lambda_2\,\mathbb{E}[B_C]$. Applying the Pollaczek--Khinchine formula~\eqref{eq:pk:pgf} (\S\ref{ssec:pk}) with these identifications $\bigl(\lambda\mapsto\lambda_2,\ \widetilde{B}\mapsto\widetilde{B}_C,\ \rho_B=\lambda_2\mathbb{E}[B_C]\bigr)$ gives the PGF of the stationary number of class-$2$ customers in that $M/G/1$:
+Applying the Pollaczek--Khinchine formula~\eqref{eq:pk:pgf} (\S\ref{ssec:pk}) with the identifications $\lambda\mapsto\lambda_2$, $\widetilde{B}\mapsto\widetilde{B}_C$, $\rho_B=\lambda_2\,\mathbb{E}[B_C]$ gives the PGF of the stationary number of class-$2$ customers in that $M/G/1$:
 \begin{equation*}
     L_2(y) \;=\; \frac{(1 - \lambda_2 \mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
 \end{equation*}
-Because $\theta_2=\gamma_i=0$, the class-$2$ arrival stream is Poisson and satisfies the lack-of-anticipation assumption, so by the \emph{PASTA} property (\S\ref{ssec:priority}) the time-stationary distribution of the number of class-$2$ customers present coincides with the $M/G/1$ steady-state distribution. Conditioning on $\{\text{busy},\,N_1=0\}$ --- the event on which a class-$2$ customer is at the head of its queue --- therefore identifies that count with $N_2$, giving
+Because $\theta_2=\gamma_1=\gamma_2=0$, the class-$2$ arrivals are Poisson and lack anticipation, so by \emph{PASTA} (\S\ref{ssec:priority}) the time-stationary number of class-$2$ customers present has the $M/G/1$ steady-state law. Conditioning on $\{\text{busy},\,N_1=0\}$---the event on which a class-$2$ customer sits at the head of its queue---identifies that count with $N_2$:
 \begin{equation}
     \mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right] \;=\; L_2(y).
     \label{eq:C2:L2_identification}
 \end{equation}
-Substituting the conditional identification~\eqref{eq:C2:L2_identification} into the law-of-total-expectation decomposition~\eqref{eq:C2:Py_prob_decomp} yields
+Substituting~\eqref{eq:C2:L2_identification} into the decomposition~\eqref{eq:C2:Py_prob_decomp} gives
 \begin{equation}
-    P_y(y) \;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\left[\frac{(1-\lambda_2\mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}\right].
+    P_y(y) \;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\frac{(1-\lambda_2\mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
     \label{eq:C2:Py_unsimplified}
 \end{equation}
-By the definition of $P_y$, $P_y(0)=\pi(0,0)$. Evaluating~\eqref{eq:C2:Py_unsimplified} at $y=0$,
+The unknown mass $\mathbb{P}(\text{busy},N_1=0)$ is fixed by $P_y(0)=\pi(0,0)$: evaluating~\eqref{eq:C2:Py_unsimplified} at $y=0$, where $\widetilde{B}_C(\lambda_2)$ cancels,
 \begin{align*}
-    P_y(0) \;=\; \pi(0,0)
-    &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\left[\frac{(1-\lambda_2\mathbb{E}[B_C])\cdot 1 \cdot \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)}\right] \nonumber \\
+    \pi(0,0)=P_y(0)
+    &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\frac{(1-\lambda_2\mathbb{E}[B_C])\cdot 1\cdot \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)} \\
     &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,(1-\lambda_2\mathbb{E}[B_C]),
 \end{align*}
-so that $\mathbb{P}(\text{busy},\,N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$. Substituting this back into~\eqref{eq:C2:Py_unsimplified}, the $(1-\lambda_2\mathbb{E}[B_C])$ factor cancels and we are left with
+so $\mathbb{P}(\text{busy},N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$. Substituting back, the factor $(1-\lambda_2\mathbb{E}[B_C])$ cancels and we recover
 \begin{equation*}
     P_y(y) \;=\; \pi(0,0)\,\frac{(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y},
 \end{equation*}
-in agreement with the boundary generating function~\eqref{eq:C2:Py} obtained analytically in \S\ref{ssec:C2:anal}. This is structurally the same expression as in the probabilistic argument for Model-$A$ (Equation~\eqref{eq:A:Py}), with the only difference being the effective service time: $B_C$ is now the busy period of an $M/M/1+M$ subsystem with abandonment rate $\theta_1$, rather than the busy period of a pure $M/M/1$.
+in agreement with~\eqref{eq:C2:Py}. This is the same expression as in the probabilistic argument for Model-$A$ (Equation~\eqref{eq:A:Py}); the only change is the effective service time, now the busy period of an $M/M/1{+}M$ subsystem rather than of a pure $M/M/1$.
 
 \subsection{Recovery of \texorpdfstring{$P(x,y)$}{P(x,y)} from \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:recovery}
 
-With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:C2:fundamental} and substitute~\eqref{eq:C2:Py} into its right-hand side. Writing $\zeta(y) \equiv \widetilde{B}_C(\lambda_2(1-y))$ for brevity,
+With $P_y(y)$ in hand, we return to the ODE~\eqref{eq:C2:fundamental} and substitute~\eqref{eq:C2:Py} into its right-hand side. Writing $\zeta(y)\equiv\widetilde{B}_C(\lambda_2(1-y))$ for brevity,
 \begin{align*}
     \text{RHS}
     &\;=\; \mu(x-y)\,\pi(0,0)\,\frac{(1-y)\,\zeta(y)}{\zeta(y) - y} \;-\; \mu x(1-y)\,\pi(0,0) \\
@@ -245,43 +209,34 @@ With $P_y(y)$ now in hand, we return to the ODE~\eqref{eq:C2:fundamental} and su
     &\;=\; \mu\,\pi(0,0)\,(1-y)\,\frac{(x-y)\,\zeta(y) - x\bigl[\zeta(y) - y\bigr]}{\zeta(y) - y} \\
     &\;=\; \mu\,\pi(0,0)\,y(1-y)\,\frac{x - \zeta(y)}{\zeta(y) - y},
 \end{align*}
-which is structurally identical to the RHS found for Model-$A$, though now with the more involved effective service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:C2:pfd} and~\eqref{eq:C2:integrating_factor}, the source $q(x;y)$ of the standard-form ODE now reads
+which has the same form as the RHS of Model-$A$, now with the more involved service time $B_C$. With $p(x;y)$ and $\mu_I(x;y)$ as in~\eqref{eq:C2:pfd} and~\eqref{eq:C2:integrating_factor}, the standard-form source becomes
 \begin{equation*}
     q(x;y) \;=\; \frac{\mu\,\pi(0,0)\,(1-y)\,\bigl[x-\zeta(y)\bigr]}{\theta_1\,x(x-1)\,\bigl[\zeta(y)-y\bigr]},
 \end{equation*}
-and the implicit solution~\eqref{eq:C2:Pxy_implicit} becomes
+and~\eqref{eq:C2:Pxy_implicit} reads $P(x,y)=\mu_I(x;y)^{-1}\int_0^x q(t;y)\,\mu_I(t;y)\,dt$. To carry out the integral, use the partial fraction
 \begin{equation*}
-    P(x,y) \;=\; \frac{1}{\mu_I(x;y)} \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
-\end{equation*}
-
-To evaluate the integral, we use the partial-fraction identity
-\begin{align*}
     \frac{t-\zeta(y)}{t(t-1)}
-    &\;=\; \frac{\zeta(y)(t-1) + t\bigl(1-\zeta(y)\bigr)}{t(t-1)}
+    \;=\; \frac{\zeta(y)(t-1) + t\bigl(1-\zeta(y)\bigr)}{t(t-1)}
     \;=\; \frac{\zeta(y)}{t} + \frac{1-\zeta(y)}{t-1},
-\end{align*}
+\end{equation*}
 and define the auxiliary integrals
 \begin{align*}
     \mathcal{H}_1(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha-1}(1-t)^{\,\beta(y)}\,dt,  \\
-    \mathcal{H}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt, 
+    \mathcal{H}_2(x,y) &\;=\; \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\alpha}(1-t)^{\,\beta(y)-1}\,dt,
 \end{align*}
-with $\alpha$ and $\beta(y)$ as in~\eqref{eq:C2:exponents}.
+with $\alpha,\beta(y)$ as in~\eqref{eq:C2:exponents}. These are the partial (upper limit $x$) counterparts of the full integrals of \S\ref{ssec:C2:anal}: $\mathcal{H}_2(1,y)=\mathcal{J}_1(y)$ exactly, whereas $\mathcal{H}_1(1,y)\neq\mathcal{J}_0(y)$ (its $(1-t)$ exponent is $\beta(y)$, not $\beta(y)-1$). The mismatch is harmless, as $\mathcal{H}_1$ and $\mathcal{H}_2$ only ever appear in the combination $\zeta\,\mathcal{H}_1-(1-\zeta)\,\mathcal{H}_2$.
 
-\textit{Note on the $\mathcal{J}$--$\mathcal{H}$ correspondence.}  The integrals $\mathcal{H}_1, \mathcal{H}_2$ are the partial (upper limit $x$) counterparts of the full integrals $\mathcal{J}_0, \mathcal{J}_1$ from~\eqref{eq:C2:boundedness}.  Evaluating at $x=1$ gives $\mathcal{H}_2(1,y)=\mathcal{J}_1(y)$ exactly.  However, $\mathcal{H}_1(1,y)$ is \emph{not} $\mathcal{J}_0(y)$: the former has the exponent $\beta(y)$ on $(1-t)$ while the latter has $\beta(y)-1$, which under the Euler representation~\eqref{eq:kummer:euler} corresponds to incrementing the second Kummer parameter by one.  Both families are evaluated by the same representation; the exponent shift is harmless because $\mathcal{H}_1$ and $\mathcal{H}_2$ always appear together in the combination $\zeta(y)\,\mathcal{H}_1 - (1-\zeta(y))\,\mathcal{H}_2$, not individually.
-
-Multiplying the source $q(t;y)$ by the integrating factor $\mu_I(t;y)=e^{-\lambda_1 t/\theta_1}t^{\alpha}(1-t)^{\beta(y)}$ and inserting the partial fraction, the integrand splits into the two pieces defining $\mathcal{H}_1,\mathcal{H}_2$:
+Multiplying $q(t;y)$ by $\mu_I(t;y)=e^{-\lambda_1 t/\theta_1}t^{\alpha}(1-t)^{\beta(y)}$ and inserting the partial fraction, the integrand splits into the two pieces defining $\mathcal{H}_1,\mathcal{H}_2$:
 \begin{align*}
     q(t;y)\,\mu_I(t;y)
-    &\;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)} \\
-    &\qquad \times
+    &\;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}
       \left[\frac{\zeta(y)}{t} + \frac{1-\zeta(y)}{t-1}\right]
       e^{-\lambda_1 t/\theta_1}\,t^{\alpha}(1-t)^{\beta(y)} \\
     &\;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}
       \Bigl[\zeta(y)\,e^{-\lambda_1 t/\theta_1}\,t^{\alpha-1}(1-t)^{\beta(y)}
       - \bigl(1-\zeta(y)\bigr)\,e^{-\lambda_1 t/\theta_1}\,t^{\alpha}(1-t)^{\beta(y)-1}\Bigr],
 \end{align*}
-where the second term used $(1-t)^{\beta(y)}/(t-1) = -(1-t)^{\beta(y)-1}$, the same identity used to simplify the boundedness condition~\eqref{eq:C2:boundedness}; this is the source of both the minus sign and the exponent shift $\beta(y)\to\beta(y)-1$ on $\mathcal{H}_2$.
-Since $\pi(0,0)$ and $\zeta(y)$ come out of the integral,
+the second term again using $(1-t)^{\beta(y)}/(t-1)=-(1-t)^{\beta(y)-1}$, which produces both the minus sign and the exponent shift on $\mathcal{H}_2$. Since $\pi(0,0)$ and $\zeta(y)$ leave the integral,
 \begin{equation*}
     \int_0^x q(t;y)\,\mu_I(t;y)\,dt \;=\; \frac{\mu\,\pi(0,0)\,(1-y)}{\theta_1\bigl(\zeta(y)-y\bigr)}\Bigl[\zeta(y)\,\mathcal{H}_1(x,y) \;-\; \bigl(1-\zeta(y)\bigr)\,\mathcal{H}_2(x,y)\Bigr].
 \end{equation*}
@@ -292,236 +247,133 @@ Dividing by $\mu_I(x;y)$ and restoring $\zeta(y)=\widetilde{B}_C(\lambda_2(1-y))
         \times \Bigl[\widetilde{B}_C(\lambda_2(1-y))\,\mathcal{H}_1(x,y) - \bigl(1-\widetilde{B}_C(\lambda_2(1-y))\bigr)\,\mathcal{H}_2(x,y)\Bigr],
     \end{split}\label{eq:C2:Pxy}
 \end{align}
-which is the statement of the theorem. This closed form combines the boundary function $P_y(y)$ --- obtained analytically by boundedness in \S\ref{ssec:C2:anal} and re-derived probabilistically via Pollaczek--Khinchine in \S\ref{ssec:C2:prob} --- with the analytic integration of the ODE in $x$.
+which is the statement of the theorem: the boundary function $P_y(y)$---obtained analytically in \S\ref{ssec:C2:anal} and probabilistically in \S\ref{ssec:C2:prob}---combined with the analytic integration of the ODE in $x$.
 
 \begin{proof}[Proof of Corollary~\ref{cor:C2:pi00}]
-    The fully idle state---the server empty with no customer present, of probability $\pi_0$---communicates with the rest of the chain through a single neighbour: the busy-and-empty state $(N_1,N_2)=(0,0)$ of probability $\pi(0,0)$, in which exactly one customer is in service and both queues are empty (recall the standing convention $\pi_0\neq\pi(0,0)$). The system leaves the idle state only upon an arrival of either class, at combined Poisson rate $\lambda_1+\lambda_2$ (Poisson superposition), and re-enters it only upon the service completion that empties the busy-and-empty state, at rate $\mu$; no abandonment can fire from $\pi(0,0)$, since both queues are empty. Equating the probability flow across the cut separating the idle state from its single neighbour (global balance for the idle state, as in~\eqref{eq:gen:balance_idle}) therefore gives
+    The fully idle state---server empty, no customer present, probability $\pi_0$---communicates with the rest of the chain through a single neighbour: the busy-and-empty state $(N_1,N_2)=(0,0)$ of probability $\pi(0,0)$, with exactly one customer in service and both queues empty (recall the standing convention $\pi_0\neq\pi(0,0)$). The system leaves the idle state only on an arrival of either class, at combined rate $\lambda_1+\lambda_2$ (Poisson superposition), and re-enters it only on the service completion that empties the busy-and-empty state, at rate $\mu$ (no abandonment can fire from $\pi(0,0)$, as both queues are empty). Global balance across the cut isolating the idle state (as in~\eqref{eq:gen:balance_idle}) therefore gives
     \begin{equation}
         (\lambda_1+\lambda_2)\,\pi_0 \;=\; \mu\,\pi(0,0),
         \label{eq:C2:balance_zero}
     \end{equation}
-    so $\pi(0,0) = (\rho_1+\rho_2)\,\pi_0$.
+    so $\pi(0,0)=(\rho_1+\rho_2)\,\pi_0$.
 
-    To fix $\pi_0$, we exploit the $M/G/1$ structure used in \S\ref{ssec:C2:prob}. Class-$2$ customers form an $M/G/1$ queue with arrival rate $\lambda_2$ and effective service time $B_C$. By the standard $M/G/1$ work-conservation (utilisation) identity, the long-run fraction of time this $M/G/1$ is busy is $\rho_B=\lambda_2\,\mathbb{E}[B_C]$, so its idle probability is $1-\rho_B$. The event ``this $M/G/1$ is idle'' coincides with the absence of any class-$2$ customer from the system, so
+    To fix $\pi_0$, we again use the $M/G/1$ structure of \S\ref{ssec:C2:prob}. By the $M/G/1$ utilisation identity, the long-run fraction of time this queue is busy is $\rho_B=\lambda_2\,\mathbb{E}[B_C]$, and ``idle'' means no class-$2$ customer is present, so
     \begin{equation*}
         \mathbb{P}(\text{no class-$2$ present}) \;=\; 1 - \lambda_2\,\mathbb{E}[B_C].
     \end{equation*}
-    Conditional on no class-$2$ being present, the priority subsystem evolves freely as the same $M/M/1+M$ queue used to define $B_C$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$. This subsystem alternates between idle periods (no class-$1$ customer present) and busy periods $B_C$, the successive idle$+$busy spans forming an alternating renewal process whose regeneration epochs are the instants at which the subsystem empties. An idle period lasts until the next class-$1$ arrival; by the memorylessness of the exponential interarrival clock this duration is $\mathrm{Exp}(\lambda_1)$, with mean $1/\lambda_1$. The mean regeneration cycle is therefore $1/\lambda_1+\mathbb{E}[B_C]$, and by the renewal--reward theorem the stationary fraction of time the subsystem is idle equals the ratio of the mean idle period to the mean cycle:
+    Conditional on no class-$2$ being present, the priority subsystem evolves as the $M/M/1{+}M$ queue ($\lambda_1,\mu,\theta_1$) defining $B_C$, alternating idle periods and busy periods $B_C$ in an \emph{alternating renewal process} whose regenerations are the instants it empties. An idle period lasts until the next class-$1$ arrival, which by memorylessness is $\mathrm{Exp}(\lambda_1)$ with mean $1/\lambda_1$, so the mean cycle is $1/\lambda_1+\mathbb{E}[B_C]$. By the \emph{renewal--reward theorem} the idle fraction is the ratio of mean idle period to mean cycle:
     \begin{equation*}
         \mathbb{P}(\text{class-$1$ absent} \mid \text{no class-$2$ present})
         \;=\; \frac{1/\lambda_1}{1/\lambda_1+\mathbb{E}[B_C]}
         \;=\; \frac{1}{1+\lambda_1\,\mathbb{E}[B_C]}.
     \end{equation*}
-    The fully idle event $\{\text{server idle},\,N_1=N_2=0\}$ is exactly the intersection $A\cap B$ of the events $B=\{\text{no class-$2$ present}\}$ and $A=\{\text{class-$1$ absent}\}$, since the server is idle precisely when no customer of either class is in the system. By the multiplication (chain) rule $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$---using the conditional idle fraction just computed for the factor $\mathbb{P}(A\mid B)$, and \emph{not} independence of $A$ and $B$---we obtain
+    The fully idle event is the intersection of $A=\{\text{class-$1$ absent}\}$ and $B=\{\text{no class-$2$ present}\}$, so by the chain rule $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$ (not independence),
     \begin{equation*}
         \pi_0 \;=\; \bigl(1-\lambda_2\,\mathbb{E}[B_C]\bigr)\cdot\frac{1}{1+\lambda_1\,\mathbb{E}[B_C]} \;=\; \frac{1-\lambda_2\,\mathbb{E}[B_C]}{1+\lambda_1\,\mathbb{E}[B_C]},
     \end{equation*}
-    which is~\eqref{eq:C2:pi0}. Substituting into~\eqref{eq:C2:balance_zero} yields~\eqref{eq:C2:pi00}.
+    which is~\eqref{eq:C2:pi0}; substituting into~\eqref{eq:C2:balance_zero} gives~\eqref{eq:C2:pi00}.
 
-    For the Model-$A$ limit, $\theta_1\to 0^+$ gives $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$ (the busy period of the $M/M/1+M$ subsystem collapses to that of the pure $M/M/1$ priority subsystem). Then
+    In the limit $\theta_1\to 0^+$ the $M/M/1{+}M$ busy period collapses to the pure-$M/M/1$ one, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, so
     \[
-        \lambda_1\,\mathbb{E}[B_C]\to\frac{\lambda_1}{\mu-\lambda_1}=\frac{\rho_1}{1-\rho_1},
+        \lambda_1\,\mathbb{E}[B_C]\to\frac{\rho_1}{1-\rho_1},
         \qquad
-        \lambda_2\,\mathbb{E}[B_C]\to\frac{\lambda_2}{\mu-\lambda_1}=\frac{\rho_2}{1-\rho_1},
+        \lambda_2\,\mathbb{E}[B_C]\to\frac{\rho_2}{1-\rho_1},
     \]
-    so that the denominator $1+\lambda_1\,\mathbb{E}[B_C]\to 1/(1-\rho_1)$ and the numerator
-    \[
-        1-\lambda_2\,\mathbb{E}[B_C]\to 1-\frac{\rho_2}{1-\rho_1}=\frac{1-\rho_1-\rho_2}{1-\rho_1}=\frac{1-\rho}{1-\rho_1}.
-    \]
-    Substituting into~\eqref{eq:C2:pi0},
-    \[
-        \pi_0\to\frac{(1-\rho)/(1-\rho_1)}{1/(1-\rho_1)}=1-\rho,
-    \]
-    and then $\pi(0,0)=(\rho_1+\rho_2)\,\pi_0\to\rho(1-\rho)$ via~\eqref{eq:C2:balance_zero}, recovering the classical Model-$A$ baseline values.
+    whence $1+\lambda_1\,\mathbb{E}[B_C]\to1/(1-\rho_1)$ and $1-\lambda_2\,\mathbb{E}[B_C]\to(1-\rho)/(1-\rho_1)$. Therefore $\pi_0\to1-\rho$ by~\eqref{eq:C2:pi0}, and $\pi(0,0)=(\rho_1+\rho_2)\,\pi_0\to\rho(1-\rho)$, recovering the Model-$A$ baseline.
 \end{proof}
 
 \subsection{Mean queue lengths and mean waiting times}
 
 \subsubsection*{Why the diagonal no longer simplifies}
 
-Setting $x=y=z$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
-abandonment convection $\theta_1 xy(x-1)\partial_xP$ does \emph{not} vanish
-(since $(x-1)|_{x=z}\neq0$ for $z\in(0,1)$).  The diagonal equation reads:
-\begin{align}
-    \begin{split}
-        &\bigl[(\lambda_1{+}\lambda_2{+}\mu)z^2-\mu z-\lambda z^3\bigr]P(z,z)
-        + \theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z) \\
-        &\quad=\; -\mu z(1-z)\,\pi(0,0),
-    \end{split}
+Setting $x=y=z$ in~\eqref{eq:C2:fundamental}, the abandonment convection $\theta_1 xy(x-1)\,\partial_xP$ does \emph{not} vanish (the factor $(x-1)|_{x=z}\neq0$ for $z\in(0,1)$), and the diagonal equation reads
+\begin{equation}
+    \bigl[(\lambda_1{+}\lambda_2{+}\mu)z^2-\mu z-\lambda z^3\bigr]P(z,z)
+    + \theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z)
+    \;=\; -\mu z(1-z)\,\pi(0,0).
     \label{eq:C2:diag}
-\end{align}
-Comparison with Model-$A$ is instructive.  There the same diagonal substitution
-$x=y=z$ also annihilates the boundary term $\mu(x-y)\,P_y(y)$, but with
-$\theta_1=\gamma_1=\gamma_2=0$ there is \emph{no} convection term at all, so the
-diagonal equation reduced to a purely algebraic relation in the single unknown
-$P(z,z)$, with closed form $P(z,z)=\pi(0,0)/(1-\rho z)$
-(Equation~\eqref{eq:A:Pzz}), from which $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ followed
-by a single differentiation.  Here the surviving convection
-$\theta_1 z^2(z-1)\,\partial_x P(z,z)$ injects the off-diagonal slope
-$\partial_x P(z,z)$ as a \emph{second} unknown into the lone diagonal relation, and
-no companion equation closes the system; consequently no closed form for $P(z,z)$
----and hence for the total $\mathbb{E}[N_1]+\mathbb{E}[N_2]$---is available.
-Abandonment removes customers and reduces both means relative to Model-$A$.
+\end{equation}
+The contrast with Model-$A$ is instructive. There the diagonal substitution also kills the boundary term $\mu(x-y)\,P_y(y)$, but with no convection at all the equation became a purely algebraic relation in $P(z,z)$, with closed form $P(z,z)=\pi(0,0)/(1-\rho z)$~\eqref{eq:A:Pzz}, from which $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ followed by one differentiation. Here the surviving convection injects the off-diagonal slope $\partial_x P(z,z)$ as a \emph{second} unknown, and no companion equation closes the system; hence no closed form for $P(z,z)$---and so for the total $\mathbb{E}[N_1]+\mathbb{E}[N_2]$---is available. Abandonment removes customers and lowers both means relative to Model-$A$.
 
 \subsubsection*{Class-2 mean queue length via \texorpdfstring{$P(1,y)$}{P(1,y)}}
 
-Setting $x=1$ in the fundamental equation~\eqref{eq:C2:fundamental}, the
-abandonment term $\theta_1 xy(x-1)\partial_xP$ vanishes identically, and
-the coefficient of $P(1,y)$ simplifies to $\lambda_2 y(1-y)$:
+Setting $x=1$ in~\eqref{eq:C2:fundamental}, the abandonment term vanishes and the coefficient of $P(1,y)$ collapses to $\lambda_2 y(1-y)$:
+\begin{equation*}
+    \lambda_2 y(1-y)\,P(1,y) \;=\; \mu(1-y)\bigl[P_y(y)-\pi(0,0)\bigr].
+\end{equation*}
+Cancelling $(1-y)$ for $y\neq1$ and substituting the known $P_y(y)$~\eqref{eq:C2:Py},
+\begin{equation*}
+    P(1,y)
+    \;=\; \frac{\mu\bigl[P_y(y)-\pi(0,0)\bigr]}{\lambda_2 y}
+    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{1-\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y))-y},
+\end{equation*}
+the marginal PGF of $N_2$. It is $0/0$ at $y=1$, so set $\varepsilon=1-y\to0$ and use the LST expansion $\widetilde{B}_C(\lambda_2\varepsilon)=1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3)$:
 \begin{align*}
-    \begin{split}
-        \lambda_2 y(1-y)\,P(1,y)
-        \;=\; \mu(1-y)\bigl[P_y(y)-\pi(0,0)\bigr].
-    \end{split}
+    1-\widetilde{B}_C(\lambda_2\varepsilon)
+    &\;=\; \lambda_2\mathbb{E}[B_C]\,\varepsilon
+           -\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3), \\
+    \widetilde{B}_C(\lambda_2\varepsilon)-y
+    &\;=\; \bigl(1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2\bigr)-(1-\varepsilon)
+    \;=\; (1-\lambda_2\mathbb{E}[B_C])\,\varepsilon
+           +\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3).
 \end{align*}
-Cancelling $(1-y)$ for $y\neq1$ and substituting the known
-$P_y(y)$~\eqref{eq:C2:Py}:
-\begin{align*}
-    \begin{split}
-        P(1,y)
-        \;=\; \frac{\mu\bigl[P_y(y)-\pi(0,0)\bigr]}{\lambda_2 y}
-        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}
-        \cdot\frac{1-\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y))-y}.
-    \end{split}
-\end{align*}
-This is the marginal PGF of $N_2$.  To differentiate at $y=1$ (where the
-expression is $0/0$), set $\varepsilon=1-y\to0$ and use the LST expansion
-$\widetilde{B}_C(\lambda_2\varepsilon)=1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3)$:
-\begin{align*}
-    \begin{split}
-        1-\widetilde{B}_C(\lambda_2\varepsilon)
-        &\;=\; \lambda_2\mathbb{E}[B_C]\,\varepsilon
-               -\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3), \\
-        \widetilde{B}_C(\lambda_2\varepsilon)-y
-        &\;=\; \bigl(1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2\bigr)-(1-\varepsilon) \\
-        &\;=\; (1-\lambda_2\mathbb{E}[B_C])\,\varepsilon
-               +\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3),
-    \end{split}
-\end{align*}
-so that (writing $a=\lambda_2\mathbb{E}[B_C]$ and $c=\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]$):
-\begin{align*}
-    \begin{split}
-        P(1,1-\varepsilon)
-        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}
-        \cdot\frac{a\varepsilon - c\varepsilon^2+O(\varepsilon^3)}{(1-a)\varepsilon+c\varepsilon^2+O(\varepsilon^3)}
-        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}
-        \cdot\frac{a-c\varepsilon}{(1-a)+c\varepsilon}+O(\varepsilon^2).
-    \end{split}
-\end{align*}
-Differentiating $f(\varepsilon)=(a-c\varepsilon)/((1-a)+c\varepsilon)$ by the quotient rule:
-\begin{align*}
-    \begin{split}
-        f'(\varepsilon)
-        \;=\; \frac{-c\,\bigl((1-a)+c\varepsilon\bigr)-(a-c\varepsilon)\cdot c}{\bigl((1-a)+c\varepsilon\bigr)^2}
-        \;=\; \frac{-c}{(1-a+c\varepsilon)^2},
-    \end{split}
-\end{align*}
-and since $d/dy\,P(1,y)\big|_{y=1}=-d/d\varepsilon\,P(1,1-\varepsilon)\big|_{\varepsilon=0}$:
-\begin{align*}
-    \begin{split}
-        \mathbb{E}[N_2]
-        \;=\; \frac{d}{dy}P(1,y)\bigg|_{y=1}
-        \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{c}{(1-a)^2}
-        \;=\; \frac{\mu\,\pi(0,0)\,\lambda_2\,\mathbb{E}[B_C^2]}{2\,(1-\lambda_2\mathbb{E}[B_C])^2}.
-    \end{split}
-\end{align*}
-As $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$ and
-$\mathbb{E}[B_C^2]\to2\mu/(\mu-\lambda_1)^3$; substituting recovers the
-Model-$A$ value $\mathbb{E}[N_2]=\rho\rho_2/((1-\rho_1)(1-\rho))$.
+Writing $a=\lambda_2\mathbb{E}[B_C]$ and $c=\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]$,
+\begin{equation*}
+    P(1,1-\varepsilon)
+    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{a\varepsilon - c\varepsilon^2+O(\varepsilon^3)}{(1-a)\varepsilon+c\varepsilon^2+O(\varepsilon^3)}
+    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{a-c\varepsilon}{(1-a)+c\varepsilon}+O(\varepsilon^2).
+\end{equation*}
+Differentiating $f(\varepsilon)=(a-c\varepsilon)/((1-a)+c\varepsilon)$ by the quotient rule,
+\begin{equation*}
+    f'(\varepsilon)
+    \;=\; \frac{-c\,\bigl((1-a)+c\varepsilon\bigr)-(a-c\varepsilon)\,c}{\bigl((1-a)+c\varepsilon\bigr)^2}
+    \;=\; \frac{-c}{(1-a+c\varepsilon)^2},
+\end{equation*}
+and since $\tfrac{d}{dy}P(1,y)\big|_{y=1}=-\tfrac{d}{d\varepsilon}P(1,1-\varepsilon)\big|_{\varepsilon=0}$,
+\begin{equation}
+    \mathbb{E}[N_2]
+    \;=\; \frac{d}{dy}P(1,y)\bigg|_{y=1}
+    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{c}{(1-a)^2}
+    \;=\; \frac{\mu\,\pi(0,0)\,\lambda_2\,\mathbb{E}[B_C^2]}{2\,(1-\lambda_2\mathbb{E}[B_C])^2}.
+    \label{eq:C2:EN2}
+\end{equation}
+As $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$ and $\mathbb{E}[B_C^2]\to2\mu/(\mu-\lambda_1)^3$, recovering the Model-$A$ value $\mathbb{E}[N_2]=\rho\rho_2/((1-\rho_1)(1-\rho))$.
 
 \subsubsection*{Class-1 mean queue length}
 
-We extract $\mathbb{E}[N_1]=\tfrac{\partial P}{\partial x}\big|_{(1,1)}$ by evaluating
-the theorem formula at $y=1$ (limit) and then differentiating in $x$.
+We extract $\mathbb{E}[N_1]=\tfrac{\partial P}{\partial x}\big|_{(1,1)}$ by evaluating the theorem formula at $y=1$ and then differentiating in $x$.
 
 \medskip\noindent\textit{Step~1: marginal PGF $P(x,1)$.}\enspace
-As $y\to1$, the exponent $\beta(y)=\lambda_2(1-y)/\theta_1\to0$ so
-$(1-x)^{\beta(y)}\to1$ for fixed $x\in(0,1)$, and consequently
-$\mathcal{H}_1(x,y)\to\int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt$
-and $\mathcal{H}_2(x,y)$ tends to a finite limit (its integrand
-$e^{-\lambda_1 t/\theta_1}t^{\mu/\theta_1}(1-t)^{-1}$ is integrable on $[0,x]$ for
-$x<1$).  Inside the theorem's bracket the two integrals carry different weights:
-by the LST expansion of \S\ref{ssec:C2:prob},
-$\widetilde{B}_C(\lambda_2(1-y))\to\widetilde{B}_C(0)=1$ while
-$1-\widetilde{B}_C(\lambda_2(1-y))=\lambda_2\mathbb{E}[B_C]\,(1-y)+O((1-y)^2)\to0$,
-so the $\mathcal{H}_2$ term vanishes in the limit and the bracket collapses to
-$\mathcal{H}_1(x,1)$ alone.  Combining this with the scalar prefactor, whose
-$y$-dependent part satisfies
-$(1-y)/({\widetilde{B}_C(\lambda_2(1-y))-y})\to1/(1-\lambda_2\mathbb{E}[B_C])$
-(again from the expansion $\widetilde{B}_C(\lambda_2(1-y))-y=(1-\lambda_2\mathbb{E}[B_C])(1-y)+O((1-y)^2)$),
-the theorem formula gives:
-\begin{align*}
-    \begin{split}
-        P(x,1)
-        \;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}
-        \cdot e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}
-        \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt.
-    \end{split}
-\end{align*}
+As $y\to1$, the exponent $\beta(y)\to0$, so $(1-x)^{\beta(y)}\to1$ for fixed $x\in(0,1)$, and $\mathcal{H}_1(x,y)\to\int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt$ while $\mathcal{H}_2(x,y)$ tends to a finite limit. In the theorem's bracket the two integrals carry different weights: $\widetilde{B}_C(\lambda_2(1-y))\to1$, while $1-\widetilde{B}_C(\lambda_2(1-y))=\lambda_2\mathbb{E}[B_C]\,(1-y)+O((1-y)^2)\to0$, so the $\mathcal{H}_2$ term drops and the bracket collapses to $\mathcal{H}_1(x,1)$. The prefactor's $y$-dependent part satisfies $(1-y)/(\widetilde{B}_C(\lambda_2(1-y))-y)\to1/(1-\lambda_2\mathbb{E}[B_C])$, so
+\begin{equation*}
+    P(x,1)
+    \;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}\,e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}
+    \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt.
+\end{equation*}
 
 \medskip\noindent\textit{Step~2: differentiate $P(x,1)$ at $x=1$.}\enspace
-Write $P(x,1)=C\cdot f(x)\cdot\mathcal{K}(x)$ with
-$C=\mu\pi(0,0)/(\theta_1(1-\lambda_2\mathbb{E}[B_C]))$,
-$f(x)=e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}$, and
-$\mathcal{K}(x)=\int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt$.
-By the product rule and Leibniz's rule
-($d\mathcal{K}/dx = e^{-\lambda_1 x/\theta_1}\,x^{\mu/\theta_1-1}$):
-\begin{align*}
-    \begin{split}
-        \frac{d}{dx}P(x,1)
-        &\;=\; C\Bigl[f'(x)\,\mathcal{K}(x)+f(x)\cdot e^{-\lambda_1 x/\theta_1}\,x^{\mu/\theta_1-1}\Bigr].
-    \end{split}
-\end{align*}
-The logarithmic derivative $f'(x)/f(x)=\lambda_1/\theta_1-(\mu/\theta_1)/x=(\lambda_1 x-\mu)/(\theta_1 x)$,
-so:
-\begin{align*}
-    \begin{split}
-        \frac{d}{dx}P(x,1)
-        &\;=\; C\left[
-            e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}\cdot
-            \frac{\lambda_1 x-\mu}{\theta_1 x}\cdot\mathcal{K}(x)
-            \;+\; x^{-1}
-        \right].
-    \end{split}
-\end{align*}
+Write $P(x,1)=C\,f(x)\,\mathcal{K}(x)$ with $C=\mu\pi(0,0)/(\theta_1(1-\lambda_2\mathbb{E}[B_C]))$, $f(x)=e^{\lambda_1 x/\theta_1}x^{-\mu/\theta_1}$ and $\mathcal{K}(x)=\int_0^x e^{-\lambda_1 t/\theta_1}t^{\,\mu/\theta_1-1}\,dt$. By the product rule with Leibniz's rule ($\mathcal{K}'(x)=e^{-\lambda_1 x/\theta_1}x^{\mu/\theta_1-1}$) and the logarithmic derivative $f'(x)/f(x)=(\lambda_1 x-\mu)/(\theta_1 x)$,
+\begin{equation*}
+    \frac{d}{dx}P(x,1)
+    \;=\; C\Bigl[f'(x)\,\mathcal{K}(x)+f(x)\,e^{-\lambda_1 x/\theta_1}x^{\mu/\theta_1-1}\Bigr]
+    \;=\; C\left[e^{\lambda_1 x/\theta_1}x^{-\mu/\theta_1}\,\frac{\lambda_1 x-\mu}{\theta_1 x}\,\mathcal{K}(x) + x^{-1}\right].
+\end{equation*}
 
 \medskip\noindent\textit{Step~3: evaluate at $x=1$.}\enspace
-\begin{align*}
-    \begin{split}
-        \mathbb{E}[N_1]
-        &\;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1} \\
-        &\;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}
-        \left[
-            e^{\lambda_1/\theta_1}\cdot\frac{\lambda_1-\mu}{\theta_1}
-            \cdot\mathcal{K}(1)
-            \;+\; 1
-        \right],
-    \end{split}
-\end{align*}
-where $\mathcal{K}(1)=\int_0^1 e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt
-=(\theta_1/\lambda_1)^{\mu/\theta_1}\,\gamma(\mu/\theta_1,\,\lambda_1/\theta_1)$,
-with $\gamma(\cdot,\cdot)$ the lower incomplete gamma function.
-The factor $(\lambda_1-\mu)<0$ (since $\rho_1<1$), so the bracket is positive.
-No elementary simplification is known; $\mathbb{E}[N_1]$ is evaluated numerically.
-As $\theta_1\to0^+$, $\mathbb{E}[N_1]$ recovers the Model-$A$ value~\eqref{eq:A:EN1}.
+\begin{equation*}
+    \mathbb{E}[N_1]
+    \;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1}
+    \;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}
+    \left[e^{\lambda_1/\theta_1}\,\frac{\lambda_1-\mu}{\theta_1}\,\mathcal{K}(1) + 1\right],
+\end{equation*}
+where $\mathcal{K}(1)=\int_0^1 e^{-\lambda_1 t/\theta_1}t^{\,\mu/\theta_1-1}\,dt=(\theta_1/\lambda_1)^{\mu/\theta_1}\,\gamma(\mu/\theta_1,\,\lambda_1/\theta_1)$, with $\gamma(\cdot,\cdot)$ the lower incomplete gamma function. Since $\lambda_1-\mu<0$ ($\rho_1<1$) the bracket is positive. No elementary simplification is known, so $\mathbb{E}[N_1]$ is evaluated numerically; as $\theta_1\to0^+$ it recovers the Model-$A$ value~\eqref{eq:A:EN1}.
 
-\subsubsection*{Little's Law with abandonment}
+\subsubsection*{Mean waiting times via Little's Law}
 
-The universal relation $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ holds for
-any stable system.  Here $\lambda_i$ is the \emph{arrival} rate of all
-class-$i$ customers, including those that will eventually abandon, so
-$\mathbb{E}[W_i]$ is the mean time in queue averaged over both served and
-abandoned customers:
-\begin{align*}
-    \begin{split}
-        \mathbb{E}[W_1]
-        \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1},
-        \qquad
-        \mathbb{E}[W_2]
-        \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}.
-    \end{split}
-\end{align*}
-Using the throughput $\mu(1-\pi_0)$ instead would give the conditional
-waiting time of customers who complete service only --- a different object.
-As $\theta_1\to0^+$ both means recover the Model-$A$
-values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}.
+The relation $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ holds for any stable system. Here $\lambda_i$ is the arrival rate of \emph{all} class-$i$ customers, including those that eventually abandon, so $\mathbb{E}[W_i]$ is the mean queueing time averaged over both served and abandoned customers:
+\begin{equation*}
+    \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1},
+    \qquad
+    \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}.
+\end{equation*}
+Using the throughput $\mu(1-\pi_0)$ instead would give the conditional waiting time of served customers only---a different object. As $\theta_1\to0^+$ both means recover the Model-$A$ values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}.

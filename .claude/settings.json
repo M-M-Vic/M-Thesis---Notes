@@ -193,7 +193,16 @@
       "Bash(pdftotext main.pdf -)",
       "Bash(pdftotext -f 1 -l 3 main.pdf -)",
       "Bash(pdftoppm -png -r 100 -f 2 -l 2 main.pdf /tmp/abspage/p)",
-      "Bash(pdftoppm -png -r 100 -f 3 -l 3 main.pdf /tmp/abspage/p3)"
+      "Bash(pdftoppm -png -r 100 -f 3 -l 3 main.pdf /tmp/abspage/p3)",
+      "Bash(grep -n \"P\\(1,1\\)\\\\|1-\\\\\\\\\\\\\\\\pi_0\\\\|1 - \\\\\\\\\\\\\\\\pi_0\\\\|diagonal\\\\|P\\(z,z\\)\\\\|EW_1\\\\|E\\\\[W_1\\\\]\\\\|mathbb{E}\\\\[W_1\\\\]\" /Users/victor/GitVictor/M-Thesis---Notes/chapters/06_model_a.tex)",
+      "Bash(grep -i \"busy period\\\\|M/M/1\\\\|effective service\\\\|class-\\\\$1\\\\$ subsystem\")",
+      "Bash(/Library/TeX/texbin/latexmk --version)",
+      "Bash(echo \"EXIT_grep=$?\")",
+      "Bash(timeout 400 /Library/TeX/texbin/latexmk -pdf -interaction=nonstopmode main.tex)",
+      "Bash(sort -t: -k3)",
+      "Bash(python3 -c \"import sympy; print\\('sympy', sympy.__version__\\)\")",
+      "Bash(pdfinfo /Users/victor/GitVictor/M-Thesis---Notes/main.pdf)",
+      "Bash(grep -n \"x^\\\\*\\(y\\)\\\\\\\\\\\\\\\\,x^+\\(y\\)\\\\|x^\\\\*\\(y\\) x^+\\(y\\)\\\\|mu/\\\\\\\\\\\\\\\\lambda_1\\\\|x^{+}\\(y\\)\" chapters/09_model_c2.tex)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
