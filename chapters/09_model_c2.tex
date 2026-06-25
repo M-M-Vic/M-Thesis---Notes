@@ -1,6 +1,6 @@
 \section{Analysis of Model-\texorpdfstring{$C_2$}{C2} (\texorpdfstring{$\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$}{theta1>0, gamma1=gamma2=theta2=0})}\label{sec:model_c2}
 
-In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandon, with no class-$2$ abandonment and no jockeying. Figure~\ref{fig:model-c2-queue} shows the queue layout.
+In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandonment, but no class-$2$ abandonment and no jockeying. Figure~\ref{fig:model-c2-queue} shows the queue layout.
 \begin{figure}[H]
     \centering
     \resizebox{0.62\textwidth}{!}{%
@@ -8,21 +8,21 @@ In this section we derive $P(x,y)$ for the model in which only class-$1$ custome
     }
     \caption{Queue layout for Model-$C_2$. Class-1 customers abandon the system
     at rate $\theta_1$ per waiting customer (dotted arrow, upward from Queue~1).
-    Class-2 never abandons ($\theta_2=0$) and there is no jockeying.}
+    Class-2 never abandons ($\theta_2=0$). There is no jockeying.}
     \label{fig:model-c2-queue}
 \end{figure}
-This parameter choice is motivated by two facts. First, class-$2$ still sees Poisson arrivals, so the probabilistic argument of Model-$A$ carries over. Second, substituting these values into the general fundamental equation~\eqref{eq:gen:fundamental_equation} leaves a first-order linear ODE in $x$: with no $y$-derivatives the boundary function $P_y(y)$ comes out of the integral, sparing us the Volterra equation that left Model-$B$ open (\S\ref{sec:model_b}).
+This choice of parameters is motivated by two key aspects of the resulting model: first, class-$2$ still sees Poisson arrivals, so the probabilistic argument of Model-$A$ carries over; second, substituting these values into the general fundamental equation~\eqref{eq:gen:fundamental_equation} leaves a first-order linear ODE in $x$, with no $y$-derivatives the boundary function $P_y(y)$ comes out of the integral, sparing us the Volterra equation that left Model-$B$ open (\S\ref{sec:model_b}).
 
-\textbf{Stability.} Unlike the models without abandonment, stability here is non-trivial. The class-$1$ queue is an $M/M/1{+}M$ (Erlang-A) subsystem, which is positive recurrent for \emph{every} load (\S\ref{ssec:erlangA}); abandonment keeps the priority queue from ever building up, so class-$1$ on its own never destabilises the system. The only constraint comes from class-$2$, which---as the probabilistic argument of \S\ref{ssec:C2:prob} makes precise---sees an $M/G/1$ queue whose service time is one class-$1$ busy period $B_C$. That queue is stable exactly when its utilisation stays below one:
+\textbf{Stability.} Unlike the models without abandonment, stability here is non-trivial. The class-$1$ queue is an $M/M/1{+}M$ (Erlang-A) subsystem, which is positive recurrent for \emph{every} load (\S\ref{ssec:erlangA}); The only constraint comes from class-$2$, which —explained in more detail in \S\ref{ssec:C2:prob}— sees an $M/G/1$ queue whose service time is one class-$1$ busy period $B_C$. That queue is stable exactly when its utilisation stays below one:
 \begin{equation}
     \lambda_2\,\mathbb{E}[B_C] \;<\; 1
     \qquad\Longleftrightarrow\qquad
     \rho_2\cdot{}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right) \;<\; 1,
     \label{eq:C2:stability}
 \end{equation}
-the equivalence following from the mean busy period $\mathbb{E}[B_C]$ of~\eqref{eq:erlangA:bp_mean} together with the Kummer identity $\mu\bigl({}_1F_1(1;\tfrac{\mu}{\theta_1};\tfrac{\lambda_1}{\theta_1})-1\bigr)=\lambda_1\,{}_1F_1(1;\tfrac{\mu}{\theta_1}+1;\tfrac{\lambda_1}{\theta_1})$. We assume~\eqref{eq:C2:stability} throughout; under it the joint chain is positive recurrent and the stationary PGF $P(x,y)$ exists. The condition is strictly weaker than the no-abandonment requirement $\rho<1$ of Models~$A$, $B$ and~$B_2$: abandonment thins the priority queue, so class-$2$ can be stable even when $\rho\ge1$. The comparison and the sharpness of~\eqref{eq:C2:stability} are established in \S\ref{ssec:C2:prob}.
+which follows from the mean busy period $\mathbb{E}[B_C]$ (Equation~\eqref{eq:erlangA:bp_mean}) together with the Kummer identity $\mu\bigl({}_1F_1(1;\tfrac{\mu}{\theta_1};\tfrac{\lambda_1}{\theta_1})-1\bigr)=\lambda_1\,{}_1F_1(1;\tfrac{\mu}{\theta_1}+1;\tfrac{\lambda_1}{\theta_1})$. Under the stability condition (Equation~\eqref{eq:C2:stability}), the PGF exists.
 
-The following theorem states the result, obtained by both an analytical and a probabilistic route.
+The following theorem states the result, obtained by both an analytical and a probabilistic methods:
 \begin{theorem}\label{thm:C2:PGF}
     Consider the two-class non-preemptive priority system of Model-$C_2$ ($\theta_1>0$, $\gamma_1=\gamma_2=\theta_2=0$): Poisson arrivals at rates $\lambda_1,\lambda_2$, common exponential service at rate $\mu$, and per-customer abandonment of \emph{waiting} class-$1$ customers at rate $\theta_1$. Under the stability condition~\eqref{eq:C2:stability}, the probability generating function is
     \begin{align*}
@@ -40,13 +40,24 @@ The following theorem states the result, obtained by both an analytical and a pr
 \end{theorem}
 
 \begin{proof}
-The proof runs in three steps, carried out in \S\S\ref{ssec:C2:anal}--\ref{ssec:C2:recovery}.
+The proof consists of three steps:
 
-\emph{Step~(i): reduction to a first-order ODE in $x$.}  Substituting the Model-$C_2$ parameters into the general fundamental equation removes both $y$-derivatives and leaves, for each fixed $y$, a first-order linear ODE in $x$~\eqref{eq:C2:fundamental}.  Its integrating factor (\S\ref{sssec:if}) is
-\[
+\emph{Step~(i): reduction to a first-order ODE in $x$.}  Substituting the Model-$C_2$ parameters into the general fundamental equation (Equation~\eqref{eq:gen:fundamental_equation}) leaves, for each fixed $y$, a first-order linear ODE in $x$~\eqref{eq:C2:fundamental}. 
+\begin{align}
+    \begin{split}
+            &\left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
+        + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y) \\
+        & \quad=\quad \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
+        \label{eq:C2:fundamental}
+    \end{split} 
+\end{align}
+%TODO: Add brief Partial Fraction Decomposition, aligned with notation in Model-$B$
+
+Its integrating factor (\S\ref{sssec:if}) is
+\begin{equation*}
     \mu_I(x;y) \;=\; e^{-\lambda_1 x/\theta_1}\,x^{\alpha}\,(1-x)^{\beta(y)},
     \qquad \alpha=\tfrac{\mu}{\theta_1},\quad \beta(y)=\tfrac{\lambda_2(1-y)}{\theta_1},
-\]
+\end{equation*}
 which vanishes at $x=0$ and, for $y<1$, at $x=1$, since $\alpha>0$ and $\beta(y)\ge0$.
 
 \emph{Step~(ii): determination of $P_y(y)$.}  We obtain $P_y(y)$ two independent ways.  \emph{Analytically} (\S\ref{ssec:C2:anal}), boundedness of $P(x,y)$ as $x\to1$ forces $\int_0^1 q(t;y)\,\mu_I(t;y)\,dt=0$~\eqref{eq:C2:boundedness}, which the Euler--Kummer identity~\eqref{eq:C2:Bc_Kummer} solves to give $P_y(y)$~\eqref{eq:C2:Py}.  \emph{Probabilistically} (\S\ref{ssec:C2:prob}), class-$2$ sees an $M/G/1$ queue with service time $B_C$, and the Pollaczek--Khinchine formula returns the same $P_y(y)$.
@@ -70,7 +81,7 @@ Setting $\theta_1>0$ and $\gamma_1=\gamma_2=\theta_2=0$ in the general fundament
     \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y)
     + \theta_1\, xy(x-1)\,\frac{\partial}{\partial x} P(x,y) \\
     \;=\; \mu (x-y)\,P_y(y) - \mu x(1-y)\,\pi(0,0),
-    \label{eq:C2:fundamental}
+    \label{eq:C2:remove}
 \end{multline}
 where, as in Model-$A$, the boundary function $P_y(y)=P(0,y)=\sum_{n_2\ge0} \pi(0,n_2)\,y^{n_2}$ is the partial PGF over the states with the server busy and the priority queue empty ($N_1=0$).
 
@@ -161,23 +172,15 @@ This route uses no probabilistic structure: it reaches~\eqref{eq:C2:Py} through 
 
 \subsection{Probabilistic re-derivation of \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:prob}
 
-We again take the viewpoint of a class-$2$ customer waiting while the server is busy. Unlike under jockeying, class-$1$ customers here truly leave the system, so the class-$2$ Poisson arrival stream is undisturbed. Because class-$1$ holds non-preemptive priority (\S\ref{ssec:priority}), a waiting class-$2$ customer is not served while any class-$1$ customer is present ($N_1>0$); its \emph{effective service time} is therefore one full busy period $B_C$ of the class-$1$ subsystem---now an $M/M/1{+}M$ queue with rates $\lambda_1,\mu,\theta_1$, rather than the pure $M/M/1$ of Model-$A$. By the \emph{memorylessness} of the exponential service, arrival and abandonment clocks these effective service times are i.i.d., so class-$2$ sees an $M/G/1$ queue with Poisson input $\lambda_2$ and service distributed as $B_C$. Its LST $\widetilde{B}_C(s)$ and mean $\mathbb{E}[B_C]$ come from the first-step analysis of \S\ref{ssec:erlangA} (Equations~\eqref{eq:erlangA:bp_lst}--\eqref{eq:erlangA:bp_mean}).
+We again take the point of view of a class-$2$ customer waiting while the server is busy. Unlike when jockeying, class-$1$ customers here truly leave the system, so the class-$2$ Poisson arrival stream is undisturbed. the class-$2$ \emph{effective service time} is therefore one full busy period $B_C$ of the class-$1$ subsystem —now an $M/M/1{+}M$ queue with rates $\lambda_1,\mu,\theta_1$, rather than the pure $M/M/1$ of Model-$A$. So class-$2$ sees an $M/G/1$ queue with Poisson input $\lambda_2$ and service distributed as $B_C$. Its LST $\widetilde{B}_C(s)$ and mean $\mathbb{E}[B_C]$ come from the first-step analysis of \S\ref{ssec:erlangA} (Equations~\eqref{eq:erlangA:bp_lst} and \eqref{eq:erlangA:bp_mean}).
 
-This $M/G/1$ is stable iff its utilisation $\lambda_2\,\mathbb{E}[B_C]$ is below one, the condition~\eqref{eq:C2:stability}. The condition is also necessary, not merely sufficient: when $\lambda_2\,\mathbb{E}[B_C]\ge1$ the embedded $M/G/1$ is null recurrent (at equality) or transient (strictly above) and its queue length has no stationary law; since the class-$2$ count is a deterministic function of the joint state $(n_1,n_2)$, a divergent class-$2$ queue rules out positive recurrence of the joint chain. We argue this at the level of the embedded $M/G/1$, whose marginal dynamics are exact, rather than through a Lyapunov function on the joint generator.
+This $M/G/1$ is stable if and only if its utilisation $\lambda_2\,\mathbb{E}[B_C] < 1$ (Equation~\eqref{eq:C2:stability}). The condition is also strictly weaker than the no-abandonment requirement $\rho=\rho_1+\rho_2<1$.
 
-The condition is also strictly weaker than the no-abandonment requirement $\rho=\rho_1+\rho_2<1$, since for every $\theta_1>0$ the Kummer series is dominated term by term by the geometric series for $1/(1-\rho_1)$. Indeed, using $1^{(n)}=n!$, the series~\eqref{eq:kummer:series} reduces to
-\[
-    {}_1F_1\!\left(1;\,\tfrac{\mu}{\theta_1}+1;\,\tfrac{\lambda_1}{\theta_1}\right)
-    \;=\; \sum_{n=0}^{\infty}\frac{(\lambda_1/\theta_1)^n}{\bigl(\tfrac{\mu}{\theta_1}+1\bigr)^{(n)}}
-    \;=\; \sum_{n=0}^{\infty}\frac{(\lambda_1/\theta_1)^n}{\prod_{k=1}^{n}\bigl(\tfrac{\mu}{\theta_1}+k\bigr)},
-\]
-and since $\tfrac{\mu}{\theta_1}+k>\tfrac{\mu}{\theta_1}$ for every $k\ge1$, the $n$-th term is at most $(\lambda_1/\theta_1)^n/(\mu/\theta_1)^n=\rho_1^{\,n}$, strictly so for $n\ge1$. Summing, ${}_1F_1(1;\,\mu/\theta_1+1;\,\lambda_1/\theta_1)<\sum_{n\ge0}\rho_1^{\,n}=1/(1-\rho_1)$: abandonment in the priority queue stabilises the non-priority queue.
-
-Applying the Pollaczek--Khinchine formula~\eqref{eq:pk:pgf} (\S\ref{ssec:pk}) with the identifications $\lambda\mapsto\lambda_2$, $\widetilde{B}\mapsto\widetilde{B}_C$, $\rho_B=\lambda_2\,\mathbb{E}[B_C]$ gives the PGF of the stationary number of class-$2$ customers in that $M/G/1$:
+Applying the Pollaczek-Khinchine formula~\eqref{eq:pk:pgf} with the identifications $\lambda\mapsto\lambda_2$, $\widetilde{B}\mapsto\widetilde{B}_C$, $\rho_B=\lambda_2\,\mathbb{E}[B_C]$ gives the PGF of the stationary number of class-$2$ customers in that $M/G/1$:
 \begin{equation*}
     L_2(y) \;=\; \frac{(1 - \lambda_2 \mathbb{E}[B_C])\,(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y}.
 \end{equation*}
-Because $\theta_2=\gamma_1=\gamma_2=0$, the class-$2$ arrivals are Poisson and lack anticipation, so by \emph{PASTA} (\S\ref{ssec:priority}) the time-stationary number of class-$2$ customers present has the $M/G/1$ steady-state law. Conditioning on $\{\text{busy},\,N_1=0\}$---the event on which a class-$2$ customer sits at the head of its queue---identifies that count with $N_2$:
+Since class-$2$ arrivals are Poisson-distributed, by \emph{PASTA} (\S\ref{ssec:priority}), the stationary number of class-$2$ customers is that of the $M/G/1$ at all times. Conditioning on $\{\text{busy},\,N_1=0\}$, we can identify that with that count with $N_2$:
 \begin{equation}
     \mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right] \;=\; L_2(y).
     \label{eq:C2:L2_identification}
@@ -190,14 +193,14 @@ Substituting~\eqref{eq:C2:L2_identification} into the decomposition~\eqref{eq:C2
 The unknown mass $\mathbb{P}(\text{busy},N_1=0)$ is fixed by $P_y(0)=\pi(0,0)$: evaluating~\eqref{eq:C2:Py_unsimplified} at $y=0$, where $\widetilde{B}_C(\lambda_2)$ cancels,
 \begin{align*}
     \pi(0,0)=P_y(0)
-    &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,\frac{(1-\lambda_2\mathbb{E}[B_C])\cdot 1\cdot \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)} \\
-    &\;=\; \mathbb{P}(\text{busy},\,N_1=0)\,(1-\lambda_2\mathbb{E}[B_C]),
+    &= \mathbb{P}(\text{busy},\,N_1=0)\,\frac{(1-\lambda_2\mathbb{E}[B_C])\cdot 1\cdot \widetilde{B}_C(\lambda_2)}{\widetilde{B}_C(\lambda_2)}
+    &= \mathbb{P}(\text{busy},\,N_1=0)\,(1-\lambda_2\mathbb{E}[B_C]),
 \end{align*}
 so $\mathbb{P}(\text{busy},N_1=0)=\pi(0,0)/(1-\lambda_2\mathbb{E}[B_C])$. Substituting back, the factor $(1-\lambda_2\mathbb{E}[B_C])$ cancels and we recover
 \begin{equation*}
     P_y(y) \;=\; \pi(0,0)\,\frac{(1-y)\,\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y)) - y},
 \end{equation*}
-in agreement with~\eqref{eq:C2:Py}. This is the same expression as in the probabilistic argument for Model-$A$ (Equation~\eqref{eq:A:Py}); the only change is the effective service time, now the busy period of an $M/M/1{+}M$ subsystem rather than of a pure $M/M/1$.
+which matches the result of Equation~\eqref{eq:C2:Py}, and so does match the expression as in the probabilistic argument for Model-$A$ (Equation~\eqref{eq:A:Py}); the only difference is the effective service time, now the busy period of an $M/M/1{+}M$ (Erlang-A) subsystem rather than of an ordinary $M/M/1$.
 
 \subsection{Recovery of \texorpdfstring{$P(x,y)$}{P(x,y)} from \texorpdfstring{$P_y(y)$}{Py(y)}}\label{ssec:C2:recovery}
 
@@ -286,20 +289,20 @@ which is the statement of the theorem: the boundary function $P_y(y)$---obtained
 
 \subsubsection*{Why the diagonal no longer simplifies}
 
-Setting $x=y=z$ in~\eqref{eq:C2:fundamental}, the abandonment convection $\theta_1 xy(x-1)\,\partial_xP$ does \emph{not} vanish (the factor $(x-1)|_{x=z}\neq0$ for $z\in(0,1)$), and the diagonal equation reads
+Setting $x=y=z$ in~\eqref{eq:C2:fundamental}, the abandonment derivative term $\theta_1 xy(x-1)\,\partial_xP$ survives (the factor $(x-1)|_{x=z}\neq0$ for $z\in(0,1)$), and the diagonal equation reads
 \begin{equation}
     \bigl[(\lambda_1{+}\lambda_2{+}\mu)z^2-\mu z-\lambda z^3\bigr]P(z,z)
     + \theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z)
     \;=\; -\mu z(1-z)\,\pi(0,0).
     \label{eq:C2:diag}
 \end{equation}
-The contrast with Model-$A$ is instructive. There the diagonal substitution also kills the boundary term $\mu(x-y)\,P_y(y)$, but with no convection at all the equation became a purely algebraic relation in $P(z,z)$, with closed form $P(z,z)=\pi(0,0)/(1-\rho z)$~\eqref{eq:A:Pzz}, from which $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ followed by one differentiation. Here the surviving convection injects the off-diagonal slope $\partial_x P(z,z)$ as a \emph{second} unknown, and no companion equation closes the system; hence no closed form for $P(z,z)$---and so for the total $\mathbb{E}[N_1]+\mathbb{E}[N_2]$---is available. Abandonment removes customers and lowers both means relative to Model-$A$.
+The contrast with Model-$A$ —or models without abandonment— is instructive: $P(z,z)$ is no longer purely algebraic with closed form $P(z,z)=\pi(0,0)/(1-\rho z)$~\eqref{eq:A:Pzz}, where the total number of customers $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ followed easily by differentiation. Here the surviving derivative term remains as a second unknown so that path is no longer available since abandonment removes customers and lowers both means relative to models without abandonments.
 
 \subsubsection*{Class-2 mean queue length via \texorpdfstring{$P(1,y)$}{P(1,y)}}
 
-Setting $x=1$ in~\eqref{eq:C2:fundamental}, the abandonment term vanishes and the coefficient of $P(1,y)$ collapses to $\lambda_2 y(1-y)$:
+Setting $x=1$ in~\eqref{eq:C2:fundamental} we obtain
 \begin{equation*}
-    \lambda_2 y(1-y)\,P(1,y) \;=\; \mu(1-y)\bigl[P_y(y)-\pi(0,0)\bigr].
+    \lambda_2 y(1-y)\,P(1,y) \;=\; \mu(1-y)\bigl[P_y(y)-\pi(0,0)\bigr]. \\
 \end{equation*}
 Cancelling $(1-y)$ for $y\neq1$ and substituting the known $P_y(y)$~\eqref{eq:C2:Py},
 \begin{equation*}
