@@ -1,27 +1,20 @@
 \section{Analysis of Model-\texorpdfstring{$\BH$}{B2-H} (\texorpdfstring{$\gamma_1>0$}{gamma1>0} head-of-line, \texorpdfstring{$\gamma_2=\theta_1=\theta_2=0$}{gamma2=theta1=theta2=0})}
 \label{sec:model_b21}
 
-Model-$\BH$ is a deliberately simplified variant of the one-way jockeying model
-Model-$B_2$. In Model-$B_2$ \emph{every} waiting class-$1$ customer may jockey to the
-class-$2$ queue, so the aggregate jockeying rate out of a state grows linearly with the
-queue length, $\gamma_1 n_1$. Here, by contrast, only the \emph{customer at the head of
-Queue~1} --- the one that would be the next class-$1$ customer to enter service --- is
-allowed to jockey, at the fixed rate $\gamma_1$ whenever $n_1\ge 1$. The aggregate
-jockeying rate is therefore $\gamma_1\,\mathbf{1}_{\{n_1\ge 1\}}$ rather than
-$\gamma_1 n_1$.
+Model-$\BH$ simplifies the one-way jockeying model Model-$B_2$ in a single way. In
+Model-$B_2$ \emph{every} waiting class-$1$ customer may jockey to the class-$2$ queue, so
+the aggregate jockeying rate grows with the queue length, $\gamma_1 n_1$. Here only the
+\emph{customer at the head of Queue~1} --- the one next in line for service --- may jockey,
+at the fixed rate $\gamma_1$ whenever $n_1\ge1$; the aggregate rate is therefore the bounded
+$\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
 
-This single change is decisive for tractability. In Model-$B_2$ the linear coefficient
-$\gamma_1 n_1$ produces, upon forming the joint PGF, a term proportional to
-$xy(x-y)\,\partial P/\partial x$, turning the fundamental equation into a first-order
-linear ODE in $x$ that requires the integrating-factor machinery of
-\S\ref{sec:model_b2}. The flat rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$, on the
-other hand, contributes only the \emph{algebraic} factor $\gamma_1 y(x-y)$ to the
-coefficient of $P(x,y)$; \emph{no derivative of $P$ appears}. The fundamental equation is
-then purely algebraic and can be solved by the Kernel Method exactly as in Model-$A$
-(\S\ref{sec:model_a}). The analysis below mirrors the analytical treatment of
-Model-$A$ step by step, and the resulting PGF turns out to be \emph{structurally
-identical} to that of Model-$A$, the only difference being a shift in the characteristic
-roots.
+This one change is what makes the model tractable. The linear rate $\gamma_1 n_1$ turns the
+joint-PGF equation of Model-$B_2$ into a first-order ODE in $x$, solved by the
+integrating factor of \S\ref{sec:model_b2}. The flat rate contributes instead only the
+\emph{algebraic} factor $\gamma_1 y(x-y)$ --- no derivative of $P$ survives --- so the
+fundamental equation stays algebraic and yields to the Kernel Method exactly as in
+Model-$A$ (\S\ref{sec:model_a}). The resulting PGF is structurally identical to
+Model-$A$'s; only the kernel roots shift.
 
 \textbf{Stability.} Jockeying relocates a waiting customer between the two queues but does
 not remove anyone from the system; the total number of customers is therefore conserved by
@@ -74,15 +67,11 @@ equations read
         &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
     \end{split} &&\label{eq:B21:idle}
 \end{align}
-Two structural remarks are in order. First, jockeying is an \emph{out}-transition from any
-state with $n_1\ge1$ (hence the $+\gamma_1$ in the left-hand sides of
-\eqref{eq:B21:interior} and~\eqref{eq:B21:xboundary}) and an \emph{in}-transition into any
-state with $n_2\ge1$ from the state $(n_1+1,n_2-1)$ (hence the $\gamma_1\pi(n_1+1,n_2-1)$
-in~\eqref{eq:B21:interior} and the $\gamma_1\pi(1,n_2-1)$ in~\eqref{eq:B21:yboundary}).
-Second, when $n_2=0$ there is no jockeying in-flow, since it would have to originate from
-the non-existent state $(n_1+1,-1)$; and when $n_1=0$ there is no jockeying out-flow. The
-remaining transitions --- Poisson arrivals at $\lambda_1,\lambda_2$ and service
-completions at $\mu$ --- are exactly those of Model-$A$.
+Jockeying is an out-transition from every state with $n_1\ge1$ (the $+\gamma_1$ on the left
+of~\eqref{eq:B21:interior}--\eqref{eq:B21:xboundary}) and an in-transition into every state
+with $n_2\ge1$ from $(n_1+1,n_2-1)$; it is absent when $n_2=0$ (no source state) or $n_1=0$
+(no head to move), and all remaining transitions --- the $\lambda_1,\lambda_2$ arrivals and
+the $\mu$ service completions --- are exactly those of Model-$A$.
 
 \subsection{Fundamental PGF equation}
 
@@ -248,21 +237,16 @@ the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself
 $y$-dependent here, whereas in Model-$A$ (and in Model-$\CH$ below) the constant term is
 independent of $y$.
 
-Setting $x=x^*(y)$ in~\eqref{eq:B21:fundamental} and equating the right-hand side to zero,
-\begin{equation*}
-    \bigl[\mu(x^*(y)-y) + \gamma_1 y(x^*(y)-y)\bigr]P_y(y) - \mu x^*(y)(1-y)\,\pi(0,0) = 0,
-\end{equation*}
-that is, $(x^*(y)-y)(\mu+\gamma_1 y)P_y(y) = \mu x^*(y)(1-y)\pi(0,0)$, whence the boundary
+Setting $x=x^*(y)$ in~\eqref{eq:B21:fundamental} forces the right-hand side to vanish:
+$(x^*(y)-y)(\mu+\gamma_1 y)\,P_y(y) = \mu x^*(y)(1-y)\,\pi(0,0)$, whence the boundary
 function is
 \begin{equation}
     P_y(y) = \frac{\mu\,x^*(y)\,(1-y)\,\pi(0,0)}
                   {(\mu+\gamma_1 y)\,\bigl(x^*(y)-y\bigr)}.
     \label{eq:B21:Py}
 \end{equation}
-As a consistency check, set $y=0$ in~\eqref{eq:B21:Py}: the factor $\mu+\gamma_1 y$ becomes
-$\mu$ and $1-y$ becomes $1$, so
-$P_y(0)=\mu\,x^*(0)\,\pi(0,0)/\bigl(\mu\,x^*(0)\bigr)=\pi(0,0)$ (using $x^*(0)>0$, the
-smaller of the two positive roots), recovering the boundary value $P_y(0)=\pi(0,0)$.
+As a consistency check, at $y=0$ the denominator of~\eqref{eq:B21:Py} reduces to $\mu\,x^*(0)$
+(with $x^*(0)>0$), so $P_y(0)=\pi(0,0)$, as it must.
 
 Finally, substitute~\eqref{eq:B21:Py} and $\pi(0,0)=\rho(1-\rho)$
 (Corollary~\ref{cor:B21:pi0}) back into~\eqref{eq:B21:fundamental}. Writing the kernel as
@@ -312,10 +296,9 @@ in~\eqref{eq:B21:PGF} through the diagonal identity~\eqref{eq:B21:Pzz} gives
 $P(1,1)=\rho=1-\pi_0$, confirming normalisation, and the diagonal
 $P(z,z)=\pi(0,0)/(1-\rho z)$ is exactly that of the combined $M/M/1(\lambda,\mu)$
 queue --- as it must be, since jockeying conserves the total customer count.
-Beyond this $\gamma_1\to0^+$ limit, $\BH$ itself occupies the $k=1$ rung of the
-head-of-line ladder discussed in Section~\ref{sec:future_work}, which interpolates
-towards the length-proportional Model-$B_2$ of Section~\ref{sec:model_b2} as
-$k\to\infty$.
+Beyond the $\gamma_1\to0^+$ limit, $\BH$ is the $k=1$ rung of the head-of-line ladder of
+\S\ref{sec:future_work}, which interpolates towards the length-proportional Model-$B_2$
+(\S\ref{sec:model_b2}) as $k\to\infty$.
 
 \subsection{Mean queue lengths and mean waiting times}
 
@@ -367,12 +350,9 @@ identical to the combined $M/M/1$ result of Model-$A$~\eqref{eq:A:EN2}.
 
 Subtracting~\eqref{eq:B21:EN1} from~\eqref{eq:B21:EN},
 \begin{equation}
-    \begin{split}
-        \mathbb{E}[N_2]
-        &\;=\; \frac{\rho^2}{1-\rho} - \frac{\rho\,\rho_B}{1-\rho_B}
-        \;=\; \frac{\rho\bigl[\rho(1-\rho_B)-\rho_B(1-\rho)\bigr]}{(1-\rho)(1-\rho_B)} \\[4pt]
-        &\;=\; \frac{\rho\,(\rho-\rho_B)}{(1-\rho)(1-\rho_B)}.
-    \end{split}
+    \mathbb{E}[N_2]
+    \;=\; \frac{\rho^2}{1-\rho} - \frac{\rho\,\rho_B}{1-\rho_B}
+    \;=\; \frac{\rho\,(\rho-\rho_B)}{(1-\rho)(1-\rho_B)}.
     \label{eq:B21:EN2}
 \end{equation}
 The excess load admits a transparent decomposition,

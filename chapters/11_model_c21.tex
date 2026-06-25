@@ -1,18 +1,16 @@
 \section{Analysis of Model-\texorpdfstring{$\CH$}{C2-H} (\texorpdfstring{$\theta_1>0$}{theta1>0} head-of-line, \texorpdfstring{$\gamma_1=\gamma_2=\theta_2=0$}{gamma1=gamma2=theta2=0})}
 \label{sec:model_c21}
 
-Model-$\CH$ is the abandonment counterpart of Model-$\BH$, and a simplified variant of
-the class-$1$ abandonment model Model-$C_2$. In Model-$C_2$ \emph{every} waiting class-$1$
-customer is impatient and reneges at the linear rate $\theta_1 n_1$, turning the class-$1$
-subsystem into an $M/M/1{+}M$ (Erlang-A) queue and the fundamental equation into a
-first-order ODE. Here only the \emph{customer at the head of Queue~1} may abandon, at the
-fixed rate $\theta_1$ whenever $n_1\ge1$; the aggregate abandonment rate is
-$\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ rather than $\theta_1 n_1$. As with Model-$\BH$, the
-flat rate contributes an \emph{algebraic} term to the fundamental equation rather than a
-derivative, and the Kernel Method applies directly. Unlike jockeying, abandonment is a
-\emph{true departure}: it removes a customer from the system and so breaks the conservation
-of the total customer count that Model-$\BH$ enjoyed. The empty-state probabilities and
-the class-$2$ mean queue length consequently require a separate argument.
+Model-$\CH$ is the abandonment counterpart of Model-$\BH$, and the head-of-line
+simplification of the class-$1$ abandonment model Model-$C_2$. Where Model-$C_2$ lets every
+waiting class-$1$ customer renege at the linear rate $\theta_1 n_1$ --- making the class-$1$
+subsystem an $M/M/1{+}M$ (Erlang-A) queue and the fundamental equation an ODE --- here only
+the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever
+$n_1\ge1$. As in Model-$\BH$, the flat rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes
+an \emph{algebraic} term rather than a derivative, and the Kernel Method applies directly.
+The one essential difference is that abandonment is a \emph{true departure}: it removes a
+customer and so breaks the conservation of the total count that Model-$\BH$ enjoyed, so the
+empty-state probabilities and the class-$2$ mean queue length need separate arguments.
 
 \textbf{Stability.} Because only the head of Queue~1 abandons, the aggregate abandonment
 rate is bounded by $\theta_1$ regardless of queue length, so --- in contrast to the Erlang-A
@@ -28,8 +26,12 @@ This is \emph{weaker} than $\rho<1$: if $\rho<1$ then $\mu-\lambda>0$ and the co
 trivially, but it can also hold with $\rho\ge1$ provided $\theta_1$ is large enough --- head
 abandonment accelerates the clearance of the priority queue and can stabilise the system at
 offered loads exceeding the service capacity. Moreover~\eqref{eq:C21:stability} implies
-$\rho_C:=\lambda_1/(\mu+\theta_1)<1$, so the priority subqueue is itself stable whenever the
-condition holds.
+$\rho_C:=\lambda_1/(\mu+\theta_1)<1$,\footnote{Write the left-hand side
+of~\eqref{eq:C21:stability} as $(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1
+=\mu(\mu+\theta_1-\lambda)-\theta_1\lambda_2$. If $\mu+\theta_1\le\lambda_1$ then
+$\mu+\theta_1-\lambda\le\lambda_1-\lambda=-\lambda_2<0$, so this expression is negative,
+contradicting~\eqref{eq:C21:stability}. Hence $\mu+\theta_1>\lambda_1$, i.e.\ $\rho_C<1$.}
+so the priority subqueue is itself stable whenever the condition holds.
 
 \subsection{Balance equations}
 
@@ -229,9 +231,10 @@ quadratic $f(x):=\lambda_1 x^2-A(y)x+(\mu+\theta_1)$ at $x=1$,
     f(1) = \lambda_1 - A(y) + (\mu+\theta_1) = -\lambda_2(1-y) < 0
     \qquad\text{for } y\in[0,1),
 \end{equation*}
-so $x=1$ lies between the two roots and $x^*(y)<1<x^+(y)$ for $y\in[0,1)$; at $y=1$,
-$x^*(1)=1$ and $x^+(1)=(\mu+\theta_1)/\lambda_1>1$ (the latter by $\rho_C<1$). Hence $x^*(y)$
-is the unique root inside the unit disk. Differentiating~\eqref{eq:C21:xstar} at $y=1$,
+so, by the same upward-parabola argument as in~\S\ref{sssec:B21:analytical}, $x=1$ lies
+between the two roots and $x^*(y)<1<x^+(y)$ for $y\in[0,1)$; at $y=1$, $x^*(1)=1$ and
+$x^+(1)=(\mu+\theta_1)/\lambda_1>1$ (the latter by $\rho_C<1$). Hence $x^*(y)$ is the unique
+root inside the unit disk. Differentiating~\eqref{eq:C21:xstar} at $y=1$,
 \begin{equation}
     \frac{d}{dy}x^*(1) = \frac{\lambda_2}{\mu+\theta_1-\lambda_1},
     \label{eq:C21:xstar_deriv}
@@ -249,26 +252,20 @@ $\mu(x^*-y)+\theta_1 y(x^*-1)=(\mu+\theta_1 y)x^*-y(\mu+\theta_1)$, the boundary
                   {(\mu+\theta_1 y)\,x^*(y)-y(\mu+\theta_1)}.
     \label{eq:C21:Py}
 \end{equation}
-At $y=0$ the denominator is $\Delta(0)=\mu\,x^*(0)$, so
-$P_y(0)=\mu x^*(0)\pi(0,0)/(\mu\,x^*(0))=\pi(0,0)$ (using $x^*(0)>0$, the smaller positive
-root), as required.
+Write $\Delta(y):=(\mu+\theta_1 y)x^*(y)-y(\mu+\theta_1)$ for the denominator
+of~\eqref{eq:C21:Py}; at $y=0$, $\Delta(0)=\mu\,x^*(0)$ (with $x^*(0)>0$), so
+$P_y(0)=\pi(0,0)$, exactly as for Model-$\BH$ at~\eqref{eq:B21:Py}.
 
-Substituting~\eqref{eq:C21:Py} into~\eqref{eq:C21:fundamental}, writing the kernel as
-$-\lambda_1 y\,(x-x^*(y))(x-x^+(y))$, and abbreviating the denominator
-of~\eqref{eq:C21:Py} by $\Delta(y):=(\mu+\theta_1 y)x^*(y)-y(\mu+\theta_1)$, the right-hand
-side becomes
-\begin{align*}
-    \bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]P_y(y) \\
-    {}-\mu x(1-y)\pi(0,0)
-    &= \frac{\mu(1-y)\pi(0,0)}{\Delta(y)}
-       \Bigl\{\bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]x^*(y) - x\,\Delta(y)\Bigr\} \\
-    &= \frac{\mu(1-y)\pi(0,0)}{\Delta(y)}\,(\mu+\theta_1)\,y\,\bigl(x-x^*(y)\bigr),
-\end{align*}
-where, after substituting $\Delta(y)=(\mu+\theta_1 y)x^*(y)-y(\mu+\theta_1)$, the curly
-bracket is \emph{linear} in $x^*(y)$ and collapses term-by-term to
-$(\mu+\theta_1)y\bigl(x-x^*(y)\bigr)$ (no use of the kernel relation is required). Dividing by
-the factored kernel, the factor
-$\bigl(x-x^*(y)\bigr)$ cancels and
+Substituting~\eqref{eq:C21:Py} into~\eqref{eq:C21:fundamental} and writing the kernel as
+$-\lambda_1 y\,(x-x^*(y))(x-x^+(y))$, the right-hand side becomes
+\begin{equation*}
+    \bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]P_y(y) - \mu x(1-y)\,\pi(0,0)
+    = \frac{\mu(1-y)\,\pi(0,0)}{\Delta(y)}\,
+      \Bigl\{\bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]x^*(y) - x\,\Delta(y)\Bigr\}.
+\end{equation*}
+Substituting $\Delta(y)$ into the curly bracket, the $x\,x^*(y)$ terms cancel and it
+collapses to $(\mu+\theta_1)\,y\,(x-x^*(y))$ --- with no recourse to the kernel relation.
+Dividing by the factored kernel cancels $(x-x^*(y))$, giving
 \begin{equation*}
     P(x,y) = \frac{\mu(\mu+\theta_1)(1-y)\,\pi(0,0)\,y\,(x-x^*(y))/\Delta(y)}
                   {-\lambda_1 y\,(x-x^*(y))(x-x^+(y))}
@@ -280,18 +277,14 @@ which is~\eqref{eq:C21:PGF} and concludes the proof.
 
 \subsubsection{Probabilistic approach for Model-\texorpdfstring{$\CH$}{C2-H}}\label{sssec:C21:probabilistic}
 
-As for Model-$\BH$, the Pollaczek--Khinchine route used for Models~$A$ and~$C_2$ does not
-transfer. In Model-$C_2$ the class-$1$ subsystem seen by class~$2$ is a clean $M/M/1{+}M$
-(Erlang-A) queue whose busy period $B_C$ is an i.i.d.\ renewal quantity, and class~$2$ sees
-an $M/G/1$ queue with service $B_C$. Under head-only abandonment this clean renewal
-structure is lost: abandonment acts at the fixed rate $\theta_1$ only while a class-$1$
-customer waits ($N_1\ge1$) but is inactive when the single class-$1$ present is in service,
-so the departure rate of the class-$1$ subsystem is state-dependent at its boundary and the
-class-$1$ busy period is not the busy period of any single $M/M/1$ or $M/M/1{+}M$ queue.
-Consequently class~$2$ does not see a renewal $M/G/1$ input and no Pollaczek--Khinchine
-representation of $P_y(y)$ is available. We retain this subsection, in parallel with the
-other models, only to record why the analytical route of~\S\ref{sssec:C21:analytical} is the
-operative one.
+As for Model-$\BH$ (\S\ref{sssec:B21:probabilistic}), the Pollaczek--Khinchine route of
+Models~$A$ and~$C_2$ does not transfer, and we keep this subsection only to record why. The
+reason here is specific to abandonment: head abandonment fires only while a class-$1$
+customer \emph{waits} ($N_1\ge1$) and is inactive while the single class-$1$ present is in
+service, so the class-$1$ busy period is not that of any $M/M/1$ or $M/M/1{+}M$ queue.
+Class~$2$ therefore sees a non-renewal $M/G/1$ input, no Pollaczek--Khinchine representation
+of $P_y(y)$ exists, and the analytical route of~\S\ref{sssec:C21:analytical} is the operative
+one.
 
 \subsection{Limits and sanity checks}
 
@@ -387,12 +380,9 @@ abandon. Queue~2, by contrast, receives no jockeying input and its customers nev
 simply $\Lambda_2=\lambda_2$:
 \begin{equation*}
     \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}
-    \;=\; \frac{\lambda\,(\mu+\theta_1)\bigl[(\mu+\theta_1)^2-\lambda_1\theta_1\bigr]}
-               {(\mu+\theta_1-\lambda_1)\,
-                \bigl[\mu(\mu+\theta_1)+\lambda_1\theta_1\bigr]\,
-                \bigl[(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1\bigr]}.
 \end{equation*}
-Both reduce to the corresponding Model-$A$ expressions as $\theta_1\to0^+$.
+with $\mathbb{E}[N_2]$ from~\eqref{eq:C21:EN2}, the $\lambda_2$ cancelling against its
+numerator. Both means reduce to the corresponding Model-$A$ expressions as $\theta_1\to0^+$.
 
 \subsection{Comparison of the head-of-line models}
 
