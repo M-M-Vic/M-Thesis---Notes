@@ -1,7 +1,8 @@
 \section{Analysis of Model-\texorpdfstring{$C_2$}{C2} (\texorpdfstring{$\theta_1>0,\,\gamma_1=\gamma_2=\theta_2=0$}{theta1>0, gamma1=gamma2=theta2=0})}\label{sec:model_c2}
 
-In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandon, with no class-$2$ abandonment and no jockeying. Figure~\ref{fig:model-c2-queue} shows the queue layout.
+In this section we derive $P(x,y)$ for the model in which only class-$1$ customers abandon, with no class-$2$ abandonment and no jockeying. 
 
+Figure~\ref{fig:model-c2-queue} shows the queue layout.
 \begin{figure}[H]
     \centering
     \resizebox{0.62\textwidth}{!}{%
@@ -11,8 +12,12 @@ In this section we derive $P(x,y)$ for the model in which only class-$1$ custome
     at rate $\theta_1$ per waiting customer (dotted arrow, upward from Queue~1).
     Class-2 never abandons ($\theta_2=0$) and there is no jockeying.}
     \label{fig:model-c2-queue}
-\end{figure} The rationale for this parameter choice is twofold. First, class-$2$ still sees Poisson arrivals, so the probabilistic arguments used for Model-$A$ carry over. Second, substituting these parameters into the fundamental equation~\eqref{eq:C2:fundamental} yields a \textit{first-order linear ODE} in $x$ in which $P_y(y)$ can be taken outside the integral, sparing us a Volterra-type equation.
+\end{figure}
+This choice of parameters is motivated by two ideas: first, class-$2$ still sees Poisson arrivals, so the probabilistic argument used for Model-$A$ can still hold; second, substituting these parameters into the fundamental equation (Equation~\eqref{eq:gen:fundamental_equation}) yields to a first-order linear ODE in $x$, allowing us to take our boundary function $P_y(y)$ outside the integral and sparing us having to solve a Volterra-type integral equation.
 
+\textbf{Stability.} Unlike models without abandonments, stability is here non-trivial. As noted in the Preliminaries section (\S~\ref{ssec:erlangA}), the Erlang-A queue is always stable. In the bivariate case, [...]
+
+The following theorem presents the result, obtained by both analytical and probabilistic approaches:
 \begin{theorem}\label{thm:C2:PGF}
     Consider a queueing system with $2$ priority classes with Poisson arrival rates $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority over those of class-$2$, exponentially distributed service times of rate $\mu$ independently of the class, and per-customer abandonment of class-$1$ customers from the queue at rate $\theta_1$ (with no class-$2$ abandonment and no jockeying). Under the stability condition
     \begin{equation*}
