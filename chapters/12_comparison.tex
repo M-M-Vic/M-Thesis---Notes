@@ -3,12 +3,11 @@
 
 With every closed form validated, we compare the five solved models: the baseline ($A$), the
 jockeying extension ($B_2$), the abandonment extension ($C_2$), and their head-of-line
-variants ($\BH$, $\CH$). The first three are the tractable specialisations of Model-$X$, each
-obtained by zeroing all but one of the extra mechanisms; the head-of-line variants are the
-standalone simplifications of \S\S\ref{sec:model_b21}--\ref{sec:model_c21}. Each produces a
-closed-form or integral-form expression for $P(x,y)$. Table~\ref{tab:comparison} collects the
-key structural facts for the three full-rate models; the remainder of this subsection traces
-the consequences and quantifies them, deferring the exhaustive sweep-by-sweep evidence to
+variants ($\BH$, $\CH$). The first three are the tractable specialisations of Model-$X$;
+the head-of-line variants are the standalone simplifications of
+\S\S\ref{sec:model_b21}--\ref{sec:model_c21}. Each produces a closed-form or integral-form
+expression for $P(x,y)$. Table~\ref{tab:comparison} collects the key structural facts for the
+three full-rate models; the exhaustive sweep-by-sweep evidence is deferred to
 Appendix~\ref{app:numerics}.
 
 \begin{table}[H]
@@ -100,9 +99,8 @@ to Model-$A$ for all $\gamma_1>0$.
 
 \emph{What is destroyed.}
 Jockeying breaks the per-class Poisson/renewal structure: a class-2 customer
-can no longer identify its effective service time with a class-1 busy period,
-because class-1 customers now arrive at Queue~2 from inside the system as well
-as from outside.  The P-K route is therefore unavailable.
+can no longer identify its effective service time with a class-1 busy period.
+The P-K route is therefore unavailable.
 
 \emph{What is new.}
 The fundamental PGF equation gains the convection term
@@ -152,7 +150,7 @@ because class-1 abandonments free the server sooner.
 
 Both models reduce the fundamental equation to a first-order linear ODE in $x$
 and both close in confluent hypergeometric functions; yet the mechanism that
-pins $P_y(y)$ is structurally different.  The contrast is as follows.
+pins $P_y(y)$ is structurally different.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.45}
@@ -182,20 +180,13 @@ Probabilistic backbone
 \end{tabular}
 \end{center}
 
-In words: in Model-$C_2$ the abandonment convection $\theta_1 x(x-1)$ places
-the singularity at the boundary $x=1$ with a positive integrating-factor
-exponent, so $\mu_I$ vanishes there and mere boundedness forces the vanishing
-integral that determines $P_y(y)$.  The Poisson character of the class-2
-stream survives abandonment, so P-K delivers $P_y(y)$ probabilistically and
-an $M/G/1$ renewal argument delivers $\pi(0,0)$.  In Model-$B_2$, the
-jockeying convection $\gamma_1 x(x-y)$ places the singularity at the interior
-point $x=y$ with a negative exponent, so $\mu_I$ blows up, the homogeneous
-mode vanishes, and only the stronger requirement of holomorphy --- the absence
-of the non-integer branch $(x-y)^{|\beta|}$ --- pins $P_y(y)$.  Jockeying
-destroys the per-class Poisson/renewal structure, so no P-K identity is
-available; what remains probabilistic is the total-customer $M/M/1$ behaviour
-and the $M/M/1{+}M$ reading of the class-1 marginal, which is the origin of
-the ${}_1F_1$ factors.
+In words: in Model-$C_2$ the singularity sits on the boundary $x=1$ with a positive
+exponent, so $\mu_I$ vanishes and mere boundedness pins $P_y(y)$; the class-2 stream stays
+Poisson, so P-K and an $M/G/1$ renewal argument deliver $P_y(y)$ and $\pi(0,0)$. In
+Model-$B_2$ the singularity sits at the interior point $x=y$ with a negative exponent, so
+$\mu_I$ blows up and only holomorphy --- the absence of the branch $(x-y)^{|\beta|}$ --- pins
+$P_y(y)$. Jockeying leaves no P-K identity; the $M/M/1{+}M$ reading of the class-1 marginal is
+the origin of the ${}_1F_1$ factors.
 
 \subsubsection*{Common Erlang-A structure}
 
@@ -205,9 +196,8 @@ A common object appears in both B$_2$ and C$_2$:
     \label{eq:comp:1F1}
 \end{equation}
 with $r=\gamma_1$ (Model-$B_2$) or $r=\theta_1$ (Model-$C_2$).
-This is the Erlang-A utilisation factor: in C$_2$ it equals $\mu\,\mathbb{E}[B_C]$
-(the mean class-1 busy period scaled by $\mu$), while in B$_2$ it controls the
-Kummer ratio in $P_y(y)$ through the exponent $\alpha(y)=\mu/(\gamma_1 y)$.
+This is the Erlang-A utilisation factor: in C$_2$ it equals $\mu\,\mathbb{E}[B_C]$, while in
+B$_2$ it controls the Kummer ratio in $P_y(y)$ through the exponent $\alpha(y)=\mu/(\gamma_1 y)$.
 In both cases the function evaluates at a negative argument
 $(-\lambda_1/r)$ in C$_2$ and $(-\lambda_1 y/\gamma_1)$ in B$_2$, and the
 ratio ${}_1F_1(\alpha+1;\cdot;\cdot)/{}_1F_1(\alpha;\cdot;\cdot)$ acts as a
@@ -215,8 +205,8 @@ boundary correction to the Model-$A$ rational formula.
 
 Model-$B_2$ degenerates to Model-$A$ only in the singular limit
 $\gamma_1\to0^+$, in which $\alpha,\beta\to\infty$ and the Kummer ratio
-collapses to the rational expression $x^*(y)(1-y)/(x^*(y)-y)$ of Model-$A$;
-this limit is not uniform, consistent with $\gamma_1$ multiplying the
+collapses to the rational expression $x^*(y)(1-y)/(x^*(y)-y)$ of Model-$A$.
+This limit is not uniform, consistent with $\gamma_1$ multiplying the
 highest-order term of the ODE.  Model-$C_2$ degenerates to Model-$A$ uniformly
 as $\theta_1\to0^+$: $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, and all
 C$_2$ formulas recover their Model-$A$ counterparts.
@@ -224,9 +214,9 @@ C$_2$ formulas recover their Model-$A$ counterparts.
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection{Mean queue lengths and waiting times}
 
-Throughout, waiting times are obtained from \emph{Little's Law},
+Throughout, waiting times follow from \emph{Little's Law},
 $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$, applied per class. For Model-$C_2$
-the \emph{offered} rate $\lambda_i$ is used, not the carried throughput, so
+we use the \emph{offered} rate $\lambda_i$, not the carried throughput, so
 $\mathbb{E}[W_1]$ is the mean time in queue per arriving class-1 customer,
 including those who eventually abandon. The two mechanisms separate cleanly at
 the aggregate level: jockeying conserves the total queue length
@@ -262,24 +252,22 @@ For reference, Model-$A$ admits the closed-form expressions
 with sum $\rho^2/(1-\rho)$ (the M/M/1 queue-length formula for the combined
 system).  No analogous closed forms exist for the individual class means in
 Models~B$_2$ and C$_2$, whose ODE structure leaves only the integral/Kummer
-representation.  The head-of-line variants, by contrast, \emph{do} admit closed-form means:
+representation.  The head-of-line variants, by contrast, \emph{do} admit closed-form means.
 Model-$\BH$ gives $\mathbb{E}[N_1]=\rho\rho_B/(1-\rho_B)$ with
 $\rho_B=\lambda_1/(\mu+\gamma_1)$ \eqref{eq:B21:EN1} and the conserved total
 $\rho^2/(1-\rho)$, while Model-$\CH$ gives the rational $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$
-of \eqref{eq:C21:EN1}--\eqref{eq:C21:EN2}; these are the analogues of~\eqref{eq:comp:EN_A}
+of \eqref{eq:C21:EN1}--\eqref{eq:C21:EN2}. These are the analogues of~\eqref{eq:comp:EN_A}
 with $\mu$ replaced by the effective clearance rate $\mu+\gamma_1$ or $\mu+\theta_1$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection{Quantitative comparison across load}
 \label{subsec:comp:sweep}
 
-Holding $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, the offered
-load $\rho$ is swept across $[0.10,0.95]$ and the stationary performance of the five solved
-models is solved exactly on the truncated CTMC. Figure~\ref{fig:comp:sweep_en} collects the
-mean queue length $\mathbb{E}[N]$, the priority-class queue $\mathbb{E}[N_1]$, the priority
-waiting time $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ (Little's Law), and the idle
-probability $\pi_0$; Table~\ref{tab:comp:main} reads off the full descriptor set at three
-reference loads.
+Holding $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we sweep the offered
+load $\rho$ across $[0.10,0.95]$ and compute the exact stationary performance of the five solved
+models on the truncated CTMC. Figure~\ref{fig:comp:sweep_en} plots $\mathbb{E}[N]$,
+$\mathbb{E}[N_1]$, $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ (Little's Law), and $\pi_0$;
+Table~\ref{tab:comp:main} reads off the full descriptor set at three reference loads.
 
 %% BEGIN SIMULATION RESULTS — fig_sweep_EN_vs_rho %%
 \begin{figure}[H]
@@ -306,8 +294,8 @@ reference loads.
 %% END SIMULATION RESULTS — tab_comparison_main %%
 
 The two mechanisms produce two qualitatively different responses. Jockeying is internal: the
-$1\!\to\!2$ transition relabels a waiting customer without changing the total count, so the
-$B_2$ and $A$ curves for $\mathbb{E}[N]$ and $\pi_0$ are indistinguishable across the entire
+$1\!\to\!2$ transition relabels a waiting customer without changing the total count. The
+$B_2$ and $A$ curves for $\mathbb{E}[N]$ and $\pi_0$ are therefore indistinguishable across the entire
 sweep --- the server sees the same workload, and the busy-but-empty probability stays on the
 $\rho(1-\rho)$ parabola of Corollary~\ref{cor:B2:pi00}. Abandonment is a true departure at
 rate $\theta_1 n_1$, so $C_2$ carries a strictly lighter queue and a strictly larger idle
@@ -315,27 +303,23 @@ fraction: the priority backlog is bled off before it can be served. At $\rho=0.7
 (Table~\ref{tab:comp:main}) this gives $\pi_0=\piZeroCtwoSeventy$ for $C_2$ against $\piZeroASeventy$ for $A$ and
 $B_2$, and $\mathbb{E}[N]=\ENCtwoSeventy$ against $\ENASeventy$. The divergence widens with load: at
 $\rho=0.90$ the baseline class-2 queue reaches $\mathbb{E}[N_2]=\ENtwoANinety$, whereas $C_2$ holds
-it to $\ENtwoCtwoNinety$ --- a factor of nearly four --- because the self-regulating valve $\theta_1 n_1$
+it to $\ENtwoCtwoNinety$ --- a factor of nearly four. The self-regulating valve $\theta_1 n_1$
 acts most strongly precisely when the queue is long. The two head-of-line variants interpolate
 monotonically between Model-$A$ and their full-rate parents in every descriptor: $\BH$ conserves
 $N$ exactly like $B_2$ and departs only in the $\mathbb{E}[N_1]$ split, while $\CH$ sheds less
-load than $C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$). The full sweep suite
---- $\pi(0,0)$, the loss-accounting and per-class tables, the isolated $\gamma_1$ and $\theta_1$
-sweeps, the class-asymmetry study, and the head-of-line versus full-rate comparison --- is
-collected in Appendix~\ref{app:numerics:sweep}.
+load than $C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$). The full
+sweep suite is collected in Appendix~\ref{app:numerics:sweep}.
 
-A reviewer's caution on two columns. First, the priority waiting time $\mathbb{E}[W_1]$ is
-smallest for $C_2$ at every load, but $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ is the mean
-time a customer is \emph{counted in queue~$i$}, and that residence is shortened by every
-departure mode --- service \emph{and} attrition. A smaller $\mathbb{E}[W_1]$ therefore does not
-by itself certify faster service; its attrition component is exactly the loss fraction $L_1$
-quantified in \S\ref{subsec:comp:abandonment} below. Second, jockeying actively \emph{harms}
-class~2: at $\rho=0.70$, $B_2$ raises $\mathbb{E}[W_2]$ to $\EWtwoBtwoSeventy$ from the baseline $\EWtwoASeventy$
-($+\EWtwoBtwoInflationSeventy\%$), the direct cost of displaced class-1 customers joining the tail of the class-2
-queue. Finally, near criticality the dense CTMC truncation leaves a boundary tail mass of order
-$6\times10^{-4}$ for $A$ and $B_2$ at $\rho=0.95$ (against $1.5\times10^{-7}$ for $C_2$), so the
-$\rho\ge0.92$ points for the non-abandoning models carry a small downward truncation bias and
-should be read as lower bounds.
+Two columns warrant a reviewer's caution. First, $\mathbb{E}[W_1]$ is smallest for $C_2$ at
+every load, but $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ counts residence in queue~$i$, which
+every departure mode shortens --- service \emph{and} attrition. A smaller $\mathbb{E}[W_1]$ thus
+does not certify faster service; its attrition component is the loss fraction $L_1$ of
+\S\ref{subsec:comp:abandonment}. Second, jockeying actively \emph{harms} class~2: at $\rho=0.70$,
+$B_2$ raises $\mathbb{E}[W_2]$ to $\EWtwoBtwoSeventy$ from the baseline $\EWtwoASeventy$
+($+\EWtwoBtwoInflationSeventy\%$). Finally, near criticality the dense CTMC truncation leaves a
+boundary tail mass of order $6\times10^{-4}$ for $A$ and $B_2$ at $\rho=0.95$ (against
+$1.5\times10^{-7}$ for $C_2$), so the $\rho\ge0.92$ points for the non-abandoning models are
+lower bounds.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection{The cost of abandonment in lost customers}
@@ -343,8 +327,8 @@ should be read as lower bounds.
 
 The headline gains of $C_2$ --- shorter queues, larger idle fraction, lower priority waiting
 time --- are bought with lost customers, and the price is exact in closed form. The server
-delivers carried work at rate $\mu(1-\pi_0)$ and the offered rate is $\lambda_1+\lambda_2=\mu\rho$;
-since in steady state every arrival is either served or abandons, flow conservation forces the
+delivers carried work at rate $\mu(1-\pi_0)$ and the offered rate is $\lambda_1+\lambda_2=\mu\rho$.
+Since in steady state every arrival is either served or abandons, flow conservation forces the
 total abandonment rate to equal the \emph{idle excess} that abandonment creates over the
 no-attrition baseline,
 \begin{equation}\label{eq:comp:loss}
@@ -394,24 +378,21 @@ $0.90$ & $\lossCtwoNinety$ & $\lossSysCtwoNinety$ & $\lossCHNinety$ & $\lossSysC
 \paragraph{The price in lost customers.}\label{subsubsec:comp:loss_price}
 The loss fraction is the strongest applied statement this thesis makes, and it is blunt: at
 $\rho=0.70$ with $\theta_1=0.5$ a fraction $L_1=\lossCtwoSeventy$ of class-1 arrivals ---
-almost one in four --- \emph{never reach the server at all}. This is the cost hidden behind
-the headline latency gain: the priority waiting time collapses from the Model-$A$ value
-$\mathbb{E}[W_1]=\uncondWoneA$ to $\uncondWoneCtwo$ under $C_2$, but the queue shortens partly
-because the server works it down and partly because roughly a quarter of it walks away. Tagging
-served class-1 customers in simulation isolates the fair latency: the conditional mean
-time-to-service of served class-1 customers is $\condWoneCtwo$, against the count-based
-unconditional $\uncondWoneCtwo$. In the healthcare setting that motivates this work, an
-``abandonment'' is not a customer defecting to a competitor but a patient whose condition
-deteriorates past the point of benefit, or who leaves the waiting list by death or transfer;
-$L_1$ is then a direct estimate of the fraction of high-priority demand lost to delay. A
-waiting-time figure that reads as an improvement can therefore encode a worsening of the outcome
-that matters most, so any operational use of a $C_2$-type policy must report $L_1$
-\emph{alongside} $\mathbb{E}[W_1]$, never in its place.
+almost one in four --- \emph{never reach the server at all}. The priority waiting time collapses
+from $\mathbb{E}[W_1]=\uncondWoneA$ in Model-$A$ to $\uncondWoneCtwo$ under $C_2$ --- but partly
+because roughly a quarter of the queue walks away, not because it is served faster: the
+conditional mean time-to-service of \emph{served} class-1 customers is $\condWoneCtwo$, against
+the count-based $\uncondWoneCtwo$. In the healthcare setting an ``abandonment'' is a patient who
+deteriorates past the point of benefit or leaves the list by death or transfer, so $L_1$
+estimates the high-priority demand lost to delay. A waiting-time figure that reads as an
+improvement can therefore encode a worsening of the outcome that matters most, so any
+operational use of a $C_2$-type policy must report $L_1$ \emph{alongside} $\mathbb{E}[W_1]$,
+never in its place.
 
 The loss fraction rises with load --- abandonment is most active precisely where the priority
 queue is longest --- but never approaches one: even at $\rho=0.90$ roughly seventy per cent of
-class-1 customers are still served. Where abandonment is most effective as a congestion control
-is mapped in Figure~\ref{fig:c2:heatmap}: the ratio $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ is
+class-1 customers are still served. Figure~\ref{fig:c2:heatmap} maps where abandonment is most effective as a congestion control:
+the ratio $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ is
 everywhere below unity and smallest in the high-$\rho$, high-$\theta_1$ corner, where the
 Model-$A$ baseline is largest and the valve acts hardest.
 
@@ -430,8 +411,6 @@ Model-$A$ baseline is largest and the valve acts hardest.
 \end{figure}
 
 Read across the panel, the ratio varies far more strongly down the $\theta_1$ axis than along
-the $\rho$ axis --- the map is nearly separable in $\theta_1$ --- so it is the \emph{valve
-strength}, not the offered load, that is the first-order control on how much abandonment helps
-the priority class. The isolated $\theta_1$-sweep, the mean class-1 busy period
-$\mathbb{E}[B_C]$ that drives the $C_2$ corollary, and the priority-premium comparison across
-mechanisms are deferred to Appendix~\ref{app:numerics:sweep}.
+the $\rho$ axis, so it is the \emph{valve strength}, not the offered load, that is the
+first-order control on how much abandonment helps the priority class. Further $\theta_1$-sweeps
+are deferred to Appendix~\ref{app:numerics:sweep}.
