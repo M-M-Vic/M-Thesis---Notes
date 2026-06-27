@@ -4,7 +4,7 @@ Model-$A$ is the baseline of this collection: all jockeying and abandonment
 parameters are zero, leaving an ordinary two-class $M/M/1$ queue with
 non-preemptive priority. We analyse it in both state spaces $S$ and
 $\widetilde{S}$: on the former we give two complete proofs, on the latter
-a not very accurate approximate result, for which an evaluation is provided in \ref{apx:A:PPGF_Stilde}.
+a not very accurate approximate result, for which an evaluation is provided in Approximation~\ref{apx:A:PPGF_Stilde}.
 
 The balance equations are obtained by plugging $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ into Equations~\eqref{eq:gen:balance_interior},
 \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary},
@@ -52,7 +52,7 @@ proofs are given, one analytical and one probabilistic.
     Consider a queueing system with two priority classes with Poisson arrival rates
     $\lambda_1$ and $\lambda_2$, where class-$1$ customers have non-preemptive priority
     over those of class~$2$, and exponentially distributed service times with rate $\mu$
-    independently of the class. Under the stability condition $\rho\leq 1$ ~\eqref{eq:A:stability}, the
+    independently of the class. Under the stability condition $\rho<1$~\eqref{eq:A:stability}, the
     joint PGF $P(x,y) = \mathbb{E}[x^{N_1}y^{N_2}]$ is
     \begin{align}
         P(x,y) &= \left[ (1+\rho_1 +\rho_2)xy - y -\rho_1x^2y - \rho_2xy^2 \right]^{-1}
@@ -69,7 +69,7 @@ proofs are given, one analytical and one probabilistic.
 \end{theorem}
 
 \begin{corollary}\label{cor:A:pi0}
-    Under the stability condition $\rho \leq 1$~\eqref{eq:A:stability}, the empty-state probabilities
+    Under the stability condition $\rho < 1$~\eqref{eq:A:stability}, the empty-state probabilities
     for Model-$A$ are
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho). \label{eq:A:pi0_pi00}
@@ -119,7 +119,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
         \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
         = \mu(x-y) P_y(y)  - \mu x(1-y) \pi(0,0).
     \end{equation*}
-    We apply the \emph{Kernel Method}, used in ~\cite{cohen1956delay}: fix $y\in(0,1]$ and find $x^*(y)$ such that the LHS of the expression above is zero. Since $P(x,y)$ is a PGF, it is bounded. At anysuch root the LHS vanishes, so the RHS must also vanish:
+    We apply the \emph{Kernel Method}, used in ~\cite{cohen1956delay}: fix $y\in(0,1]$ and find $x^*(y)$ such that the LHS of the expression above is zero. Since $P(x,y)$ is a PGF, it is bounded. At any such root the LHS vanishes, so the RHS must also vanish:
     \[
         \mu\bigl[(x^*(y)-y)\,P_y(y) - x^*(y)(1-y)\,\pi(0,0)\bigr] = 0.
     \]
