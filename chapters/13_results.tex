@@ -2,8 +2,7 @@
 
 Every closed-form expression derived above is first validated against an exact
 continuous-time Markov chain (CTMC), then used to compare the solved models and quantify
-the two mechanisms. The exhaustive figure-by-figure evidence is collected in
-Appendix~\ref{app:numerics}.
+the two mechanisms.
 
 \subsection{Validation against the CTMC}\label{subsec:validation}
 
@@ -18,8 +17,7 @@ Table~\ref{tab:validation_summary} collects the verdict for every result. All ma
 results are accepted to within CTMC truncation noise: the lemma residuals and closed-form
 PGF errors fall between $10^{-7}$ and $10^{-15}$, and the corollary scatter lies on the
 diagonal to $10^{-4}$ across $60$ random configurations each. A discrete-event simulation of
-the master chain cross-validates the CTMC itself to the $O(1/\sqrt{n})$ sampling floor. The
-full visual evidence appears in Appendix~\ref{app:numerics:validation}.
+the master chain cross-validates the CTMC itself to the $O(1/\sqrt{n})$ sampling floor.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{table}[H]
@@ -53,8 +51,7 @@ A single entry is only conditionally accepted. The partial-PGF recursion on the 
 state space $\widetilde{S}$ (Approximation~\ref{apx:A:PPGF_Stilde}) is approximate by design:
 it drops the boundary-diagonal forcing term, so it is exact at $y=1$ but degrades elsewhere.
 It is reliable only in the priority-dominated, moderately loaded regime
-($\rho_1/\rho\gtrsim0.6$, $\rho\lesssim0.6$); the validity map is
-Figure~\ref{fig:val_ppgf} in Appendix~\ref{app:numerics:validation}.
+($\rho_1/\rho\gtrsim0.6$, $\rho\lesssim0.6$).
 
 \input{chapters/12_comparison}
 
@@ -68,5 +65,4 @@ $B_2$, $C_2$, $\BH$, $\CH$ --- approach the baseline at first order in their dis
 parameter, with fitted log--log slopes of $0.85$--$0.93$. For the conserving models $B_2$ and
 $\BH$ the empty-state descriptors $\pi_0$ and $\pi(0,0)$ equal their Model-$A$ values
 \emph{identically} for every $\gamma_1>0$ (Corollaries~\ref{cor:B2:pi00}, \ref{cor:B21:pi0}),
-so the approach is carried entirely by interior redistribution of mass. The full convergence
-diagnostics are collected in Appendix~\ref{app:numerics:convergence}.
+so the approach is carried entirely by interior redistribution of mass.

@@ -7,8 +7,7 @@ variants ($\BH$, $\CH$). The first three are the tractable specialisations of Mo
 the head-of-line variants are the standalone simplifications of
 \S\S\ref{sec:model_b21}--\ref{sec:model_c21}. Each produces a closed-form or integral-form
 expression for $P(x,y)$. Table~\ref{tab:comparison} collects the key structural facts for the
-three full-rate models; the exhaustive sweep-by-sweep evidence is deferred to
-Appendix~\ref{app:numerics}.
+three full-rate models.
 
 \begin{table}[H]
 \centering
@@ -251,110 +250,14 @@ it to $\ENtwoCtwoNinety$ --- a factor of nearly four. The self-regulating valve 
 acts most strongly precisely when the queue is long. The two head-of-line variants interpolate
 monotonically between Model-$A$ and their full-rate parents in every descriptor: $\BH$ conserves
 $N$ exactly like $B_2$ and departs only in the $\mathbb{E}[N_1]$ split, while $\CH$ sheds less
-load than $C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$). The full
-sweep suite is collected in Appendix~\ref{app:numerics:sweep}.
+load than $C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$).
 
 Two columns warrant a reviewer's caution. First, $\mathbb{E}[W_1]$ is smallest for $C_2$ at
 every load, but $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ counts residence in queue~$i$, which
 every departure mode shortens --- service \emph{and} attrition. A smaller $\mathbb{E}[W_1]$ thus
-does not certify faster service; its attrition component is the loss fraction $L_1$ of
-\S\ref{subsec:comp:abandonment}. Second, jockeying actively \emph{harms} class~2: at $\rho=0.70$,
+does not certify faster service. Second, jockeying actively \emph{harms} class~2: at $\rho=0.70$,
 $B_2$ raises $\mathbb{E}[W_2]$ to $\EWtwoBtwoSeventy$ from the baseline $\EWtwoASeventy$
 ($+\EWtwoBtwoInflationSeventy\%$). Finally, near criticality the dense CTMC truncation leaves a
 boundary tail mass of order $6\times10^{-4}$ for $A$ and $B_2$ at $\rho=0.95$ (against
 $1.5\times10^{-7}$ for $C_2$), so the $\rho\ge0.92$ points for the non-abandoning models are
 lower bounds.
-
-% ─────────────────────────────────────────────────────────────────────────────
-\subsubsection{The cost of abandonment in lost customers}
-\label{subsec:comp:abandonment}
-
-The headline gains of $C_2$ --- shorter queues, larger idle fraction, lower priority waiting
-time --- are bought with lost customers, and the price is exact in closed form. The server
-delivers carried work at rate $\mu(1-\pi_0)$ and the offered rate is $\lambda_1+\lambda_2=\mu\rho$.
-Since in steady state every arrival is either served or abandons, flow conservation forces the
-total abandonment rate to equal the \emph{idle excess} that abandonment creates over the
-no-attrition baseline,
-\begin{equation}\label{eq:comp:loss}
-  \Lambda_{\mathrm{loss}}
-  \;=\;\mu\rho-\mu(1-\pi_0)
-  \;=\;\mu\bigl(\pi_0-(1-\rho)\bigr),
-\end{equation}
-the strictly positive gap $\pi_0-(1-\rho)>0$ of Corollary~\ref{cor:C2:pi00}. The identity
-\eqref{eq:comp:loss} holds for either abandonment rate --- the full-rate mechanism realises
-$\Lambda_{\mathrm{loss}}=\theta_1\mathbb{E}[N_1]$ and the head-of-line mechanism
-$\Lambda_{\mathrm{loss}}=\theta_1\,\mathbb{P}(N_1\ge1)$ --- because it uses only the carried
-rate $\mu(1-\pi_0)$. As $\theta_2=0$ all loss is borne by the priority class, so the class-1
-and system loss fractions are
-\begin{equation}\label{eq:comp:lossfrac}
-  L_1=\frac{\Lambda_{\mathrm{loss}}}{\lambda_1}=\frac{\pi_0-(1-\rho)}{\rho_1},
-  \qquad
-  L=\frac{\Lambda_{\mathrm{loss}}}{\lambda_1+\lambda_2}=\frac{\pi_0-(1-\rho)}{\rho},
-\end{equation}
-both closed-form through the $C_2$ idle probability $\pi_0$, and both $\to0$ as
-$\theta_1\to0^+$ (where $\pi_0\to1-\rho$), recovering the lossless Model-$A$ limit. At
-$\rho=0.70$, $\theta_1=0.5$ this gives $L_1=\lossCtwoSeventy$ --- \emph{$23.2\%$ of the priority
-class is shed} --- against a system loss of only $L=\lossSysCtwoCanon$, the difference reflecting
-that the non-priority class never abandons. Table~\ref{tab:comp:loss} collects the loss fractions
-at the three reference loads for the full-rate $C_2$ and the head-of-line $\CH$; the head-of-line
-valve, capped at $\theta_1$ rather than scaling as $\theta_1 n_1$, sheds uniformly less at every
-load.
-
-\begin{table}[H]
-\centering
-\caption{Loss fractions under class-1 abandonment ($\theta_1=0.5$, $\lambda_1{:}\lambda_2=3{:}4$,
-$\mu=1$), from \eqref{eq:comp:lossfrac} with the model's idle probability $\pi_0$. $L_1$ is the
-fraction of class-1 arrivals shed; $L$ is the system-wide fraction. The head-of-line model
-$\CH$ sheds uniformly less than the full-rate $C_2$.}
-\label{tab:comp:loss}
-\begin{tabular}{lrrrr}
-\hline
- & \multicolumn{2}{c}{\textbf{Model-$C_2$}} & \multicolumn{2}{c}{\textbf{Model-$\CH$}} \\
-$\rho$ & $L_1$ & $L$ & $L_1$ & $L$ \\
-\hline
-$0.50$ & $\lossCtwoFifty$ & $\lossSysCtwoFifty$ & $\lossCHFifty$ & $\lossSysCHFifty$ \\
-$0.70$ & $\lossCtwoSeventy$ & $\lossSysCtwoSeventy$ & $\lossCHSeventy$ & $\lossSysCHSeventy$ \\
-$0.90$ & $\lossCtwoNinety$ & $\lossSysCtwoNinety$ & $\lossCHNinety$ & $\lossSysCHNinety$ \\
-\hline
-\end{tabular}
-\end{table}
-
-\paragraph{The price in lost customers.}\label{subsubsec:comp:loss_price}
-The loss fraction is the strongest applied statement this thesis makes, and it is blunt: at
-$\rho=0.70$ with $\theta_1=0.5$ a fraction $L_1=\lossCtwoSeventy$ of class-1 arrivals ---
-almost one in four --- \emph{never reach the server at all}. The priority waiting time collapses
-from $\mathbb{E}[W_1]=\uncondWoneA$ in Model-$A$ to $\uncondWoneCtwo$ under $C_2$ --- but partly
-because roughly a quarter of the queue walks away, not because it is served faster: the
-conditional mean time-to-service of \emph{served} class-1 customers is $\condWoneCtwo$, against
-the count-based $\uncondWoneCtwo$. In the healthcare setting an ``abandonment'' is a patient who
-deteriorates past the point of benefit or leaves the list by death or transfer, so $L_1$
-estimates the high-priority demand lost to delay. A waiting-time figure that reads as an
-improvement can therefore encode a worsening of the outcome that matters most, so any
-operational use of a $C_2$-type policy must report $L_1$ \emph{alongside} $\mathbb{E}[W_1]$,
-never in its place.
-
-The loss fraction rises with load --- abandonment is most active precisely where the priority
-queue is longest --- but never approaches one: even at $\rho=0.90$ roughly seventy per cent of
-class-1 customers are still served. Figure~\ref{fig:c2:heatmap} maps where abandonment is most effective as a congestion control:
-the ratio $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ is
-everywhere below unity and smallest in the high-$\rho$, high-$\theta_1$ corner, where the
-Model-$A$ baseline is largest and the valve acts hardest.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\textwidth]{figures/results/fig_C2_rho_theta_heatmap.pdf}
-  \caption{Ratio $\mathbb{E}[N_1]_{C_2}/\mathbb{E}[N_1]_A$ over the $(\rho,\theta_1)$ plane;
-  the diverging scale is centred at $1.0$ (the Model-$A$ value). \emph{Colour convention}
-  (shared with the validity map, Figure~\ref{fig:val_ppgf}): \textcolor{green!60!black}{green}
-  marks the favourable regime---ratio $<1$, where abandonment shortens the priority
-  queue---and \textcolor{red}{red} the unfavourable regime, ratio $>1$; yellow is the
-  break-even Model-$A$ value. Abandonment delivers its
-  largest relative reduction in the priority queue at high load and high $\theta_1$
-  (bottom-right region), exactly where the baseline backlog is most severe.}
-  \label{fig:c2:heatmap}
-\end{figure}
-
-Read across the panel, the ratio varies far more strongly down the $\theta_1$ axis than along
-the $\rho$ axis, so it is the \emph{valve strength}, not the offered load, that is the
-first-order control on how much abandonment helps the priority class. Further $\theta_1$-sweeps
-are deferred to Appendix~\ref{app:numerics:sweep}.
