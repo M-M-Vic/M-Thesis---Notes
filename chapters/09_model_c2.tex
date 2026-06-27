@@ -220,7 +220,7 @@ The non-trivial proof for the corollary invoked in Theorem~\ref{thm:C2:PGF} come
 
 \subsection{Alternative derivation of \texorpdfstring{$P_y(y)$}{Py(y)}: the \texorpdfstring{$M/G/1$}{M/G/1} / Pollaczek--Khinchine route}\label{ssec:C2:prob}
 
-The boundary function $P_y(y)$ admits a second derivation, using the same probabilistic argument seen in \S\ref{ssec:A:prob} that does not require imposing boundedness. By the \emph{law of total expectation}, splitting $P_y(y)=\mathbb{E}[\mathbf{1}\{\text{busy},N_1=0\}\,y^{N_2}]$ over the event $\{\text{busy},N_1=0\}$ factors it into the mass of that event and the conditional PGF of $N_2$ given it:
+The boundary function $P_y(y)$ admits a second derivation, using the same probabilistic argument seen in \S\ref{sssec:A:probabilistic} that does not require imposing boundedness. By the \emph{law of total expectation}, splitting $P_y(y)=\mathbb{E}[\mathbf{1}\{\text{busy},N_1=0\}\,y^{N_2}]$ over the event $\{\text{busy},N_1=0\}$ factors it into the mass of that event and the conditional PGF of $N_2$ given it:
 \begin{equation}
     P_y(y) \;=\; \mathbb{P}(\text{busy},\, N_1=0)\,\cdot\,\mathbb{E}\!\left[y^{N_2} \,\big|\, \text{busy},\, N_1=0\right].
     \label{eq:C2:Py_prob_decomp}
@@ -255,99 +255,3 @@ Finally, this route shows the Kummer fraction on the probabilistic side. The bus
     \qquad a=\frac{\mu}{\theta_1},\quad b=\frac{s}{\theta_1},\quad c=\frac{\lambda_1}{\theta_1}.
 \end{equation*}
 This is the very expression~\eqref{eq:C2:Bc_Kummer} that the analytical route produced as the Beta-integral ratio $\mathcal{J}_1(y)/\mathcal{J}_0(y)$ at $s=\lambda_2(1-y)$. The two derivations therefore meet at this Kummer fraction: what boundedness delivers as a ratio of Euler integrals is precisely the LST of the class-$1$ busy period.
-
-\subsection{Mean queue lengths and mean waiting times}
-
-\subsubsection*{Why the diagonal no longer simplifies}
-
-Setting $x=y=z$ in~\eqref{eq:C2:fundamental}, the derivative term of abandonment $\theta_1 xy(x-1)\,\partial_xP$ survives (the factor $(x-1)|_{x=z}\neq0$ for $z\in(0,1)$), and the diagonal equation reads
-\begin{equation}
-    \bigl[(\lambda_1{+}\lambda_2{+}\mu)z^2-\mu z-\lambda z^3\bigr]P(z,z)
-    + \theta_1 z^2(z-1)\,\frac{\partial P}{\partial x}(z,z)
-    \;=\; -\mu z(1-z)\,\pi(0,0).
-    \label{eq:C2:diag}
-\end{equation}
-The contrast with Model-$A$---or any model without abandonment---is instructive: $P(z,z)$ is no longer purely algebraic with closed form $P(z,z)=\pi(0,0)/(1-\rho z)$~\eqref{eq:A:Pzz}, from which the total $\mathbb{E}[N_1]+\mathbb{E}[N_2]$ followed by a single differentiation. Here the surviving derivative term remains as a second unknown, so that route is no longer available; abandonment removes customers and lowers both means relative to models without it.
-
-\subsubsection*{Class-2 mean queue length via \texorpdfstring{$P(1,y)$}{P(1,y)}}
-
-Setting $x=1$ in~\eqref{eq:C2:fundamental} we obtain
-\begin{equation*}
-    \lambda_2 y(1-y)\,P(1,y) \;=\; \mu(1-y)\bigl[P_y(y)-\pi(0,0)\bigr].
-\end{equation*}
-Cancelling $(1-y)$ for $y\neq1$ and substituting the known $P_y(y)$~\eqref{eq:C2:Py},
-\begin{equation*}
-    P(1,y)
-    \;=\; \frac{\mu\bigl[P_y(y)-\pi(0,0)\bigr]}{\lambda_2 y}
-    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{1-\widetilde{B}_C(\lambda_2(1-y))}{\widetilde{B}_C(\lambda_2(1-y))-y},
-\end{equation*}
-the marginal PGF of class-$2$. It is $0/0$ at $y=1$, so set $\varepsilon=1-y\to0$ and use the LST Taylor expansion $\widetilde{B}_C(\lambda_2\varepsilon)=1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3)$:
-\begin{align*}
-    1-\widetilde{B}_C(\lambda_2\varepsilon)
-    &\;=\; \lambda_2\mathbb{E}[B_C]\,\varepsilon
-           -\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3), \\
-    \widetilde{B}_C(\lambda_2\varepsilon)-y
-    &\;=\; \bigl(1-\lambda_2\mathbb{E}[B_C]\,\varepsilon+\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2\bigr)-(1-\varepsilon)
-    \;=\; (1-\lambda_2\mathbb{E}[B_C])\,\varepsilon
-           +\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]\,\varepsilon^2+O(\varepsilon^3).
-\end{align*}
-Writing $a=\lambda_2\mathbb{E}[B_C]$ and $c=\tfrac{1}{2}\lambda_2^2\mathbb{E}[B_C^2]$,
-\begin{equation*}
-    P(1,1-\varepsilon)
-    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{a\varepsilon - c\varepsilon^2+O(\varepsilon^3)}{(1-a)\varepsilon+c\varepsilon^2+O(\varepsilon^3)}
-    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{a-c\varepsilon}{(1-a)+c\varepsilon}+O(\varepsilon^2).
-\end{equation*}
-Differentiating $f(\varepsilon)=(a-c\varepsilon)/((1-a)+c\varepsilon)$ by the quotient rule,
-\begin{equation*}
-    f'(\varepsilon)
-    \;=\; \frac{-c\,\bigl((1-a)+c\varepsilon\bigr)-(a-c\varepsilon)\,c}{\bigl((1-a)+c\varepsilon\bigr)^2}
-    \;=\; \frac{-c}{(1-a+c\varepsilon)^2},
-\end{equation*}
-and since $\tfrac{d}{dy}P(1,y)\big|_{y=1}=-\tfrac{d}{d\varepsilon}P(1,1-\varepsilon)\big|_{\varepsilon=0}$,
-\begin{equation}
-    \mathbb{E}[N_2]
-    \;=\; \frac{d}{dy}P(1,y)\bigg|_{y=1}
-    \;=\; \frac{\mu\,\pi(0,0)}{\lambda_2}\cdot\frac{c}{(1-a)^2}
-    \;=\; \frac{\mu\,\pi(0,0)\,\lambda_2\,\mathbb{E}[B_C^2]}{2\,(1-\lambda_2\mathbb{E}[B_C])^2}.
-    \label{eq:C2:EN2}
-\end{equation}
-As $\theta_1\to0^+$, $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$ and $\mathbb{E}[B_C^2]\to2\mu/(\mu-\lambda_1)^3$, recovering the Model-$A$ value $\mathbb{E}[N_2]=\rho\rho_2/((1-\rho_1)(1-\rho))$.
-
-\subsubsection*{Class-1 mean queue length}
-
-We extract $\mathbb{E}[N_1]=\tfrac{\partial P}{\partial x}\big|_{(1,1)}$ by evaluating the theorem formula at $y=1$ and then differentiating in $x$.
-
-\medskip\noindent\textit{Step~1: marginal PGF $P(x,1)$.}\enspace
-As $y\to1$, the exponent $\beta(y)\to0$, so $(1-x)^{\beta(y)}\to1$ for fixed $x\in(0,1)$, and $\mathcal{H}_1(x,y)\to\int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt$ while $\mathcal{H}_2(x,y)$ tends to a finite limit. In the theorem's bracket the two integrals carry different weights: $\widetilde{B}_C(\lambda_2(1-y))\to1$, while $1-\widetilde{B}_C(\lambda_2(1-y))=\lambda_2\mathbb{E}[B_C]\,(1-y)+O((1-y)^2)\to0$, so the $\mathcal{H}_2$ term drops and the bracket collapses to $\mathcal{H}_1(x,1)$. The prefactor's $y$-dependent part satisfies $(1-y)/(\widetilde{B}_C(\lambda_2(1-y))-y)\to1/(1-\lambda_2\mathbb{E}[B_C])$, so
-\begin{equation*}
-    P(x,1)
-    \;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}\,e^{\lambda_1 x/\theta_1}\,x^{-\mu/\theta_1}
-    \int_0^x e^{-\lambda_1 t/\theta_1}\,t^{\,\mu/\theta_1-1}\,dt.
-\end{equation*}
-
-\medskip\noindent\textit{Step~2: differentiate $P(x,1)$ at $x=1$.}\enspace
-Write $P(x,1)=C\,f(x)\,\mathcal{K}(x)$ with $C=\mu\pi(0,0)/(\theta_1(1-\lambda_2\mathbb{E}[B_C]))$, $f(x)=e^{\lambda_1 x/\theta_1}x^{-\mu/\theta_1}$ and $\mathcal{K}(x)=\int_0^x e^{-\lambda_1 t/\theta_1}t^{\,\mu/\theta_1-1}\,dt$. By the product rule with Leibniz's rule ($\mathcal{K}'(x)=e^{-\lambda_1 x/\theta_1}x^{\mu/\theta_1-1}$) and the logarithmic derivative $f'(x)/f(x)=(\lambda_1 x-\mu)/(\theta_1 x)$,
-\begin{equation*}
-    \frac{d}{dx}P(x,1)
-    \;=\; C\Bigl[f'(x)\,\mathcal{K}(x)+f(x)\,e^{-\lambda_1 x/\theta_1}x^{\mu/\theta_1-1}\Bigr]
-    \;=\; C\left[e^{\lambda_1 x/\theta_1}x^{-\mu/\theta_1}\,\frac{\lambda_1 x-\mu}{\theta_1 x}\,\mathcal{K}(x) + x^{-1}\right].
-\end{equation*}
-
-\medskip\noindent\textit{Step~3: evaluate at $x=1$.}\enspace
-\begin{equation*}
-    \mathbb{E}[N_1]
-    \;=\; \left.\frac{d}{dx}P(x,1)\right|_{x=1}
-    \;=\; \frac{\mu\,\pi(0,0)}{\theta_1\,(1-\lambda_2\mathbb{E}[B_C])}
-    \left[e^{\lambda_1/\theta_1}\,\frac{\lambda_1-\mu}{\theta_1}\,\mathcal{K}(1) + 1\right],
-\end{equation*}
-where $\mathcal{K}(1)=\int_0^1 e^{-\lambda_1 t/\theta_1}t^{\,\mu/\theta_1-1}\,dt=(\theta_1/\lambda_1)^{\mu/\theta_1}\,\gamma(\mu/\theta_1,\,\lambda_1/\theta_1)$, with $\gamma(\cdot,\cdot)$ the lower incomplete gamma function. Since $\lambda_1-\mu<0$ ($\rho_1<1$) the bracket is positive. No elementary simplification is known, so $\mathbb{E}[N_1]$ is evaluated numerically; as $\theta_1\to0^+$ it recovers the Model-$A$ value~\eqref{eq:A:EN1}.
-
-\subsubsection*{Mean waiting times via Little's Law}
-
-The relation $\mathbb{E}[N_i]=\lambda_i\,\mathbb{E}[W_i]$ holds for any stable system. Here $\lambda_i$ is the arrival rate of \emph{all} class-$i$ customers, including those that eventually abandon, so $\mathbb{E}[W_i]$ is the mean queueing time averaged over both served and abandoned customers:
-\begin{equation*}
-    \mathbb{E}[W_1] \;=\; \frac{\mathbb{E}[N_1]}{\lambda_1},
-    \qquad
-    \mathbb{E}[W_2] \;=\; \frac{\mathbb{E}[N_2]}{\lambda_2}.
-\end{equation*}
-Using the throughput $\mu(1-\pi_0)$ instead would give the conditional waiting time of served customers only---a different object. As $\theta_1\to0^+$ both means recover the Model-$A$ values~\eqref{eq:A:EN1}--\eqref{eq:A:EW2}.

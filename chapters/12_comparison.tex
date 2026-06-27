@@ -59,14 +59,6 @@ $P(z,z)$
  & $\rho(1-\rho)/(1-\rho z)$
  & $\rho(1-\rho)/(1-\rho z)$
  & no closed form \\
-$\mathbb{E}[N_1]+\mathbb{E}[N_2]$
- & $\rho^2/(1-\rho)$
- & $\rho^2/(1-\rho)$
- & $<\rho^2/(1-\rho)$ \\
-$\mathbb{E}[N_1]$ closed form
- & $\rho\rho_1/(1-\rho_1)$
- & no
- & no \\
 \hline
 \end{tabular}
 \end{table}
@@ -129,7 +121,7 @@ The P-K formula~\eqref{eq:pk:pgf} applies with $B_C$ and delivers $P_y(y)$.
 \emph{What is destroyed.}
 Abandonment is a true departure: it reduces the total number of customers and
 breaks the conservation property.  Consequently $P(z,z)$ no longer has the
-simple $M/M/1$ form~\eqref{eq:A:Pzz}, $\pi_0>1-\rho$, $\pi(0,0)$ requires
+simple $M/M/1$ form of Corollary~\ref{cor:A:pi0}, $\pi_0>1-\rho$, $\pi(0,0)$ requires
 $\mathbb{E}[B_C]$, and $\mathbb{E}[N]<\rho^2/(1-\rho)$.  The stability
 condition is also generalised: $\rho<1$ is no longer necessary; the relevant
 condition is $\lambda_2\,\mathbb{E}[B_C]<1$, which is strictly weaker for all
@@ -210,54 +202,6 @@ This limit is not uniform, consistent with $\gamma_1$ multiplying the
 highest-order term of the ODE.  Model-$C_2$ degenerates to Model-$A$ uniformly
 as $\theta_1\to0^+$: $\mathbb{E}[B_C]\to(\mu-\lambda_1)^{-1}$, and all
 C$_2$ formulas recover their Model-$A$ counterparts.
-
-% ─────────────────────────────────────────────────────────────────────────────
-\subsubsection{Mean queue lengths and waiting times}
-
-Throughout, waiting times follow from \emph{Little's Law},
-$\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$, applied per class. For Model-$C_2$
-we use the \emph{offered} rate $\lambda_i$, not the carried throughput, so
-$\mathbb{E}[W_1]$ is the mean time in queue per arriving class-1 customer,
-including those who eventually abandon. The two mechanisms separate cleanly at
-the aggregate level: jockeying conserves the total queue length
-($\mathbb{E}[N]=\rho^2/(1-\rho)$ for every $\gamma_1$, as in Model-$A$),
-whereas abandonment strictly reduces it as $\theta_1$ grows.
-
-Figure~\ref{fig:meanq_all} shows $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, and the
-implied waiting times as the mechanism parameter ($\gamma_1$ for Model-$B_2$,
-$\theta_1$ for Model-$C_2$) varies from zero (Model-$A$ limit, dashed) to three.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/validation/val_meanq_all.pdf}
-    \caption{Mean queue lengths (top row) and mean waiting times (bottom row)
-    for Models $B_2$ (left column) and C$_2$ (right column) as their respective
-    mechanism parameters vary.  Dashed lines indicate the Model-$A$ baseline.
-    \emph{Left}: jockeying transfers occupancy from class~1 to class~2 at
-    conserved total --- the grey dotted total
-    $\mathbb{E}[N]=\rho^2/(1-\rho)$ is perfectly flat; class~1 benefits,
-    class~2 is penalised. \emph{Right}: abandonment reduces
-    $\mathbb{E}[N_1]$ directly and $\mathbb{E}[N_2]$ indirectly (the server is
-    freed sooner); both curves fall below the Model-$A$ baseline, which is
-    recovered as $\theta_1\to0$.}
-    \label{fig:meanq_all}
-\end{figure}
-
-For reference, Model-$A$ admits the closed-form expressions
-\begin{align}
-    \mathbb{E}[N_1] &= \frac{\rho\rho_1}{1-\rho_1}, &
-    \mathbb{E}[N_2] &= \frac{\rho\rho_2}{(1-\rho_1)(1-\rho)},
-    \label{eq:comp:EN_A}
-\end{align}
-with sum $\rho^2/(1-\rho)$ (the M/M/1 queue-length formula for the combined
-system).  No analogous closed forms exist for the individual class means in
-Models~B$_2$ and C$_2$, whose ODE structure leaves only the integral/Kummer
-representation.  The head-of-line variants, by contrast, \emph{do} admit closed-form means.
-Model-$\BH$ gives $\mathbb{E}[N_1]=\rho\rho_B/(1-\rho_B)$ with
-$\rho_B=\lambda_1/(\mu+\gamma_1)$ \eqref{eq:B21:EN1} and the conserved total
-$\rho^2/(1-\rho)$, while Model-$\CH$ gives the rational $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$
-of \eqref{eq:C21:EN1}--\eqref{eq:C21:EN2}. These are the analogues of~\eqref{eq:comp:EN_A}
-with $\mu$ replaced by the effective clearance rate $\mu+\gamma_1$ or $\mu+\theta_1$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsubsection{Quantitative comparison across load}

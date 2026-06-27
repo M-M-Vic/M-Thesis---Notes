@@ -202,7 +202,16 @@
       "Bash(sort -t: -k3)",
       "Bash(python3 -c \"import sympy; print\\('sympy', sympy.__version__\\)\")",
       "Bash(pdfinfo /Users/victor/GitVictor/M-Thesis---Notes/main.pdf)",
-      "Bash(grep -n \"x^\\\\*\\(y\\)\\\\\\\\\\\\\\\\,x^+\\(y\\)\\\\|x^\\\\*\\(y\\) x^+\\(y\\)\\\\|mu/\\\\\\\\\\\\\\\\lambda_1\\\\|x^{+}\\(y\\)\" chapters/09_model_c2.tex)"
+      "Bash(grep -n \"x^\\\\*\\(y\\)\\\\\\\\\\\\\\\\,x^+\\(y\\)\\\\|x^\\\\*\\(y\\) x^+\\(y\\)\\\\|mu/\\\\\\\\\\\\\\\\lambda_1\\\\|x^{+}\\(y\\)\" chapters/09_model_c2.tex)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes add chapters/09_model_c2.tex)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes commit -q -F -)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes log --oneline -1)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes status -s)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes branch --show-current)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes diff --stat main..restructure/c2-proof)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes log --oneline -2 restructure/c2-proof)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes log --oneline -2 main)",
+      "Bash(git -C /Users/victor/GitVictor/M-Thesis---Notes merge --ff-only restructure/c2-proof)"
     ],
     "additionalDirectories": [
       "/Users/victor/GitVictor/M-Thesis---Notes/.claude"
