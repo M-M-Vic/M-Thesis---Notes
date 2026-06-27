@@ -4,7 +4,7 @@
 
 
 Model-$\CH$ is the abandonment counterpart of Model-$\BH$, and the head-of-line
-simplification of the class-$1$ abandonment model Model-$C_2$. Only the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever $n_1\geq1$. As in Model-$\BH$, the flat rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes an \emph{algebraic} term rather than a derivative, and the Kernel Method applies directly. True departure breaks the conservation of the total amount of customers that we had in models without abandonment.
+simplification of the class-$1$ abandonment model Model-$C_2$. Only the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever $n_1\geq1$. As in Model-$\BH$, the flat rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes an \emph{algebraic} term rather than a derivative, and the Kernel Method applies directly. True departure breaks the conservation of the total number of customers that we had in models without abandonment.
 
 \textbf{Stability.} Because only the head-of-line from class-$1$ abandons, the aggregate abandonment rate is bounded by $\theta_1$ regardless of queue length as long as we have a queue, so a genuine stability condition is required. As shown in Corollary~\ref{cor:C21:pi0} below, the chain is positive recurrent if and only if $\pi_0>0$, that is
 \begin{equation}
@@ -100,7 +100,7 @@ We introduce the following result:
         \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\theta_1\bigr]x + (\mu+\theta_1) = 0,
         \label{eq:C21:quad}
     \end{equation}
-    with $x^*(y)$ the root inside the unit disk, and $\pi(0,0)$ is given by
+    with $x^*(y)$ the root inside the unit disc, and $\pi(0,0)$ is given by
     Corollary~\ref{cor:C21:pi0}. As $\theta_1\to0^+$ the formula recovers Model-$A$
     (Theorem~\ref{thm:A:PGF}) exactly.
 \end{theorem}
@@ -176,7 +176,7 @@ The theorem invokes the following Corollary:
         f(1) = \lambda_1 - A(y) + (\mu+\theta_1) = -\lambda_2(1-y) < 0
         \qquad\text{for } y\in[0,1),
     \end{equation*}
-    So $x=1$ lies between the two roots and $x^*(y)<1<x^+(y)$ for $y\in[0,1)$; at $y=1$, $x^*(1)=1$ and $x^+(1)=(\mu+\theta_1)/\lambda_1>1$ (the latter by $\rho_C<1$). Hence $x^*(y)$ is the unique root inside the unit disk. Differentiating~\eqref{eq:C21:xstar} at $y=1$,
+    So $x=1$ lies between the two roots and $x^*(y)<1<x^+(y)$ for $y\in[0,1)$; at $y=1$, $x^*(1)=1$ and $x^+(1)=(\mu+\theta_1)/\lambda_1>1$ (the latter by $\rho_C<1$). Hence $x^*(y)$ is the unique root inside the unit disc. Differentiating~\eqref{eq:C21:xstar} at $y=1$,
     \begin{equation}
         \frac{d}{dy}x^*(1) = \frac{\lambda_2}{\mu+\theta_1-\lambda_1}.
         \label{eq:C21:xstar_deriv}
@@ -201,7 +201,7 @@ The theorem invokes the following Corollary:
         = \frac{\mu(1-y)\,\pi(0,0)}{\Delta(y)}\,
           \Bigl\{\bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]x^*(y) - x\,\Delta(y)\Bigr\}.
     \end{equation*}
-    Substituting $\Delta(y)$,  it simplifies to $(\mu+\theta_1)\,y\,(x-x^*(y))$ Dividing by the factored kernel cancels $(x-x^*(y))$, yielding
+    Substituting $\Delta(y)$, it simplifies to $(\mu+\theta_1)\,y\,(x-x^*(y))$. Dividing by the factored kernel cancels $(x-x^*(y))$, yielding
     \begin{equation*}
         P(x,y) = \frac{\mu(\mu+\theta_1)(1-y)\,\pi(0,0)\,y\,(x-x^*(y))/\Delta(y)}
                       {-\lambda_1 y\,(x-x^*(y))(x-x^+(y))}

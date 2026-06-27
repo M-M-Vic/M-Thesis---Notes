@@ -1,4 +1,4 @@
-\section{Model description: Model-\texorpdfstring{$X$}{X}}\label{sec:model_x}
+\section{The general model (Model-\texorpdfstring{$X$}{X}) and its fundamental equation}\label{sec:model_x}
 
 This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonment ($\theta_i$); we call this full model \emph{Model-$X$}. The simpler variants are recovered as special cases by zeroing the appropriate parameters, as summarised in Table~\ref{tab:model_family}:
 \begin{table}[H]
@@ -78,9 +78,9 @@ For the aggregate system parameters, we define:
 
 \textbf{Stability.} Jockeying does not affect stability (customers are merely relocated). Model-$X$ has abandonments from both classes, so the departure rate $\mu + \theta_1 n_1 + \theta_2 n_2$ grows unbounded, ensuring positive recurrence for all loads. In contrast, models without abandonments require $\rho < 1$ (they behave like M/M/1). Mixed cases, such as Model-$C_2$, are discussed separately (\S\ref{sec:model_c2}).
 
-\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} Balance between state $(0)$ and $(0,0)$ gives $\lambda\pi_0 = \mu,\pi(0,0)$. Hence,
+\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} Balance between state $(0)$ and $(0,0)$ gives $\lambda\pi_0 = \mu\,\pi(0,0)$. Hence,
 \begin{equation}
-    \pi(0,0) ;=; \rho,\pi_0.
+    \pi(0,0) \;=\; \rho\,\pi_0.
     \label{eq:gen:pi00_general}
 \end{equation}
 This holds regardless of jockeying and abandonments (neither mechanism acts when there are no waiting customers). However, $\pi_0$ itself depends on the abandonment model. For models \emph{without} abandonment, $\pi_0 = 1-\rho$ (M/M/1 reduction). For models \emph{with} abandonment, the departure rate depends on the split $(n_1, n_2)$, so $\pi_0$ must be determined from the bivariate PGF (\S\ref{ssec:pgf_derivation}).
@@ -274,9 +274,9 @@ Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical readin
 
 The two convection coefficients carry the added mechanisms. In the $x$-convection coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$, the jockeying factor $(x-y)$ vanishes on the diagonal $x=y$ --- the analytic signature that jockeying merely relocates a customer and so conserves the total count --- while the abandonment factor $(x-1)$ vanishes at $x=1$, the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The $y$-convection coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$.
 
-The right-hand side carries the two boundary unknowns that any solution must pin down: the marginal $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty.
+The right-hand side carries the two boundary unknowns that any solution must pin down: the boundary function $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty.
 
-The position of these vanishing factors fixes, model by model, where the operative singularity sits and hence which technique applies. With both convection terms absent (Model-$A$, \S\ref{sec:model_a}) the equation is algebraic and $P_y(y)$ is recovered from the kernel root $x^*(y)$ inside the unit disc. With one-way jockeying alone (Model-$B_2$, \S\ref{sec:model_b2}) the factor $(x-y)$ places the singularity at the interior point $x=y$ with a negative exponent, and $P_y(y)$ is pinned by analyticity there. With class-$1$ abandonment alone (Model-$C_2$, \S\ref{sec:model_c2}) the factor $(x-1)$ places it on the boundary $x=1$ with a positive exponent, and $P_y(y)$ is pinned by mere boundedness. Restricting a mechanism to the head of the queue removes the derivative outright, collapsing the equation to the algebraic Model-$A$ form (Models~$\BH$ and $\CH$, \S\ref{sec:model_b21}). These four regimes are gathered side by side in Table~\ref{tab:comparison} of \S\ref{sec:comparison}.
+The position of these vanishing factors fixes, model by model, where the operative singularity sits and hence which technique applies. With both convection terms absent (Model-$A$, \S\ref{sec:model_a}) the equation is algebraic and $P_y(y)$ is recovered from the kernel root $x^*(y)$ inside the unit disc. With one-way jockeying alone (Model-$B_2$, \S\ref{sec:model_b2}) the factor $(x-y)$ places the singularity at the interior point $x=y$ with a negative exponent, and $P_y(y)$ is pinned by analyticity there. With class-$1$ abandonment alone (Model-$C_2$, \S\ref{sec:model_c2}) the factor $(x-1)$ places it on the boundary $x=1$ with a positive exponent, and $P_y(y)$ is pinned by mere boundedness. Restricting a mechanism to the head of the queue removes the derivative outright, collapsing the equation to the algebraic Model-$A$ form (Models~$\BH$ and $\CH$, \S\ref{sec:model_b21}). These four regimes are gathered side by side in Table~\ref{tab:comparison} of \S\ref{sec:comparison}, and are synthesised, together with the two irreducible obstructions, as the obstruction taxonomy of \S\ref{sec:conclusion}.
 \end{remark}
 
 \begin{proof}

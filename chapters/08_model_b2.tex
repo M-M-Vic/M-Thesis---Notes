@@ -66,7 +66,7 @@ of this section is built on it.
     Step~(ii) of the proof.
 \end{theorem}
 
-In the same fashion as in Model-$B$, the result below is stated as a corollary in order for it to stay at the same level of hierarchy as that of other models.
+The result below is stated as a corollary, so that it sits at the same hierarchy level as the corresponding results for the other models.
 \begin{corollary}\label{cor:B2:pi00}
     The empty-system probability $\pi_0$ (server idle, no one waiting) and the
     both-queues-empty probability $\pi(0,0)$ (server busy, $N_1=N_2=0$) of Model-$B_2$ are
@@ -82,8 +82,7 @@ The proof of Theorem~\ref{thm:B2:PGF} consists of three steps: (i) obtaining the
 \begin{proof}[Proof of Theorem~\ref{thm:B2:PGF}]
 
 % ─────────────────────────────────────────────────────────────────
-\noindent\textit{Step~(i): Standard form and the integrating factor.}
-\medskip
+\medskip\noindent\textbf{Step~(i): Standard form and the integrating factor.}
 
 Fix $y\in(0,1]$, cancel a factor $y$ on both sides and divide the reduced fundamental equation~\eqref{eq:B2:fundamental} by the derivative term in $x$. The equation takes standard form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$ of \S\ref{sssec:if} (Equation~\eqref{eq:ode:standard}), with
 \begin{align}
@@ -101,7 +100,7 @@ Write the numerator of $p$ as a polynomial in $x$,
     N(x) = -\lambda_1 x^2 + \bigl[(\lambda_1+\lambda_2+\mu)-\lambda_2 y\bigr]x - \mu
          = -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
 \end{equation*}
-where the roots $x^*(y),x^+(y)$ are those found for the kernel in Model-$A$ (Equation~\eqref{eq:A:xstar}), with , with $\lambda_1 x^* x^+ = \mu$ following from Vieta's formula. The Partial Fraction Decomposition of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ read as rollows:
+where the roots $x^*(y),x^+(y)$ are those found for the kernel in Model-$A$ (Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$ following from Vieta's formula. The Partial Fraction Decomposition of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ reads as follows:
 \begin{align*}
     A &= -\lambda_1, \nonumber\\
     B &= \frac{N(0)}{0-y} = \frac{-\mu}{-y} = \frac{\mu}{y}, \nonumber\\
@@ -116,7 +115,7 @@ with $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Thus
     \label{eq:B2:pfrac}
 \end{equation}
 
-Since we will have a factor $(x-y)$ due to jockeying. we work on the region $0\leq x\leq y$, where $x-y\le0$; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y.-x)$, so integrating the partial fraction \eqref{eq:B2:pfrac} yields, up to a constant,
+Since we will have a factor $(x-y)$ due to jockeying, we work on the region $0\leq x\leq y$, where $x-y\le0$; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y-x)$, so integrating the partial fraction \eqref{eq:B2:pfrac} yields, up to a constant,
 \begin{align*}
     \int^{x}\! p(t;y)\,dt
     &= \frac{1}{\gamma_1}\Bigl[-\lambda_1 x + \frac{\mu}{y}\ln x
@@ -155,7 +154,7 @@ With the auxiliary integrals $\mathcal{H}_1,\mathcal{H}_2$ of~\eqref{eq:B2:I1}--
 which still contains the unknown boundary function $P_y(y)$; Step~(ii) determines it.
 
 % ─────────────────────────────────────────────────────────────────
-\medskip\noindent\textit{Step~(ii): Determine $P_y(y)$ by analyticity at $x=y$.}
+\medskip\noindent\textbf{Step~(ii): Determine $P_y(y)$ by analyticity at $x=y$.}
 \medskip
 
 Under stability (i.e. $\rho<1$) $\mu-\lambda y>0$ for $y\in(0,1)$, so the second exponent is negative:
@@ -272,7 +271,7 @@ $P_y(0)=\pi(0,0)$, consistent with
 $P_y(0)=\sum_{n_2}\pi(0,n_2)\cdot0^{n_2}=\pi(0,0)$.
 
 % ─────────────────────────────────────────────────────────────────
-\medskip\noindent\textit{Step~(iii): Recovery of $P(x,y)$.}
+\medskip\noindent\textbf{Step~(iii): Recovery of $P(x,y)$.}
 \medskip
 
 Substituting~\eqref{eq:B2:Py} into the real-form expression~\eqref{eq:B2:Pxy_real}

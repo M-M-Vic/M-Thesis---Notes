@@ -4,7 +4,7 @@ Model-$A$ is the baseline of this collection: all jockeying and abandonment
 parameters are zero, leaving an ordinary two-class $M/M/1$ queue with
 non-preemptive priority. We analyse it in both state spaces $S$ and
 $\widetilde{S}$: on the former we give two complete proofs, on the latter
-a not very accurate approximate result, for which an evaluation is provided in Approximation~\ref{apx:A:PPGF_Stilde}.
+a conditionally accurate approximation, evaluated in Approximation~\ref{apx:A:PPGF_Stilde}.
 
 The balance equations are obtained by plugging $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ into Equations~\eqref{eq:gen:balance_interior},
 \eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary},
@@ -36,7 +36,7 @@ Figure~\ref{fig:model-a-queue} shows the queueing diagram of Model-$A$.
 
 \subsection{Analysis of Model-\texorpdfstring{$A$}{A}: state space \texorpdfstring{$S$}{S}}
 We begin from Equation~\eqref{eq:gen:fundamental_equation} with
-$\gamma_1=\gamma_2=\theta_1=\theta_2=0$, in which the marginal $P_y(y)=P(0,y)$ is
+$\gamma_1=\gamma_2=\theta_1=\theta_2=0$, in which the boundary function $P_y(y)=P(0,y)$ is
 still to be determined:
 \begin{align}
     \begin{split}
@@ -149,7 +149,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
         x^*(1) = 1 \quad \text{and} \quad x^+(1) = \mu/\lambda_1 > 1.
     \end{equation*}
     
-    We require our root to lie inside the closed unit disk for $y\in[0,1)$. Computing
+    We require our root to lie inside the closed unit disc for $y\in[0,1)$. Computing
     the derivative of $x^*(y)$:
     \begin{equation}
         \frac{d}{dy}x^*(y) = \frac{\lambda_2}{2\lambda_1}\!\left[-1+\frac{\mu+\lambda_1+\lambda_2(1-y)}{\sqrt{(\mu+\lambda_1+\lambda_2(1-y))^2-4\lambda_1\mu}}\right]>0,
@@ -161,7 +161,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
     $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu=0$: the product of the two
     roots satisfies $x^*(y)\,x^+(y)= \mu/\lambda_1>1$, so
     $x^+(y)=\mu/(\lambda_1 x^*(y))>1$ throughout $[0,1)$. So the only root
-    strictly inside the unit disk for $y\in[0,1)$ is $x^*(y)$:
+    strictly inside the unit disc for $y\in[0,1)$ is $x^*(y)$:
     \begin{equation}
         x^*(y) = \frac{
             (\mu +\lambda_1 + \lambda_2 (1-y))
@@ -206,7 +206,7 @@ term $\mu(x-y)P_y(y)$ vanishes:
 
 \subsubsection{Probabilistic approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:probabilistic}
 \begin{proof}[Proof of Theorem~\ref{thm:A:PGF}, probabilistic approach.]
-    This proof mirrors the analytical one, but derives the class-$2$ marginal PGF $P_y(y)$ by means of probabilistic arguments. We again begin from the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
+    This proof mirrors the analytical one, but derives the boundary function $P_y(y)$ by means of probabilistic arguments. We again begin from the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
     \begin{equation}
         \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
         \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].

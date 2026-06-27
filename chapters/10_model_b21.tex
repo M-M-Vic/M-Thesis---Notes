@@ -1,11 +1,11 @@
 \section{Analysis of Model-\texorpdfstring{$\BH$}{B2-H} (\texorpdfstring{$\gamma_1>0$}{gamma1>0} head-of-line, \texorpdfstring{$\gamma_2=\theta_1=\theta_2=0$}{gamma2=theta1=theta2=0})}
 \label{sec:model_b21}
 
-Inspired by the work of Devos et al. \cite{devos2020alternating}, this model —together with Model-$\CH$— eliminates the state-dependent jockeying rate for the class-$1$, only allowing the head-of-line customer from class-$1$ to transition at a fixed rate $\gamma_1$ whenever $n_1\geq1$, giving an aggregate rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
+Inspired by the work of Devos et al. \cite{devos2020alternating}, this model ---together with Model-$\CH$--- eliminates the state-dependent jockeying rate for the class-$1$, only allowing the head-of-line customer from class-$1$ to transition at a fixed rate $\gamma_1$ whenever $n_1\geq1$, giving an aggregate rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
 
 This significantly simplifies the model. The flat rate replaces the derivative term in $x$ found in \S\ref{sec:model_b2} by an algebraic factor $\gamma_1 y(x-y)$ so the fundamental equation remains algebraic and can be solved by the Kernel Method exactly as in Model-$A$ (\S\ref{sec:model_a}).
 
-\textbf{Stability.} Jockeying conserves the total number of customers; Since there is no abandonment, the chain is positive recurrent if and only if the total traffic intensity satisfies
+\textbf{Stability.} Jockeying conserves the total number of customers; since there is no abandonment, the chain is positive recurrent if and only if the total traffic intensity satisfies
 \begin{equation}
     \rho = \frac{\lambda_1+\lambda_2}{\mu} < 1.
     \label{eq:B21:stability}
@@ -87,7 +87,7 @@ where $m_1=n_1+1,\ m_2=n_2-1$. The jockeying contribution (out minus in) is henc
 
 \subsection{Closed-form solution}
 
-The following theorem is the main result of this section; its proof is based the analytical (Kernel Method) treatment of Model-$A$ in~\S\ref{sssec:A:analytical}.
+The following theorem is the main result of this section; its proof is based on the analytical (Kernel Method) treatment of Model-$A$ in~\S\ref{sssec:A:analytical}.
 
 \begin{theorem}[Closed-form PGF for Model-$\BH$]\label{thm:B21:PGF}
     Consider the two-class non-preemptive priority queue with Poisson arrival rates
@@ -105,10 +105,10 @@ The following theorem is the main result of this section; its proof is based the
         \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr]x + (\mu+\gamma_1 y) = 0,
         \label{eq:B21:quad}
 \end{equation}
-with $x^*(y)$ the root inside the unit disk.
+with $x^*(y)$ the root inside the unit disc.
 \end{theorem}
 
-The following corollary is stated, for the sake of its result being at the same hierarchy level as homologous results for other models.
+The result below is stated as a corollary, so that it sits at the same hierarchy level as the corresponding results for the other models.
 \begin{corollary}\label{cor:B21:pi0}
     Under~\eqref{eq:B21:stability}, the empty-state probabilities of Model-$\BH$ coincide with those of Model-$A$,
     \begin{equation*}
@@ -123,7 +123,7 @@ The proof is the same as for Corollary~\ref{cor:A:pi0}.
 
 \begin{proof}[Proof of Theorem~\ref{thm:B21:PGF}]
 
-We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}. Fix $y\in(0,1]$ and seek the values of $x$ at which the coefficient of $P(x,y)$ vanishes. Since $P(x,y)$ is a PGF it is bounded on the closed unit disk, so at any such root the right-hand side of~\eqref{eq:B21:fundamental} must also vanish. Dividing the kernel by $y\ne0$,
+We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}. Fix $y\in(0,1]$ and seek the values of $x$ at which the coefficient of $P(x,y)$ vanishes. Since $P(x,y)$ is a PGF it is bounded on the closed unit disc, so at any such root the right-hand side of~\eqref{eq:B21:fundamental} must also vanish. Dividing the kernel by $y\ne0$,
 \begin{equation*}
     0 = (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy + \gamma_1(x-y),
 \end{equation*}
@@ -139,20 +139,20 @@ whose two roots are
 We label the root carrying the negative sign $x^*(y)$ and the other
 $x^+(y)$. By Vieta's formulas the product of the roots is $x^*(y)\,x^+(y)=(\mu+\gamma_1 y)/\lambda_1$.
 
-To locate the roots relative to the unit disk we evaluate the kernel quadratic, written as
+To locate the roots relative to the unit disc we evaluate the kernel quadratic, written as
 $f(x):=\lambda_1 x^2 - A(y)x + (\mu+\gamma_1 y)$, at $x=1$:
 \begin{equation*}
     f(1) = \lambda_1 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr] + (\mu+\gamma_1 y)
          = -(1-y)\,(\lambda_2+\gamma_1) < 0
     \qquad\text{for } y\in[0,1).
 \end{equation*}
-We have that$x^*(y)$ is the unique root inside the unit disk, and at $y=1$ one checks $f(1)=0$ with $x^*(1)=1$ and $x^+(1)=(\mu+\gamma_1)/\lambda_1>1$. For later use, we record $\tfrac{d}{dy}x^*(1)$. The cleanest route is implicit differentiation of $f(x,y):=\lambda_1 x^2-A(y)x+(\mu+\gamma_1 y)=0$ at $(x,y)=(1,1)$, where $f_y=\lambda_2 x+\gamma_1$ and $f_x=2\lambda_1 x-A(y)$ evaluate to
+We have that$x^*(y)$ is the unique root inside the unit disc, and at $y=1$ one checks $f(1)=0$ with $x^*(1)=1$ and $x^+(1)=(\mu+\gamma_1)/\lambda_1>1$. For later use, we record $\tfrac{d}{dy}x^*(1)$. The cleanest route is implicit differentiation of $f(x,y):=\lambda_1 x^2-A(y)x+(\mu+\gamma_1 y)=0$ at $(x,y)=(1,1)$, where $f_y=\lambda_2 x+\gamma_1$ and $f_x=2\lambda_1 x-A(y)$ evaluate to
 $f_y(1,1)=\lambda_2+\gamma_1$ and $f_x(1,1)=\lambda_1-\mu-\gamma_1$, so $\tfrac{d}{dy}x^*(1)=-f_y/f_x$:
 \begin{equation}
     \frac{d}{dy}x^*(1) = \frac{\lambda_2+\gamma_1}{\mu+\gamma_1-\lambda_1}.
     \label{eq:B21:xstar_deriv}
 \end{equation}
-Unlike Model-$A$'s~\eqref{eq:A:xstar_prime}, the numerator carries an extra $\gamma_1$: the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself $y$-dependent here/
+Unlike Model-$A$'s~\eqref{eq:A:xstar_prime}, the numerator carries an extra $\gamma_1$: the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself $y$-dependent here.
 
 Setting $x=x^*(y)$ in~\eqref{eq:B21:fundamental} forces the right-hand side to vanish:$(x^*(y)-y)(\mu+\gamma_1 y)\,P_y(y) = \mu x^*(y)(1-y)\,\pi(0,0)$, whence the boundary function is
 \begin{equation}
