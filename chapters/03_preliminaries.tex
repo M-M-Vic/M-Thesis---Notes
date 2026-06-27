@@ -8,7 +8,7 @@ The central object throughout is the (P)PGF of the model in question, together w
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
 The canonical $M/M/1$ queue is the foundation of queueing theory and is treated in many textbooks; we follow \cite{adan2002queueing}.
-Customers arrive according to a Poisson process —i.e. the inter-arrival times are exponentially distributed with parameter $\lambda$—, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-serve (FCFS) —also known as first-in-first-out (FIFO)— order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
+Customers arrive according to a Poisson process ---i.e. the inter-arrival times are exponentially distributed with parameter $\lambda$---, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-serve (FCFS) ---also known as first-in-first-out (FIFO)--- order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
 
 Let $\pi_n$ be the limiting probability of finding $n$ customers in the system. Under stability, the detailed balance equations $\lambda\,\pi_n = \mu\,\pi_{n+1}$ ($n \geq 0$) together with the normalisation $\sum_{n=0}^{\infty}\pi_n=1$ give us the geometric steady-state distribution of the number of customers in the system:
 \begin{equation*}
@@ -18,7 +18,7 @@ By the PASTA property (\S\ref{ssec:priority}), this also corresponds to the dist
 \begin{equation*}
     \mathbb{E}[L] = \frac{\rho}{1-\rho}.
 \end{equation*}
-From this, the expected sojourn time $W$—the time between a customer's arrival and their departure after service—follows by Little's Law ($\mathbb{E}[L] = \lambda\mathbb{E}[W]$):
+From this, the expected sojourn time $W$---the time between a customer's arrival and their departure after service---follows by Little's Law ($\mathbb{E}[L] = \lambda\mathbb{E}[W]$):
 \begin{equation*}
     \mathbb{E}[W] = \frac{\mathbb{E}[L]}{\lambda} = \frac{1/\mu}{1-\rho}.
 \end{equation*}
@@ -33,7 +33,7 @@ A less common but highly relevant concept is the Busy Period ($BP$): the time be
 \subsection{Non-preemptive priority and the PASTA property}\label{ssec:priority}
 
 Throughout this thesis the two customer classes are served under a \emph{non-preemptive}
-(head-of-line) priority discipline: whenever the server becomes free it admits a waiting
+priority discipline: whenever the server becomes free it admits a waiting
 class-1 customer if any are present, and a class-2 customer only otherwise, but a customer
 already in service is \emph{never} interrupted---a class-1 arrival that finds a class-2
 customer in service waits until that service completes. Priority therefore governs only the
@@ -75,7 +75,7 @@ Iterating yields
 \end{equation*}
 Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF is correspondingly a \emph{ratio} of Kummer functions, $\Pi(z) = {}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)\,/\,{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)$. The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
 
-The \emph{Busy Period} of this $M/M/1+M$ is far more complex than its $M/M/1$ counterpart. We record it for the class-1 subsystem used in Model-$C_2$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this busy period, its LST and expectation are
+Unlike the textbook facts collected above, the busy-period identity that follows is the one preliminary we derive from scratch, as Model-$C_2$ rests on it directly. The \emph{Busy Period} of this $M/M/1+M$ is far more complex than its $M/M/1$ counterpart. We record it for the class-1 subsystem used in Model-$C_2$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this busy period, its LST and expectation are
 \begin{align}
     \begin{split}
     \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
@@ -151,7 +151,7 @@ The $M/G/1$ queue~\cite{adan2002queueing} is a single-server queue with Poisson 
 at rate $\lambda$ and generally distributed i.i.d.\ service times $B$ with LST $\widetilde{B}(s) = \mathbb{E}[e^{-sB}]$.
 For stability purposes, the system load $\rho_B = \lambda\,\mathbb{E}[B] < 1$ is required
 (written $\rho_B$ to keep the symbol $\rho$ for the two-class load of this thesis).
-Under these two conditions —Poisson arrivals and stability— the Pollaczek--Khinchine (PK) formula
+Under these two conditions ---Poisson arrivals and stability--- the Pollaczek--Khinchine (PK) formula
 gives the PGF of the stationary number of customers in the system:
 \begin{equation}
     L(z) \;=\; \frac{(1-\rho_B)(1-z)\,\widetilde{B}(\lambda(1-z))}{\widetilde{B}(\lambda(1-z)) - z}.
@@ -168,7 +168,7 @@ The \emph{Kummer confluent hypergeometric function of the first kind} appears in
     \qquad a^{(n)} = \prod_{k=0}^{n-1}(a+k),\quad a^{(0)}=1,
     \label{eq:kummer:series}
 \end{equation}
-where $b$ is not $0$ or a negative integer —i.e. $b \notin \{0,-1,-2,\dots\}$— and the series converges for all
+where $b$ is not $0$ or a negative integer ---i.e. $b \notin \{0,-1,-2,\dots\}$--- and the series converges for all
 $z\in\mathbb{C}$.
 The function ${}_1F_1(a;\,b;\,z)$ is the unique solution of \emph{Kummer's equation}~\cite{dlmf}:
 \begin{equation*}
@@ -207,7 +207,7 @@ Since jockeying and abandonment add state-dependent rates to the balance equatio
 
 \subsubsection{Integrating factor}\label{sssec:if}
 
-This method is standard to solve —for each fixed $y$— a \emph{first-order linear ODE in $x$}. Such an equation has standard form
+This method is standard to solve ---for each fixed $y$--- a \emph{first-order linear ODE in $x$}. Such an equation has standard form
 \begin{equation}
     \frac{dP}{dx} + p(x;\,y)\,P \;=\; q(x;\,y). \label{eq:ode:standard}
 \end{equation}
@@ -242,12 +242,12 @@ a first-order linear ODE in $t$. Its homogeneous part $\frac{dP}{dt}=cP$ is solv
 \begin{equation*}
     \xi \;:=\; b\,x - a\,y
 \end{equation*}
-is preserved along each curve —it is the \emph{first integral} that labels each characteristic. The integration constant of~\eqref{eq:ode:charode} therefore varies between characteristics: it is an arbitrary function $F(\xi)$. Re-expressing the solution in the original variables $(x,y)$ via~\eqref{eq:ode:char} gives the general solution of~\eqref{eq:ode:pde}. In the PGF setting, $F$ is identified with a boundary generating function, and analyticity of $P(x,y)$ for $|x|,|y|\leq 1$ uniquely determines it.
+is preserved along each curve ---it is the \emph{first integral} that labels each characteristic. The integration constant of~\eqref{eq:ode:charode} therefore varies between characteristics: it is an arbitrary function $F(\xi)$. Re-expressing the solution in the original variables $(x,y)$ via~\eqref{eq:ode:char} gives the general solution of~\eqref{eq:ode:pde}. In the PGF setting, $F$ is identified with a boundary generating function, and analyticity of $P(x,y)$ for $|x|,|y|\leq 1$ uniquely determines it.
 
 
 \subsubsection{Variation of parameters}\label{sssec:vop}
 
-The integrating factor of \S\ref{sssec:if} builds a solution from scratch by constructing $\mu_I$. Frequently, however, we \emph{already} hold a nonzero solution of the homogeneous equation —most importantly, the one the Method of Characteristics (\S\ref{sssec:moc}) produces along each characteristic curve. \emph{Variation of parameters} is the technique that turns any such known homogeneous solution directly into the general solution of the inhomogeneous equation, with no further integrating factor required. We describe it in the form in which it is used later.
+The integrating factor of \S\ref{sssec:if} builds a solution from scratch by constructing $\mu_I$. Frequently, however, we \emph{already} hold a nonzero solution of the homogeneous equation ---most importantly, the one the Method of Characteristics (\S\ref{sssec:moc}) produces along each characteristic curve. \emph{Variation of parameters} is the technique that turns any such known homogeneous solution directly into the general solution of the inhomogeneous equation, with no further integrating factor required. We describe it in the form in which it is used later.
 
 Consider a first-order linear ODE written as
 \begin{equation}
