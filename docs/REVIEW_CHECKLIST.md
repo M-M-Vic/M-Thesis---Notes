@@ -4,6 +4,41 @@
 > `Prompts for claude - Review/claude_code_prompts_thesis_edits.md` to the commit
 > that addressed it, and records the residual findings of the audit itself.
 
+## 2026-06-27 full audit — autonomous fixes executed
+
+> Source: `docs/REVIEW_2026-06-27.md` (full whole-thesis audit, `/thesis-review`). Run on the
+> post-restructure document: appendix now excluded from the PDF (`main.tex:93`), the
+> comparison inlined into `13_results.tex` (no `12_comparison.tex`), per-model
+> mean-queue/waiting subsections archived to `mean_queue_and_waiting_times.tex`.
+
+- **Build**: PASS, 0 errors / 0 LaTeX warnings. **67 pages** (was 98 pp; appendix excluded +
+  mean-queue removal). 244 unique labels (chapters + `main.tex`), no duplicates; 518
+  `\ref`/`\eqref`/`\Cref` targets, all resolve. 10 overfull + 7 underfull hboxes (cosmetic);
+  1 cosmetic pdfTeX duplicate-anchor warning (`equation.3.6`).
+- **Citations**: 16 cited / 16 defined, perfect 1:1; no orphans, no undefined keys.
+- **Autonomous fixes** (branch `thesis-review-2026-06-27`, tasks C1–C5):
+  - **C1** Stability strictness: `$\rho\le1$` → `$\rho<1$` in `06_model_a.tex`
+    (Theorem~`thm:A:PGF` hypothesis :55, Corollary~`cor:A:pi0` :72) and `08_model_b2.tex:161`,
+    matching each model's own `eq:*:stability` definition and CLAUDE.md §2 (the chain is
+    null-recurrent at `\rho=1`, so the non-strict bound was wrong).
+  - **C2** Eight prose typos: `anysuch`→`any such` (`06:122`), `signifficantly`→`significantly`
+    (`10:6`), `theis`→`this` (`10:4`), doubled "through the" (`09:144`), `ans`→`and` /
+    `brievity`→`brevity` (`09:147`), doubled "the the" (`08:80`), `As in for`→`As in`
+    (`08:78`, `08:69`).
+  - **C3** Bare cross-ref `\ref{apx:A:PPGF_Stilde}` → `Approximation~\ref{...}` (`06:7`).
+  - **C4** `docs/REPO_MAP.md` refreshed to the current layout (67 pp, no `12_comparison`,
+    appendix excluded, 16/16 citations, 0 in-source markers).
+  - **C5** This entry.
+- **Resolved since 2026-06-19** (cleared carry-forwards): working-title `TODO-confirm`;
+  Kernel-Method `TODO: cite` (now `\cite{cohen1956delay}`); Model-A `[AUTHOR]` ordering flag;
+  `abate2000asymptotic` / `tian2006vacation` orphan bib entries (removed).
+- **Open items for the author (2026-06-27)**:
+  1. Hadamard finite-part citation (`07_model_b.tex:375`) — supply source, or leave as the
+     framed open obstruction.
+  2. (optional) Kernel Method could additionally cite `fayolle1999random` (`06_model_a.tex:122`).
+  3. (optional) Whether the appendix `15_appendix_numerics.tex` stays excluded from the PDF.
+  4. (optional, cosmetic) 36.86 pt overfull box at `02_literature.tex:51–69` (content-touching).
+
 ## 2026-06-19 full audit — Phase 1 & 2 executed
 
 > Source: `docs/REVIEW_2026-06-19.md` (full whole-thesis audit). This entry supersedes the
