@@ -198,7 +198,7 @@ which is the expression in the statement of the theorem.
 
 The non-trivial proof for the corollary invoked in Theorem~\ref{thm:C2:PGF} comes next
 \begin{proof}[Proof of Corollary~\ref{cor:C2:pi00}]
-    The idle system state, with limiting probability $\pi_0$, only communicates to the busy-server-empty-queues state with probability $\pi(0,0)$. No abandonments can take place in any of the two states, as the queues are empty in both cases. We have, as Equation~\eqref{eq:gen:balance_idle},
+    The idle system state, with limiting probability $\pi_0$, only communicates to the busy-server-empty-queues state with probability $\pi(0,0)$. No abandonments can take place in either state, as the queues are empty in both cases. By the cut identity of Theorem~\ref{thm:gen:boundary} (Equation~\eqref{eq:gen:balance_idle}),
     \begin{equation}
         (\lambda_1+\lambda_2)\,\pi_0 \;=\; \mu\,\pi(0,0),
         \label{eq:C2:balance_zero}
@@ -218,7 +218,7 @@ The non-trivial proof for the corollary invoked in Theorem~\ref{thm:C2:PGF} come
     \begin{equation*}
         \pi_0 \;=\; \bigl(1-\lambda_2\,\mathbb{E}[B_C]\bigr)\cdot\frac{1}{1+\lambda_1\,\mathbb{E}[B_C]} \;=\; \frac{1-\lambda_2\,\mathbb{E}[B_C]}{1+\lambda_1\,\mathbb{E}[B_C]},
     \end{equation*}
-    which is~\eqref{eq:C2:pi0}; substituting into~\eqref{eq:C2:balance_zero} gives~\eqref{eq:C2:pi00}.
+    which is~\eqref{eq:C2:pi0}; substituting into~\eqref{eq:C2:balance_zero} gives~\eqref{eq:C2:pi00}. Equivalently, this is the renewal--reward form $\pi_0=1/\bigl(1+\lambda\,\mathbb{E}[B]\bigr)$ of Theorem~\ref{thm:gen:boundary} with whole-system mean busy period $\mathbb{E}[B]=\mathbb{E}[B_C]/\bigl(1-\lambda_2\,\mathbb{E}[B_C]\bigr)$ --- the mean busy period of the $M/G/1$ queue in which each class-$2$ arrival (rate $\lambda_2$) carries a service requirement of one class-$1$ busy period $B_C$.
 \end{proof}
 
 \subsection{Alternative derivation of \texorpdfstring{$P_y(y)$}{Py(y)}: the \texorpdfstring{$M/G/1$}{M/G/1} / Pollaczek--Khinchine route}\label{ssec:C2:prob}

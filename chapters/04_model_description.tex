@@ -78,12 +78,34 @@ For the aggregate system parameters, we define:
 
 \textbf{Stability.} Jockeying does not affect stability (customers are merely relocated). Model-$X$ has abandonments from both classes, so the departure rate $\mu + \theta_1 n_1 + \theta_2 n_2$ grows unbounded, ensuring positive recurrence for all loads. In contrast, models without abandonments require $\rho < 1$ (they behave like M/M/1). Mixed cases, such as Model-$C_2$, are discussed separately (\S\ref{sec:model_c2}).
 
-\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} Balance between state $(0)$ and $(0,0)$ gives $\lambda\pi_0 = \mu\,\pi(0,0)$. Hence,
-\begin{equation}
-    \pi(0,0) \;=\; \rho\,\pi_0.
-    \label{eq:gen:pi00_general}
-\end{equation}
-This holds regardless of jockeying and abandonments (neither mechanism acts when there are no waiting customers). However, $\pi_0$ itself depends on the abandonment model. For models \emph{without} abandonment, $\pi_0 = 1-\rho$ (M/M/1 reduction). For models \emph{with} abandonment, the departure rate depends on the split $(n_1, n_2)$, so $\pi_0$ must be determined from the bivariate PGF (\S\ref{ssec:pgf_derivation}).
+\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} The two empty-state probabilities are pinned, for the full Model-$X$, by two exact identities that hold irrespective of the jockeying and abandonment mechanisms: a cut between the idle and busy states, and a renewal--reward identity over busy cycles. Together they reduce the determination of $\pi_0$ and $\pi(0,0)$ to a single scalar, the mean busy period $\mathbb{E}[B]$.
+
+\begin{theorem}[Empty-state probabilities of the general model]\label{thm:gen:boundary}
+    Assume the CTMC of Model-$X$ is positive recurrent, so that the stationary distribution exists. Let $\lambda=\lambda_1+\lambda_2$ and let $\mathbb{E}[B]$ denote the mean length of a server busy period --- the time from an arrival that finds the system empty until the system is next empty. Then
+    \begin{equation}
+        \pi(0,0) \;=\; \rho\,\pi_0,
+        \label{eq:gen:pi00_general}
+    \end{equation}
+    and
+    \begin{equation}
+        \pi_0 \;=\; \frac{1}{1+\lambda\,\mathbb{E}[B]},
+        \qquad
+        \pi(0,0) \;=\; \frac{\rho}{1+\lambda\,\mathbb{E}[B]}.
+        \label{eq:gen:pi0_renewal}
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    \emph{Cut identity.} Consider the cut separating the idle state $(0)$ from the set of busy states. The only transitions out of $(0)$ are the class-$1$ and class-$2$ arrivals, at total rate $\lambda$; the only transition into $(0)$ is a service completion from $(0,0)$, at rate $\mu$ --- from any state with a waiting customer a departure leaves the server busy, and neither jockeying nor abandonment can act when both queues are empty. Equating the probability flux across the cut gives $\lambda\,\pi_0=\mu\,\pi(0,0)$, which is~\eqref{eq:gen:pi00_general}.
+
+    \emph{Renewal--reward identity.} The idle state is a regeneration point: by the memorylessness of the exponential inter-arrival and service times (the strong Markov property), the evolution after each visit to $(0)$ is an independent probabilistic replica. Successive cycles therefore alternate an idle period of mean $1/\lambda$ (the wait for the next arrival, exponential at rate $\lambda$) and a busy period of mean $\mathbb{E}[B]$. By the renewal--reward theorem, the stationary probability of the idle state equals the long-run fraction of time spent idle,
+    \begin{equation*}
+        \pi_0 \;=\; \frac{1/\lambda}{1/\lambda+\mathbb{E}[B]} \;=\; \frac{1}{1+\lambda\,\mathbb{E}[B]},
+    \end{equation*}
+    and substituting into~\eqref{eq:gen:pi00_general} yields the stated $\pi(0,0)$.
+\end{proof}
+
+Both identities are exact for the full model. They reduce the problem to the mean busy period $\mathbb{E}[B]$, which is elementary when there is no abandonment and is computed model by model once abandonment is present; the resulting $\pi_0$ and $\pi(0,0)$ for each tractable model then follow as corollaries (Corollary~\ref{cor:gen:no_abandon} for the no-abandonment family; \S\ref{sec:model_c2} and \S\ref{sec:model_c21} for the abandonment variants). For the full asymmetric Model-$X$, $\mathbb{E}[B]$ itself has no closed form (Remark~\ref{rem:B:modelX}).
 
 \subsection{Balance equations}
 
@@ -707,6 +729,21 @@ The position of these vanishing factors fixes, model by model, where the operati
         \end{split}.
     \end{align*}
 \end{proof}
+
+The fundamental equation already delivers the first specialisation of Theorem~\ref{thm:gen:boundary}: the case of no abandonment, which covers Models~$A$, $B$, $B_2$ and $\BH$ at once.
+
+\begin{corollary}[Empty states without abandonment]\label{cor:gen:no_abandon}
+    Suppose $\theta_1=\theta_2=0$ (Models~$A$, $B$, $B_2$ and $\BH$) and $\rho<1$. Then the total number in the system is a birth--death process with birth rate $\lambda$ and death rate $\mu$ --- an $M/M/1$ queue --- for \emph{any} jockeying rates $\gamma_1,\gamma_2$, since jockeying merely relocates a waiting customer and so conserves the total count. Its mean busy period is $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, and Theorem~\ref{thm:gen:boundary} gives
+    \begin{equation}
+        \pi_0 = 1-\rho, \qquad \pi(0,0)=\rho(1-\rho).
+        \label{eq:gen:pi0_noabandon}
+    \end{equation}
+    Moreover, setting $x=y=z$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} annihilates both convection terms (each carries the factor $x-y$), leaving the algebraic relation $-(1-z)\bigl(\mu-\lambda z\bigr)P(z,z)=-\mu(1-z)\,\pi(0,0)$, whence the diagonal of the PGF and the normalisation read
+    \begin{equation}
+        P(z,z)=\frac{\pi(0,0)}{1-\rho z}, \qquad P(1,1)=1-\pi_0=\rho.
+        \label{eq:gen:Pzz_diag}
+    \end{equation}
+\end{corollary}
 
 
 \subsubsection{Equation for PPGF in state space \texorpdfstring{$\widetilde{S}$}{S~}}

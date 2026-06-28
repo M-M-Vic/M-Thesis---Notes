@@ -79,36 +79,7 @@ proofs are given, one analytical and one probabilistic.
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor:A:pi0}]
-Setting $x=y=z$ in the fundamental equation~\eqref{eq:A:fundamental}, the boundary
-term $\mu(x-y)P_y(y)$ vanishes:
-    \begin{align*}
-        \left[ (\lambda_1+\lambda_2+ \mu)z^2 - \mu z - \lambda_1 z^3 - \lambda_2 z^3 \right] P(z,z)
-        &= - \mu z(1-z) \pi(0,0).
-    \end{align*}
-    Dividing both sides by $z$ and factoring the bracket:
-    \begin{align*}
-        -(1-z)\left[ \mu - (\lambda_1 + \lambda_2)z \right] P(z,z)
-        &= - \mu (1-z) \pi(0,0).
-    \end{align*}
-    Cancelling $(1-z)\neq 0$ for $z\in[0,1)$ and rearranging:
-    \begin{equation*}
-        P(z,z) = \frac{\mu\,\pi(0,0)}{\mu - \lambda z} = \frac{\pi(0,0)}{1-\rho z},
-    \end{equation*}
-    where $\lambda = \lambda_1+\lambda_2$ and the second equality follows by dividing
-    numerator and denominator by $\mu$.
-
-    Setting $z=1$ and using the normalisation $P(1,1) = 1-\pi_0$:
-    \begin{equation}
-        1-\pi_0 = \frac{\pi(0,0)}{1-\rho}. \label{eq:A:norm_step}
-    \end{equation}
-    The global balance equation for the idle state gives $\lambda\pi_0 = \mu\pi(0,0)$,
-    i.e.\ $\pi(0,0) = \rho\pi_0$. Substituting into~\eqref{eq:A:norm_step}:
-    \begin{equation*}
-        1-\pi_0 = \frac{\rho\pi_0}{1-\rho}
-        \implies (1-\pi_0)(1-\rho) = \rho\pi_0
-        \implies \pi_0 = 1-\rho,
-    \end{equation*}
-    and therefore $\pi(0,0) = \rho(1-\rho)$.
+    Model-$A$ is the no-mechanism case $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, so the statement is the specialisation of Corollary~\ref{cor:gen:no_abandon} --- equivalently Theorem~\ref{thm:gen:boundary} with the $M/M/1$ mean busy period $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, giving $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$. The diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$ and the normalisation $P(1,1)=1-\pi_0=\rho$ are the reduction~\eqref{eq:gen:Pzz_diag} of the Model-$A$ kernel~\eqref{eq:A:fundamental} on $x=y=z$.
 \end{proof}
 
 \subsubsection{Analytical approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
