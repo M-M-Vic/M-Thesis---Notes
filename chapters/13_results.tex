@@ -1,50 +1,39 @@
 \section{Results}\label{sec:results}
 
-Every closed-form expression derived above is first validated against an exact
-continuous-time Markov chain (CTMC), then used to compare the solved models and quantify
-the two mechanisms.
+Every closed-form expression derived above is first validated against an exact \emph{continuous-time Markov chain} (CTMC), then used to compare the solved models and quantify the effect of the two waiting-room mechanisms.
 
 \subsection{Validation against the CTMC}\label{subsec:validation}
 
-The ground truth is a truncated CTMC solver: it solves the linear system $\pi Q=0$ directly,
-with no approximation beyond the finite truncation at $N_{\max}=40$. Each theoretical result
---- two lemmas, three theorems, two corollaries, one approximation theorem, and two
-experiment-model theorems --- is verified against the exact stationary distribution at base
-parameters $\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1.0$, with the mechanism parameter
-($\gamma_1$ or $\theta_1$) set to $0.5$ where applicable.
+The method employed is a truncated CTMC solver: it solves the linear system $\pi Q=0$ directly, with no approximation in place beyond the finite truncation at $N_{\max}=40$. Each theoretical result is therefore verified against the stationary distribution at base parameters $\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1.0$, with the mechanism parameter ($\gamma_1$ or $\theta_1$) set to $0.5$ where applicable.
 
-Table~\ref{tab:validation_summary} collects the verdict for every result. All mathematical
-results are accepted to within CTMC truncation noise: the lemma residuals and closed-form
-PGF errors fall between $10^{-7}$ and $10^{-15}$, and the corollary scatter lies on the
-diagonal to $10^{-4}$ across $60$ random configurations each. A discrete-event simulation of
-the master chain cross-validates the CTMC itself to the $O(1/\sqrt{n})$ sampling floor.
+Table~\ref{tab:validation_summary} collects the verdict for every result. All mathematical results are accepted to within reasonable tolerance level: the lemma residuals and closed-form PGF errors fall between $10^{-7}$ and $10^{-15}$, and the corollary scatter lies on the diagonal to $10^{-4}$ across $60$ random configurations each. A discrete-event simulation of the master chain cross-validates the CTMC itself to the $O(1/\sqrt{n})$ sampling floor.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{table}[H]
-\centering
-\caption{Validation summary.  All mathematical results are accepted; the PPGF
-approximation is conditionally accepted (accurate only for $\rho_1/\rho\ge0.6$
-and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
-\label{tab:validation_summary}
-\renewcommand{\arraystretch}{1.35}
-\footnotesize
-\begin{tabular}{llllcl}
-\hline
-\textbf{ID} & \textbf{Result} & \textbf{Model(s)} & \textbf{Check} & \textbf{Max error} & \textbf{Verdict} \\
-\hline
-L1   & Lemma~\ref{lem:gen:fundamental_equation}  & A, B, B$_2$, C$_2$ & PGF eq.\ residual             & $<5\times10^{-9}$  & Accept \\
-L2   & Lemma~\ref{lem:gen:PPGF_dynamics}         & A, B$_2$, C$_2$    & PPGF dynamics residual        & $<2\times10^{-15}$ & Accept \\
-T-A  & Theorem~\ref{thm:A:PGF}                     & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
-C-A  & Corollary~\ref{cor:A:pi0}                 & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
-T-B2 & Theorem~\ref{thm:B2:PGF}                  & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
-T-C2 & Theorem~\ref{thm:C2:PGF}                  & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
-C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
-T-S  & Approximation~\ref{apx:A:PPGF_Stilde}     & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
-\hline
-E-B  & Theorem~\ref{thm:B21:PGF} --- Model-$\BH$  & $\BH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
-E-C  & Theorem~\ref{thm:C21:PGF} --- Model-$\CH$ & $\CH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Validation summary.  All mathematical results are accepted; the PPGF
+    approximation is conditionally accepted (accurate only for $\rho_1/\rho\ge0.6$
+    and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
+    \label{tab:validation_summary}
+    \renewcommand{\arraystretch}{1.35}
+    \footnotesize
+    \begin{tabular}{llllcl}
+        \hline
+        \textbf{ID} & \textbf{Result} & \textbf{Model(s)} & \textbf{Check} & \textbf{Max error} & \textbf{Verdict} \\
+        \hline
+        L1   & Lemma~\ref{lem:gen:fundamental_equation}  & A, B, B$_2$, C$_2$ & PGF eq.\ residual             & $<5\times10^{-9}$  & Accept \\
+        L2   & Lemma~\ref{lem:gen:PPGF_dynamics}         & A, B$_2$, C$_2$    & PPGF dynamics residual        & $<2\times10^{-15}$ & Accept \\
+        T-A  & Theorem~\ref{thm:A:PGF}                     & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
+        C-A  & Corollary~\ref{cor:A:pi0}                 & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
+        T-B2 & Theorem~\ref{thm:B2:PGF}                  & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
+        T-C2 & Theorem~\ref{thm:C2:PGF}                  & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
+        C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
+        T-S  & Approximation~\ref{apx:A:PPGF_Stilde}     & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
+        \hline
+        E-B  & Theorem~\ref{thm:B21:PGF} --- Model-$\BH$  & $\BH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
+        E-C  & Theorem~\ref{thm:C21:PGF} --- Model-$\CH$ & $\CH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
+        \hline
+    \end{tabular}
 \end{table}
 
 A single entry is only conditionally accepted. The partial-PGF recursion on the alternative
@@ -57,93 +46,77 @@ It is reliable only in the priority-dominated, moderately loaded regime
 \subsection{Structural comparison of the solved models}
 \label{sec:comparison}
 
-With every closed form validated, we compare the five solved models: the baseline ($A$), the
-jockeying extension ($B_2$), the abandonment extension ($C_2$), and their head-of-line
-variants ($\BH$, $\CH$). The first three are the tractable specialisations of Model-$X$;
-the head-of-line variants are the standalone simplifications of
-\S\S\ref{sec:model_b21}--\ref{sec:model_c21}. Each produces a closed-form or integral-form
-expression for $P(x,y)$. Table~\ref{tab:comparison} collects the key structural facts across
-all five models.
+For each closed form validated, we compare the five solved models: Model-$A$ (baseline), Model-$B_2$ (class-$1$ jockeying), Model-$C_2$ (class-$1$ abandonment) and the two head-of-line variants Model-$\BH$ and Model-$\CH$. Each model produces a result wither in closed form or in integral form expressions for their bivariate PGF $P(x,y)$. Table~\ref{tab:comparison} collects the key structural facts across all five models.
 
 \begin{table}[H]
-\centering
-\caption{Structural comparison of the five solved models. Replacing a length-proportional
-mechanism rate ($\gamma_1 n_1$ or $\theta_1 n_1$) by a head-of-line rate
-($\gamma_1\mathbf{1}_{\{n_1\ge1\}}$ or $\theta_1\mathbf{1}_{\{n_1\ge1\}}$) collapses the
-governing ODE back to the algebraic Model-$A$ form, so $P(x,y)$ becomes rational again.}
-\label{tab:comparison}
-\renewcommand{\arraystretch}{1.4}
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}p{0.17\textwidth} *{5}{p{0.135\textwidth}}@{}}
-\hline
- & \textbf{Model-$A$} & \textbf{Model-$B_2$} & \textbf{Model-$\BH$} & \textbf{Model-$C_2$} & \textbf{Model-$\CH$} \\
-\hline
-Extra mechanism (rate)
- & none
- & jockey $1\!\to\!2$, $\gamma_1 n_1$
- & jockey $1\!\to\!2$, $\gamma_1\mathbf{1}_{\{n_1\ge1\}}$
- & abandon, $\theta_1 n_1$
- & abandon, $\theta_1\mathbf{1}_{\{n_1\ge1\}}$ \\
-Fundamental equation
- & algebraic
- & 1st-order ODE
- & algebraic
- & 1st-order ODE
- & algebraic \\
-Pinning of $P_y(y)$
- & kernel root $x^*(y)$
- & analyticity at $x=y$
- & kernel root $x^*(y)$
- & boundedness at $x=1$
- & kernel root $x^*(y)$ \\
-$P(x,y)$ form
- & rational
- & integral $+\,{}_1F_1$
- & rational
- & integral $+\,{}_1F_1$
- & rational \\
-Conserves total $N$?
- & yes
- & yes
- & yes
- & no
- & no \\
-$\pi(0,0)$
- & $\rho(1-\rho)$
- & $\rho(1-\rho)$
- & $\rho(1-\rho)$
- & \eqref{eq:C2:pi00}
- & \eqref{eq:C21:pi0_pi00} \\
-$\pi_0$
- & $1-\rho$
- & $1-\rho$
- & $1-\rho$
- & $>1-\rho$, \eqref{eq:C2:pi0}
- & \eqref{eq:C21:pi0_pi00} \\
-Stability condition
- & $\rho<1$
- & $\rho<1$
- & $\rho<1$
- & $\lambda_2\mathbb{E}[B_C]<1$
- & \eqref{eq:C21:stability} \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Structural comparison of the five solved models. Replacing a length-proportional
+    mechanism rate ($\gamma_1 n_1$ or $\theta_1 n_1$) by a head-of-line rate
+    ($\gamma_1\mathbf{1}_{\{n_1\ge1\}}$ or $\theta_1\mathbf{1}_{\{n_1\ge1\}}$) collapses the
+    governing ODE back to the algebraic Model-$A$ form, so $P(x,y)$ becomes rational again.}
+    \label{tab:comparison}
+    \renewcommand{\arraystretch}{1.4}
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{@{}p{0.17\textwidth} *{5}{p{0.135\textwidth}}@{}}
+        \hline
+         & \textbf{Model-$A$} & \textbf{Model-$B_2$} & \textbf{Model-$\BH$} & \textbf{Model-$C_2$} & \textbf{Model-$\CH$} \\
+        \hline
+        Extra mechanism (rate)
+         & none
+         & jockey $1\!\to\!2$, $\gamma_1 n_1$
+         & jockey $1\!\to\!2$, $\gamma_1\mathbf{1}_{\{n_1\ge1\}}$
+         & abandon, $\theta_1 n_1$
+         & abandon, $\theta_1\mathbf{1}_{\{n_1\ge1\}}$ \\
+        Fundamental equation
+         & algebraic
+         & 1st-order ODE
+         & algebraic
+         & 1st-order ODE
+         & algebraic \\
+        Pinning of $P_y(y)$
+         & kernel root $x^*(y)$
+         & analyticity at $x=y$
+         & kernel root $x^*(y)$
+         & boundedness at $x=1$
+         & kernel root $x^*(y)$ \\
+        $P(x,y)$ form
+         & rational
+         & integral $+\,{}_1F_1$
+         & rational
+         & integral $+\,{}_1F_1$
+         & rational \\
+        Conserves total $N$?
+         & yes
+         & yes
+         & yes
+         & no
+         & no \\
+        $\pi(0,0)$
+         & $\rho(1-\rho)$
+         & $\rho(1-\rho)$
+         & $\rho(1-\rho)$
+         & \eqref{eq:C2:pi00}
+         & \eqref{eq:C21:pi0_pi00} \\
+        $\pi_0$
+         & $1-\rho$
+         & $1-\rho$
+         & $1-\rho$
+         & $>1-\rho$, \eqref{eq:C2:pi0}
+         & \eqref{eq:C21:pi0_pi00} \\
+        Stability condition
+         & $\rho<1$
+         & $\rho<1$
+         & $\rho<1$
+         & $\lambda_2\mathbb{E}[B_C]<1$
+         & \eqref{eq:C21:stability} \\
+        \hline
+    \end{tabular}
 \end{table}
 
 \subsubsection*{Model-\texorpdfstring{$A$}{A}: the rational baseline}
 
-Model-$A$ imposes no extra departure mechanism.
-Class-1 operates as an independent $M/M/1(\lambda_1,\mu)$ queue;
-class-2 sees an $M/G/1$ with service time equal to a class-1 busy period
-(by PASTA and the priority decomposition of \S\ref{ssec:priority}).
-The Pollaczek--Khinchine formula~\eqref{eq:pk:pgf} delivers $P_y(y)$
-as a rational function of $x^*(y)$, and $P(x,y)$ is a ratio of polynomials
-in $x$, $y$, and $x^*(y)$.  All performance measures --- $\pi_0$, $\pi(0,0)$,
-$\mathbb{E}[N_i]$, $\mathbb{E}[W_i]$ --- are in closed form.  Model-$A$ also
-furnishes the structural identities that persist across the hierarchy:
-$P(z,z)=\rho(1-\rho)/(1-\rho z)$ (total queue is $M/M/1$),
-$\pi_0=1-\rho$, and $\pi(0,0)=\rho(1-\rho)$.
+Model-$A$ is a classic, well-studied model and its results are widespread. It operates as an ordinary two-class $M/M/1$ queue with non-preemptive priority. Its purpose here is to validate whether the other models converge into it when the parameters for the active mechanisms approach zero. All performance measures have a closed form; and, in the same fashion as the other models without abandonment, the total number of customers is also preserved.
 
 \subsubsection*{Effect of jockeying: Model-\texorpdfstring{$A$}{A} \texorpdfstring{$\to$}{->} Model-\texorpdfstring{$B_2$}{B2}}
 
