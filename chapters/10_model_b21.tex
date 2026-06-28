@@ -1,7 +1,7 @@
 \section{Analysis of Model-\texorpdfstring{$\BH$}{B2-H} (\texorpdfstring{$\gamma_1>0$}{gamma1>0} head-of-line, \texorpdfstring{$\gamma_2=\theta_1=\theta_2=0$}{gamma2=theta1=theta2=0})}
 \label{sec:model_b21}
 
-Inspired by the work of Devos et al. \cite{devos2020alternating}, this model ---together with Model-$\CH$--- eliminates the state-dependent jockeying rate for the class-$1$, only allowing the head-of-line customer from class-$1$ to transition at a fixed rate $\gamma_1$ whenever $n_1\geq1$, giving an aggregate rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
+Inspired by the work of Devos et al.~\cite{devos2020alternating}, this model ---together with Model-$\CH$--- eliminates the state-dependent jockeying rate for the class-$1$, only allowing the head-of-line customer from class-$1$ to transition at a fixed rate $\gamma_1$ whenever $n_1\geq1$, giving an aggregate rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
 
 This significantly simplifies the model. The flat rate replaces the derivative term in $x$ found in \S\ref{sec:model_b2} by an algebraic factor $\gamma_1 y(x-y)$ so the fundamental equation remains algebraic and can be solved by the Kernel Method exactly as in Model-$A$ (\S\ref{sec:model_a}).
 
@@ -82,7 +82,7 @@ while its \emph{in}-flow enters every state with $n_2\ge1$ from $(n_1+1,n_2-1)$:
     = \gamma_1\,\frac{y}{x}\sum_{m_1\ge1}\sum_{m_2\ge0}\pi(m_1,m_2)\,x^{m_1}y^{m_2}
     = \gamma_1\,\frac{y}{x}\bigl[P(x,y)-P_y(y)\bigr],
 \end{equation*}
-where $m_1=n_1+1,\ m_2=n_2-1$. The jockeying contribution (out minus in) is hence $\gamma_1\bigl(1-\tfrac{y}{x}\bigr)\bigl[P(x,y)-P_y(y)\bigr]$; multiplying by $xy$ gives $\gamma_1 y(x-y)\bigl[P(x,y)-P_y(y)\bigr]$. Adding this to the Model-$A$ equation and moving the $P_y$ part to the right-hand side yields~\eqref{eq:B21:fundamental}.
+where $m_1=n_1+1,\ m_2=n_2-1$. The jockeying contribution (out minus in) is hence $\gamma_1\bigl(1-\tfrac{y}{x}\bigr)\bigl[P(x,y)-P_y(y)\bigr]$; multiplying by $xy$ gives $\gamma_1 y(x-y)\bigl[P(x,y)-P_y(y)\bigr]$. Adding this to the Model-$A$ equation and moving the $P_y$ part to the right-hand side yields Equation~\eqref{eq:B21:fundamental}.
 \end{proof}
 
 \subsection{Closed-form solution}
@@ -110,7 +110,7 @@ with $x^*(y)$ the root inside the unit disc.
 
 The result below is stated as a corollary, so that it sits at the same hierarchy level as the corresponding results for the other models.
 \begin{corollary}\label{cor:B21:pi0}
-    Under~\eqref{eq:B21:stability}, the empty-state probabilities of Model-$\BH$ coincide with those of Model-$A$,
+    Under Equation~\eqref{eq:B21:stability}, the empty-state probabilities of Model-$\BH$ coincide with those of Model-$A$,
     \begin{equation*}
         \pi_0 = 1-\rho, \qquad \pi(0,0) = \rho(1-\rho).
     \end{equation*}
@@ -123,11 +123,11 @@ The proof is the no-abandonment instance of Theorem~\ref{thm:gen:boundary} (Coro
 
 \begin{proof}[Proof of Theorem~\ref{thm:B21:PGF}]
 
-We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}. Fix $y\in(0,1]$ and seek the values of $x$ at which the coefficient of $P(x,y)$ vanishes. Since $P(x,y)$ is a PGF it is bounded on the closed unit disc, so at any such root the right-hand side of~\eqref{eq:B21:fundamental} must also vanish. Dividing the kernel by $y\ne0$,
+We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}. Fix $y\in(0,1]$ and seek the values of $x$ at which the coefficient of $P(x,y)$ vanishes. Since $P(x,y)$ is a PGF it is bounded on the closed unit disc, so at any such root the right-hand side of Equation~\eqref{eq:B21:fundamental} must also vanish. Dividing the kernel by $y\ne0$,
 \begin{equation*}
     0 = (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy + \gamma_1(x-y),
 \end{equation*}
-and rearranging into a quadratic in $x$ gives exactly~\eqref{eq:B21:quad},
+and rearranging into a quadratic in $x$ gives exactly Equation~\eqref{eq:B21:quad},
 \begin{equation*}
     \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr]x + (\mu+\gamma_1 y) = 0,
 \end{equation*}
@@ -152,16 +152,16 @@ $f_y(1,1)=\lambda_2+\gamma_1$ and $f_x(1,1)=\lambda_1-\mu-\gamma_1$, so $\tfrac{
     \frac{d}{dy}x^*(1) = \frac{\lambda_2+\gamma_1}{\mu+\gamma_1-\lambda_1}.
     \label{eq:B21:xstar_deriv}
 \end{equation}
-Unlike Model-$A$'s~\eqref{eq:A:xstar_prime}, the numerator carries an extra $\gamma_1$: the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself $y$-dependent here.
+Unlike Model-$A$'s Equation~\eqref{eq:A:xstar_prime}, the numerator carries an extra $\gamma_1$: the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself $y$-dependent here.
 
-Setting $x=x^*(y)$ in~\eqref{eq:B21:fundamental} forces the right-hand side to vanish:$(x^*(y)-y)(\mu+\gamma_1 y)\,P_y(y) = \mu x^*(y)(1-y)\,\pi(0,0)$, whence the boundary function is
+Setting $x=x^*(y)$ in Equation~\eqref{eq:B21:fundamental} forces the right-hand side to vanish:$(x^*(y)-y)(\mu+\gamma_1 y)\,P_y(y) = \mu x^*(y)(1-y)\,\pi(0,0)$, whence the boundary function is
 \begin{equation}
     P_y(y) = \frac{\mu\,x^*(y)\,(1-y)\,\pi(0,0)}
                   {(\mu+\gamma_1 y)\,\bigl(x^*(y)-y\bigr)}.
     \label{eq:B21:Py}
 \end{equation}
 
-Finally, substitute~\eqref{eq:B21:Py} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:B21:pi0}) back into~\eqref{eq:B21:fundamental}. Writing the kernel as $-\lambda_1 y\,(x-x^*(y))(x-x^+(y))$ and simplifying the right-hand side,
+Finally, substitute Equation~\eqref{eq:B21:Py} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:B21:pi0}) back into Equation~\eqref{eq:B21:fundamental}. Writing the kernel as $-\lambda_1 y\,(x-x^*(y))(x-x^+(y))$ and simplifying the right-hand side,
 \begin{align*}
     \bigl[\mu(x-y)+\gamma_1 y(x-y)\bigr]P_y(y) - \mu x(1-y)\,\pi(0,0)
     &= \mu(1-y)\,\pi(0,0)\left[\frac{(x-y)\,x^*(y)}{x^*(y)-y}-x\right] \\

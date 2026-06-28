@@ -115,14 +115,14 @@ with $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Thus
     \label{eq:B2:pfrac}
 \end{equation}
 
-Since we will have a factor $(x-y)$ due to jockeying, we work on the region $0\leq x\leq y$, where $x-y\le0$; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y-x)$, so integrating the partial fraction \eqref{eq:B2:pfrac} yields, up to a constant,
+Since we will have a factor $(x-y)$ due to jockeying, we work on the region $0\leq x\leq y$, where $x-y\le0$; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y-x)$, so integrating the partial fraction~\eqref{eq:B2:pfrac} yields, up to a constant,
 \begin{align*}
     \int^{x}\! p(t;y)\,dt
     &= \frac{1}{\gamma_1}\Bigl[-\lambda_1 x + \frac{\mu}{y}\ln x
        + \frac{(1-y)(\lambda y-\mu)}{y}\,\ln(y-x)\Bigr] \\
     &= -\frac{\lambda_1}{\gamma_1}\,x + \alpha(y)\ln x + \beta(y)\ln(y-x),
 \end{align*}
-with the exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$of~\eqref{eq:B2:exponents_thm}. Exponentiating, and dropping the multiplicative constant to which an integrating factor is indifferent, gives our integrating factor
+with the exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$of Equation~\eqref{eq:B2:exponents_thm}. Exponentiating, and dropping the multiplicative constant to which an integrating factor is indifferent, gives our integrating factor
 \begin{equation*}
     \mu_I(x;y) = e^{-\lambda_1 x/\gamma_1}\,x^{\,\alpha(y)}\,(y-x)^{\,\beta(y)},
 \end{equation*}
@@ -137,7 +137,7 @@ The general solution of \S\ref{sssec:if} (Equation~\eqref{eq:ode:general}) now a
 \begin{equation*}
     P(x,y)\,\mu_I(x;y) = \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
 \end{equation*}
-Multiplying $q$ from~\eqref{eq:B2:qxy} by $\mu_I$ and applying the identity
+Multiplying $q$ from Equation~\eqref{eq:B2:qxy} by $\mu_I$ and applying the identity
 $(y-t)^{\beta}/(t-y)=-(y-t)^{\beta-1}$ to the second term, the integrand separates into two pieces,
 \begin{equation*}
     q(t;y)\,\mu_I(t;y) = \frac{\mu}{\gamma_1 y}\Bigl[
@@ -145,7 +145,7 @@ $(y-t)^{\beta}/(t-y)=-(y-t)^{\beta-1}$ to the second term, the integrand separat
         + (1-y)\pi(0,0)\,e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha}(y-t)^{\beta-1}
     \Bigr],
 \end{equation*}
-With the auxiliary integrals $\mathcal{H}_1,\mathcal{H}_2$ of~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and dividing through by $\mu_I(x;y)=e^{-\lambda_1 x/\gamma_1}x^{\alpha}(y-x)^{\beta}$, the solution on the principal region $0\le x\le y$ is
+With the auxiliary integrals $\mathcal{H}_1,\mathcal{H}_2$ of Equations~\eqref{eq:B2:I1}--\eqref{eq:B2:I2} and dividing through by $\mu_I(x;y)=e^{-\lambda_1 x/\gamma_1}x^{\alpha}(y-x)^{\beta}$, the solution on the principal region $0\le x\le y$ is
 \begin{equation}
     P(x,y) = \frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
     \Bigl[P_y(y)\,\mathcal{H}_1(x,y) + (1-y)\pi(0,0)\,\mathcal{H}_2(x,y)\Bigr],
@@ -157,13 +157,13 @@ which still contains the unknown boundary function $P_y(y)$; Step~(ii) determine
 \medskip\noindent\textbf{Step~(ii): Determine $P_y(y)$ by analyticity at $x=y$.}
 \medskip
 
-Under stability (i.e. $\rho<1$) $\mu-\lambda y>0$ for $y\in(0,1)$, so the second exponent is negative:
+Under stability (i.e.\ $\rho<1$) $\mu-\lambda y>0$ for $y\in(0,1)$, so the second exponent is negative:
 \begin{equation}
     \beta(y) = \frac{(1-y)(\lambda y-\mu)}{\gamma_1 y} < 0,
     \qquad 0<y<1.
     \label{eq:B2:beta_negative}
 \end{equation}
-So the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form, whose resolution fixes $P_y(y)$.
+So the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in Equation~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form, whose resolution fixes $P_y(y)$.
 
 On the diagonal the value is known outright. Setting $x=y=z$ in the fundamental equation~\eqref{eq:B2:fundamental} drops the jockeying and boundary terms (each containing a factor $x-y$) and leaves Model~$A$'s balance, so
 \begin{equation}
@@ -173,7 +173,7 @@ On the diagonal the value is known outright. Setting $x=y=z$ in the fundamental 
 the diagonal value of Corollary~\ref{cor:A:pi0}.
 
 \smallskip\noindent\textit{Smoothness condition and $P_y(y)$.}
-Pull the analytic, non-vanishing prefactor of~\eqref{eq:B2:Pxy_real} into
+Pull the analytic, non-vanishing prefactor of Equation~\eqref{eq:B2:Pxy_real} into
 $\Psi(x)=\mu\,e^{\lambda_1 x/\gamma_1}x^{-\alpha}/(\gamma_1 y)$, so that
 \begin{equation*}
     P(x,y)=\Psi(x)\,(y-x)^{|\beta|}
@@ -182,8 +182,8 @@ $\Psi(x)=\mu\,e^{\lambda_1 x/\gamma_1}x^{-\alpha}/(\gamma_1 y)$, so that
 \end{equation*}
 We need only the leading behaviour of the two integrals as $x\to y^{-}$, not a full expansion.
 Each splits into its endpoint value $\mathcal{H}_i(y,y)=\int_0^y(\cdots)\,dt$ and a remainder
-set by the integrand near $t=y$ --- $\mathcal{H}_1$ carries $(y-t)^{\beta}$, $\mathcal{H}_2$
-carries $(y-t)^{\beta-1}$ --- so that, with constants $c_1,c_2$ whose values we never need,
+set by the integrand near $t=y$ ---$\mathcal{H}_1$ carries $(y-t)^{\beta}$, $\mathcal{H}_2$
+carries $(y-t)^{\beta-1}$--- so that, with constants $c_1,c_2$ whose values we never need,
 \begin{equation*}
     \mathcal{H}_1(x,y)=\mathcal{H}_1(y,y)+c_1\,(y-x)^{\beta+1}+\cdots, \qquad
     \mathcal{H}_2(x,y)=\mathcal{H}_2(y,y)+c_2\,(y-x)^{\beta}+\cdots .
@@ -191,15 +191,15 @@ carries $(y-t)^{\beta-1}$ --- so that, with constants $c_1,c_2$ whose values we 
 Multiplied by $(y-x)^{-\beta}$, the $c_1,c_2$ remainders turn into a smooth $O(y-x)$ term and the
 constant regular value~\eqref{eq:B2:regular_value}; only the endpoint values retain the bare,
 non-integer power $(y-x)^{|\beta|}$ ($|\beta|\notin\mathbb{Z}$ generically). Since $P(\cdot,y)$
-is a power series in $x$ --- hence smooth at the interior point $x=y<1$, whereas that power is
-not --- its coefficient must vanish:
+is a power series in $x$ ---hence smooth at the interior point $x=y<1$, whereas that power is
+not--- its coefficient must vanish:
 \begin{equation}
     P_y(y)\,\mathcal{H}_1(y,y) + (1-y)\,\pi(0,0)\,\mathcal{H}_2(y,y) = 0 ,
     \label{eq:B2:nobranch}
 \end{equation}
 the endpoint integrals being read, since $\beta<0$, as the Euler--Beta continuations found next.
 To evaluate these endpoint integrals, substitute $t=ys$ ($dt=y\,ds$)
-in~\eqref{eq:B2:I1}--\eqref{eq:B2:I2}, which rescales the two integrands and pulls out a common
+in Equations~\eqref{eq:B2:I1}--\eqref{eq:B2:I2}, which rescales the two integrands and pulls out a common
 $y^{\alpha+\beta}$,
 \begin{align*}
     t^{\alpha-1}(y-t)^{\beta}\,dt &= y^{\alpha+\beta}\,s^{\alpha-1}(1-s)^{\beta}\,ds, \\
@@ -214,7 +214,7 @@ so that, with $c:=\lambda_1 y/\gamma_1$,
 These are Euler integrals~\eqref{eq:kummer:euler},
 $\int_0^1 t^{a-1}(1-t)^{b-1}e^{zt}\,dt=B(a,b)\,{}_1F_1(a;a+b;z)$, with
 $(a,b,z)=(\alpha,\beta+1,-c)$ for $\mathcal{H}_1$ and $(\alpha+1,\beta,-c)$ for
-$\mathcal{H}_2$, so $a+b=b^\star(y)$ in both. As $\beta<0$ by~\eqref{eq:B2:beta_negative}, the
+$\mathcal{H}_2$, so $a+b=b^\star(y)$ in both. As $\beta<0$ by Equation~\eqref{eq:B2:beta_negative}, the
 right-hand side is read as its analytic continuation in $b$ beyond the convergence range $b>0$,
 giving
 \begin{align}
@@ -256,16 +256,16 @@ $\alpha/\beta=\mu/\bigl[(1-y)(\lambda y-\mu)\bigr]$, as
     &= -\frac{\mu}{\lambda y-\mu} = \frac{\mu}{\mu-\lambda y}.
     \label{eq:B2:prefactor_combo}
 \end{align}
-Substituting~\eqref{eq:B2:beta_ratio}--\eqref{eq:B2:prefactor_combo}
-into~\eqref{eq:B2:Py_ratio} gives the boundary generating function
+Substituting Equations~\eqref{eq:B2:beta_ratio}--\eqref{eq:B2:prefactor_combo}
+into Equation~\eqref{eq:B2:Py_ratio} gives the boundary generating function
 \begin{align}
     P_y(y) &= \frac{\mu\,\pi(0,0)}{\mu-\lambda y}
     \cdot\frac{{}_1F_1\!\bigl(\alpha(y)+1;\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)}
               {{}_1F_1\!\bigl(\alpha(y);\,b^\star(y);\,-\lambda_1 y/\gamma_1\bigr)},
     \label{eq:B2:Py}
 \end{align}
-confirming~\eqref{eq:B2:Py_thm}.  The prefactor equals the regular value $P(y,y)$
-of~\eqref{eq:B2:regular_value}, and the Kummer ratio is the boundary correction.
+confirming Equation~\eqref{eq:B2:Py_thm}.  The prefactor equals the regular value $P(y,y)$
+of Equation~\eqref{eq:B2:regular_value}, and the Kummer ratio is the boundary correction.
 As $y\to0^+$ the argument $-\lambda_1 y/\gamma_1\to0$, so the ratio tends to $1$ and
 $P_y(0)=\pi(0,0)$, consistent with
 $P_y(0)=\sum_{n_2}\pi(0,n_2)\cdot0^{n_2}=\pi(0,0)$.
@@ -274,7 +274,7 @@ $P_y(0)=\sum_{n_2}\pi(0,n_2)\cdot0^{n_2}=\pi(0,0)$.
 \medskip\noindent\textbf{Step~(iii): Recovery of $P(x,y)$.}
 \medskip
 
-Substituting~\eqref{eq:B2:Py} into the real-form expression~\eqref{eq:B2:Pxy_real}
+Substituting Equation~\eqref{eq:B2:Py} into the real-form expression~\eqref{eq:B2:Pxy_real}
 gives, for $0\le x\le y$,
 \begin{align*}
     P(x,y) &= \frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
@@ -291,7 +291,7 @@ gives, for $0\le x\le y$,
 which is the statement of the theorem (Equation~\eqref{eq:B2:Pxy}).
 The smoothness condition~\eqref{eq:B2:nobranch} guarantees that this extends
 analytically across $x=y$, with diagonal value
-$P(y,y)=\rho(1-\rho)/(1-\rho y)$ as computed in~\eqref{eq:B2:regular_value}.
+$P(y,y)=\rho(1-\rho)/(1-\rho y)$ as computed in Equation~\eqref{eq:B2:regular_value}.
 On $y<x\le1$ the same formula holds with $\mathcal{H}_1,\mathcal{H}_2$ read as their
 finite-part continuations; $\pi(0,0)=\rho(1-\rho)$ from Corollary~\ref{cor:B2:pi00} makes
 the solution fully explicit.
@@ -322,7 +322,7 @@ asymptotics.
 
 The same limit can be read off the closed form~\eqref{eq:B2:Py}. Its prefactor
 $\mu\,\pi(0,0)/(\mu-\lambda y)=\pi(0,0)/(1-\rho y)$ is $\gamma_1$-independent,
-so~\eqref{eq:B2:Py_limit} is equivalent to the Kummer ratio tending to
+so Equation~\eqref{eq:B2:Py_limit} is equivalent to the Kummer ratio tending to
 \begin{equation}
     \frac{{}_1F_1\!\bigl(\alpha+1;\,b^\star;\,-\lambda_1 y/\gamma_1\bigr)}
          {{}_1F_1\!\bigl(\alpha;\,b^\star;\,-\lambda_1 y/\gamma_1\bigr)}
@@ -335,5 +335,5 @@ $x^*(y)(1-y)/(x^*(y)-y)$; the discrepancy is exactly the prefactor. This matches
 first-parameter three-term recurrence for ${}_1F_1$~\cite[\S13.3]{dlmf}: as $\gamma_1\to0^{+}$
 the parameters $\alpha$, $b^\star$ and $c=\lambda_1 y/\gamma_1$ all grow like $1/\gamma_1$, and
 the recurrence reduces at leading order to a quadratic whose admissible root
-is~\eqref{eq:B2:ratio_limit}.
+is Equation~\eqref{eq:B2:ratio_limit}.
 \end{remark}

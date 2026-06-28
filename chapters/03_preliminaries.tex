@@ -7,8 +7,8 @@ The central object throughout is the (P)PGF of the model in question, together w
 
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
-The canonical $M/M/1$ queue is the foundation of queueing theory and is treated in many textbooks; we follow \cite{adan2002queueing}.
-Customers arrive according to a Poisson process ---i.e. the inter-arrival times are exponentially distributed with parameter $\lambda$---, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-serve (FCFS) ---also known as first-in-first-out (FIFO)--- order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
+The canonical $M/M/1$ queue is the foundation of queueing theory and is treated in many textbooks; we follow~\cite{adan2002queueing}.
+Customers arrive according to a Poisson process ---i.e.\ the inter-arrival times are exponentially distributed with parameter $\lambda$---, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-served (FCFS) ---also known as first-in-first-out (FIFO)--- order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
 
 Let $\pi_n$ be the limiting probability of finding $n$ customers in the system. Under stability, the detailed balance equations $\lambda\,\pi_n = \mu\,\pi_{n+1}$ ($n \geq 0$) together with the normalisation $\sum_{n=0}^{\infty}\pi_n=1$ give us the geometric steady-state distribution of the number of customers in the system:
 \begin{equation*}
@@ -100,15 +100,14 @@ each impatient at rate $\theta_1$) to state $n-1$---the strong Markov property g
     \qquad n\ge 1, \qquad \widetilde{B}_C(s)=\phi_1(s).
     \label{eq:erlangA:r_recursion}
 \end{equation}
-Unrolling~\eqref{eq:erlangA:r_recursion} from $n=1$ reproduces the continued
+Unrolling Equation~\eqref{eq:erlangA:r_recursion} from $n=1$ reproduces the continued
 fraction~\eqref{eq:erlangA:bp_lst} term by term. The continued fraction also sums in
 closed form, and the argument is short enough to give in full. Fix $s>0$ and scale the
 rates by $\theta_1$, setting
-\begin{equation}
+\begin{equation*}
     a=\frac{\mu}{\theta_1}, \qquad b=\frac{s}{\theta_1}, \qquad c=\frac{\lambda_1}{\theta_1},
-    \nonumber
-\end{equation}
-so that~\eqref{eq:erlangA:r_recursion} reads
+\end{equation*}
+so that Equation~\eqref{eq:erlangA:r_recursion} reads
 $\phi_n(s)=(a+n-1)\big/\bigl((a+n-1)+b+c-c\,\phi_{n+1}(s)\bigr)$. Consider the integrals
 \begin{equation*}
     I(p) \;=\; \int_0^1 t^{\,p}\,(1-t)^{\,b-1}\,e^{-ct}\,dt,
@@ -116,8 +115,8 @@ $\phi_n(s)=(a+n-1)\big/\bigl((a+n-1)+b+c-c\,\phi_{n+1}(s)\bigr)$. Consider the i
 \end{equation*}
 which by the Euler representation~\eqref{eq:kummer:euler} are Beta-function multiples of
 Kummer values, $I(p)=B(p+1,\,b)\,{}_1F_1(p+1;\,p+1+b;\,-c)$. Integrating the exact
-derivative $\frac{d}{dt}\bigl[t^{\,p}(1-t)^{\,b}e^{-ct}\bigr]$ over $[0,1]$ --- the
-boundary terms vanish for $p,b>0$ --- and splitting
+derivative $\frac{d}{dt}\bigl[t^{\,p}(1-t)^{\,b}e^{-ct}\bigr]$ over $[0,1]$ ---the
+boundary terms vanish for $p,b>0$--- and splitting
 $(1-t)^{b}=(1-t)^{b-1}-t\,(1-t)^{b-1}$ in the two terms where it appears yields the
 three-term recurrence
 \begin{equation}
@@ -125,12 +124,12 @@ three-term recurrence
     \label{eq:erlangA:threeterm}
 \end{equation}
 a relation of contiguous type for ${}_1F_1$ (obtainable equivalently by combining the
-contiguous relations of~\cite[\S13.3]{dlmf}). Dividing~\eqref{eq:erlangA:threeterm} at
+contiguous relations of~\cite[\S13.3]{dlmf}). Dividing Equation~\eqref{eq:erlangA:threeterm} at
 $p=a+n-1$ by $I(a+n-2)$ shows that the ratios $R_n:=I(a+n-1)/I(a+n-2)$ satisfy exactly
 the recursion of $\phi_n$. Two further facts pin the identification. First, by
 Laplace's method at the endpoint $t=1$, $I(p)\sim e^{-c}\,\Gamma(b)\,p^{-b}$ as
 $p\to\infty$: the solution $\{I(p)\}$ decays only polynomially, whereas the dominant
-solution of~\eqref{eq:erlangA:threeterm} grows superexponentially (its consecutive
+solution of Equation~\eqref{eq:erlangA:threeterm} grows superexponentially (its consecutive
 ratio grows like $p/c$), so $\{I(p)\}$ is the \emph{minimal (recessive)} solution.
 Second, by \emph{Pincherle's theorem} the convergent continued fraction equals
 precisely the ratio built from the minimal solution. Hence
@@ -168,7 +167,7 @@ The \emph{Kummer confluent hypergeometric function of the first kind} appears in
     \qquad a^{(n)} = \prod_{k=0}^{n-1}(a+k),\quad a^{(0)}=1,
     \label{eq:kummer:series}
 \end{equation}
-where $b$ is not $0$ or a negative integer ---i.e. $b \notin \{0,-1,-2,\dots\}$--- and the series converges for all
+where $b$ is not $0$ or a negative integer ---i.e.\ $b \notin \{0,-1,-2,\dots\}$--- and the series converges for all
 $z\in\mathbb{C}$.
 The function ${}_1F_1(a;\,b;\,z)$ is the unique solution of \emph{Kummer's equation}~\cite{dlmf}:
 \begin{equation*}
@@ -211,7 +210,7 @@ This method is standard to solve ---for each fixed $y$--- a \emph{first-order li
 \begin{equation}
     \frac{dP}{dx} + p(x;\,y)\,P \;=\; q(x;\,y). \label{eq:ode:standard}
 \end{equation}
-The \emph{integrating factor} $\mu_I(x;y) = \exp\!\bigl(\int_0^x p(t;y)\,dt\bigr)$ converts~\eqref{eq:ode:standard} to $\frac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$. Integrating from $0$ to $x$ gives the general solution
+The \emph{integrating factor} $\mu_I(x;y) = \exp\!\bigl(\int_0^x p(t;y)\,dt\bigr)$ converts Equation~\eqref{eq:ode:standard} to $\frac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$. Integrating from $0$ to $x$ gives the general solution
 \begin{equation}
     P(x,y) \;=\; \frac{1}{\mu_I(x;\,y)}
         \left[C_0(y) + \int_0^x q(t;\,y)\,\mu_I(t;\,y)\,dt\right],
@@ -233,7 +232,7 @@ is solved by tracing the characteristic curve $(x(t),y(t))$ satisfying
     \frac{dx}{dt} = a, \qquad \frac{dy}{dt} = b.
     \label{eq:ode:char}
 \end{equation}
-By the chain rule, $\frac{d}{dt}P(x(t),y(t)) = a\,P_x + b\,P_y$, so~\eqref{eq:ode:pde} reduces to
+By the chain rule, $\frac{d}{dt}P(x(t),y(t)) = a\,P_x + b\,P_y$, so Equation~\eqref{eq:ode:pde} reduces to
 \begin{equation}
     \frac{dP}{dt} = cP + d,
     \label{eq:ode:charode}
@@ -242,7 +241,7 @@ a first-order linear ODE in $t$. Its homogeneous part $\frac{dP}{dt}=cP$ is solv
 \begin{equation*}
     \xi \;:=\; b\,x - a\,y
 \end{equation*}
-is preserved along each curve ---it is the \emph{first integral} that labels each characteristic. The integration constant of~\eqref{eq:ode:charode} therefore varies between characteristics: it is an arbitrary function $F(\xi)$. Re-expressing the solution in the original variables $(x,y)$ via~\eqref{eq:ode:char} gives the general solution of~\eqref{eq:ode:pde}. In the PGF setting, $F$ is identified with a boundary generating function, and analyticity of $P(x,y)$ for $|x|,|y|\leq 1$ uniquely determines it.
+is preserved along each curve ---it is the \emph{first integral} that labels each characteristic. The integration constant of Equation~\eqref{eq:ode:charode} therefore varies between characteristics: it is an arbitrary function $F(\xi)$. Re-expressing the solution in the original variables $(x,y)$ via Equation~\eqref{eq:ode:char} gives the general solution of Equation~\eqref{eq:ode:pde}. In the PGF setting, $F$ is identified with a boundary generating function, and analyticity of $P(x,y)$ for $|x|,|y|\leq 1$ uniquely determines it.
 
 
 \subsubsection{Variation of parameters}\label{sssec:vop}
@@ -268,7 +267,7 @@ Differentiating by the product rule and using $P_h' = f\,P_h$,
          = C'(x)\,P_h(x) + f(x)\,P(x).
     \end{split}
 \end{align*}
-Substituting this back into~\eqref{eq:ode:vop_standard}, the common term $f(x)\,P(x)$ cancels from both sides and only the derivative of the varied constant survives:
+Substituting this back into Equation~\eqref{eq:ode:vop_standard}, the common term $f(x)\,P(x)$ cancels from both sides and only the derivative of the varied constant survives:
 \begin{equation*}
     C'(x)\,P_h(x) = h(x)
     \qquad\Longrightarrow\qquad

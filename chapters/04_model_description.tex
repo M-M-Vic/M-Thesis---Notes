@@ -17,7 +17,7 @@ This section defines the general two-class system with both jockeying ($\gamma_i
         $\CH$ & none                            & class $1$, head-of-line & $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}>0,\ \gamma_1=\gamma_2=\theta_2=0$ \\
         \hline
     \end{tabular}
-    \caption{Nested family of models. Model-$X$ is the parent; Models $A$, $B$, $B_2$ and $C_2$
+    \caption{Nested family of models. Model-$X$ is the parent; Models~$A$, $B$, $B_2$ and $C_2$
     are obtained by restricting the jockeying directions and the abandoning classes. The two
     head-of-line variants $\BH$ and $\CH$ are listed separately, as their zeroing mechanism involves $\mathbf{1}_{\{n_1\ge1\}}$ rather than being proportional to the queue length.$^{\dagger}$}
     \label{tab:model_family}
@@ -81,7 +81,7 @@ For the aggregate system parameters, we define:
 \textbf{Computation of $\pi_0$ and $\pi(0,0)$.} The two empty-state probabilities are pinned, for the full Model-$X$, by two exact identities that hold irrespective of the jockeying and abandonment mechanisms: a cut between the idle and busy states, and a renewal--reward identity over busy cycles. Together they reduce the determination of $\pi_0$ and $\pi(0,0)$ to a single scalar, the mean busy period $\mathbb{E}[B]$.
 
 \begin{theorem}[Empty-state probabilities of the general model]\label{thm:gen:boundary}
-    Assume the CTMC of Model-$X$ is positive recurrent, so that the stationary distribution exists. Let $\lambda=\lambda_1+\lambda_2$ and let $\mathbb{E}[B]$ denote the mean length of a server busy period --- the time from an arrival that finds the system empty until the system is next empty. Then
+    Assume the CTMC of Model-$X$ is positive recurrent, so that the stationary distribution exists. Let $\lambda=\lambda_1+\lambda_2$ and let $\mathbb{E}[B]$ denote the mean length of a server busy period ---the time from an arrival that finds the system empty until the system is next empty. Then
     \begin{equation}
         \pi(0,0) \;=\; \rho\,\pi_0,
         \label{eq:gen:pi00_general}
@@ -96,13 +96,13 @@ For the aggregate system parameters, we define:
 \end{theorem}
 
 \begin{proof}
-    \emph{Cut identity.} Consider the cut separating the idle state $(0)$ from the set of busy states. The only transitions out of $(0)$ are the class-$1$ and class-$2$ arrivals, at total rate $\lambda$; the only transition into $(0)$ is a service completion from $(0,0)$, at rate $\mu$ --- from any state with a waiting customer a departure leaves the server busy, and neither jockeying nor abandonment can act when both queues are empty. Equating the probability flux across the cut gives $\lambda\,\pi_0=\mu\,\pi(0,0)$, which is~\eqref{eq:gen:pi00_general}.
+    \emph{Cut identity.} Consider the cut separating the idle state $(0)$ from the set of busy states. The only transitions out of $(0)$ are the class-$1$ and class-$2$ arrivals, at total rate $\lambda$; the only transition into $(0)$ is a service completion from $(0,0)$, at rate $\mu$ ---from any state with a waiting customer a departure leaves the server busy, and neither jockeying nor abandonment can act when both queues are empty. Equating the probability flux across the cut gives $\lambda\,\pi_0=\mu\,\pi(0,0)$, which is Equation~\eqref{eq:gen:pi00_general}.
 
     \emph{Renewal--reward identity.} The idle state is a regeneration point: by the memorylessness of the exponential inter-arrival and service times (the strong Markov property), the evolution after each visit to $(0)$ is an independent probabilistic replica. Successive cycles therefore alternate an idle period of mean $1/\lambda$ (the wait for the next arrival, exponential at rate $\lambda$) and a busy period of mean $\mathbb{E}[B]$. By the renewal--reward theorem, the stationary probability of the idle state equals the long-run fraction of time spent idle,
     \begin{equation*}
         \pi_0 \;=\; \frac{1/\lambda}{1/\lambda+\mathbb{E}[B]} \;=\; \frac{1}{1+\lambda\,\mathbb{E}[B]},
     \end{equation*}
-    and substituting into~\eqref{eq:gen:pi00_general} yields the stated $\pi(0,0)$.
+    and substituting into Equation~\eqref{eq:gen:pi00_general} yields the stated $\pi(0,0)$.
 \end{proof}
 
 Both identities are exact for the full model. They reduce the problem to the mean busy period $\mathbb{E}[B]$, which is elementary when there is no abandonment and is computed model by model once abandonment is present; the resulting $\pi_0$ and $\pi(0,0)$ for each tractable model then follow as corollaries (Corollary~\ref{cor:gen:no_abandon} for the no-abandonment family; \S\ref{sec:model_c2} and \S\ref{sec:model_c21} for the abandonment variants). For the full asymmetric Model-$X$, $\mathbb{E}[B]$ itself has no closed form (Remark~\ref{rem:B:modelX}).
@@ -164,7 +164,7 @@ The state-transition diagram of Model-$X$ on $S$ is given in Figure~\ref{fig:dia
 
 \subsubsection{Balance equations for state space \texorpdfstring{$\widetilde{S}$}{S~}}
 
-Recall the state space $\widetilde{S}$ defined in~\eqref{eq:gen:state_space_Stilde}.
+Recall the state space $\widetilde{S}$ defined in Equation~\eqref{eq:gen:state_space_Stilde}.
 
 For readability we denote its limiting probabilities by $\tpi(n_2,n)$, for $(n_2,n)\in \widetilde{S}$. Figure~\ref{fig:diagram-gen-stilde} shows the corresponding state transition diagram.
 
@@ -243,7 +243,7 @@ A further term arises in the balance equations, describing the boundary dynamics
 \end{equation*}
 This is an intermediate term; as the derivation proceeds, it will be expressed in terms of the primary boundary functions $P_x(x)$ and $P_y(y)$.
 
-In the same fashion, we introduce the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably used by Cohen \cite{cohen1956delay}, transforms only a subset of the random variables while keeping the discrete indices of the rest. For a priority queue it is particularly advantageous: it lets us exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and concentrate the analytical effort on the non-trivial PGF of the non-priority class.
+In the same fashion, we introduce the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably used by Cohen~\cite{cohen1956delay}, transforms only a subset of the random variables while keeping the discrete indices of the rest. For a priority queue it is particularly advantageous: it lets us exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and concentrate the analytical effort on the non-trivial PGF of the non-priority class.
 
 Cohen developed this framework for multi-server systems; we apply it here to the single-server case. To avoid confusion from mid-20th-century notation, we give a modern formulation consistent with the variables defined above.
 
@@ -294,7 +294,7 @@ satisfies the first-order linear partial differential equation
 \begin{remark}[Reading the fundamental equation]\label{rem:gen:reading}
 Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical reading, since its structure dictates the entire analysis that follows. The bracketed algebraic coefficient multiplying $P(x,y)$ is exactly the kernel of the baseline Model-$A$: the flux balance between the arrival contributions $\lambda_1 x^2 y$ and $\lambda_2 x y^2$, the service contribution $\mu y$, and the total outflow $(\lambda_1+\lambda_2+\mu)xy$.
 
-The two convection coefficients carry the added mechanisms. In the $x$-convection coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$, the jockeying factor $(x-y)$ vanishes on the diagonal $x=y$ --- the analytic signature that jockeying merely relocates a customer and so conserves the total count --- while the abandonment factor $(x-1)$ vanishes at $x=1$, the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The $y$-convection coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$.
+The two convection coefficients carry the added mechanisms. In the $x$-convection coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$, the jockeying factor $(x-y)$ vanishes on the diagonal $x=y$ ---the analytic signature that jockeying merely relocates a customer and so conserves the total count--- while the abandonment factor $(x-1)$ vanishes at $x=1$, the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The $y$-convection coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$.
 
 The right-hand side carries the two boundary unknowns that any solution must pin down: the boundary function $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty.
 
@@ -698,7 +698,7 @@ The position of these vanishing factors fixes, model by model, where the operati
         \end{split} \label{eq:gen:transform_y_boundary}
     \end{align}
     
-    Substituting~\eqref{eq:gen:transform_x_boundary} into~\eqref{eq:gen:transform_interior} eliminates all $P_x$ terms:
+    Substituting Equation~\eqref{eq:gen:transform_x_boundary} into Equation~\eqref{eq:gen:transform_interior} eliminates all $P_x$ terms:
     \begin{align}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -710,7 +710,7 @@ The position of these vanishing factors fixes, model by model, where the operati
         \end{split} \label{eq:gen:plugged_interior_x}
     \end{align}
     
-    Isolating $[\mu+\gamma_1 y+\theta_1]\,xy\,P_y(y|n_1=1)$ from~\eqref{eq:gen:transform_y_boundary} and substituting into~\eqref{eq:gen:plugged_interior_x}:
+    Isolating $[\mu+\gamma_1 y+\theta_1]\,xy\,P_y(y|n_1=1)$ from Equation~\eqref{eq:gen:transform_y_boundary} and substituting into Equation~\eqref{eq:gen:plugged_interior_x}:
     \begin{align*}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -733,7 +733,7 @@ The position of these vanishing factors fixes, model by model, where the operati
 The fundamental equation already delivers the first specialisation of Theorem~\ref{thm:gen:boundary}: the case of no abandonment, which covers Models~$A$, $B$, $B_2$ and $\BH$ at once.
 
 \begin{corollary}[Empty states without abandonment]\label{cor:gen:no_abandon}
-    Suppose $\theta_1=\theta_2=0$ (Models~$A$, $B$, $B_2$ and $\BH$) and $\rho<1$. Then the total number in the system is a birth--death process with birth rate $\lambda$ and death rate $\mu$ --- an $M/M/1$ queue --- for \emph{any} jockeying rates $\gamma_1,\gamma_2$, since jockeying merely relocates a waiting customer and so conserves the total count. Its mean busy period is $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, and Theorem~\ref{thm:gen:boundary} gives
+    Suppose $\theta_1=\theta_2=0$ (Models~$A$, $B$, $B_2$ and $\BH$) and $\rho<1$. Then the total number in the system is a birth--death process with birth rate $\lambda$ and death rate $\mu$ ---an $M/M/1$ queue--- for \emph{any} jockeying rates $\gamma_1,\gamma_2$, since jockeying merely relocates a waiting customer and so conserves the total count. Its mean busy period is $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, and Theorem~\ref{thm:gen:boundary} gives
     \begin{equation}
         \pi_0 = 1-\rho, \qquad \pi(0,0)=\rho(1-\rho).
         \label{eq:gen:pi0_noabandon}

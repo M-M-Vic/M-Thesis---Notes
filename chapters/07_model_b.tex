@@ -48,7 +48,7 @@ For Model-$B$ we do not provide a solution; however, working out the problem exp
         \frac{h\bigl(t;C_1\bigr)}{P_h\bigl(t,y(t)\bigr)}\,dt,
         \label{eq:B:integral_rep}
     \end{equation}
-    where $P_h$ is the homogeneous solution and the forcing function $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$. Evaluating \eqref{eq:B:integral_rep} along the diagonal $x=y=z$, where $P(z,z)=\pi(0,0)/(1-\rho z)$ is known from Corollary~\ref{cor:B:pi00}, reduces the determination of $P_y$ to a \emph{Volterra integral equation of the first kind}
+    where $P_h$ is the homogeneous solution and the forcing function $h$ depends linearly on the unknown boundary trace $P_y(y)=P(0,y)$. Evaluating Equation~\eqref{eq:B:integral_rep} along the diagonal $x=y=z$, where $P(z,z)=\pi(0,0)/(1-\rho z)$ is known from Corollary~\ref{cor:B:pi00}, reduces the determination of $P_y$ to a \emph{Volterra integral equation of the first kind}
     \begin{equation}
         \mathcal{F}(z) \;=\; \int_0^z \mathcal{K}(z,t)\,P_y\!\bigl(y(t;z)\bigr)\,dt.
         \label{eq:B:volterra}
@@ -167,7 +167,7 @@ This model is therefore left open.
     \end{equation*}
     so $\ln[(\gamma_1+\gamma_2)x-C_1] = \ln\gamma_1 + \ln(x-y)$.
     
-    Exponentiating \eqref{eq:B:lnP} term by term,
+    Exponentiating Equation~\eqref{eq:B:lnP} term by term,
     \begin{equation*}
         P \;=\; f(C_1)\,
         \exp\!\Bigl(\tfrac{K}{\gamma_1}x\Bigr)\cdot
@@ -258,7 +258,7 @@ This model is therefore left open.
         h(x;C_1)=\frac{G\bigl(x,y(x)\bigr)}{\gamma_1\,x\,y(x)\,\bigl(x-y(x)\bigr)}.
         \label{eq:B:hdef}
     \end{equation}
-    Equation~\eqref{eq:B:ode_char} is an instance of~\eqref{eq:ode:vop_standard} with the known homogeneous solution $P_h$. So the variation-of-parameters formula~\eqref{eq:ode:vop_general} of \S\ref{sssec:vop} delivers its general solution, with the arbitrary constant becoming a function $F(C_1)$ of the characteristic
+    Equation~\eqref{eq:B:ode_char} is an instance of Equation~\eqref{eq:ode:vop_standard} with the known homogeneous solution $P_h$. So the variation-of-parameters formula~\eqref{eq:ode:vop_general} of \S\ref{sssec:vop} delivers its general solution, with the arbitrary constant becoming a function $F(C_1)$ of the characteristic
     label:
     \begin{equation}
         P(x,y(x)) = P_h(x,y(x))\!\left[F(C_1) + \int_{x_0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt\right].
@@ -272,13 +272,13 @@ This model is therefore left open.
     \begin{equation*}
         P\!\left(0,\,\frac{C_1}{\gamma_1}\right) = P_y\!\left(\frac{C_1}{\gamma_1}\right),
     \end{equation*}
-    which is finite, being a value of the boundary generating function $P_y$.  However, $P_h$ (Equation~\eqref{eq:B:Ph}) contains the factor $x^{-\mu/C_1}\to+\infty$ as $x\to0^+$ (since $\mu/C_1>0$ for $C_1>0$), while the integral in~\eqref{eq:B:variation} vanishes as $x_0\to0$, since the integration interval shrinks. Therefore
+    which is finite, being a value of the boundary generating function $P_y$.  However, $P_h$ (Equation~\eqref{eq:B:Ph}) contains the factor $x^{-\mu/C_1}\to+\infty$ as $x\to0^+$ (since $\mu/C_1>0$ for $C_1>0$), while the integral in Equation~\eqref{eq:B:variation} vanishes as $x_0\to0$, since the integration interval shrinks. Therefore
     \begin{equation*}
         \lim_{x\to0^+}P(x,y(x))
         = \lim_{x\to0^+}P_h(x,y(x))\cdot F(C_1)
         = +\infty\cdot F(C_1),
     \end{equation*}
-    which can only be finite if $F(C_1)=0$.  Setting $x_0=0$ and $F(C_1)=0$ in~\eqref{eq:B:variation} yields the integral representation of Claim~\ref{clm:B:volterra}:
+    which can only be finite if $F(C_1)=0$.  Setting $x_0=0$ and $F(C_1)=0$ in Equation~\eqref{eq:B:variation} yields the integral representation of Claim~\ref{clm:B:volterra}:
     \begin{equation}
         P(x,y(x)) = P_h(x,y(x))\int_{0}^{x} \frac{h(t;C_1)}{P_h(t,y(t))}\,dt.
         \label{eq:B:integral_rep_body}
@@ -296,25 +296,25 @@ This model is therefore left open.
            - \frac{\mu(1-y(t))\,\pi(0,0)}{\gamma_1\,y(t)\,(t-y(t))}.
         \label{eq:B:h_intermediate}
     \end{align}
-    We will evaluate Equation~\eqref{eq:B:integral_rep_body} along the diagonal ---i.e. $x=y=z$, with points of the form $(z,z)$---, which has $C_1=(\gamma_1+\gamma_2)z$ and thus the following parametrisation, for fixed $z$:
+    We will evaluate Equation~\eqref{eq:B:integral_rep_body} along the diagonal ---i.e.\ $x=y=z$, with points of the form $(z,z)$---, which has $C_1=(\gamma_1+\gamma_2)z$ and thus the following parametrisation, for fixed $z$:
     \begin{equation}
         y(t;z)=\frac{(\gamma_1+\gamma_2)z-\gamma_2 t}{\gamma_1},
         \label{eq:B:ydiag}
     \end{equation}
-    so $y(0;z)=(\gamma_1+\gamma_2)z/\gamma_1>z$ and $y(z;z)=z$. Thus $y(t;z)>t$ for all $t\in[0,z)$, which implies $t-y(t;z)<0$ inside the integration interval. Note the change of sign of the second summand when writing $t-y(t;z)=-(y(t;z)-t)$ in the denominator of~\eqref{eq:B:h_intermediate}:
+    so $y(0;z)=(\gamma_1+\gamma_2)z/\gamma_1>z$ and $y(z;z)=z$. Thus $y(t;z)>t$ for all $t\in[0,z)$, which implies $t-y(t;z)<0$ inside the integration interval. Note the change of sign of the second summand when writing $t-y(t;z)=-(y(t;z)-t)$ in the denominator of Equation~\eqref{eq:B:h_intermediate}:
     \begin{equation}
         h\bigl(t;\,(\gamma_1+\gamma_2)z\bigr)
         = \frac{\mu}{\gamma_1\,t\,y(t;z)}\,P_y\!\bigl(y(t;z)\bigr)
         + \frac{\mu\,(1-y(t;z))}{\gamma_1\,y(t;z)\,(y(t;z)-t)}\,\pi(0,0).
         \label{eq:B:h_simplified}
     \end{equation}
-    From Step~(ii), $E>0$, so the factor $(x-y(x;z))^E$ in $P_h$ vanishes as $x\to z^-$, giving $P_h\bigl(x,y(x;z)\bigr)\to0$. At the same time, the integrand in~\eqref{eq:B:integral_rep_body} has a singularity near $t=z$: the forcing function~\eqref{eq:B:h_simplified} contributes with a $(y(t;z)-t)^{-1}$ factor; and the denominator $P_h\bigl(t,y(t;z)\bigr)$, with a $(y(t;z)-t)^{-E}$. So together $h/P_h\sim(y(t;z)-t)^{-1-E}$; since $-1-E<-1$, the integral diverges as $x\to z^-$. Nevertheless, the product of the two factors is finite: by Step~(iv), $P_h\bigl(x,y(x;z)\bigr)\int_0^x\frac{h}{P_h}\,dt$ equals the PGF value $P\bigl(x,y(x;z)\bigr)$, which converges to $P(z,z)$ as $x\to z^-$. This behaviour aligns with the fact that we are working in the context of PGFs, which are always bounded. By Corollary~\ref{cor:B:pi00} that value is $\pi(0,0)/(1-\rho z)$, so the $0\cdot\infty$ limit resolves to
+    From Step~(ii), $E>0$, so the factor $(x-y(x;z))^E$ in $P_h$ vanishes as $x\to z^-$, giving $P_h\bigl(x,y(x;z)\bigr)\to0$. At the same time, the integrand in Equation~\eqref{eq:B:integral_rep_body} has a singularity near $t=z$: the forcing function~\eqref{eq:B:h_simplified} contributes with a $(y(t;z)-t)^{-1}$ factor; and the denominator $P_h\bigl(t,y(t;z)\bigr)$, with a $(y(t;z)-t)^{-E}$. So together $h/P_h\sim(y(t;z)-t)^{-1-E}$; since $-1-E<-1$, the integral diverges as $x\to z^-$. Nevertheless, the product of the two factors is finite: by Step~(iv), $P_h\bigl(x,y(x;z)\bigr)\int_0^x\frac{h}{P_h}\,dt$ equals the PGF value $P\bigl(x,y(x;z)\bigr)$, which converges to $P(z,z)$ as $x\to z^-$. This behaviour aligns with the fact that we are working in the context of PGFs, which are always bounded. By Corollary~\ref{cor:B:pi00} that value is $\pi(0,0)/(1-\rho z)$, so the $0\cdot\infty$ limit resolves to
     \begin{equation*}
         P(z,z)=\frac{\pi(0,0)}{1-\rho z}
         = \lim_{x\to z^-} P_h\bigl(x,y(x;z)\bigr)
           \int_0^x \frac{h\bigl(t;(\gamma_1+\gamma_2)z\bigr)}{P_h\bigl(t,y(t;z)\bigr)}\,dt.
     \end{equation*}
-    Substituting~\eqref{eq:B:h_simplified} and separating the term containing the unknown boundary function $P_y$ from the known remainder, this limit splits into
+    Substituting Equation~\eqref{eq:B:h_simplified} and separating the term containing the unknown boundary function $P_y$ from the known remainder, this limit splits into
     \begin{align}
         \frac{\pi(0,0)}{1-\rho z}
         &= \lim_{x\to z^-}\frac{\mu\,P_h\bigl(x,y(x;z)\bigr)}{\gamma_1}
@@ -325,7 +325,7 @@ This model is therefore left open.
            \int_0^x \frac{1-y(t;z)}{y(t;z)\cdot(y(t;z)-t)\cdot P_h\bigl(t,y(t;z)\bigr)}\,dt.
         \label{eq:B:split}
     \end{align}
-    We evaluate the two limits in~\eqref{eq:B:split} separately. Three facts make the diagonal characteristic exactly solvable.
+    We evaluate the two limits in Equation~\eqref{eq:B:split} separately. Three facts make the diagonal characteristic exactly solvable.
 
     First, its geometry is linear:
     \begin{equation}
@@ -340,7 +340,7 @@ This model is therefore left open.
         = \frac{(\mu-\lambda z)(1-z)}{(\gamma_1+\gamma_2)z}>0,
         \qquad z\in(0,1).
     \end{equation*}
-    Third, every factor of $P_h$ in~\eqref{eq:B:Ph} except the exponential, the power of $x$, and $(x-y)^{E}$ depends on $(x,y)$ only through $C_1$, which is fixed on the characteristic. The ratio therefore splits nicely into a smooth part and a single power:
+    Third, every factor of $P_h$ in Equation~\eqref{eq:B:Ph} except the exponential, the power of $x$, and $(x-y)^{E}$ depends on $(x,y)$ only through $C_1$, which is fixed on the characteristic. The ratio therefore splits nicely into a smooth part and a single power:
     \begin{equation}
         \frac{P_h\bigl(x,y(x;z)\bigr)}{P_h\bigl(t,y(t;z)\bigr)}
         = R(x,t)\biggl(\frac{z-x}{z-t}\biggr)^{E_z},
@@ -350,7 +350,7 @@ This model is therefore left open.
     \end{equation}
     with $R$ smooth and $R(z,z)=1$.
 
-    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}. Substituting~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$. Hence their product converges to $w(z)/E_z$:
+    We apply that to the \emph{second} limit of Equation~\eqref{eq:B:split}. Substituting Equations~\eqref{eq:B:ratio_exact} and~\eqref{eq:B:exact_linear}, its integrand near $t=z$ is $w(z)(z-t)^{-1-E_z}$ with $w(z)=\mu\pi(0,0)(1-z)/((\gamma_1+\gamma_2)z)$. The two singular factors then balance exactly: the prefactor vanishes like $(z-x)^{E_z}$ while the truncated integral diverges like $(z-x)^{-E_z}/E_z$. Hence their product converges to $w(z)/E_z$:
     \begin{align*}
         & \lim_{x\to z^-}(z-x)^{E_z}\int^{x} w(z)(z-t)^{-1-E_z}dt \\
         & \quad = \quad \frac{w(z)}{E_z}
@@ -361,7 +361,7 @@ This model is therefore left open.
     
     The \emph{first} limit vanishes: its integrand behaves as $(z-t)^{-E_z}$, one power less singular than the second limit's $(z-t)^{-1-E_z}$, and is killed by the vanishing prefactor $(z-x)^{E_z}$. The \emph{second} limit reproduces the full diagonal value from $\pi(0,0)$. Thus the diagonal fixes no information about $P_y$ at leading order; determining $P_y$ requires the next order in $(z-x)$, which is the open problem.
 
-    Collecting the $P_y$-term of~\eqref{eq:B:split} into a kernel and the remaining $\pi(0,0)$-term into a known datum gives
+    Collecting the $P_y$-term of Equation~\eqref{eq:B:split} into a kernel and the remaining $\pi(0,0)$-term into a known datum gives
     \begin{align}
         \mathcal{K}(z,t)&:=\frac{\mu}{\gamma_1}\,
             \frac{R(z,t)}{t\,y(t;z)}\,(z-t)^{-E_z},

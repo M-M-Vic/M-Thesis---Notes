@@ -79,7 +79,7 @@ proofs are given, one analytical and one probabilistic.
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor:A:pi0}]
-    Model-$A$ is the no-mechanism case $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, so the statement is the specialisation of Corollary~\ref{cor:gen:no_abandon} --- equivalently Theorem~\ref{thm:gen:boundary} with the $M/M/1$ mean busy period $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, giving $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$. The diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$ and the normalisation $P(1,1)=1-\pi_0=\rho$ are the reduction~\eqref{eq:gen:Pzz_diag} of the Model-$A$ kernel~\eqref{eq:A:fundamental} on $x=y=z$.
+    Model-$A$ is the no-mechanism case $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, so the statement is the specialisation of Corollary~\ref{cor:gen:no_abandon} ---equivalently Theorem~\ref{thm:gen:boundary} with the $M/M/1$ mean busy period $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, giving $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$. The diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$ and the normalisation $P(1,1)=1-\pi_0=\rho$ are the reduction~\eqref{eq:gen:Pzz_diag} of the Model-$A$ kernel~\eqref{eq:A:fundamental} on $x=y=z$.
 \end{proof}
 
 \subsubsection{Analytical approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
@@ -221,8 +221,8 @@ proofs are given, one analytical and one probabilistic.
         \label{eq:A:Py_prob}
     \end{equation}
 
-    Substituting~\eqref{eq:A:Py_prob} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0})
-    into~\eqref{eq:A:prob_starting}:
+    Substituting Equation~\eqref{eq:A:Py_prob} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0})
+    into Equation~\eqref{eq:A:prob_starting}:
     \begin{align*}
         \begin{split}
             \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
@@ -250,7 +250,7 @@ proofs are given, one analytical and one probabilistic.
 This proof follows Cohen~\cite{cohen1956delay}'s method. We keep the class-$1$
 index $n_1$ as a discrete parameter and generate only with respect
 to $N_2$, via the PPGF $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$
-from~\eqref{eq:gen:ppgf_n1}. Multiplying the balance equations by $y^{n_2}$ and
+from Equation~\eqref{eq:gen:ppgf_n1}. Multiplying the balance equations by $y^{n_2}$ and
 summing over $n_2$ turns them into a second-order linear
 recurrence in $n_1$, whose characteristic roots fix the geometric structure of the
 solution in the priority-class index.
@@ -311,7 +311,7 @@ solution in the priority-class index.
         \end{split}
         \label{eq:A:ppgf_final_boundary}
     \end{align}
-    By the $x$-boundary balance equation~\eqref{eq:A:ppgf_xbound}, the right-hand side of~\eqref{eq:A:ppgf_final_boundary} vanishes completely, giving the homogeneous recurrence
+    By the $x$-boundary balance equation~\eqref{eq:A:ppgf_xbound}, the right-hand side of Equation~\eqref{eq:A:ppgf_final_boundary} vanishes completely, giving the homogeneous recurrence
     \begin{equation}
         \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] \widetilde{P}(n_1,y)
         = \mu \widetilde{P}(n_1+1,y)
@@ -332,7 +332,7 @@ solution in the priority-class index.
         = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
                 \pm \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}.
     \end{equation*}
-    The \emph{characteristic polynomial} (Equation \eqref{eq:A:ppgf_char}) is the reciprocal to that of the bivariate PGF approaches (i.e. the reciprocal of $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$), thus its roots are the reciprocals of that kernel's roots: the positive root is the reciprocal of the negative one ($\widetilde{x}^{+}(y)=1/x^*(y)$), and conversely $\widetilde{x}^{-}(y)=1/x^{+}(y)$. By Vieta's formulas, $\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$. Recall from \S\ref{sssec:A:analytical} that $x^*(y)<1<x^{+}(y)$ for $y\in[0,1)$.
+    The \emph{characteristic polynomial} (Equation~\eqref{eq:A:ppgf_char}) is the reciprocal to that of the bivariate PGF approaches (i.e.\ the reciprocal of $\lambda_1 x^2-[\mu+\lambda_1+\lambda_2(1-y)]x+\mu$), thus its roots are the reciprocals of that kernel's roots: the positive root is the reciprocal of the negative one ($\widetilde{x}^{+}(y)=1/x^*(y)$), and conversely $\widetilde{x}^{-}(y)=1/x^{+}(y)$. By Vieta's formulas, $\widetilde{x}^{-}(y)\,\widetilde{x}^{+}(y)=\lambda_1/\mu=\rho_1<1$. Recall from \S\ref{sssec:A:analytical} that $x^*(y)<1<x^{+}(y)$ for $y\in[0,1)$.
     We select the negative-sign root because the sequence $\{\widetilde{P}(n_1,y)\}_{n_1\geq0}$ must be summable:
     \begin{equation*}
         \sum_{n_1=0}^{\infty}\widetilde{P}(n_1,y) = P(1,y) \le P(1,1) = 1-\pi_0 = \rho < \infty.
@@ -373,13 +373,13 @@ solution in the priority-class index.
                 = -y\rho_1\bigl(x-x^*(y)\bigr)\bigl(x-x^{+}(y)\bigr),
         \label{eq:A:kernel_factored}
     \end{equation}
-    where $x^*(y)$ and $x^{+}(y)$ are the roots found in \S\ref{sssec:A:analytical}. By Vieta's product formula, $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. This, together with $\widetilde{x}^*(y)$ (Equation \eqref{eq:A:xtildestar}), gives $\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$.
+    where $x^*(y)$ and $x^{+}(y)$ are the roots found in \S\ref{sssec:A:analytical}. By Vieta's product formula, $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. This, together with $\widetilde{x}^*(y)$ (Equation~\eqref{eq:A:xtildestar}), gives $\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$.
     Using the factorisation of $K(x,y)$~\eqref{eq:A:kernel_factored}, the denominator of the reconstructed PGF~\eqref{eq:A:ppgf_reconstruct} becomes
     \begin{equation*}
         1-\widetilde{x}^*(y)\,x = 1 - \frac{x}{x^{+}(y)} = \frac{x^{+}(y)-x}{x^{+}(y)}
         = \frac{K(x,y)}{y\rho_1\,x^{+}(y)\bigl(x-x^*(y)\bigr)}.
     \end{equation*}
-    Substituting this into our reconstructed $P(x,y)$ (Equation \eqref{eq:A:ppgf_reconstruct}), using 
+    Substituting this into our reconstructed $P(x,y)$ (Equation~\eqref{eq:A:ppgf_reconstruct}), using 
     $P_y(y)=\frac{x^*(y)(1-y)}{x^*(y)-y}\rho(1-\rho)$ and also noting that $\rho_1\,x^*(y)\,x^{+}(y)=1$, we obtain
     \begin{align*}
         P(x,y)
@@ -408,7 +408,7 @@ yields the inhomogeneous recurrence:
     \end{split} \label{eq:A:ppgf_Stilde_dynamics}
 \end{align}
 
-The forcing term in~\eqref{eq:A:ppgf_Stilde_dynamics} is controlled by the diagonal
+The forcing term in Equation~\eqref{eq:A:ppgf_Stilde_dynamics} is controlled by the diagonal
 probabilities $\tpi(n+1,n+1)=\pi(0,n+1)$, whose decay we first establish from the exact
 $S$-solution.
 
@@ -419,7 +419,7 @@ $S$-solution.
 
 \begin{proof}
     By definition $P_y(y)=P(0,y)=\sum_{n\ge0}\pi(0,n)\,y^n$ is the generating function of
-    $\{\pi(0,n)\}$, and from~\eqref{eq:A:Py} with $\pi(0,0)=\rho(1-\rho)$,
+    $\{\pi(0,n)\}$, and from Equation~\eqref{eq:A:Py} with $\pi(0,0)=\rho(1-\rho)$,
     \begin{equation*}
         P_y(y)=\rho(1-\rho)\,\frac{x^*(y)(1-y)}{x^*(y)-y}.
     \end{equation*}
@@ -435,8 +435,8 @@ $S$-solution.
 
 \begin{approximation}[Heuristic PPGF on $\widetilde{S}$]\label{apx:A:PPGF_Stilde}
     Neglecting the boundary-diagonal forcing term
-    $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in~\eqref{eq:A:ppgf_Stilde_dynamics} --- which is
-    exponentially small by Lemma~\ref{lem:A:diag_decay} --- the
+    $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in Equation~\eqref{eq:A:ppgf_Stilde_dynamics} ---which is
+    exponentially small by Lemma~\ref{lem:A:diag_decay}--- the
     homogeneous recurrence admits the geometric solution
     \begin{equation*}
         \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, 
@@ -498,9 +498,9 @@ class carries most of the load ($\rho_1/\rho$ large, $\rho$ moderate), precisely
 empirical validity region of the approximation.
 
 The obstruction is structural and recurs throughout this thesis: an unknown boundary/diagonal
-trace --- here the sequence $\pi(0,n)$ --- couples into an otherwise solvable recursion,
+trace ---here the sequence $\pi(0,n)$--- couples into an otherwise solvable recursion,
 exactly as the unknown diagonal $P(z,z)$ enters the Volterra forcing of Models~$B$ and~$X$
 (\S\ref{sec:model_b} and Remark~\ref{rem:B:modelX}). A rigorous closure would retain the forcing
-and solve~\eqref{eq:A:ppgf_Stilde_dynamics} by variation of constants in $n$, which
+and solve Equation~\eqref{eq:A:ppgf_Stilde_dynamics} by variation of constants in $n$, which
 reintroduces the very diagonal sequence $\{\pi(0,n)\}$ as an unknown to be determined
 self-consistently; see \S\ref{sec:future_work}.
