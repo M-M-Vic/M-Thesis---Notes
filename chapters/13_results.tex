@@ -35,7 +35,7 @@ and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
 L1   & Lemma~\ref{lem:gen:fundamental_equation}  & A, B, B$_2$, C$_2$ & PGF eq.\ residual             & $<5\times10^{-9}$  & Accept \\
 L2   & Lemma~\ref{lem:gen:PPGF_dynamics}         & A, B$_2$, C$_2$    & PPGF dynamics residual        & $<2\times10^{-15}$ & Accept \\
 T-A  & Theorem~\ref{thm:A:PGF}                     & A                  & $P(x,y)$ on $5\times5$ grid   & $<4\times10^{-8}$  & Accept \\
-C-A  & Corollary~\ref{cor:A:pi0}                 & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
+C-A  & Corollary~\ref{cor:gen:no_abandon}        & A, B, B$_2$        & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
 T-B2 & Theorem~\ref{thm:B2:PGF}                  & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
 T-C2 & Theorem~\ref{thm:C2:PGF}                  & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
 C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
@@ -52,6 +52,12 @@ state space $\widetilde{S}$ (Approximation~\ref{apx:A:PPGF_Stilde}) is approxima
 it drops the boundary-diagonal forcing term, so it is exact at $y=1$ but degrades elsewhere.
 It is reliable only in the priority-dominated, moderately loaded regime
 ($\rho_1/\rho\gtrsim0.6$, $\rho\lesssim0.6$).
+
+Rows C-A and C-C2 together validate Theorem~\ref{thm:gen:boundary}: the cut identity
+$\pi(0,0)=\rho\,\pi_0$ and the busy-period law $\pi_0=1/(1+\lambda\,\mathbb{E}[B])$ hold to
+$<10^{-4}$ across both the no-abandonment regime (Corollary~\ref{cor:gen:no_abandon}, Models
+$A$, $B$, $B_2$) and the class-$1$ abandonment regime (Corollary~\ref{cor:C2:pi00}, Model
+$C_2$), confirming the single scalar $\mathbb{E}[B]$ as the only model-dependent input.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Structural comparison of the solved models}
