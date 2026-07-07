@@ -2,13 +2,13 @@
 
 This section collects the background material used throughout the derivations, so that the later arguments can stay focused on their primary objectives.
 
-The central object throughout is the (P)PGF of the model in question, together with the system's idle probability for some corollaries.
+The central object throughout is the (P)PGF of the numbers of waiting customers, together with the system's idle probability.
 
 
 \subsection{\texorpdfstring{$M/M/1$}{M/M/1} queue}\label{ssec:mm1}
 
 The canonical $M/M/1$ queue is the foundation of queueing theory and is treated in many textbooks; we follow~\cite{adan2002queueing}.
-Customers arrive according to a Poisson process ---i.e.\ the inter-arrival times are exponentially distributed with parameter $\lambda$---, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-served (FCFS) ---also known as first-in-first-out (FIFO)--- order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
+Customers arrive according to a Poisson process ---i.e.\ the inter-arrival times are exponentially distributed with parameter $\lambda$---, service times are exponentially distributed with parameter $\mu$, and a single server operates in first-come-first-served (FCFS) order. The system is stable if and only if the load $\rho = \lambda/\mu < 1$.
 
 Let $\pi_n$ be the limiting probability of finding $n$ customers in the system. Under stability, the detailed balance equations $\lambda\,\pi_n = \mu\,\pi_{n+1}$ ($n \geq 0$) together with the normalisation $\sum_{n=0}^{\infty}\pi_n=1$ give us the geometric steady-state distribution of the number of customers in the system:
 \begin{equation*}
@@ -23,46 +23,73 @@ From this, the expected sojourn time $W$---the time between a customer's arrival
     \mathbb{E}[W] = \frac{\mathbb{E}[L]}{\lambda} = \frac{1/\mu}{1-\rho}.
 \end{equation*}
 
-A less common but highly relevant concept is the Busy Period ($BP$): the time between a customer arriving to an idle system and the departure that next leaves it empty. Its Laplace--Stieltjes Transform (LST) and expectation are known:
+A less common but highly relevant concept is the Busy Period ($BP$): the time between a customer arriving to an idle system and the subsequent departure that leaves the system empty. Its Laplace--Stieltjes Transform (LST) and expectation are known:
 \begin{align}
     \widetilde{BP}(s) &= \frac{(\mu+\lambda+s) - \sqrt{(\mu+\lambda+s)^2 - 4\mu\lambda}}{2\lambda},\label{eq:mm1:bp_lst} \\
     \mathbb{E}[BP]    &= \frac{1}{\mu(1-\rho)}. \label{eq:mm1:bp_mean}
 \end{align}
 
 % ─────────────────────────────────────────────────────────────────────────────
-\subsection{Non-preemptive priority and the PASTA property}\label{ssec:priority}
+\subsection{The PASTA property}\label{ssec:priority}
 
-Throughout this thesis the two customer classes are served under a \emph{non-preemptive}
-priority discipline: whenever the server becomes free it admits a waiting
-class-1 customer if any are present, and a class-2 customer only otherwise, but a customer
-already in service is \emph{never} interrupted---a class-1 arrival that finds a class-2
-customer in service waits until that service completes. Priority therefore governs only the
-order in which the queues are drained, not the service in progress. Because the service rate
-$\mu$ is common to both classes, the \emph{memorylessness} of the exponential service time
-makes the residual service of the customer in progress $\mathrm{Exp}(\mu)$ regardless of its
-class; hence the class of the in-service customer does not influence the future evolution of
-the queue lengths, which is why a single in-service customer of either class suffices to
-mark the server busy.
-
-We also invoke repeatedly the \emph{PASTA} property (\emph{Poisson Arrivals See Time
+We invoke repeatedly the \emph{PASTA} property (\emph{Poisson Arrivals See Time
 Averages})~\cite{adan2002queueing}: if a system is fed by a Poisson arrival process that
 satisfies the \emph{lack-of-anticipation assumption} (at each instant the future increments
 of the arrival process are independent of the current system state), then the long-run
 fraction of arrivals that find the system in a given state equals the stationary probability
 of that state, so the distribution seen by an arriving customer coincides with the
-time-stationary one. Both hypotheses hold here: the exogenous class-$i$ arrivals are
-independent Poisson processes at rates $\lambda_i$, and they are independent of the system's
-internal exponential service, jockeying and abandonment clocks, so they cannot anticipate
-the future. By Poisson \emph{superposition} the merged arrival stream is itself Poisson at
-rate $\lambda=\lambda_1+\lambda_2$, so PASTA applies to the aggregate state; and since each
-class stream is an independent Poisson process---equivalently, an i.i.d.\
-$\lambda_i/\lambda$ \emph{thinning} of the merged stream---PASTA applies to each class
-separately.
+time-stationary one. Two standard companions of PASTA are also used: by Poisson
+\emph{superposition} the merger of independent Poisson streams is itself Poisson, and by
+i.i.d.\ \emph{thinning} each component stream of such a merger is Poisson as well. In this
+thesis these properties are applied to the two class arrival streams of the priority queue;
+the verification of the hypotheses is given once, when the model is defined
+(\S\ref{sec:model_x}).
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Confluent hypergeometric function}\label{ssec:kummer}
+
+The \emph{Kummer confluent hypergeometric function of the first kind} appears in several derivations in this thesis; it reads as follows:
+\begin{equation}
+    {}_1F_1(a;\,b;\,z) \;=\;
+        \sum_{n=0}^{\infty} \frac{a^{(n)}}{b^{(n)}\,n!}\,z^n,
+    \qquad a^{(n)} = \prod_{k=0}^{n-1}(a+k),\quad a^{(0)}=1,
+    \label{eq:kummer:series}
+\end{equation}
+with $b^{(n)}$ defined analogously; here $b$ is not $0$ or a negative integer ---i.e.\ $b \notin \{0,-1,-2,\dots\}$--- and the series converges for all
+$z\in\mathbb{C}$.
+The function ${}_1F_1(a;\,b;\,z)$ is the unique solution of \emph{Kummer's equation}~\cite{dlmf}:
+\begin{equation*}
+    z\,u'' + (b - z)\,u' - a\,u = 0,
+\end{equation*}
+normalised by ${}_1F_1(a;\,b;\,0) = 1$.
+
+For this thesis, two identities related to it are used.
+First, the \emph{Euler integral representation}, for $a,b>0$ we have:
+\begin{equation}
+    {}_1F_1(a;\,a+b;\,z) \;=\; \frac{1}{B(a,b)} \int_0^1 t^{a-1}(1-t)^{b-1} e^{zt}\,dt,
+    \label{eq:kummer:euler}
+\end{equation}
+where $B$ is the \emph{Beta function} $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$, and $\Gamma$ is the \emph{Gamma function}.
+Secondly, \emph{contiguous ratios}: ratios of two ${}_1F_1$ values whose parameters
+differ by integer shifts. Two patterns arise in this thesis. The \emph{simultaneous
+shift}
+\begin{equation}
+    \frac{{}_1F_1(a+1;\,a+1+b;\,z)}{{}_1F_1(a;\,a+b;\,z)},
+    \label{eq:kummer:ratio}
+\end{equation}
+in which both parameters move by one so that their difference $b$ is preserved, is by
+the Euler representation~\eqref{eq:kummer:euler} a ratio of two weighted Beta integrals
+differing only in the exponent of $t$; it appears as the closed-form value of the
+Erlang-A busy-period continued fraction (\S\ref{ssec:erlangA},
+Equation~\eqref{eq:erlangA:cf_kummer}) and hence in the boundary function of
+Model-$C_2$. The \emph{first-parameter shift}
+${}_1F_1(a+1;\,b;\,z)\big/{}_1F_1(a;\,b;\,z)$, with the second parameter fixed, appears
+instead in the boundary function of Model-$B_2$ (\S\ref{sec:model_b2}).
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{\texorpdfstring{$M/M/1{+}M$}{M/M/1+M} queue (Erlang-A)}\label{ssec:erlangA}
 
-Another model relevant to this thesis is the $M/M/1+M$ queue, also known as the \emph{Erlang-A} model. It extends the $M/M/1$ queue ---Poisson arrivals at rate $\lambda$, exponential service at rate $\mu$--- with customer impatience: each \emph{waiting} customer (the one in service is not impatient) independently abandons after an exponentially distributed patience time with rate $\theta$. Crucially, unlike the $M/M/1$ it does not require $\rho=\lambda/\mu<1$ for stability: it is positive recurrent for all $\lambda, \mu, \theta > 0$.
+Another model relevant to this thesis is the $M/M/1+M$ queue, also known as the \emph{Erlang-A} model. It extends the $M/M/1$ queue with customer impatience: each \emph{waiting} customer (the one in service is not impatient) independently abandons after an exponentially distributed patience time with rate $\theta$. Crucially, unlike the $M/M/1$ it does not require $\rho=\lambda/\mu<1$ for stability: it is positive recurrent for all $\lambda, \mu, \theta > 0$.
 
 The steady-state distribution follows from its balance equations, where $n$ denotes the number of customers in the \emph{system}:
 \begin{equation*}
@@ -73,39 +100,41 @@ Iterating yields
     \pi_n = \pi_0\,\frac{(\lambda/\theta)^n}{(\mu/\theta)^{(n)}} \quad n \ge 0;
     \quad \text{where} \quad a^{(n)} = a(a+1)\cdots(a+n-1)
 \end{equation*}
-Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF is correspondingly a \emph{ratio} of Kummer functions, $\Pi(z) = {}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)\,/\,{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)$. The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
+Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF $\Pi(z)=\sum_{n\ge0}\pi_n z^n$ is correspondingly a \emph{ratio} of Kummer functions, $\Pi(z) = {}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)\,/\,{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)$. The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
 
-Unlike the textbook facts collected above, the busy-period identity that follows is the one preliminary we derive from scratch, as Model-$C_2$ rests on it directly. The \emph{Busy Period} of this $M/M/1+M$ is far more complex than its $M/M/1$ counterpart. We record it for the class-1 subsystem used in Model-$C_2$, with arrival rate $\lambda_1$, service rate $\mu$ and abandonment rate $\theta_1$, so that the relevant idle probability is $\pi_0=[{}_1F_1(1;\,\mu/\theta_1;\,\lambda_1/\theta_1)]^{-1}$. Writing $B_C$ for this busy period, its LST and expectation are
+Unlike the textbook facts collected above, the busy-period identity that follows is the one preliminary we derive from scratch, as Model-$C_2$ rests on it directly. The \emph{Busy Period} of this $M/M/1+M$ is far more complex than its $M/M/1$ counterpart. We write $B_C$ for it ---the notation anticipates its use in Model-$C_2$--- and record its LST and expectation, both derived below:
 \begin{align}
     \begin{split}
-    \widetilde{B}_C(s) = \cfrac{\mu}{\lambda_1+\mu+s
-      -\cfrac{\lambda_1(\mu+\theta_1)}{\lambda_1+\mu+\theta_1+s
-      -\cfrac{\lambda_1(\mu+2\theta_1)}{\lambda_1+\mu+2\theta_1+s-\dotsb}}},
+    \widetilde{B}_C(s) = \cfrac{\mu}{\lambda+\mu+s
+      -\cfrac{\lambda(\mu+\theta)}{\lambda+\mu+\theta+s
+      -\cfrac{\lambda(\mu+2\theta)}{\lambda+\mu+2\theta+s-\dotsb}}},
     \label{eq:erlangA:bp_lst}
     \end{split} \\
     \begin{split}
-        \mathbb{E}[B_C] = \frac{1}{\lambda_1}\Bigl({}_1F_1\bigl(1;\,\mu/\theta_1;\,\lambda_1/\theta_1\bigr) - 1\Bigr)
+        \mathbb{E}[B_C] = \frac{1}{\lambda}\Bigl({}_1F_1\bigl(1;\,\mu/\theta;\,\lambda/\theta\bigr) - 1\Bigr)
         \label{eq:erlangA:bp_mean}
     \end{split}
 \end{align}
 The continued fraction~\eqref{eq:erlangA:bp_lst} is generated by a first-passage recursion.
 Let $\phi_n(s)$ denote the LST of the first-passage (sub-busy-period) time from $n$
-customers in the system down to $n-1$. Conditioning on the first transition out of state
-$n$---an arrival (rate $\lambda_1$) to state $n+1$, or a departure by service completion or
-abandonment (combined rate $\mu+(n-1)\theta_1$: one customer in service plus $n-1$ waiting,
-each impatient at rate $\theta_1$) to state $n-1$---the strong Markov property gives
+customers in the system down to $n-1$. Out of state $n$, the first transition is either an
+arrival (rate $\lambda$) to state $n+1$, or a departure to state $n-1$ by service completion
+or abandonment (combined rate $\mu+(n-1)\theta$: one customer in service plus $n-1$ waiting,
+each impatient at rate $\theta$). Conditioning on this first transition, the strong Markov
+property gives
 \begin{equation}
-    \phi_n(s) \;=\; \frac{\mu+(n-1)\theta_1}
-        {\lambda_1+\mu+(n-1)\theta_1+s-\lambda_1\,\phi_{n+1}(s)},
+    \phi_n(s) \;=\; \frac{\mu+(n-1)\theta}
+        {\lambda+\mu+(n-1)\theta+s-\lambda\,\phi_{n+1}(s)},
     \qquad n\ge 1, \qquad \widetilde{B}_C(s)=\phi_1(s).
     \label{eq:erlangA:r_recursion}
 \end{equation}
 Unrolling Equation~\eqref{eq:erlangA:r_recursion} from $n=1$ reproduces the continued
-fraction~\eqref{eq:erlangA:bp_lst} term by term. The continued fraction also sums in
-closed form, and the argument is short enough to give in full. Fix $s>0$ and scale the
-rates by $\theta_1$, setting
+fraction~\eqref{eq:erlangA:bp_lst} term by term. The continued fraction itself admits a
+closed-form evaluation ---Equation~\eqref{eq:erlangA:cf_kummer} below expresses it as a
+ratio of Kummer functions--- and the argument is short enough to give in full. Fix $s>0$
+and scale the rates by $\theta$, setting
 \begin{equation*}
-    a=\frac{\mu}{\theta_1}, \qquad b=\frac{s}{\theta_1}, \qquad c=\frac{\lambda_1}{\theta_1},
+    a=\frac{\mu}{\theta}, \qquad b=\frac{s}{\theta}, \qquad c=\frac{\lambda}{\theta},
 \end{equation*}
 so that Equation~\eqref{eq:erlangA:r_recursion} reads
 $\phi_n(s)=(a+n-1)\big/\bigl((a+n-1)+b+c-c\,\phi_{n+1}(s)\bigr)$. Consider the integrals
@@ -113,10 +142,12 @@ $\phi_n(s)=(a+n-1)\big/\bigl((a+n-1)+b+c-c\,\phi_{n+1}(s)\bigr)$. Consider the i
     I(p) \;=\; \int_0^1 t^{\,p}\,(1-t)^{\,b-1}\,e^{-ct}\,dt,
     \qquad p>-1,
 \end{equation*}
-which by the Euler representation~\eqref{eq:kummer:euler} are Beta-function multiples of
-Kummer values, $I(p)=B(p+1,\,b)\,{}_1F_1(p+1;\,p+1+b;\,-c)$. Integrating the exact
-derivative $\frac{d}{dt}\bigl[t^{\,p}(1-t)^{\,b}e^{-ct}\bigr]$ over $[0,1]$ ---the
-boundary terms vanish for $p,b>0$--- and splitting
+where the dependence of $I$ on the fixed parameters $b$ and $c$ is suppressed from the
+notation. By the Euler representation~\eqref{eq:kummer:euler} these integrals are
+Beta-function multiples of Kummer values, $I(p)=B(p+1,\,b)\,{}_1F_1(p+1;\,p+1+b;\,-c)$.
+The derivative $\frac{d}{dt}\bigl[t^{\,p}(1-t)^{\,b}e^{-ct}\bigr]$ integrates to zero
+over $[0,1]$ by the fundamental theorem of calculus, since the boundary terms vanish for
+$p,b>0$. Expanding this derivative by the product rule and splitting
 $(1-t)^{b}=(1-t)^{b-1}-t\,(1-t)^{b-1}$ in the two terms where it appears yields the
 three-term recurrence
 \begin{equation}
@@ -139,9 +170,10 @@ precisely the ratio built from the minimal solution. Hence
               {B(a,\,b)\;{}_1F_1\bigl(a;\,a+b;\,-c\bigr)},
     \label{eq:erlangA:cf_kummer}
 \end{equation}
-a contiguous ratio of the form~\eqref{eq:kummer:ratio}. This identity is used, with
-$s=\lambda_2(1-y)$, in the boundedness route for Model-$C_2$ (\S\ref{sec:model_c2},
-Equation~\eqref{eq:C2:Bc_Kummer}).
+a contiguous ratio of the form~\eqref{eq:kummer:ratio}. This identity is used in the
+boundedness route for Model-$C_2$ (\S\ref{sec:model_c2}, Equation~\eqref{eq:C2:Bc_Kummer}),
+where the $M/M/1+M$ queue in question is the class-$1$ subsystem, with parameters
+$(\lambda,\theta)=(\lambda_1,\theta_1)$ and argument $s=\lambda_2(1-y)$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Pollaczek--Khinchine formula}\label{ssec:pk}
@@ -158,58 +190,17 @@ gives the PGF of the stationary number of customers in the system:
 \end{equation}
 
 % ─────────────────────────────────────────────────────────────────────────────
-\subsection{Confluent hypergeometric function}\label{ssec:kummer}
-
-The \emph{Kummer confluent hypergeometric function of the first kind} appears in several derivations in this thesis; it reads as follows:
-\begin{equation}
-    {}_1F_1(a;\,b;\,z) \;=\;
-        \sum_{n=0}^{\infty} \frac{a^{(n)}}{b^{(n)}\,n!}\,z^n,
-    \qquad a^{(n)} = \prod_{k=0}^{n-1}(a+k),\quad a^{(0)}=1,
-    \label{eq:kummer:series}
-\end{equation}
-where $b$ is not $0$ or a negative integer ---i.e.\ $b \notin \{0,-1,-2,\dots\}$--- and the series converges for all
-$z\in\mathbb{C}$.
-The function ${}_1F_1(a;\,b;\,z)$ is the unique solution of \emph{Kummer's equation}~\cite{dlmf}:
-\begin{equation*}
-    z\,u'' + (b - z)\,u' - a\,u = 0,
-\end{equation*}
-normalised by ${}_1F_1(a;\,b;\,0) = 1$.
-
-For this thesis, two identities related to it are used.
-First, the \emph{Euler integral representation}, for $a,b>0$ we have:
-\begin{equation}
-    {}_1F_1(a;\,a+b;\,z) \;=\; \frac{1}{B(a,b)} \int_0^1 t^{a-1}(1-t)^{b-1} e^{zt}\,dt, 
-    \label{eq:kummer:euler}
-\end{equation}
-where $B$ is the \emph{Beta function} $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$, and $\Gamma$ is the \emph{Gamma function}.
-Secondly, \emph{contiguous ratios}: ratios of two ${}_1F_1$ values whose parameters
-differ by integer shifts. Two patterns arise in this thesis. The \emph{simultaneous
-shift}
-\begin{equation}
-    \frac{{}_1F_1(a+1;\,a+1+b;\,z)}{{}_1F_1(a;\,a+b;\,z)},
-    \label{eq:kummer:ratio}
-\end{equation}
-in which both parameters move by one so that their difference $b$ is preserved, is by
-the Euler representation~\eqref{eq:kummer:euler} a ratio of two weighted Beta integrals
-differing only in the exponent of $t$; it appears as the closed-form value of the
-Erlang-A busy-period continued fraction (\S\ref{ssec:erlangA},
-Equation~\eqref{eq:erlangA:cf_kummer}) and hence in the boundary function of
-Model-$C_2$. The \emph{first-parameter shift}
-${}_1F_1(a+1;\,b;\,z)\big/{}_1F_1(a;\,b;\,z)$, with the second parameter fixed, appears
-instead in the boundary function of Model-$B_2$ (\S\ref{sec:model_b2}).
-
-
-% ─────────────────────────────────────────────────────────────────────────────
 \subsection{First-order linear ODEs and PDEs}\label{ssec:ode}
 
 Since jockeying and abandonment add state-dependent rates to the balance equations, derivative terms appear in the derivations, requiring us to solve first-order linear ODEs and PDEs for the PGF. The three methods below are invoked at specific steps of the analysis.
 
 \subsubsection{Integrating factor}\label{sssec:if}
 
-This method is standard to solve ---for each fixed $y$--- a \emph{first-order linear ODE in $x$}. Such an equation has standard form
+This method is standard for solving a \emph{first-order linear ODE in $x$}, for each fixed $y$. Such an equation has standard form
 \begin{equation}
-    \frac{dP}{dx} + p(x;\,y)\,P \;=\; q(x;\,y). \label{eq:ode:standard}
+    \frac{dP}{dx} + p(x;\,y)\,P \;=\; q(x;\,y), \label{eq:ode:standard}
 \end{equation}
+where the semicolon separates the active variable $x$ from the parameter $y$, a convention used throughout.
 The \emph{integrating factor} $\mu_I(x;y) = \exp\!\bigl(\int_0^x p(t;y)\,dt\bigr)$ converts Equation~\eqref{eq:ode:standard} to $\frac{d}{dx}[P\cdot\mu_I] = q\cdot\mu_I$. Integrating from $0$ to $x$ gives the general solution
 \begin{equation}
     P(x,y) \;=\; \frac{1}{\mu_I(x;\,y)}
@@ -224,15 +215,15 @@ This method is standard for solving a \emph{first-order linear PDE in both $x$ a
 
 A PDE of the form
 \begin{equation}
-    a \frac{\partial P}{\partial x} + b \frac{\partial P}{\partial y} = cP + d
+    a(x,y) \frac{\partial P}{\partial x} + b(x,y) \frac{\partial P}{\partial y} = c(x,y)\,P + d(x,y),
     \label{eq:ode:pde}
 \end{equation}
-is solved by tracing the characteristic curve $(x(t),y(t))$ satisfying
+in which all four coefficients may depend on $x$ and $y$, is solved by tracing the characteristic curve $(x(t),y(t))$ satisfying
 \begin{equation}
-    \frac{dx}{dt} = a, \qquad \frac{dy}{dt} = b.
+    \frac{dx}{dt} = a(x,y), \qquad \frac{dy}{dt} = b(x,y).
     \label{eq:ode:char}
 \end{equation}
-By the chain rule, $\frac{d}{dt}P(x(t),y(t)) = a\,P_x + b\,P_y$, so Equation~\eqref{eq:ode:pde} reduces to
+By the chain rule, $\frac{d}{dt}P(x(t),y(t)) = a\,\frac{\partial P}{\partial x} + b\,\frac{\partial P}{\partial y}$, so Equation~\eqref{eq:ode:pde} reduces to
 \begin{equation}
     \frac{dP}{dt} = cP + d,
     \label{eq:ode:charode}
@@ -253,7 +244,7 @@ Consider a first-order linear ODE written as
     \frac{dP}{dx} = f(x)\,P + h(x),
     \label{eq:ode:vop_standard}
 \end{equation}
-and suppose a nonzero homogeneous solution $P_h$ is known, that is, $\frac{dP_h}{dx} = f(x)\,P_h$. The homogeneous equation then has general solution $C\,P_h(x)$ for an arbitrary constant $C$. To solve the full equation~\eqref{eq:ode:vop_standard}, we \emph{vary the constant}: we promote $C$ to a function $C(x)$ and look for a solution of the form
+and suppose a nonzero homogeneous solution $P_h$ is known, that is, $\frac{dP_h}{dx} = f(x)\,P_h$ ---the subscript $h$ marks the homogeneous solution, not a derivative. The homogeneous equation then has general solution $C\,P_h(x)$ for an arbitrary constant $C$. To solve the inhomogeneous equation~\eqref{eq:ode:vop_standard}, we \emph{vary the constant}: we promote $C$ to a function $C(x)$ and look for a solution of the form
 \begin{equation*}
     P(x) = C(x)\,P_h(x).
 \end{equation*}
@@ -278,7 +269,7 @@ Integrating from a base point $x_0$ gives $C(x) = F + \int_{x_0}^{x} h(t)/P_h(t)
     P(x) = P_h(x)\left[\,F + \int_{x_0}^{x} \frac{h(t)}{P_h(t)}\,dt\,\right].
     \label{eq:ode:vop_general}
 \end{equation}
-The known homogeneous solution $P_h$ thus does double duty: it is the overall prefactor and, as $1/P_h$, the weight inside the integral. The constant $F$ is fixed by a boundary condition. Taking in particular $P_h = 1/\mu_I$ reproduces the integrating-factor formula~\eqref{eq:ode:general} of \S\ref{sssec:if}.
+The known homogeneous solution $P_h$ thus plays two roles: it is the overall prefactor and, as $1/P_h$, the weight inside the integral. The constant $F$ is fixed by a boundary condition. Taking in particular $P_h = 1/\mu_I$ reproduces the integrating-factor formula~\eqref{eq:ode:general} of \S\ref{sssec:if}.
 
 This is exactly the step that completes the Method of Characteristics for an \emph{inhomogeneous} PDE. Once \S\ref{sssec:moc} has reduced the PDE to an ODE of the form~\eqref{eq:ode:vop_standard} along a characteristic and supplied its homogeneous solution $P_h$, formula~\eqref{eq:ode:vop_general} delivers the full solution along that characteristic, the constant $F$ becoming an arbitrary function $F(\xi)$ of the characteristic label. Model-$B$ (\S\ref{sec:model_b}) is solved by precisely this pairing.
 
