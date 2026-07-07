@@ -6,12 +6,13 @@ This thesis analyses a $2$-class $M/M/1$ queue with non-preemptive priority: eac
 
 \subsection*{The analytical challenge}
 
-For the general Model-$X$, the bivariate PGF satisfies a functional equation with terms of three kinds: algebraic coefficients, partial derivatives in $x$ ---from jockeying and abandonment in class-$1$--- and partial derivatives in $y$ ---from the same mechanisms in class-$2$. When both kinds of derivative terms are present, the equation belongs to a family of integro-differential equations whose solution would require more advanced tools. The problem is moreover asymmetric: derivative terms from the non-priority class complicate the equation more than those from the priority class alone.
+For the general Model-$X$, the bivariate PGF satisfies a functional equation with terms of three kinds: algebraic coefficients, partial derivatives in $x$ ---from jockeying and abandonment in class-$1$--- and partial derivatives in $y$ ---from the same mechanisms in class-$2$. When both kinds of derivative terms are present, the equation belongs to a family of integro-differential equations whose solution would require more advanced tools. The problem is moreover asymmetric: derivative terms from the non-priority class complicate the equation more than those from the priority class alone. The reason, developed in \S\ref{sec:model_b}, lies in the equation's unknown boundary function, which is a function of $y$: when the derivatives act only in $x$, the equation is an ODE in $x$ and the unknown function rides along as a parameter, whereas a derivative in $y$ forces an integration that runs \emph{through} the unknown function's argument, turning the problem into an integral equation.
 
 We therefore solve less complex models obtained by setting some of the jockeying and abandonment parameters to zero. Table~\ref{tab:model_overview_intro} lists the models studied here and indicates whether a PGF expression is obtained for each:
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
+\footnotesize
     \begin{tabular}{cllll}
         \hline
             \textbf{Model} & \textbf{Active mechanism} & \textbf{Equation type} & \textbf{Status} & \textbf{Section} \\
@@ -45,7 +46,7 @@ in which the left-hand side involves the unknown PGF and the right-hand side two
 
 \emph{Probabilistic argument via Pollaczek--Khinchine and the effective service time}. For Model-$A$ and Model-$C_2$, class-$2$ arrivals are Poisson, so the PASTA property holds and we can apply the Pollaczek--Khinchine formula together with the \emph{effective service time} seen by a class-$2$ customer. This is an $M/G/1$ queue whose service times equal the busy period of the class-$1$ subsystem ---an $M/M/1$ queue for Model-$A$ and an $M/M/1+M$ system for Model-$C_2$. Unlike the first strategy, this route determines only one of the boundary unknowns, the boundary function $P_y(y)$, from which $P(x,y)$ is then recovered through the fundamental equation; in both cases it independently confirms the analytic results. Since jockeying destroys the Poisson structure, it does not apply to the other models.
 
-\emph{Partial PGF (PPGF)}. For the baseline Model-$A$ we introduce an alternative state space indexed by the number of class-$2$ customers ---whose distribution is hard--- and the total number of customers ---which is easy, since the total is conserved and behaves like a regular $M/M/1$ queue. This yields a PPGF with a non-homogeneous term. Cohen's recursion argument~\cite{cohen1956delay} was developed for the regular state space; we explore, with limited success, the challenges of carrying it over to this alternative space and assess whether Cohen's trick can deliver a feasible rough approximation.
+\emph{Partial PGF (PPGF)}. Cohen's recursion argument~\cite{cohen1956delay} transforms only one queue-length index while keeping the other discrete; on the regular state space it delivers the complete transform for Model-$A$ through a third, independent proof. For the same baseline model we also introduce an alternative state space indexed by the number of class-$2$ customers ---whose distribution is hard--- and the total number of customers ---which is easy, since the total is conserved and behaves like a regular $M/M/1$ queue. This yields a PPGF with a non-homogeneous term; we explore, with limited success, the challenges of carrying Cohen's argument over to this alternative space and assess whether it can deliver a feasible rough approximation.
 
 \subsection*{Structure of the thesis}
 

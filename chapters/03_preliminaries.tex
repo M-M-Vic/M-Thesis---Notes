@@ -100,7 +100,11 @@ Iterating yields
     \pi_n = \pi_0\,\frac{(\lambda/\theta)^n}{(\mu/\theta)^{(n)}} \quad n \ge 0;
     \quad \text{where} \quad a^{(n)} = a(a+1)\cdots(a+n-1)
 \end{equation*}
-Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF $\Pi(z)=\sum_{n\ge0}\pi_n z^n$ is correspondingly a \emph{ratio} of Kummer functions, $\Pi(z) = {}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)\,/\,{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)$. The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
+Normalisation gives the non-trivial idle probability $\pi_0 = [{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)]^{-1}$ (see \S\ref{ssec:kummer} for the Kummer function ${}_1F_1$), and summing the geometric-like terms shows that the queue-length PGF $\Pi(z)=\sum_{n\ge0}\pi_n z^n$ is correspondingly a \emph{ratio} of Kummer functions,
+\begin{equation*}
+    \Pi(z) = \frac{{}_1F_1(1;\,\mu/\theta;\,(\lambda/\theta)z)}{{}_1F_1(1;\,\mu/\theta;\,\lambda/\theta)}.
+\end{equation*}
+The same closed form is derived by Kapodistria~\cite[Thm.~3]{kapodistria2011synchronized} as the no-synchronisation limit of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the customer in service also abandons), which amounts to replacing $\mu$ by $\mu+\theta$.
 
 Unlike the textbook facts collected above, the busy-period identity that follows is the one preliminary we derive from scratch, as Model-$C_2$ rests on it directly. The \emph{Busy Period} of this $M/M/1+M$ is far more complex than its $M/M/1$ counterpart. We write $B_C$ for it ---the notation anticipates its use in Model-$C_2$--- and record its LST and expectation, both derived below:
 \begin{align}
