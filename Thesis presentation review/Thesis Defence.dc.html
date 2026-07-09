@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./ds-base.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+.tstage{width:1280px;height:720px;background:var(--surface-page);color:var(--text-body);font-family:var(--font-sans);position:relative;overflow:hidden}
+.tpaper{background-color:var(--surface-page);background-image:radial-gradient(var(--line-200) 1.1px,transparent 1.1px);background-size:26px 26px;background-position:-1px -1px}
+.tink{background:var(--ink-900);color:#fff}
+.tbody{position:absolute;left:72px;right:72px;top:52px;bottom:92px;display:flex;flex-direction:column}
+.tkick{font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.tink .tkick{color:var(--terracotta-200)}
+.ttitle{font-family:var(--font-display);font-weight:500;font-size:38px;line-height:1.18;letter-spacing:-.02em;color:var(--text-heading);margin:8px 0 0}
+.tink .ttitle{color:#fff}
+.tlead{font-family:var(--font-display);font-size:23px;line-height:1.48;color:var(--text-body);max-width:64ch}
+.tnote{font-family:var(--font-display);font-style:italic;font-size:19px;line-height:1.45;color:var(--text-muted)}
+.tfoot{position:absolute;left:72px;right:72px;bottom:24px;height:40px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-subtle);padding-top:10px;font-size:13px;letter-spacing:.04em;color:var(--text-muted)}
+.tink .tfoot{border-color:rgba(255,255,255,.18);color:var(--ink-300)}
+.tfoot img{height:20px}
+.tink .tfoot img{filter:brightness(0) invert(1)}
+.tfoot .pg{font-family:var(--font-mono)}
+.thero{font-family:var(--font-display);font-weight:500;font-size:58px;line-height:1.06;letter-spacing:-.02em;color:var(--ink-900);max-width:20ch;margin-top:40px}
+.tsub{font-family:var(--font-display);font-style:italic;font-size:26px;color:var(--ink-500);margin-top:16px}
+.tpeople{display:flex;gap:56px;margin-top:auto}
+.trole{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap}
+.tname{font-size:20px;color:var(--ink-900);font-weight:500;margin-top:4px}
+.trule{width:72px;height:4px;background:var(--accent);border-radius:2px;margin-top:8px}
+.t2col{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1;align-items:center;min-height:0}
+.t2colt{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;align-items:start;min-height:0;padding-top:22px}
+.tcard{background:var(--surface);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:var(--shadow-sm);padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.tcap{font-family:var(--font-mono);font-size:13px;color:var(--text-muted)}
+.teq{background:var(--surface-sunken);border-radius:10px;padding:18px 22px;overflow-x:auto;min-width:0}
+.thg1{grid-template-columns:1fr!important}
+.anatrow{display:flex;gap:14px;align-items:flex-start}
+.anatrow>div{flex:1;min-width:0}
+.anat2{display:flex;flex-direction:column;gap:10px}
+.teqw{background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px;padding:20px 24px;overflow-x:auto;min-width:0}
+table.tmo{width:100%;border-collapse:collapse;margin-top:18px}
+.tmo th{text-align:left;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:600;padding:0 14px 10px;border-bottom:1.5px solid var(--ink-900)}
+.tmo td{padding:11px 14px;border-bottom:1px solid var(--border-subtle);font-size:19px;color:var(--ink-700)}
+.tmo tr:last-child td{border-bottom:none}
+.tmo tr.hl td{background:var(--terracotta-50)}
+.mname{font-family:var(--font-mono);font-size:20px;color:var(--ink-900);font-weight:500}
+.meq{font-family:var(--font-mono);font-size:16px;color:var(--ink-500)}
+.rstats{display:flex;flex-direction:column;gap:22px}
+.tdiv{display:flex;flex-direction:column;justify-content:center;height:100%}
+.tdnum{font-family:var(--font-mono);font-size:20px;color:var(--terracotta-200);letter-spacing:.1em}
+.tdh{font-family:var(--font-display);font-weight:500;font-size:70px;line-height:1.03;letter-spacing:-.02em;color:#fff;margin:14px 0 0}
+.tddesc{font-family:var(--font-display);font-style:italic;font-size:24px;color:var(--ink-300);margin-top:22px;max-width:48ch}
+.t3col{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;align-items:stretch;min-height:0;margin-top:14px}
+.tmini{background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.tmini h3{font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--ink-900);margin:0}
+.tmini p{font-size:16px;color:var(--ink-700);line-height:1.5;margin:0}
+.tlist{display:flex;flex-direction:column;gap:16px;margin-top:14px}
+.tli{display:flex;gap:18px;align-items:flex-start;max-width:68ch}
+.tli .n{font-family:var(--font-mono);font-size:15px;color:var(--accent);border:1.5px solid var(--terracotta-200);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px}
+.tink .tli .n{color:var(--terracotta-200);border-color:rgba(255,255,255,.25)}
+.tli p{font-size:20px;line-height:1.42;color:var(--text-body);margin:0}
+.tink .tli p{color:#fff}
+.tli b{color:var(--accent);font-weight:600}
+.tink .tli b{color:var(--terracotta-200)}
+.tfig{display:flex;flex-direction:column;gap:10px}
+.tfig img{width:100%;height:auto;display:block}
+.tfigcap{font-size:15px;color:var(--text-body);line-height:1.45}
+.tfigcap b{color:var(--text-heading);font-weight:600}
+.tfigsrc{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);letter-spacing:.02em}
+.tchips{display:flex;flex-wrap:wrap;gap:8px}
+.tbadges{display:flex;gap:14px;flex-wrap:wrap}
+.stack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.stack14{display:flex;flex-direction:column;gap:14px;min-width:0}
+.cwrap{display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center}
+.cwrap1000{display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center;max-width:1020px}
+.akey{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center}
+.ak{display:inline-flex;align-items:center;gap:8px;font-size:16px;color:var(--ink-700)}
+.ak .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px}
+.regime{background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.regime .f{font-family:var(--font-mono);font-size:19px;color:var(--ink-900)}
+.regime p{font-size:16.5px;line-height:1.45;margin:0;color:var(--ink-700)}
+.olrow{display:flex;gap:22px;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:15px 4px}
+.olrow:last-child{border-bottom:none}
+.olrow .on{font-family:var(--font-mono);font-size:17px;color:var(--accent);flex:none;width:64px}
+.olrow .ot{font-family:var(--font-display);font-size:26px;color:var(--ink-900)}
+.olrow .od{font-size:16px;color:var(--text-muted);margin-left:auto;text-align:right;max-width:38ch}
+table.cmp{width:100%;border-collapse:collapse;margin-top:16px}
+.cmp th{font-family:var(--font-mono);font-size:17px;font-weight:500;color:var(--ink-900);padding:8px 10px;border-bottom:1.5px solid var(--ink-900);text-align:left}
+.cmp td{font-size:15.5px;color:var(--ink-700);padding:9px 10px;border-bottom:1px solid var(--border-subtle);line-height:1.35}
+.cmp td:first-child{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.cmp .mono{font-family:var(--font-mono);font-size:14.5px}
+.cmp tr:last-child td{border-bottom:none}
+.thg{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;flex:1;min-height:0;align-items:start;padding-top:12px}
+.tleft{display:flex;flex-direction:column;gap:11px;min-width:0}
+.defs{background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px;padding:2px 18px;box-shadow:var(--shadow-sm)}
+.dhead{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:600;padding:9px 0 3px}
+.def{display:flex;gap:13px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--border-subtle)}
+.nb{border-bottom:none}
+.def .ds{font-family:var(--font-mono);font-size:14px;font-weight:500;color:var(--ink-900);flex:none;width:112px}
+.def .dd{font-size:13px;line-height:1.4;color:var(--ink-700)}
+.def .dd b{color:var(--ink-900);font-weight:600}
+.anat{background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px;padding:7px 16px 9px;display:flex;flex-direction:column;gap:3px}
+.anote{font-size:13px;line-height:1.42;color:var(--text-muted);margin:2px 0 0}
+.anote b{color:var(--ink-700);font-weight:600}
+.pline{font-size:14px;color:var(--text-muted);margin:0;line-height:1.4}
+.pline b{color:var(--ink-700);font-weight:600}
+.cor{position:relative;margin-top:12px}
+.cor .csum{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border-subtle);border-radius:10px;padding:10px 18px;box-shadow:var(--shadow-sm);transition:box-shadow .16s ease}
+.cor .csum:hover{box-shadow:var(--shadow-md)}
+.csum::-webkit-details-marker{display:none}
+.cor .car{color:var(--accent);font-size:13px;flex:none;transition:transform .16s ease}
+.cor[open] .car{transform:rotate(90deg)}
+.cor .ck{font-family:var(--font-mono);font-size:15px;font-weight:500;white-space:nowrap;color:var(--pine-600)}
+.ck.plum{color:var(--plum-600)}
+.cor .ct{font-family:var(--font-display);font-style:italic;font-size:16px;color:var(--ink-700);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cor .chint{margin-left:auto;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);flex:none}
+.cor[open] .chint{color:var(--accent)}
+.corbody{position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1px solid var(--border-subtle);border-radius:12px;box-shadow:var(--shadow-md);padding:16px 22px;z-index:6;display:flex;flex-direction:column;gap:10px}
+.corbody p{font-size:14.5px;line-height:1.45;color:var(--ink-700);margin:0}
+.corbody p b{color:var(--ink-900)}
+.klabel{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+</style>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1280" height="720" hint-size="100%,100%" data-uneditable="">
+
+<section data-label="01 Title">
+<div class="tstage tpaper"><div class="tbody">
+<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="tkick">Master's thesis · MSc Mathematics</div><div class="trule"></div></div><img src="assets/vu-logo.png" alt="VU Amsterdam" style="height:48px"></div>
+<h1 class="thero">Exact generating-function analysis of a two-class priority M/M/1 queue</h1>
+<div class="tsub">with jockeying and abandonment</div>
+<div class="tpeople"><div><div class="trole">Author</div><div class="tname">Victor Dominguez Sainz</div></div><div><div class="trole">Supervisor</div><div class="tname">René Bekker</div></div><div><div class="trole">Second reader</div><div class="tname">Wouter Kager</div></div></div>
+</div><div class="tfoot"><span>Vrije Universiteit Amsterdam</span><span class="pg">Thesis defence</span></div></div>
+</section>
+
+<section data-label="02 Motivation">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§1 · Motivation</div>
+<h1 class="ttitle">Waiting lists that change while you wait</h1>
+<div class="t2col">
+<div class="stack"><p class="tlead">In elderly-care admission, medical severity sets a customer's <b>priority class</b>. But waiting is not passive: deteriorating health can push a waiting customer to <b>change class</b> or to <b>leave the system</b> — for alternative care, or through death.</p>
+<div class="tchips"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="class1" hint-size="100px,26px">priority</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="class2" hint-size="130px,26px">non-priority</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="jockey" hint-size="110px,26px">jockeying</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="abandon" hint-size="130px,26px">abandonment</x-import></div></div>
+<div class="teq"><p class="tlead" style="font-size:22px;font-style:italic;color:var(--text-muted);max-width:none">How do jockeying and abandonment interact within a priority discipline — and how does that interaction affect our ability to solve the queue in closed form?</p></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">02</span></div></div>
+</section>
+
+<section data-label="03 Literature" data-deck-skip="">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§2 · Literature</div>
+<h1 class="ttitle">Three streams — and the gap between them</h1>
+<div class="t3col" style="width: 1118px; height: 381px">
+
+<div class="tmini" style="width: 354px; height: 219px"><h3>Queues with abandonment</h3><p>Erlang-A (Garnett et al., 2002); Kapodistria (2011) — exact priority-plus-reneging stays <b>multi-server</b> and waiting-time based.</p><p style="color:var(--text-muted)">the special-function toolkit</p></div><div class="tmini" style="width: 350px; height: 219px"><h3>Exact priority queues</h3><p>Cohen (1956); Zuk &amp; Kirszenblat (2023) — exact, but <b>mechanism-free</b>: nobody moves, nobody leaves.</p><p style="color:var(--text-muted)">the methodological ancestors</p></div><div class="tmini" style="width: 350px; height: 219px"><h3>Jockeying &amp; class change</h3><p>de Waal (1992) treats it <b>approximately</b>; Hu, Chan &amp; Dong (2022) study it asymptotically, multi-server.</p><p style="color:var(--text-muted)">the applied motivation</p></div>
+
+</div>
+<p class="tnote" style="margin-top:14px">The gap: an <b style="font-style:normal;color:var(--accent)">exact, single-server</b> treatment admitting both mechanisms in one bivariate-PGF framework.</p>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">03</span></div></div>
+</section>
+
+<section data-label="04 Outline">
+<div class="tstage"><div class="tbody">
+<div class="tkick">Outline</div>
+<h1 class="ttitle">Five parts</h1>
+<div style="margin-top:18px">
+<div class="olrow"><span class="on">I</span><span class="ot">The toolbox</span><span class="od">M/M/1 · M/M/1+M · generating functions · where derivatives come from</span></div>
+<div class="olrow"><span class="on">II</span><span class="ot">Model X and its fundamental equation</span><span class="od">the system · balance equations · the fundamental equation · the empty-state theorem</span></div>
+<div class="olrow"><span class="on">III</span><span class="ot">The solved models</span><span class="od">one theorem per model: A · B₂ · C₂ · Bᴴ · Cᴴ — and why B stays open</span></div>
+<div class="olrow"><span class="on">IV</span><span class="ot">The S̃ experiment</span><span class="od">an alternative state space, and a documented negative result</span></div>
+<div class="olrow"><span class="on">V</span><span class="ot">Results</span><span class="od">CTMC validation · jockeying vs. abandonment, across load · convergence to the baseline</span></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">04</span></div></div>
+</section>
+
+<section data-label="— Part I">
+<div class="tstage tink"><div class="tbody"><div class="tdiv">
+<div class="tdnum">Part I — Preliminaries</div>
+<h2 class="tdh">The toolbox</h2>
+<div class="trule"></div>
+<div class="tddesc">Two classical queues, one transform, and the mechanic that turns waiting-room behaviour into derivatives.</div>
+</div></div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">05</span></div></div>
+</section>
+
+<section data-label="06 M/M/1">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§3.1 · Preliminaries</div>
+<h1 class="ttitle">The M/M/1 queue: one chain, three formulas</h1>
+<div style="display:flex;flex-direction:column;flex:1;min-height:0;gap:12px;padding-top:6px">
+<div class="tcard" style="align-items:stretch;padding:4px 22px 2px;background:var(--surface-sunken);gap:0">
+<div class="klabel">Birth–death chain — arrivals λ up, departures μ down</div>
+<div style="display:flex;justify-content:center"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.BirthDeathChain" mode="mm1" width="460" hint-size="460px,120px"></x-import></div>
+</div>
+<div class="t2colt" style="padding-top:0;flex:none;align-items:stretch;gap:24px">
+<div class="stack" style="gap:12px">
+<div class="teqw" style="padding:14px 18px"><div class="klabel">Detailed balance ⇒ geometric law</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\lambda\,\pi_n=\mu\,\pi_{n+1}\quad\Longrightarrow\quad\pi_n=(1-\rho)\,\rho^n,\qquad\rho=\tfrac{\lambda}{\mu}\lt1" hint-size="100%,40px"></x-import></div>
+<div class="teqw" style="padding:14px 18px"><div class="klabel">Mean queue and sojourn (Little)</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\mathbb{E}[L]=\frac{\rho}{1-\rho},\qquad\mathbb{E}[W]=\frac{1/\mu}{1-\rho}" hint-size="100%,46px"></x-import></div>
+</div>
+<div class="stack" style="gap:10px">
+
+<div class="teqw" style="padding:14px 18px"><div class="klabel">Busy period — remember this one</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\widetilde{BP}(s)=\frac{(\mu+\lambda+s)-\sqrt{(\mu+\lambda+s)^2-4\mu\lambda}}{2\lambda}\\[4pt]\mathbb{E}[BP]=\frac{1}{\mu(1-\rho)}\end{gathered}" hint-size="100%,72px"></x-import></div><p class="tnote" style="font-size:17px">The busy period returns later as the <b style="font-style:normal;color:var(--accent)">effective service time</b> a class-2 customer experiences: the server must first drain the class-1 queue.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">06</span></div>
+</section>
+
+<section data-label="07 M/M/1+M">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§3.3 · Preliminaries</div>
+<h1 class="ttitle">M/M/1+M: impatience brings in Kummer</h1>
+<div style="display:flex;flex-direction:column;flex:1;min-height:0;gap:10px;padding-top:4px">
+<div class="tcard" style="align-items:stretch;padding:2px 22px 0;background:var(--surface-sunken);gap:0">
+<div class="klabel">Impatience chain — departures grow with the queue: μ, μ+θ, μ+2θ, …</div>
+<div style="display:flex;justify-content:center"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.BirthDeathChain" mode="mm1m" width="400" hint-size="400px,108px"></x-import></div>
+</div>
+<div class="t2colt" style="grid-template-columns:1.02fr 1fr;padding-top:0;flex:none;align-items:stretch;gap:24px">
+<div class="stack14" style="gap:10px">
+<div class="teqw" style="padding:14px 18px"><div class="klabel">Waiting customers abandon at rate θ each</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\lambda\,\pi_n=(\mu+n\theta)\,\pi_{n+1}\;\Longrightarrow\;\pi_n=\pi_0\,\frac{(\lambda/\theta)^n}{(\mu/\theta)^{(n)}}" hint-size="100%,44px"></x-import></div>
+<div class="teqw" style="padding:14px 18px"><div class="klabel">What we solve for — idle probability &amp; queue-length PGF</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\pi_0=\Bigl[{}_1F_1\bigl(1;\tfrac{\mu}{\theta};\tfrac{\lambda}{\theta}\bigr)\Bigr]^{-1},\quad\Pi(z)=\frac{{}_1F_1\bigl(1;\tfrac{\mu}{\theta};\tfrac{\lambda}{\theta}z\bigr)}{{}_1F_1\bigl(1;\tfrac{\mu}{\theta};\tfrac{\lambda}{\theta}\bigr)}" hint-size="100%,54px"></x-import></div>
+<p class="tnote" style="font-size:16px">Stable for <b style="font-style:normal">every</b> load — the departure rate μ+nθ grows without bound, so no ρ&lt;1 is needed.</p>
+</div>
+<div class="tcard" style="align-items:stretch;gap:8px;padding:12px 18px;background:var(--surface-sunken);border-color:var(--terracotta-200)">
+<div class="klabel" style="color:var(--accent)">The Kummer function &nbsp;₁F₁(a; b; z)</div>
+<p style="font-family:var(--font-display);font-size:14.5px;line-height:1.3;color:var(--ink-700);margin:0">The confluent hypergeometric function — the entire solution of Kummer's equation z u″+(b−z)u′−a u = 0 that is regular at z = 0.</p>
+<sc-if value="{{ showSeries }}" hint-placeholder-val="{{ true }}">
+<div><div class="klabel" style="margin-bottom:2px">Power series · (a)ₙ the rising factorial</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="{}_1F_1(a;b;z)=\sum_{n=0}^{\infty}\frac{(a)_n}{(b)_n}\frac{z^n}{n!},\quad(a)_n=a(a{+}1)\cdots(a{+}n{-}1)" hint-size="100%,54px"></x-import></div>
+</sc-if>
+<sc-if value="{{ showIntegral }}" hint-placeholder-val="{{ true }}">
+<div><div class="klabel" style="margin-bottom:2px">Euler integral form · Re b &gt; Re a &gt; 0</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="{}_1F_1(a;b;z)=\frac{1}{B(a,b{-}a)}\int_0^1 e^{zt}\,t^{a-1}(1-t)^{b-a-1}\,dt" hint-size="100%,52px"></x-import></div>
+</sc-if>
+<sc-if value="{{ showKummerNote }}" hint-placeholder-val="{{ true }}">
+<p style="font-family:var(--font-display);font-style:italic;font-size:14.5px;line-height:1.3;color:var(--text-muted);margin:0">The integral form is the one that returns: Models B₂ and C₂ recover P<sub>y</sub> as exactly this Beta-weighted integral of e<sup>zt</sup>.</p>
+</sc-if>
+</div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">07</span></div></div>
+</section>
+
+<section data-label="08 PGF &amp; PPGF">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§4.3 · Transforms</div>
+<h1 class="ttitle">One full transform, one partial</h1>
+<div class="t2colt">
+<div class="stack">
+<div class="teqw"><div class="klabel">The bivariate PGF — the central object</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}P(x,y)=\mathbb{E}\bigl[x^{N_1}y^{N_2}\bigr]\\[4pt]=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\pi(n_1,n_2)\,x^{n_1}y^{n_2}\end{gathered}" hint-size="100%,84px"></x-import></div>
+<div class="teqw"><div class="klabel">Boundary functions (empty-queue traces)</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="P_x(x)=P(x,0),\qquad P_y(y)=P(0,y)" hint-size="100%,40px"></x-import></div>
+</div>
+<div class="stack">
+<div class="teqw"><div class="klabel">The Partial PGF (Cohen, 1956)</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\widetilde{P}(n_1,y)=\mathbb{E}\bigl[y^{N_2}\mathbb{1}_{\{N_1=n_1\}}\bigr]\\[4pt]P(x,y)=\sum_{n_1}\widetilde{P}(n_1,y)\,x^{n_1}\end{gathered}" hint-size="100%,84px"></x-import></div>
+<p class="tnote">Transform only the hard direction, keep the easy class discrete: the priority class is often a plain M/M/1, so spend the analytical effort on class 2 alone. This idea powers Part IV.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">08</span></div></div>
+</section>
+
+<section data-label="09 Derivatives">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§3.6 · The key mechanic</div>
+<h1 class="ttitle">Where the derivatives come from</h1>
+<div class="cwrap1000">
+<p class="tlead">Jockeying and abandonment act on <b>every waiting customer</b>, so their aggregate rate is length-proportional: γ₁n₁, θ₁n₁. A factor n₁ under the transform is precisely a derivative:</p>
+<div class="teq"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="lg" tex="\sum_{n_1,n_2} n_1\,\pi(n_1,n_2)\,x^{n_1}y^{n_2}\;=\;x\,\frac{\partial P}{\partial x}(x,y)" hint-size="100%,64px"></x-import></div>
+<div class="akey"><span class="ak"><span class="sw" style="background:var(--mech-jockey)"></span>rate γ₁n₁ or θ₁n₁ → derivative term → ODE/PDE</span><span class="ak"><span class="sw" style="background:var(--pine-500)"></span>constant rate γ₁·1{n₁≥1} (head-of-line) → algebraic term γ₁[P−P_y]</span></div>
+<p class="tnote">This single mechanic decides the difficulty of every model in the thesis.</p>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">09</span></div></div>
+</section>
+
+<section data-label="— Part II">
+<div class="tstage tink"><div class="tbody"><div class="tdiv">
+<div class="tdnum">Part II — The general model</div>
+<h2 class="tdh">Model X and its<br>fundamental equation</h2>
+<div class="trule"></div>
+<div class="tddesc">One equation carries the whole thesis: kernel, two convection terms, two unknowns.</div>
+</div></div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">10</span></div></div>
+</section>
+
+<section data-label="11 The system">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§4 · Model X — the parent model</div>
+<h1 class="ttitle">Two classes, one server, both mechanisms</h1>
+<div class="t2col">
+<div class="tcard"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.QueueDiagram" width="470" jockey="true" jockey2="true" abandon="true" abandon2="true" hint-size="470px,250px"></x-import><span class="tcap">non-preemptive priority · γᵢ, θᵢ ≥ 0</span></div>
+<div class="stack">
+<p class="tlead">Poisson arrivals λ₁, λ₂; common exponential service μ; the server never interrupts a service in progress. Every <b>waiting</b> customer carries independent exponential jockeying and patience clocks.</p>
+<div class="tchips"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="jockey" hint-size="150px,26px">jockeying γ₁, γ₂</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="abandon" hint-size="170px,26px">abandonment θ₁, θ₂</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="param" hint-size="100px,26px">ρ = λ/μ</x-import></div>
+<p class="tnote">n₁, n₂ count customers <b style="font-style:normal">waiting</b> — the one in service is excluded. Its class never matters: memorylessness makes the residual service Exp(μ) either way.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">11</span></div></div>
+</section>
+
+
+
+<section data-label="13 State spaces">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§4 · State spaces</div>
+<h1 class="ttitle">One system, two coordinate systems</h1>
+<div class="t2colt">
+<div class="stack">
+<div class="teqw"><div class="klabel">Regular space S — used throughout</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="S=\{(0)\}\cup\{(n_1,n_2)\mid n_1,n_2\ge0\}" hint-size="100%,40px"></x-import></div>
+<div class="teqw"><div class="klabel">Alternative space S̃ — track class 2 and the total</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="\begin{gathered}\widetilde{S}=\{(0)\}\cup\{(n_2,n)\mid n\ge n_2\ge0\}\\[3pt]n=n_1+n_2\end{gathered}" hint-size="100%,66px"></x-import></div>
+<p class="tnote">Why S̃? Under jockeying neither class is simple on its own — but the <b style="font-style:normal;color:var(--accent)">total</b> is: jockeying conserves it. Part IV tests whether that helps.</p>
+</div>
+<div class="stack">
+<div class="teqw"><div class="klabel">Empty states — exact for the full Model X</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="\pi(0,0)=\rho\,\pi_0,\qquad\pi_0=\frac{1}{1+\lambda\,\mathbb{E}[B]}" hint-size="100%,56px"></x-import></div>
+<p class="tlead" style="font-size:20px">A cut between idle and busy, plus renewal–reward over busy cycles: everything reduces to one scalar, the mean busy period <b>E[B]</b>. Without abandonment, E[B]=(μ−λ)⁻¹ gives π₀=1−ρ, π(0,0)=ρ(1−ρ).</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">13</span></div></div>
+</section>
+
+<section data-label="14 Balance on S">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§4.2 · Balance equations on S</div>
+<h1 class="ttitle">The flow at a generic state</h1>
+<div class="t2col" style="grid-template-columns:1.05fr 1fr">
+<div class="tcard" style="padding:8px 12px"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.FlowDiagram" space="S" gamma1="true" gamma2="true" theta1="true" theta2="true" width="480" hint-size="480px,378px"></x-import></div>
+<div class="stack14">
+<div class="teq"><div class="klabel" style="margin-bottom:6px">Interior states (n₁ ≥ 1, n₂ ≥ 1)</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[\lambda_1+\lambda_2+\mu+(\gamma_1+\theta_1)n_1+(\gamma_2+\theta_2)n_2\bigr]\,\pi(n_1,n_2)\\[3pt]=\mu\,\pi(n_1{+}1,n_2)+\lambda_1\,\pi(n_1{-}1,n_2)+\lambda_2\,\pi(n_1,n_2{-}1)\\[3pt]+\gamma_1(n_1{+}1)\,\pi(n_1{+}1,n_2{-}1)+\gamma_2(n_2{+}1)\,\pi(n_1{-}1,n_2{+}1)\\[3pt]+\theta_1(n_1{+}1)\,\pi(n_1{+}1,n_2)+\theta_2(n_2{+}1)\,\pi(n_1,n_2{+}1)\end{gathered}" hint-size="100%,150px"></x-import></div>
+<p class="tnote">Plus three boundary families (n₁=0; n₂=0; the empty state) and the idle cut (λ₁+λ₂)π₀ = μπ(0,0). The length-proportional rates <b style="font-style:normal;color:var(--mech-jockey)">γᵢnᵢ</b>, <b style="font-style:normal;color:var(--mech-abandon)">θᵢnᵢ</b> are what become derivatives.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">14</span></div></div>
+</section>
+
+<section data-label="15 ★ Fundamental equation">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§4.3 · Lemma 4.2 — the object that drives the thesis</div>
+<h1 class="ttitle">The fundamental equation of Model X</h1>
+<div class="cwrap">
+<div class="teqw" style="padding:26px 30px;box-shadow:var(--shadow-md)"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="lg" tex="\begin{gathered}\bigl[(\lambda_1{+}\lambda_2{+}\mu)xy-\mu y-\lambda_1x^2y-\lambda_2xy^2\bigr]\,P(x,y)\\[6pt]+\;xy\bigl[\textcolor{#B27E24}{\gamma_1(x-y)}+\textcolor{#6A3B57}{\theta_1(x-1)}\bigr]\frac{\partial P}{\partial x}\;+\;xy\bigl[\textcolor{#B27E24}{\gamma_2(y-x)}+\textcolor{#6A3B57}{\theta_2(y-1)}\bigr]\frac{\partial P}{\partial y}\\[6pt]=\;\mu(x-y)\,\textcolor{#A94A2B}{P_y(y)}\;-\;\mu x(1-y)\,\textcolor{#A94A2B}{\pi(0,0)}\end{gathered}" hint-size="100%,190px"></x-import></div>
+<div class="akey"><span class="ak"><span class="sw" style="background:var(--ink-900)"></span>kernel — exactly Model A's algebraic coefficient</span><span class="ak"><span class="sw" style="background:var(--mech-jockey)"></span>jockeying factors vanish on the diagonal x=y</span><span class="ak"><span class="sw" style="background:var(--mech-abandon)"></span>abandonment factors vanish at x=1 (resp. y=1)</span><span class="ak"><span class="sw" style="background:var(--terracotta-500)"></span>the two unknowns</span></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">15</span></div></div>
+</section>
+
+<section data-label="16 Reading the equation">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§4.3 · Remark 4.3</div>
+<h1 class="ttitle">The vanishing factors choose the technique</h1>
+<div class="g2" style="flex:1;align-content:center">
+<div class="regime"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="A" status="solved" mechanism="no convection" hint-size="230px,28px"></x-import><span class="f">algebraic kernel</span><p>No derivative terms. The kernel vanishes on a curve; evaluate at the root <b>x*(y)</b> inside the unit disc.</p></div>
+<div class="regime"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="B₂" status="solved" mechanism="γ₁ only" hint-size="200px,28px"></x-import><span class="f">(x−y) → interior singularity</span><p>The singularity sits at the diagonal point <b>x=y</b>, with negative exponent: <b>analyticity</b> there pins P_y(y).</p></div>
+<div class="regime"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="C₂" status="solved" mechanism="θ₁ only" hint-size="200px,28px"></x-import><span class="f">(x−1) → boundary singularity</span><p>The singularity moves to <b>x=1</b> on the unit circle, with positive exponent: mere <b>boundedness</b> suffices.</p></div>
+<div class="regime"><div class="tbadges"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="Bᴴ" status="solved" size="sm" hint-size="110px,24px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="Cᴴ" status="solved" size="sm" hint-size="110px,24px"></x-import></div><span class="f">head-of-line → collapse</span><p>Constant rate 1{n₁≥1} removes the derivative outright — back to Model A's algebraic form.</p></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">16</span></div></div>
+</section>
+
+<section data-label="17 Theorem 4.1">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§4 · Dedicated result — Model X</div>
+<h1 class="ttitle">Theorem 4.1 — two identities pin the empty states</h1>
+<div class="thg">
+<div class="tleft">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="theorem" number="4.1" title="empty-state probabilities of the general model" hint-size="100%,230px"><span>Before any model is solved: for the full Model X, with both mechanisms active,</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" style="margin-top:12px" tex="\pi(0,0)=\rho\,\pi_0" hint-size="100%,40px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" style="margin-top:10px;font-size:.92em" tex="\pi_0=\frac{1}{1+\lambda\,\mathbb{E}[B]}\,,\qquad\pi(0,0)=\frac{\rho}{1+\lambda\,\mathbb{E}[B]}" hint-size="100%,58px"></x-import></x-import>
+<p class="pline"><b>Proof.</b> flux cut λπ₀ = μπ(0,0) between the idle and busy states · renewal–reward over regeneration cycles at the empty state — exact for every (γᵢ, θᵢ). Everything reduces to one scalar, E[B].</p>
+</div>
+<div class="defs">
+<div class="dhead">Model primitives</div>
+<div class="def"><span class="ds">λ₁, λ₂</span><span class="dd">Poisson arrival rates — <b>class 1</b> has non-preemptive priority over <b>class 2</b></span></div>
+<div class="def"><span class="ds">μ</span><span class="dd">exponential service rate, common to both classes</span></div>
+<div class="def"><span class="ds">λ, ρ</span><span class="dd">λ = λ₁ + λ₂ total arrival rate; ρ = λ/μ the offered load</span></div>
+<div class="def"><span class="ds">γᵢ, θᵢ</span><span class="dd">jockeying / abandonment rates — <b>arbitrary ≥ 0</b>: the theorem holds for the whole family</span></div>
+<div class="dhead">Objects in the statement</div>
+<div class="def"><span class="ds">π₀</span><span class="dd">stationary probability of the <b>empty system</b> — server idle, nobody waiting</span></div>
+<div class="def"><span class="ds">π(0,0)</span><span class="dd">server <b>busy</b>, both queues empty: N₁ = N₂ = 0 waiting</span></div>
+<div class="def"><span class="ds">E[B]</span><span class="dd">mean <b>busy period</b>: from an arrival into an empty system until the system next empties</span></div>
+<div class="def nb"><span class="ds">assumption</span><span class="dd">the CTMC of Model X is positive recurrent, so the stationary distribution exists</span></div>
+</div>
+</div>
+<details class="cor"><summary class="csum"><span class="car">▸</span><span class="ck">Corollary 4.4</span><span class="ct">No abandonment ⇒ the M/M/1 baseline, for A, B, B₂ and Bᴴ at once</span><span class="chint">expand</span></summary><div class="corbody"><p>Take θ₁ = θ₂ = 0 and ρ &lt; 1. Jockeying only <b>relocates</b> waiting customers, so the total count is a plain M/M/1 birth–death process and E[B] = (μ−λ)⁻¹. Theorem 4.1 then gives</p><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" style="margin-top:2px" tex="\pi_0=1-\rho,\qquad\pi(0,0)=\rho(1-\rho),\qquad P(z,z)=\frac{\pi(0,0)}{1-\rho z},\qquad P(1,1)=\rho" hint-size="100%,48px"></x-import><p><b>One corollary, four models:</b> these constants anchor every no-abandonment proof in Part III; the diagonal trace P(z,z) is the anchor Model B's Volterra route relies on.</p></div></details>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">17</span></div></div>
+</section>
+
+
+
+<section data-label="— Part III">
+<div class="tstage tink"><div class="tbody"><div class="tdiv">
+<div class="tdnum">Part III — Analysis</div>
+<h2 class="tdh">The solved models —<br>and the one that is not</h2>
+<div class="trule"></div>
+<div class="tddesc">Baseline A, the open Model B, one-way jockeying B₂, abandonment C₂, and the head-of-line pair.</div>
+</div></div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">19</span></div></div>
+</section><section data-label="18 Taxonomy">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§1 · Table 1 — the model family</div>
+<h1 class="ttitle">Seven models, one functional equation</h1>
+<table class="tmo">
+<thead><tr><th style="width:13%">Model</th><th style="width:34%">Active mechanism</th><th style="width:31%">Equation type</th><th style="width:22%">Status</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="mname">X</td><td>jockeying &amp; abandonment</td><td class="meq">PDE · ???</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="X" status="open" hint-size="110px,28px"></x-import></td></tr>
+<tr><td class="mname">A</td><td>none — baseline</td><td class="meq">algebraic PGF</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="A" status="solved" hint-size="120px,28px"></x-import></td></tr>
+<tr><td class="mname">B</td><td>bidirectional jockeying</td><td class="meq">PDE · Volterra family</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="B" status="open" hint-size="110px,28px"></x-import></td></tr>
+<tr><td class="mname">B₂</td><td>one-way jockeying (1→2), γ₁n₁</td><td class="meq">ODE in x · Kummer</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="B₂" status="solved" hint-size="120px,28px"></x-import></td></tr>
+<tr><td class="mname">C₂</td><td>class-1 abandonment, θ₁n₁</td><td class="meq">ODE in x · Kummer</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="C₂" status="solved" hint-size="120px,28px"></x-import></td></tr>
+<tr><td class="mname">Bᴴ</td><td>jockeying, head-of-line γ₁·1{n₁≥1}</td><td class="meq">algebraic PGF</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="Bᴴ" status="solved" hint-size="120px,28px"></x-import></td></tr>
+<tr><td class="mname">Cᴴ</td><td>abandonment, head-of-line θ₁·1{n₁≥1}</td><td class="meq">algebraic PGF</td><td><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.ModelBadge" name="Cᴴ" status="solved" hint-size="120px,28px"></x-import></td></tr>
+</tbody></table>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">18</span></div></div>
+</section>
+
+<section data-label="20 Three tools" data-deck-skip="">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§3.6 · Proof strategies</div>
+<h1 class="ttitle">Three complementary tools</h1>
+<div class="t3col">
+<div class="tmini" style="width: 371px; height: 229px"><h3>Kernel method</h3><p>The algebraic coefficient of P vanishes on a curve. Evaluating there forces the RHS to vanish and pins the unknowns.</p><p style="color:var(--text-muted)">Models A, Bᴴ, Cᴴ.</p></div>
+<div class="tmini" style="width: 355px; height: 229px"><h3>Integrating factor</h3><p>A surviving ∂/∂x term gives a first-order linear ODE in x; a regularity demand at its singularity fixes the constant.</p><p style="color:var(--text-muted)">Models B₂ (analyticity), C₂ (boundedness).</p></div>
+<div class="tmini" style="width: 365px; height: 229px"><h3>Pollaczek–Khinchine</h3><p>Class 2 is an M/G/1 queue whose service time is a class-1 <b>busy period</b> — an independent confirmation.</p><p style="color:var(--text-muted)">Models A, C₂. Jockeying destroys it.</p></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">20</span></div></div>
+</section>
+
+<section data-label="21 Model A">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§5 · Model A — baseline (γ = θ = 0)</div>
+<h1 class="ttitle">No mechanisms: the equation is algebraic</h1>
+<div class="t2col" style="grid-template-columns:1fr 1fr">
+<div class="tcard" style="padding:14px 10px;height:100%;justify-content:center"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.FlowDiagram" space="S" width="540" hint-size="540px,424px"></x-import></div>
+<div class="stack14">
+<div class="teq"><div class="klabel" style="margin-bottom:6px">Reduced fundamental equation</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[(\lambda_1{+}\lambda_2{+}\mu)xy-\mu y-\lambda_1x^2y-\lambda_2xy^2\bigr]P(x,y)\\[4pt]=\mu(x-y)P_y(y)-\mu x(1-y)\pi(0,0)\end{gathered}" hint-size="100%,82px"></x-import></div>
+<p class="tlead" style="font-size:19px">Fix y and find the root <b>x*(y)</b> of the kernel inside the unit disc. P is bounded there, so the LHS vanishes — hence the RHS must too:</p>
+<div class="teq"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="P_y(y)=\frac{x^*(y)\,(1-y)}{x^*(y)-y}\;\pi(0,0)" hint-size="100%,54px"></x-import></div>
+<div class="teq"><div class="klabel" style="margin-bottom:4px">The empty state — for completeness</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\pi(0,0)=(1-\rho)\,\rho" hint-size="100%,40px"></x-import></div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">21</span></div></div>
+</section>
+
+<section data-label="22 Theorem 5.1">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§5 · Dedicated result — Model A</div>
+<h1 class="ttitle">Theorem 5.1 — the baseline PGF</h1>
+<div class="thg thg1">
+<div class="tleft">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="theorem" number="5.1" title="closed-form PGF of Model A" hint-size="100%,230px"><span>Under ρ &lt; 1, the joint PGF is</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" style="margin-top:12px" tex="P(x,y)=\frac{\rho(1-\rho)\;y(1-y)}{(1{+}\rho_1{+}\rho_2)xy-y-\rho_1x^2y-\rho_2xy^2}\cdot\frac{x-x^*(y)}{x^*(y)-y}" hint-size="100%,60px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="margin-top:11px" tex="x^*(y)=\frac{\bigl[\mu+\lambda_1+\lambda_2(1-y)\bigr]-\sqrt{\bigl[\mu+\lambda_1+\lambda_2(1-y)\bigr]^2-4\lambda_1\mu}}{2\lambda_1}" hint-size="100%,54px"></x-import></x-import>
+<p class="pline"><b>Proved twice.</b> kernel method (analytic) · Poisson splitting + PASTA (probabilistic) — the two routes meet in the same root x*(y). Classical result, recovered as calibration for everything that follows.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">22</span></div></div>
+</section>
+
+<section data-label="23 Model B">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§6 · Model B — bidirectional jockeying (γ₁, γ₂ &gt; 0)</div>
+<h1 class="ttitle">Now both derivatives survive</h1>
+<div class="t2col" style="grid-template-columns:1fr 1.1fr">
+<div class="tcard" style="padding:8px 12px"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.FlowDiagram" space="S" gamma1="true" gamma2="true" width="440" hint-size="440px,346px"></x-import></div>
+<div class="stack14">
+<div class="teq"><div class="klabel" style="margin-bottom:6px">Model-B fundamental equation</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[(\lambda_1{+}\lambda_2{+}\mu)xy-\mu y-\lambda_1x^2y-\lambda_2xy^2\bigr]P\\[3pt]+\;\gamma_1xy(x-y)\frac{\partial P}{\partial x}+\gamma_2xy(y-x)\frac{\partial P}{\partial y}\\[3pt]=\;\mu(x-y)P_y(y)-\mu x(1-y)\pi(0,0)\end{gathered}" style="font-size:.82em" hint-size="100%,116px"></x-import></div>
+<p class="tlead" style="font-size:20px">Both convection terms carry (x−y): the Method of Characteristics applies, along the straight lines</p>
+<div class="teq"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="C_1=\gamma_2x+\gamma_1y" hint-size="100%,36px"></x-import></div>
+<p class="tnote">And jockeying destroys the Poisson split of arrivals — the probabilistic route is gone too.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">23</span></div></div>
+</section>
+
+<section data-label="24 B: Volterra">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§6 · The first obstruction</div>
+<h1 class="ttitle">Model B reduces to a Volterra-type integral equation</h1>
+<div class="cwrap1000">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="claim" number="6.3" title="integral representation along characteristics" hint-size="100%,200px"><span>Along each characteristic line, variation of parameters gives P = P_h · ∫ h/P_h. Evaluating on the diagonal x=y=z — where P(z,z)=π(0,0)/(1−ρz) is already known — the boundary function must satisfy a <b>Volterra integral equation of the first kind</b>:</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="lg" style="margin-top:14px" tex="\mathcal{F}(z)=\int_0^z\mathcal{K}(z,t)\;P_y\bigl(y(t;z)\bigr)\,dt" hint-size="100%,64px"></x-import></x-import>
+<p class="tlead">The forcing depends on the unknown boundary itself. Inverting it needs tools beyond this thesis — <b>Model B is left open</b>, and it is the representative of every model with a ∂/∂y term, Model X included.</p>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">24</span></div></div>
+</section>
+
+<section data-label="25 Model B2">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§7 · Model B₂ — one-way jockeying (γ₁ &gt; 0, γ₂ = 0)</div>
+<h1 class="ttitle">Kill the ∂/∂y term, keep the jockeying</h1>
+<div class="t2col" style="grid-template-columns:1fr 1.1fr">
+<div class="tcard" style="padding:8px 12px"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.FlowDiagram" space="S" gamma1="true" width="440" hint-size="440px,346px"></x-import></div>
+<div class="stack14">
+<div class="teq"><div class="klabel" style="margin-bottom:6px">Reduced equation — an ODE in x for each fixed y</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[(\lambda_1{+}\lambda_2{+}\mu)xy-\mu y-\lambda_1x^2y-\lambda_2xy^2\bigr]P+\textcolor{#B27E24}{\gamma_1xy(x-y)}\frac{\partial P}{\partial x}\\[3pt]=\;\mu(x-y)P_y(y)-\mu x(1-y)\pi(0,0)\end{gathered}" hint-size="100%,86px"></x-import></div>
+<p class="tlead" style="font-size:20px">The integrating factor has a singularity at the <b>interior</b> point x=y with negative exponent β(y). A PGF must be analytic there — that single demand determines P_y(y).</p>
+<div class="tchips"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="param" hint-size="140px,26px">α(y) = μ/(γ₁y)</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="param" hint-size="230px,26px">β(y) = (1−y)(λy−μ)/(γ₁y)</x-import></div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">25</span></div></div>
+</section>
+
+<section data-label="26 Theorem 7.1">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§7 · Dedicated result — Model B₂</div>
+<h1 class="ttitle">Theorem 7.1 — the B₂ generating function</h1><div class="thg thg1" style="padding-top:4px">
+<div class="tleft" style="gap:6px">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="theorem" number="7.1" title="boundary function and PGF of Model B₂" hint-size="100%,170px"><span>Under ρ &lt; 1, analyticity of P at the interior point x = y forces</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" style="margin-top:6px" tex="P_y(y)=\frac{\mu\,\pi(0,0)}{\mu-\lambda y}\cdot\frac{{}_1F_1\bigl(\alpha(y)+1;\;b^\star(y);\;-\lambda_1y/\gamma_1\bigr)}{{}_1F_1\bigl(\alpha(y);\;b^\star(y);\;-\lambda_1y/\gamma_1\bigr)}" hint-size="100%,48px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" style="margin-top:6px" tex="P(x,y)=\frac{\mu\,e^{\lambda_1x/\gamma_1}}{\gamma_1\,y\;x^{\alpha(y)}(y-x)^{\beta(y)}}\Bigl[P_y(y)\,\mathcal{H}_1(x,y)+(1-y)\,\pi(0,0)\,\mathcal{H}_2(x,y)\Bigr]" hint-size="100%,46px"></x-import><span style="display:block;margin-top:4px;font-size:11px;color:var(--text-muted)">valid on 0 ≤ x ≤ y; extends by continuation across x = y.</span></x-import>
+<div class="anat" style="padding:5px 14px 7px;gap:2px"><div class="klabel">The helper integrals</div><div class="anatrow"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="font-size:.68em" tex="\mathcal{H}_1(x,y)=\int_0^x e^{-\lambda_1t/\gamma_1}\;t^{\,\alpha(y)-1}\,(y-t)^{\,\beta(y)}\,dt" hint-size="50%,32px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="font-size:.68em" tex="\mathcal{H}_2(x,y)=\int_0^x e^{-\lambda_1t/\gamma_1}\;t^{\,\alpha(y)}\,(y-t)^{\,\beta(y)-1}\,dt" hint-size="50%,32px"></x-import></div><p class="anote" style="font-size:10.5px;margin-top:1px">𝓗₁ weighs P_y(y); 𝓗₂ weighs (1−y)π(0,0) — exponents traded between t = 0 and t = y.</p></div>
+</div>
+
+</div>
+
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">26</span></div></div>
+</section>
+
+<section data-label="27 Model C2">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§8 · Model C₂ — class-1 abandonment (θ₁ &gt; 0)</div>
+<h1 class="ttitle">Abandonment moves the singularity to x = 1</h1>
+<div class="t2col" style="grid-template-columns:1fr 1.1fr">
+<div class="tcard" style="padding:8px 12px"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.FlowDiagram" space="S" theta1="true" width="440" hint-size="440px,346px"></x-import></div>
+<div class="stack14">
+<div class="teq"><div class="klabel" style="margin-bottom:6px">Reduced equation</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[(\lambda_1{+}\lambda_2{+}\mu)xy-\mu y-\lambda_1x^2y-\lambda_2xy^2\bigr]P+\textcolor{#6A3B57}{\theta_1xy(x-1)}\frac{\partial P}{\partial x}\\[3pt]=\;\mu(x-y)P_y(y)-\mu x(1-y)\pi(0,0)\end{gathered}" hint-size="100%,86px"></x-import></div>
+<p class="tlead" style="font-size:20px">Queue 1 alone is the <b>Erlang-A</b> of Part I; class 2 sees an M/G/1 whose service time is its busy period <b>B_C</b>. Stability is genuinely non-trivial:</p>
+<div class="teq"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="\lambda_2\,\mathbb{E}[B_C]\lt1\iff\rho_2\cdot{}_1F_1\bigl(1;\tfrac{\mu}{\theta_1}{+}1;\tfrac{\lambda_1}{\theta_1}\bigr)\lt1" hint-size="100%,48px"></x-import></div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">27</span></div></div>
+</section>
+
+<section data-label="28 Theorem 8.1">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§8 · Dedicated result — Model C₂</div>
+<h1 class="ttitle">Theorem 8.1 — the C₂ generating function</h1>
+<div class="thg thg1">
+<div class="tleft">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="theorem" number="8.1" title="PGF of Model C₂, pinned by boundedness at x = 1" hint-size="100%,190px"><span>Under λ₂E[B_C] &lt; 1, writing B̃_C for B̃_C(λ₂(1−y)),</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="margin-top:10px;font-size:.88em" tex="P(x,y)=\frac{\mu\,\pi(0,0)(1-y)\;e^{\lambda_1x/\theta_1}}{\theta_1\;x^{\mu/\theta_1}(1-x)^{\lambda_2(1-y)/\theta_1}\bigl(\widetilde{B}_C-y\bigr)}\;\Bigl[\widetilde{B}_C\,\mathcal{H}_1(x,y)-\bigl(1-\widetilde{B}_C\bigr)\,\mathcal{H}_2(x,y)\Bigr]" hint-size="100%,68px"></x-import></x-import>
+<div class="anat"><div class="klabel">The helper integrals and the busy-period LST</div><div class="anatrow"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="font-size:.8em" tex="\mathcal{H}_1(x,y)=\int_0^x e^{-\lambda_1t/\theta_1}\;t^{\,\mu/\theta_1-1}\,(1-t)^{\,\lambda_2(1-y)/\theta_1}\,dt" hint-size="50%,60px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="font-size:.8em" tex="\mathcal{H}_2(x,y)=\int_0^x e^{-\lambda_1t/\theta_1}\;t^{\,\mu/\theta_1}\,(1-t)^{\,\lambda_2(1-y)/\theta_1-1}\,dt" hint-size="50%,60px"></x-import></div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="margin-top:6px;font-size:.8em" tex="\widetilde{B}_C(s)=\mathbb{E}\bigl[e^{-sB_C}\bigr]=\frac{\mathrm{B}(a{+}1,b)\,{}_1F_1(a{+}1;a{+}1{+}b;-c)}{\mathrm{B}(a,b)\,{}_1F_1(a;a{+}b;-c)}" hint-size="100%,52px"></x-import><p class="anote">with a = μ/θ₁, b = s/θ₁, c = λ₁/θ₁, and s = λ₂(1−y).</p></div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">28</span></div></div>
+</section>
+
+<section data-label="29 Head-of-line">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§9–10 · Models Bᴴ and Cᴴ</div>
+<h1 class="ttitle">Restrict to the head of the line — the derivative disappears</h1>
+<div class="cwrap1000">
+<p class="tlead">Let only the customer at the <b>head of Queue 1</b> jockey or abandon: the rate becomes the constant γ₁·1{n₁≥1} (resp. θ₁·1{n₁≥1}), and the mechanism joins the kernel as an algebraic term:</p>
+<div class="g2" style="margin-top:4px">
+<div class="teqw"><div class="klabel">Bᴴ — jockeying joins the kernel</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[\text{kernel}+\textcolor{#B27E24}{\gamma_1y(x-y)}\bigr]P\\[3pt]=\bigl[\mu(x-y)+\textcolor{#B27E24}{\gamma_1y(x-y)}\bigr]P_y-\mu x(1-y)\pi(0,0)\end{gathered}" hint-size="100%,78px"></x-import></div>
+<div class="teqw"><div class="klabel">Cᴴ — abandonment joins the kernel</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[\text{kernel}+\textcolor{#6A3B57}{\theta_1y(x-1)}\bigr]P\\[3pt]=\bigl[\mu(x-y)+\textcolor{#6A3B57}{\theta_1y(x-1)}\bigr]P_y-\mu x(1-y)\pi(0,0)\end{gathered}" hint-size="100%,78px"></x-import></div>
+</div>
+<p class="tnote">Both are solved by the Kernel Method exactly as Model A. For Cᴴ even stability relaxes: (μ+θ₁)(μ−λ)+λ₁θ₁ &gt; 0 — weaker than ρ &lt; 1.</p>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">29</span></div></div>
+</section>
+
+<section data-label="30 Theorem 9.1">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§9 · Dedicated result — Model Bᴴ</div>
+<h1 class="ttitle">Theorem 9.1 — head-of-line jockeying is rational</h1>
+<div class="thg">
+<div class="tleft">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="theorem" number="9.1" title="closed-form PGF of Model Bᴴ" hint-size="100%,220px"><span>Under ρ &lt; 1, the joint PGF is the rational function</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="lg" style="margin-top:12px" tex="P(x,y)=\frac{\mu\;\rho(1-\rho)\;(1-y)}{\lambda_1\bigl(x^*(y)-y\bigr)\bigl(x^+(y)-x\bigr)}" hint-size="100%,66px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="margin-top:11px" tex="\lambda_1x^2-\bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr]x+\bigl(\mu+\gamma_1y\bigr)=0" hint-size="100%,42px"></x-import></x-import>
+<p class="pline"><b>Proof.</b> the constant rate γ₁·1{n₁ ≥ 1} joins the kernel as an algebraic term — no derivative survives, and the Kernel Method runs exactly as for Model A. CTMC check: max error &lt; 3×10⁻⁷ on a 5×5 grid. As γ₁ → 0⁺ the formula collapses to Theorem 5.1.</p>
+</div>
+<div class="defs">
+<div class="dhead">Every symbol in the statement</div>
+<div class="def"><span class="ds">γ₁</span><span class="dd"><b>head-of-line</b> jockeying: only the first waiting class-1 customer may switch, so the aggregate rate is the constant γ₁·1{n₁ ≥ 1} (γ₂ = θ₁ = θ₂ = 0)</span></div>
+<div class="def"><span class="ds">λ, ρ</span><span class="dd">λ = λ₁+λ₂, ρ = λ/μ &lt; 1 — stability; the total count is still conserved</span></div>
+<div class="def"><span class="ds">P(x,y)</span><span class="dd">joint PGF E[x^N₁ y^N₂] of the waiting counts, over busy states</span></div>
+<div class="def"><span class="ds">ρ(1−ρ)</span><span class="dd">the numerator constant = π(0,0), by Corollary 9.2 below</span></div>
+<div class="def"><span class="ds">x*(y), x⁺(y)</span><span class="dd">the two roots of the kernel quadratic on the left — <b>x* inside</b> the unit disc (where boundedness pins the RHS), <b>x⁺ outside</b></span></div>
+<div class="def nb"><span class="ds">μ + γ₁y</span><span class="dd">the constant term of the quadratic: service plus the jockey stream re-entering through Queue 2</span></div>
+</div>
+</div>
+
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">30</span></div></div>
+</section>
+
+<section data-label="31 Theorem 10.1">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§10 · Dedicated result — Model Cᴴ</div>
+<h1 class="ttitle">Theorem 10.1 — head-of-line abandonment stays rational</h1>
+<div class="thg thg1">
+<div class="tleft">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.TheoremBox" kind="theorem" number="10.1" title="closed-form PGF of Model Cᴴ" hint-size="100%,230px"><span>Under (μ+θ₁)(μ−λ) + λ₁θ₁ &gt; 0, the joint PGF is the rational function</span><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" style="margin-top:12px" tex="P(x,y)=\frac{\mu(\mu+\theta_1)\,(1-y)\;\pi(0,0)}{\lambda_1\bigl(x^+(y)-x\bigr)\bigl[(\mu+\theta_1y)\,x^*(y)-y(\mu+\theta_1)\bigr]}" hint-size="100%,60px"></x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" style="margin-top:11px" tex="\lambda_1x^2-\bigl[\lambda_1+\lambda_2(1-y)+\mu+\theta_1\bigr]x+\bigl(\mu+\theta_1\bigr)=0" hint-size="100%,42px"></x-import></x-import>
+<p class="pline"><b>Proof.</b> Kernel Method again — abandonment enters the kernel as the algebraic term θ₁y(x−1). CTMC check: max error &lt; 3×10⁻¹¹ on a 5×5 grid. As θ₁ → 0⁺ the formula recovers Theorem 5.1 exactly.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">31</span></div></div>
+</section>
+
+<section data-label="— Part IV">
+<div class="tstage tink"><div class="tbody"><div class="tdiv">
+<div class="tdnum">Part IV — A documented negative result</div>
+<h2 class="tdh">The S̃ experiment</h2>
+<div class="trule"></div>
+<div class="tddesc">If jockeying conserves the total, why not make the total a coordinate? Because the recurrence refuses to close.</div>
+</div></div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">32</span></div></div>
+</section>
+
+<section data-label="33 Balance on S̃">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§4.2 · Balance equations on S̃</div>
+<h1 class="ttitle">Model X in the (n₂, n) coordinates</h1>
+<div class="t2col" style="grid-template-columns:1.05fr 1fr">
+<div class="tcard" style="padding:8px 12px"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.FlowDiagram" space="Stilde" gamma1="true" gamma2="true" theta1="true" theta2="true" width="480" hint-size="480px,378px"></x-import></div>
+<div class="stack14">
+<div class="teq"><div class="klabel" style="margin-bottom:6px">Interior states (1 ≤ n₂ ≤ n−1, n ≥ 2)</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="sm" tex="\begin{gathered}\bigl[\lambda_1{+}\lambda_2{+}\mu+(\gamma_1{+}\theta_1)(n{-}n_2)+(\gamma_2{+}\theta_2)n_2\bigr]\widetilde{\pi}(n_2,n)\\[3pt]=\lambda_1\widetilde{\pi}(n_2,n{-}1)+\lambda_2\widetilde{\pi}(n_2{-}1,n{-}1)+\mu\,\widetilde{\pi}(n_2,n{+}1)\\[3pt]+\gamma_1(n{-}n_2{+}1)\,\widetilde{\pi}(n_2{-}1,n)+\gamma_2(n_2{+}1)\,\widetilde{\pi}(n_2{+}1,n)\\[3pt]+\theta_1(n{+}1{-}n_2)\,\widetilde{\pi}(n_2,n{+}1)+\theta_2(n_2{+}1)\,\widetilde{\pi}(n_2{+}1,n{+}1)\end{gathered}" hint-size="100%,150px"></x-import></div>
+<p class="tnote">Arrivals now move diagonally (λ₂ raises both n₂ and n); jockeying moves horizontally at fixed n; the diagonal n₂ = n means <b style="font-style:normal">all waiting customers are class 2</b> — it will matter.</p>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">33</span></div></div>
+</section>
+
+<section data-label="34 S̃ fundamental eq">
+<div class="tstage tpaper"><div class="tbody">
+<div class="tkick">§4.3 · Lemma 4.5 — the PPGF equation</div>
+<h1 class="ttitle">The fundamental equation on S̃</h1>
+<div class="cwrap">
+<p class="tlead" style="align-self:center;text-align:center">Transform only n₂ and keep the total n discrete: P̃(y,n) = Σ π̃(n₂,n)y^n₂, a polynomial of degree n.</p>
+<div class="teqw" style="padding:24px 28px;box-shadow:var(--shadow-md)"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" tex="\begin{gathered}\bigl[-(\gamma_2{+}\gamma_1y)(1{-}y)+(\theta_2{-}\theta_1)y\bigr]\frac{d}{dy}\widetilde{P}(y,n)+\bigl[\lambda_1{+}\lambda_2{+}\mu+\gamma_1n(1{-}y)+\theta_1n\bigr]\widetilde{P}(y,n)\\[6pt]=(\lambda_1{+}\lambda_2y)\,\widetilde{P}(y,n{-}1)+\bigl[\mu{+}\theta_1(n{+}1)\bigr]\widetilde{P}(y,n{+}1)+(\theta_2{-}\theta_1y)\frac{d}{dy}\widetilde{P}(y,n{+}1)\\[6pt]+\;\textcolor{#A94A2B}{\mu\,y^{n}(1-y)\,\widetilde{\pi}(n{+}1,n{+}1)}\end{gathered}" hint-size="100%,150px"></x-import></div>
+<p class="tlead" style="align-self:center;text-align:center">A differential–<b>difference</b> equation: levels n−1, n, n+1 are coupled — plus <b style="color:var(--terracotta-600)">one forcing term</b>.</p>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">34</span></div></div>
+</section>
+
+<section data-label="35 Why it failed">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§5.3 · Remark 4.6 + Approximation 5.7</div>
+<h1 class="ttitle">Why the experiment did not work</h1>
+<div style="display:flex;flex-direction:column;flex:1;min-height:0;gap:22px;padding-top:18px">
+<div class="teqw" style="align-self:center;max-width:920px;padding:22px 32px"><div class="klabel" style="text-align:center">Model A only: drop the forcing (it decays like ρⁿ)</div><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Equation" size="md" tex="\widetilde{P}(y,n)\approx\rho(1-\rho)\,[\widetilde{y}^*(y)]^n,\quad\widetilde{y}^*(y)=\frac{(\lambda{+}\mu)-\sqrt{(\lambda{+}\mu)^2-4\mu(\lambda_1{+}\lambda_2y)}}{2\mu}" hint-size="100%,58px"></x-import></div>
+<div class="t2col">
+<p class="tlead" style="font-size:20px">The forcing term <b style="color:var(--terracotta-600)">μyⁿ(1−y)π̃(n+1,n+1)</b> feeds in the <b>diagonal</b> states — all waiting customers class 2. Those probabilities are exactly what we are solving for: the recurrence <b>does not close on itself</b>.</p>
+<p class="tlead" style="font-size:20px">Instead of collapsing 2-D balance to a 1-D recurrence, the change of coordinates makes things <b>harder</b> — for every model with an active mechanism, S̃ is strictly worse than S.</p>
+</div>
+<p class="tnote">Even then it is an <b style="font-style:normal">approximation, not a theorem</b> — accurate only where the forcing decays faster than the solution, ρ &lt; ỹ*(y): a priority-heavy, moderate load. At y=1 it does recover the M/M/1 marginal (1−ρ)ρⁿ⁺¹.</p>
+<div class="tbadges"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="abandon" hint-size="240px,26px">deliberate negative result</x-import></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">35</span></div></div>
+</section>
+
+<section data-label="— Part V">
+<div class="tstage tink"><div class="tbody"><div class="tdiv">
+<div class="tdnum">Part V — Results</div>
+<h2 class="tdh">Validate,<br>then compare</h2>
+<div class="trule"></div>
+<div class="tddesc">Every closed form against an exact CTMC; then jockeying and abandonment head to head.</div>
+</div></div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">36</span></div></div>
+</section>
+
+<section data-label="37 Validation">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§11 · Validation</div>
+<h1 class="ttitle">Every closed form matches the CTMC</h1>
+<div style="display:grid;grid-template-columns:1.4fr 1fr;gap:48px;flex:1;align-items:center;min-height:0">
+<div class="tfig"><img src="assets/figures/fig_sim_vs_ctmc.png" alt="Analytic vs CTMC"><div class="tfigcap"><b>Fig. 1.</b> Analytic PGF marginals against a truncated CTMC that recovers the baseline as the mechanism rates vanish.</div><div class="tfigsrc">simulation vs. CTMC · all solved models</div></div>
+<div class="rstats">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Conservation check (C₂)" value="&lt;10⁻¹⁴" note="offered = carried + lost" accent="var(--mech-abandon)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Baseline recovery" value="exact" note="mechanism rates → 0 ⇒ Model A" accent="var(--pine-500)" hint-size="100%,80px"></x-import>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">37</span></div></div>
+</section>
+
+<section data-label="38 Jockeying result" data-deck-skip="">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§11 · Results — jockeying</div>
+<h1 class="ttitle">Jockeying redistributes, it does not shorten</h1>
+<div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;flex:1;align-items:center;min-height:0">
+<div class="tfig"><img src="assets/figures/fig_B2_jockeying_EN_vs_gamma1.png" alt="Model B2 jockeying"><div class="tfigcap"><b>Fig. 2.</b> As γ₁ grows, E[N₁] falls and E[N₂] rises — the total E[N] and π(0,0) stay pinned to the baseline.</div><div class="tfigsrc">Model B₂ · ρ = 0.70 · truncated CTMC</div></div>
+<div class="rstats">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Mean queue E[N₁]" value="0.155" trend="down" note="vs. 0.30 · Model A" accent="var(--class-1)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Total E[N]" value="1.633" trend="flat" note="conserved — identical to A" accent="var(--mech-jockey)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Waiting ratio W₁/W₂" value="0.139" trend="down" note="vs. 0.30 · Model A" accent="var(--class-2)" hint-size="100%,80px"></x-import>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">38</span></div></div>
+</section>
+
+<section data-label="39 Abandonment result" data-deck-skip="">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§11 · Results — abandonment</div>
+<h1 class="ttitle">Abandonment is the mechanism that shortens</h1>
+<div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;flex:1;align-items:center;min-height:0">
+<div class="tfig"><img src="assets/figures/fig_C2_abandonment_EN_vs_theta1.png" alt="Model C2 abandonment"><div class="tfigcap"><b>Fig. 3.</b> As θ₁ grows, work leaves the system: E[N] drops well below the baseline and class-1 loss rises.</div><div class="tfigsrc">Model C₂ · ρ = 0.70 · truncated CTMC</div></div>
+<div class="rstats">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Total E[N]" value="0.836" trend="down" note="vs. 1.633 · Model A" accent="var(--mech-abandon)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Class-1 loss fraction" value="23.2" unit="%" note="θ₁ = 0.5" accent="var(--class-1)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Mean queue E[N₁]" value="0.139" trend="down" note="vs. 0.30 · Model A" accent="var(--pine-500)" hint-size="100%,80px"></x-import>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">39</span></div></div>
+</section>
+
+<section data-label="40 Across load">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§11.3 · Results — across load</div>
+<h1 class="ttitle">The abandonment gap widens with load</h1>
+<div style="display:grid;grid-template-columns:1.35fr 1fr;gap:48px;flex:1;align-items:center;min-height:0">
+<div class="tfig"><img src="assets/figures/fig_sweep_EN_vs_rho.png" alt="Traffic-intensity sweep"><div class="tfigcap"><b>Fig. 4.</b> A, B₂ and Bᴴ coincide in E[N] and obey the 1−ρ idle law — jockeying conserves N. C₂ and Cᴴ sit below in E[N] and above in π₀ at every load; the head-of-line pair interpolates.</div><div class="tfigsrc">five solved models · μ = 1 · λ₁:λ₂ = 3:4 · γ₁ = θ₁ = 0.5</div></div>
+<div class="rstats">
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Class-2 queue E[N₂] · ρ = 0.90" value="1.925" trend="down" note="vs. 7.535 · Model A" accent="var(--mech-abandon)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Idle probability π₀ · ρ = 0.70" value="0.370" trend="up" note="vs. 0.300 = 1−ρ · A and B₂" accent="var(--pine-500)" hint-size="100%,80px"></x-import>
+<x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.StatCallout" label="Class-2 wait E[W₂] · B₂" value="+10.9" unit="%" trend="up" note="3.697 vs. 3.333 · jockeying penalises class 2" accent="var(--mech-jockey)" hint-size="100%,80px"></x-import>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">40</span></div></div>
+</section>
+
+<section data-label="41 Comparison">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§11 · Structural comparison — Table 11.1</div>
+<h1 class="ttitle">Five solved models, side by side</h1>
+<table class="cmp">
+<thead><tr><th style="width:17%"></th><th>A</th><th>B₂</th><th>Bᴴ</th><th>C₂</th><th>Cᴴ</th></tr></thead>
+<tbody>
+<tr><td>Mechanism rate</td><td>none</td><td class="mono">γ₁n₁</td><td class="mono">γ₁·1{n₁≥1}</td><td class="mono">θ₁n₁</td><td class="mono">θ₁·1{n₁≥1}</td></tr>
+<tr><td>Fundamental eq.</td><td>algebraic</td><td>1st-order ODE</td><td>algebraic</td><td>1st-order ODE</td><td>algebraic</td></tr>
+<tr><td>Pinning of P_y</td><td>kernel root x*</td><td>analyticity at x=y</td><td>kernel root x*</td><td>boundedness at x=1</td><td>kernel root x*</td></tr>
+<tr><td>P(x,y) form</td><td>rational</td><td>integral + ₁F₁</td><td>rational</td><td>integral + ₁F₁</td><td>rational</td></tr>
+<tr><td>Conserves N</td><td>yes</td><td>yes</td><td>yes</td><td>no</td><td>no</td></tr>
+<tr><td>π(0,0)</td><td class="mono">ρ(1−ρ)</td><td class="mono">ρ(1−ρ)</td><td class="mono">ρ(1−ρ)</td><td class="mono">Cor. 8.2</td><td class="mono">Cor. 10.2</td></tr>
+</tbody></table>
+<p class="tnote" style="margin-top:14px">Head-of-line rates collapse the ODE back to the algebraic form — P(x,y) becomes rational again.</p>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">41</span></div></div>
+</section>
+
+<section data-label="42 Convergence" data-deck-skip="">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§11.4 · Convergence to the baseline</div>
+<h1 class="ttitle">Linear convergence — along two different paths</h1>
+<div class="t2colt">
+<div class="stack">
+<p class="tlead" style="font-size:21px">As its mechanism rate → 0⁺, each specialisation must recover Model A. The L1 distance ∥π−π_A∥₁ falls <b>first-order</b>: log–log slopes of 0.85–0.93 against the theoretical 1, the shortfall explained by CTMC truncation.</p>
+<div class="tchips"><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="jockey" hint-size="150px,26px">B₂ · slope 0.87</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="jockey" hint-size="150px,26px">Bᴴ · slope 0.93</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="abandon" hint-size="150px,26px">C₂ · slope 0.85</x-import><x-import component-from-global-scope="ThesisTalkDesignSystem_e12f8a.Chip" tone="abandon" hint-size="150px,26px">Cᴴ · slope 0.90</x-import></div>
+</div>
+<div class="stack">
+<div class="regime" style="border-color:var(--ochre-200)"><span class="f">Jockeying: interior redistribution</span><p>π₀ and π(0,0) stay pinned at 1−ρ and ρ(1−ρ) for <b>every</b> γ₁ — convergence is invisible at the empty states and happens entirely in the interior.</p></div>
+<div class="regime" style="border-color:var(--plum-200)"><span class="f">Abandonment: drift and relax</span><p>A true departure moves the idle descriptors above the baseline; they relax back onto it only as θ₁ → 0⁺. The conservation dichotomy, one last time.</p></div>
+</div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">42</span></div></div>
+</section>
+
+<section data-label="43 Conclusion">
+<div class="tstage tink"><div class="tbody">
+<div class="tkick">§12 · Conclusion</div>
+<h1 class="ttitle" style="color:#fff">Four mechanisms solve, two obstruct</h1>
+<div class="tlist" style="margin-top:20px">
+<div class="tli"><span class="n">1</span><p><b>Kernel root</b> inside the disc (A) · <b>analyticity</b> at x=y (B₂) · <b>boundedness</b> at x=1 (C₂) · <b>head-of-line collapse</b> (Bᴴ, Cᴴ) — the four ways P_y(y) gets pinned.</p></div>
+<div class="tli"><span class="n">2</span><p>The obstructions: a <b>∂/∂y term</b> forces a first-kind Volterra equation (B); Model X adds transcendental characteristics on top.</p></div>
+<div class="tli"><span class="n">3</span><p><b>Jockeying redistributes</b> delay at fixed total work; <b>abandonment reduces</b> the load itself. Same waiting room, opposite registers.</p></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">43</span></div></div>
+</section>
+
+<section data-label="44 Future work">
+<div class="tstage"><div class="tbody">
+<div class="tkick">§12 · Future work</div>
+<h1 class="ttitle">What the machinery makes possible next</h1>
+<div class="g2" style="flex:1;align-content:center">
+<div class="regime"><span class="f">Head-of-line ladder</span><p>Let the first k customers act: min(n₁,k) keeps the equation algebraic at the price of k boundary unknowns; expect convergence to B₂ / C₂ as k→∞.</p></div>
+<div class="regime"><span class="f">Invert the Volterra equation</span><p>Model B's kernel and forcing are explicit — numerical inversion (or sharper analysis) would close the first obstruction.</p></div>
+<div class="regime"><span class="f">Exact means from the PGFs</span><p>Differentiate at (1,1) — with L'Hôpital at the x=1 singularity — to replace the numerical E[Nᵢ], E[Wᵢ] with closed forms.</p></div>
+<div class="regime"><span class="f">The clinically wanted direction</span><p>The 2→1 upgrade of a deteriorating patient is exactly γ₂ &gt; 0 — the Volterra-hard direction. Calibration to elderly-care data comes after.</p></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">44</span></div></div>
+</section>
+
+<section data-label="45 Thanks">
+<div class="tstage tpaper"><div class="tbody">
+<div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:20px">
+<div class="tkick">Thank you</div>
+<h1 class="thero" style="font-size:64px">Questions<br>welcome.</h1>
+<div class="trule"></div>
+<div class="tpeople" style="margin-top:30px"><div><div class="trole">Author</div><div class="tname">Victor Dominguez Sainz</div></div><div><div class="trole">Supervisor</div><div class="tname">René Bekker</div></div><div><div class="trole">Second reader</div><div class="tname">Wouter Kager</div></div></div>
+</div>
+</div><div class="tfoot"><img src="assets/vu-logo.png" alt="VU"><span class="pg">45</span></div></div>
+</section>
+
+</x-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;kummerForm&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;options&quot;: [&quot;series&quot;, &quot;integral&quot;, &quot;both&quot;],
+    &quot;default&quot;: &quot;both&quot;,
+    &quot;tsType&quot;: &quot;'series' | 'integral' | 'both'&quot;,
+    &quot;section&quot;: &quot;Slide 6 · Kummer&quot;,
+    &quot;label&quot;: &quot;Kummer definition shown&quot;
+  },
+  &quot;showKummerNote&quot;: {
+    &quot;editor&quot;: &quot;boolean&quot;,
+    &quot;default&quot;: true,
+    &quot;tsType&quot;: &quot;boolean&quot;,
+    &quot;section&quot;: &quot;Slide 6 · Kummer&quot;,
+    &quot;label&quot;: &quot;Show foreshadowing note&quot;
+  }
+}">class Component extends DCLogic {
+  renderVals() {
+    const form = this.props.kummerForm ?? 'both';
+    return {
+      showSeries: form === 'series' || form === 'both',
+      showIntegral: form === 'integral' || form === 'both',
+      showKummerNote: this.props.showKummerNote ?? true,
+    };
+  }
+}</script>
+</body>
+</html>

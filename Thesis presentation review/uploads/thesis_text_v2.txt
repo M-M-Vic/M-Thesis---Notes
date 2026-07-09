@@ -1,0 +1,4861 @@
+Contents
+1 Introduction 3
+2 Literature 5
+3 Preliminaries 8
+3.1 M/M/1 queue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.2 Non-preemptive priority and the PASTA property . . . . . . . . . . . . . . . . . . 8
+3.3 M/M/1+M queue (Erlang-A) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+3.4 Pollaczek–Khinchine formula . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+3.5 Confluent hypergeometric function . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+3.6 First-order linear ODEs and PDEs . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+3.6.1 Integrating factor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+3.6.2 Method of Characteristics . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+3.6.3 Variation of parameters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+4 The general model (Model-X) and its fundamental equation 12
+4.1 Balance equations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+4.1.1 Balance equations for state space S . . . . . . . . . . . . . . . . . . . . . . 15
+4.1.2 Balance equations for state space eS . . . . . . . . . . . . . . . . . . . . . . 16
+4.2 Derivation of equations for (Partial) Probability Generating functions . . . . . . . 17
+4.2.1 Equation for PGF in state space S . . . . . . . . . . . . . . . . . . . . . . . 18
+4.2.2 Equation for PPGF in state space eS . . . . . . . . . . . . . . . . . . . . . . 28
+5 Analysis of Model-A (γ1 = γ2 = 0, θ1 = θ2 = 0) 33
+5.1 Analysis of Model-A: state space S . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+5.1.1 Analytical approach for Model-A in state space S . . . . . . . . . . . . . . . 34
+5.1.2 Probabilistic approach for Model-A in state space S . . . . . . . . . . . . . 35
+5.1.3 Partial-PGF recurrence approach for Model-A in state space S . . . . . . . 36
+5.2 Analysis of Model-A on eS: scope and limitations of the partial-PGF recursion . . . 39
+6 Analysis of Model-B (γ1, γ2 > 0, θ1 = θ2 = 0) 40
+7 Analysis of Model-B2 (γ1 > 0, γ2 = 0, θ1 = θ2 = 0) 45
+7.1 Reduced fundamental equation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+8 Analysis of Model-C2 (θ1 > 0, γ1 = γ2 = θ2 = 0) 50
+8.1 Reduced fundamental equation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+8.2 Analytical derivation of P (x, y) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+8.3 Alternative derivation of Py (y): the M/G/1 / Pollaczek–Khinchine route . . . . . 54
+9 Analysis of Model-BH
+2 (γ1 > 0 head-of-line, γ2 = θ1 = θ2 = 0) 55
+9.1 Balance equations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+9.2 Fundamental PGF equation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+9.3 Closed-form solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 56
+9.3.1 Analytical approach for Model-BH
+2 . . . . . . . . . . . . . . . . . . . . . . . 56
+10 Analysis of Model-CH
+2 (θ1 > 0 head-of-line, γ1 = γ2 = θ2 = 0) 57
+10.1 Balance equations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+10.2 Fundamental PGF equation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+10.3 Closed-form solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+10.3.1 Analytical approach for Model-CH
+2 . . . . . . . . . . . . . . . . . . . . . . . 59
+11 Results 60
+11.1 Validation against the CTMC . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+11.2 Structural comparison of the solved models . . . . . . . . . . . . . . . . . . . . . . 60
+11.3 Quantitative comparison across load . . . . . . . . . . . . . . . . . . . . . . . . . . 62
+11.4 Convergence to the baseline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+1
+
+-- 1 of 68 --
+
+12 Conclusion and Future Work 65
+12.1 The obstruction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+12.2 The mechanism dichotomy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 65
+12.3 Operational reading and the deterioration-direction caveat . . . . . . . . . . . . . . 66
+12.4 Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+12.5 Future work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+2
+
+-- 2 of 68 --
+
+Exact Generating-Function Analysis of a Two-Class
+Non-Preemptive Priority M/M/1 Queue with Jockeying and
+Abandonment
+Victor Dominguez Sainz
+June 28, 2026
+Abstract
+We study the stationary queue-length distribution of a two-class, non-preemptive priority
+M/M/1 queue augmented with two waiting-room mechanisms: jockeying, in which a wait-
+ing customer switches to the other queue, and abandonment, in which a waiting customer
+leaves the system. Jockeying conserves the total number of customers, whereas abandonment
+does not, and combining both yields a model (Model-X) that is analytically intractable. We
+therefore present a collection of simpler models: Model-A (baseline), Model-B (bidirectional
+jockeying), Model-B2 (jockeying from the priority class to the non-priority class) and Model-C2
+(abandonments in the priority class). We also study two head-of-line models: Model-BH
+2 (only
+the first customer in the priority queue can jockey) and Model-CH
+2 (only the first customer in
+the priority queue can abandon).
+The central object is the bivariate Probability Generating Function (PGF) P (x, y) of the
+two queue lengths, obtained by analytical and, where the structure allows, probabilistic argu-
+ments. The purpose of this work is to present a unified framework for deriving the functional
+equation of each model and to expose the mathematical challenges intrinsic to each. Model-A
+is classical and collapses to an algebraic expression by finding a kernel root inside the unit
+disc; Model-B2 is solved by imposing analyticity at an interior point and Model-C2 by impos-
+ing boundedness at the unit-disc boundary x = 1. The head-of-line models, like the baseline
+Model-A, also yield an algebraic expression for the PGF. Two models are left open: Model-B
+reduces to an integral expression for the PGF involving a Volterra-type integral equation, and
+Model-X compounds this with nonlinear characteristic curves.
+Every closed form is validated against a truncated continuous-time Markov Chain (CTMC)
+that recovers the baseline model as the mechanism rates vanish. The comparison reveals a key
+difference between jockeying and abandonment: the former merely redistributes delay between
+classes, whereas the latter substantially shortens the queue lengths.
+1 Introduction
+Motivation
+Priority queues arise naturally wherever a common server must satisfy heterogeneous demand. The
+primary motivation for this thesis is healthcare operations, specifically the management of waiting
+lists for elderly-care facilities, where medical severity dictates a user’s —hereafter customer —
+priority class. Here prolonged waiting may itself alter the system’s dynamics: a lack of appropriate
+care can deteriorate a waiting customer’s health, leading them to change priority status (jockeying)
+or leave the system (abandonment), whether to seek alternative care or through death. Despite this
+motivation, the work is fundamentally modelling-driven: we characterise the long-run behaviour
+of queueing systems in which jockeying and/or abandonment play a role.
+This thesis analyses a 2-class M/M/1 queue with non-preemptive priority: each class arrives
+according to a Poisson process (rates λ1 and λ2), service times are exponential at a common rate
+μ, and the single server completes the current service even when a higher-priority customer arrives.
+To this we add the mechanisms of jockeying and abandonment. The model and its mechanisms
+are described in more detail in §4.
+How these two mechanisms interact within a priority discipline, and how that interaction affects
+the difficulty of obtaining a closed-form Probability Generating Function (PGF), is the main focus
+of this thesis.
+3
+
+-- 3 of 68 --
+
+The analytical challenge
+In full generality, the bivariate PGF for Model-X satisfies a functional equation with terms of three
+kinds: algebraic coefficients, partial derivatives in x —from jockeying and abandonment in class-1—
+and partial derivatives in y —from the same mechanisms in class-2. When both kinds of derivative
+term are present, the equation belongs to a family of integro-differential equations whose solution
+would require more advanced tools. The problem is moreover asymmetric: derivative terms from
+the non-priority class complicate it more than those from the priority class alone.
+We therefore solve less complex models obtained by setting some of the jockeying and aban-
+donment parameters to zero. Table 1 lists the models studied here and indicates whether a PGF
+expression is obtained for each:
+Model Active mechanism Equation type Status
+X jockeying and abandonment PDE, transcendental characteristics open
+A none algebraic PGF equation solved
+B bidirectional jockeying PDE, Volterra family open
+B2 one-way jockeying (1 → 2) ODE in x, Kummer solved
+C2 class-1 abandonment ODE in x, Kummer solved
+BH
+2 one-way jockeying, head-of-line algebraic PGF equation solved
+CH
+2 class-1 abandonment, head-of-line algebraic PGF equation solved
+Table 1: Models studied in this thesis, with the active mechanism, the resulting functional-equation
+type, and the solution status. The head-of-line variants BH
+2 and CH
+2 restrict the mechanism to the
+customer at the head of Queue 1, which collapses the derivative term to an algebraic one and
+renders the model solvable in closed form.
+Some models —notably Model-X and Model-B— are left incomplete because they involve
+derivative terms in y; others, such as a potential Model-B1, Model-C or Model-C1, are not consid-
+ered for the same reason, as they all reduce to a Volterra integral equation lying beyond the scope
+of this thesis. Model-B serves as our representative example of how such problems reduce to that
+integral equation; the remaining models are solvable. The last two entries, Models BH
+2 and CH
+2
+(§§9 and 10), are head-of-line simplifications in which only the customer at the head of Queue 1
+may jockey or abandon. The mechanism then acts at the constant rate γ11{n1≥1} or θ11{n1≥1}
+rather than the length-proportional γ1n1 or θ1n1, so the fundamental equation stays algebraic and
+is solved by the Kernel Method exactly as in Model-A.
+Methods
+Three complementary proof strategies are used throughout.
+Kernel method / ODE with integrating factor. For Model-A, which has no derivative terms,
+the algebraic coefficient of P (x, y) vanishes on a curve (the kernel ); evaluating the equation there
+determines the remaining unknowns. Model-B2 and Model-C2, which do carry derivative terms in
+x, reduce to a first-order linear ODE in x with an explicit integrating factor, and their unknowns
+follow from a regularity argument at a singularity of that factor. We present both strategies
+together, as they share the same underlying idea: the latter extends the former to the case where
+the unknowns are independent of the derivative terms and can be taken outside the integral.
+Probabilistic argument via Pollaczek–Khinchine and the effective service time. For Model-A
+and Model-C2, class-2 arrivals are Poisson, so the PASTA property holds and we can apply the
+Pollaczek–Khinchine formula together with the effective service time seen by a class-2 customer.
+This is an M/G/1 queue whose service times equal the busy period of the class-1 subsystem —an
+M/M/1 queue for Model-A and an M/M/1 + M system for Model-C2. In both cases the argument
+independently confirms the analytic results. Since jockeying destroys the Poisson structure, it does
+not apply to the other models.
+Partial PGF (PPGF) in the alternative state space eS. For the baseline Model-A we introduce an
+alternative state space indexed by the number of class-2 customers —whose distribution is hard—
+and the total number of customers —which is easy, since the total is conserved and behaves like
+a regular M/M/1 queue. This yields a PPGF with a non-homogeneous term. Cohen’s recursion
+argument [Coh56] was developed for the regular state space; we explore, with limited success, the
+4
+
+-- 4 of 68 --
+
+challenges of carrying it over to this alternative space and assess whether Cohen’s trick can deliver
+a feasible rough approximation.
+Structure of the thesis
+Section 2 reviews the relevant literature and Section 3 collects the probabilistic and analytic back-
+ground used throughout this work. Section 4 defines the full model, Model-X, and derives the
+general balance equations and the fundamental PGF equations, both for the regular and the al-
+ternative state space. The analysis then proceeds from baseline to synthesis: Section 5 solves the
+baseline Model-A in closed form; Section 6 shows that bidirectional jockeying (Model-B) reduces
+the problem to a Volterra-type integral equation and is left open. Sections 7 and 8 then recover
+tractability in the one-way-jockeying (Model-B2) and class-1-abandonment (Model-C2) specialisa-
+tions, while Sections 9 and 10 show how the head-of-line variants, Models BH
+2 and CH
+2 , collapse
+the functional equation to an algebraic one solved in closed form. Finally, Section 11 validates
+every closed form against an exact CTMC and compares the solved models (§11.2), and Section 12
+concludes by abstracting the obstruction taxonomy and setting out the future work.
+2 Literature
+The study of two-class priority queues with departure mechanisms sits at the intersection of three
+well-developed streams: the exact generating-function analysis of non-preemptive priority queues,
+the theory of queues with customer impatience (abandonment), and the theory of jockeying and
+dynamic priority changes. The applied motivation throughout is the management of access to
+care —elderly-care waiting lists, emergency departments, and transplant registries— in which the
+two mechanisms studied here carry direct clinical readings: a waiting patient whose condition
+deteriorates changes priority class (jockeying), while one who leaves the list by death or transfer
+reneges (abandonment). This thesis contributes an exact, single-server treatment that admits
+jockeying and abandonment within a unified bivariate-PGF framework, filling a gap that the
+multi-server and approximate literature has so far left open.
+Non-preemptive priority queues: exact queue-length analysis
+The direct methodological ancestor of this work is Cohen [Coh56], who studied a single server
+loaded by two independent Poisson streams and introduced the partial-generating-function recur-
+sion —the “Cohen trick”— that resolves the lower-priority queue length by transforming only one
+coordinate of the joint distribution while keeping the other discrete. That device is exactly the one
+reused, in modern notation, in the partial-PGF analysis of Model-A on the total-count state space
+(§5.2). The stationary queue-length law of the two-class non-preemptive M/M/1 priority queue
+—the content of Theorem 2 (Model-A)— is in this sense classical, recoverable by several routes;
+the contribution of the present work is not that result in isolation but the unified framework built
+around it, into which jockeying and abandonment are introduced one mechanism at a time and
+solved by a common functional-equation method.
+The most recent exact closed-form treatment in this line is that of Zuk & Kirszenblat [ZK23],
+who obtain the joint and marginal queue-length distributions of a non-preemptive M/M/c queue
+with two priority classes and a common service rate by generating-function methods and a quadratic
+recurrence; their single-server specialisation (c = 1) coincides with Model-A. A complemen-
+tary strand studies dynamic rather than static priority: Stanford et al. [STZ14] analyse the
+accumulating-priority M/G/1 queue, in which each class earns priority linearly in its waiting time
+so that older customers eventually overtake newer ones, and derive exact waiting-time distributions
+through a maximum-priority process and Laplace–Stieltjes transforms. Accumulating priority is a
+continuous-time analogue of the discrete, rate-γi jockeying studied here; like the present work it is
+exact and single-server, but its object is the sojourn time rather than the bivariate queue-length
+PGF.
+Priority queues with abandonment
+Abandonment enters queueing theory through the Erlang-A (M/M/c + M ) model, in which each
+waiting customer holds an independent exponential patience clock; the modern treatment and its
+heavy-traffic scaling are due to Garnett et al. [GMR02], and the single-server case M/M/1 + M
+supplies the busy-period structure on which Model-C2 rests (§3.3). The analytic signature of
+5
+
+-- 5 of 68 --
+
+impatience is well documented: per-customer patience clocks make the transition rates state-
+inhomogeneous, so the generating-function solutions, where they close at all, close in terms of
+hypergeometric series.
+Kapodistria [Kap11] exhibits this pattern at its sharpest in a single-server queue with synchro-
+nised abandonments —all waiting customers abandon simultaneously, each with probability p, at
+Poisson opportunity epochs— solving the stationary law exactly through basic (q-)hypergeometric
+series and recovering, in the no-synchronisation limit p → 0+, the M/M/1 + M queue-length PGF
+as a ratio of Kummer functions: precisely the special-function structure that carries the boundary
+function of Model-C2.
+Exact stationary results for priority queues with reneging are scarce and almost always multi-
+server. Jouini & Roubos [JR14] treat an M/M/s + M queue with two non-preemptive classes
+and per-class exponential patience, deriving Laplace–Stieltjes transforms for conditional and un-
+conditional waiting times together with the probabilities of service and of abandonment —the
+multi-server analogue of Model-C2, but with the waiting time, not the queue-length PGF, as its
+object. Where exact transforms are unavailable the literature turns to fluid and diffusion approxi-
+mations or to many-server asymptotics, in which the Erlang-A stationary law and its descendants
+are expressed through confluent hypergeometric and incomplete-gamma functions [ZM05]; the same
+special-function structure appears exactly, and at finite scale, in the closed form for Model-C2.
+The exact multi-server priority results that do exist carry no class-asymmetric reneging —those
+of Wang et al. [WBSW15] and Zuk & Kirszenblat [ZK23] are abandonment-free— so Model-C2
+appears to be the first exact, single-server, queue-length treatment of class-asymmetric abandon-
+ment, with impatience acting on the priority class alone. The clinical reading that licenses this
+asymmetry is long-standing: Zenios [Zen99] models the organ-transplant waiting list as a queue
+whose reneging is patient mortality, precisely the regime in which losing high-priority demand is
+the outcome of interest.
+Jockeying and priority changes
+The closest predecessor on the jockeying side is de Waal [dW92], who studies an M/G/1 priority
+queue in which impatient customers change priority class while waiting. Its entry in Table 2 is
+marked approximate not by choice of method but by necessity: with general service times the
+governing equations do not close, and the analysis delivers Laplace–Stieltjes-based approximations
+of the waiting-time distributions rather than an exact stationary law. The healthcare incarnation
+of the same idea is the model of Hu, Chan & Dong [HCD22], who let customers transition between
+a moderate and an urgent class as their condition deteriorates or improves and characterise a near-
+optimal cμ/θ-type scheduling index in heavy traffic; the system is multi-server and its results are
+asymptotic, so it too is approximate in the sense of Table 2. Against this backdrop Model-B2 is
+the exact, single-server counterpart of the approximate multi-server “priority-change” literature:
+it retains the deterioration mechanism —a waiting class-1 customer relocating to the class-2 queue
+at rate γ1— but pays for exactness with the single-server, Markovian, one-directional restriction,
+returning a closed-form boundary function in place of an approximation.
+Multi-server extensions and performance design
+The last reference bounds the present work from the side of scale. Wang et al. [WBSW15] give
+the exact queue-length PGF of an M/M/c queue with two preemptive priority classes and class-
+dependent service rates, a useful contrast to the non-preemptive, common-rate discipline used
+throughout this thesis. That the result carries no departure mechanism is symptomatic of the
+multi-server literature as a whole: once c > 1 is combined with jockeying or abandonment, the
+analysis moves to approximations and asymptotics, confirming that exact, mechanism-rich analysis
+is essentially a single-server phenomenon.
+Methodological lineage
+The functional-equation technique used in Sections 7 and 8 belongs to the kernel-method and
+boundary-value tradition for two-dimensional Markovian queues. The systematic theory —reducing
+a bivariate balance equation to the curve on which its kernel vanishes, and from there to a boundary-
+value problem for the unknown boundary functions— is developed by Fayolle, Iasnogorodski &
+Malyshev [FIM99] for random walks in the quarter-plane. That programme still delivers explicit
+two-class results: Devos, Walraevens, Fiems & Bruneel [DWFB20] obtain the closed-form joint
+queue-length distribution of a discrete-time two-class queue with randomly alternating service by
+6
+
+-- 6 of 68 --
+
+analysing the kernel of just such a functional equation and pinning its two unknown boundary
+functions through analytic continuation.
+The pinning arguments of this thesis are the elementary, one-dimensional residue of that pro-
+gramme. In Model-B2 the boundary function is fixed by demanding analyticity of the PGF at
+the interior point where the kernel root meets the diagonal (§7), and in Model-C2 by demanding
+mere boundedness at the unit-disc boundary (§8); both select the analytic solution of the reduced
+equation, exactly the role the boundary conditions play in the general theory.
+Two narrower tools recur. The confluent hypergeometric (Kummer) function that carries the
+Model-C2 boundary function is the same special function through which the Erlang-A and reneging-
+queue stationary laws are expressed [ZM05, Kap11, DLM]; and the selection of the decaying so-
+lution of the three-term recurrence behind the partial-PGF analysis is governed by Pincherle’s
+theorem, for which we cite the recurrence-relation treatment of Gautschi [Gau67] alongside the
+DLMF [DLM].
+Position of this thesis
+Table 2: Literature overview: models and mechanisms. ✓ = present, – = absent, ≈ = approximate
+only.
+Reference Servers Non-preem. Jockeying Aband. Queue-len. Exact
+Cohen (1956) 1 ✓ – – ✓ ✓
+de Waal (1992) 1 ✓ ✓ – – ≈
+Jouini & Roubos (2014) c ✓ – ✓ – ✓
+Wang et al. (2015) c – – – ✓ ✓
+Stanford et al. (2014) 1 ✓ ✓ – – ✓
+Zuk & Kirszenblat (2023) c ✓ – – ✓ ✓
+Hu, Chan & Dong (2022) c ✓ ✓ ✓ – ≈
+This thesis (Model-A) 1 ✓ – – ✓ ✓
+This thesis (Model-B2) 1 ✓ ✓ – ✓ ✓
+This thesis (Model-C2) 1 ✓ – ✓ ✓ ✓
+Table 2 places this work against its closest neighbours, and reading it by row makes the gap precise.
+The Cohen (1956) row is the single-server, exact, non-preemptive queue-length baseline with neither
+extra mechanism —the ancestor of Model-A. de Waal (1992) adds jockeying (priority change) at
+a single server, but only approximately and for waiting times rather than queue lengths. Jouini
+& Roubos (2014) add abandonment exactly, but at c servers and again for waiting times. Wang
+et al. (2015) is exact and queue-length-focused, yet multi-server, preemptive, and mechanism-free.
+Stanford et al. (2014) is single-server and exact with a dynamic-priority (jockeying-like) mechanism,
+but its object is the sojourn time. Zuk & Kirszenblat (2023) is the exact multi-server queue-length
+result whose c = 1 case is Model-A, with neither jockeying nor abandonment. Hu, Chan & Dong
+(2022) carries both mechanisms —jockeying-as-deterioration and abandonment— but multi-server
+and only approximately.
+No row above combines, at a single server, the exact bivariate queue-length PGF with either
+jockeying or abandonment —which is precisely the column pattern of the three “This thesis” rows.
+The gap can therefore be stated in one sentence: prior to this work there is no exact, single-server,
+queue-length analysis that places non-preemptive priority together with jockeying or abandonment
+inside a single PGF framework.
+The non-claims must be stated with equal precision. The framework is unified but not complete:
+the full model (Model-X, Remark 3), in which jockeying and abandonment act together, and the
+bidirectional-jockeying model (Model-B, §6) are left open, each reducing to a Volterra-type integral
+equation that this thesis characterises but does not solve in closed form. The exact contributions are
+confined to the three “This thesis” rows of Table 2 —the baseline Model-A, the one-way jockeying
+Model-B2, and the class-1 abandonment Model-C2, together with their head-of-line simplifications.
+The claim is exactness and unification at a single server with one mechanism active at a time; it
+is explicitly not a solution of the combined or bidirectional problems, which remain, as in the
+multi-server literature, beyond exact reach.
+7
+
+-- 7 of 68 --
+
+3 Preliminaries
+This section collects the background material used throughout the derivations, so that the later
+arguments can stay focused on their primary objectives.
+The central object throughout is the (P)PGF of the model in question, together with the
+system’s idle probability for some corollaries.
+3.1 M/M/1 queue
+The canonical M/M/1 queue is the foundation of queueing theory and is treated in many textbooks;
+we follow [AR02]. Customers arrive according to a Poisson process —i.e. the inter-arrival times
+are exponentially distributed with parameter λ—, service times are exponentially distributed with
+parameter μ, and a single server operates in first-come-first-served (FCFS) —also known as first-
+in-first-out (FIFO)— order. The system is stable if and only if the load ρ = λ/μ < 1.
+Let πn be the limiting probability of finding n customers in the system. Under stability, the
+detailed balance equations λ πn = μ πn+1 (n ≥ 0) together with the normalisation P∞
+n=0 πn = 1
+give us the geometric steady-state distribution of the number of customers in the system:
+πn = (1 − ρ) ρn, n ≥ 0.
+By the PASTA property (§3.2), this also corresponds to the distribution seen by arriving customers.
+Let L be the number of customers in the system, including any in service. Its expectation is
+E[L] = ρ
+1 − ρ .
+From this, the expected sojourn time W —the time between a customer’s arrival and their departure
+after service—follows by Little’s Law (E[L] = λE[W ]):
+E[W ] = E[L]
+λ = 1/μ
+1 − ρ .
+A less common but highly relevant concept is the Busy Period (BP ): the time between a
+customer arriving to an idle system and the departure that next leaves it empty. Its Laplace–
+Stieltjes Transform (LST) and expectation are known:
+g	BP (s) = (μ + λ + s) − p(μ + λ + s)2 − 4μλ
+2λ , (3.1)
+E[BP ] = 1
+μ(1 − ρ) . (3.2)
+3.2 Non-preemptive priority and the PASTA property
+Throughout this thesis the two customer classes are served under a non-preemptive priority dis-
+cipline: whenever the server becomes free it admits a waiting class-1 customer if any are present,
+and a class-2 customer only otherwise, but a customer already in service is never interrupted—a
+class-1 arrival that finds a class-2 customer in service waits until that service completes. Priority
+therefore governs only the order in which the queues are drained, not the service in progress. Be-
+cause the service rate μ is common to both classes, the memorylessness of the exponential service
+time makes the residual service of the customer in progress Exp(μ) regardless of its class; hence
+the class of the in-service customer does not influence the future evolution of the queue lengths,
+which is why a single in-service customer of either class suffices to mark the server busy.
+We also invoke repeatedly the PASTA property (Poisson Arrivals See Time Averages) [AR02]:
+if a system is fed by a Poisson arrival process that satisfies the lack-of-anticipation assumption (at
+each instant the future increments of the arrival process are independent of the current system
+state), then the long-run fraction of arrivals that find the system in a given state equals the
+stationary probability of that state, so the distribution seen by an arriving customer coincides with
+the time-stationary one. Both hypotheses hold here: the exogenous class-i arrivals are independent
+Poisson processes at rates λi, and they are independent of the system’s internal exponential service,
+jockeying and abandonment clocks, so they cannot anticipate the future. By Poisson superposition
+the merged arrival stream is itself Poisson at rate λ = λ1 + λ2, so PASTA applies to the aggregate
+state; and since each class stream is an independent Poisson process—equivalently, an i.i.d. λi/λ
+thinning of the merged stream—PASTA applies to each class separately.
+8
+
+-- 8 of 68 --
+
+3.3 M/M/1+M queue (Erlang-A)
+Another model relevant to this thesis is the M/M/1+M queue, also known as the Erlang-A model.
+It extends the M/M/1 queue —Poisson arrivals at rate λ, exponential service at rate μ— with
+customer impatience: each waiting customer (the one in service is not impatient) independently
+abandons after an exponentially distributed patience time with rate θ. Crucially, unlike the M/M/1
+it does not require ρ = λ/μ < 1 for stability: it is positive recurrent for all λ, μ, θ > 0.
+The steady-state distribution follows from its balance equations, where n denotes the number
+of customers in the system:
+λ πn = (μ + nθ) πn+1, n ≥ 0.
+Iterating yields
+πn = π0
+(λ/θ)n
+(μ/θ)(n) n ≥ 0; where a(n) = a(a + 1) · · · (a + n − 1)
+Normalisation gives the non-trivial idle probability π0 = [1F1(1; μ/θ; λ/θ)]−1 (see §3.5 for the
+Kummer function 1F1), and summing the geometric-like terms shows that the queue-length PGF
+is correspondingly a ratio of Kummer functions, Π(z) = 1F1(1; μ/θ; (λ/θ)z) / 1F1(1; μ/θ; λ/θ).
+The same closed form is derived by Kapodistria [Kap11, Thm. 3] as the no-synchronisation limit
+of a queue with synchronised abandonments, there in the sojourn-time-impatience convention (the
+customer in service also abandons), which amounts to replacing μ by μ + θ.
+Unlike the textbook facts collected above, the busy-period identity that follows is the one
+preliminary we derive from scratch, as Model-C2 rests on it directly. The Busy Period of this
+M/M/1 + M is far more complex than its M/M/1 counterpart. We record it for the class-1
+subsystem used in Model-C2, with arrival rate λ1, service rate μ and abandonment rate θ1, so that
+the relevant idle probability is π0 = [1F1(1; μ/θ1; λ1/θ1)]−1. Writing BC for this busy period, its
+LST and expectation are
+e	BC (s) = μ
+λ1 + μ + s − λ1(μ + θ1)
+λ1 + μ + θ1 + s − λ1(μ + 2θ1)
+λ1 + μ + 2θ1 + s − · · ·
+,
+(3.3)
+E[BC ] = 1
+λ1
+ 
+1F1
+ 1; μ/θ1; λ1/θ1
+  − 1
+ 
+(3.4)
+The continued fraction (3.3) is generated by a first-passage recursion. Let ϕn(s) denote the LST
+of the first-passage (sub-busy-period) time from n customers in the system down to n − 1. Con-
+ditioning on the first transition out of state n—an arrival (rate λ1) to state n + 1, or a departure
+by service completion or abandonment (combined rate μ + (n − 1)θ1: one customer in service plus
+n − 1 waiting, each impatient at rate θ1) to state n − 1—the strong Markov property gives
+ϕn(s) = μ + (n − 1)θ1
+λ1 + μ + (n − 1)θ1 + s − λ1 ϕn+1(s) , n ≥ 1, e	BC (s) = ϕ1(s). (3.5)
+Unrolling Equation (3.5) from n = 1 reproduces the continued fraction (3.3) term by term. The
+continued fraction also sums in closed form, and the argument is short enough to give in full. Fix
+s > 0 and scale the rates by θ1, setting
+a = μ
+θ1
+, b = s
+θ1
+, c = λ1
+θ1
+,
+so that Equation (3.5) reads ϕn(s) = (a + n − 1)  (a + n − 1) + b + c − c ϕn+1(s) . Consider the
+integrals
+I(p) =
+Z 1
+0
+t p (1 − t) b−1 e−ct dt, p > −1,
+which by the Euler representation (3.10) are Beta-function multiples of Kummer values, I(p) =
+B(p + 1, b) 1F1(p + 1; p + 1 + b; −c). Integrating the exact derivative d
+dt
+ t p(1 − t) be−ct  over [0, 1]
+—the boundary terms vanish for p, b > 0— and splitting (1 − t)b = (1 − t)b−1 − t (1 − t)b−1 in the
+two terms where it appears yields the three-term recurrence
+(p + b + c) I(p) = p I(p − 1) + c I(p + 1), (3.6)
+9
+
+-- 9 of 68 --
+
+a relation of contiguous type for 1F1 (obtainable equivalently by combining the contiguous relations
+of [DLM, §13.3]). Dividing Equation (3.6) at p = a + n − 1 by I(a + n − 2) shows that the ratios
+Rn := I(a + n − 1)/I(a + n − 2) satisfy exactly the recursion of ϕn. Two further facts pin the
+identification. First, by Laplace’s method at the endpoint t = 1, I(p) ∼ e−c Γ(b) p−b as p → ∞:
+the solution {I(p)} decays only polynomially, whereas the dominant solution of Equation (3.6)
+grows superexponentially (its consecutive ratio grows like p/c), so {I(p)} is the minimal (recessive)
+solution. Second, by Pincherle’s theorem the convergent continued fraction equals precisely the
+ratio built from the minimal solution. Hence
+e	BC (s) = ϕ1(s) = I(a)
+I(a − 1) = B(a + 1, b) 1F1
+ a + 1; a + 1 + b; −c 
+B(a, b) 1F1
+ a; a + b; −c  , (3.7)
+a contiguous ratio of the form (3.11). This identity is used, with s = λ2(1 − y), in the boundedness
+route for Model-C2 (§8, Equation (8.11)).
+3.4 Pollaczek–Khinchine formula
+The M/G/1 queue [AR02] is a single-server queue with Poisson arrivals at rate λ and generally
+distributed i.i.d. service times B with LST e	B(s) = E[e−sB ]. For stability purposes, the system
+load ρB = λ E[B] < 1 is required (written ρB to keep the symbol ρ for the two-class load of this
+thesis). Under these two conditions —Poisson arrivals and stability— the Pollaczek–Khinchine
+(PK) formula gives the PGF of the stationary number of customers in the system:
+L(z) = (1 − ρB )(1 − z) e	B(λ(1 − z))
+e	B(λ(1 − z)) − z . (3.8)
+3.5 Confluent hypergeometric function
+The Kummer confluent hypergeometric function of the first kind appears in several derivations in
+this thesis; it reads as follows:
+1F1(a; b; z) =
+∞	X
+n=0
+a(n)
+b(n) n! zn, a(n) =
+n−1	Y
+k=0
+(a + k), a(0) = 1, (3.9)
+where b is not 0 or a negative integer —i.e. b /∈ {0, −1, −2, . . . }— and the series converges for all
+z ∈ C. The function 1F1(a; b; z) is the unique solution of Kummer’s equation [DLM]:
+z u′′ + (b − z) u′ − a u = 0,
+normalised by 1F1(a; b; 0) = 1.
+For this thesis, two identities related to it are used. First, the Euler integral representation, for
+a, b > 0 we have:
+1F1(a; a + b; z) = 1
+B(a, b)
+Z 1
+0
+ta−1(1 − t)b−1ezt dt, (3.10)
+where B is the Beta function B(a, b) = Γ(a)Γ(b)/Γ(a+b), and Γ is the Gamma function. Secondly,
+contiguous ratios: ratios of two 1F1 values whose parameters differ by integer shifts. Two patterns
+arise in this thesis. The simultaneous shift
+1F1(a + 1; a + 1 + b; z)
+1F1(a; a + b; z) , (3.11)
+in which both parameters move by one so that their difference b is preserved, is by the Euler repre-
+sentation (3.10) a ratio of two weighted Beta integrals differing only in the exponent of t; it appears
+as the closed-form value of the Erlang-A busy-period continued fraction (§3.3, Equation (3.7)) and
+hence in the boundary function of Model-C2. The first-parameter shift 1F1(a+1; b; z) 1F1(a; b; z),
+with the second parameter fixed, appears instead in the boundary function of Model-B2 (§7).
+3.6 First-order linear ODEs and PDEs
+Since jockeying and abandonment add state-dependent rates to the balance equations, derivative
+terms appear in the derivations, requiring us to solve first-order linear ODEs and PDEs for the
+PGF. The three methods below are invoked at specific steps of the analysis.
+10
+
+-- 10 of 68 --
+
+3.6.1 Integrating factor
+This method is standard to solve —for each fixed y— a first-order linear ODE in x. Such an
+equation has standard form dP
+dx + p(x; y) P = q(x; y). (3.12)
+The integrating factor μI (x; y) = exp R x
+0 p(t; y) dt  converts Equation (3.12) to d
+dx [P · μI ] = q · μI .
+Integrating from 0 to x gives the general solution
+P (x, y) = 1
+μI (x; y)
+ 
+C0(y) +
+Z x
+0
+q(t; y) μI (t; y) dt
+ 
+, (3.13)
+where C0(y) is an arbitrary function of y, determined by a boundary condition.
+3.6.2 Method of Characteristics
+This method is standard for solving a first-order linear PDE in both x and y simultaneously. It
+reduces the PDE to a family of ODEs along the so-called characteristic curves in the (x, y)-plane;
+along each curve, the PDE collapses to a single-variable ODE.
+A PDE of the form
+a ∂P
+∂x + b ∂P
+∂y = cP + d (3.14)
+is solved by tracing the characteristic curve (x(t), y(t)) satisfying
+dx
+dt = a, dy
+dt = b. (3.15)
+By the chain rule, d
+dt P (x(t), y(t)) = a Px + b Py , so Equation (3.14) reduces to
+dP
+dt = cP + d, (3.16)
+a first-order linear ODE in t. Its homogeneous part dP
+dt = cP is solved at once by separation of
+variables; the inhomogeneous term d is then absorbed either by the integrating factor (§3.6.1) or,
+once that homogeneous solution is in hand, by variation of parameters (§3.6.3). When a and b are
+constants, the characteristics are straight lines and the quantity
+ξ := b x − a y
+is preserved along each curve —it is the first integral that labels each characteristic. The integration
+constant of Equation (3.16) therefore varies between characteristics: it is an arbitrary function
+F (ξ). Re-expressing the solution in the original variables (x, y) via Equation (3.15) gives the
+general solution of Equation (3.14). In the PGF setting, F is identified with a boundary generating
+function, and analyticity of P (x, y) for |x|, |y| ≤ 1 uniquely determines it.
+3.6.3 Variation of parameters
+The integrating factor of §3.6.1 builds a solution from scratch by constructing μI . Frequently,
+however, we already hold a nonzero solution of the homogeneous equation —most importantly,
+the one the Method of Characteristics (§3.6.2) produces along each characteristic curve. Variation
+of parameters is the technique that turns any such known homogeneous solution directly into the
+general solution of the inhomogeneous equation, with no further integrating factor required. We
+describe it in the form in which it is used later.
+Consider a first-order linear ODE written as
+dP
+dx = f (x) P + h(x), (3.17)
+and suppose a nonzero homogeneous solution Ph is known, that is, dPh
+dx = f (x) Ph. The homoge-
+neous equation then has general solution C Ph(x) for an arbitrary constant C. To solve the full
+equation (3.17), we vary the constant: we promote C to a function C(x) and look for a solution of
+the form
+P (x) = C(x) Ph(x).
+11
+
+-- 11 of 68 --
+
+Differentiating by the product rule and using P ′
+h = f Ph,
+dP
+dx = C′(x) Ph(x) + C(x) P ′
+h(x)
+= C′(x) Ph(x) + f (x)  C(x) Ph(x)  = C′(x) Ph(x) + f (x) P (x).
+Substituting this back into Equation (3.17), the common term f (x) P (x) cancels from both sides
+and only the derivative of the varied constant survives:
+C′(x) Ph(x) = h(x) =⇒ C′(x) = h(x)
+Ph(x) .
+Integrating from a base point x0 gives C(x) = F + R x
+x0 h(t)/Ph(t) dt with F an arbitrary constant,
+and hence the general solution
+P (x) = Ph(x)
+ 
+F +
+Z x
+x0
+h(t)
+Ph(t) dt
+ 
+. (3.18)
+The known homogeneous solution Ph thus does double duty: it is the overall prefactor and, as
+1/Ph, the weight inside the integral. The constant F is fixed by a boundary condition. Taking in
+particular Ph = 1/μI reproduces the integrating-factor formula (3.13) of §3.6.1.
+This is exactly the step that completes the Method of Characteristics for an inhomogeneous
+PDE. Once §3.6.2 has reduced the PDE to an ODE of the form (3.17) along a characteristic
+and supplied its homogeneous solution Ph, formula (3.18) delivers the full solution along that
+characteristic, the constant F becoming an arbitrary function F (ξ) of the characteristic label.
+Model-B (§6) is solved by precisely this pairing.
+4 The general model (Model-X) and its fundamental equa-
+tion
+This section defines the general two-class system with both jockeying (γi) and abandonment (θi);
+we call this full model Model-X. The simpler variants are recovered as special cases by zeroing the
+appropriate parameters, as summarised in Table 3:
+Model Jockeying Abandonment Parameter restriction
+X both (1 ↔ 2) both (1, 2) γi ≥ 0, θi ≥ 0 (general)
+A none none γ1 = γ2 = 0, θ1 = θ2 = 0
+B both (1 ↔ 2) none γi ≥ 0, θ1 = θ2 = 0
+B2 1 → 2 only none γ1 ≥ 0, γ2 = 0, θ1 = θ2 = 0
+C2 none class 1 only θ1 ≥ 0, θ2 = 0, γ1 = γ2 = 0
+BH
+2 1 → 2, head-of-line none γ1 1{n1≥1} > 0, γ2 = θ1 = θ2 = 0
+CH
+2 none class 1, head-of-line θ1 1{n1≥1} > 0, γ1 = γ2 = θ2 = 0
+Table 3: Nested family of models. Model-X is the parent; Models A, B, B2 and C2 are obtained
+by restricting the jockeying directions and the abandoning classes. The two head-of-line variants
+BH
+2 and CH
+2 are listed separately, as their zeroing mechanism involves 1{n1≥1} rather than being
+proportional to the queue length.†
+Figure 1 gives a visual overview of Model-X and each variant we consider. It omits the two
+head-of-line variants, which are less conventional and for which such a diagram would add little:
+12
+
+-- 12 of 68 --
+
+λ1
+θ1
+λ2
+θ2
+γ1 γ2 μ
+Model X (parent)
+λ1
+λ2
+μ
+Model A
+λ1
+λ2
+γ1 γ2 μ
+Model B
+λ1
+λ2
+γ1 μ
+Model B2
+λ1
+θ1
+λ2
+μ
+Model C2
+Figure 1: Physical queue layout for Model-X (left) and its four specialisations (right, 2 × 2 grid).
+Queue 1 (top buffer) has non-preemptive priority over Queue 2. Solid arrows are for Poisson
+arrivals (λi) and exponential service (μ); dashed arrows are for jockeying(γi); and dotted arrows
+are for abandonments (θi)
+The model in this section is an M/M/1 queue with two priority classes. Customers are served
+First-Come, First-Served (FCFS) within their own class, and class-1 (the priority class) has non-
+preemptive priority over class-2: a service in progress is never interrupted, so a class-2 customer in
+service is not displaced by an arriving class-1 customer. Beyond these basic dynamics, Model-X
+adds two queue-leaving mechanisms. First, jockeying: a waiting customer leaves its own queue to
+join the other queue, at per-customer rate γ1 for direction 1 → 2 and γ2 for 2 → 1, so the total
+number of customers is preserved. Second, abandonment (reneging): a waiting customer leaves
+the system at per-customer rate θi, decreasing the total by one. Concretely, each waiting class-i
+customer (not the one in service) holds an independent Exp(θi) patience clock and abandons when
+it expires, so the aggregate class-i abandonment rate in a state with ni waiting customers is the
+linear term θini in the balance equations. This is precisely the linear-reneging mechanism of the
+M/M/1 + M queue from §3.3.
+In Kendall’s notation this is an M/M/1-type model: Poisson arrivals at rate λi for class-i,
+exponentially distributed service times at rate μ, and a single server. To define the stochastic
+processes that drive this system, we introduce the following random variables:
+• B : binary indicator for the server being idle or busy, B ∈ {0, 1};
+• N1, N2 : number of customers of class 1 and 2, respectively, in their respective queues;
+• N : total number of customers in the queues.
+Note that N1, N2 and N count customers in the queues, not the system. Since the service rate
+is common to both classes, we write the idle state as (0) and all other states as (n1, n2), so (0, 0)
+means someone is in service and the queues are empty. Alternatively, an auxiliary state space eS
+tracks only n2 and the total n = n1 + n2, subject to n ≥ n2 ≥ 0. Formally:
+S := {(0)} ∪ {(n1, n2) | n1, n2 ≥ 0},
+eS := {(0)} ∪ {(n2, n) | n ≥ n2 ≥ 0}. (4.1)
+We define the long-run probabilities of finding the system in each state:
+• π0 for the idle state (0), it belongs to both spaces S and eS;
+• π(n1, n2) for states (n1, n2) ∈ S, where n1, n2 ≥ 0;
+• eπ(n2, n) for states (n2, n) ∈ eS, where n ≥ n2 ≥ 0.
+Arrivals are Poisson for each class and service times exponential (common across classes), with
+the following notation:
+13
+
+-- 13 of 68 --
+
+• λ1, λ2: arrival rates of classes 1 and 2, respectively;
+• μ: service rate of a customer, regardless of class;
+• ρi = λi
+μ : system load of class i ∈ {1, 2};
+• γ1, γ2: per-customer jockeying rates from Class 1 → 2 and 2 → 1, respectively; jockeying
+transfers a customer between queues, preserving the total number of customers;
+• θ1, θ2: per-customer abandonment (reneging) rates from classes 1 and 2, respectively; aban-
+donment removes a customer from the system, reducing the total n by one.
+For the aggregate system parameters, we define:
+• λ = λ1 + λ2: total arrival rate;
+• ρ = λ
+μ : total system load.
+Stability. Jockeying does not affect stability (customers are merely relocated). Model-X has
+abandonments from both classes, so the departure rate μ + θ1n1 + θ2n2 grows unbounded, ensuring
+positive recurrence for all loads. In contrast, models without abandonments require ρ < 1 (they
+behave like M/M/1). Mixed cases, such as Model-C2, are discussed separately (§8).
+Computation of π0 and π(0, 0). The two empty-state probabilities are pinned, for the
+full Model-X, by two exact identities that hold irrespective of the jockeying and abandonment
+mechanisms: a cut between the idle and busy states, and a renewal–reward identity over busy
+cycles. Together they reduce the determination of π0 and π(0, 0) to a single scalar, the mean busy
+period E[B].
+Theorem 1 (Empty-state probabilities of the general model). Assume the CTMC of Model-X is
+positive recurrent, so that the stationary distribution exists. Let λ = λ1 + λ2 and let E[B] denote
+the mean length of a server busy period —the time from an arrival that finds the system empty
+until the system is next empty. Then
+π(0, 0) = ρ π0, (4.2)
+and
+π0 = 1
+1 + λ E[B] , π(0, 0) = ρ
+1 + λ E[B] . (4.3)
+Proof. Cut identity. Consider the cut separating the idle state (0) from the set of busy states. The
+only transitions out of (0) are the class-1 and class-2 arrivals, at total rate λ; the only transition
+into (0) is a service completion from (0, 0), at rate μ —from any state with a waiting customer
+a departure leaves the server busy, and neither jockeying nor abandonment can act when both
+queues are empty. Equating the probability flux across the cut gives λ π0 = μ π(0, 0), which is
+Equation (4.2).
+Renewal–reward identity. The idle state is a regeneration point: by the memorylessness of the
+exponential inter-arrival and service times (the strong Markov property), the evolution after each
+visit to (0) is an independent probabilistic replica. Successive cycles therefore alternate an idle
+period of mean 1/λ (the wait for the next arrival, exponential at rate λ) and a busy period of
+mean E[B]. By the renewal–reward theorem, the stationary probability of the idle state equals the
+long-run fraction of time spent idle,
+π0 = 1/λ
+1/λ + E[B] = 1
+1 + λ E[B] ,
+and substituting into Equation (4.2) yields the stated π(0, 0).
+Both identities are exact for the full model. They reduce the problem to the mean busy
+period E[B], which is elementary when there is no abandonment and is computed model by model
+once abandonment is present; the resulting π0 and π(0, 0) for each tractable model then follow as
+corollaries (Corollary 1 for the no-abandonment family; §8 and §10 for the abandonment variants).
+For the full asymmetric Model-X, E[B] itself has no closed form (Remark 3).
+4.1 Balance equations
+This subsection presents the state-transition diagrams of Model-X on both state spaces S and eS,
+and derives the corresponding sets of balance equations.
+14
+
+-- 14 of 68 --
+
+4.1.1 Balance equations for state space S
+The state-transition diagram of Model-X on S is given in Figure 2.
+n1
+n2
+(0, 0)
+λ1
+λ2
+(n1, 0) λ1
+λ2
+μ
+γ1n1
+θ1n1
+(n1, n2) λ1
+λ2
+μ
+γ1n1
+γ2n2
+θ1n1
+θ2n2
+(0, n2) λ1
+λ2
+μ
+γ2n2
+θ2n2
+idle
+λ1 + λ2
+μ
+Figure 2: State transition diagram on state space S for the model with jockeying (γini, dashed)
+and abandonments (θini, dotted).
+[λ1 + λ2 + μ + (γ1 + θ1)n1 + (γ2 + θ2)n2] π(n1, n2)
+= μπ(n1 + 1, n2)
++ λ1π(n1 − 1, n2)
++ λ2π(n1, n2 − 1)
++ γ1(n1 + 1)π(n1 + 1, n2 − 1)
++ γ2(n2 + 1)π(n1 − 1, n2 + 1)
++ θ1(n1 + 1)π(n1 + 1, n2)
++ θ2(n2 + 1)π(n1, n2 + 1)
+for n1 ≥ 1, n2 ≥ 1 (4.4)
+[λ1 + λ2 + μ + (γ2 + θ2)n2] π(0, n2)
+= λ2π(0, n2 − 1)
++ μπ(1, n2)
++ μπ(0, n2 + 1)
++ γ1π(1, n2 − 1)
++ θ1π(1, n2)
++ θ2(n2 + 1)π(0, n2 + 1)
+for n1 = 0, n2 ≥ 1 (4.5)
+[λ1 + λ2 + μ + (γ1 + θ1)n1] π(n1, 0)
+= λ1π(n1 − 1, 0)
++ μπ(n1 + 1, 0)
++ γ2π(n1 − 1, 1)
++ θ1(n1 + 1)π(n1 + 1, 0)
++ θ2π(n1, 1)
+for n1 ≥ 1, n2 = 0 (4.6)
+15
+
+-- 15 of 68 --
+
+[λ1 + λ2] π(0, 0) = (μ + θ1)π(1, 0) + (μ + θ2)π(0, 1) (4.7)
+(λ1 + λ2)π0 = μπ(0, 0) (4.8)
+4.1.2 Balance equations for state space eS
+Recall the state space eS defined in Equation (4.1).
+For readability we denote its limiting probabilities by eπ(n2, n), for (n2, n) ∈ eS. Figure 3 shows
+the corresponding state transition diagram.
+n2
+n = n1 + n2
+(0, 0)
+λ1 λ2
+(0, n)
+λ1 λ2
+γ1n
+μ	θ1n
+(n, n)
+λ1 λ2
+γ2n
+μ θ2n
+(n2, n)
+λ1 λ2
+γ1(n − n2)
+γ2n2
+μ	θ1(n − n2)
+θ2n2
+idle
+λ = λ1 + λ2
+μ
+Figure 3: State transition diagram on state space eS.
+The balance equations, after combining the equations where eπ0 shows up, are:
+[λ1 + λ2 + μ + (γ1 + θ1)(n − n2) + (γ2 + θ2)n2] eπ(n2, n)
+= λ1 eπ(n2, n − 1)
++ λ2 eπ(n2 − 1, n − 1)
++ μeπ(n2, n + 1)
++ γ1(n − n2 + 1)eπ(n2 − 1, n)
++ γ2(n2 + 1)eπ(n2 + 1, n)
++ θ1(n + 1 − n2)eπ(n2, n + 1)
++ θ2(n2 + 1)eπ(n2 + 1, n + 1)
+for 1 ≤ n2 ≤ n − 1, n ≥ 2 (4.9)
+[λ1 + λ2 + μ + (γ2 + θ2)n] eπ(n, n)
+= λ2 eπ(n − 1, n − 1)
++ μeπ(n + 1, n + 1)
++ μeπ(n, n + 1)
++ γ1 eπ(n − 1, n)
++ θ1 eπ(n, n + 1)
++ θ2(n + 1)eπ(n + 1, n + 1)
+for n2 = n, n ≥ 1 (4.10)
+16
+
+-- 16 of 68 --
+
+[λ1 + λ2 + μ + (γ1 + θ1)n] eπ(0, n)
+= λ1 eπ(0, n − 1)
++ μeπ(0, n + 1)
++ γ2 eπ(1, n)
++ θ1(n + 1)eπ(0, n + 1)
++ θ2 eπ(1, n + 1)
+for n2 = 0, n ≥ 1 (4.11)
+[λ1 + λ2] eπ(0, 0)
+= (μ + θ1)eπ(0, 1) + (μ + θ2)eπ(1, 1) (4.12)
+(λ1 + λ2)eπ0 = μeπ(0, 0) (4.13)
+4.2 Derivation of equations for (Partial) Probability Generating func-
+tions
+To study the limiting behaviour of this two-class system, we define the bivariate Probability Gen-
+erating Function (PGF) of the joint queue lengths N1 and N2:
+P (x, y) = E[xN1 yN2 ] =
+∞	X
+n1=0
+∞	X
+n2=0
+π(n1, n2)xn1 yn2 .
+The derivation also uses the boundary terms, where at least one queue is empty:
+Px(x) = P (x, 0) =
+∞	X
+n1=0
+π(n1, 0)xn1
+Py (y) = P (0, y) =
+∞	X
+n2=0
+π(0, n2)yn2 .
+Note that both terms include the busy-but-empty state π(0, 0), whereas the fully idle state is
+treated separately.
+A further term arises in the balance equations, describing the boundary dynamics when the
+class-1 queue holds exactly one waiting customer:
+P1(y) =
+∞	X
+n2=1
+π(1, n2)yn2 .
+This is an intermediate term; as the derivation proceeds, it will be expressed in terms of the
+primary boundary functions Px(x) and Py (y).
+In the same fashion, we introduce the Partial Probability Generating Function (PPGF).
+This technique, notably used by Cohen [Coh56], transforms only a subset of the random variables
+while keeping the discrete indices of the rest. For a priority queue it is particularly advantageous:
+it lets us exploit the well-known properties of the priority class (often a standard M/M/1 system)
+and concentrate the analytical effort on the non-trivial PGF of the non-priority class.
+Cohen developed this framework for multi-server systems; we apply it here to the single-server
+case. To avoid confusion from mid-20th-century notation, we give a modern formulation consistent
+with the variables defined above.
+We define the PPGF with respect to N2, conditioned on the first queue being in state n1:
+e	P (n1, y) = E  yN2 ⊮{N1=n1}
+  =
+∞	X
+n2=0
+π(n1, n2)yn2 . (4.14)
+Similarly, the transform with respect to N1, keeping the second queue in discrete state n2, is:
+e	P (x, n2) = E  xN1 ⊮{N2=n2}
+  =
+∞	X
+n1=0
+π(n1, n2)xn1 .
+These partial transforms relate to the joint PGF by:
+P (x, y) =
+∞	X
+n1=0
+e	P (n1, y)xn1 =
+∞	X
+n2=0
+e	P (x, n2)yn2 .
+17
+
+-- 17 of 68 --
+
+4.2.1 Equation for PGF in state space S
+Lemma 1 (Fundamental equation for the PGF on S). Consider the two-class non-preemptive
+priority queue on the state space S = {(n1, n2) : n1, n2 ≥ 0}, with Poisson arrival rates λ1, λ2,
+exponential service rate μ, jockeying rates γ1, γ2 and abandonment rates θ1, θ2, where n1 and n2
+count the class-1 and class-2 customers waiting in the queues. Assume the associated CTMC is
+positive recurrent, so that the stationary distribution {π(n1, n2)} exists and the joint PGF
+P (x, y) =
+∞	X
+n1=0
+∞	X
+n2=0
+π(n1, n2) xn1 yn2
+is analytic on the closed unit polydisc |x| ≤ 1, |y| ≤ 1. Then P (x, y), together with the boundary
+function Py (y) = P (0, y) = P∞
+n2=0 π(0, n2)yn2 , satisfies the first-order linear partial differential
+equation
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y)
++ xy [γ1(x − y) + θ1(x − 1)] ∂
+∂x P (x, y)
++ xy [γ2(y − x) + θ2(y − 1)] ∂
+∂y P (x, y)
+= μ(x − y)Py (y) − μx(1 − y) π(0, 0).
+(4.15)
+Remark 1 (Reading the fundamental equation). Equation (4.15) repays a moment’s mechanical
+reading, since its structure dictates the entire analysis that follows. The bracketed algebraic
+coefficient multiplying P (x, y) is exactly the kernel of the baseline Model-A: the flux balance
+between the arrival contributions λ1x2y and λ2xy2, the service contribution μy, and the total
+outflow (λ1 + λ2 + μ)xy.
+The two convection coefficients carry the added mechanisms. In the x-convection coefficient
+xy [γ1(x − y) + θ1(x − 1)], the jockeying factor (x − y) vanishes on the diagonal x = y —the
+analytic signature that jockeying merely relocates a customer and so conserves the total count—
+while the abandonment factor (x − 1) vanishes at x = 1, the signature that abandonment respects
+normalisation (P (1, 1) = 1) yet removes a customer and thereby destroys conservation. The y-
+convection coefficient xy [γ2(y−x)+θ2(y−1)] states the symmetric facts for the class-2 mechanisms,
+with (y − x) vanishing on the diagonal and (y − 1) at y = 1.
+The right-hand side carries the two boundary unknowns that any solution must pin down: the
+boundary function Py (y) = P (0, y), the generating function of the states with an empty priority
+queue, and the scalar π(0, 0), the probability that the server is busy with both queues empty.
+The position of these vanishing factors fixes, model by model, where the operative singularity
+sits and hence which technique applies. With both convection terms absent (Model-A, §5) the
+equation is algebraic and Py (y) is recovered from the kernel root x∗(y) inside the unit disc. With
+one-way jockeying alone (Model-B2, §7) the factor (x − y) places the singularity at the interior
+point x = y with a negative exponent, and Py (y) is pinned by analyticity there. With class-1
+abandonment alone (Model-C2, §8) the factor (x − 1) places it on the boundary x = 1 with a
+positive exponent, and Py (y) is pinned by mere boundedness. Restricting a mechanism to the
+head of the queue removes the derivative outright, collapsing the equation to the algebraic Model-
+A form (Models BH
+2 and CH
+2 , §9). These four regimes are gathered side by side in Table 5 of §11.2,
+and are synthesised, together with the two irreducible obstructions, as the obstruction taxonomy
+of §12.
+Proof. We multiply each balance equation by xn1 yn2 and sum over its domain.
+18
+
+-- 18 of 68 --
+
+From the interior equation (4.4):
+(λ1 + λ2 + μ)
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1, n2)xn1 yn2
++ γ1
+∞	X
+n1=1
+∞	X
+n2=1
+n1π(n1, n2)xn1 yn2
++ γ2
+∞	X
+n1=1
+∞	X
+n2=1
+n2π(n1, n2)xn1 yn2
++ θ1
+∞	X
+n1=1
+∞	X
+n2=1
+n1π(n1, n2)xn1 yn2
++ θ2
+∞	X
+n1=1
+∞	X
+n2=1
+n2π(n1, n2)xn1 yn2
+= μ
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1 + 1, n2)xn1 yn2
++ λ1
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1 − 1, n2)xn1 yn2
++ λ2
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1, n2 − 1)xn1 yn2
++ γ1
+∞	X
+n1=1
+∞	X
+n2=1
+(n1 + 1)π(n1 + 1, n2 − 1)xn1 yn2
++ γ2
+∞	X
+n1=1
+∞	X
+n2=1
+(n2 + 1)π(n1 − 1, n2 + 1)xn1 yn2
++ θ1
+∞	X
+n1=1
+∞	X
+n2=1
+(n1 + 1)π(n1 + 1, n2)xn1 yn2
++ θ2
+∞	X
+n1=1
+∞	X
+n2=1
+(n2 + 1)π(n1, n2 + 1)xn1 yn2
+LHS1 + LHS2 + LHS3 + LHS4 + LHS5
+= RHS1 + RHS2 + RHS3 + RHS4 + RHS5 + RHS6 + RHS7
+Evaluating each summand:
+LHS1
+= (λ1 + λ2 + μ)
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1, n2)xn1 yn2
+= (λ1 + λ2 + μ)
+∞	X
+n1=1
+" ∞	X
+n2=0
+π(n1, n2)xn1 yn2 − π(n1, 0)xn1 y0
+#
+= (λ1 + λ2 + μ)
+" ∞	X
+n1=1
+∞	X
+n2=0
+π(n1, n2)xn1 yn2 −
+∞	X
+n1=1
+π(n1, 0)xn1
+#
+= (λ1 + λ2 + μ)
+" ∞	X
+n1=0
+∞	X
+n2=0
+π(n1, n2)xn1 yn2 −
+∞	X
+n2=0
+π(0, n2)yn2
+#
+− (λ1 + λ2 + μ)
+" ∞	X
+n1=0
+π(n1, 0)xn1 − π(0, 0)
+#
+= (λ1 + λ2 + μ) [P (x, y) − Py (y) − Px(x) + π(0, 0)]
+19
+
+-- 19 of 68 --
+
+LHS2
+= γ1
+∞	X
+n1=1
+∞	X
+n2=1
+n1π(n1, n2)xn1 yn2
+= γ1x
+∞	X
+n1=1
+∞	X
+n2=1
+n1π(n1, n2)xn1−1yn2
+= γ1x
+" ∞	X
+n1=1
+∞	X
+n2=0
+n1π(n1, n2)xn1−1yn2 −
+∞	X
+n1=1
+n1π(n1, 0)xn1−1
+#
+= γ1x
+" ∞	X
+n1=0
+∞	X
+n2=0
+n1π(n1, n2)xn1−1yn2 −
+∞	X
+n1=0
+n1π(n1, 0)xn1−1
+#
+= γ1x
+  ∂
+∂x P (x, y) − d
+dx Px(x)
+ 
+LHS3
+= γ2
+∞	X
+n1=1
+∞	X
+n2=1
+n2π(n1, n2)xn1 yn2
+= γ2
+∞	X
+n1=1
+" ∞	X
+n2=0
+n2π(n1, n2)xn1 yn2 − 0 · π(n1, 0)xn1
+#
+= γ2y
+" ∞	X
+n1=0
+∞	X
+n2=0
+n2π(n1, n2)xn1 yn2−1 −
+∞	X
+n2=0
+n2π(0, n2)yn2−1
+#
+= γ2y
+  ∂
+∂y P (x, y) − d
+dy Py (y)
+ 
+LHS4
+= θ1
+∞	X
+n1=1
+∞	X
+n2=1
+n1π(n1, n2)xn1 yn2
+= θ1x
+∞	X
+n1=1
+∞	X
+n2=1
+n1π(n1, n2)xn1−1yn2
+= θ1x
+" ∞	X
+n1=1
+∞	X
+n2=0
+n1π(n1, n2)xn1−1yn2 −
+∞	X
+n1=1
+n1π(n1, 0)xn1−1
+#
+= θ1x
+" ∞	X
+n1=0
+∞	X
+n2=0
+n1π(n1, n2)xn1−1yn2 −
+∞	X
+n1=0
+n1π(n1, 0)xn1−1
+#
+= θ1x
+  ∂
+∂x P (x, y) − d
+dx Px(x)
+ 
+LHS5
+= θ2
+∞	X
+n1=1
+∞	X
+n2=1
+n2π(n1, n2)xn1 yn2
+= θ2y
+" ∞	X
+n1=0
+∞	X
+n2=0
+n2π(n1, n2)xn1 yn2−1 −
+∞	X
+n2=0
+n2π(0, n2)yn2−1
+#
+= θ2y
+  ∂
+∂y P (x, y) − d
+dy Py (y)
+ 
+20
+
+-- 20 of 68 --
+
+RHS1
+= μ
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1 + 1, n2)xn1 yn2
+= μx−1
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1 + 1, n2)xn1+1yn2
+= μx−1
+∞	X
+m=2
+∞	X
+n2=1
+π(m, n2)xmyn2
+= μx−1
+∞	X
+m=2
+" ∞	X
+n2=0
+π(m, n2)xmyn2 − π(m, 0)xm
+#
+= μx−1
+" ∞	X
+m=2
+∞	X
+n2=0
+π(m, n2)xmyn2 −
+∞	X
+m=2
+π(m, 0)xm
+#
+= μx−1
+" ∞	X
+m=0
+∞	X
+n2=0
+π(m, n2)xmyn2 − x
+∞	X
+n2=0
+π(1, n2)yn2 −
+∞	X
+n2=0
+π(0, n2)yn2
+#
+− μx−1
+" ∞	X
+m=0
+π(m, 0)xm − xπ(1, 0) − π(0, 0)
+#
+= μx−1 [P (x, y) − xPy (y|n1 = 1) − Py (y) − Px(x) + xπ(1, 0) + π(0, 0)]
+RHS2
+= λ1
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1 − 1, n2)xn1 yn2
+= λ1x
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1 − 1, n2)xn1−1yn2
+= λ1x
+∞	X
+m=0
+∞	X
+n2=1
+π(m, n2)xmyn2
+= λ1x
+∞	X
+m=0
+" ∞	X
+n2=0
+π(m, n2)xmyn2 − π(m, 0)xm
+#
+= λ1x
+" ∞	X
+m=0
+∞	X
+n2=0
+π(m, n2)xmyn2 −
+∞	X
+m=0
+π(m, 0)xm
+#
+= λ1x [P (x, y) − Px(x)]
+RHS3
+= λ2
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1, n2 − 1)xn1 yn2
+= λ2y
+∞	X
+n1=1
+∞	X
+n2=1
+π(n1, n2 − 1)xn1 yn2−1
+= λ2y
+∞	X
+n1=1
+∞	X
+m=0
+π(n1, m)xn1 ym
+= λ2y
+" ∞	X
+n1=0
+∞	X
+m=0
+π(n1, m)xn1 ym −
+∞	X
+m=0
+π(0, m)ym
+#
+= λ2y [P (x, y) − Py (y)]
+21
+
+-- 21 of 68 --
+
+RHS4
+= γ1
+∞	X
+n1=1
+∞	X
+n2=1
+(n1 + 1)π(n1 + 1, n2 − 1)xn1 yn2
+= γ1y
+∞	X
+n1=1
+∞	X
+m2=0
+(n1 + 1)π(n1 + 1, m2)xn1 ym2
+= γ1y
+∞	X
+m1=2
+∞	X
+m2=0
+m1π(m1, m2)xm1−1ym2
+= γ1y
+" ∞	X
+m1=0
+∞	X
+m2=0
+m1π(m1, m2)xm1−1ym2 −
+∞	X
+m2=0
+π(1, m2)ym2
+#
+= γ1y
+  ∂
+∂x P (x, y) − Py (y|n1 = 1)
+ 
+RHS5
+= γ2
+∞	X
+n1=1
+∞	X
+n2=1
+(n2 + 1)π(n1 − 1, n2 + 1)xn1 yn2
+= γ2
+∞	X
+n1=1
+∞	X
+m2=2
+m2π(n1 − 1, m2)xn1 ym2−1
+= γ2x
+" ∞	X
+n1=1
+∞	X
+m2=0
+m2π(n1 − 1, m2)xn1−1ym2−1 −
+∞	X
+n1=1
+π(n1 − 1, 1)xn1−1
+#
+= γ2x
+" ∞	X
+m1=0
+∞	X
+m2=0
+m2π(m1, m2)xm1 ym2−1 −
+∞	X
+m1=0
+π(m1, 1)xm1
+#
+= γ2x
+  ∂
+∂y P (x, y) − Px(x|n2 = 1)
+ 
+RHS6
+= θ1
+∞	X
+n1=1
+∞	X
+n2=1
+(n1 + 1)π(n1 + 1, n2)xn1 yn2
+= θ1
+∞	X
+m1=2
+∞	X
+n2=1
+m1π(m1, n2)xm1−1yn2
+= θ1
+" ∞	X
+m1=0
+∞	X
+n2=1
+m1π(m1, n2)xm1−1yn2 −
+∞	X
+n2=1
+π(1, n2)yn2
+#
+= θ1
+" ∞	X
+m1=0
+∞	X
+n2=0
+m1π(m1, n2)xm1−1yn2 −
+∞	X
+m1=0
+m1π(m1, 0)xm1−1
+#
+− θ1
+" ∞	X
+n2=0
+π(1, n2)yn2 − π(1, 0)
+#
+= θ1
+  ∂
+∂x P (x, y) − d
+dx Px(x) − Py (y|n1 = 1) + π(1, 0)
+ 
+22
+
+-- 22 of 68 --
+
+RHS7
+= θ2
+∞	X
+n1=1
+∞	X
+n2=1
+(n2 + 1)π(n1, n2 + 1)xn1 yn2
+= θ2
+∞	X
+n1=1
+∞	X
+m2=2
+m2π(n1, m2)xn1 ym2−1
+= θ2
+" ∞	X
+n1=1
+∞	X
+m2=0
+m2π(n1, m2)xn1 ym2−1 −
+∞	X
+n1=1
+π(n1, 1)xn1
+#
+= θ2
+" ∞	X
+n1=0
+∞	X
+m2=0
+m2π(n1, m2)xn1 ym2−1 −
+∞	X
+m2=0
+m2π(0, m2)ym2−1
+#
+− θ2
+" ∞	X
+n1=0
+π(n1, 1)xn1 − π(0, 1)
+#
+= θ2
+  ∂
+∂y P (x, y) − d
+dy Py (y) − Px(x|n2 = 1) + π(0, 1)
+ 
+Collecting and multiplying through by xy to clear the x−1 factor:
+(λ1 + λ2 + μ) [P (x, y) − Py (y) − Px(x) + π(0, 0)]
++ γ1x
+  ∂
+∂x P (x, y) − d
+dx Px(x)
+ 
++ γ2y
+  ∂
+∂y P (x, y) − d
+dy Py (y)
+ 
++ θ1x
+  ∂
+∂x P (x, y) − d
+dx Px(x)
+ 
++ θ2y
+  ∂
+∂y P (x, y) − d
+dy Py (y)
+ 
+= μx−1 [P (x, y) − xPy (y|n1 = 1) − Py (y) − Px(x) + xπ(1, 0) + π(0, 0)]
++ λ1x [P (x, y) − Px(x)]
++ λ2y [P (x, y) − Py (y)]
++ γ1y
+  ∂
+∂x P (x, y) − Py (y|n1 = 1)
+ 
++ γ2x
+  ∂
+∂y P (x, y) − Px(x|n2 = 1)
+ 
++ θ1
+  ∂
+∂x P (x, y) − d
+dx Px(x) − Py (y|n1 = 1) + π(1, 0)
+ 
++ θ2
+  ∂
+∂y P (x, y) − d
+dy Py (y) − Px(x|n2 = 1) + π(0, 1)
+ 
+23
+
+-- 23 of 68 --
+
+ (λ1 + λ2 + μ) − μx−1 − λ1x − λ2y  P (x, y)
++ [γ1(x − y) + θ1(x − 1)] ∂
+∂x P (x, y)
++ [γ2(y − x) + θ2(y − 1)] ∂
+∂y P (x, y)
+=  (λ1 + λ2 + μ) − μx−1 − λ1x  Px(x)
++  (λ1 + λ2 + μ) − μx−1 − λ2y  Py (y)
++  −(λ1 + λ2 + μ) + μx−1  π(0, 0)
++ [γ1x + θ1(x − 1)] d
+dx Px(x)
++ [γ2y + θ2(y − 1)] d
+dy Py (y)
+− [μ + γ1y + θ1] Py (y|n1 = 1)
+− [γ2x + θ2] Px(x|n2 = 1)
++ μπ(1, 0)
++ θ1π(1, 0)
++ θ2π(0, 1)
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y)
++ xy [γ1(x − y) + θ1(x − 1)] ∂
+∂x P (x, y)
++ xy [γ2(y − x) + θ2(y − 1)] ∂
+∂y P (x, y)
+=  (λ1 + λ2 + μ)xy − μy − λ1x2y  Px(x)
++  (λ1 + λ2 + μ)xy − μy − λ2xy2  Py (y)
+− [(λ1 + λ2 + μ)xy − μy] π(0, 0)
++ xy [γ1x + θ1(x − 1)] d
+dx Px(x)
++ xy [γ2y + θ2(y − 1)] d
+dy Py (y)
+− xy [μ + γ1y + θ1] Py (y|n1 = 1)
+− xy [γ2x + θ2] Px(x|n2 = 1)
++ (μ + θ1)xy π(1, 0)
++ θ2xy π(0, 1)
+(4.16)
+The x-boundary equation (4.6), treated analogously, gives:
+∞	X
+n1=1
+[λ1 + λ2 + μ + (γ1 + θ1)n1] π(n1, 0)xn1
+= λ1
+∞	X
+n1=1
+π(n1 − 1, 0)xn1 + μ
+∞	X
+n1=1
+π(n1 + 1, 0)xn1
++ γ2
+∞	X
+n1=1
+π(n1 − 1, 1)xn1 + θ1
+∞	X
+n1=1
+(n1 + 1)π(n1 + 1, 0)xn1 + θ2
+∞	X
+n1=1
+π(n1, 1)xn1
+(λ1 + λ2 + μ)
+∞	X
+n1=1
+π(n1, 0)xn1 + (γ1 + θ1)x
+∞	X
+n1=1
+n1π(n1, 0)xn1−1
+= λ1x
+∞	X
+m=0
+π(m, 0)xm + μx−1
+∞	X
+m=2
+π(m, 0)xm
++ γ2x
+∞	X
+m=0
+π(m, 1)xm + θ1
+∞	X
+m=2
+mπ(m, 0)xm−1 + θ2
+∞	X
+m=1
+π(m, 1)xm
+24
+
+-- 24 of 68 --
+
+(λ1 + λ2 + μ)
+" ∞	X
+n1=0
+π(n1, 0)xn1 − π(0, 0)
+#
++ (γ1 + θ1)x
+∞	X
+n1=0
+n1π(n1, 0)xn1−1
+= λ1x
+∞	X
+m=0
+π(m, 0)xm
++ μx−1
+" ∞	X
+m=0
+π(m, 0)xm − xπ(1, 0) − π(0, 0)
+#
++ γ2x
+∞	X
+m=0
+π(m, 1)xm
++ θ1
+" ∞	X
+m=0
+mπ(m, 0)xm−1 − π(1, 0)
+#
++ θ2
+" ∞	X
+m=0
+π(m, 1)xm − π(0, 1)
+#
+(λ1 + λ2 + μ) [Px(x) − π(0, 0)] + (γ1 + θ1)x d
+dx Px(x)
+= λ1xPx(x) + μx−1 [Px(x) − xπ(1, 0) − π(0, 0)]
++ γ2xPx(x|n2 = 1) + θ1
+  d
+dx Px(x) − π(1, 0)
+ 
++ θ2 [Px(x|n2 = 1) − π(0, 1)]
+ (λ1 + λ2 + μ) − μx−1 − λ1x  Px(x) + [γ1x + θ1(x − 1)] d
+dx Px(x)
+=  (λ1 + λ2 + μ) − μx−1  π(0, 0) − (μ + θ1)π(1, 0) − θ2π(0, 1)
++ [γ2x + θ2] Px(x|n2 = 1)
+ (λ1 + λ2 + μ)xy − μy − λ1x2y  Px(x) + xy [γ1x + θ1(x − 1)] d
+dx Px(x)
+= [(λ1 + λ2 + μ)xy − μy] π(0, 0)
+− (μ + θ1)xy π(1, 0)
+− θ2xy π(0, 1)
++ xy [γ2x + θ2] Px(x|n2 = 1)
+(4.17)
+The y-boundary equation (4.5) gives:
+∞	X
+n2=1
+[λ1 + λ2 + μ + (γ2 + θ2)n2] π(0, n2)yn2
+= λ2
+∞	X
+n2=1
+π(0, n2 − 1)yn2
++ μ
+∞	X
+n2=1
+π(1, n2)yn2
++ μ
+∞	X
+n2=1
+π(0, n2 + 1)yn2
++ γ1
+∞	X
+n2=1
+π(1, n2 − 1)yn2
++ θ1
+∞	X
+n2=1
+π(1, n2)yn2
++ θ2
+∞	X
+n2=1
+(n2 + 1)π(0, n2 + 1)yn2
+25
+
+-- 25 of 68 --
+
+(λ1 + λ2 + μ)
+∞	X
+n2=1
+π(0, n2)yn2
++ (γ2 + θ2)y
+∞	X
+n2=1
+n2π(0, n2)yn2−1
+= λ2y
+∞	X
+m=0
+π(0, m)ym
++ μ
+∞	X
+n2=1
+π(1, n2)yn2
++ μy−1
+∞	X
+m=2
+π(0, m)ym
++ γ1y
+∞	X
+m=0
+π(1, m)ym
++ θ1
+∞	X
+n2=1
+π(1, n2)yn2
++ θ2
+∞	X
+m=2
+mπ(0, m)ym−1
+(λ1 + λ2 + μ)
+" ∞	X
+n2=0
+π(0, n2)yn2 − π(0, 0)
+#
++ (γ2 + θ2)y
+∞	X
+n2=0
+n2π(0, n2)yn2−1
+= λ2y
+∞	X
+m=0
+π(0, m)ym
++ μ
+" ∞	X
+n2=0
+π(1, n2)yn2 − π(1, 0)
+#
++ μy−1
+" ∞	X
+m=0
+π(0, m)ym − yπ(0, 1) − π(0, 0)
+#
++ γ1y
+∞	X
+m=0
+π(1, m)ym
++ θ1
+" ∞	X
+n2=0
+π(1, n2)yn2 − π(1, 0)
+#
++ θ2
+" ∞	X
+m=0
+mπ(0, m)ym−1 − π(0, 1)
+#
+(λ1 + λ2 + μ) [Py (y) − π(0, 0)] + (γ2 + θ2)y d
+dy Py (y)
+= λ2yPy (y) + μ [Py (y|n1 = 1) − π(1, 0)]
++ μy−1 [Py (y) − yπ(0, 1) − π(0, 0)] + γ1yPy (y|n1 = 1)
++ θ1 [Py (y|n1 = 1) − π(1, 0)] + θ2
+  d
+dy Py (y) − π(0, 1)
+ 
+ (λ1 + λ2 + μ) − μy−1 − λ2y  Py (y) + [γ2y + θ2(y − 1)] d
+dy Py (y)
+= [μ + γ1y + θ1] Py (y|n1 = 1)
+− (μ + θ1)π(1, 0) − (μ + θ2)π(0, 1)
++  (λ1 + λ2 + μ) − μy−1  π(0, 0)
+26
+
+-- 26 of 68 --
+
+ (λ1 + λ2 + μ) − μy−1 − λ2y  Py (y) + [γ2y + θ2(y − 1)] d
+dy Py (y)
+= [μ + γ1y + θ1] Py (y|n1 = 1)
++  (λ1 + λ2 + μ) − μy−1 − (λ1 + λ2)  π(0, 0)
+ (λ1 + λ2 + μ) − μy−1 − λ2y  Py (y) + [γ2y + θ2(y − 1)] d
+dy Py (y)
+= [μ + γ1y + θ1] Py (y|n1 = 1) +  μ − μy−1  π(0, 0)
+ (λ1 + λ2 + μ)xy − μx − λ2xy2  Py (y) + xy [γ2y + θ2(y − 1)] d
+dy Py (y)
+= [μ + γ1y + θ1] xy Py (y|n1 = 1) − μx(1 − y) π(0, 0)
+(4.18)
+Substituting Equation (4.17) into Equation (4.16) eliminates all Px terms:
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y)
++ xy [γ1(x − y) + θ1(x − 1)] ∂
+∂x P (x, y)
++ xy [γ2(y − x) + θ2(y − 1)] ∂
+∂y P (x, y)
+=  (λ1 + λ2 + μ)xy − μy − λ2xy2  Py (y)
++ xy [γ2y + θ2(y − 1)] d
+dy Py (y)
+− xy [μ + γ1y + θ1] Py (y|n1 = 1)
+(4.19)
+Isolating [μ + γ1y + θ1] xy Py (y|n1 = 1) from Equation (4.18) and substituting into Equa-
+tion (4.19):
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y)
++ xy [γ1(x − y) + θ1(x − 1)] ∂
+∂x P (x, y)
++ xy [γ2(y − x) + θ2(y − 1)] ∂
+∂y P (x, y)
+=  (λ1 + λ2 + μ)xy − μy − λ2xy2  Py (y)
++ xy [γ2y + θ2(y − 1)] d
+dy Py (y)
+−   (λ1 + λ2 + μ)xy − μx − λ2xy2  Py (y)
++xy [γ2y + θ2(y − 1)] d
+dy Py (y) + μx(1 − y) π(0, 0)
+ 
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y)
++ xy [γ1(x − y) + θ1(x − 1)] ∂
+∂x P (x, y)
++ xy [γ2(y − x) + θ2(y − 1)] ∂
+∂y P (x, y)
+= μ(x − y)Py (y) − μx(1 − y) π(0, 0)
+.
+The fundamental equation already delivers the first specialisation of Theorem 1: the case of no
+abandonment, which covers Models A, B, B2 and BH
+2 at once.
+Corollary 1 (Empty states without abandonment). Suppose θ1 = θ2 = 0 (Models A, B, B2 and
+BH
+2 ) and ρ < 1. Then the total number in the system is a birth–death process with birth rate λ and
+death rate μ —an M/M/1 queue— for any jockeying rates γ1, γ2, since jockeying merely relocates
+a waiting customer and so conserves the total count. Its mean busy period is E[B] = (μ − λ)−1,
+and Theorem 1 gives
+π0 = 1 − ρ, π(0, 0) = ρ(1 − ρ). (4.20)
+Moreover, setting x = y = z in the fundamental equation (4.15) annihilates both convection terms
+(each carries the factor x − y), leaving the algebraic relation −(1 − z) μ − λz P (z, z) = −μ(1 −
+27
+
+-- 27 of 68 --
+
+z) π(0, 0), whence the diagonal of the PGF and the normalisation read
+P (z, z) = π(0, 0)
+1 − ρz , P (1, 1) = 1 − π0 = ρ. (4.21)
+4.2.2 Equation for PPGF in state space eS
+Lemma 2 (Fundamental equation for the PPGF on eS). Consider the same system on the state
+space eS = {(n2, n) : 0 ≤ n2 ≤ n}, where n is the total number of customers waiting in the queues
+and n2 the number of waiting class-2 customers. Assume positive recurrence, so that the stationary
+distribution {eπ(n2, n)} exists, and define the partial PGF (transforming only n2, keeping n discrete)
+e	P (y, n) =
+n	X
+n2=0
+eπ(n2, n) yn2 ,
+a polynomial of degree n in y. Then, for every n ≥ 1, the family { e	P (y, n)}n≥0 satisfies the
+differential–difference equation
+[−(γ2 + γ1y)(1 − y) + (θ2 − θ1)y] d
+dy e	P (y, n) + [λ1 + λ2 + μ + γ1n(1 − y) + θ1n] e	P (y, n)
+= (λ1 + λ2y) e	P (y, n − 1) + [μ + θ1(n + 1)] e	P (y, n + 1)
++ (θ2 − θ1y) d
+dy e	P (y, n + 1) + μyn(1 − y) eπ(n + 1, n + 1).
+Proof. Multiply the interior equation (4.9) by yn2 and sum over 1 ≤ n2 ≤ n − 1:
+(λ1 + λ2 + μ)
+n−1	X
+n2=1
+eπ(n2, n)yn2
++ γ1
+n−1	X
+n2=1
+(n − n2)eπ(n2, n)yn2
++ γ2
+n−1	X
+n2=1
+n2 eπ(n2, n)yn2
++ θ1
+n−1	X
+n2=1
+(n − n2)eπ(n2, n)yn2
++ θ2
+n−1	X
+n2=1
+n2 eπ(n2, n)yn2
+= λ1
+n−1	X
+n2=1
+eπ(n2, n − 1)yn2
++ λ2
+n−1	X
+n2=1
+eπ(n2 − 1, n − 1)yn2
++ μ
+n−1	X
+n2=1
+eπ(n2, n + 1)yn2
++ γ1
+n−1	X
+n2=1
+(n − n2 + 1)eπ(n2 − 1, n)yn2
++ γ2
+n−1	X
+n2=1
+(n2 + 1)eπ(n2 + 1, n)yn2
++ θ1
+n−1	X
+n2=1
+(n + 1 − n2)eπ(n2, n + 1)yn2
++ θ2
+n−1	X
+n2=1
+(n2 + 1)eπ(n2 + 1, n + 1)yn2
+28
+
+-- 28 of 68 --
+
+Adding the diagonal equation (4.10) multiplied by yn extends most summation limits to n; the
+λ1- and γ2-terms on the RHS remain restricted to n2 ≤ n − 1, and a spare μeπ(n + 1, n + 1)yn
+survives:
+(λ1 + λ2 + μ)
+n	X
+n2=1
+eπ(n2, n)yn2
++ γ1
+n	X
+n2=1
+(n − n2)eπ(n2, n)yn2
++ γ2
+n	X
+n2=1
+n2 eπ(n2, n)yn2
++ θ1
+n	X
+n2=1
+(n − n2)eπ(n2, n)yn2
++ θ2
+n	X
+n2=1
+n2 eπ(n2, n)yn2
+= λ1
+n−1	X
+n2=1
+eπ(n2, n − 1)yn2
++ λ2
+n	X
+n2=1
+eπ(n2 − 1, n − 1)yn2
++ μ
+n	X
+n2=1
+eπ(n2, n + 1)yn2
++ μeπ(n + 1, n + 1)yn
++ γ1
+n	X
+n2=1
+(n − n2 + 1)eπ(n2 − 1, n)yn2
++ γ2
+n−1	X
+n2=1
+(n2 + 1)eπ(n2 + 1, n)yn2
++ θ1
+n	X
+n2=1
+(n + 1 − n2)eπ(n2, n + 1)yn2
++ θ2
+n	X
+n2=1
+(n2 + 1)eπ(n2 + 1, n + 1)yn2 .
+Evaluating each summand:
+LHS1
+= (λ1 + λ2 + μ)
+n	X
+n2=1
+eπ(n2, n)yn2
+= (λ1 + λ2 + μ)
+" n	X
+n2=0
+eπ(n2, n)yn2 − eπ(0, n)y0
+#
+= (λ1 + λ2 + μ)
+h e	P (y, n) − eπ(0, n)
+i
+29
+
+-- 29 of 68 --
+
+LHS2
+= γ1
+n	X
+n2=1
+(n − n2)eπ(n2, n)yn2
+= γ1
+"
+n
+n	X
+n2=1
+eπ(n2, n)yn2 −
+n	X
+n2=1
+n2 eπ(n2, n)yn2
+#
+= γ1
+"
+n
+n	X
+n2=0
+eπ(n2, n)yn2 − eπ(0, n)y0
+!
+− y
+n	X
+n2=1
+n2 eπ(n2, n)yn2−1
+#
+= γ1
+ 
+n  e	P (y, n) − eπ(0, n)  − y d
+dy e	P (y, n)
+ 
+LHS3
+= γ2
+n	X
+n2=1
+n2 eπ(n2, n)yn2
+= γ2
+"
+y
+n	X
+n2=1
+n2 eπ(n2, n)yn2−1
+#
+= γ2y d
+dy e	P (y, n)
+LHS4
+= θ1
+n	X
+n2=1
+(n − n2)eπ(n2, n)yn2
+= θ1
+ 
+n  e	P (y, n) − eπ(0, n)  − y d
+dy e	P (y, n)
+ 
+LHS5
+= θ2
+n	X
+n2=1
+n2 eπ(n2, n)yn2
+= θ2y d
+dy e	P (y, n)
+RHS1
+= λ1
+n−1	X
+n2=1
+eπ(n2, n − 1)yn2
+= λ1
+" n	X
+n2=1
+eπ(n2, n − 1)yn2 − eπ(n, n − 1)yn
+#
+= λ1
+" n	X
+n2=0
+eπ(n2, n − 1)yn2 − eπ(n, n − 1)yn − eπ(0, n − 1)y0
+#
+= λ1
+h e	P (y, n − 1) − eπ(n, n − 1)yn − eπ(0, n − 1)
+i
+RHS2
+= λ2
+n	X
+n2=1
+eπ(n2 − 1, n − 1)yn2
+= λ2
+"
+y
+n	X
+n2=1
+eπ(n2 − 1, n − 1)yn2−1
+#
+= λ2
+"
+y
+n−1	X
+n2=0
+eπ(n2, n − 1)yn2
+#
+= λ2
+"
+y
+n	X
+n2=0
+eπ(n2, n − 1)yn2 − eπ(n, n − 1)yn
+!#
+= λ2y
+h e	P (y, n − 1) − eπ(n, n − 1)yni
+30
+
+-- 30 of 68 --
+
+RHS3
+= μeπ(n + 1, n + 1)yn + μ
+n	X
+n2=1
+eπ(n2, n + 1)yn2
+= μ
+"
+eπ(n + 1, n + 1)yn +
+n	X
+n2=1
+eπ(n2, n + 1)yn2
+#
+= μ
+"
+eπ(n + 1, n + 1)yn +
+n+1	X
+n2=0
+eπ(n2, n + 1)yn2 − eπ(0, n + 1)y0 − eπ(n + 1, n + 1)yn+1
+#
+= μ
+h e	P (y, n + 1) − eπ(0, n + 1) + eπ(n + 1, n + 1)yn(1 − y)
+i
+RHS4
+= γ1
+n	X
+n2=1
+(n − n2 + 1)eπ(n2 − 1, n)yn2
+= γ1
+"
+y
+n	X
+n2=1
+(n − (n2 − 1))eπ(n2 − 1, n)yn2−1
+#
+= γ1
+"
+y
+n−1	X
+k=0
+(n − k)eπ(k, n)yk
+#
+= γ1
+"
+y
+n	X
+k=0
+(n − k)eπ(k, n)yk
+#
+(since the k = n term is 0)
+= γ1y
+"
+n
+n	X
+k=0
+eπ(k, n)yk − y
+n	X
+k=1
+keπ(k, n)yk−1
+#
+= γ1y
+ 
+n e	P (y, n) − y d
+dy e	P (y, n)
+ 
+RHS5
+= γ2
+n−1	X
+n2=1
+(n2 + 1)eπ(n2 + 1, n)yn2
+= γ2
+n	X
+k=2
+keπ(k, n)yk−1 (letting k = n2 + 1)
+= γ2
+" n	X
+k=1
+keπ(k, n)yk−1 − 1 · eπ(1, n)y0
+#
+= γ2
+  d
+dy e	P (y, n) − eπ(1, n)
+ 
+31
+
+-- 31 of 68 --
+
+RHS6
+= θ1
+n	X
+n2=1
+(n + 1 − n2)eπ(n2, n + 1)yn2
+= θ1
+"
+(n + 1)
+n	X
+n2=1
+eπ(n2, n + 1)yn2 −
+n	X
+n2=1
+n2 eπ(n2, n + 1)yn2
+#
+= θ1
+"
+(n + 1)
+n+1	X
+n2=0
+eπ(n2, n + 1)yn2 − eπ(0, n + 1) − eπ(n + 1, n + 1)yn+1
+!#
+− θ1
+"
+y
+n+1	X
+n2=0
+n2 eπ(n2, n + 1)yn2−1 − (n + 1)eπ(n + 1, n + 1)yn
+!#
+= θ1
+h
+(n + 1)  e	P (y, n + 1) − eπ(0, n + 1)  − (n + 1)eπ(n + 1, n + 1)yn+1i
+− θ1
+ 
+y d
+dy e	P (y, n + 1) − (n + 1)eπ(n + 1, n + 1)yn+1
+ 
+= θ1
+ 
+(n + 1)  e	P (y, n + 1) − eπ(0, n + 1)  − y d
+dy e	P (y, n + 1)
+ 
+RHS7
+= θ2
+n	X
+n2=1
+(n2 + 1)eπ(n2 + 1, n + 1)yn2
+= θ2
+n+1	X
+k=2
+keπ(k, n + 1)yk−1 (letting k = n2 + 1)
+= θ2
+"n+1	X
+k=1
+keπ(k, n + 1)yk−1 − 1 · eπ(1, n + 1)y0
+#
+= θ2
+  d
+dy e	P (y, n + 1) − eπ(1, n + 1)
+ 
+Collecting:
+(λ1 + λ2 + μ)
+h e	P (y, n) − eπ(0, n)
+i
++ γ1
+ 
+n  e	P (y, n) − eπ(0, n)  − y d
+dy e	P (y, n)
+ 
++ γ2y d
+dy e	P (y, n)
++ θ1
+ 
+n  e	P (y, n) − eπ(0, n)  − y d
+dy e	P (y, n)
+ 
++ θ2y d
+dy e	P (y, n)
+= λ1
+h e	P (y, n − 1) − eπ(n, n − 1)yn − eπ(0, n − 1)
+i
++ λ2y
+h e	P (y, n − 1) − eπ(n, n − 1)yni
++ μ
+h e	P (y, n + 1) − eπ(0, n + 1) + eπ(n + 1, n + 1)yn(1 − y)
+i
++ γ1y
+ 
+n e	P (y, n) − y d
+dy e	P (y, n)
+ 
++ γ2
+  d
+dy e	P (y, n) − eπ(1, n)
+ 
++ θ1
+ 
+(n + 1)  e	P (y, n + 1) − eπ(0, n + 1)  − y d
+dy e	P (y, n + 1)
+ 
++ θ2
+  d
+dy e	P (y, n + 1) − eπ(1, n + 1)
+ 
+32
+
+-- 32 of 68 --
+
+Regrouping:
+[−(γ2 + γ1y)(1 − y) + (θ2 − θ1)y] d
+dy e	P (y, n) + [λ1 + λ2 + μ + γ1n(1 − y) + θ1n] e	P (y, n)
+= (λ1 + λ2y) e	P (y, n − 1) + [μ + θ1(n + 1)] e	P (y, n + 1) + (θ2 − θ1y) d
+dy e	P (y, n + 1)
++ {[λ1 + λ2 + μ + (γ1 + θ1)n] eπ(0, n) − λ1 eπ(0, n − 1) − [μ + θ1(n + 1)] eπ(0, n + 1)
+−γ2 eπ(1, n) − θ2 eπ(1, n + 1)}
+− yn(λ1 + λ2y)eπ(n, n − 1) + μyn(1 − y)eπ(n + 1, n + 1)
+The y-boundary equation (4.11) makes the bracketed terms vanish; since eπ(n, n − 1) = 0 (outside
+eS):
+[−(γ2 + γ1y)(1 − y) + (θ2 − θ1)y] d
+dy e	P (y, n) + [λ1 + λ2 + μ + γ1n(1 − y) + θ1n] e	P (y, n)
+= (λ1 + λ2y) e	P (y, n − 1) + [μ + θ1(n + 1)] e	P (y, n + 1) + (θ2 − θ1y) d
+dy e	P (y, n + 1)
++ μyn(1 − y)eπ(n + 1, n + 1)
+Remark 2 (The eS recursion is a failed simplification). The partial-PGF recurrence of Lemma 2 was
+introduced in the expectation that generating only over the class-2 index, while carrying the total
+count n as a discrete parameter, would simplify the analysis — collapsing the two-dimensional
+balance on S to a one-dimensional recurrence in n. It does the opposite. The forcing term
+μyn(1 − y) eπ(n + 1, n + 1) ties each level n to the unknown diagonal sequence {π(0, n)}, so the
+recurrence does not close on itself: solving it would require precisely the boundary probabilities it
+was meant to deliver. Only for the baseline Model-A does that forcing decay fast enough to be
+dropped, and even there the result is an approximation, accurate only in a restricted parameter
+region (Approximation 1). For every model with an active mechanism the eS route is strictly harder
+than the S analysis it was meant to replace. We therefore record it as a deliberate negative result:
+the eS coordinatisation is retained only for Model-A, and the S formulation is used throughout the
+remainder of this thesis.
+5 Analysis of Model-A (γ1 = γ2 = 0, θ1 = θ2 = 0)
+Model-A is the baseline of this collection: all jockeying and abandonment parameters are zero,
+leaving an ordinary two-class M/M/1 queue with non-preemptive priority. We analyse it in both
+state spaces S and eS: on the former we give two complete proofs, on the latter a conditionally
+accurate approximation, evaluated in Approximation 1.
+The balance equations are obtained by plugging γ1 = γ2 = θ1 = θ2 = 0 into Equations (4.4),
+(4.6), (4.5), (4.7), and (4.8) for state space S, and Equations (4.9), (4.10), (4.11), (4.12), and (4.13)
+for state space eS. The corresponding starting points are Lemma 1 for S and Lemma 2 for eS.
+Stability. Since there is no abandonment, the system is positive recurrent if and only if the
+total load satisfies
+ρ = λ1 + λ2
+μ < 1. (5.1)
+Figure 4 shows the queueing diagram of Model-A.
+33
+
+-- 33 of 68 --
+
+λ1
+λ2
+μ
+Figure 4: Queue layout for Model-A. Only Poisson arrivals and exponential service are present;
+all active mechanisms rates are zero.
+5.1 Analysis of Model-A: state space S
+We begin from Equation (4.15) with γ1 = γ2 = θ1 = θ2 = 0, in which the boundary function
+Py (y) = P (0, y) is still to be determined:
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(x − y)Py (y) − μx(1 − y)π(0, 0). (5.2)
+The following theorem summarises the main result of this subsection; two standalone proofs
+are given, one analytical and one probabilistic.
+Theorem 2. Consider a queueing system with two priority classes with Poisson arrival rates λ1
+and λ2, where class-1 customers have non-preemptive priority over those of class 2, and exponen-
+tially distributed service times with rate μ independently of the class. Under the stability condition
+ρ < 1 (5.1), the joint PGF P (x, y) = E[xN1 yN2 ] is
+P (x, y) =  (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2 −1 · y(1 − y)
+  x − x∗(y)
+x∗(y) − y
+ 
+· ρ(1 − ρ), (5.3)
+where
+x∗(y) = [μ + λ1 + λ2(1 − y)] −
+q
+[μ + λ1 + λ2(1 − y)]2 − 4λ1μ
+2λ1
+. (5.4)
+Corollary 2. Under the stability condition ρ < 1 (5.1), the empty-state probabilities for Model-A
+are
+π0 = 1 − ρ, π(0, 0) = ρ(1 − ρ). (5.5)
+In particular, P (1, 1) = 1 − π0 = ρ and the diagonal generating function satisfies P (z, z) =
+π(0, 0)/(1 − ρz).
+Proof of Corollary 2. Model-A is the no-mechanism case γ1 = γ2 = θ1 = θ2 = 0, so the statement
+is the specialisation of Corollary 1 —equivalently Theorem 1 with the M/M/1 mean busy period
+E[B] = (μ − λ)−1, giving π0 = 1 − ρ and π(0, 0) = ρ(1 − ρ). The diagonal value P (z, z) =
+π(0, 0)/(1 − ρz) and the normalisation P (1, 1) = 1 − π0 = ρ are the reduction (4.21) of the Model-
+A kernel (5.2) on x = y = z.
+5.1.1 Analytical approach for Model-A in state space S
+Proof of Theorem 2, analytical approach. We begin from the fundamental equation for Model-
+A (5.2):
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(x − y)Py (y) − μx(1 − y)π(0, 0).
+We apply the Kernel Method, used in [Coh56]: fix y ∈ (0, 1] and find x∗(y) such that the LHS of
+the expression above is zero. Since P (x, y) is a PGF, it is bounded. At any such root the LHS
+vanishes, so the RHS must also vanish:
+μ (x∗(y) − y) Py (y) − x∗(y)(1 − y) π(0, 0)  = 0.
+To find the roots of the coefficient of P (x, y), divide by y̸ = 0 and set
+0 = (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy
+34
+
+-- 34 of 68 --
+
+0 = λ1x2 − [μ + λ1 + λ2(1 − y)] x + μ,
+whose roots are
+x±(y) = [μ + λ1 + λ2(1 − y)] ±
+q
+[μ + λ1 + λ2(1 − y)]2 − 4μλ1
+2λ1
+.
+We label the root with the negative sign x∗(y) and the root with the positive sign x+(y). At
+y = 1:
+x∗(1) = 1 and x+(1) = μ/λ1 > 1.
+We require our root to lie inside the closed unit disc for y ∈ [0, 1). Computing the derivative
+of x∗(y):
+d
+dy x∗(y) = λ2
+2λ1
+"
+−1 + μ + λ1 + λ2(1 − y)
+p(μ + λ1 + λ2(1 − y))2 − 4λ1μ
+#
+> 0, (5.6)
+since (μ + λ1 + λ2(1 − y))2 > (μ + λ1 + λ2(1 − y))2 − 4λ1μ whenever λ1μ > 0, by squaring numerator
+and denominator in the inner fraction. So x∗(y) is strictly increasing in [0, 1], and since x∗(1) = 1
+we have x∗(y) < 1 for y ∈ [0, 1). We make use of Vieta’s formulas to discard the other root for
+the kernel polynomial λ1x2 − [μ + λ1 + λ2(1 − y)]x + μ = 0: the product of the two roots satisfies
+x∗(y) x+(y) = μ/λ1 > 1, so x+(y) = μ/(λ1x∗(y)) > 1 throughout [0, 1). So the only root strictly
+inside the unit disc for y ∈ [0, 1) is x∗(y):
+x∗(y) = (μ + λ1 + λ2(1 − y)) − p(μ + λ1 + λ2(1 − y))2 − 4λ1μ
+2λ1
+. (5.7)
+Returning to the fundamental equation (5.2) at x = x∗(y), the RHS also equals zero, giving
+μ · [(x∗(y) − y)Py (y) − x∗(y)(1 − y)π(0, 0)] = 0 =⇒ Py (y) = x∗(y)(1 − y)
+x∗(y) − y π(0, 0). (5.8)
+By Corollary 2, π(0, 0) = ρ(1 − ρ). Substituting this and Equation (5.8) into the fundamental
+equation (5.2):
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(x − y) x∗(y)(1 − y)
+x∗(y) − y ρ(1 − ρ) − μx(1 − y)ρ(1 − ρ)
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(1 − y)
+  x∗(y)(x − y)
+x∗(y) − y − x
+ 
+ρ(1 − ρ)
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(1 − y)
+  y(x − x∗(y))
+x∗(y) − y
+ 
+ρ(1 − ρ)
+ (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2  P (x, y) = y(1 − y)
+  x − x∗(y)
+x∗(y) − y
+ 
+ρ(1 − ρ).
+Multiplying both sides by  (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2 −1 recovers P (x, y) in Theo-
+rem 2 and concludes the proof.
+5.1.2 Probabilistic approach for Model-A in state space S
+Proof of Theorem 2, probabilistic approach. This proof mirrors the analytical one, but derives the
+boundary function Py (y) by means of probabilistic arguments. We again begin from the funda-
+mental equation for Model-A (Equation (5.2)):
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ (x − y)Py (y) − x(1 − y)π(0, 0) . (5.9)
+Class-2 conditional distribution via M/G/1. Since class 1 has non-preemptive priority, class-
+2 customers are not taken into service whenever the priority queue is not empty (N1 > 0); their
+effective service time B is therefore the duration of a complete busy period of the single-class
+ordinary M/M/1 sub-queue with arrival rate λ1 and service rate μ. From class-2’s viewpoint the
+system is thus an M/G/1 queue with arrival rate λ2 and generally distributed service times B and
+mean E[B]. The LST and mean of B are presented in §3.1 (Equations (3.1)–(3.2)), now with λ1
+instead of the generic λ:
+e	B(s) = (μ + λ1 + s) − p(μ + λ1 + s)2 − 4μλ1
+2λ1
+,
+35
+
+-- 35 of 68 --
+
+E[B] = 1
+μ(1 − ρ1) .
+Applying the Pollaczek–Khinchine (PK) formula (§3.4, Equation (3.8)) to this M/G/1 system,
+with e	B(λ2(1 − y)) = x∗(y) (cf. (5.7)) and λ2E[B] = ρ2/(1 − ρ1):
+L2(y) = (1 − λ2E[B])(1 − y) e	B(λ2(1 − y))
+e	B(λ2(1 − y)) − y = 1 − ρ
+1 − ρ1
+· x∗(y)(1 − y)
+x∗(y) − y .
+By the PASTA property, the time-average distribution of N2 conditional on (busy, N1 = 0) coin-
+cides with the M/G/1 steady-state distribution, so E[yN2 | busy, N1 = 0] = L2(y).
+By the law of total expectation, Py (y) = P(busy, N1 = 0) · E[yN2 | busy, N1 = 0]. So
+Py (y) = P(busy, N1 = 0) · E[yN2 | busy, N1 = 0] = P(busy, N1 = 0) · L2(y).
+Under non-preemptive priority, the priority queue operates autonomously (memorylessness of resid-
+ual service time), so P(N1 = 0 | busy) = 1−ρ1 by the geometric law of the ordinary M/M/1(λ1, μ).
+Combined with P(busy) = ρ, we have
+P(busy, N1 = 0) = ρ(1 − ρ1);
+and therefore
+Py (y) = ρ(1 − ρ1) · L2(y) = ρ(1 − ρ1) · 1 − ρ
+1 − ρ1
+· x∗(y)(1 − y)
+x∗(y) − y = x∗(y)(1 − y)
+x∗(y) − y · (1 − ρ)ρ (5.10)
+Substituting Equation (5.10) and π(0, 0) = ρ(1 − ρ) (Corollary 2) into Equation (5.9):
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(x − y) x∗(y)(1 − y)
+x∗(y) − y ρ(1 − ρ) − μx(1 − y)ρ(1 − ρ)
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(1 − y)
+  x∗(y)(x − y)
+x∗(y) − y − x
+ 
+ρ(1 − ρ)
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(1 − y)
+  y(x − x∗(y))
+x∗(y) − y
+ 
+ρ(1 − ρ)
+ (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2  P (x, y) = y(1 − y)
+  x − x∗(y)
+x∗(y) − y
+ 
+ρ(1 − ρ).
+Multiplying both sides by  (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2 −1 to isolate P (x, y) recovers The-
+orem 2 and concludes the proof.
+5.1.3 Partial-PGF recurrence approach for Model-A in state space S
+This proof follows Cohen [Coh56]’s method. We keep the class-1 index n1 as a discrete parameter
+and generate only with respect to N2, via the PPGF e	P (n1, y) = P
+n2≥0 π(n1, n2) yn2 from Equa-
+tion (4.14). Multiplying the balance equations by yn2 and summing over n2 turns them into a
+second-order linear recurrence in n1, whose characteristic roots fix the geometric structure of the
+solution in the priority-class index.
+Proof. We start from the Model-A balance equations, obtained by setting γ1 = γ2 = θ1 = θ2 = 0
+in the interior equation (4.4) and the x-boundary equation (4.6):
+(λ1 + λ2 + μ) π(n1, n2) = μ π(n1 + 1, n2) + λ1 π(n1 − 1, n2) + λ2 π(n1, n2 − 1), n1 ≥ 1, n2 ≥ 1,
+(λ1 + λ2 + μ) π(n1, 0) = μ π(n1 + 1, 0) + λ1 π(n1 − 1, 0), n1 ≥ 1, n2 = 0.
+(5.11)
+Now we take transforms by summing all over their states, but only with respect to n2, and we
+substitute our PPGF e	P (n1, y) = P∞
+n2=0 π(n1, y)yn2 :
+(λ1 + λ2 + μ)
+∞	X
+n2=1
+π(n1, n2)yn2
+= μ
+∞	X
+n2=1
+π(n1 + 1, n2)yn2 + λ1
+∞	X
+n2=1
+π(n1 − 1, n2)yn2 + λ2
+∞	X
+n2=1
+π(n1, n2 − 1)yn2
+36
+
+-- 36 of 68 --
+
+LHS1 = RHS1 + RHS2 + RHS3
+LHS1
+= (λ1 + λ2 + μ)
+∞	X
+n2=1
+π(n1, n2)yn2
+= (λ1 + λ2 + μ)
+" ∞	X
+n2=0
+π(n1, n2)yn2 − π(n1, 0)y0
+#
+= (λ1 + λ2 + μ)
+h e	P (n1, y) − π(n1, 0)
+i
+RHS1
+= μ
+∞	X
+n2=1
+π(n1 + 1, n2)yn2
+= μ
+" ∞	X
+n2=0
+π(n1 + 1, n2)yn2 − π(n1 + 1, 0)y0
+#
+= μ
+h e	P (n1 + 1, y) − π(n1 + 1, 0)
+i
+RHS2
+= λ1
+∞	X
+n2=1
+π(n1 − 1, n2)yn2
+= λ1
+" ∞	X
+n2=0
+π(n1 − 1, n2)yn2 − π(n1 − 1, 0)y0
+#
+= λ1
+h e	P (n1 − 1, y) − π(n1 − 1, 0)
+i
+RHS3
+= λ2
+∞	X
+n2=1
+π(n1, n2 − 1)yn2
+= λ2y
+∞	X
+n2=1
+π(n1, n2 − 1)yn2−1
+= λ2y
+∞	X
+m=0
+π(n1, m)ym
+= λ2y e	P (n1, y)
+(λ1 + λ2 + μ)  e	P (n1, y) − π(n1, 0) 
+= μ  e	P (n1 + 1, y) − π(n1 + 1, 0) 
++ λ1
+  e	P (n1 − 1, y) − π(n1 − 1, 0) 
++ λ2y e	P (n1, y)
+ μ + λ1 + λ2(1 − y)  e	P (n1, y) − μ e	P (n1 + 1, y) − λ1 e	P (n1 − 1, y)
+= (λ1 + λ2 + μ)π(n1, 0) − μπ(n1 + 1, 0) − λ1π(n1 − 1, 0) (5.12)
+By the x-boundary balance equation (5.11), the right-hand side of Equation (5.12) vanishes com-
+pletely, giving the homogeneous recurrence
+[μ + λ1 + λ2(1 − y)] e	P (n1, y) = μ e	P (n1 + 1, y) + λ1 e	P (n1 − 1, y), n1 ≥ 1. (5.13)
+Characteristic roots and mode selection. Equation (5.13) is a second-order linear recurrence
+in n1 with constant coefficients, so its general solution is a linear combination of two geometric
+sequences [ex±(y)]n1 , where ex±(y) solve the characteristic equation
+μ ex2 − [μ + λ1 + λ2(1 − y)] ex + λ1 = 0, (5.14)
+that is,
+ex±(y) =
+ μ + λ1 + λ2(1 − y)  ±
+q μ + λ1 + λ2(1 − y) 2 − 4λ1μ
+2μ .
+37
+
+-- 37 of 68 --
+
+The characteristic polynomial (Equation (5.14)) is the reciprocal to that of the bivariate PGF
+approaches (i.e. the reciprocal of λ1x2 − [μ + λ1 + λ2(1 − y)]x + μ), thus its roots are the reciprocals
+of that kernel’s roots: the positive root is the reciprocal of the negative one (ex+(y) = 1/x∗(y)),
+and conversely ex−(y) = 1/x+(y). By Vieta’s formulas, ex−(y) ex+(y) = λ1/μ = ρ1 < 1. Recall from
+§5.1.1 that x∗(y) < 1 < x+(y) for y ∈ [0, 1). We select the negative-sign root because the sequence
+{ e	P (n1, y)}n1≥0 must be summable:
+∞	X
+n1=0
+e	P (n1, y) = P (1, y) ≤ P (1, 1) = 1 − π0 = ρ < ∞.
+At y = 1, we have
+ex−(1) = ρ1 and ex+(1) = 1,
+the latter making the geometric sequence [ex+(y)]n1 non-summable. We therefore define ex∗(y) :=
+ex−(y),
+ex∗(y) := ex−(y) =
+ μ + λ1 + λ2(1 − y)  −
+q μ + λ1 + λ2(1 − y) 2 − 4λ1μ
+2μ = ρ1 x∗(y). (5.15)
+The last identity holds because ex∗ and x∗ share the same numerator and differ only in the denom-
+inator (2μ versus 2λ1). Next,
+e	P (n1, y) = e	P (0, y) [ex∗(y)]n1 , n1 ≥ 0, (5.16)
+where the relation also holds at n1 = 0 trivially. Recall that at y = 1, we have ex∗(1) = λ1/μ = ρ1.
+Thus, e	P (n1, 1) = e	P (0, 1) ρn1
+1 and e	P (0, 1) = Py (1) = ρ(1 − ρ1). The constant e	P (0, y) is resolved by
+its definition
+e	P (0, y) =
+∞	X
+n2=0
+π(0, n2) yn2 = P (0, y) = Py (y),
+as determined in the bivariate PGF approaches. Summing the geometric law (Equation (5.16))
+over n1 ≥ 0 for x ∈ (0, 1] recovers
+P (x, y) =
+∞	X
+n1=0
+e	P (n1, y) xn1 = Py (y)
+∞	X
+n1=0
+ ex∗(y) x n1
+= Py (y)
+1 − ex∗(y) x . (5.17)
+To bring this to the form of Theorem 2, we define the kernel of the fundamental equation, divided
+by μ:
+K(x, y) := (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2 = −yρ1
+ x − x∗(y)  x − x+(y) , (5.18)
+where x∗(y) and x+(y) are the roots found in §5.1.1. By Vieta’s product formula, x∗(y) x+(y) =
+μ/λ1 = 1/ρ1. This, together with ex∗(y) (Equation (5.15)), gives ex∗(y) = ρ1x∗(y) = 1/x+(y). Using
+the factorisation of K(x, y) (5.18), the denominator of the reconstructed PGF (5.17) becomes
+1 − ex∗(y) x = 1 − x
+x+(y) = x+(y) − x
+x+(y) = K(x, y)
+yρ1 x+(y) x − x∗(y)  .
+Substituting this into our reconstructed P (x, y) (Equation (5.17)), using Py (y) = x∗(y)(1−y)
+x∗(y)−y ρ(1−ρ)
+and also noting that ρ1 x∗(y) x+(y) = 1, we obtain
+P (x, y) = x∗(y)(1 − y)
+x∗(y) − y ρ(1 − ρ) · yρ1 x+(y) x − x∗(y) 
+K(x, y)
+= ρ1 x∗(y) x+(y)
+| {z }
+= 1
+1
+K(x, y) y(1 − y) x − x∗(y)
+x∗(y) − y ρ(1 − ρ)
+=  (1 + ρ1 + ρ2)xy − y − ρ1x2y − ρ2xy2 −1 · y(1 − y) x − x∗(y)
+x∗(y) − y ρ(1 − ρ),
+which recovers Equation (5.3) from Theorem 2 and concludes the proof.
+38
+
+-- 38 of 68 --
+
+5.2 Analysis of Model-A on e	S: scope and limitations of the partial-PGF
+recursion
+Setting γ1 = γ2 = θ1 = θ2 = 0 in the eS balance equations (4.9)–(4.13) and forming the PPGF
+e	P (y, n) = Pn
+n2=0 eπ(n2, n) yn2 yields the inhomogeneous recurrence:
+[λ1 + λ2 + μ] e	P (y, n)
+= (λ1 + λ2y) e	P (y, n − 1) + μ e	P (y, n + 1) + μyn(1 − y)eπ(n + 1, n + 1) (5.19)
+The forcing term in Equation (5.19) is controlled by the diagonal probabilities eπ(n + 1, n + 1) =
+π(0, n + 1), whose decay we first establish from the exact S-solution.
+Lemma 3 (Geometric decay of the boundary probabilities). For Model-A the boundary probabili-
+ties π(0, n) satisfy π(0, n) = O(r−n) for every r < 1/ρ; equivalently they decay geometrically with
+rate ρ.
+Proof. By definition Py (y) = P (0, y) = P
+n≥0 π(0, n) yn is the generating function of {π(0, n)},
+and from Equation (5.8) with π(0, 0) = ρ(1 − ρ),
+Py (y) = ρ(1 − ρ) x∗(y)(1 − y)
+x∗(y) − y .
+Evaluating the kernel quadratic (5.4) at x = y gives λ1y2 −[μ+λ1 +λ2(1−y)]y +μ = (λy −μ)(y −1)
+with λ = λ1 + λ2, so x∗(y) = y holds only at y = 1 and y = μ/λ = 1/ρ. At y = 1 the simple zeros
+of (1 − y) and (x∗(y) − y) cancel and Py is analytic with Py (1) = ρ; the branch point of x∗ lies
+beyond 1/ρ. Hence the singularity of Py nearest the origin is the simple pole at y = 1/ρ > 1, so
+Py is analytic on the disc |y| < 1/ρ. By the Cauchy coefficient estimates, for every r < 1/ρ there
+is Cr < ∞ with π(0, n) ≤ Cr r−n, i.e. geometric decay at rate ρ.
+Approximation 1 (Heuristic PPGF on eS). Neglecting the boundary-diagonal forcing term μyn(1−
+y) eπ(n+1, n+1) in Equation (5.19) —which is exponentially small by Lemma 3— the homogeneous
+recurrence admits the geometric solution
+e	P (y, n) ≈ ρ(1 − ρ) [ey∗(y)]n,
+where
+ey∗(y) = (λ + μ) − p(λ + μ)2 − 4μ(λ1 + λ2y)
+2μ , λ = λ1 + λ2.
+At y = 1 this recovers e	P (1, n) = (1−ρ)ρn+1, consistent with the M/M/1(λ, μ) steady-state marginal
+for n customers waiting.
+Justification of Approximation 1. The inhomogeneous term μyn(1 − y)eπ(n + 1, n + 1) prevents the
+direct application of a geometric-sequence ansatz. The diagonal probabilities eπ(n, n) = π(0, n)
+correspond to states where all n waiting customers are class 2, and by Lemma 3 they decay
+geometrically in n at rate ρ; the forcing term is therefore exponentially small, and neglecting it
+yields an approximation whose accuracy is quantified below. The resulting homogeneous recurrence
+is
+(λ1 + λ2 + μ) e	P (y, n) = (λ1 + λ2y) e	P (y, n − 1) + μ e	P (y, n + 1).
+The characteristic polynomial of this recurrence is
+μ[ey(y)]2 − (λ1 + λ2 + μ)ey(y) + (λ1 + λ2y) = 0,
+with roots
+ey±(y) = (λ1 + λ2 + μ) ± p(λ1 + λ2 + μ)2 − 4μ(λ1 + λ2y)
+2μ .
+At y = 1 the roots are ey+(1) = 1 and ey−(1) = ρ. The root ey+ = 1 would produce a non-summable
+geometric series as n → ∞, so only the negative-sign root is admissible:
+ey∗(y) = (λ1 + λ2 + μ) − p(λ1 + λ2 + μ)2 − 4μ(λ1 + λ2y)
+2μ .
+39
+
+-- 39 of 68 --
+
+The geometric ansatz gives e	P (y, n) = e	P (y, 0)·[ey∗(y)]n. Using e	P (y, 0) = eπ(0, 0) = π(0, 0) = ρ(1−ρ)
+(Corollary 2):
+e	P (y, n) = ρ(1 − ρ) · [ey∗(y)]n.
+Since n counts customers waiting (the customer in service is not counted), n+1 is the total number
+in the system, so evaluating at y = 1:
+e	P (1, n) = ρ(1 − ρ) · ρn = (1 − ρ)ρn+1,
+which matches the M/M/1(λ, μ) stationary distribution for n + 1 customers in the system [AR02].
+Failure mechanism. The neglected forcing μyn(1 − y) eπ(n + 1, n + 1) feeds in the diagonal
+states, in which all waiting customers are class 2. Using eπ(n, n) = π(0, n) and the rate proved in
+Lemma 3, this term decays in n like ρ n (modulated by yn), whereas the homogeneous solution
+decays like [ey∗(y)]n. The approximation is therefore accurate exactly when the forcing decays
+faster, i.e. ρ < ey∗(y) on the relevant range of y; this holds when the priority class carries most of
+the load (ρ1/ρ large, ρ moderate), precisely the empirical validity region of the approximation.
+The obstruction is structural and recurs throughout this thesis: an unknown boundary/diagonal
+trace —here the sequence π(0, n)— couples into an otherwise solvable recursion, exactly as the
+unknown diagonal P (z, z) enters the Volterra forcing of Models B and X (§6 and Remark 3).
+A rigorous closure would retain the forcing and solve Equation (5.19) by variation of constants
+in n, which reintroduces the very diagonal sequence {π(0, n)} as an unknown to be determined
+self-consistently; see §12.5.
+6 Analysis of Model-B (γ1, γ2 > 0, θ1 = θ2 = 0)
+In this section, we derive a general solution to the fundamental equation of Model-B. However,
+this is provided in terms of the unknown boundary function Py (y), which requires more advanced
+mathematical tools and is thus left open, but included for illustrative purposes to conclude that
+having derivative terms in y in our fundamental equation is a non-trivial obstacle. So, this section
+not only shows the difficulty of Model-B but also justifies not carrying out an analogous derivation
+for Model-X. Moreover, since jockeying breaks our Poisson arrivals and renewal structure, the
+probabilistic argument explained in § 5.1.2 is no longer available.
+Model-B introduces bidirectional jockeying (γ1, γ2 > 0) and no abandonment (θ1 = θ2 = 0).
+Figure 5 shows the queue layout.
+λ1
+λ2
+γ1 γ2 μ
+Figure 5: Queue layout for Model-B. Dashed arrows indicate bidirectional jockeying: γ1 moves a
+class-1 customer down to Queue 2 and γ2 moves a class-2 customer up to Queue 1. Both transfers
+conserve the total n.
+Stability. ρ = (λ1 + λ2)/μ < 1. Jockeying preserves the total customer count and does not
+affect this condition, as the arriving customers can also be re-allocated.
+Setting θ1 = θ2 = 0 in the general fundamental equation (4.15) (Lemma 1) removes both
+abandonment factors (x − 1) and (y − 1) and leaves the Model-B fundamental equation
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y)
++ γ1 xy(x − y) ∂P
+∂x (x, y) + γ2 xy(y − x) ∂P
+∂y (x, y)
+= μ(x − y) Py (y) − μ x(1 − y) π(0, 0).
+(6.1)
+40
+
+-- 40 of 68 --
+
+This equation governs the entire analysis of the section, and we refer to it throughout in place of
+the general equation (4.15). Its only derivative terms are the two jockeying convection terms, both
+carrying the diagonal factor (x − y) that makes the Method of Characteristics applicable.
+The result below is stated as a corollary, so that it sits at the same hierarchy level as the
+corresponding results for the other models. Since Model-B is not solved, however, no theorem is
+attached to it.
+Corollary 3. The empty-system probability π0 and the empty-queues probability π(0, 0) of Model-B
+coincide with those of the Model-A baseline,
+π0 = 1 − ρ, π(0, 0) = ρ(1 − ρ), (6.2)
+and the diagonal of the PGF is P (z, z) = π(0, 0)/(1 − ρz).
+The proof follows immediately by setting x = y = z in the Model-B fundamental equation (6.1):
+both jockeying terms, which carry the factor (x − y), vanish, dragging the term μ(x − y)Py (y) with
+them. The surviving diagonal equation is therefore identical to that of Model-A with x = y = z,
+so Corollary 3 is the no-abandonment instance of Theorem 1: jockeying conserves the total count,
+leaving an M/M/1 process of mean busy period E[B] = (μ − λ)−1 (Corollary 1).
+For Model-B we do not provide a solution; however, working out the problem exposes the
+precise analytical obstacle, which we record as a claim. For the sake of readability, we will not
+define here the auxiliary functions; they are introduced throughout the proof. The following claim
+is made:
+Claim 1. Assume stability ρ < 1. Along the characteristic lines γ2x + γ1y = C1 of the Model-B
+fundamental equation (6.1), parametrised by y(x) = (C1 − γ2x)/γ1, the bivariate PGF of Model-B
+admits the following integral representation:
+P  x, y(x)  = Ph
+ x, y(x)  Z x
+0
+h t; C1
+ 
+Ph
+ t, y(t)  dt, (6.3)
+where Ph is the homogeneous solution and the forcing function h depends linearly on the unknown
+boundary trace Py (y) = P (0, y). Evaluating Equation (6.3) along the diagonal x = y = z, where
+P (z, z) = π(0, 0)/(1−ρz) is known from Corollary 3, reduces the determination of Py to a Volterra
+integral equation of the first kind
+F(z) =
+Z z
+0
+K(z, t) Py
+ y(t; z)  dt. (6.4)
+This model is therefore left open.
+Proof of Claim 1. The proof consists of five steps: (i) homogeneous solution via the Method of
+Characteristics, (ii) sign analysis of the exponent function E, (iii) particular solution via the
+Method of Variation of Parameters, (iv) determining the arbitrary function from the boundary
+condition, and (v) evaluation at x = y yielding a Volterra-type equation.
+Step (i): Homogeneous solution via the Method of Characteristics.
+The Model-B fundamental equation (6.1) is a first-order linear PDE in P (x, y). Setting the
+right-hand side to zero and dividing by y yields the homogeneous PDE
+γ1x(x − y) ∂P
+∂x − γ2x(x − y) ∂P
+∂y = − (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy P.
+Following the Method of Characteristics (§3.6.2), we associate to this PDE the characteristic system
+dx
+γ1x(x − y) = dy
+−γ2x(x − y) = dP
+− (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy P .
+Taking the ratio of the first two differentials, the x(x − y) factors cancel, giving dx/γ1 = dy/(−γ2).
+Integrating yields our characteristic constant:
+C1 = γ2x + γ1y.
+The characteristic curves are therefore the straight lines of slope −γ2/γ1 in the (x, y)-plane. We
+parametrise y by setting y(x) = (C1 − γ2x)/γ1. To extract the equation for P along this curve, we
+need to define our coefficient A(x, y):
+A(x, y) := (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy. (6.5)
+41
+
+-- 41 of 68 --
+
+Substituting y = (C1 − γ2x)/γ1 so that λ2xy = (λ2C1/γ1)x − (λ2γ2/γ1)x2, we obtain, collecting
+by powers of x,
+A x, y(x)  = (λ1 + λ2 + μ)x − μ − λ1x2 − λ2C1
+γ1
+x + λ2γ2
+γ1
+x2
+= − γ1λ1 − λ2γ2
+γ1
+x2 + γ1(λ1 + λ2 + μ) − λ2C1
+γ1
+x − μ.
+Similarly, x − y(x) = [(γ1 + γ2)x − C1]/γ1, so γ1x(x − y(x)) = x[(γ1 + γ2)x − C1]. The dP/P
+equation from the characteristic system therefore now reads as follows:
+dP
+P = −A(x, y(x))
+γ1x(x − y(x)) dx = (γ1λ1 − λ2γ2)x2 −  γ1(λ1 + λ2 + μ) − λ2C1
+ x + γ1μ
+γ1x (γ1 + γ2)x − C1
+  dx.
+To integrate this, we decompose the integrand via partial fractions. Writing the integrand as
+1
+γ1 I(x) dx,
+I(x) = K + M
+x + N (C1)
+(γ1 + γ2)x − C1
+;
+satisfying
+K(γ1 + γ2)x2 +  M (γ1 + γ2) + N − KC1
+ x − M C1
+= (γ1λ1 − λ2γ2)x2 −  γ1(λ1 + λ2 + μ) − λ2C1
+ x + γ1μ.
+The x2 and x0 coefficient matches give K and M immediately; the x1 match determines N after
+simplification:
+K = γ1λ1 − λ2γ2
+γ1 + γ2
+, M = − γ1μ
+C1
+, N (C1) = γ1
+  λ1 + λ2
+γ1 + γ2
+C1 − (λ1 + λ2 + μ) + μ(γ1 + γ2)
+C1
+ 
+.
+(6.6)
+For N , the x1 coefficient match gives
+N = −γ1(λ1 + λ2 + μ) + λ2C1 + KC1 − M (γ1 + γ2)
+= −γ1(λ1 + λ2 + μ) + λ2C1 + (γ1λ1 − λ2γ2) C1
+γ1 + γ2
++ γ1μ(γ1 + γ2)
+C1
+= −γ1(λ + μ) + C1
+λ2(γ1 + γ2) + γ1λ1 − λ2γ2
+γ1 + γ2
++ γ1μ(γ1 + γ2)
+C1
+= −γ1(λ + μ) + γ1λ
+γ1 + γ2
+C1 + γ1μ(γ1 + γ2)
+C1
+;
+factoring γ1 out recovers N (C1) from (6.6).
+Integrating dP/P = (1/γ1) I(x) dx term by term gives
+ln P = K
+γ1
+x − μ
+C1
+ln x + N (C1)
+γ1(γ1 + γ2) ln (γ1 + γ2)x − C1
+  + ln f (C1), (6.7)
+where f (C1) is an arbitrary function of the characteristic constant. Now note that
+(γ1 + γ2)x − C1 = (γ1 + γ2)x − (γ2x + γ1y) = γ1(x − y),
+so ln[(γ1 + γ2)x − C1] = ln γ1 + ln(x − y).
+Exponentiating Equation (6.7) term by term,
+P = f (C1) exp
+  K
+γ1 x
+ 
+· x−μ/C1 · γ N (C1)/(γ1(γ1+γ2))
+1 (x − y) N (C1)/(γ1(γ1+γ2));
+the factor γ N (C1)/(γ1(γ1+γ2))
+1 depends on x and y only through C1 and can be absorbed, together
+with f , into a redefined arbitrary function F (C1):
+P = F (C1) · exp
+  K
+γ1 x
+ 
+· x−μ/C1 · (x − y) N (C1)/(γ1(γ1+γ2)).
+Reading off the exponent of (x − y), with C1 = γ2x + γ1y, defines
+E(x, y) := N (C1)
+γ1(γ1 + γ2) = λ1 + λ2
+(γ1 + γ2)2 (γ2x + γ1y) − λ1 + λ2 + μ
+γ1 + γ2
++ μ
+γ2x + γ1y . (6.8)
+42
+
+-- 42 of 68 --
+
+The general homogeneous solution is therefore F (C1) Ph(x, y), with F an arbitrary, differentiable
+function of the characteristic constant C1 and Ph the particular homogeneous solution
+Ph(x, y) = exp
+  γ1λ1 − λ2γ2
+γ1(γ1 + γ2) x
+ 
+· x−μ/(γ2x+γ1y) · (x − y)E(x,y) (6.9)
+that will serve as the integrating factor for variation of parameters in Step (iii). We will see in
+Step (iv) that F must vanish.
+Step (ii): The exponent E(x, y) is strictly positive in (0, 1)2.
+Recall λ = λ1 + λ2. Along any fixed characteristic, C1 = γ2x + γ1y is constant, so the exponent
+function (6.8) depends only on C1, which ranges over (0, γ1 + γ2) as (x, y) ∈ (0, 1)2:
+E(C1) = λ
+(γ1 + γ2)2 C1 − λ + μ
+γ1 + γ2
++ μ
+C1
+.
+Showing that E(C1) > 0 on C1 ∈ (0, γ1 + γ2), follows from two facts. First, E vanishes at the
+right endpoint,
+E(γ1 + γ2) = λ − (λ + μ) + μ
+γ1 + γ2
+= 0.
+Second, E is strictly decreasing in (0, γ1 + γ2], using u ≤ γ1 + γ2 and μ > λ (i.e. ρ < 1):
+E′(u) = λ
+(γ1 + γ2)2 − μ
+u2
+≤ λ
+(γ1 + γ2)2 − μ
+(γ1 + γ2)2 = λ − μ
+(γ1 + γ2)2 < 0,
+Since E decreases strictly to 0 at its right endpoint, it is strictly positive at every point to its left,
+so:
+E(C1) > E(γ1 + γ2) = 0 for all C1 ∈ (0, γ1 + γ2),
+that is, E(x, y) > 0 for all (x, y) ∈ (0, 1)2. For this proof, the crucial boundary behaviour is that
+E → 0 as (x, y) → (1, 1); the blow-up caused by μ/C1 as C1 → 0+ is irrelevant.
+Step (iii): Particular solution via variation of parameters.
+This step consists in upgrading the homogeneous solution Ph (Equation (6.9)) with its inho-
+mogeneous part, along the characteristic. We start by rewriting our fundamental equation for
+Model-B (Equation (6.1)). The coefficient of P on the LHS can be written as yA(x, y) —where
+A(x, y) is defined as in Step (i) (Equation (6.5))—; and we define the RHS of the fundamental
+equation as follows:
+G(x, y) := μ(x − y) Py (y) − μ x(1 − y) π(0, 0); (6.10)
+this forcing involves the unknown boundary trace Py (y) = P (0, y) together with the known constant
+π(0, 0) = ρ(1 − ρ) of Corollary 3. Separating the terms that involve derivatives and the ones that
+do not, we have
+γ1xy(x − y) ∂xP + γ2xy(y − x) ∂y P = − y A(x, y) P + G(x, y),
+which is the convection form (3.14) of the Method of Characteristics. So, along the characteristic
+C1 = γ2x + γ1y found in Step (i) (parametrised by y(x) = (C1 − γ2x)/γ1), §3.6.2 reduces it to a
+first-order linear ODE of the form (3.17),
+dP
+dx = f (x; C1) P + h(x; C1). (6.11)
+The homogeneous part dP
+dx = f (x; C1) P is Ph (Equation (6.9)), so there is no need to write f out;
+and its forcing function is the right-hand side divided by the coefficient of ∂xP ,
+h(x; C1) = G x, y(x) 
+γ1 x y(x)  x − y(x)  . (6.12)
+Equation (6.11) is an instance of Equation (3.17) with the known homogeneous solution Ph. So
+the variation-of-parameters formula (3.18) of §3.6.3 delivers its general solution, with the arbitrary
+constant becoming a function F (C1) of the characteristic label:
+P (x, y(x)) = Ph(x, y(x))
+ 
+F (C1) +
+Z x
+x0
+h(t; C1)
+Ph(t, y(t)) dt
+ 
+. (6.13)
+43
+
+-- 43 of 68 --
+
+Step (iv): Pinning the free function from the boundary condition at x = 0.
+Along any characteristic with constant C1 > 0, the endpoint at x = 0 is y(0) = C1/γ1, giving
+P
+ 
+0, C1
+γ1
+ 
+= Py
+  C1
+γ1
+ 
+,
+which is finite, being a value of the boundary generating function Py . However, Ph (Equation (6.9))
+contains the factor x−μ/C1 → +∞ as x → 0+ (since μ/C1 > 0 for C1 > 0), while the integral in
+Equation (6.13) vanishes as x0 → 0, since the integration interval shrinks. Therefore
+lim
+x→0+ P (x, y(x)) = lim
+x→0+ Ph(x, y(x)) · F (C1) = +∞ · F (C1),
+which can only be finite if F (C1) = 0. Setting x0 = 0 and F (C1) = 0 in Equation (6.13) yields the
+integral representation of Claim 1:
+P (x, y(x)) = Ph(x, y(x))
+Z x
+0
+h(t; C1)
+Ph(t, y(t)) dt. (6.14)
+Step (v): Reduction to the Volterra equation.
+By Corollary 3 the empty-state probabilities are π0 = 1 − ρ and π(0, 0) = ρ(1 − ρ), with
+diagonal value P (z, z) = π(0, 0)/(1 − ρz). We plug those, along with our inhomogeneous part G
+(Equation (6.10)) into our forcing function (Equation (6.12))
+h(t; C1) = μ(t − y(t)) Py (y(t)) − μt(1 − y(t)) π(0, 0)
+γ1 t y(t) (t − y(t))
+= μ Py (y(t))
+γ1 t y(t) − μ(1 − y(t)) π(0, 0)
+γ1 y(t) (t − y(t)) . (6.15)
+We will evaluate Equation (6.14) along the diagonal —i.e. x = y = z, with points of the form
+(z, z)—, which has C1 = (γ1 + γ2)z and thus the following parametrisation, for fixed z:
+y(t; z) = (γ1 + γ2)z − γ2t
+γ1
+, (6.16)
+so y(0; z) = (γ1 + γ2)z/γ1 > z and y(z; z) = z. Thus y(t; z) > t for all t ∈ [0, z), which implies
+t − y(t; z) < 0 inside the integration interval. Note the change of sign of the second summand when
+writing t − y(t; z) = −(y(t; z) − t) in the denominator of Equation (6.15):
+h t; (γ1 + γ2)z  = μ
+γ1 t y(t; z) Py
+ y(t; z)  + μ (1 − y(t; z))
+γ1 y(t; z) (y(t; z) − t) π(0, 0). (6.17)
+From Step (ii), E > 0, so the factor (x−y(x; z))E in Ph vanishes as x → z−, giving Ph
+ x, y(x; z)  →
+0. At the same time, the integrand in Equation (6.14) has a singularity near t = z: the forcing
+function (6.17) contributes with a (y(t; z) − t)−1 factor; and the denominator Ph
+ t, y(t; z) , with a
+(y(t; z) − t)−E . So together h/Ph ∼ (y(t; z) − t)−1−E ; since −1 − E < −1, the integral diverges as
+x → z−. Nevertheless, the product of the two factors is finite: by Step (iv), Ph
+ x, y(x; z)  R x
+0
+h
+Ph dt
+equals the PGF value P  x, y(x; z) , which converges to P (z, z) as x → z−. This behaviour aligns
+with the fact that we are working in the context of PGFs, which are always bounded. By Corollary 3
+that value is π(0, 0)/(1 − ρz), so the 0 · ∞ limit resolves to
+P (z, z) = π(0, 0)
+1 − ρz = lim
+x→z−
+Ph
+ x, y(x; z)  Z x
+0
+h t; (γ1 + γ2)z 
+Ph
+ t, y(t; z)  dt.
+Substituting Equation (6.17) and separating the term containing the unknown boundary function
+Py from the known remainder, this limit splits into
+π(0, 0)
+1 − ρz = lim
+x→z−
+μ Ph
+ x, y(x; z) 
+γ1
+Z x
+0
+Py
+ y(t; z) 
+t · y(t; z) · Ph
+ t, y(t; z)  dt
++ lim
+x→z−
+μ Ph
+ x, y(x; z)  π(0, 0)
+γ1
+Z x
+0
+1 − y(t; z)
+y(t; z) · (y(t; z) − t) · Ph
+ t, y(t; z)  dt. (6.18)
+We evaluate the two limits in Equation (6.18) separately. Three facts make the diagonal charac-
+teristic exactly solvable.
+44
+
+-- 44 of 68 --
+
+First, its geometry is linear:
+y(t; z) − t = (γ1 + γ2)z − γ2t
+γ1
+− t = γ1 + γ2
+γ1
+(z − t). (6.19)
+Second, the exponent of Step (ii) is constant along the characteristic (C1 = (γ1 + γ2)z) and can be
+factored as follows:
+Ez := E (γ1 + γ2)z  = λz2 − (λ + μ)z + μ
+(γ1 + γ2)z = (μ − λz)(1 − z)
+(γ1 + γ2)z > 0, z ∈ (0, 1).
+Third, every factor of Ph in Equation (6.9) except the exponential, the power of x, and (x − y)E
+depends on (x, y) only through C1, which is fixed on the characteristic. The ratio therefore splits
+nicely into a smooth part and a single power:
+Ph
+ x, y(x; z) 
+Ph
+ t, y(t; z)  = R(x, t)
+  z − x
+z − t
+ Ez
+, R(x, t) := e K
+γ1 (x−t)  t
+x
+ μ/((γ1+γ2)z)
+, (6.20)
+with R smooth and R(z, z) = 1.
+We apply that to the second limit of Equation (6.18). Substituting Equations (6.20) and (6.19),
+its integrand near t = z is w(z)(z − t)−1−Ez with w(z) = μπ(0, 0)(1 − z)/((γ1 + γ2)z). The two
+singular factors then balance exactly: the prefactor vanishes like (z − x)Ez while the truncated
+integral diverges like (z − x)−Ez /Ez . Hence their product converges to w(z)/Ez :
+lim
+x→z−(z − x)Ez
+Z x
+w(z)(z − t)−1−Ez dt
+= w(z)
+Ez
+= μπ(0, 0)(1 − z)
+(γ1 + γ2)z · (γ1 + γ2)z
+(μ − λz)(1 − z) = μπ(0, 0)
+μ − λz = π(0, 0)
+1 − ρz .
+The first limit vanishes: its integrand behaves as (z − t)−Ez , one power less singular than the
+second limit’s (z − t)−1−Ez , and is killed by the vanishing prefactor (z − x)Ez . The second limit
+reproduces the full diagonal value from π(0, 0). Thus the diagonal fixes no information about Py
+at leading order; determining Py requires the next order in (z − x), which is the open problem.
+Collecting the Py -term of Equation (6.18) into a kernel and the remaining π(0, 0)-term into a
+known datum gives
+K(z, t) := μ
+γ1
+R(z, t)
+t y(t; z) (z − t)−Ez , (6.21)
+F(z) := π(0, 0)
+1 − ρz − μ π(0, 0)
+γ1
+Z z
+0
+R(z, t)  1 − y(t; z) 
+y(t; z)  y(t; z) − t  (z − t)−Ez dt, (6.22)
+so that the diagonal identity (6.18) matches the first-kind Volterra equation (6.4), which proves the
+claim. Both integrals are singular at the endpoint t = z —their integrands behave as (z −t)−Ez and
+(z − t)−1−Ez — and must be read in a regularised, finite-part sense; carrying out that regularisation
+rigorously is precisely the analytical obstruction that leaves Model-B open.
+Model-B is beyond the scope of this thesis and, therefore, left open. Its role is to illustrate
+the mathematical obstacle —the Volterra-type integral equation. Model-B2 and Model-C2 avoid
+such a problem by shutting down all derivative terms in y. This allows us to take our boundary
+function Py (y) outside the integral, as we would only integrate with respect to x, as opposed to
+y(x).
+Remark 3 (The full Model-X is a fortiori intractable). Model-B already shows the central problem
+of taking this route. As one can imagine, reinstating the abandonment mechanism —θ1, θ2 > 0—
+does not help simplify the problem; quite the opposite. It deepens the difficulty in two ways: first,
+the characteristics cease to be straight lines; second, we lose the diagonal anchor —Corollary 3 no
+longer holds—, so the diagonal P (z, z) is no longer known in closed form.
+7 Analysis of Model-B2 (γ1 > 0, γ2 = 0, θ1 = θ2 = 0)
+Model-B2 keeps one-way jockeying from class-1 to class-2 (γ1 > 0, γ2 = 0) and no abandonment
+(θ1 = θ2 = 0). This model is more tractable than Model-B, as all the terms with derivatives in
+45
+
+-- 45 of 68 --
+
+y disappear, leaving us a first-order linear ODE in x, for each fixed y ∈ (0, 1]. We will solve this
+using the integrating factor (§3.6.1).
+Stability. As in Models A and B, ρ = (λ1 +λ2)/μ < 1. Jockeying conserves the total customer
+count and does not affect the stability condition. Figure 6 shows the queue layout.
+λ1
+λ2
+γ1 	μ
+Figure 6: Queue layout for Model-B2. Only the 1 → 2 jockeying direction is active (dashed,
+downward): class-1 customers may defect to Queue 2, but no customer can move in the reverse
+direction (γ2 = 0).
+7.1 Reduced fundamental equation
+Setting γ2 = 0 and θ1 = θ2 = 0 in the general fundamental equation (4.15) (Lemma 1) annihilates
+the derivative terms in y, leaving:
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2 P + γ1xy(x − y) ∂P
+∂x
+= μ(x − y) Py (y) − μx(1 − y) π(0, 0). (7.1)
+For each fixed y ∈ (0, 1] this is a first-order linear ODE in x; the entire analysis of this section is
+built on it.
+Theorem 3. Consider the two-class non-preemptive priority queueing system of Model-B2 with
+per-customer jockeying rate γ1 > 0 from Queue 1 to Queue 2 (γ2 = 0, θ1 = θ2 = 0). Under the
+stability condition ρ = λ/μ < 1, λ = λ1 + λ2, the boundary generating function is
+Py (y) = μ π(0, 0)
+μ − λy · 1F1
+ α(y) + 1; b⋆(y); −λ1y/γ1
+ 
+1F1
+ α(y); b⋆(y); −λ1y/γ1
+  , (7.2)
+and the bivariate PGF, for 0 ≤ x ≤ y, is
+P (x, y) = μ eλ1x/γ1 x−α(y − x)−β
+γ1y
+h
+Py (y) H1(x, y) + (1 − y)π(0, 0) H2(x, y)
+i
+, (7.3)
+where 1F1 is Kummer’s confluent hypergeometric function, the exponents are
+α(y) = μ
+γ1y , β(y) = (1 − y)(λy − μ)
+γ1y , b⋆(y) = α + β + 1 = μ + λ(1 − y) + γ1
+γ1
+, (7.4)
+the auxiliary integrals are
+H1(x, y) =
+Z x
+0
+e−λ1t/γ1 t α−1(y − t)β dt, (7.5)
+H2(x, y) =
+Z x
+0
+e−λ1t/γ1 t α(y − t)β−1 dt, (7.6)
+and the empty-state probability π(0, 0) = ρ(1 − ρ) is given by Corollary 4 below. On y < x ≤ 1 the
+same expression (7.3) holds with H1, H2 replaced by their finite-part continuations; that the right-
+hand side is genuinely analytic across the interior point x = y is the content of the smoothness
+condition established in Step (ii) of the proof.
+The result below is stated as a corollary, so that it sits at the same hierarchy level as the
+corresponding results for the other models.
+46
+
+-- 46 of 68 --
+
+Corollary 4. The empty-system probability π0 (server idle, no one waiting) and the both-queues-
+empty probability π(0, 0) (server busy, N1 = N2 = 0) of Model-B2 are
+π0 = 1 − ρ, π(0, 0) = ρ(1 − ρ),
+identical to the Model-A baseline.
+As in Model-B, the proof follows trivially by setting x = y = z in our fundamental equa-
+tion (Equation (7.1)). The surviving equation is identical to the homologous one in Model-A, so
+Corollary 4 is the no-abandonment instance of Theorem 1, with the M/M/1 mean busy period
+E[B] = (μ − λ)−1 (Corollary 1).
+The proof of Theorem 3 consists of three steps: (i) obtaining the standard form and the
+integration factor, (ii) determining Py (y) by analyticity in x = y, and (iii) recovering P (x, y).
+Proof of Theorem 3. Step (i): Standard form and the integrating factor.
+Fix y ∈ (0, 1], cancel a factor y on both sides and divide the reduced fundamental equation (7.1)
+by the derivative term in x. The equation takes standard form dP
+dx + p(x; y) P = q(x; y) of §3.6.1
+(Equation (3.12)), with
+p(x; y) = (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy
+γ1x(x − y) , (7.7)
+q(x; y) = μ Py (y)
+γ1xy − μ(1 − y) π(0, 0)
+γ1y(x − y) . (7.8)
+Write the numerator of p as a polynomial in x,
+N (x) = −λ1x2 +  (λ1 + λ2 + μ) − λ2y x − μ = −λ1
+ x − x∗(y)  x − x+(y) ,
+where the roots x∗(y), x+(y) are those found for the kernel in Model-A (Equation (5.7)), with
+λ1x∗x+ = μ following from Vieta’s formula. The Partial Fraction Decomposition of p = N (x)/ γ1x(x−
+y)  reads as follows:
+A = −λ1,
+B = N (0)
+0 − y = −μ
+−y = μ
+y ,
+C = N (y)
+y = −(λy − μ)(y − 1)
+y = (1 − y)(λy − μ)
+y ,
+with N (y) = −λy2 + (λ + μ)y − μ = −(λy − μ)(y − 1). Thus
+p(x; y) = 1
+γ1
+ 
+−λ1 + μ/y
+x + (1 − y)(λy − μ)/y
+x − y
+ 
+. (7.9)
+Since we will have a factor (x − y) due to jockeying, we work on the region 0 ≤ x ≤ y, where
+x−y ≤ 0; the complementary region y < x ≤ 1 is recovered later. On this region, a term β ln |x−y|
+becomes simply β ln(y − x), so integrating the partial fraction (7.9) yields, up to a constant,
+Z x
+p(t; y) dt = 1
+γ1
+h
+−λ1x + μ
+y ln x + (1 − y)(λy − μ)
+y ln(y − x)
+i
+= − λ1
+γ1
+x + α(y) ln x + β(y) ln(y − x),
+with the exponents α(y) = μ/(γ1y) > 0 and β(y) = (1 − y)(λy − μ)/(γ1y)of Equation (7.4). Expo-
+nentiating, and dropping the multiplicative constant to which an integrating factor is indifferent,
+gives our integrating factor
+μI (x; y) = e−λ1x/γ1 x α(y) (y − x) β(y),
+real-valued in our region because we take the base (y − x) > 0 rather than (x − y); its reciprocal
+1/μI is the homogeneous solution, playing here the role that Ph played for Model-B (§3.6.3). It
+indeed solves μ′
+I /μI = p:
+μ′
+I (x; y)
+μI (x; y) = − λ1
+γ1
++ α
+x + β d
+dx ln(y − x)
+47
+
+-- 47 of 68 --
+
+= − λ1
+γ1
++ α
+x + β
+x − y = p(x; y).
+The general solution of §3.6.1 (Equation (3.13)) now applies, and its arbitrary function is fixed
+immediately: since α > 0 we have μI → 0 as x → 0+, so the boundary contribution P (0, y) μI (0; y)
+vanishes and integrating d
+dx [P μI ] = q μI over (0, x] leaves
+P (x, y) μI (x; y) =
+Z x
+0
+q(t; y) μI (t; y) dt.
+Multiplying q from Equation (7.8) by μI and applying the identity (y − t)β /(t − y) = −(y − t)β−1
+to the second term, the integrand separates into two pieces,
+q(t; y) μI (t; y) = μ
+γ1y
+h
+Py (y) e−λ1t/γ1 t α−1(y − t)β + (1 − y)π(0, 0) e−λ1t/γ1 t α(y − t)β−1i
+,
+With the auxiliary integrals H1, H2 of Equations (7.5)–(7.6) and dividing through by μI (x; y) =
+e−λ1x/γ1 xα(y − x)β , the solution on the principal region 0 ≤ x ≤ y is
+P (x, y) = μ eλ1x/γ1 x−α(y − x)−β
+γ1y
+h
+Py (y) H1(x, y) + (1 − y)π(0, 0) H2(x, y)
+i
+, (7.10)
+which still contains the unknown boundary function Py (y); Step (ii) determines it.
+Step (ii): Determine Py (y) by analyticity at x = y.
+Under stability (i.e. ρ < 1) μ − λy > 0 for y ∈ (0, 1), so the second exponent is negative:
+β(y) = (1 − y)(λy − μ)
+γ1y < 0, 0 < y < 1. (7.11)
+So the prefactor (y − x)−β = (y − x)|β| in Equation (7.10) vanishes as x → y−, while H1, H2 may
+diverge: the product is an indeterminate 0 · ∞ form, whose resolution fixes Py (y).
+On the diagonal the value is known outright. Setting x = y = z in the fundamental equa-
+tion (7.1) drops the jockeying and boundary terms (each containing a factor x − y) and leaves
+Model A’s balance, so
+P (z, z) = ρ(1 − ρ)
+1 − ρz , (7.12)
+the diagonal value of Corollary 2.
+Smoothness condition and Py (y). Pull the analytic, non-vanishing prefactor of Equation (7.10)
+into Ψ(x) = μ eλ1x/γ1 x−α/(γ1y), so that
+P (x, y) = Ψ(x) (y − x)|β|  Py (y) H1(x, y) + (1 − y)π(0, 0) H2(x, y)  , |β| = −β > 0.
+We need only the leading behaviour of the two integrals as x → y−, not a full expansion. Each
+splits into its endpoint value Hi(y, y) = R y
+0 (· · · ) dt and a remainder set by the integrand near t = y
+—H1 carries (y − t)β , H2 carries (y − t)β−1— so that, with constants c1, c2 whose values we never
+need,
+H1(x, y) = H1(y, y) + c1 (y − x)β+1 + · · · , H2(x, y) = H2(y, y) + c2 (y − x)β + · · · .
+Multiplied by (y − x)−β , the c1, c2 remainders turn into a smooth O(y − x) term and the constant
+regular value (7.12); only the endpoint values retain the bare, non-integer power (y − x)|β| (|β| /∈ Z
+generically). Since P (·, y) is a power series in x —hence smooth at the interior point x = y < 1,
+whereas that power is not— its coefficient must vanish:
+Py (y) H1(y, y) + (1 − y) π(0, 0) H2(y, y) = 0, (7.13)
+the endpoint integrals being read, since β < 0, as the Euler–Beta continuations found next. To
+evaluate these endpoint integrals, substitute t = ys (dt = y ds) in Equations (7.5)–(7.6), which
+rescales the two integrands and pulls out a common yα+β ,
+tα−1(y − t)β dt = yα+β sα−1(1 − s)β ds,
+tα(y − t)β−1 dt = yα+β sα(1 − s)β−1 ds,
+48
+
+-- 48 of 68 --
+
+so that, with c := λ1y/γ1,
+H1(y, y) = yα+β
+Z 1
+0
+sα−1(1 − s)β e−cs ds, H2(y, y) = yα+β
+Z 1
+0
+sα(1 − s)β−1e−cs ds.
+These are Euler integrals (3.10), R 1
+0 ta−1(1 − t)b−1ezt dt = B(a, b) 1F1(a; a + b; z), with (a, b, z) =
+(α, β +1, −c) for H1 and (α+1, β, −c) for H2, so a+b = b⋆(y) in both. As β < 0 by Equation (7.11),
+the right-hand side is read as its analytic continuation in b beyond the convergence range b > 0,
+giving
+H1(y, y) = B(α, β + 1) yα+β 1F1
+ α; b⋆(y); −λ1y/γ1
+ , (7.14)
+H2(y, y) = B(α + 1, β) yα+β 1F1
+ α + 1; b⋆(y); −λ1y/γ1
+ . (7.15)
+Solving the smoothness condition (7.13) for Py (y) and inserting the endpoint values (7.14)–(7.15),
+the common factor yα+β cancels and
+Py (y) = −(1 − y) π(0, 0) H2(y, y)
+H1(y, y) = −(1 − y) π(0, 0) B(α + 1, β)
+B(α, β + 1)
+1F1
+ α + 1; b⋆; −λ1y/γ1
+ 
+1F1
+ α; b⋆; −λ1y/γ1
+  . (7.16)
+The Beta ratio reduces, via Γ(α + 1) = αΓ(α) and Γ(β + 1) = βΓ(β), to
+B(α + 1, β)
+B(α, β + 1) = Γ(α + 1)Γ(β)
+Γ(α + β + 1) · Γ(α + β + 1)
+Γ(α)Γ(β + 1)
+= Γ(α + 1)
+Γ(α) · Γ(β)
+Γ(β + 1) = α
+β , (7.17)
+and the surviving prefactor simplifies, using α/β = μ/ (1 − y)(λy − μ) , as
+−(1 − y) α
+β = −(1 − y) · μ
+(1 − y)(λy − μ)
+= − μ
+λy − μ = μ
+μ − λy . (7.18)
+Substituting Equations (7.17)–(7.18) into Equation (7.16) gives the boundary generating function
+Py (y) = μ π(0, 0)
+μ − λy · 1F1
+ α(y) + 1; b⋆(y); −λ1y/γ1
+ 
+1F1
+ α(y); b⋆(y); −λ1y/γ1
+  , (7.19)
+confirming Equation (7.2). The prefactor equals the regular value P (y, y) of Equation (7.12), and
+the Kummer ratio is the boundary correction. As y → 0+ the argument −λ1y/γ1 → 0, so the ratio
+tends to 1 and Py (0) = π(0, 0), consistent with Py (0) = P
+n2 π(0, n2) · 0n2 = π(0, 0).
+Step (iii): Recovery of P (x, y).
+Substituting Equation (7.19) into the real-form expression (7.10) gives, for 0 ≤ x ≤ y,
+P (x, y) = μ eλ1x/γ1 x−α(y − x)−β
+γ1y
+  μ π(0, 0)
+μ − λy · 1F1
+ α + 1; b⋆; − λ1y
+γ1
+ 
+1F1
+ α; b⋆; − λ1y
+γ1
+  · H1(x, y)
++ (1 − y)π(0, 0) · H2(x, y)
+ 
+,
+which is the statement of the theorem (Equation (7.3)). The smoothness condition (7.13) guaran-
+tees that this extends analytically across x = y, with diagonal value P (y, y) = ρ(1 − ρ)/(1 − ρy)
+as computed in Equation (7.12). On y < x ≤ 1 the same formula holds with H1, H2 read as their
+finite-part continuations; π(0, 0) = ρ(1 − ρ) from Corollary 4 makes the solution fully explicit. The
+recovery of Model-A in the limit γ1 → 0+ is deferred to Remark 4 below, as the limit is singular
+and merits separate discussion.
+Remark 4 (The singular limit γ1 → 0+). The no-jockeying limit γ1 → 0+ is a singular perturbation:
+the coefficient γ1xy(x−y) of the highest derivative ∂xP vanishes, so one must check that the convec-
+tion term itself, not merely its coefficient, disappears. It does. Each P is a probability generating
+function, so |P | ≤ 1 on the closed unit polydisc uniformly in γ1, and Cauchy’s estimate then bounds
+∂xP uniformly on every compact subset of the open polydisc; hence γ1xy(x − y) ∂xP → 0 there.
+49
+
+-- 49 of 68 --
+
+The fundamental equation (7.1) therefore degenerates to the algebraic Model-A equation (5.2),
+and the uniformly bounded family {P }γ1 , being normal, converges (in full, by uniqueness of the
+analytic solution) to the Model-A PGF (5.3). In particular the boundary function reduces to the
+Model-A value (5.8),
+Py (y) −−−−−−→
+γ1→0+ π(0, 0) x∗(y) (1 − y)
+x∗(y) − y , (7.20)
+with x∗(y) the Model-A kernel root (5.7); this needs no special-function asymptotics.
+The same limit can be read off the closed form (7.19). Its prefactor μ π(0, 0)/(μ − λy) =
+π(0, 0)/(1 − ρy) is γ1-independent, so Equation (7.20) is equivalent to the Kummer ratio tending
+to
+1F1
+ α + 1; b⋆; −λ1y/γ1
+ 
+1F1
+ α; b⋆; −λ1y/γ1
+  −−−−−−→
+γ1→0+
+(1 − ρy) x∗(y) (1 − y)
+x∗(y) − y . (7.21)
+The factor (1 − ρy) shows the ratio does not tend to the bare x∗(y)(1 − y)/(x∗(y) − y); the
+discrepancy is exactly the prefactor. This matches the first-parameter three-term recurrence for
+1F1 [DLM, §13.3]: as γ1 → 0+ the parameters α, b⋆ and c = λ1y/γ1 all grow like 1/γ1, and the
+recurrence reduces at leading order to a quadratic whose admissible root is Equation (7.21).
+8 Analysis of Model-C2 (θ1 > 0, γ1 = γ2 = θ2 = 0)
+In this section we derive P (x, y) for the model in which only class-1 customers abandon, with no
+class-2 abandonment and no jockeying. Figure 7 shows the queue layout.
+λ1
+θ1
+λ2
+μ
+Figure 7: Queue layout for Model-C2. Class-1 customers abandon the system at rate θ1 per waiting
+customer (dotted arrow, upward from Queue 1). Class-2 never abandons (θ2 = 0). There is no
+jockeying.
+This choice of parameters is motivated by two key aspects of the resulting model: first, class-2
+still sees Poisson arrivals, so the probabilistic argument of Model-A carries over; second, substi-
+tuting these values into the general fundamental equation (4.15) leaves a first-order linear ODE in
+x with no y-derivatives, so the boundary function Py (y) comes out of the integral, sparing us the
+Volterra equation that left Model-B open (§6).
+Stability. Unlike the models without abandonment, stability here is non-trivial and rests
+on two key observations that also drive the analysis below. First, the class queue 1 alone is an
+M/M/1+M (Erlang-A) subsystem with rates λ1, μ, θ1, which is stable for every load (§3.3); its
+busy period BC is always well defined. Second, class-2 sees an M/G/1 queue whose service time
+is one such class-1 busy period BC (made precise in §8.3). The only constraint on stability comes
+from this second queue, which is stable exactly when its utilisation stays below one:
+λ2 E[BC ] < 1 ⇐⇒ ρ2 · 1F1
+ 
+1; μ
+θ1 + 1; λ1
+θ1
+ 
+< 1. (8.1)
+8.1 Reduced fundamental equation
+Setting θ1 > 0 and γ1 = γ2 = θ2 = 0 in the general fundamental equation (4.15) clears most of the
+derivative terms, with the class-1 abandonment term as the only survivor. What remains is, for
+50
+
+-- 50 of 68 --
+
+each fixed y, a first-order linear ODE in x:
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) + θ1 xy(x − 1) ∂
+∂x P (x, y)
+= μ(x − y) Py (y) − μx(1 − y) π(0, 0).
+(8.2)
+Equation (8.2) has two unknowns: P (x, y) and its boundary trace Py (y).
+The following theorem states the closed form. Its proof, given immediately afterwards in
+§8.2, is purely analytical; §8.3 then re-derives the boundary function Py (y) probabilistically as an
+independent method to determine the boundary function.
+Theorem 4. Consider the two-class non-preemptive priority system of Model-C2 (θ1 > 0, γ1 =
+γ2 = θ2 = 0): Poisson arrivals at rates λ1, λ2, common exponential service at rate μ, and per-
+customer abandonment of waiting class-1 customers at rate θ1. Under the stability condition (8.1),
+the probability generating function is
+P (x, y) = eλ1x/θ1 μ π(0, 0) (1 − y)
+θ1 xμ/θ1 (1 − x)λ2(1−y)/θ1
+  e	BC (λ2(1 − y)) − y 
+×
+h e	BC (λ2(1 − y)) H1(x, y) −  1 − e	BC (λ2(1 − y))  H2(x, y)
+i
+,
+where
+H1(x, y) =
+Z x
+0
+e−λ1t/θ1 t μ/θ1−1(1 − t) λ2(1−y)/θ1 dt,
+H2(x, y) =
+Z x
+0
+e−λ1t/θ1 t μ/θ1 (1 − t) λ2(1−y)/θ1−1 dt,
+e	BC (s) is the LST of the busy period of the class-1 M/M/1+M subsystem given by Equation (3.3),
+and π(0, 0) is given by Corollary 5 below.
+The following corollary is invoked:
+Corollary 5. The limiting probability π(0, 0) of the busy state with both queues empty, and the
+empty-system probability π0, are
+π(0, 0) = (λ1 + λ2) 1 − λ2 E[BC ] 
+μ  1 + λ1 E[BC ]  = (ρ1 + ρ2) 1 − λ2 E[BC ]
+1 + λ1 E[BC ] , (8.3)
+π0 = 1 − λ2 E[BC ]
+1 + λ1 E[BC ] , (8.4)
+where E[BC ] is the mean class-1 busy period (3.4). As θ1 → 0+, E[BC ] → (μ − λ1)−1 and these
+recover the Model-A baseline π(0, 0) = ρ(1 − ρ), π0 = 1 − ρ.
+8.2 Analytical derivation of P (x, y)
+Proof of Theorem 4. Step (i): standard form and integrating factor.
+The surviving abandonment factor (x − 1) places the operative singularity on the boundary
+x = 1. Dividing Equation (8.2) by the coefficient θ1xy(x − 1) of the derivative puts it in the
+standard form (Equation (3.12)):
+∂P
+∂x + (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy
+θ1 x(x − 1)
+| {z }
+p(x; y)
+P = μ(x − y) Py (y) − μx(1 − y) π(0, 0)
+θ1 xy(x − 1)
+| {z }
+q(x; y)
+.
+The numerator of p(x; y) is the quadratic A(x, y) := (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy, the kernel
+polynomial common to all seen models. Applying Partial Fraction Decomposition to A(x; y)/(x(x−
+1)) yields
+A = λ1,
+B = A(0, y)/(0 − 1) = (−μ)/(−1) = μ,
+C = A(1, y) = λ2(1 − y);
+51
+
+-- 51 of 68 --
+
+so,
+p(x; y) = 1
+θ1
+· A(x; y)
+x(x − 1) = 1
+θ1
+ 
+−λ1 + μ
+x + λ2(1 − y)
+x − 1
+ 
+. (8.5)
+Integrating term by term, R p dx = θ−1
+1
+ −λ1x + μ ln x + λ2(1 − y) ln(1 − x) , which exponentiates
+to the integrating factor
+μI (x; y) = e−λ1x/θ1 xα (1 − x)β(y), (8.6)
+with
+α = μ
+θ1
+, β(y) = λ2(1 − y)
+θ1
+. (8.7)
+Both exponents are non-negative (α > 0 always; β(y) ≥ 0 for y ∈ [0, 1]), so μI vanishes at x = 0
+and at x = 1. By the integrating-factor solution (3.13) —with the boundary term P (0, y) μI (0; y)
+killed by μI (0; y) = 0— we obtain
+P (x, y) = 1
+μI (x; y)
+Z x
+0
+q(t; y) μI (t; y) dt. (8.8)
+Step (ii): determination of Py (y) by boundedness at x = 1.
+We determine Py (y) by imposing boundedness of P (x, y) as x → 1, for fixed y ∈ [0, 1): we have
+β(y) > 0, so μI (x; y) → 0. Since the left-hand side P (x, y) of Equation (8.8) stays bounded while
+1/μI (x; y) → ∞, the integral must vanish in the limit:
+Z 1
+0
+q(t; y) μI (t; y) dt = 0. (8.9)
+Substituting the explicit q and μI , the integrand is
+q(t; y) μI (t; y) = μ (t − y) Py (y) − t(1 − y) π(0, 0) 
+θ1 y · e−λ1t/θ1 tα(1 − t)β(y)
+t (t − 1) ,
+where tα/t = tα−1 and (1 − t)β(y)/(t − 1) = −(1 − t)β(y)−1 flips the sign and lowers the exponent.
+The constant prefactor −μ/(θ1y), nonzero for y ∈ (0, 1], divides out of Equation (8.9), leaving
+Z 1
+0
+e−λ1t/θ1 t α−1(1 − t) β(y)−1 (t − y) Py (y) − t(1 − y) π(0, 0)  dt = 0.
+Introduce the auxiliary integrals
+J0(y) =
+Z 1
+0
+e−λ1t/θ1 t α−1(1 − t) β(y)−1 dt,
+J1(y) =
+Z 1
+0
+e−λ1t/θ1 t α(1 − t) β(y)−1 dt.
+Distributing the bracket over tα−1, we get the term t · tα−1 = tα in J1 and tα−1 in J0, becoming
+0 = Py (y)
+Z 1
+0
+e−λ1t/θ1  tα − y tα−1 (1 − t)β(y)−1 dt − (1 − y) π(0, 0)
+Z 1
+0
+e−λ1t/θ1 tα(1 − t)β(y)−1 dt
+= Py (y) J1(y) − y J0(y)  − (1 − y) π(0, 0) J1(y),
+so
+Py (y) = π(0, 0) (1 − y) J1(y)
+J1(y) − y J0(y) . (8.10)
+It remains to evaluate the ratio J1/J0. Setting a = α = μ/θ1, b = s/θ1, c = λ1/θ1, the Eu-
+ler representation (3.10) writes each Ji as a Beta multiple of a 1F1 value, and the closed-form
+summation (3.7) of §3.3 identifies their ratio with the busy-period LST:
+e	BC (s) =
+Z 1
+0
+ta(1 − t)b−1e−ct dt
+Z 1
+0
+ta−1(1 − t)b−1e−ct dt
+= B(a + 1, b) 1F1(a + 1; a + 1 + b; −c)
+B(a, b) 1F1(a; a + b; −c) . (8.11)
+52
+
+-- 52 of 68 --
+
+Taking s = λ2(1−y) —so that b = β(y) matches the exponent in Equation (8.7)— gives e	BC (λ2(1−
+y)) = J1(y)/J0(y). Dividing the numerator and denominator of Equation (8.10) by J0(y) yields
+the boundary generating function
+Py (y) = π(0, 0) (1 − y) e	BC (λ2(1 − y))
+e	BC (λ2(1 − y)) − y . (8.12)
+This reaches Py (y) analytically through the Beta-integral (Equation (8.11)) alone, without requir-
+ing the probabilistic argument in §8.3.
+Step (iii): recovery of P (x, y).
+We return to the ODE (Equation (8.2)) and substitute Py (y) (Equation (8.12)) into its rhs.
+Writing ζ(y) ≡ e	BC (λ2(1 − y)) for brevity,
+RHS = μ(x − y) π(0, 0) (1 − y) ζ(y)
+ζ(y) − y − μx(1 − y) π(0, 0)
+= μ π(0, 0) (1 − y)
+  (x − y) ζ(y)
+ζ(y) − y − x
+ 
+= μ π(0, 0) (1 − y) (x − y) ζ(y) − x ζ(y) − y 
+ζ(y) − y
+= μ π(0, 0) y(1 − y) x − ζ(y)
+ζ(y) − y ,
+which has the same form as the RHS of Model-A, now with the more involved service time BC .
+With p(x; y) and μI (x; y) as in Equations (8.5) and (8.6), the standard-form source becomes
+q(x; y) = μ π(0, 0) (1 − y)  x − ζ(y) 
+θ1 x(x − 1)  ζ(y) − y  ,
+and Equation (8.8) reads P (x, y) = μI (x; y)−1 R x
+0 q(t; y) μI (t; y) dt. To carry out the integral, use
+the partial fraction
+t − ζ(y)
+t(t − 1) = ζ(y)(t − 1) + t 1 − ζ(y) 
+t(t − 1) = ζ(y)
+t + 1 − ζ(y)
+t − 1 ,
+and define the auxiliary integrals
+H1(x, y) =
+Z x
+0
+e−λ1t/θ1 t α−1(1 − t) β(y) dt,
+H2(x, y) =
+Z x
+0
+e−λ1t/θ1 t α(1 − t) β(y)−1 dt,
+with α, β(y) as in Equation (8.7). They are related to the full integrals of Step-(ii) in the following
+way: H2(1, y) = J1(y) exactly, and H1(1, y)̸ = J0(y) (its (1 − t) exponent is β(y), not β(y) − 1).
+Multiplying q(t; y) by μI (t; y) = e−λ1t/θ1 tα(1 − t)β(y) and inserting the partial fraction, the
+integrand splits into the two pieces defining H1, H2:
+q(t; y) μI (t; y) = μ π(0, 0) (1 − y)
+θ1
+ ζ(y) − y 
+  ζ(y)
+t + 1 − ζ(y)
+t − 1
+ 
+e−λ1t/θ1 tα(1 − t)β(y)
+= μ π(0, 0) (1 − y)
+θ1
+ ζ(y) − y 
+h
+ζ(y) e−λ1t/θ1 tα−1(1 − t)β(y) −  1 − ζ(y)  e−λ1t/θ1 tα(1 − t)β(y)−1i
+,
+the second term again using (1 − t)β(y)/(t − 1) = −(1 − t)β(y)−1, which produces both the minus
+sign and the exponent shift on H2. Since π(0, 0) and ζ(y) leave the integral,
+Z x
+0
+q(t; y) μI (t; y) dt = μ π(0, 0) (1 − y)
+θ1
+ ζ(y) − y 
+h
+ζ(y) H1(x, y) −  1 − ζ(y)  H2(x, y)
+i
+.
+Dividing by μI (x; y) and restoring ζ(y) = e	BC (λ2(1 − y)), we arrive at the closed form
+P (x, y) = eλ1x/θ1 μ π(0, 0) (1 − y)
+θ1 xα(1 − x)β(y)  e	BC (λ2(1 − y)) − y 
+×
+h e	BC (λ2(1 − y)) H1(x, y) −  1 − e	BC (λ2(1 − y))  H2(x, y)
+i
+,
+(8.13)
+which is the expression in the statement of the theorem.
+53
+
+-- 53 of 68 --
+
+The non-trivial proof for the corollary invoked in Theorem 4 comes next
+Proof of Corollary 5. The idle system state, with limiting probability π0, only communicates to the
+busy-server-empty-queues state with probability π(0, 0). No abandonments can take place in either
+state, as the queues are empty in both cases. By the cut identity of Theorem 1 (Equation (4.8)),
+(λ1 + λ2) π0 = μ π(0, 0), (8.14)
+so π(0, 0) = (ρ1 + ρ2) π0. We again use the M/G/1 structure identified in §8.3. The long-run
+fraction of time this queue is busy is ρB = λ2 E[BC ], and “idle” refers exclusively to no class-2
+customers being present. So
+P(no class-2 present) = 1 − λ2 E[BC ].
+Conditional on not having class-2 customers, the priority subsystem evolves as the M/M/1 + M
+queue (λ1, μ, θ1) defining BC , which alternates idle and busy periods in a renewal structure, whose
+regenerations are the moments it empties. An idle period lasts until the next class-1 arrival takes
+place, i.e. at an exponential rate λ1. We have
+P(class-1 absent | no class-2 present) = 1/λ1
+1/λ1 + E[BC ] = 1
+1 + λ1 E[BC ] .
+The fully idle event is the intersection of A = {class-1 absent} and B = {no class-2 present}, so
+P(A ∩ B) = P(B) P(A | B) (not independence),
+π0 =  1 − λ2 E[BC ]  · 1
+1 + λ1 E[BC ] = 1 − λ2 E[BC ]
+1 + λ1 E[BC ] ,
+which is Equation (8.4); substituting into Equation (8.14) gives Equation (8.3). Equivalently, this
+is the renewal–reward form π0 = 1/ 1+λ E[B]  of Theorem 1 with whole-system mean busy period
+E[B] = E[BC ]/ 1 − λ2 E[BC ]  —the mean busy period of the M/G/1 queue in which each class-2
+arrival (rate λ2) carries a service requirement of one class-1 busy period BC .
+8.3 Alternative derivation of Py(y): the M/G/1 / Pollaczek–Khinchine
+route
+The boundary function Py (y) admits a second derivation, using the same probabilistic argument
+seen in §5.1.2 that does not require imposing boundedness. By the law of total expectation, splitting
+Py (y) = E[1{busy, N1 = 0} yN2 ] over the event {busy, N1 = 0} factors it into the mass of that
+event and the conditional PGF of N2 given it:
+Py (y) = P(busy, N1 = 0) · E yN2 busy, N1 = 0  . (8.15)
+We adopt the point of view of a class-2 customer while the server is busy. Unlike jockeying, class-1
+customers abandon the system, so the class-2 Poisson arrival stream still holds. The class-2 effective
+service time is therefore one full busy period BC of the class-1 subsystem —an M/M/1+M queue
+with rates λ1, μ, θ1, rather than the pure M/M/1 of Model-A. So class-2 sees an M/G/1 queue
+with Poisson input λ2 and service distributed as BC , whose LST e	BC (s) and mean E[BC ] come
+from the first-step analysis of §3.3 (Equations (3.3) and (3.4)). This M/G/1 is stable if and only if
+its utilisation λ2 E[BC ] < 1 (Equation (8.1)), a condition strictly weaker than the no-abandonment
+requirement ρ = ρ1 + ρ2 < 1.
+Applying the Pollaczek–Khinchine formula (3.8) with the identifications λ 7 → λ2, e	B 7 → e	BC ,
+ρB = λ2 E[BC ] gives the PGF of the stationary number of class-2 customers in that M/G/1:
+L2(y) = (1 − λ2E[BC ]) (1 − y) e	BC (λ2(1 − y))
+e	BC (λ2(1 − y)) − y .
+Since class-2 arrivals are Poisson, by PASTA (§3.2) the number of class-2 customers an arrival
+finds equals the time-average; conditioning on {busy, N1 = 0} identifies that count with N2:
+E yN2 busy, N1 = 0  = L2(y). (8.16)
+Substituting Equation (8.16) into the decomposition (8.15) gives
+Py (y) = P(busy, N1 = 0) (1 − λ2E[BC ]) (1 − y) e	BC (λ2(1 − y))
+e	BC (λ2(1 − y)) − y . (8.17)
+54
+
+-- 54 of 68 --
+
+The unknown P(busy, N1 = 0) is determined by Py (0) = π(0, 0): evaluating Equation (8.17) at
+y = 0, where e	BC (λ2) cancels,
+π(0, 0) = Py (0) = P(busy, N1 = 0) (1 − λ2E[BC ]) · 1 · e	BC (λ2)
+e	BC (λ2)
+= P(busy, N1 = 0) (1 − λ2E[BC ]),
+so P(busy, N1 = 0) = π(0, 0)/(1 − λ2E[BC ]). Substituting back, the factor (1 − λ2E[BC ]) cancels
+and we recover exactly Equation (8.12), in agreement with the analytical route. The result also
+matches the probabilistic argument for Model-A (Equation (5.8)); the only difference is the effective
+service time.
+Finally, this route shows the Kummer fraction on the probabilistic side. The busy-period LST
+that the Pollaczek–Khinchine formula feeds on is, from the Erlang-A analysis (§3.3, Equation (3.7)),
+the ratio of confluent hypergeometric functions
+e	BC (s) = B(a + 1, b) 1F1(a + 1; a + 1 + b; −c)
+B(a, b) 1F1(a; a + b; −c) , a = μ
+θ1
+, b = s
+θ1
+, c = λ1
+θ1
+.
+This is the very expression (8.11) that the analytical route produced as the Beta-integral ratio
+J1(y)/J0(y) at s = λ2(1 − y). The two derivations therefore meet at this Kummer fraction: what
+boundedness delivers as a ratio of Euler integrals is precisely the LST of the class-1 busy period.
+9 Analysis of Model-BH
+2 (γ1 > 0 head-of-line, γ2 = θ1 = θ2 = 0)
+Inspired by the work of Devos et al. [DWFB20], this model —together with Model-CH
+2 — eliminates
+the state-dependent jockeying rate for the class-1, only allowing the head-of-line customer from
+class-1 to transition at a fixed rate γ1 whenever n1 ≥ 1, giving an aggregate rate γ1 1{n1≥1}.
+This significantly simplifies the model. The flat rate replaces the derivative term in x found
+in §7 by an algebraic factor γ1y(x − y) so the fundamental equation remains algebraic and can be
+solved by the Kernel Method exactly as in Model-A (§5).
+Stability. Jockeying conserves the total number of customers; since there is no abandonment,
+the chain is positive recurrent if and only if the total traffic intensity satisfies
+ρ = λ1 + λ2
+μ < 1. (9.1)
+9.1 Balance equations
+The jockeying transition (n1, n2) → (n1 − 1, n2 + 1) happens at the fixed rate γ1 for n1 ≥ 1. On
+state space S the global balance equations read
+[λ1 + λ2 + μ + γ1] π(n1, n2)
+= μ π(n1 + 1, n2) + λ1π(n1 − 1, n2) + λ2π(n1, n2 − 1) + γ1π(n1 + 1, n2 − 1) n1 ≥ 1, n2 ≥ 1,
+(9.2)
+[λ1 + λ2 + μ + γ1] π(n1, 0) = μ π(n1 + 1, 0) + λ1π(n1 − 1, 0) n1 ≥ 1, n2 = 0,
+(9.3)
+[λ1 + λ2 + μ] π(0, n2)
+= μ π(1, n2) + γ1π(1, n2 − 1) + λ2π(0, n2 − 1) + μ π(0, n2 + 1) n1 = 0, n2 ≥ 1,
+(9.4)
+[λ1 + λ2 + μ] π(0, 0) = (λ1 + λ2)π0 + μ π(1, 0) + μ π(0, 1),
+(λ1 + λ2)π0 = μ π(0, 0). (9.5)
+9.2 Fundamental PGF equation
+Lemma 4 (Fundamental equation for Model-BH
+2 ). Assume positive recurrence, so that the sta-
+tionary distribution exists and P (x, y) = P
+n1,n2≥0 π(n1, n2)xn1 yn2 is analytic on the closed unit
+polydisc. Then P (x, y) and the boundary function Py (y) = P (0, y) satisfy
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2 + γ1y(x − y)  P (x, y)
+= [μ(x − y) + γ1y(x − y)] Py (y) − μx(1 − y) π(0, 0). (9.6)
+55
+
+-- 55 of 68 --
+
+Proof. Besides the jockeying terms, equations (9.2)–(9.5) coincide with those of Model-A. Multi-
+plying each balance equation by xn1 yn2 , summing over its domain and multiplying through by xy,
+we obtain the fundamental equation for Model-A (Equation (5.2)):
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2  P (x, y) = μ(x − y)Py (y) − μx(1 − y) π(0, 0),
+so it remains only to collect the jockeying contribution. Its out-flow appears in every state with
+n1 ≥ 1:
+γ1
+X
+n1≥1
+X
+n2≥0
+π(n1, n2) xn1 yn2 = γ1
+ P (x, y) − Py (y) ,
+while its in-flow enters every state with n2 ≥ 1 from (n1 + 1, n2 − 1):
+γ1
+X
+n1≥0
+X
+n2≥1
+π(n1 + 1, n2 − 1) xn1 yn2 = γ1
+y
+x
+X
+m1≥1
+X
+m2≥0
+π(m1, m2) xm1 ym2 = γ1
+y
+x
+ P (x, y) − Py (y) ,
+where m1 = n1 + 1, m2 = n2 − 1. The jockeying contribution (out minus in) is hence γ1
+ 1 −
+y
+x
+  P (x, y) − Py (y) ; multiplying by xy gives γ1y(x − y) P (x, y) − Py (y) . Adding this to the
+Model-A equation and moving the Py part to the right-hand side yields Equation (9.6).
+9.3 Closed-form solution
+The following theorem is the main result of this section; its proof is based on the analytical (Kernel
+Method) treatment of Model-A in §5.1.1.
+Theorem 5 (Closed-form PGF for Model-BH
+2 ). Consider the two-class non-preemptive priority
+queue with Poisson arrival rates λ1, λ2, common exponential service rate μ, and head-of-line class-
+1 jockeying at rate γ1 > 0 (with γ2 = θ1 = θ2 = 0). Under the stability condition (9.1), the joint
+PGF P (x, y) = E[xN1 yN2 ] is the rational function
+P (x, y) = μ ρ(1 − ρ) (1 − y)
+λ1
+ x∗(y) − y   x+(y) − x  , (9.7)
+where x∗(y) and x+(y) are the two roots of the kernel quadratic
+λ1x2 −  λ1 + λ2(1 − y) + μ + γ1
+ x + (μ + γ1y) = 0, (9.8)
+with x∗(y) the root inside the unit disc.
+The result below is stated as a corollary, so that it sits at the same hierarchy level as the
+corresponding results for the other models.
+Corollary 6. Under Equation (9.1), the empty-state probabilities of Model-BH
+2 coincide with those
+of Model-A,
+π0 = 1 − ρ, π(0, 0) = ρ(1 − ρ).
+In particular P (1, 1) = 1 − π0 = ρ and the diagonal generating function satisfies P (z, z) =
+π(0, 0)/(1 − ρz).
+The proof is the no-abandonment instance of Theorem 1 (Corollary 1): head-of-line jockeying
+conserves the total count, so E[B] = (μ − λ)−1 and the baseline values hold.
+9.3.1 Analytical approach for Model-BH
+2
+Proof of Theorem 5. We apply the Kernel Method to the fundamental equation (9.6). Fix y ∈ (0, 1]
+and seek the values of x at which the coefficient of P (x, y) vanishes. Since P (x, y) is a PGF it is
+bounded on the closed unit disc, so at any such root the right-hand side of Equation (9.6) must
+also vanish. Dividing the kernel by y̸ = 0,
+0 = (λ1 + λ2 + μ)x − μ − λ1x2 − λ2xy + γ1(x − y),
+and rearranging into a quadratic in x gives exactly Equation (9.8),
+λ1x2 −  λ1 + λ2(1 − y) + μ + γ1
+ x + (μ + γ1y) = 0,
+56
+
+-- 56 of 68 --
+
+whose two roots are
+x±(y) = A(y) ± pA(y)2 − 4λ1(μ + γ1y)
+2λ1
+, A(y) := λ1 + λ2(1 − y) + μ + γ1.
+We label the root carrying the negative sign x∗(y) and the other x+(y). By Vieta’s formulas the
+product of the roots is x∗(y) x+(y) = (μ + γ1y)/λ1.
+To locate the roots relative to the unit disc we evaluate the kernel quadratic, written as f (x) :=
+λ1x2 − A(y)x + (μ + γ1y), at x = 1:
+f (1) = λ1 −  λ1 + λ2(1 − y) + μ + γ1
+  + (μ + γ1y) = −(1 − y) (λ2 + γ1) < 0 for y ∈ [0, 1).
+We have thatx∗(y) is the unique root inside the unit disc, and at y = 1 one checks f (1) = 0 with
+x∗(1) = 1 and x+(1) = (μ + γ1)/λ1 > 1. For later use, we record d
+dy x∗(1). The cleanest route
+is implicit differentiation of f (x, y) := λ1x2 − A(y)x + (μ + γ1y) = 0 at (x, y) = (1, 1), where
+fy = λ2x + γ1 and fx = 2λ1x − A(y) evaluate to fy (1, 1) = λ2 + γ1 and fx(1, 1) = λ1 − μ − γ1, so
+d
+dy x∗(1) = −fy /fx:
+d
+dy x∗(1) = λ2 + γ1
+μ + γ1 − λ1
+. (9.9)
+Unlike Model-A’s Equation (5.6), the numerator carries an extra γ1: the constant term μ + γ1y of
+the kernel (9.8) is itself y-dependent here.
+Setting x = x∗(y) in Equation (9.6) forces the right-hand side to vanish:(x∗(y) − y)(μ +
+γ1y) Py (y) = μx∗(y)(1 − y) π(0, 0), whence the boundary function is
+Py (y) = μ x∗(y) (1 − y) π(0, 0)
+(μ + γ1y)  x∗(y) − y  . (9.10)
+Finally, substitute Equation (9.10) and π(0, 0) = ρ(1−ρ) (Corollary 6) back into Equation (9.6).
+Writing the kernel as −λ1y (x − x∗(y))(x − x+(y)) and simplifying the right-hand side,
+ μ(x − y) + γ1y(x − y) Py (y) − μx(1 − y) π(0, 0) = μ(1 − y) π(0, 0)
+  (x − y) x∗(y)
+x∗(y) − y − x
+ 
+= μ(1 − y) π(0, 0) y  x − x∗(y) 
+x∗(y) − y ,
+where the bracket collapses because (x − y)x∗ − x(x∗ − y) = y(x − x∗). Dividing by the factored
+kernel, the common factor  x − x∗(y)  cancels out and we have
+P (x, y) = μ(1 − y) π(0, 0) y (x − x∗(y))/(x∗(y) − y)
+−λ1y (x − x∗(y))(x − x+(y)) = μ ρ(1 − ρ) (1 − y)
+λ1
+ x∗(y) − y   x+(y) − x  ,
+which matches Equation (9.7) and concludes the proof.
+10 Analysis of Model-CH
+2 (θ1 > 0 head-of-line, γ1 = γ2 = θ2 =
+0)
+Model-CH
+2 is the abandonment counterpart of Model-BH
+2 , and the head-of-line simplification of the
+class-1 abandonment model Model-C2. Only the customer at the head of Queue 1 abandons, at the
+fixed rate θ1 whenever n1 ≥ 1. As in Model-BH
+2 , the flat rate θ1 1{n1≥1} contributes an algebraic
+term rather than a derivative, and the Kernel Method applies directly. True departure breaks the
+conservation of the total number of customers that we had in models without abandonment.
+Stability. Because only the head-of-line from class-1 abandons, the aggregate abandonment
+rate is bounded by θ1 regardless of queue length as long as we have a queue, so a genuine stability
+condition is required. As shown in Corollary 7 below, the chain is positive recurrent if and only if
+π0 > 0, that is
+(μ + θ1)(μ − λ) + λ1θ1 > 0, λ = λ1 + λ2. (10.1)
+This is weaker than ρ < 1: if ρ < 1 then μ − λ > 0 and the condition holds trivially, but
+it can also hold with ρ ≥ 1 provided θ1 is large enough. Moreover, Equation (10.1) implies
+ρC := λ1/(μ + θ1) < 1. Hence μ + θ1 > λ1, i.e. ρC < 1.
+57
+
+-- 57 of 68 --
+
+10.1 Balance equations
+The abandonment transition (n1, n2) → (n1 − 1, n2) occurs at the fixed rate θ1 whenever n1 ≥ 1.
+Since both a service completion and a head abandonment from (n1 + 1, n2) land in (n1, n2), the
+two mechanisms combine into the coefficient μ + θ1 on the in-flows. On S,
+[λ1 + λ2 + μ + θ1] π(n1, n2)
+= (μ + θ1)π(n1 + 1, n2) + λ1π(n1 − 1, n2) + λ2π(n1, n2 − 1) n1 ≥ 1, n2 ≥ 1, (10.2)
+[λ1 + λ2 + μ + θ1] π(n1, 0) = (μ + θ1)π(n1 + 1, 0) + λ1π(n1 − 1, 0) n1 ≥ 1, n2 = 0,
+[λ1 + λ2 + μ] π(0, n2)
+= (μ + θ1)π(1, n2) + λ2π(0, n2 − 1) + μ π(0, n2 + 1) n1 = 0, n2 ≥ 1,
+[λ1 + λ2 + μ] π(0, 0) = (λ1 + λ2)π0 + (μ + θ1)π(1, 0) + μ π(0, 1),
+(λ1 + λ2)π0 = μ π(0, 0). (10.3)
+10.2 Fundamental PGF equation
+We introduce the following result:
+Lemma 5 (Fundamental equation for Model-CH
+2 ). Assume positive recurrence. Then the joint
+PGF P (x, y) and the boundary function Py (y) = P (0, y) satisfy
+ (λ1 + λ2 + μ)xy − μy − λ1x2y − λ2xy2 + θ1y(x − 1)  P (x, y)
+= [μ(x − y) + θ1y(x − 1)] Py (y) − μx(1 − y) π(0, 0). (10.4)
+Proof. As in Lemma 4, the non-abandonment terms of Equations (10.2)–(10.3) reproduce the
+Model-A fundamental equation (5.2) after multiplication by xn1 yn2 , summation, and multiplication
+by xy. The abandonment out-flow appears in every state with n1 ≥ 1,
+θ1
+X
+n1≥1
+X
+n2≥0
+π(n1, n2) xn1 yn2 = θ1
+ P (x, y) − Py (y) ,
+and its in-flow enters every state (n1, n2) from (n1 + 1, n2),
+θ1
+X
+n1≥0
+X
+n2≥0
+π(n1 + 1, n2) xn1 yn2 = θ1 x−1 X
+m1≥1
+X
+n2≥0
+π(m1, n2) xm1 yn2 = θ1 x−1 P (x, y) − Py (y) ,
+with m1 = n1 + 1. The net contribution is θ1
+ 1 − x−1  P (x, y) − Py (y) ; multiplying by xy
+gives θ1y(x − 1) P (x, y) − Py (y) . Adding to the Model-A equation and rearranging yields Equa-
+tion (10.4).
+10.3 Closed-form solution
+Theorem 6 (Closed-form PGF for Model-CH
+2 ). Consider the two-class non-preemptive priority
+queue with Poisson arrival rates λ1, λ2, common exponential service rate μ, and head-of-line class-
+1 abandonment at rate θ1 > 0 (with γ1 = γ2 = θ2 = 0). Under the stability condition (10.1), the
+joint PGF P (x, y) = E[xN1 yN2 ] is the rational function
+P (x, y) = μ(μ + θ1) (1 − y) π(0, 0)
+λ1
+ x+(y) − x   (μ + θ1y) x∗(y) − y(μ + θ1)  , (10.5)
+where x∗(y) and x+(y) are the two roots of the kernel quadratic
+λ1x2 −  λ1 + λ2(1 − y) + μ + θ1
+ x + (μ + θ1) = 0, (10.6)
+with x∗(y) the root inside the unit disc, and π(0, 0) is given by Corollary 7. As θ1 → 0+ the
+formula recovers Model-A (Theorem 2) exactly.
+The theorem invokes the following Corollary:
+Corollary 7. Under Equation (10.1), the empty-state probabilities of Model-CH
+2 are
+π0 = (μ + θ1)(μ − λ) + λ1θ1
+μ(μ + θ1) + λ1θ1
+, π(0, 0) = λ (μ + θ1)(μ − λ) + λ1θ1
+ 
+μ μ(μ + θ1) + λ1θ1
+  , (10.7)
+with λ = λ1 + λ2. At θ1 → 0+ these reduce to π0 → 1 − ρ and π(0, 0) → ρ(1 − ρ), recovering
+Model-A.
+58
+
+-- 58 of 68 --
+
+Proof of Corollary 7. Two evaluations of the fundamental equation (10.4) suffice. First set y = 1:
+the term μx(1 − y)π(0, 0) vanishes, the coefficient of P (x, 1) factors as −(x − 1) λ1x − (μ + θ1) ,
+and the RHS becomes (x − 1)(μ + θ1)Py (1). Cancelling (x − 1) we obtain
+P (x, 1) = (μ + θ1) Py (1)
+μ + θ1 − λ1x = Py (1)
+1 − ρC x , ρC := λ1
+μ + θ1
+. (10.8)
+This geometric marginal shows that the priority queue clears at the effective rate μ+θ1. Evaluating
+at x = 1 and using P (1, 1) = 1 − π0 gives
+1 − π0 = Py (1)
+1 − ρC
+=⇒ Py (1) = (1 − π0)(1 − ρC ). (10.9)
+Second, set x = 1 in Equation (10.4). The coefficient of P (1, y) collapses to λ2y(1 − y) and the
+right-hand side to μ(1 − y) Py (y) − π(0, 0) , yielding the following relation
+λ2 y P (1, y) = μ Py (y) − π(0, 0) . (10.10)
+Letting y → 1 and using Equation (10.9) and the cut identity of Theorem 1 (π(0, 0) = λπ0/μ,
+Equation (10.3)), we have
+λ2(1 − π0) = μ Py (1) − π(0, 0)  = μ(1 − π0)(1 − ρC ) − λπ0.
+Expanding and collecting the π0 terms,
+ μ(1 − ρC ) + λ − λ2
+ π0 = μ(1 − ρC ) − λ2, i.e. π0 = μ(1 − ρC ) − λ2
+μ(1 − ρC ) + λ1
+,
+where λ−λ2 = λ1. Substituting μ(1−ρC ) = μ(μ+θ1 −λ1)/(μ+θ1) and multiplying numerator and
+denominator by μ + θ1, the numerator becomes μ(μ + θ1 − λ1) − λ2(μ + θ1) = (μ + θ1)(μ − λ) + λ1θ1
+and the denominator μ(μ + θ1 − λ1) + λ1(μ + θ1) = μ(μ + θ1) + λ1θ1, yielding the first identity in
+Equation (10.7); the second follows directly from π(0, 0) = λπ0/μ. The denominator μ(μ+θ1)+λ1θ1
+is strictly positive, so π0 > 0 is equivalent to the stability condition (10.1). In the renewal–
+reward form π0 = 1/ 1 + λ E[B]  of Theorem 1, this is a whole-system mean busy period E[B] =
+(μ + θ1)/ (μ + θ1)(μ − λ) + λ1θ1
+ , which reduces to the M/M/1 value (μ − λ)−1 as θ1 → 0+.
+10.3.1 Analytical approach for Model-CH
+2
+Proof of Theorem 6. We again apply the Kernel Method to Equation (10.4). Dividing the coeffi-
+cient of P (x, y) by y̸ = 0 and rearranging gives the kernel quadratic (10.6),
+λ1x2 −  λ1 + λ2(1 − y) + μ + θ1
+ x + (μ + θ1) = 0,
+Its roots are
+x±(y) = A(y) ± pA(y)2 − 4λ1(μ + θ1)
+2λ1
+, A(y) := λ1 + λ2(1 − y) + μ + θ1, (10.11)
+with product x∗(y) x+(y) = (μ + θ1)/λ1 by Vieta’s formulas. Evaluating the quadratic f (x) :=
+λ1x2 − A(y)x + (μ + θ1) at x = 1,
+f (1) = λ1 − A(y) + (μ + θ1) = −λ2(1 − y) < 0 for y ∈ [0, 1),
+So x = 1 lies between the two roots and x∗(y) < 1 < x+(y) for y ∈ [0, 1); at y = 1, x∗(1) = 1 and
+x+(1) = (μ + θ1)/λ1 > 1 (the latter by ρC < 1). Hence x∗(y) is the unique root inside the unit
+disc. Differentiating Equation (10.11) at y = 1,
+d
+dy x∗(1) = λ2
+μ + θ1 − λ1
+. (10.12)
+Setting x = x∗(y) in Equation (10.4) forces the RHS to vanish,
+ μ(x∗(y) − y) + θ1y(x∗(y) − 1) Py (y) = μx∗(y)(1 − y) π(0, 0),
+and, regrouping the bracket as μ(x∗ − y) + θ1y(x∗ − 1) = (μ + θ1y)x∗ − y(μ + θ1), the boundary
+function is
+Py (y) = μ x∗(y) (1 − y) π(0, 0)
+(μ + θ1y) x∗(y) − y(μ + θ1) . (10.13)
+59
+
+-- 59 of 68 --
+
+Write ∆(y) := (μ + θ1y)x∗(y) − y(μ + θ1) for the denominator of Equation (10.13); at y = 0,
+∆(0) = μ x∗(0) (with x∗(0) > 0), so Py (0) = π(0, 0), exactly as for Model-BH
+2 at Equation (9.10).
+Substituting Equation (10.13) into Equation (10.4) and writing the kernel as −λ1y (x−x∗(y))(x−
+x+(y)), the right-hand side becomes
+ μ(x−y)+θ1y(x−1) Py (y)−μx(1−y) π(0, 0) = μ(1 − y) π(0, 0)
+∆(y)
+n μ(x−y)+θ1y(x−1) x∗(y)−x ∆(y)
+o
+.
+Substituting ∆(y), it simplifies to (μ + θ1) y (x − x∗(y)). Dividing by the factored kernel cancels
+(x − x∗(y)), yielding
+P (x, y) = μ(μ + θ1)(1 − y) π(0, 0) y (x − x∗(y))/∆(y)
+−λ1y (x − x∗(y))(x − x+(y)) = μ(μ + θ1)(1 − y) π(0, 0)
+λ1 (x+(y) − x) ∆(y) ,
+which is Equation (10.5) and concludes the proof.
+11 Results
+Every closed-form expression derived above is first validated against an exact continuous-time
+Markov chain (CTMC), then used to compare the solved models and quantify the effect of the two
+waiting-room mechanisms.
+11.1 Validation against the CTMC
+The method employed is a truncated CTMC: it works by solving the linear system πQ = 0 directly,
+with no further approximation than the finite truncation at Nmax = 40. Each result is therefore
+verified against the exact limiting distribution at base parameters λ1 = 0.3, λ2 = 0.4, μ = 1.0,
+with the active mechanism parameter γ1 or θ1 set to 0.5 where applicable.
+Table 4 collects the verdict for every result. All results are admitted within a machine tolerance
+level: lemma residuals and closed-form PGF errors fall between 10−7 and 10−15, and the corollary
+errors lie on the diagonal to 10−4 across 60 random configurations each.
+Table 4: Validation summary. All mathematical results are accepted; the PPGF approximation
+is conditionally accepted (accurate only for ρ1/ρ ≥ 0.6 and ρ ≤ 0.6). Max errors reflect CTMC
+truncation, not formula error.
+ID Result Model(s) Check Max error Verdict
+L1 Lemma 1 A, B, B2, C2 PGF eq. residual < 5 × 10−9 Accept
+L2 Lemma 2 A, B2, C2 PPGF dynamics residual < 2 × 10−15 Accept
+T-A Theorem 2 A P (x, y) on 5 × 5 grid < 4 × 10−8 Accept
+C-A Corollary 1 A, B, B2 π0, π(0, 0), 60 configurations < 10−4 Accept
+T-B2 Theorem 3 B2 P (x, y) on 5 × 5 grid, x < y < 3 × 10−7 Accept
+T-C2 Theorem 4 C2 P (x, y) on 5 × 5 grid < 5 × 10−12 Accept
+C-C2 Corollary 5 C2 π0, π(0, 0), 60 configurations < 10−4 Accept
+T-S Approximation 1 A ε∞ over (ρ1, ρ2) 0–100% Conditional
+E-B Theorem 5 BH
+2 P (x, y) on 5 × 5 grid < 3 × 10−7 Accept
+E-C Theorem 6 CH
+2 P (x, y) on 5 × 5 grid < 3 × 10−11 Accept
+Only the approximation for Model-A in state space eS resolves to a non-satisfactory precision
+level, only being acceptable in a priority-dominated setup. This was expected, as the approximation
+only neglected the problematic non-homogeneous term in Lemma 2, coming from the boundary-
+diagonal term.
+Rows C-A and C-C2 combined validate Theorem 1: the identity π(0, 0) = ρ π0 and the busy-
+period law π0 = 1/(1+λ E[B]) hold to < 10−4 across both the no-abandonment regime (Corollary 1,
+Models A, B, B2) and the class-1 abandonment regime (Corollary 5, Model-C2), confirming the
+single scalar E[B] as the only model-dependent input.
+11.2 Structural comparison of the solved models
+With every closed form validated, we compare the five solved models: Model-A (baseline), Model-
+B2 (class-1 jockeying), Model-C2 (class-1 abandonments) and the two head-of-line variants Model-
+60
+
+-- 60 of 68 --
+
+BH
+2 and Model-CH
+2 . The first three are more tractable simplifications of Model-X, while the head-
+of-line models are further simplifications of Model-B2 and Model-C2, respectively. Each produces a
+closed-form or integral-form expression for P (x, y). Table 5 collects the key structural facts across
+all five solved models.
+Table 5: Structural comparison of the five solved models. Replacing a length-proportional mech-
+anism rate (γ1n1 or θ1n1) by a head-of-line rate (γ11{n1≥1} or θ11{n1≥1}) collapses the governing
+ODE back to the algebraic Model-A form, so P (x, y) becomes rational again.
+Model-A Model-B2 Model-BH
+2 Model-C2 Model-CH
+2
+Extra mechanism
+(rate)
+none jockey 1 → 2,
+γ1n1
+jockey 1 → 2,
+γ11{n1≥1}
+abandon, θ1n1 abandon,
+θ11{n1≥1}
+Fundamental equa-
+tion
+algebraic 1st-order ODE algebraic 1st-order ODE algebraic
+Pinning of Py (y) kernel root
+x∗(y)
+analyticity at
+x = y
+kernel root
+x∗(y)
+boundedness at
+x = 1
+kernel root
+x∗(y)
+P (x, y) form rational integral + 1F1 rational integral + 1F1 rational
+Conserves total N ? yes yes yes no no
+π(0, 0) ρ(1 − ρ) ρ(1 − ρ) ρ(1 − ρ) (8.3) (10.7)
+π0 1 − ρ 1 − ρ 1 − ρ > 1 − ρ, (8.4) (10.7)
+Stability condition ρ < 1 ρ < 1 ρ < 1 λ2E[BC ] < 1 (10.1)
+Model-A: the rational baseline
+Model-A is a classical, well-known model, so it acts as a baseline model to which all the rest
+should reduce as their active mechanism parameters approach zero. All performance measures
+have a closed-form representation, and it also shows some structural identities that persist across
+other models, such as the conservation of the total number of customers for other models without
+abandonments —for those with abandonments, it shows how the performance measures change.
+Effect of jockeying: Model-A → Model-B2
+Adding one-way jockeying (γ1 > 0, γ2 = 0) couples the two queues: a class-1 customer waiting
+in the queue for class-2 may defect to the queue for class-2 at rate γ1. The consequences are
+asymmetric.
+What is preserved. Jockeying merely reallocates customers, so the total count of customers in
+the queues is preserved and remains to be that of the standard M/M/1 queueing model. Conse-
+quently P (z, z), π0, π(0, 0), and E[N ] are identical to Model-A for all γ1 > 0.
+What no longer holds. Jockeying breaks the Poisson arrival stream. In the case of Model-B2,
+the arrivals of class-2, as they can either arrive by a normal Poisson process or by jockeying from
+the queue of class-1, which adds a state-dependent rate. The Pollaczek-Khinchine route is therefore
+not available.
+What is new. The PGF satisfies a first-order linear ODE in x, for each fixed y. The solution
+is found by means of an integrating factor with a singularity at the point x = y; therefore the
+singularity must vanish since P is a PGF and, hence, analytic. This narrows it down to a ratio of
+Kummer functions.
+Effect of abandonment: Model-A → Model-C2
+Adding class-1 abandonment (θ1 > 0, θ2 = 0, γi = 0) allows each waiting class-1 customer to leave
+the system at a per-customer rate θ1.
+What is preserved. Class-2 customers still see Poisson arrivals, as abandonment in class-1 does
+not alter the stream of arrivals to the queue for class-2. Therefore, the PASTA property still
+appries, and so does the Pollaczek-Khinchine probabilistic approach to derive Py (y).
+What no longer holds. Since abandonment is a true departure from the system, the total
+number of customers is no longer preserved, requiring a more mathematically involved analysis
+compared to Corollary 2 to determine the stability conditions, the idle system probability π0 and
+the busy-server-empty-queues probability π(0, 0).
+What is new. The PGF satisfies a first-order linear ODE in x, for fixed y, as in Model-B. Here
+the singularity is found at the boundary x = 1, with a positive exponent so that the integrating
+factor μI vanishes there and R 1
+0 q μI dt = 0 is imposed by boundedness of the PGF.
+61
+
+-- 61 of 68 --
+
+Mechanism contrast: Models B2 and C2
+Both models reduce the fundamental equation to a first-order linear ODE in x and both close in
+confluent hypergeometric functions; but the mechanism that determines the boundary function
+Py (y) is structurally different.
+Model-C2 (θ1 > 0) Model-B2 (γ1 > 0)
+Convection coefficient θ1 x(x − 1) γ1 x(x − y)
+Operative singular point boundary x = 1 interior x = y
+Exponent at singularity β(y) = λ2(1 − y)/θ1 > 0
+(μI → 0)
+β(y) = (1−y)(λy −μ)/(γ1y) <
+0 (μI → ∞)
+Pinning principle boundedness: R 1
+0 q μI dt = 0 analyticity: branch coefficient
+= 0
+π(0, 0) M/G/1+renewal (conserva-
+tion broken)
+ρ(1 − ρ) exactly (conservation
+holds)
+Probabilistic backbone class-2 is M/G/1; P-K with
+BC
+class-1 is M/M/1+M (reneg-
+ing = γ1); no P-K
+In words: for Model-C2 the singularity sits on the boundary x = 1 with a positive exponent,
+so μI vanishes and Py (y) is determined by the PGF being bounded; and the arrival stream for
+class-2 remains Poisson, so the Pollaczek-Khinchine and M/G/1 renewal argument yield Py (y)
+and π(0, 0). In contrast, for Model-B2 the singularity is found at the interior point x = y with a
+negative exponent, so μI blows up and only analycity determines Py (y). Jockeying leaves no room
+for the Pollaczek-Khinchine identity; the M/M/1+M reading of the class-1 marginal is the origin
+of the 1F1 factors.
+Common Erlang-A structure
+A common object appears in both Model-B2 and Model-c2:
+1F1
+ 
+1; μ
+r + 1; λ1
+r
+ 
+, (11.1)
+with r = γ1 (Model-B2) or r = θ1 (Model-C2). This comes from the Erlang-A substructure: in
+C2 it equals μ E[BC ], while in B2 it controls the Kummer ratio in Py (y) through the exponent
+α(y) = μ/(γ1y). In both cases, the function evaluates a negative argument (−λ1/r) in C2 and
+(−λ1y/γ1) in B2, and the ratio 1F1(α + 1; ·; ·)/1F1(α; ·; ·) acts as a boundary correction to the
+algebraic formula found in Model-A.
+Model-B2 reduces to Model-A only when γ1 → 0+, in which the exponents α, β → ∞ and the
+Kummer ratio collapses to the expression x∗(y)(1 − y)/(x∗(y) − y) found in Model-A. Similarly,
+Model-C2 degenerates to Model-A uniformly as θ1 → 0+, and all formulas also recover their
+counterparts from Model-A
+Head-of-line simplifications: Models BH
+2 and CH
+2
+The head-of-line variants of §§9–10 restrict each mechanism to the single customer at the head
+of the queue for class 1, replacing the length-proportional rate (γ1n1 or θ1n1) by a constant one
+(γ1 1{n1≥1} or θ1 1{n1≥1}). As a consequence, the derivative terms in our fundamental equations
+disappear, leaving behind an algebraic expression. For Model-BH
+2 the result is structurally identical
+to Model-A, the only change being μ → μ + γ1y in the kernel, and conservation is retained
+(π0 = 1 − ρ, π(0, 0) = ρ(1 − ρ)). For Model-CH
+2 the broken conservation of the number of total
+customers introduces the factor (μ + θ1) and the stability boundary shifts to Equation (10.1).
+Each head-of-line model is hence the k = 1 step of a ladder that connects between Model-A and its
+full-rate parent (B2 or C2) as the head-of-line restriction is increased to more potential customers.
+11.3 Quantitative comparison across load
+Keeping μ = 1 and the arrival split fixed at λ1:λ2 = 3:4, we sweep the offered load ρ across
+[0.10, 0.95] and compute the exact stationary performance measures of the five solved models with
+62
+
+-- 62 of 68 --
+
+Table 6: Comparison of Models A, B2 and BH
+2 (γ1 = 0.5), and C2 and CH
+2 (θ1 = 0.5) at three
+traffic intensities with λ1:λ2 = 3:4, μ = 1. The primed models use the head-of-line rate 1{n1≥1};
+the unprimed use the full rate n1.
+ρ Model E[N1] E[N2] E[N ] E[W1] E[W2] π0 π(0, 0)
+0.50
+A 0.1364 0.3636 0.5000 0.6364 1.2727 0.5000 0.2500
+B2 0.0767 0.4233 0.5000 0.3578 1.4817 0.5000 0.2500
+BH
+2 0.0833 0.4167 0.5000 0.3889 1.4583 0.5000 0.2500
+C2 0.0712 0.2521 0.3233 0.3323 0.8823 0.5356 0.2678
+CH
+2 0.0778 0.2593 0.3370 0.3630 0.9074 0.5333 0.2667
+0.70
+A 0.3000 1.3333 1.6333 1.0000 3.3333 0.3000 0.2100
+B2 0.1545 1.4788 1.6333 0.5151 3.6970 0.3000 0.2100
+BH
+2 0.1750 1.4583 1.6333 0.5833 3.6458 0.3000 0.2100
+C2 0.1392 0.6967 0.8358 0.4639 1.7417 0.3696 0.2587
+CH
+2 0.1591 0.7424 0.9015 0.5303 1.8561 0.3636 0.2545
+0.90
+A 0.5651 7.5346 8.0997 1.4651 14.6506 0.1000 0.0900
+B2 0.2626 7.8371 8.0997 0.6808 15.2388 0.1000 0.0900
+BH
+2 0.3115 7.7882 8.0997 0.8077 15.1437 0.1000 0.0900
+C2 0.2292 1.9245 2.1537 0.5941 3.7421 0.2146 0.1931
+CH
+2 0.2760 2.2084 2.4844 0.7157 4.2941 0.2025 0.1823
+the truncated CTMC. Figure 8 plots E[N ],E[N1], E[W1] = E[N1]/λ1 (Little’s Law), and π0; Table 6
+reads the entire set of descriptors at three reference loads.
+0.2 	0.4 	0.6 	0.8
+ρ
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+E[N]
+Mean queue length E[N] vs traffic intensity ρ
+Model A
+Model B2 (γ1 = 0.5)
+Model B H
+2 (γ1 = 0.5)
+Model C2 (θ1 = 0.5)
+Model C H
+2 (θ1 = 0.5)
+0.2 	0.4 	0.6 	0.8
+ρ
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+E[N1]
+Class-1 mean queue E[N1] vs ρ
+Model A
+Model B2 (γ1 = 0.5)
+Model B H
+2 (γ1 = 0.5)
+Model C2 (θ1 = 0.5)
+Model C H
+2 (θ1 = 0.5)
+0.2 	0.4 	0.6 	0.8
+ρ
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+E[W1] 	E[W1] at ρ = 0.90:	
+A: 1.47	
+B2: 0.68
+B H
+2 : 0.81
+C2: 0.59
+C H
+2 : 0.72
+Priority waiting time E[W1] = E[N1]/λ1 (Little's Law)
+Model A
+Model B2 (γ1 = 0.5)
+Model B H
+2 (γ1 = 0.5)
+Model C2 (θ1 = 0.5)
+Model C H
+2 (θ1 = 0.5)
+0.2 	0.4 	0.6 	0.8
+ρ
+0.2
+0.4
+0.6
+0.8
+π0
+abandonment	
+increases idle	
+probability (π0 > 1 − ρ)
+Idle probability π0 vs ρ
+Model A
+Model B2 (γ1 = 0.5)
+Model B H
+2 (γ1 = 0.5)
+Model C2 (θ1 = 0.5)
+Model C H
+2 (θ1 = 0.5)
+1 − ρ (Model A law)
+Traffic-intensity sweep (μ = 1, λ1 : λ2 = 3 : 4): A, B2, B H
+2 (jockeying) vs C2, C H
+2 (abandonment)
+Figure 8: Performance versus traffic intensity ρ for the five solved models —the baseline A, the
+jockeying pair B2, BH
+2 (γ1 = 0.5), and the abandonment pair C2, CH
+2 (θ1 = 0.5)— at μ = 1 and
+λ1:λ2 = 3:4; the vertical line marks the canonical ρ = 0.70. Top-left: total queue E[N ] —A, B2
+and BH
+2 coincide because jockeying conserves N (Corollaries 2, 6), while C2 and CH
+2 lie strictly
+below because abandonment removes customers (CH
+2 by less). Top-right: priority queue E[N1]
+—the head-of-line variants drain it less than their full-rate cousins. Bottom-left: priority waiting
+time E[W1]. Bottom-right: idle probability π0, with the 1 − ρ law (Models A, B2, BH
+2 ) shown
+dotted; C2 and CH
+2 sit above it for every ρ, as predicted by Corollaries 5, 7.
+The two mechanisms differ fundamentally in the way they operate. Jockeying is an internal
+63
+
+-- 63 of 68 --
+
+rearrangement of customers, whereas abandonment is a true departure: class-1 customers renege
+at rate θ1n1. This distinction has measurable consequences. Abandonment reduces the overall
+queue length and raises the idle probability, whereas jockeying merely redistributes the load.
+This is why B2 and A are virtually indistinguishable: jockeying alone cannot lighten the system.
+Their curves for E[N ] and π0 overlap across all traffic intensities. Model-C2, by contrast, stands
+apart. The priority class sheds load before it reaches the server, keeping both the queue shorter
+and idle time higher.
+The numbers back the claim. At ρ = 0.70 (Table 6), Model-C2 achieves π0 = 0.3696 compared
+to 0.3000 for Model-A and Model-B2, with E[N ] = 0.8358 against 1.6333. At higher loads, the
+gap widens: ρ = 0.90 sees the baseline class-2 queue increase to E[N2] = 7.5349, while Model-C2
+keeps it at 1.9245. The two head-of-line models set at a middle ground, interpolating between A
+and their full-rate parents across every metric: Model-BH
+2 does not alter the queue-conservation
+property of Model-B2 but shifts the class-1 share, whereas Model-CH
+2 sheds less load than Model-C2
+(π0 = 0.3636, E[N ] = 0.9015 at ρ = 0.70).
+Two more things to be noted. First, E[W1] is smallest for Model-C2 at every load, but E[Wi] =
+E[Ni]/λi counts waiting time in queue-i, which is shortened by every departure mode. So smaller
+E[W1] does not certify faster service. Second, jockeying actively penalises class 2: at ρ = 0.70,
+Model-B2 raises E[W2] to 3.6970 from the baseline 3.3333 (+10.9%).
+11.4 Convergence to the baseline
+Each of the four simplified models must recover the baseline Model-A as their parameters for the
+active mechanisms approach zero: Model-B2 and Model-BH
+2 as γ1 → 0+, Model-C2 and Model-CH
+2
+as θ1 → 0+. Some of these limits have already been sketched in thos work’s derivations, and we
+recover π0 → 1 − ρ and π(0, 0) → ρ(1 − ρ) (Corollary 5). Here we confirm both limits numerically,
+on a single synoptic axis, and quantify the rate of approach.
+10 3 	10 2 	10 1 	100 	101 	102
+mechanism parameter 1 (jockeying) or 1 (abandonment)
+10 3
+10 2
+10 1
+A 1
+(a) First-order L1 convergence to Model A
+B2 (slope 	0.87)
+BH
+2 (slope 	0.93)
+C2 (slope 	0.85)
+CH
+2 (slope 	0.90)
+10 3 	10 2 	10 1 	100 	101 	102
+mechanism parameter 1 or 1
+0.20
+0.25
+0.30
+0.35
+0.40
+0.45
+probability
+jockeying conserves N:
+0, (0, 0) 	Model A
+(b) Empty-state descriptors 0, 	(0, 0)
+1 	= 0.30 (B2, BH
+2 )
+(1 	) = 0.21 (B2, BH
+2 )
+0: C2
+0: CH
+2
+(0, 0): C2
+(0, 0): CH
+2
+Convergence of the four specialisations to Model A ( 1 = 0.3, 	2 = 0.4, 	= 1, 	= 0.70)
+Figure 9: Convergence of the four specialisations to Model-A on a single axis (λ1 = 0.3, λ2 = 0.4,
+μ = 1, ρ = 0.70). (a) Log–log plot of the L1 distance ∥π − πA∥1 between the full joint distributions
+against the distinguishing mechanism parameter (γ1 for the jockeying pair B2, BH
+2 ; θ1 for the
+abandonment pair C2, CH
+2 ); all four collapse onto the baseline at first order, with the fitted log–log
+slopes shown in the legend. (b) The empty-state descriptors π0 and π(0, 0): the conserving models
+B2 and BH
+2 remain pinned to the Model-A values 1 − ρ and ρ(1 − ρ) (dashed) for every γ1, so they
+converge by interior redistribution alone, whereas C2 and CH
+2 drift above both lines and relax back
+onto them only as θ1 → 0+.
+To measure how closely each simplified model approaches Model-A, we use the L1 distance
+∥π−πA∥1 between their full joint distributions. As each model’s distinguishing parameter decreases
+to zero (jockeying rate γ for Model-B2, abandonment rate θ1 for Model-C2, and so on), all four
+variants converge back to the baseline. We capture this convergence by plotting the L1-distance
+against the parameter on a log–log scale and measuring the slope.
+Theory expects a slope of exactly 1. Our results, shown in Figure 9(a), fall between 0.85
+and 0.93 —acceptableto validate the theoretical prediction. The small gap below unity seems to
+be motivated by having truncated the CTMC. When we discretize the state space for numerical
+computation and then fit a straight line to noisy data on a log–log plot, small numerical errors
+compound and pull the measured slope down slightly. The underlying convergence rate is indeed
+linear.
+64
+
+-- 64 of 68 --
+
+The two mechanisms are shown to converge to the baseline along fundamentally different paths,
+visible in Figure 9(b) by tracking the idle-state probabilities π0 and π(0, 0).
+Under jockeying: these probabilities remain frozen at their Model-A values. By Corollaries 4
+and 6, we have π0 = 1 − ρ and π(0, 0) = ρ(1 − ρ) identically for every γ1 > 0, due to conservation of
+the total number of customers. Therefore, both Model-B2 and Model-BH
+2 lie exactly on the Model-
+A baseline throughout the entire parameter sweep. Their convergence to Model-A is invisible at
+the level of idle probabilities; instead, it happens entirely in the interior, where mass gradually
+redistributes between the class-1 and class-2 coordinates.
+Under abandonment: the idle-state probabilities do change as abandonment is a true departure.
+They only recover Model-A as θ1 → 0+. For Model-C2 and Model-CH
+2 , convergence is thus driven
+by both mechanisms: the idle state drifts, and the interior mass redistributes.
+This conservation under jockeying versus drift under abandonment is the same conservation
+dichotomy that distinguishes the two mechanisms throughout the entire comparison (§11.2). Here,
+it simply appears at the convergence endpoint.
+12 Conclusion and Future Work
+This thesis analysed a two-class non-preemptive priority M/M/1 queue under two waiting-room
+mechanisms —jockeying and abandonment. It obtained the exact stationary bivariate PGF P (x, y)
+in closed or integral form for five models: the baseline Model-A, one-way (1 → 2) jockeying Model-
+B2, class-1 abandonment Model-C2, and the head-of-line variants Model-BH
+2 and Model-CH
+2 .
+One common property is shared by all solved models: the algebraic form of the fundamental
+equation that the PGF satisfies (Lemma 1) determins the tractability of the model with the
+methods employed in this work. As a result, we have less closed-form solutions than intended at
+the beginning of this thesos: having derivative terms in y complicates the problem, as one would
+need more advanced mathematical tools to determine the boundary function Py (y).
+12.1 The obstruction
+Remark 1 reads the fundamental equation as a competition between an algebraic coefficient and
+two derivative terms, and the analysis highlights a clean dichotomy, summarised model by model
+in the comparison of §11.2 (Table 5). Where the equation is solvable, the unknown boundary Py (y)
+function is determined by exactly one of four mechanisms. The first is evaluation at a kernel root
+lying strictly inside the unit disc, the purely algebraic route of the baseline Model-A (Section 5).
+The second is interior analyticity: when one-way jockeying survives, the factor (x − y) places the
+operative singularity at the diagonal point x = y inside the disc, and the boundary function is
+fixed by requiring analysity there (Model-B2, Section 7). The third is boundary boundedness:
+when class-1 abandonment survives, the factor (x − 1) moves the singularity on the unit-circle
+boundary x = 1, where mere boundedness of the PGF suffices to determine the unknown (Model-
+C2, Section 8). The fourth is head-of-line algebraic collapse: restricting a mechanism to the
+head-of-line customer replaces the length-proportional rate with a constant one, eliminates the
+derivative term in the equation, and recovers the purely algebraic form of Model-A, solvable by
+the same kernel argument (Models BH
+2 and CH
+2 , Sections 9–10).
+The unsolvable cases—Model-B and Model-X expose structural limits, as the derivative terms
+in y make the task of determining Py (y) significantly more challenging than it already was. Model-
+B requires solving a Volterra-type integral equation whose forcing term depends on the boundary
+function itself; Model-X further compounds this difficulty with non-linear characteristic curves,
+although we have not determined the exact difficulty or feasibility of the problem. The hierarchy is
+therefore not a loose collection of cases, but a complete enumeration: four mechanisms that enable
+exact solutions and two obstructions that prevent them.
+12.2 The mechanism dichotomy
+The two mechanisms act in opposite registers. Jockeying redistributes delay at fixed total work:
+relocating a waiting customer conserves the total count, so E[N ], π0 and π(0, 0) are identical to
+the baseline for every γ1. The mechanism’s entire effect is to move delay between classes —the
+priority premium E[W2]/E[W1] inflating to 22.38 at ρ = 0.90 against the Model-A value 10.00.
+Abandonment instead reduces the load: the idle probability rises, every queue shortens, and
+total waiting times fall.
+65
+
+-- 65 of 68 --
+
+12.3 Operational reading and the deterioration-direction caveat
+This subsections closes the healthcare-related loop opened in the Introduction.
+These results close the healthcare loop opened in the Introduction. The original clinical moti-
+vation was the 2 → 1 direction, rather than the jockeying in the opposite direction: a non-priority
+patient deteriorating and moving into the priority class. That mechanism —an upgrade driven
+by clinical urgency— is precisely what Model-B captures via γ2 > 0. It is also, as the analysis
+shows, the direction that leads to a Volterra-type integral equation (Section 6). The mechanism
+the clinical setting most wants is thus the one the analysis shows as irreducibly hard.
+However, the solved models show some valuable results. Model-B2 implements the opposite
+direction, 1 → 2: a priority patient is reclassified downward, whether by clinical recovery, adminis-
+trative review, or triage revision. This is less common, but not unreal. More immediately useful is
+Model-C2, which captures class-1 abandonment —the rate θ1 at which a waiting high-priority pa-
+tient exits the list through death, or transfer to another facility. Abandonment of priority patients
+is a realistic feature of any stretched healthcare system, and having exact closed-form expressions
+for π0, P (x, y), and the idle probability makes these results directly applicable for capacity planning
+and optimisation. The same, can be said about the head-of-line models, where it is not completely
+unreasonable that the first in line can be reallocated somewhere else.
+12.4 Limitations
+Several assumptions are intrinsic to the M/M/1 framework itself. All results rest on exponential
+interarrival, service, jockeying, and abandonment times —an idealisation that is most consequen-
+tial for service times. Allowing class-dependent rates μ1̸ = μ2 would invalidate the analysis at
+its foundation, since the state-space construction and the definition of the limiting probabilities
+rely both on the server being indifferent to the class in service. Relaxing exponentiality entirely
+to general service times further compounds the difficulty; the intractability that already forces
+de Walal’s approximate M/G/1 treatment illustrates how quickly the problem escapes closed-form
+reach.
+The partial-PGF result on the alternative state space eS is an approximation, not a theorem
+(Approximation 1), and should be read as a documented negative result. The rationale was as fol-
+lows. Cohen [Coh56] applied a partial generating function on the standard state space (n1, n2) with
+respect to the class-2 variable, leaving the tractable class-1 subsystem untouched and transform-
+ing only in the harder direction. In the presence of jockeying, neither class has simple dynamics
+individually, but the total queue length N = N1 + N2 does. The alternative state space (n2, n) was
+therefore introduced to exploit this total-count structure. The attempt does not succeed: rather
+than simplifying the problem, the change of coordinates makes the balance equations harder even
+for Model-A, as Lemma 2 demonstrates.
+12.5 Future work
+Several extensions follow directly from the machinery already built:
+1. Head-of-line versions of the remaining models. The head-of-line models could be extended
+with bidirectional active mechanisms —namely Model-BH for jockeying and Model-CH for
+abandonment— rather than limiting them to strictly one direction, as the derivative terms
+in the fundamental equation would also disappear, and even a head-of-line model cattying
+both active mechanisms at the same time, namely Model-XH. This is near-term low-hanging
+fruit that does not seem to require new mathematical tools.
+2. The k-customer head-of-line ladder. The head-of-line variants let only the single customer at
+the head of the queue for class 1 jockey or abandon; the natural next step lets the first two
+waiting class-1 customers do so, then the first three, and so on (and likewise θ1 min(n1, k)).
+Writing min(n1, k) = Pk
+j=1 1{n1≥j}, the bounded rate keeps the fundamental equation al-
+gebraic at the POTENTIAL price of k unknown boundary functions. This route has not
+been explored in this work, so it is unclear what it could yield. One would expect that such
+models would converge to Model-B2 and Model-C2 as k → ∞.
+3. Numerical inversion of the Model-B Volterra equation. Unlike Model-X, Model-B yields a
+first-kind Volterra equation with an explicit kernel and a known forcing term (Section 6).
+A person with more advanced mathematical resources could either try to find a solution
+analytically or inverting it via numerical approximation. Either way, this was considered
+beyond the scope of this thesis.
+66
+
+-- 66 of 68 --
+
+4. Multi-server extension. Carrying the mechanisms to M/M/c would connect this exact single-
+server line to the approximate multi-server scheduling results of [HCD22], trading the exact-
+ness the single server buys for operational realism.
+5. Derive mean performance metrics.The closed-form PGFs obtained for Model-B2, Model-C2,
+Model-BH
+2 , and Model-CH
+2 contain the full distributional information, but extracting mean
+queue lengths and waiting times requires differentiating at (1, 1), which in Model-B2 and
+Model-C2 involves boundary functions given as integrals. A systematic differentiation—
+applying L’Hˆopital where necessary at the singularity x = 1—would yield closed-form ex-
+pressions for E[N1], E[N2], and, via Little’s law, E[W1] and E[W2], replacing the numerical
+estimates reported in Section 11 with exact ones.
+6. Calibration. Fitting γ1, θ1 and the loads to real elderly-care waiting-list data [Zen99] would
+test whether the regimes identified here accurately describe operational reality.
+References
+[AR02] Ivo Adan and Jacques Resing. Queueing theory. Eindhoven University of Technology,
+180:10, 2002.
+[Coh56] Jacob Willem Cohen. Certain delay problems for a full availability trunk group loaded
+by two traffic sources. Communication News, 16:105–113, 1956.
+[DLM] NIST digital library of mathematical functions. https://dlmf.nist.gov/. Release
+1.1.12, 2023. F. W. J. Olver, A. B. Olde Daalhuis, D. W. Lozier, B. I. Schneider,
+R. F. Boisvert, C. W. Clark, B. R. Miller, B. V. Saunders, H. S. Cohl, and M. A. Mc-
+Clain, eds.
+[dW92] Peter de Waal. Approximate analysis of an M/G/1 priority queue with priority changes
+due to impatience. CWI Report BS-R9202. CWI, Department of Operations Research,
+Statistics, and System Theory, Amsterdam, 1992.
+[DWFB20] Arnaud Devos, Joris Walraevens, Dieter Fiems, and Herwig Bruneel. Analysis of
+a discrete-time two-class randomly alternating service model with Bernoulli arrivals.
+Queueing Systems, 96:133–152, 2020.
+[FIM99] Guy Fayolle, Roudolf Iasnogorodski, and Vadim Malyshev. Random Walks in
+the Quarter-Plane: Algebraic Methods, Boundary Value Problems and Applications.
+Springer, 1999.
+[Gau67] Walter Gautschi. Computational aspects of three-term recurrence relations. SIAM
+Review, 9(1), 1967.
+[GMR02] Ofer Garnett, Avishai Mandelbaum, and Martin I. Reiman. Designing a call center
+with impatient customers. Manufacturing & Service Operations Management, 4(3),
+2002.
+[HCD22] Yue Hu, Carri W. Chan, and Jing Dong. Optimal scheduling of proactive service with
+customer deterioration and improvement. Management Science, 2022.
+[JR14] Oualid Jouini and Alex Roubos. On multiple priority multi-server queues with impa-
+tience. Journal of the Operational Research Society, 65(5):616–632, 2014.
+[Kap11] Stella Kapodistria. The M/M/1 queue with synchronized abandonments. Queueing
+Systems, 68(1):79–109, 2011.
+[STZ14] David A. Stanford, Peter Taylor, and Ilze Ziedins. Waiting time distributions in the
+accumulating priority queue. Queueing Systems, 77:297–330, 2014.
+[WBSW15] Jianfu Wang, Opher Baron, and Alan Scheller-Wolf. M/M/c queue with two priority
+classes. Operations Research, 63(3):733–749, 2015.
+[Zen99] Stefanos A. Zenios. Modeling the transplant waiting list: A queueing model with
+reneging. Operations Research, 47(3), 1999.
+67
+
+-- 67 of 68 --
+
+[ZK23] Josef Zuk and David Kirszenblat. Explicit results for the distributions of queue lengths
+for a non-preemptive two-level priority queue. arXiv preprint arXiv:2309.09428, 2023.
+[ZM05] Sergey Zeltyn and Avishai Mandelbaum. Call centers with impatient customers:
+Many-server asymptotics of the M/M/n+G queue. Queueing Systems, 51, 2005.
+68
+
+-- 68 of 68 --
+

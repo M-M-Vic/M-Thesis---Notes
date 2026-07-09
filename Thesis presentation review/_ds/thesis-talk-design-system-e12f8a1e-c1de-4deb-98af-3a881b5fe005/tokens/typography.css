@@ -1,0 +1,48 @@
+/* ============================================================
+   TYPOGRAPHY — Thesis Talk Design System
+   Sizes are tuned for a 1280×720 slide (the deck canvas) but the
+   ramp is fluid enough to reuse in cards and docs. Never set slide
+   body text below --fs-body (20px). Display sizes use Spectral;
+   labels/captions use IBM Plex Sans; params use IBM Plex Mono.
+   ============================================================ */
+
+:root {
+  /* ---- Font-size ramp ---- */
+  --fs-hero: 76px;      /* title-slide headline */
+  --fs-display: 54px;   /* section-divider titles */
+  --fs-title: 40px;     /* slide titles (H1 on a content slide) */
+  --fs-heading: 30px;   /* sub-headings within a slide */
+  --fs-lead: 24px;      /* lead / emphasised body */
+  --fs-body: 20px;      /* default slide body — minimum for slides */
+  --fs-caption: 16px;   /* captions, figure labels */
+  --fs-label: 13px;     /* eyebrows, kickers, tags (uppercase) */
+
+  /* ---- Line-height ---- */
+  --lh-tight: 1.05;     /* @kind other */
+  --lh-snug: 1.2;       /* @kind other */
+  --lh-normal: 1.5;     /* @kind other */
+  --lh-relaxed: 1.65;   /* @kind other */
+
+  /* ---- Weight ---- */
+  --fw-light: 300;      /* @kind other */
+  --fw-regular: 400;    /* @kind other */
+  --fw-medium: 500;     /* @kind other */
+  --fw-semibold: 600;   /* @kind other */
+  --fw-bold: 700;       /* @kind other */
+
+  /* ---- Letter-spacing ---- */
+  --ls-tight: -0.02em;  /* @kind other */
+  --ls-normal: 0;       /* @kind other */
+  --ls-label: 0.14em;   /* @kind other */
+
+  /* ---- Semantic roles ---- */
+  --type-hero-family: var(--font-display);
+  --type-hero-weight: var(--fw-medium);
+  --type-title-family: var(--font-display);
+  --type-title-weight: var(--fw-medium);
+  --type-body-family: var(--font-sans);
+  --type-body-weight: var(--fw-regular);
+  --type-label-family: var(--font-sans);
+  --type-label-weight: var(--fw-semibold);
+  --type-mono-family: var(--font-mono);
+}

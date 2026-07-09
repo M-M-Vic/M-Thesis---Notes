@@ -1,0 +1,57 @@
+/* ============================================================
+   BASE — light element defaults built on the tokens.
+   Kept minimal so it never fights a slide or component's own
+   layout. Applies paper background, warm ink text, sensible
+   defaults for prose, and a couple of shared utility classes.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-heading);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  margin: 0;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code, kbd, samp { font-family: var(--font-mono); font-size: 0.92em; }
+
+::selection { background: var(--terracotta-200); color: var(--ink-900); }
+
+/* ---- Shared helpers (used across cards & slides) ---- */
+.ds-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.ds-mono { font-family: var(--font-mono); }
+
+/* A subtle dotted "grid paper" texture for stage backgrounds. */
+.ds-gridpaper {
+  background-color: var(--surface-page);
+  background-image: radial-gradient(var(--line-200) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+}

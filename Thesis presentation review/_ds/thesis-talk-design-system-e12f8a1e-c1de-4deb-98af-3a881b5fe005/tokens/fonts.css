@@ -1,0 +1,24 @@
+/* ============================================================
+   FONTS — Thesis Talk Design System
+   No brand typeface was provided (the thesis PDF uses LaTeX /
+   Computer Modern). The chosen webfonts below are a deliberate
+   pairing for an academic-but-warm mathematics talk:
+     · Spectral      — scholarly serif for display & prose
+     · IBM Plex Sans — clean technical sans for labels & UI
+     · IBM Plex Mono — parameters, code, model tags
+   Mathematics itself is set with KaTeX (Computer Modern), loaded
+   per-slide from the KaTeX CDN — see readme.md › Iconography/Math.
+   All three families are served from Google Fonts.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-display: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  /* Math is rendered by KaTeX, which injects its own Computer-Modern
+     webfonts (KaTeX_Main …) at runtime from katex.min.css. This token is
+     only a fallback for stray math glyphs set outside a KaTeX node. */
+  --font-math: var(--font-display); /* @kind font */
+}
