@@ -1,20 +1,14 @@
-\section{Analysis of Model-\texorpdfstring{$A$}{A} (\texorpdfstring{$\gamma_1=\gamma_2=0$}{gamma1=gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_a}
+\section{Analysis of Model-\texorpdfstring{$A$}{A}}\label{sec:model_a}
 
-Model-$A$ is the baseline of this collection: all jockeying and abandonment
-parameters are zero, leaving an ordinary two-class $M/M/1$ queue with
-non-preemptive priority. We analyse it in both state spaces $S$ and
+Model-$A$ is the baseline model, obtained by setting all jockeying and abandonment
+parameters to zero ($\gamma_1=\gamma_2=\theta_1=\theta_2=0$), leaving an ordinary
+two-class $M/M/1$ queue with non-preemptive priority ---the classical, extensively
+studied system of \S\ref{sec:literature}. We analyse it in both state spaces $S$ and
 $\widetilde{S}$: on the former we give two complete proofs, on the latter
 a conditionally accurate approximation, evaluated in Approximation~\ref{apx:A:PPGF_Stilde}.
-
-The balance equations are obtained by plugging $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ into Equations~\eqref{eq:gen:balance_interior},
-\eqref{eq:gen:balance_x_boundary}, \eqref{eq:gen:balance_y_boundary},
-\eqref{eq:gen:balance_zero}, and~\eqref{eq:gen:balance_idle} for state space $S$, and
-Equations~\eqref{eq:gen:tilde_balance_interior},
-\eqref{eq:gen:tilde_balance_diagonal}, \eqref{eq:gen:tilde_balance_y_boundary},
-\eqref{eq:gen:tilde_balance_zero}, and~\eqref{eq:gen:tilde_balance_idle} for state
-space $\widetilde{S}$. The corresponding starting points are
-Lemma~\ref{lem:gen:fundamental_equation} for $S$ and
-Lemma~\ref{lem:gen:PPGF_dynamics} for $\widetilde{S}$.
+The starting points of the analysis are the fundamental equations of
+Lemma~\ref{lem:gen:fundamental_equation} for $S$ and Lemma~\ref{lem:gen:PPGF_dynamics}
+for $\widetilde{S}$, specialised to these parameter values.
 
 \textbf{Stability.} Since there is no abandonment, the system is positive recurrent if
 and only if the total load satisfies
@@ -30,12 +24,12 @@ Figure~\ref{fig:model-a-queue} shows the queueing diagram of Model-$A$.
         \input{figures/model-a-queue.tikz}%
     }
     \caption{Queue layout for Model-$A$. Only Poisson arrivals and exponential service
-    are present; all active mechanisms rates are zero.}
+    are present; the jockeying and abandonment rates are all zero.}
     \label{fig:model-a-queue}
 \end{figure}
 
-\subsection{Analysis of Model-\texorpdfstring{$A$}{A}: state space \texorpdfstring{$S$}{S}}
-We begin from Equation~\eqref{eq:gen:fundamental_equation} with
+\subsection{Analysis in state space \texorpdfstring{$S$}{S}}
+We begin from the fundamental equation of Lemma~\ref{lem:gen:fundamental_equation} with
 $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, in which the boundary function $P_y(y)=P(0,y)$ is
 still to be determined:
 \begin{align}
@@ -79,30 +73,22 @@ proofs are given, one analytical and one probabilistic.
 \end{corollary}
 
 \begin{proof}[Proof of Corollary~\ref{cor:A:pi0}]
-    Model-$A$ is the no-mechanism case $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, so the statement is the specialisation of Corollary~\ref{cor:gen:no_abandon} ---equivalently Theorem~\ref{thm:gen:boundary} with the $M/M/1$ mean busy period $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, giving $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$. The diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$ and the normalisation $P(1,1)=1-\pi_0=\rho$ are the reduction~\eqref{eq:gen:Pzz_diag} of the Model-$A$ kernel~\eqref{eq:A:fundamental} on $x=y=z$.
+    Model-$A$ is the no-mechanism case $\gamma_1=\gamma_2=\theta_1=\theta_2=0$, so the statement is the specialisation of Corollary~\ref{cor:gen:no_abandon} ---equivalently Theorem~\ref{thm:gen:boundary} with the $M/M/1$ mean busy period $\mathbb{E}[BP]=(\mu-\lambda)^{-1}$, giving $\pi_0=1-\rho$ and $\pi(0,0)=\rho(1-\rho)$. The diagonal value $P(z,z)=\pi(0,0)/(1-\rho z)$ and the normalisation $P(1,1)=1-\pi_0=\rho$ are the reduction~\eqref{eq:gen:Pzz_diag} of the Model-$A$ kernel~\eqref{eq:A:fundamental} on $x=y=z$ (Corollary~\ref{cor:gen:diagonal}).
 \end{proof}
 
-\subsubsection{Analytical approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:analytical}
+\subsubsection{Analytical approach}\label{sssec:A:analytical}
 
 \begin{proof}[Proof of Theorem~\ref{thm:A:PGF}, analytical approach.]
-    We begin from the fundamental equation for Model-$A$~\eqref{eq:A:fundamental}:
+    We begin from the fundamental equation for Model-$A$~\eqref{eq:A:fundamental} and apply the \emph{Kernel Method}, used in~\cite{cohen1956delay}: for each fixed $y\in(0,1]$, we find $x^*(y)$ such that the coefficient of $P(x,y)$ ---the \emph{kernel}--- vanishes. Since $P(x,y)$ is a PGF, it is bounded, so at any such root the right-hand side of Equation~\eqref{eq:A:fundamental} must also vanish; this will determine $P_y(y)$ once the root is identified.
+
+    To find the roots of the kernel, divide by $y\neq 0$ and set
     \begin{equation*}
-        \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
-        = \mu(x-y) P_y(y)  - \mu x(1-y) \pi(0,0).
+             0 =  (\lambda_1 + \lambda_2 + \mu)x - \mu  -\lambda_1x^2 - \lambda_2xy.
     \end{equation*}
-    We apply the \emph{Kernel Method}, used in ~\cite{cohen1956delay}: fix $y\in(0,1]$ and find $x^*(y)$ such that the LHS of the expression above is zero. Since $P(x,y)$ is a PGF, it is bounded. At any such root the LHS vanishes, so the RHS must also vanish:
-    \[
-        \mu\bigl[(x^*(y)-y)\,P_y(y) - x^*(y)(1-y)\,\pi(0,0)\bigr] = 0.
-    \]
-    To find the roots of the coefficient of $P(x,y)$, divide by $y\neq 0$ and set
-    \begin{align*}
-        \begin{split}
-             0 &=  (\lambda_1 + \lambda_2 + \mu)x - \mu  -\lambda_1x^2 - \lambda_2xy
-        \end{split} \\
-        \begin{split}
-          0 &=  \lambda_1 x^2 - \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] x + \mu,
-        \end{split}
-    \end{align*}
+    Rearranging into a standard quadratic in $x$:
+    \begin{equation*}
+          0 =  \lambda_1 x^2 - \left[ \mu + \lambda_1 + \lambda_2 (1-y) \right] x + \mu,
+    \end{equation*}
     whose roots are
     \begin{equation*}
         x^{\pm}(y) = \frac{
@@ -150,39 +136,27 @@ proofs are given, one analytical and one probabilistic.
     \end{equation}
 
     By Corollary~\ref{cor:A:pi0}, $\pi(0,0)=\rho(1-\rho)$. Substituting this and
-    Equation~\eqref{eq:A:Py} into the fundamental equation~\eqref{eq:A:fundamental}:
+    Equation~\eqref{eq:A:Py} into the fundamental equation~\eqref{eq:A:fundamental}, whose
+    left-hand side stays unchanged while the right-hand side is simplified in stages:
     \begin{align*}
-        \begin{split}
             \left[ (\lambda_1+\lambda_2+ \mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
-            &= \mu(x-y) \frac{x^*(y)(1-y)}{x^*(y) - y} \rho(1-\rho)  - \mu x(1-y) \rho(1-\rho)
-        \end{split} \\
-        \begin{split}
-            \left[ (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
-            &= \mu (1-y) \left[ \frac{x^*(y)(x-y)}{x^*(y)-y} - x \right] \rho (1-\rho)
-        \end{split} \\
-        \begin{split}
-            \left[ (\lambda_1+\lambda_2+\mu)xy -\mu y-\lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
-            &= \mu  (1-y) \left[ \frac{y(x - x^*(y))}{x^*(y) - y} \right] \rho (1-\rho)
-        \end{split} \\
-        \begin{split}
-            \left[ (1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2 \right] P(x,y)
-            &= y (1-y) \left[ \frac{x - x^*(y)}{x^*(y) - y} \right] \rho (1-\rho).
-        \end{split}
+            &= \mu(x-y) \frac{x^*(y)(1-y)}{x^*(y) - y} \rho(1-\rho)  - \mu x(1-y) \rho(1-\rho) \\
+            &= \mu (1-y) \left[ \frac{x^*(y)(x-y)}{x^*(y)-y} - x \right] \rho (1-\rho) \\
+            &= \mu  (1-y) \left[ \frac{y(x - x^*(y))}{x^*(y) - y} \right] \rho (1-\rho).
     \end{align*}
-
+    Dividing both sides by $\mu$, so that the kernel is expressed in the loads $\rho_i$:
+    \begin{equation*}
+            \left[ (1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2 \right] P(x,y)
+            = y (1-y) \left[ \frac{x - x^*(y)}{x^*(y) - y} \right] \rho (1-\rho).
+    \end{equation*}
     Multiplying both sides by $\left[(1 + \rho_1 + \rho_2)xy - y-\rho_1 x^2y - \rho_2 xy^2\right]^{-1}$
-    recovers $P(x,y)$ in Theorem~\ref{thm:A:PGF} and concludes the proof.
+    yields $P(x,y)$ as in Theorem~\ref{thm:A:PGF} and concludes the proof.
 \end{proof}
 
 
-\subsubsection{Probabilistic approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}\label{sssec:A:probabilistic}
+\subsubsection{Probabilistic approach}\label{sssec:A:probabilistic}
 \begin{proof}[Proof of Theorem~\ref{thm:A:PGF}, probabilistic approach.]
-    This proof mirrors the analytical one, but derives the boundary function $P_y(y)$ by means of probabilistic arguments. We again begin from the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
-    \begin{equation}
-        \left[ (\lambda_1 + \lambda_2 + \mu) xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) =
-        \mu \big[ (x-y) P_y(y) - x(1-y) \pi(0,0) \big].
-        \label{eq:A:prob_starting}
-    \end{equation}
+    This proof mirrors the analytical one, but derives the boundary function $P_y(y)$ by means of probabilistic arguments; the starting point is again the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}).
 
     \paragraph{Class-$2$ conditional distribution via $M/G/1$.}
     Since class~$1$ has non-preemptive priority, class-$2$ customers are not taken into service
@@ -207,11 +181,11 @@ proofs are given, one analytical and one probabilistic.
     $(\text{busy},N_1=0)$ coincides with the $M/G/1$ steady-state distribution, so
     $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
 
-    By the law of total expectation, $P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]$. So
+    By the law of total expectation,
     \begin{equation*}
         P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0] = \mathbb{P}(\text{busy},N_1=0)\cdot L_2(y).
     \end{equation*}
-    Under non-preemptive priority, the priority queue operates autonomously (memorylessness of residual service time), so $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$ by the geometric law of the ordinary $M/M/1(\lambda_1,\mu)$. Combined with $\mathbb{P}(\text{busy})=\rho$, we have
+    Under non-preemptive priority, the priority queue operates autonomously (memorylessness of residual service time), so $\mathbb{P}(N_1=0 \mid \text{busy})=1-\rho_1$ by the geometric law of the ordinary $M/M/1$ queue with arrival rate $\lambda_1$ and service rate $\mu$. Combined with $\mathbb{P}(\text{busy})=\rho$, we have
     \begin{equation*}
         \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1);
     \end{equation*}
@@ -222,33 +196,28 @@ proofs are given, one analytical and one probabilistic.
     \end{equation}
 
     Substituting Equation~\eqref{eq:A:Py_prob} and $\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0})
-    into Equation~\eqref{eq:A:prob_starting}:
+    into the fundamental equation~\eqref{eq:A:fundamental}, and simplifying the right-hand
+    side in stages as in the analytical proof:
     \begin{align*}
-        \begin{split}
             \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
-            &= \mu(x-y) \frac{x^*(y)(1-y)}{x^*(y)-y} \rho(1-\rho) - \mu x(1-y) \rho(1-\rho)
-        \end{split} \\
-        \begin{split}
-            \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)&= \mu(1-y) \left[ \frac{x^*(y)(x-y)}{x^*(y)-y} - x \right] \rho(1-\rho)
-        \end{split} \\
-        \begin{split}
-            \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)&= \mu(1-y) \left[ \frac{y(x-x^*(y))}{x^*(y)-y} \right] \rho(1-\rho)
-        \end{split} \\
-        \begin{split}
-            \left[ (1+\rho_1+\rho_2)xy - y - \rho_1 x^2y - \rho_2 xy^2 \right] P(x,y)
-            &= y(1-y) \left[ \frac{x-x^*(y)}{x^*(y)-y} \right] \rho(1-\rho).
-        \end{split}
+            &= \mu(x-y) \frac{x^*(y)(1-y)}{x^*(y)-y} \rho(1-\rho) - \mu x(1-y) \rho(1-\rho) \\
+            &= \mu(1-y) \left[ \frac{x^*(y)(x-y)}{x^*(y)-y} - x \right] \rho(1-\rho) \\
+            &= \mu(1-y) \left[ \frac{y(x-x^*(y))}{x^*(y)-y} \right] \rho(1-\rho).
     \end{align*}
+    Dividing both sides by $\mu$:
+    \begin{equation*}
+            \left[ (1+\rho_1+\rho_2)xy - y - \rho_1 x^2y - \rho_2 xy^2 \right] P(x,y)
+            = y(1-y) \left[ \frac{x-x^*(y)}{x^*(y)-y} \right] \rho(1-\rho).
+    \end{equation*}
     Multiplying both sides by $\left[ (1+\rho_1+\rho_2)xy - y - \rho_1 x^2y - \rho_2 xy^2 \right]^{-1}$
-    to isolate $P(x,y)$ recovers Theorem~\ref{thm:A:PGF} and concludes the proof.
+    to isolate $P(x,y)$ yields Theorem~\ref{thm:A:PGF} and concludes the proof.
 \end{proof}
 
 
-\subsubsection{Partial-PGF recurrence approach for Model-\texorpdfstring{$A$}{A} in state space \texorpdfstring{$S$}{S}}
-
+\subsubsection{Partial-PGF approach}
 
 This proof follows Cohen~\cite{cohen1956delay}'s method. We keep the class-$1$
-index $n_1$ as a discrete parameter and generate only with respect
+index $n_1$ as a discrete parameter and take transforms only with respect
 to $N_2$, via the PPGF $\widetilde{P}(n_1,y)=\sum_{n_2\geq0}\pi(n_1,n_2)\,y^{n_2}$
 from Equation~\eqref{eq:gen:ppgf_n1}. Multiplying the balance equations by $y^{n_2}$ and
 summing over $n_2$ turns them into a second-order linear
@@ -265,7 +234,7 @@ solution in the priority-class index.
             &= \mu\,\pi(n_1+1,0) + \lambda_1\,\pi(n_1-1,0),
             && n_1\geq1,\ n_2=0. \label{eq:A:ppgf_xbound}
     \end{align}
-    Now we take transforms by summing all over their states, but only with respect to $n_2$, and we substitute our PPGF $\widetilde{P}(n_1,y)=\sum_{n_2=0}^{\infty} \pi(n_1,y)y^{n_2}$:
+    Now we take transforms by summing all over their states, but only with respect to $n_2$, and we substitute our PPGF $\widetilde{P}(n_1,y)=\sum_{n_2=0}^{\infty} \pi(n_1,n_2)y^{n_2}$:
     \begin{align}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu)\sum_{n_2=1}^{\infty}\pi(n_1,n_2)y^{n_2} \\
@@ -274,6 +243,7 @@ solution in the priority-class index.
         \begin{split}
             & LHS_1 \quad = \quad RHS_1 + RHS_2 + RHS_3
         \end{split} \nonumber \\
+        \intertext{where $LHS_1$ and $RHS_j$ denote the terms of the display above, in the order written. Evaluating each summand:}
         \begin{split}
             & LHS_1 \\
             & \quad = \quad (\lambda_1+\lambda_2+\mu)\sum_{n_2=1}^{\infty}\pi(n_1,n_2)y^{n_2} \\
@@ -299,12 +269,14 @@ solution in the priority-class index.
             & \quad = \quad \lambda_2 y \sum_{m=0}^{\infty}\pi(n_1,m)y^{m} \\
             & \quad = \quad \lambda_2 y \, \widetilde{P}(n_1,y)
         \end{split} \nonumber \\
+        \intertext{Combining the terms above:}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu)\bigl[\widetilde{P}(n_1,y)-\pi(n_1,0)\bigr] \\
             & \quad = \quad \mu\bigl[\widetilde{P}(n_1+1,y)-\pi(n_1+1,0)\bigr] \\
             & \quad \quad + \; \lambda_1\bigl[\widetilde{P}(n_1-1,y)-\pi(n_1-1,0)\bigr] \\
             & \quad \quad + \; \lambda_2 y\,\widetilde{P}(n_1,y)
         \end{split} \nonumber \\
+        \intertext{Rearranging, with the transforms on the left and the boundary probabilities on the right:}
         \begin{split}
             & \bigl[\mu+\lambda_1+\lambda_2(1-y)\bigr]\widetilde{P}(n_1,y) -\mu\widetilde{P}(n_1+1,y)-\lambda_1\widetilde{P}(n_1-1,y) \\
             & \quad = \quad (\lambda_1+\lambda_2+\mu)\pi(n_1,0) -\mu\pi(n_1+1,0)-\lambda_1\pi(n_1-1,0)
@@ -341,7 +313,7 @@ solution in the priority-class index.
     \begin{equation*}
         \widetilde{x}^{-}(1)=\rho_1 \quad \text{and} \quad \widetilde{x}^{+}(1)=1,
     \end{equation*}
-    the latter making the geometric sequence $[\widetilde{x}^{+}(y)]^{n_1}$ non-summable. We therefore define $\widetilde{x}^*(y):=\widetilde{x}^{-}(y)$,
+    the latter making the geometric sequence $[\widetilde{x}^{+}(y)]^{n_1}$ non-summable. We therefore define
     \begin{equation}
         \widetilde{x}^*(y):=\widetilde{x}^{-}(y) = \frac{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)
                 - \sqrt{\bigl(\mu + \lambda_1 + \lambda_2(1-y)\bigr)^2 - 4\lambda_1\mu}}{2\mu}
@@ -360,6 +332,7 @@ solution in the priority-class index.
         \widetilde{P}(0,y) = \sum_{n_2=0}^{\infty}\pi(0,n_2)\,y^{n_2} = P(0,y) = P_y(y),
     \end{equation*}
     as determined in the bivariate PGF approaches.
+    Together with $P_y(y)$, the geometric law~\eqref{eq:A:ppgf_geometric} already characterises the full joint distribution; what remains is to verify that it reproduces the closed form of Theorem~\ref{thm:A:PGF}.
     Summing the geometric law (Equation~\eqref{eq:A:ppgf_geometric}) over $n_1 \geq 0$ for $x \in (0,1]$ recovers
     \begin{equation}
         P(x,y) = \sum_{n_1=0}^{\infty}\widetilde{P}(n_1,y)\,x^{n_1}
@@ -373,7 +346,7 @@ solution in the priority-class index.
                 = -y\rho_1\bigl(x-x^*(y)\bigr)\bigl(x-x^{+}(y)\bigr),
         \label{eq:A:kernel_factored}
     \end{equation}
-    where $x^*(y)$ and $x^{+}(y)$ are the roots found in \S\ref{sssec:A:analytical}. By Vieta's product formula, $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. This, together with $\widetilde{x}^*(y)$ (Equation~\eqref{eq:A:xtildestar}), gives $\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$.
+    where $x^*(y)$ and $x^{+}(y)$ are the roots found in \S\ref{sssec:A:analytical}. By Vieta's product formula, $x^*(y)\,x^{+}(y)=\mu/\lambda_1=1/\rho_1$. This, together with $\widetilde{x}^*(y)$ in Equation~\eqref{eq:A:xtildestar}, gives $\widetilde{x}^*(y)=\rho_1 x^*(y)=1/x^{+}(y)$.
     Using the factorisation of $K(x,y)$~\eqref{eq:A:kernel_factored}, the denominator of the reconstructed PGF~\eqref{eq:A:ppgf_reconstruct} becomes
     \begin{equation*}
         1-\widetilde{x}^*(y)\,x = 1 - \frac{x}{x^{+}(y)} = \frac{x^{+}(y)-x}{x^{+}(y)}
@@ -394,11 +367,13 @@ solution in the priority-class index.
 \end{proof}
 
 
-\subsection{Analysis of Model-\texorpdfstring{$A$}{A} on \texorpdfstring{$\widetilde{S}$}{S~}: scope and limitations of the partial-PGF recursion}\label{ssec:A:Stilde}
+\subsection{The partial-PGF recursion on \texorpdfstring{$\widetilde{S}$}{S~}: scope and limitations}\label{ssec:A:Stilde}
 
-Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the $\widetilde{S}$ balance
+Setting $\gamma_1=\gamma_2=\theta_1=\theta_2=0$ in the fundamental $\widetilde{S}$
+equation of Lemma~\ref{lem:gen:PPGF_dynamics} ---equivalently, transforming the
+$\widetilde{S}$ balance
 equations~\eqref{eq:gen:tilde_balance_interior}--\eqref{eq:gen:tilde_balance_idle}
-and forming the PPGF $\widetilde{P}(y,n)=\sum_{n_2=0}^n \widetilde{\pi}(n_2,n)\,y^{n_2}$
+with the PPGF $\widetilde{P}(y,n)=\sum_{n_2=0}^n \widetilde{\pi}(n_2,n)\,y^{n_2}$---
 yields the inhomogeneous recurrence:
 \begin{align}
     \begin{split}
@@ -419,7 +394,7 @@ $S$-solution.
 
 \begin{proof}
     By definition $P_y(y)=P(0,y)=\sum_{n\ge0}\pi(0,n)\,y^n$ is the generating function of
-    $\{\pi(0,n)\}$, and from Equation~\eqref{eq:A:Py} with $\pi(0,0)=\rho(1-\rho)$,
+    the coefficients $\pi(0,n)$, and from Equation~\eqref{eq:A:Py} with $\pi(0,0)=\rho(1-\rho)$,
     \begin{equation*}
         P_y(y)=\rho(1-\rho)\,\frac{x^*(y)(1-y)}{x^*(y)-y}.
     \end{equation*}
@@ -435,18 +410,18 @@ $S$-solution.
 
 \begin{approximation}[Heuristic PPGF on $\widetilde{S}$]\label{apx:A:PPGF_Stilde}
     Neglecting the boundary-diagonal forcing term
-    $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in Equation~\eqref{eq:A:ppgf_Stilde_dynamics} ---which is
-    exponentially small by Lemma~\ref{lem:A:diag_decay}--- the
+    $\mu y^n(1-y)\,\tpi(n+1,n+1)$ in Equation~\eqref{eq:A:ppgf_Stilde_dynamics} ---which
+    decays geometrically in $n$ by Lemma~\ref{lem:A:diag_decay}--- the
     homogeneous recurrence admits the geometric solution
     \begin{equation*}
-        \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n, 
+        \widetilde{P}(y,n) \;\approx\; \rho(1-\rho)\,[\widetilde{y}^*(y)]^n,
     \end{equation*}
     where
     \begin{equation*}
-        \widetilde{y}^*(y) = \frac{(\lambda+\mu) - \sqrt{(\lambda+\mu)^2 - 4\mu(\lambda_1+\lambda_2 y)}}{2\mu}, \qquad \lambda = \lambda_1+\lambda_2. 
+        \widetilde{y}^*(y) = \frac{(\lambda+\mu) - \sqrt{(\lambda+\mu)^2 - 4\mu(\lambda_1+\lambda_2 y)}}{2\mu}, \qquad \lambda = \lambda_1+\lambda_2.
     \end{equation*}
     At $y=1$ this recovers $\widetilde{P}(1,n)=(1-\rho)\rho^{n+1}$, consistent with
-    the $M/M/1(\lambda,\mu)$ steady-state marginal for $n$ customers waiting.
+    the steady-state marginal of the $M/M/1$ queue with rates $\lambda$ and $\mu$ for $n$ customers waiting.
 \end{approximation}
 
 \begin{proof}[Justification of Approximation~\ref{apx:A:PPGF_Stilde}]
@@ -454,8 +429,10 @@ The inhomogeneous term $\mu y^n(1-y)\tpi(n+1,n+1)$ prevents the direct applicati
 of a geometric-sequence ansatz. The diagonal probabilities $\tpi(n,n)=\pi(0,n)$
 correspond to states where all $n$ waiting customers are class~$2$, and by
 Lemma~\ref{lem:A:diag_decay} they decay geometrically in $n$ at rate $\rho$; the
-forcing term is therefore exponentially small, and neglecting it yields an
-approximation whose accuracy is quantified below. The resulting homogeneous recurrence is
+forcing term is therefore exponentially small \emph{as $n$ grows} ---the recurrence
+holds for every $n$, and for small $n$ the term need not be negligible--- and
+neglecting it throughout yields an approximation whose accuracy is quantified below.
+The resulting homogeneous recurrence is
 \begin{equation*}
     (\lambda_1 + \lambda_2 + \mu) \widetilde{P}(y,n) = (\lambda_1 + \lambda_2 y) \widetilde{P}(y,n-1) + \mu \widetilde{P}(y,n+1).
 \end{equation*}
@@ -473,6 +450,7 @@ $n\to\infty$, so only the negative-sign root is admissible:
 \begin{equation*}
     \widetilde{y}^*(y) = \frac{(\lambda_1 + \lambda_2 + \mu) - \sqrt{(\lambda_1 + \lambda_2 + \mu)^2 - 4\mu(\lambda_1 + \lambda_2 y)}}{2\mu}.
 \end{equation*}
+Note that $\widetilde{y}^*(y)$ differs from the kernel roots $x^*(y)$ and $\widetilde{x}^*(y)$ of the $S$-space analyses: there the transform variable enters through the linear coefficient $\lambda_2(1-y)$ of the characteristic polynomial, here through its constant term $\lambda_1+\lambda_2 y$.
 The geometric ansatz gives $\tP(y,n)=\tP(y,0) \cdot [\widetilde{y}^*(y)]^n$.
 Using $\tP(y,0)=\tpi(0,0)=\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0}):
 \begin{equation*}
@@ -481,10 +459,10 @@ Using $\tP(y,0)=\tpi(0,0)=\pi(0,0)=\rho(1-\rho)$ (Corollary~\ref{cor:A:pi0}):
 Since $n$ counts customers \emph{waiting} (the customer in service is not counted),
 $n+1$ is the total number in the system, so evaluating at $y=1$:
 \begin{equation*}
-    \tP(1,n)= \rho(1-\rho) \cdot\rho^n= (1-\rho) \rho^{n+1}, \qedhere
+    \tP(1,n)= \rho(1-\rho) \cdot\rho^n= (1-\rho) \rho^{n+1},
 \end{equation*}
-which matches the $M/M/1(\lambda,\mu)$ stationary distribution for $n+1$ customers
-in the system~\cite{adan2002queueing}.
+which matches the stationary probability of $n+1$ customers in the $M/M/1$ queue
+with rates $\lambda$ and $\mu$~\cite{adan2002queueing}.
 \end{proof}
 
 \paragraph{Failure mechanism.}

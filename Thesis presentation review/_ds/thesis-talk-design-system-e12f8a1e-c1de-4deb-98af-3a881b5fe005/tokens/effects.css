@@ -1,0 +1,37 @@
+/* ============================================================
+   EFFECTS — Thesis Talk Design System
+   Radii, borders, shadows and motion. The look is flat and paper-
+   like: hairline warm borders do most of the work; shadows are
+   soft, low and warm-tinted (never a cool grey drop shadow).
+   ============================================================ */
+
+:root {
+  /* ---- Radii ---- */
+  --radius-xs: 3px;
+  --radius-sm: 6px;    /* tags, chips, small controls */
+  --radius-md: 10px;   /* cards, callouts */
+  --radius-lg: 16px;   /* large panels, figures */
+  --radius-pill: 999px;
+
+  /* ---- Borders ---- */
+  --border-hair: 1px solid var(--border-subtle);
+  --border-strong: 1.5px solid var(--ink-900);
+  --border-accent: 1.5px solid var(--accent);
+
+  /* ---- Shadows (warm, low) ---- */
+  --shadow-sm: 0 1px 2px rgba(56, 40, 24, 0.06);
+  --shadow-md: 0 4px 14px rgba(56, 40, 24, 0.08);
+  --shadow-lg: 0 14px 40px rgba(56, 40, 24, 0.12);
+  /* An accent-tinted lift for the "current" / highlighted card */
+  --shadow-accent: 0 6px 20px rgba(192, 86, 58, 0.18);
+
+  /* ---- Focus ring ---- */
+  --focus-ring: 0 0 0 3px var(--terracotta-200);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);   /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --dur-fast: 140ms;   /* @kind other */
+  --dur-med: 260ms;    /* @kind other */
+  --dur-slow: 480ms;   /* @kind other */
+}

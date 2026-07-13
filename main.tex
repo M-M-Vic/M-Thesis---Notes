@@ -61,19 +61,20 @@
 \author{Victor Dominguez Sainz}
 
 \begin{document}
-\tableofcontents
-\newpage
 \maketitle
 
 \begin{abstract}
 
 We study the stationary queue-length distribution of a two-class, non-preemptive priority $M/M/1$ queue augmented with two waiting-room mechanisms: \emph{jockeying}, in which a waiting customer switches to the other queue, and \emph{abandonment}, in which a waiting customer leaves the system. Jockeying conserves the total number of customers, whereas abandonment does not, and combining both yields a model (Model-$X$) that is analytically intractable. We therefore present a collection of simpler models: Model-$A$ (baseline), Model-$B$ (bidirectional jockeying), Model-$B_2$ (jockeying from the priority class to the non-priority class) and Model-$C_2$ (abandonments in the priority class). We also study two head-of-line models: Model-$\BH$ (only the first customer in the priority queue can jockey) and Model-$\CH$ (only the first customer in the priority queue can abandon).
 
-The central object is the bivariate Probability Generating Function (PGF) $P(x,y)$ of the two queue lengths, obtained by analytical and, where the structure allows, probabilistic arguments. The purpose of this work is to present a unified framework for deriving the functional equation of each model and to expose the mathematical challenges intrinsic to each. Model-$A$ is classical and collapses to an algebraic expression by finding a kernel root inside the unit disc; Model-$B_2$ is solved by imposing analyticity at an interior point and Model-$C_2$ by imposing boundedness at the unit-disc boundary $x=1$. The head-of-line models, like the baseline Model-$A$, also yield an algebraic expression for the PGF. Two models are left open: Model-$B$ reduces to an integral expression for the PGF involving a Volterra-type integral equation, and Model-$X$ compounds this with nonlinear characteristic curves.
+The central object is the bivariate Probability Generating Function (PGF) of the two queue lengths, obtained by analytical and, where the structure allows, probabilistic arguments. The purpose of this work is to present a unified framework for deriving the functional equation of each model and to expose the mathematical challenges intrinsic to each. Model-$A$ is classical and reduces to an algebraic expression by finding a kernel root inside the unit disc; Model-$B_2$ is solved by imposing analyticity of the PGF at an interior point and Model-$C_2$ by imposing boundedness of the PGF on the boundary of the unit disc. The head-of-line models, like the baseline Model-$A$, also yield an algebraic expression for the PGF. Two models are left open: Model-$B$ reduces to an integral expression for the PGF involving a Volterra-type integral equation, and Model-$X$ compounds this with nonlinear characteristic curves.
 
-Every closed form is validated against a truncated continuous-time Markov Chain (CTMC) that recovers the baseline model as the mechanism rates vanish. The comparison reveals a key difference between jockeying and abandonment: the former merely redistributes delay between classes, whereas the latter substantially shortens the queue lengths.
+Every closed form is verified against a truncated continuous-time Markov Chain (CTMC) that recovers the baseline model as the mechanism rates vanish. The comparison reveals a key difference between jockeying and abandonment: the former merely redistributes delay between classes, whereas the latter substantially shortens the queue lengths.
 \end{abstract}
 
+\newpage
+\tableofcontents
+\newpage
 
 \input{chapters/01_introduction}
 \input{chapters/02_literature}

@@ -1,8 +1,8 @@
-\section{Analysis of Model-\texorpdfstring{$B_2$}{B2} (\texorpdfstring{$\gamma_1>0$}{gamma1>0}, \texorpdfstring{$\gamma_2=0$}{gamma2=0}, \texorpdfstring{$\theta_1=\theta_2=0$}{theta1=theta2=0})}\label{sec:model_b2}
+\section{Analysis of Model-\texorpdfstring{$B_2$}{B2}}\label{sec:model_b2}
 
 Model-$B_2$ keeps one-way jockeying from class-$1$ to class-$2$ ($\gamma_1>0$, $\gamma_2=0$) and no abandonment ($\theta_1=\theta_2=0$). This model is more tractable than Model-$B$, as all the terms with derivatives in $y$ disappear, leaving us a first-order linear ODE in $x$, for each fixed $y\in(0,1]$. We will solve this using the integrating factor (\S\ref{sssec:if}). 
 
-\textbf{Stability.} As in Models~$A$ and~$B$, $\rho = (\lambda_1+\lambda_2)/\mu < 1$. Jockeying conserves the total customer count and does not affect the stability condition.
+\textbf{Stability.} As in Models~$A$ and~$B$, the system is stable if and only if $\rho = (\lambda_1+\lambda_2)/\mu < 1$: jockeying conserves the total customer count and does not affect the stability condition.
 Figure~\ref{fig:model-b2-queue} shows the queue layout.
 \begin{figure}[H]
     \centering
@@ -10,7 +10,7 @@ Figure~\ref{fig:model-b2-queue} shows the queue layout.
         \input{figures/model-b2-queue.tikz}%
     }
     \caption{Queue layout for Model-$B_2$. Only the $1\to2$ jockeying direction
-    is active (dashed, downward): class-1 customers may defect to Queue~2,
+    is active (dashed, downward): class-1 customers may transition to Queue~2,
     but no customer can move in the reverse direction ($\gamma_2=0$).}
     \label{fig:model-b2-queue}
 \end{figure}
@@ -52,7 +52,7 @@ of this section is built on it.
         b^\star(y) = \alpha+\beta+1 = \frac{\mu+\lambda(1-y)+\gamma_1}{\gamma_1},
         \label{eq:B2:exponents_thm}
     \end{equation}
-    the auxiliary integrals are
+    where the dependence of $\alpha$, $\beta$ and $b^\star$ on $y$ is suppressed from the notation where unambiguous, the auxiliary integrals are
     \begin{align}
         \mathcal{H}_1(x,y) &= \int_0^x e^{-\lambda_1 t/\gamma_1}\,t^{\,\alpha-1}(y-t)^{\beta}\,dt,
         \label{eq:B2:I1}\\
@@ -61,8 +61,8 @@ of this section is built on it.
     \end{align}
     and the empty-state probability $\pi(0,0)=\rho(1-\rho)$ is given by Corollary~\ref{cor:B2:pi00} below.
     On $y<x\le1$ the same expression~\eqref{eq:B2:Pxy} holds with $\mathcal{H}_1,\mathcal{H}_2$
-    replaced by their finite-part continuations; that the right-hand side is genuinely analytic
-    across the interior point $x=y$ is the content of the smoothness condition established in
+    replaced by their finite-part continuations, and the right-hand side is analytic across
+    the interior point $x=y$; the latter assertion is proved as the smoothness condition in
     Step~(ii) of the proof.
 \end{theorem}
 
@@ -75,7 +75,7 @@ The result below is stated as a corollary, so that it sits at the same hierarchy
     \end{equation*}
     identical to the Model-$A$ baseline.
 \end{corollary}
-As in Model-$B$, the proof follows trivially by setting $x=y=z$ in our fundamental equation (Equation~\eqref{eq:B2:fundamental}). The surviving equation is identical to the homologous one in Model-$A$, so Corollary~\ref{cor:B2:pi00} is the no-abandonment instance of Theorem~\ref{thm:gen:boundary}, with the $M/M/1$ mean busy period $\mathbb{E}[B]=(\mu-\lambda)^{-1}$ (Corollary~\ref{cor:gen:no_abandon}).
+As in Model-$B$, the proof of Corollary~\ref{cor:B2:pi00} follows trivially by setting $x=y=z$ in our fundamental equation (Equation~\eqref{eq:B2:fundamental}). The resulting equation is identical to the homologous one in Model-$A$, so Corollary~\ref{cor:B2:pi00} is the no-abandonment instance of Theorem~\ref{thm:gen:boundary}, with the $M/M/1$ mean busy period $\mathbb{E}[BP]=(\mu-\lambda)^{-1}$ (Corollary~\ref{cor:gen:no_abandon}).
 
 The proof of Theorem~\ref{thm:B2:PGF} consists of three steps: (i) obtaining the standard form and the integration factor, (ii) determining $P_y(y)$ by analyticity in $x=y$, and (iii) recovering $P(x,y)$.
 
@@ -84,7 +84,7 @@ The proof of Theorem~\ref{thm:B2:PGF} consists of three steps: (i) obtaining the
 % ─────────────────────────────────────────────────────────────────
 \medskip\noindent\textbf{Step~(i): Standard form and the integrating factor.}
 
-Fix $y\in(0,1]$, cancel a factor $y$ on both sides and divide the reduced fundamental equation~\eqref{eq:B2:fundamental} by the derivative term in $x$. The equation takes standard form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$ of \S\ref{sssec:if} (Equation~\eqref{eq:ode:standard}), with
+Fix $y\in(0,1]$, cancel a factor $y$ on both sides and divide the reduced fundamental equation~\eqref{eq:B2:fundamental} by the coefficient of the derivative term in $x$. The equation takes standard form $\tfrac{dP}{dx}+p(x;y)\,P=q(x;y)$ of \S\ref{sssec:if} (Equation~\eqref{eq:ode:standard}), with
 \begin{align}
     \begin{split}
         p(x;y) &= \frac{(\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy}{\gamma_1 x(x-y)},
@@ -95,12 +95,17 @@ Fix $y\in(0,1]$, cancel a factor $y$ on both sides and divide the reduced fundam
         \label{eq:B2:qxy}
     \end{split}
 \end{align}
-Write the numerator of $p$ as a polynomial in $x$,
+Write $N(x)$ for the numerator of $p$, a polynomial in $x$:
 \begin{equation*}
     N(x) = -\lambda_1 x^2 + \bigl[(\lambda_1+\lambda_2+\mu)-\lambda_2 y\bigr]x - \mu
          = -\lambda_1\bigl(x-x^*(y)\bigr)\bigl(x-x^+(y)\bigr),
 \end{equation*}
-where the roots $x^*(y),x^+(y)$ are those found for the kernel in Model-$A$ (Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$ following from Vieta's formula. The Partial Fraction Decomposition of $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ reads as follows:
+where the roots $x^*(y),x^+(y)$ are those found for the kernel in Model-$A$ (Equation~\eqref{eq:A:xstar}), with $\lambda_1 x^* x^+ = \mu$ following from Vieta's formula. We now decompose $p = N(x)/\bigl[\gamma_1 x(x-y)\bigr]$ by partial fractions. Since the degree of $N$ equals that of the denominator, the decomposition takes the form
+\begin{equation*}
+    p(x;y) = \frac{N(x)}{\gamma_1\,x(x-y)}
+           = \frac{1}{\gamma_1}\left[A + \frac{B}{x} + \frac{C}{x-y}\right],
+\end{equation*}
+in which $A$ is the ratio of the leading coefficients and $B$, $C$ are the residues of $N(x)/[x(x-y)]$ at the simple poles $x=0$ and $x=y$:
 \begin{align*}
     A &= -\lambda_1, \nonumber\\
     B &= \frac{N(0)}{0-y} = \frac{-\mu}{-y} = \frac{\mu}{y}, \nonumber\\
@@ -115,25 +120,19 @@ with $N(y)=-\lambda y^2+(\lambda+\mu)y-\mu=-(\lambda y-\mu)(y-1)$. Thus
     \label{eq:B2:pfrac}
 \end{equation}
 
-Since we will have a factor $(x-y)$ due to jockeying, we work on the region $0\leq x\leq y$, where $x-y\le0$; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y-x)$, so integrating the partial fraction~\eqref{eq:B2:pfrac} yields, up to a constant,
+Since we will have a factor $(x-y)$ due to jockeying, we work on the region $0\leq x\leq y\leq1$, on which the difference $x-y$ is non-positive; the complementary region $y<x\le1$ is recovered later. On this region, a term $\beta\ln|x-y|$ becomes simply $\beta\ln(y-x)$, so integrating the partial fraction~\eqref{eq:B2:pfrac} yields, up to a constant,
 \begin{align*}
     \int^{x}\! p(t;y)\,dt
     &= \frac{1}{\gamma_1}\Bigl[-\lambda_1 x + \frac{\mu}{y}\ln x
        + \frac{(1-y)(\lambda y-\mu)}{y}\,\ln(y-x)\Bigr] \\
     &= -\frac{\lambda_1}{\gamma_1}\,x + \alpha(y)\ln x + \beta(y)\ln(y-x),
 \end{align*}
-with the exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$of Equation~\eqref{eq:B2:exponents_thm}. Exponentiating, and dropping the multiplicative constant to which an integrating factor is indifferent, gives our integrating factor
+with the exponents $\alpha(y)=\mu/(\gamma_1 y)>0$ and $\beta(y)=(1-y)(\lambda y-\mu)/(\gamma_1 y)$ of Equation~\eqref{eq:B2:exponents_thm}. Exponentiating, and dropping the multiplicative constant to which an integrating factor is indifferent, gives our integrating factor
 \begin{equation*}
     \mu_I(x;y) = e^{-\lambda_1 x/\gamma_1}\,x^{\,\alpha(y)}\,(y-x)^{\,\beta(y)},
 \end{equation*}
-real-valued in our region because we take the base $(y-x)>0$ rather than $(x-y)$; its reciprocal $1/\mu_I$ is the homogeneous solution, playing here the role that $P_h$ played for Model-$B$ (\S\ref{sssec:vop}). It indeed solves $\mu_I'/\mu_I=p$:
-\begin{align*}
-    \frac{\mu_I'(x;y)}{\mu_I(x;y)}
-    &= -\frac{\lambda_1}{\gamma_1} + \frac{\alpha}{x} + \beta\,\frac{d}{dx}\ln(y-x) \\
-    &= -\frac{\lambda_1}{\gamma_1} + \frac{\alpha}{x} + \frac{\beta}{x-y}
-     = p(x;y).
-\end{align*}
-The general solution of \S\ref{sssec:if} (Equation~\eqref{eq:ode:general}) now applies, and its arbitrary function is fixed immediately: since $\alpha>0$ we have $\mu_I\to0$ as $x\to0^{+}$, so the boundary contribution $P(0,y)\,\mu_I(0;y)$ vanishes and integrating $\tfrac{d}{dx}[P\,\mu_I]=q\,\mu_I$ over $(0,x]$ leaves
+real-valued in our region because we take the base $(y-x)>0$ rather than $(x-y)$; its reciprocal $1/\mu_I$ is the homogeneous solution, playing here the role that $P_h$ played for Model-$B$ (\S\ref{sssec:vop}).
+The general solution of \S\ref{sssec:if} (Equation~\eqref{eq:ode:general}) now applies, and its arbitrary function is fixed immediately: since $\alpha(y)>0$ we have $\mu_I(x;y)\to0$ as $x\to0^{+}$, so the boundary contribution $P(0,y)\,\mu_I(0;y)$ vanishes and integrating $\tfrac{d}{dx}[P\,\mu_I]=q\,\mu_I$ over $(0,x]$ leaves
 \begin{equation*}
     P(x,y)\,\mu_I(x;y) = \int_0^x q(t;y)\,\mu_I(t;y)\,dt.
 \end{equation*}
@@ -165,7 +164,7 @@ Under stability (i.e.\ $\rho<1$) $\mu-\lambda y>0$ for $y\in(0,1)$, so the secon
 \end{equation}
 So the prefactor $(y-x)^{-\beta}=(y-x)^{|\beta|}$ in Equation~\eqref{eq:B2:Pxy_real} \emph{vanishes} as $x\to y^{-}$, while $\mathcal{H}_1,\mathcal{H}_2$ may \emph{diverge}: the product is an indeterminate $0\cdot\infty$ form, whose resolution fixes $P_y(y)$.
 
-On the diagonal the value is known outright. Setting $x=y=z$ in the fundamental equation~\eqref{eq:B2:fundamental} drops the jockeying and boundary terms (each containing a factor $x-y$) and leaves Model~$A$'s balance, so
+On the diagonal the value is known in advance. Setting $x=y=z$ in the fundamental equation~\eqref{eq:B2:fundamental} drops the jockeying and boundary terms (each containing a factor $x-y$) and leaves Model~$A$'s balance, so
 \begin{equation}
     P(z,z) = \frac{\rho(1-\rho)}{1-\rho z},
     \label{eq:B2:regular_value}
@@ -181,18 +180,20 @@ $\Psi(x)=\mu\,e^{\lambda_1 x/\gamma_1}x^{-\alpha}/(\gamma_1 y)$, so that
     \qquad |\beta|=-\beta>0 .
 \end{equation*}
 We need only the leading behaviour of the two integrals as $x\to y^{-}$, not a full expansion.
-Each splits into its endpoint value $\mathcal{H}_i(y,y)=\int_0^y(\cdots)\,dt$ and a remainder
-set by the integrand near $t=y$ ---$\mathcal{H}_1$ carries $(y-t)^{\beta}$, $\mathcal{H}_2$
-carries $(y-t)^{\beta-1}$--- so that, with constants $c_1,c_2$ whose values we never need,
+Splitting each integral at the endpoint, $\mathcal{H}_i(x,y)=\mathcal{H}_i(y,y)-\int_x^y(\cdots)\,dt$,
+and integrating the behaviour of the integrands near $t=y$ ---$\mathcal{H}_1$ carries
+$(y-t)^{\beta}$, $\mathcal{H}_2$ carries $(y-t)^{\beta-1}$--- gives, with constants $c_1,c_2$
+whose values are immaterial,
 \begin{equation*}
     \mathcal{H}_1(x,y)=\mathcal{H}_1(y,y)+c_1\,(y-x)^{\beta+1}+\cdots, \qquad
     \mathcal{H}_2(x,y)=\mathcal{H}_2(y,y)+c_2\,(y-x)^{\beta}+\cdots .
 \end{equation*}
-Multiplied by $(y-x)^{-\beta}$, the $c_1,c_2$ remainders turn into a smooth $O(y-x)$ term and the
-constant regular value~\eqref{eq:B2:regular_value}; only the endpoint values retain the bare,
-non-integer power $(y-x)^{|\beta|}$ ($|\beta|\notin\mathbb{Z}$ generically). Since $P(\cdot,y)$
-is a power series in $x$ ---hence smooth at the interior point $x=y<1$, whereas that power is
-not--- its coefficient must vanish:
+Upon multiplication by $(y-x)^{-\beta}$, the $c_1$-remainder becomes a smooth $O(y-x)$ term
+and the $c_2$-remainder the constant regular value~\eqref{eq:B2:regular_value}; only the
+endpoint values $\mathcal{H}_i(y,y)$ retain the bare, non-integer power $(y-x)^{|\beta|}$
+($|\beta|\notin\mathbb{Z}$ generically). Since $P(\cdot,y)$ is a power series in $x$, it is
+smooth at the interior point $x=y<1$, whereas that power is not; the coefficient of the power
+must therefore vanish:
 \begin{equation}
     P_y(y)\,\mathcal{H}_1(y,y) + (1-y)\,\pi(0,0)\,\mathcal{H}_2(y,y) = 0 ,
     \label{eq:B2:nobranch}
@@ -215,7 +216,7 @@ These are Euler integrals~\eqref{eq:kummer:euler},
 $\int_0^1 t^{a-1}(1-t)^{b-1}e^{zt}\,dt=B(a,b)\,{}_1F_1(a;a+b;z)$, with
 $(a,b,z)=(\alpha,\beta+1,-c)$ for $\mathcal{H}_1$ and $(\alpha+1,\beta,-c)$ for
 $\mathcal{H}_2$, so $a+b=b^\star(y)$ in both. As $\beta<0$ by Equation~\eqref{eq:B2:beta_negative}, the
-right-hand side is read as its analytic continuation in $b$ beyond the convergence range $b>0$,
+right-hand side of the Euler identity above is read as its analytic continuation in $b$ beyond the convergence range $b>0$,
 giving
 \begin{align}
     \mathcal{H}_1(y,y)
@@ -274,7 +275,7 @@ $P_y(0)=\sum_{n_2}\pi(0,n_2)\cdot0^{n_2}=\pi(0,0)$.
 \medskip\noindent\textbf{Step~(iii): Recovery of $P(x,y)$.}
 \medskip
 
-Substituting Equation~\eqref{eq:B2:Py} into the real-form expression~\eqref{eq:B2:Pxy_real}
+Substituting Equation~\eqref{eq:B2:Py} into the expression~\eqref{eq:B2:Pxy_real}
 gives, for $0\le x\le y$,
 \begin{align*}
     P(x,y) &= \frac{\mu\,e^{\lambda_1 x/\gamma_1}\,x^{-\alpha}(y-x)^{-\beta}}{\gamma_1 y}
@@ -302,8 +303,11 @@ separate discussion.
 
 \begin{remark}[The singular limit $\gamma_1\to0^{+}$]\label{rem:B2:singular_limit}
 The no-jockeying limit $\gamma_1\to0^{+}$ is a \emph{singular} perturbation: the coefficient
-$\gamma_1 xy(x-y)$ of the highest derivative $\partial_x P$ vanishes, so one must check that the
-convection term itself, not merely its coefficient, disappears. It does. Each $P$ is a
+$\gamma_1 xy(x-y)$ of the highest derivative $\partial_x P$ vanishes. For the equation to
+degenerate to the Model-$A$ form it is not enough that this coefficient tends to zero: the
+derivative $\partial_x P$ could in principle blow up as $\gamma_1\to0^{+}$, keeping the
+product $\gamma_1 xy(x-y)\,\partial_x P$ alive in the limit. We therefore check that the
+product itself disappears. Each $P$ is a
 probability generating function, so $|P|\le1$ on the closed unit polydisc uniformly in
 $\gamma_1$, and Cauchy's estimate then bounds $\partial_x P$ uniformly on every compact subset
 of the open polydisc; hence $\gamma_1 xy(x-y)\,\partial_x P\to0$ there. The fundamental

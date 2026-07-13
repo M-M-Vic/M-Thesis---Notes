@@ -1,9 +1,7 @@
-\section{Analysis of Model-\texorpdfstring{$\BH$}{B2-H} (\texorpdfstring{$\gamma_1>0$}{gamma1>0} head-of-line, \texorpdfstring{$\gamma_2=\theta_1=\theta_2=0$}{gamma2=theta1=theta2=0})}
+\section{Analysis of Model-\texorpdfstring{$\BH$}{B2-H}}
 \label{sec:model_b21}
 
-Inspired by the work of Devos et al.~\cite{devos2020alternating}, this model ---together with Model-$\CH$--- eliminates the state-dependent jockeying rate for the class-$1$, only allowing the head-of-line customer from class-$1$ to transition at a fixed rate $\gamma_1$ whenever $n_1\geq1$, giving an aggregate rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
-
-This significantly simplifies the model. The flat rate replaces the derivative term in $x$ found in \S\ref{sec:model_b2} by an algebraic factor $\gamma_1 y(x-y)$ so the fundamental equation remains algebraic and can be solved by the Kernel Method exactly as in Model-$A$ (\S\ref{sec:model_a}).
+Model-$\BH$ restricts the jockeying of Model-$B_2$ to the head of the queue: the parameter setting is $\gamma_1>0$ head-of-line with $\gamma_2=\theta_1=\theta_2=0$. It is inspired by the work of Devos et al.~\cite{devos2020alternating}, who analyse a \emph{discrete-time} two-class model in which the server randomly alternates between the two queues. This model ---together with Model-$\CH$--- eliminates the state-dependent jockeying rate for class~$1$: only the head-of-line customer from class~$1$ may transition, at a fixed rate $\gamma_1$ whenever $n_1\geq1$, giving an aggregate jockeying rate $\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$.
 
 \textbf{Stability.} Jockeying conserves the total number of customers; since there is no abandonment, the chain is positive recurrent if and only if the total traffic intensity satisfies
 \begin{equation}
@@ -14,45 +12,42 @@ This significantly simplifies the model. The flat rate replaces the derivative t
 \subsection{Balance equations}
 The jockeying transition $(n_1,n_2)\to(n_1-1,n_2+1)$ happens at the fixed rate $\gamma_1$ for $n_1\ge1$. On state space $S$ the global balance equations read
 \begin{align}
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu+\gamma_1\right]\pi(n_1,n_2) \\
-        &\quad=\quad \mu\,\pi(n_1+1,n_2)
-          +\lambda_1\pi(n_1-1,n_2)
-          +\lambda_2\pi(n_1,n_2-1)
-          +\gamma_1\pi(n_1+1,n_2-1)
-    \end{split}
+    \left[\lambda_1+\lambda_2+\mu+\gamma_1\right]\pi(n_1,n_2)
+    &= \mu\,\pi(n_1+1,n_2)
+      +\lambda_1\pi(n_1-1,n_2) \notag\\
+    &\qquad
+      +\lambda_2\pi(n_1,n_2-1)
+      +\gamma_1\pi(n_1+1,n_2-1),
     &&n_1\ge1,\;n_2\ge1, \label{eq:B21:interior} \\
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu+\gamma_1\right]\pi(n_1,0)
-          \;=\; \mu\,\pi(n_1+1,0)
-          +\lambda_1\pi(n_1-1,0)
-    \end{split}
+    \left[\lambda_1+\lambda_2+\mu+\gamma_1\right]\pi(n_1,0)
+    &= \mu\,\pi(n_1+1,0)
+      +\lambda_1\pi(n_1-1,0),
     &&n_1\ge1,\;n_2=0, \label{eq:B21:xboundary} \\
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2) \\
-        &\quad=\quad \mu\,\pi(1,n_2)
-          +\gamma_1\pi(1,n_2-1)
-          +\lambda_2\pi(0,n_2-1)
-          +\mu\,\pi(0,n_2+1)
-    \end{split}
+    \left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2)
+    &= \mu\,\pi(1,n_2)
+      +\gamma_1\pi(1,n_2-1) \notag\\
+    &\qquad
+      +\lambda_2\pi(0,n_2-1)
+      +\mu\,\pi(0,n_2+1),
     &&n_1=0,\;n_2\ge1, \label{eq:B21:yboundary} \\
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
-          = (\lambda_1+\lambda_2)\pi_0
-          + \mu\,\pi(1,0)
-          + \mu\,\pi(0,1),
-    \end{split} &&\nonumber \\
-    \begin{split}
-        &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
-    \end{split} &&\label{eq:B21:idle}
+    \left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
+    &= (\lambda_1+\lambda_2)\pi_0
+      + \mu\,\pi(1,0)
+      + \mu\,\pi(0,1),
+    &&\notag \\
+    (\lambda_1+\lambda_2)\pi_0
+    &= \mu\,\pi(0,0).
+    &&\label{eq:B21:idle}
 \end{align}
 
 
 \subsection{Fundamental PGF equation}
 
+The head-of-line restriction significantly simplifies the model: the constant rate replaces the derivative term in $x$ found in \S\ref{sec:model_b2} by an algebraic factor $\gamma_1 y(x-y)$, so the fundamental equation remains algebraic and can be solved by the Kernel Method exactly as in Model-$A$ (\S\ref{sec:model_a}).
+
 \begin{lemma}[Fundamental equation for Model-$\BH$]\label{lem:B21:fundamental}
 Assume positive recurrence, so that the stationary distribution exists and
-$P(x,y)=\sum_{n_1,n_2\ge0}\pi(n_1,n_2)x^{n_1}y^{n_2}$ is analytic on the closed unit
+$P(x,y)$ is analytic on the closed unit
 polydisc. Then $P(x,y)$ and the boundary function $P_y(y)=P(0,y)$ satisfy
 \begin{equation}
     \begin{split}
@@ -66,41 +61,41 @@ polydisc. Then $P(x,y)$ and the boundary function $P_y(y)=P(0,y)$ satisfy
 \end{lemma}
 
 \begin{proof}
-Besides the jockeying terms, equations~\eqref{eq:B21:interior}--\eqref{eq:B21:idle} coincide with those of Model-$A$. Multiplying each balance equation by $x^{n_1}y^{n_2}$, summing over its domain and multiplying through by $xy$, we obtain the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
+Besides the jockeying terms, Equations~\eqref{eq:B21:interior}--\eqref{eq:B21:idle} are identical to those of Model-$A$. Multiplying each balance equation by $x^{n_1}y^{n_2}$, summing over its domain and multiplying through by $xy$ ---leaving aside, for the moment, the terms involving $\gamma_1$--- we obtain the fundamental equation for Model-$A$ (Equation~\eqref{eq:A:fundamental}):
 \begin{equation*}
     \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2y - \lambda_2 xy^2 \right] P(x,y)
     = \mu(x-y) P_y(y) - \mu x(1-y)\,\pi(0,0),
 \end{equation*}
-so it remains only to collect the jockeying contribution. Its \emph{out}-flow appears in every state with $n_1\ge1$:
+so it remains only to collect the jockeying contribution. The $\gamma_1$-term on the left-hand side appears in every state with $n_1\ge1$:
 \begin{equation*}
     \gamma_1\sum_{n_1\ge1}\sum_{n_2\ge0}\pi(n_1,n_2)\,x^{n_1}y^{n_2}
     = \gamma_1\bigl[P(x,y)-P_y(y)\bigr],
 \end{equation*}
-while its \emph{in}-flow enters every state with $n_2\ge1$ from $(n_1+1,n_2-1)$:
+while the $\gamma_1$-term on the right-hand side enters every state with $n_2\ge1$ from $(n_1+1,n_2-1)$:
 \begin{equation*}
     \gamma_1\sum_{n_1\ge0}\sum_{n_2\ge1}\pi(n_1+1,n_2-1)\,x^{n_1}y^{n_2}
     = \gamma_1\,\frac{y}{x}\sum_{m_1\ge1}\sum_{m_2\ge0}\pi(m_1,m_2)\,x^{m_1}y^{m_2}
     = \gamma_1\,\frac{y}{x}\bigl[P(x,y)-P_y(y)\bigr],
 \end{equation*}
-where $m_1=n_1+1,\ m_2=n_2-1$. The jockeying contribution (out minus in) is hence $\gamma_1\bigl(1-\tfrac{y}{x}\bigr)\bigl[P(x,y)-P_y(y)\bigr]$; multiplying by $xy$ gives $\gamma_1 y(x-y)\bigl[P(x,y)-P_y(y)\bigr]$. Adding this to the Model-$A$ equation and moving the $P_y$ part to the right-hand side yields Equation~\eqref{eq:B21:fundamental}.
+where $m_1=n_1+1$ and $m_2=n_2-1$. The net jockeying contribution is hence $\gamma_1\bigl(1-\tfrac{y}{x}\bigr)\bigl[P(x,y)-P_y(y)\bigr]$; multiplying by $xy$ gives $\gamma_1 y(x-y)\bigl[P(x,y)-P_y(y)\bigr]$. Adding this to the Model-$A$ equation and moving the $P_y$ part to the right-hand side yields Equation~\eqref{eq:B21:fundamental}.
 \end{proof}
 
-\subsection{Closed-form solution}
+\subsection{Closed-form solution for the PGF}
 
-The following theorem is the main result of this section; its proof is based on the analytical (Kernel Method) treatment of Model-$A$ in~\S\ref{sssec:A:analytical}.
+The following theorem is the main result of this section; its proof applies the Kernel Method, similarly to the analytical approach for Model-$A$ in~\S\ref{sssec:A:analytical}.
 
-\begin{theorem}[Closed-form PGF for Model-$\BH$]\label{thm:B21:PGF}
+\begin{theorem}\label{thm:B21:PGF}
     Consider the two-class non-preemptive priority queue with Poisson arrival rates
     $\lambda_1,\lambda_2$, common exponential service rate $\mu$, and head-of-line class-$1$
     jockeying at rate $\gamma_1>0$ (with $\gamma_2=\theta_1=\theta_2=0$). Under the stability
-    condition~\eqref{eq:B21:stability}, the joint PGF $P(x,y)=\mathbb{E}[x^{N_1}y^{N_2}]$ is
+    condition~\eqref{eq:B21:stability}, the joint PGF $P(x,y)$ is
     the rational function
     \begin{equation}
         P(x,y) \;=\; \frac{\mu\,\rho(1-\rho)\,(1-y)}
         {\lambda_1\,\bigl(x^*(y)-y\bigr)\,\bigl(x^+(y)-x\bigr)},
         \label{eq:B21:PGF}
     \end{equation}
-    where $x^*(y)$ and $x^+(y)$ are the two roots of the kernel quadratic
+    where $x^*(y)$ and $x^+(y)$ are the two roots of the quadratic equation
     \begin{equation}
         \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr]x + (\mu+\gamma_1 y) = 0,
         \label{eq:B21:quad}
@@ -108,7 +103,7 @@ The following theorem is the main result of this section; its proof is based on 
 with $x^*(y)$ the root inside the unit disc.
 \end{theorem}
 
-The result below is stated as a corollary, so that it sits at the same hierarchy level as the corresponding results for the other models.
+The result below is stated as a corollary, in parallel with the corresponding results for the other models.
 \begin{corollary}\label{cor:B21:pi0}
     Under Equation~\eqref{eq:B21:stability}, the empty-state probabilities of Model-$\BH$ coincide with those of Model-$A$,
     \begin{equation*}
@@ -116,22 +111,18 @@ The result below is stated as a corollary, so that it sits at the same hierarchy
     \end{equation*}
     In particular $P(1,1)=1-\pi_0=\rho$ and the diagonal generating function satisfies $P(z,z)=\pi(0,0)/(1-\rho z)$.
 \end{corollary}
-The proof is the no-abandonment instance of Theorem~\ref{thm:gen:boundary} (Corollary~\ref{cor:gen:no_abandon}): head-of-line jockeying conserves the total count, so $\mathbb{E}[B]=(\mu-\lambda)^{-1}$ and the baseline values hold.
+Corollary~\ref{cor:B21:pi0} is an instance of Corollary~\ref{cor:gen:no_abandon} ---the no-abandonment case of Theorem~\ref{thm:gen:boundary}: head-of-line jockeying conserves the total number of customers, so $\mathbb{E}[BP]=(\mu-\lambda)^{-1}$ and the Model-$A$ values hold.
 
 
 \subsubsection{Analytical approach for Model-\texorpdfstring{$\BH$}{B2-H}}\label{sssec:B21:analytical}
 
 \begin{proof}[Proof of Theorem~\ref{thm:B21:PGF}]
 
-We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}. Fix $y\in(0,1]$ and seek the values of $x$ at which the coefficient of $P(x,y)$ vanishes. Since $P(x,y)$ is a PGF it is bounded on the closed unit disc, so at any such root the right-hand side of Equation~\eqref{eq:B21:fundamental} must also vanish. Dividing the kernel by $y\ne0$,
+We apply the \emph{Kernel Method} to the fundamental equation~\eqref{eq:B21:fundamental}. Fix $y\in(0,1]$ and seek the values of $x$ at which the coefficient of $P(x,y)$ vanishes. Since $P(x,y)$ is a PGF it is bounded on the closed unit disc, so at any such root the right-hand side of Equation~\eqref{eq:B21:fundamental} must also vanish. Dividing the kernel by $y\ne0$ gives
 \begin{equation*}
     0 = (\lambda_1+\lambda_2+\mu)x - \mu - \lambda_1 x^2 - \lambda_2 xy + \gamma_1(x-y),
 \end{equation*}
-and rearranging into a quadratic in $x$ gives exactly Equation~\eqref{eq:B21:quad},
-\begin{equation*}
-    \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr]x + (\mu+\gamma_1 y) = 0,
-\end{equation*}
-whose two roots are
+and rearranging into a quadratic equation in $x$ gives exactly Equation~\eqref{eq:B21:quad}, whose two roots are
 \begin{equation*}
     x^{\pm}(y) = \frac{A(y) \pm \sqrt{A(y)^2 - 4\lambda_1(\mu+\gamma_1 y)}}{2\lambda_1},
     \qquad A(y):=\lambda_1+\lambda_2(1-y)+\mu+\gamma_1.
@@ -139,22 +130,27 @@ whose two roots are
 We label the root carrying the negative sign $x^*(y)$ and the other
 $x^+(y)$. By Vieta's formulas the product of the roots is $x^*(y)\,x^+(y)=(\mu+\gamma_1 y)/\lambda_1$.
 
-To locate the roots relative to the unit disc we evaluate the kernel quadratic, written as
-$f(x):=\lambda_1 x^2 - A(y)x + (\mu+\gamma_1 y)$, at $x=1$:
+To locate the roots relative to the unit disc we evaluate the quadratic polynomial
+$f(x):=\lambda_1 x^2 - A(y)x + (\mu+\gamma_1 y)$ at $x=1$:
 \begin{equation*}
     f(1) = \lambda_1 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\gamma_1\bigr] + (\mu+\gamma_1 y)
-         = -(1-y)\,(\lambda_2+\gamma_1) < 0
-    \qquad\text{for } y\in[0,1).
+         = -(1-y)\,(\lambda_2+\gamma_1).
 \end{equation*}
-We have that$x^*(y)$ is the unique root inside the unit disc, and at $y=1$ one checks $f(1)=0$ with $x^*(1)=1$ and $x^+(1)=(\mu+\gamma_1)/\lambda_1>1$. For later use, we record $\tfrac{d}{dy}x^*(1)$. The cleanest route is implicit differentiation of $f(x,y):=\lambda_1 x^2-A(y)x+(\mu+\gamma_1 y)=0$ at $(x,y)=(1,1)$, where $f_y=\lambda_2 x+\gamma_1$ and $f_x=2\lambda_1 x-A(y)$ evaluate to
-$f_y(1,1)=\lambda_2+\gamma_1$ and $f_x(1,1)=\lambda_1-\mu-\gamma_1$, so $\tfrac{d}{dy}x^*(1)=-f_y/f_x$:
+For $y\in[0,1)$ this is strictly negative, so $x=1$ lies between the two roots and $x^*(y)$ is the unique root inside the unit disc; at $y=1$ we obtain $f(1)=0$, with $x^*(1)=1$ and $x^+(1)=(\mu+\gamma_1)/\lambda_1>1$.
+
+For later use, we determine $\tfrac{d}{dy}x^*(1)$ by implicit differentiation. Regard the kernel equation as $f(x,y):=\lambda_1 x^2-A(y)x+(\mu+\gamma_1 y)=0$. Its partial derivatives $f_y=\lambda_2 x+\gamma_1$ and $f_x=2\lambda_1 x-A(y)$ evaluate at $(x,y)=(1,1)$ to
+$f_y(1,1)=\lambda_2+\gamma_1$ and $f_x(1,1)=\lambda_1-\mu-\gamma_1$, and the latter is nonzero under stability. By the implicit function theorem, $\tfrac{d}{dy}x^*(1)=-f_y(1,1)/f_x(1,1)$:
 \begin{equation}
     \frac{d}{dy}x^*(1) = \frac{\lambda_2+\gamma_1}{\mu+\gamma_1-\lambda_1}.
     \label{eq:B21:xstar_deriv}
 \end{equation}
-Unlike Model-$A$'s Equation~\eqref{eq:A:xstar_prime}, the numerator carries an extra $\gamma_1$: the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself $y$-dependent here.
+Compared with Model-$A$'s Equation~\eqref{eq:A:xstar_prime} evaluated at $y=1$, which gives $\lambda_2/(\mu-\lambda_1)$, both numerator and denominator carry an extra $\gamma_1$: the constant term $\mu+\gamma_1 y$ of the kernel~\eqref{eq:B21:quad} is itself $y$-dependent here.
 
-Setting $x=x^*(y)$ in Equation~\eqref{eq:B21:fundamental} forces the right-hand side to vanish:$(x^*(y)-y)(\mu+\gamma_1 y)\,P_y(y) = \mu x^*(y)(1-y)\,\pi(0,0)$, whence the boundary function is
+Setting $x=x^*(y)$ in Equation~\eqref{eq:B21:fundamental} makes the coefficient of $P(x,y)$ vanish; since $P(x^*(y),y)$ is finite, the right-hand side must vanish as well,
+\begin{equation*}
+    \bigl(x^*(y)-y\bigr)(\mu+\gamma_1 y)\,P_y(y) = \mu\, x^*(y)(1-y)\,\pi(0,0),
+\end{equation*}
+whence the boundary function is
 \begin{equation}
     P_y(y) = \frac{\mu\,x^*(y)\,(1-y)\,\pi(0,0)}
                   {(\mu+\gamma_1 y)\,\bigl(x^*(y)-y\bigr)}.
@@ -167,7 +163,7 @@ Finally, substitute Equation~\eqref{eq:B21:Py} and $\pi(0,0)=\rho(1-\rho)$ (Coro
     &= \mu(1-y)\,\pi(0,0)\left[\frac{(x-y)\,x^*(y)}{x^*(y)-y}-x\right] \\
     &= \mu(1-y)\,\pi(0,0)\,\frac{y\,\bigl(x-x^*(y)\bigr)}{x^*(y)-y},
 \end{align*}
-where the bracket collapses because $(x-y)x^*-x(x^*-y)=y(x-x^*)$. Dividing by the factored kernel, the common factor $\bigl(x-x^*(y)\bigr)$ cancels out and we have
+where the bracketed expression reduces to $y\bigl(x-x^*(y)\bigr)/\bigl(x^*(y)-y\bigr)$ by the identity $(x-y)x^*(y)-x\bigl(x^*(y)-y\bigr)=y\bigl(x-x^*(y)\bigr)$. Dividing by the factored kernel and cancelling the common factor $\bigl(x-x^*(y)\bigr)$, we have
 \begin{equation*}
     P(x,y) = \frac{\mu(1-y)\,\pi(0,0)\,y\,(x-x^*(y))/(x^*(y)-y)}
                   {-\lambda_1 y\,(x-x^*(y))(x-x^+(y))}

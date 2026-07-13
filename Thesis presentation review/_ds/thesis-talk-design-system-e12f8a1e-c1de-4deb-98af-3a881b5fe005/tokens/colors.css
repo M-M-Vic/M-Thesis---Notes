@@ -1,0 +1,78 @@
+/* ============================================================
+   COLORS — Thesis Talk Design System
+   A warm, blue-free "mathematics" palette. Clean and scholarly
+   without being severe. Two saturated hues carry the recurring
+   two-class contrast of the thesis (priority vs. non-priority);
+   ochre and plum mark the two mechanisms (jockeying, abandonment).
+   ============================================================ */
+
+:root {
+  /* ---- Warm neutral ramp (ink → paper) ---- */
+  --ink-900: #211C18;   /* headings, primary text on paper */
+  --ink-700: #453E38;   /* body text */
+  --ink-500: #736A62;   /* muted / secondary text, captions */
+  --ink-300: #A79C90;   /* disabled, faint labels */
+  --line-200: #E4DBCC;  /* hairline borders, dividers */
+  --line-100: #EFE8DB;  /* very faint fills, table stripes */
+  --paper: #FAF5EC;     /* page / stage background */
+  --surface: #FFFFFF;   /* cards, raised panels */
+  --surface-sunken: #F2EADB; /* wells, code blocks, insets */
+
+  /* ---- Brand hues (base) ---- */
+  --terracotta-600: #A94A2B;
+  --terracotta-500: #C0563A;   /* PRIMARY accent — class 1 / priority */
+  --terracotta-200: #EBC7B4;
+  --terracotta-50:  #F7E7DD;
+
+  --pine-600: #256048;
+  --pine-500: #327B5B;         /* SECONDARY — class 2 / non-priority */
+  --pine-200: #BCD8C9;
+  --pine-50:  #E1EFE7;
+
+  --ochre-600: #B27E24;
+  --ochre-500: #CB9639;        /* jockeying / highlight */
+  --ochre-200: #EDD9AE;
+  --ochre-50:  #F8EFD8;
+
+  --plum-600: #6A3B57;
+  --plum-500: #7E4A66;         /* abandonment / tertiary categorical */
+  --plum-200: #D9C2CF;
+  --plum-50:  #F1E6ED;
+
+  /* ---- Status ---- */
+  --solved-500: #327B5B;       /* "solved" model status (pine) */
+  --open-500: #C0563A;         /* "open" model status (terracotta) */
+
+  /* ============================================================
+     SEMANTIC ALIASES — reference these in components & slides
+     ============================================================ */
+  --text-heading: var(--ink-900);
+  --text-body: var(--ink-700);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-300);
+  --text-on-accent: #FFFFFF;
+
+  --surface-page: var(--paper);
+  --surface-card: var(--surface);
+  --surface-inset: var(--surface-sunken);
+
+  --border-subtle: var(--line-200);
+  --border-faint: var(--line-100);
+
+  --accent: var(--terracotta-500);
+  --accent-strong: var(--terracotta-600);
+  --accent-soft: var(--terracotta-50);
+
+  --class-1: var(--terracotta-500);   /* priority class */
+  --class-1-soft: var(--terracotta-50);
+  --class-2: var(--pine-500);         /* non-priority class */
+  --class-2-soft: var(--pine-50);
+
+  --mech-jockey: var(--ochre-500);
+  --mech-jockey-soft: var(--ochre-50);
+  --mech-abandon: var(--plum-500);
+  --mech-abandon-soft: var(--plum-50);
+
+  --status-solved: var(--solved-500);
+  --status-open: var(--open-500);
+}

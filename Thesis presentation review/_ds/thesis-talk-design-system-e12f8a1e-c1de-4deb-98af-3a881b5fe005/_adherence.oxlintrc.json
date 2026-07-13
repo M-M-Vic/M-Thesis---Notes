@@ -1,0 +1,413 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/content/**",
+              "components/math/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Spectral|IBM Plex Sans|IBM Plex Mono))/i]",
+        "message": "Font not provided by the design system. Available: Spectral, IBM Plex Sans, IBM Plex Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BirthDeathChain'] > JSXAttribute > JSXIdentifier[name!=/^(?:mode|lambda|mu|theta|count|width|className|style|key|ref|className|style|children)$/]",
+        "message": "<BirthDeathChain> doesn't accept that prop. Declared props: mode, lambda, mu, theta, count, width, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BirthDeathChain'] > JSXAttribute[name.name='mode'] > Literal[value!=/^(?:mm1|mm1m)$/]",
+        "message": "<BirthDeathChain> mode must be one of 'mm1' | 'mm1m'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Chip'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|tone|className|style|key|ref|className|style|children)$/]",
+        "message": "<Chip> doesn't accept that prop. Declared props: children, tone, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Chip'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:neutral|param|class1|class2|jockey|abandon)$/]",
+        "message": "<Chip> tone must be one of 'neutral' | 'param' | 'class1' | 'class2' | 'jockey' | 'abandon'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Equation'] > JSXAttribute > JSXIdentifier[name!=/^(?:tex|display|number|align|size|className|style|key|ref|className|style|children)$/]",
+        "message": "<Equation> doesn't accept that prop. Declared props: tex, display, number, align, size, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Equation'] > JSXAttribute[name.name='align'] > Literal[value!=/^(?:left|center|right)$/]",
+        "message": "<Equation> align must be one of 'left' | 'center' | 'right'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Equation'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Equation> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Figure'] > JSXAttribute > JSXIdentifier[name!=/^(?:src|alt|number|caption|source|frame|className|style|key|ref|className|style|children)$/]",
+        "message": "<Figure> doesn't accept that prop. Declared props: src, alt, number, caption, source, frame, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FlowDiagram'] > JSXAttribute > JSXIdentifier[name!=/^(?:space|gamma1|gamma2|theta1|theta2|gamma1Label|gamma2Label|theta1Label|theta2Label|width|className|style|key|ref|className|style|children)$/]",
+        "message": "<FlowDiagram> doesn't accept that prop. Declared props: space, gamma1, gamma2, theta1, theta2, gamma1Label, gamma2Label, theta1Label, theta2Label, width, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FlowDiagram'] > JSXAttribute[name.name='space'] > Literal[value!=/^(?:S|Stilde)$/]",
+        "message": "<FlowDiagram> space must be one of 'S' | 'Stilde'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ModelBadge'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|status|mechanism|active|size|className|style|key|ref|className|style|children)$/]",
+        "message": "<ModelBadge> doesn't accept that prop. Declared props: name, status, mechanism, active, size, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ModelBadge'] > JSXAttribute[name.name='status'] > Literal[value!=/^(?:solved|open|neutral)$/]",
+        "message": "<ModelBadge> status must be one of 'solved' | 'open' | 'neutral'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ModelBadge'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md)$/]",
+        "message": "<ModelBadge> size must be one of 'sm' | 'md'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='QueueDiagram'] > JSXAttribute > JSXIdentifier[name!=/^(?:lambda1|lambda2|mu|jockey|jockey2|abandon|abandon2|jockeyLabel|jockey2Label|abandonLabel|abandon2Label|width|className|style|key|ref|className|style|children)$/]",
+        "message": "<QueueDiagram> doesn't accept that prop. Declared props: lambda1, lambda2, mu, jockey, jockey2, abandon, abandon2, jockeyLabel, jockey2Label, abandonLabel, abandon2Label, width, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatCallout'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|unit|trend|note|accent|align|className|style|key|ref|className|style|children)$/]",
+        "message": "<StatCallout> doesn't accept that prop. Declared props: value, label, unit, trend, note, accent, align, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatCallout'] > JSXAttribute[name.name='trend'] > Literal[value!=/^(?:down|up|flat)$/]",
+        "message": "<StatCallout> trend must be one of 'down' | 'up' | 'flat'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatCallout'] > JSXAttribute[name.name='align'] > Literal[value!=/^(?:left|center)$/]",
+        "message": "<StatCallout> align must be one of 'left' | 'center'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TheoremBox'] > JSXAttribute > JSXIdentifier[name!=/^(?:kind|number|title|children|className|style|key|ref|className|style|children)$/]",
+        "message": "<TheoremBox> doesn't accept that prop. Declared props: kind, number, title, children, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TheoremBox'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:theorem|lemma|corollary|definition|remark|claim|approximation)$/]",
+        "message": "<TheoremBox> kind must be one of 'theorem' | 'lemma' | 'corollary' | 'definition' | 'remark' | 'claim' | 'approximation'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "BirthDeathChain": {
+        "replaces": []
+      },
+      "Chip": {
+        "replaces": []
+      },
+      "Equation": {
+        "replaces": []
+      },
+      "Figure": {
+        "replaces": []
+      },
+      "FlowDiagram": {
+        "replaces": []
+      },
+      "ModelBadge": {
+        "replaces": []
+      },
+      "QueueDiagram": {
+        "replaces": []
+      },
+      "StatCallout": {
+        "replaces": []
+      },
+      "TheoremBox": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent-soft",
+      "--accent-strong",
+      "--border-accent",
+      "--border-faint",
+      "--border-hair",
+      "--border-strong",
+      "--border-subtle",
+      "--class-1",
+      "--class-1-soft",
+      "--class-2",
+      "--class-2-soft",
+      "--dur-fast",
+      "--dur-med",
+      "--dur-slow",
+      "--ease-in-out",
+      "--ease-out",
+      "--focus-ring",
+      "--font-display",
+      "--font-math",
+      "--font-mono",
+      "--font-sans",
+      "--fs-body",
+      "--fs-caption",
+      "--fs-display",
+      "--fs-heading",
+      "--fs-hero",
+      "--fs-label",
+      "--fs-lead",
+      "--fs-title",
+      "--fw-bold",
+      "--fw-light",
+      "--fw-medium",
+      "--fw-regular",
+      "--fw-semibold",
+      "--ink-300",
+      "--ink-500",
+      "--ink-700",
+      "--ink-900",
+      "--lh-normal",
+      "--lh-relaxed",
+      "--lh-snug",
+      "--lh-tight",
+      "--line-100",
+      "--line-200",
+      "--ls-label",
+      "--ls-normal",
+      "--ls-tight",
+      "--mech-abandon",
+      "--mech-abandon-soft",
+      "--mech-jockey",
+      "--mech-jockey-soft",
+      "--ochre-200",
+      "--ochre-50",
+      "--ochre-500",
+      "--ochre-600",
+      "--open-500",
+      "--paper",
+      "--pine-200",
+      "--pine-50",
+      "--pine-500",
+      "--pine-600",
+      "--plum-200",
+      "--plum-50",
+      "--plum-500",
+      "--plum-600",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-sm",
+      "--radius-xs",
+      "--shadow-accent",
+      "--shadow-lg",
+      "--shadow-md",
+      "--shadow-sm",
+      "--slide-footer-h",
+      "--slide-gutter",
+      "--slide-h",
+      "--slide-pad-x",
+      "--slide-pad-y",
+      "--slide-w",
+      "--solved-500",
+      "--space-1",
+      "--space-10",
+      "--space-12",
+      "--space-16",
+      "--space-2",
+      "--space-20",
+      "--space-24",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--stack-default",
+      "--stack-loose",
+      "--stack-tight",
+      "--status-open",
+      "--status-solved",
+      "--surface",
+      "--surface-card",
+      "--surface-inset",
+      "--surface-page",
+      "--surface-sunken",
+      "--terracotta-200",
+      "--terracotta-50",
+      "--terracotta-500",
+      "--terracotta-600",
+      "--text-body",
+      "--text-faint",
+      "--text-heading",
+      "--text-muted",
+      "--text-on-accent",
+      "--type-body-family",
+      "--type-body-weight",
+      "--type-hero-family",
+      "--type-hero-weight",
+      "--type-label-family",
+      "--type-label-weight",
+      "--type-mono-family",
+      "--type-title-family",
+      "--type-title-weight"
+    ],
+    "tokenKinds": {
+      "--font-display": "font",
+      "--font-sans": "font",
+      "--font-mono": "font",
+      "--font-math": "font",
+      "--ink-900": "color",
+      "--ink-700": "color",
+      "--ink-500": "color",
+      "--ink-300": "color",
+      "--line-200": "color",
+      "--line-100": "color",
+      "--paper": "color",
+      "--surface": "color",
+      "--surface-sunken": "color",
+      "--terracotta-600": "color",
+      "--terracotta-500": "color",
+      "--terracotta-200": "color",
+      "--terracotta-50": "color",
+      "--pine-600": "color",
+      "--pine-500": "color",
+      "--pine-200": "color",
+      "--pine-50": "color",
+      "--ochre-600": "color",
+      "--ochre-500": "color",
+      "--ochre-200": "color",
+      "--ochre-50": "color",
+      "--plum-600": "color",
+      "--plum-500": "color",
+      "--plum-200": "color",
+      "--plum-50": "color",
+      "--solved-500": "color",
+      "--open-500": "color",
+      "--text-heading": "font",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-faint": "font",
+      "--text-on-accent": "font",
+      "--surface-page": "color",
+      "--surface-card": "color",
+      "--surface-inset": "color",
+      "--border-subtle": "color",
+      "--border-faint": "color",
+      "--accent": "color",
+      "--accent-strong": "color",
+      "--accent-soft": "color",
+      "--class-1": "color",
+      "--class-1-soft": "color",
+      "--class-2": "color",
+      "--class-2-soft": "color",
+      "--mech-jockey": "color",
+      "--mech-jockey-soft": "color",
+      "--mech-abandon": "color",
+      "--mech-abandon-soft": "color",
+      "--status-solved": "color",
+      "--status-open": "color",
+      "--fs-hero": "spacing",
+      "--fs-display": "spacing",
+      "--fs-title": "spacing",
+      "--fs-heading": "spacing",
+      "--fs-lead": "spacing",
+      "--fs-body": "spacing",
+      "--fs-caption": "spacing",
+      "--fs-label": "spacing",
+      "--lh-tight": "other",
+      "--lh-snug": "other",
+      "--lh-normal": "other",
+      "--lh-relaxed": "other",
+      "--fw-light": "other",
+      "--fw-regular": "other",
+      "--fw-medium": "other",
+      "--fw-semibold": "other",
+      "--fw-bold": "other",
+      "--ls-tight": "other",
+      "--ls-normal": "other",
+      "--ls-label": "other",
+      "--type-hero-family": "font",
+      "--type-hero-weight": "font",
+      "--type-title-family": "font",
+      "--type-title-weight": "font",
+      "--type-body-family": "font",
+      "--type-body-weight": "font",
+      "--type-label-family": "font",
+      "--type-label-weight": "font",
+      "--type-mono-family": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-8": "spacing",
+      "--space-10": "spacing",
+      "--space-12": "spacing",
+      "--space-16": "spacing",
+      "--space-20": "spacing",
+      "--space-24": "spacing",
+      "--slide-w": "spacing",
+      "--slide-h": "spacing",
+      "--slide-pad-x": "spacing",
+      "--slide-pad-y": "spacing",
+      "--slide-gutter": "spacing",
+      "--slide-footer-h": "spacing",
+      "--stack-tight": "color",
+      "--stack-default": "color",
+      "--stack-loose": "color",
+      "--radius-xs": "radius",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-pill": "radius",
+      "--border-hair": "color",
+      "--border-strong": "color",
+      "--border-accent": "color",
+      "--shadow-sm": "shadow",
+      "--shadow-md": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-accent": "shadow",
+      "--focus-ring": "color",
+      "--ease-out": "other",
+      "--ease-in-out": "other",
+      "--dur-fast": "other",
+      "--dur-med": "other",
+      "--dur-slow": "other"
+    },
+    "fontFamilies": [
+      "IBM Plex Mono",
+      "IBM Plex Sans",
+      "Spectral"
+    ]
+  }
+}

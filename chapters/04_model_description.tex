@@ -1,11 +1,49 @@
-\section{The general model (Model-\texorpdfstring{$X$}{X}) and its fundamental equation}\label{sec:model_x}
+\section{The general model and its fundamental equation}\label{sec:model_x}
 
-This section defines the general two-class system with both jockeying ($\gamma_i$) and abandonment ($\theta_i$); we call this full model \emph{Model-$X$}. The simpler variants are recovered as special cases by zeroing the appropriate parameters, as summarised in Table~\ref{tab:model_family}:
+This section defines the general two-class system with both jockeying and abandonment, which we call \emph{Model-$X$}; the simpler variants studied in the later sections are recovered from it as special cases.
+
+The model is an $M/M/1$ queue with two priority classes. Customers are served First-Come, First-Served (FCFS) within their own class, and class-$1$ (the priority class) has non-preemptive priority over class-$2$: a service in progress is never interrupted, so a class-$2$ customer in service is not displaced by an arriving class-$1$ customer. The server is work-conserving: it is never idle while a customer is present. Beyond these basic dynamics, Model-$X$ adds two queue-leaving mechanisms. First, \emph{jockeying}: a waiting customer leaves its own queue to \emph{join the other queue}, at per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for $2\to1$, so the total number of customers is preserved. Second, \emph{abandonment} (reneging): a waiting customer leaves the \emph{system} at per-customer rate $\theta_i$, decreasing the total by one. Concretely, each waiting class-$i$ customer (not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$ patience clock and abandons when it expires. This is precisely the linear-reneging mechanism of the $M/M/1+M$ queue from \S\ref{ssec:erlangA}.
+
+In Kendall's notation this is an $M/M/1$-type model: Poisson arrivals, exponentially distributed service times, and a single server. Throughout, the parameters are:
+\begin{itemize}
+    \item $\lambda_1, \lambda_2$: Poisson arrival rates of classes $1$ and $2$, respectively; the total arrival rate is $\lambda=\lambda_1+\lambda_2$;
+    \item $\mu$: exponential service rate of a customer, regardless of class;
+    \item $\rho_i = \frac{\lambda_i}{\mu}$: system load of class $i \in \{1,2\}$; the total system load is $\rho=\frac{\lambda}{\mu}$;
+    \item $\gamma_1, \gamma_2$: per-customer jockeying rates from Class $1\to2$ and $2\to1$, respectively; jockeying transfers a customer between queues, preserving the total number of customers;
+    \item $\theta_1, \theta_2$: per-customer abandonment (reneging) rates from classes $1$ and $2$, respectively; abandonment removes a customer from the system, reducing the total by one.
+\end{itemize}
+The two class arrival streams are independent Poisson processes, and they are independent of the system's internal exponential service, jockeying and abandonment clocks, so they satisfy the lack-of-anticipation assumption of the PASTA property (\S\ref{ssec:priority}). By Poisson \emph{superposition} the merged arrival stream is itself Poisson at rate $\lambda$, and each class stream is an i.i.d.\ $\lambda_i/\lambda$ \emph{thinning} of the merger, so PASTA applies to the aggregate state and to each class separately.
+
+To define the stochastic processes that drive this system, we introduce the following random variables:
+\begin{itemize}
+    \item $\mathcal{B}:$ binary indicator for the server being idle or busy, $\mathcal{B}\in \{0,1\}$;
+    \item $N_1, N_2:$ number of customers of class $1$ and $2$, respectively, in their respective queues;
+    \item $N:$ total number of customers in the queues.
+\end{itemize}
+Note that $N_1$, $N_2$ and $N$ count customers in the \emph{queues}, not the \emph{system}. Because the service rate $\mu$ is common to both classes, the \emph{memorylessness} of the exponential service time makes the residual service of the customer in progress $\mathrm{Exp}(\mu)$ regardless of its class; the class of the in-service customer therefore does not influence the future evolution of the queue lengths, and the state descriptor need not record it. Accordingly, we write the idle state as $(0)$ and all other states as $(n_1,n_2)$, so that $(0,0)$ implies that the server is busy while both queues are empty. Formally,
+\begin{equation}
+    S := \{(0)\} \cup \{ (n_1,n_2) \mid n_1,n_2 \geq 0 \}.
+    \label{eq:gen:state_space_S}
+\end{equation}
+For the partial-PGF analysis we additionally use an auxiliary state space $\widetilde{S}$, which tracks only $n_2$ and the total $n = n_1 + n_2$, subject to $n \geq n_2 \geq 0$:
+\begin{equation}
+    \widetilde{S} := \{(0)\} \cup \{ (n_2,n) \mid n \geq n_2 \geq 0 \}.
+    \label{eq:gen:state_space_Stilde}
+\end{equation}
+
+Assuming positive recurrence, so that the limiting distribution exists, we define the long-run probabilities of finding the system in each state:
+\begin{itemize}
+    \item $\pi_0$ for the idle state $(0)$, it belongs to both spaces $S$ and $\widetilde{S}$;
+    \item $\pi(n_1,n_2)$ for states $(n_1,n_2) \in S$, where $n_1,n_2 \geq 0$;
+    \item $\widetilde{\pi}(n_2,n)$ for states $(n_2,n) \in \widetilde{S}$, where $n \geq n_2 \geq 0$.
+\end{itemize}
+
+The simpler variants are recovered from Model-$X$ by setting the appropriate parameters to zero, as summarised in Table~\ref{tab:model_family}:
 \begin{table}[H]
     \centering
     \begin{tabular}{cccl}
         \hline
-        Model & Jockeying & Abandonment & Parameter restriction \\
+        Model & Jockeying & Abandonment & Parameter values \\
         \hline
         $X$  & both ($1\!\leftrightarrow\!2$) & both ($1,2$)       & $\gamma_i \geq 0,\ \theta_i \geq 0$ \quad (general) \\
         $A$  & none                            & none               & $\gamma_1=\gamma_2=0,\ \theta_1=\theta_2=0$ \\
@@ -19,7 +57,7 @@ This section defines the general two-class system with both jockeying ($\gamma_i
     \end{tabular}
     \caption{Nested family of models. Model-$X$ is the parent; Models~$A$, $B$, $B_2$ and $C_2$
     are obtained by restricting the jockeying directions and the abandoning classes. The two
-    head-of-line variants $\BH$ and $\CH$ are listed separately, as their zeroing mechanism involves $\mathbf{1}_{\{n_1\ge1\}}$ rather than being proportional to the queue length.$^{\dagger}$}
+    head-of-line variants $\BH$ and $\CH$ are listed separately, as their mechanism involves the indicator $\mathbf{1}_{\{n_1\ge1\}}$ rather than being proportional to the queue length.}
     \label{tab:model_family}
     \par\smallskip
 \end{table}
@@ -30,67 +68,26 @@ Figure~\ref{fig:models-queue-overview} gives a visual overview of Model-$X$ and 
     \resizebox{\textwidth}{!}{%
         \input{figures/models-queue-overview.tikz}%
     }
-    \caption{Physical queue layout for Model-$X$ (left) and its four specialisations (right, $2\times2$ grid). Queue~$1$ (top buffer) has non-preemptive priority over Queue~$2$. Solid arrows are for Poisson arrivals ($\lambda_i$) and exponential service ($\mu$); dashed arrows are for jockeying($\gamma_i$); and dotted arrows are for abandonments ($\theta_i$)
+    \caption{Physical queue layout for Model-$X$ (left) and its four specialisations (right, $2\times2$ grid). In all models, Queue~$1$ (top buffer) has non-preemptive priority over Queue~$2$. Solid arrows are for Poisson arrivals ($\lambda_i$) and exponential service ($\mu$); dashed arrows are for jockeying($\gamma_i$); and dotted arrows are for abandonments ($\theta_i$)
     }
     \label{fig:models-queue-overview}
 \end{figure}
 
-The model in this section is an $M/M/1$ queue with two priority classes. Customers are served First-Come, First-Served (FCFS) within their own class, and class-$1$ (the priority class) has non-preemptive priority over class-$2$: a service in progress is never interrupted, so a class-$2$ customer in service is not displaced by an arriving class-$1$ customer. Beyond these basic dynamics, Model-$X$ adds two queue-leaving mechanisms. First, \emph{jockeying}: a waiting customer leaves its own queue to \emph{join the other queue}, at per-customer rate $\gamma_1$ for direction $1\to2$ and $\gamma_2$ for $2\to1$, so the total number of customers is preserved. Second, \emph{abandonment} (reneging): a waiting customer leaves the \emph{system} at per-customer rate $\theta_i$, decreasing the total by one. Concretely, each waiting class-$i$ customer (not the one in service) holds an independent $\mathrm{Exp}(\theta_i)$ patience clock and abandons when it expires, so the aggregate class-$i$ abandonment rate in a state with $n_i$ waiting customers is the linear term $\theta_i n_i$ in the balance equations. This is precisely the linear-reneging mechanism of the $M/M/1+M$ queue from \S\ref{ssec:erlangA}.
+\noindent\textbf{Stability.} Jockeying does not affect stability (customers are merely relocated). Model-$X$ has abandonments from both classes, so the departure rate $\mu + \theta_1 n_1 + \theta_2 n_2$ grows unbounded, ensuring positive recurrence for all loads. In contrast, models without abandonments require $\rho < 1$ (they behave like M/M/1). Mixed cases, such as Model-$C_2$, are discussed separately (\S\ref{sec:model_c2}).
 
-In Kendall's notation this is an $M/M/1$-type model: Poisson arrivals at rate $\lambda_i$ for class-$i$, exponentially distributed service times at rate $\mu$, and a single server.
-To define the stochastic processes that drive this system, we introduce the following random variables:
-\begin{itemize}
-    \item $\mathcal{B}:$ binary indicator for the server being idle or busy, $\mathcal{B}\in \{0,1\}$;
-    \item $N_1, N_2:$ number of customers of class $1$ and $2$, respectively, in their respective queues;
-    \item $N:$ total number of customers in the queues.
-\end{itemize}
-Note that $N_1$, $N_2$ and $N$ count customers in the \emph{queues}, not the \emph{system}. Since the service rate is common to both classes, we write the idle state as $(0)$ and all other states as $(n_1,n_2)$, so $(0,0)$ means someone is in service and the queues are empty. Alternatively, an auxiliary state space $\widetilde{S}$ tracks only $n_2$ and the total $n = n_1 + n_2$, subject to $n \geq n_2 \geq 0$. Formally:
-\begin{align}
-    \begin{split}
-        &S := \{(0)\} \cup \{ (n_1,n_2) \mid n_1,n_2 \geq 0 \},
-    \end{split} \nonumber \\
-    \begin{split}
-        &\widetilde{S} := \{(0)\} \cup \{ (n_2,n) \mid n \geq n_2 \geq 0 \}.
-        \label{eq:gen:state_space_Stilde}
-    \end{split}
-\end{align}
-
-We define the long-run probabilities of finding the system in each state:
-\begin{itemize}
-    \item $\pi_0$ for the idle state $(0)$, it belongs to both spaces $S$ and $\widetilde{S}$;
-    \item $\pi(n_1,n_2)$ for states $(n_1,n_2) \in S$, where $n_1,n_2 \geq 0$;
-    \item $\widetilde{\pi}(n_2,n)$ for states $(n_2,n) \in \widetilde{S}$, where $n \geq n_2 \geq 0$.
-\end{itemize}
-
-Arrivals are Poisson for each class and service times exponential (common across classes), with the following notation:
-\begin{itemize}
-    \item $\lambda_1, \lambda_2$: arrival rates of classes $1$ and $2$, respectively;
-    \item $\mu$: service rate of a customer, regardless of class;
-    \item $\rho_i = \frac{\lambda_i}{\mu}$: system load of class $i \in \{1,2\}$;
-    \item $\gamma_1, \gamma_2$: per-customer jockeying rates from Class $1\to2$ and $2\to1$, respectively; jockeying transfers a customer between queues, preserving the total number of customers;
-    \item $\theta_1, \theta_2$: per-customer abandonment (reneging) rates from classes $1$ and $2$, respectively; abandonment removes a customer from the system, reducing the total $n$ by one.
-\end{itemize}
-For the aggregate system parameters, we define:
-\begin{itemize}
-    \item $\lambda=\lambda_1+\lambda_2$: total arrival rate;
-    \item $\rho=\frac{\lambda}{\mu}$: total system load.
-\end{itemize}
-
-\textbf{Stability.} Jockeying does not affect stability (customers are merely relocated). Model-$X$ has abandonments from both classes, so the departure rate $\mu + \theta_1 n_1 + \theta_2 n_2$ grows unbounded, ensuring positive recurrence for all loads. In contrast, models without abandonments require $\rho < 1$ (they behave like M/M/1). Mixed cases, such as Model-$C_2$, are discussed separately (\S\ref{sec:model_c2}).
-
-\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} The two empty-state probabilities are pinned, for the full Model-$X$, by two exact identities that hold irrespective of the jockeying and abandonment mechanisms: a cut between the idle and busy states, and a renewal--reward identity over busy cycles. Together they reduce the determination of $\pi_0$ and $\pi(0,0)$ to a single scalar, the mean busy period $\mathbb{E}[B]$.
+\medskip\noindent\textbf{Computation of $\pi_0$ and $\pi(0,0)$.} The two empty-state probabilities are determined, for the full Model-$X$, by two exact identities that hold irrespective of the jockeying and abandonment mechanisms: a cut between the idle and busy states, and a renewal--reward identity over busy cycles. Together they reduce the determination of $\pi_0$ and $\pi(0,0)$ to a single scalar, the mean busy period $\mathbb{E}[BP]$.
 
 \begin{theorem}[Empty-state probabilities of the general model]\label{thm:gen:boundary}
-    Assume the CTMC of Model-$X$ is positive recurrent, so that the stationary distribution exists. Let $\lambda=\lambda_1+\lambda_2$ and let $\mathbb{E}[B]$ denote the mean length of a server busy period ---the time from an arrival that finds the system empty until the system is next empty. Then
+    Assume the CTMC of Model-$X$ is positive recurrent, so that the stationary distribution exists. Let $\mathbb{E}[BP]$ denote the mean length of a server busy period ---the time from an arrival that finds the system empty until the system is next empty. Then
     \begin{equation}
         \pi(0,0) \;=\; \rho\,\pi_0,
         \label{eq:gen:pi00_general}
     \end{equation}
     and
     \begin{equation}
-        \pi_0 \;=\; \frac{1}{1+\lambda\,\mathbb{E}[B]},
+        \pi_0 \;=\; \frac{1}{1+\lambda\,\mathbb{E}[BP]},
         \qquad
-        \pi(0,0) \;=\; \frac{\rho}{1+\lambda\,\mathbb{E}[B]}.
+        \pi(0,0) \;=\; \frac{\rho}{1+\lambda\,\mathbb{E}[BP]}.
         \label{eq:gen:pi0_renewal}
     \end{equation}
 \end{theorem}
@@ -98,14 +95,24 @@ For the aggregate system parameters, we define:
 \begin{proof}
     \emph{Cut identity.} Consider the cut separating the idle state $(0)$ from the set of busy states. The only transitions out of $(0)$ are the class-$1$ and class-$2$ arrivals, at total rate $\lambda$; the only transition into $(0)$ is a service completion from $(0,0)$, at rate $\mu$ ---from any state with a waiting customer a departure leaves the server busy, and neither jockeying nor abandonment can act when both queues are empty. Equating the probability flux across the cut gives $\lambda\,\pi_0=\mu\,\pi(0,0)$, which is Equation~\eqref{eq:gen:pi00_general}.
 
-    \emph{Renewal--reward identity.} The idle state is a regeneration point: by the memorylessness of the exponential inter-arrival and service times (the strong Markov property), the evolution after each visit to $(0)$ is an independent probabilistic replica. Successive cycles therefore alternate an idle period of mean $1/\lambda$ (the wait for the next arrival, exponential at rate $\lambda$) and a busy period of mean $\mathbb{E}[B]$. By the renewal--reward theorem, the stationary probability of the idle state equals the long-run fraction of time spent idle,
+    \emph{Renewal--reward identity.} The idle state is a regeneration point: by the memorylessness of the exponential inter-arrival and service times (the strong Markov property), the evolution after each visit to $(0)$ is an independent probabilistic copy of the process. Successive cycles therefore alternate an idle period of mean $1/\lambda$ (the wait for the next arrival, exponential at rate $\lambda$) and a busy period of mean $\mathbb{E}[BP]$. By the renewal--reward theorem, the stationary probability of the idle state equals the long-run fraction of time spent idle,
     \begin{equation*}
-        \pi_0 \;=\; \frac{1/\lambda}{1/\lambda+\mathbb{E}[B]} \;=\; \frac{1}{1+\lambda\,\mathbb{E}[B]},
+        \pi_0 \;=\; \frac{1/\lambda}{1/\lambda+\mathbb{E}[BP]} \;=\; \frac{1}{1+\lambda\,\mathbb{E}[BP]},
     \end{equation*}
     and substituting into Equation~\eqref{eq:gen:pi00_general} yields the stated $\pi(0,0)$.
 \end{proof}
 
-Both identities are exact for the full model. They reduce the problem to the mean busy period $\mathbb{E}[B]$, which is elementary when there is no abandonment and is computed model by model once abandonment is present; the resulting $\pi_0$ and $\pi(0,0)$ for each tractable model then follow as corollaries (Corollary~\ref{cor:gen:no_abandon} for the no-abandonment family; \S\ref{sec:model_c2} and \S\ref{sec:model_c21} for the abandonment variants). For the full asymmetric Model-$X$, $\mathbb{E}[B]$ itself has no closed form (Remark~\ref{rem:B:modelX}).
+Both identities are exact for the full model. They reduce the problem to the mean busy period $\mathbb{E}[BP]$, which is elementary when there is no abandonment and is computed model by model once abandonment is present; the resulting $\pi_0$ and $\pi(0,0)$ for each tractable model then follow as corollaries (Corollary~\ref{cor:gen:no_abandon} below for the no-abandonment family; \S\ref{sec:model_c2} and \S\ref{sec:model_c21} for the abandonment variants). For the full asymmetric Model-$X$, $\mathbb{E}[BP]$ itself has no closed form (Remark~\ref{rem:B:modelX}).
+
+The no-abandonment case is concrete enough to state at once; it covers Models~$A$, $B$, $B_2$ and $\BH$ simultaneously.
+
+\begin{corollary}[Empty states without abandonment]\label{cor:gen:no_abandon}
+    Suppose $\theta_1=\theta_2=0$ (Models~$A$, $B$, $B_2$ and $\BH$) and $\rho<1$. Then the total number in the system is a birth--death process with birth rate $\lambda$ and death rate $\mu$ ---an $M/M/1$ queue--- for \emph{any} jockeying rates $\gamma_1,\gamma_2$, since jockeying merely relocates a waiting customer and so conserves the total count. Its mean busy period is $\mathbb{E}[BP]=(\mu-\lambda)^{-1}$, and Theorem~\ref{thm:gen:boundary} gives
+    \begin{equation}
+        \pi_0 = 1-\rho, \qquad \pi(0,0)=\rho(1-\rho).
+        \label{eq:gen:pi0_noabandon}
+    \end{equation}
+\end{corollary}
 
 \subsection{Balance equations}
 
@@ -119,10 +126,11 @@ The state-transition diagram of Model-$X$ on $S$ is given in Figure~\ref{fig:dia
   \resizebox{0.8\textwidth}{!}{%
     \input{figures/model_c-diagram.tikz}
   }
-  \caption{State transition diagram on state space $S$ for the model with jockeying ($\gamma_i n_i$, dashed) and abandonments ($\theta_i n_i$, dotted).}
+  \caption{State transition diagram on state space $S$ for Model-$X$, with jockeying ($\gamma_i n_i$, dashed) and abandonments ($\theta_i n_i$, dotted).}
   \label{fig:diagram-gen}
 \end{figure}
 
+Next, we give the balance equations for the five parts of the state space: the interior ($n_1,n_2\ge1$), the two boundaries ($n_1=0$ and $n_2=0$), the busy state with empty queues $(0,0)$, and the idle state $(0)$. Recall that each waiting customer carries its own independent jockeying and patience clocks, so in a state with $n_i$ waiting class-$i$ customers the aggregate jockeying and abandonment rates are the linear terms $\gamma_i n_i$ and $\theta_i n_i$.
 \begin{align}
     \begin{split}
         &\left[\lambda_1 + \lambda_2 + \mu + (\gamma_1 + \theta_1) n_1 + (\gamma_2 + \theta_2) n_2\right] \pi(n_1,n_2) \\
@@ -161,12 +169,11 @@ The state-transition diagram of Model-$X$ on $S$ is given in Figure~\ref{fig:dia
         (\lambda_1+\lambda_2) \pi_0 = \mu \pi(0,0)
     \end{split} && \label{eq:gen:balance_idle}
 \end{align}
+Note that the idle-state equation~\eqref{eq:gen:balance_idle} is precisely the cut identity~\eqref{eq:gen:pi00_general} of Theorem~\ref{thm:gen:boundary}; it is repeated here so that the balance set is complete.
 
 \subsubsection{Balance equations for state space \texorpdfstring{$\widetilde{S}$}{S~}}
 
-Recall the state space $\widetilde{S}$ defined in Equation~\eqref{eq:gen:state_space_Stilde}.
-
-For readability we denote its limiting probabilities by $\tpi(n_2,n)$, for $(n_2,n)\in \widetilde{S}$. Figure~\ref{fig:diagram-gen-stilde} shows the corresponding state transition diagram.
+Recall the state space $\widetilde{S}$ defined in Equation~\eqref{eq:gen:state_space_Stilde}, whose states $(n_2,n)$ record the number of waiting class-$2$ customers $n_2$ and the total number of waiting customers $n=n_1+n_2$. For readability we denote its limiting probabilities by $\tpi(n_2,n)$, for $(n_2,n)\in \widetilde{S}$. Figure~\ref{fig:diagram-gen-stilde} shows the corresponding state transition diagram: jockeying conserves $n$ and moves only $n_2$ ---a horizontal move in the diagram--- whereas arrivals increase $n$ by one and services and abandonments decrease it by one.
 
 \begin{figure}[H]
   \centering
@@ -219,9 +226,10 @@ The balance equations, after combining the equations where $\tpi_0$ shows up, ar
     \end{split}
     && \label{eq:gen:tilde_balance_idle}
 \end{align}
+As on $S$, the idle-state equation~\eqref{eq:gen:tilde_balance_idle} coincides with the cut identity~\eqref{eq:gen:pi00_general} of Theorem~\ref{thm:gen:boundary}.
 
 
-\subsection{Derivation of equations for (Partial) Probability Generating functions} \label{ssec:pgf_derivation}
+\subsection{Equations for the (partial) probability generating functions} \label{ssec:pgf_derivation}
 
 To study the limiting behaviour of this two-class system, we define the bivariate Probability Generating Function (PGF) of the joint queue lengths $N_1$ and $N_2$:
 \begin{equation*}
@@ -236,34 +244,6 @@ The derivation also uses the boundary terms, where at least one queue is empty:
 
 Note that both terms include the busy-but-empty state $\pi(0,0)$, whereas the fully idle state is treated separately.
 
-
-A further term arises in the balance equations, describing the boundary dynamics when the class-$1$ queue holds exactly one waiting customer:
-\begin{equation*}
-    P_1(y) = \sum_{n_2=1}^{\infty} \pi(1,n_2) y^{n_2}.
-\end{equation*}
-This is an intermediate term; as the derivation proceeds, it will be expressed in terms of the primary boundary functions $P_x(x)$ and $P_y(y)$.
-
-In the same fashion, we introduce the \textbf{Partial Probability Generating Function (PPGF)}. This technique, notably used by Cohen~\cite{cohen1956delay}, transforms only a subset of the random variables while keeping the discrete indices of the rest. For a priority queue it is particularly advantageous: it lets us exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and concentrate the analytical effort on the non-trivial PGF of the non-priority class.
-
-Cohen developed this framework for multi-server systems; we apply it here to the single-server case. To avoid confusion from mid-20th-century notation, we give a modern formulation consistent with the variables defined above.
-
-We define the PPGF with respect to $N_2$, conditioned on the first queue being in state $n_1$:
-\begin{equation}
-    \widetilde{P}(n_1, y) = \mathbb{E} \left[y^{N_2} \mathbb{1}_{\{ N_1=n_1\}} \right] = \sum_{n_2=0}^{\infty} \pi(n_1,n_2) y^{n_2}.
-    \label{eq:gen:ppgf_n1}
-\end{equation}
-
-Similarly, the transform with respect to $N_1$, keeping the second queue in discrete state $n_2$, is:
-\begin{equation*}
-    \widetilde{P}(x, n_2) = \mathbb{E} \left[x^{N_1} \mathbb{1}_{\{ N_2=n_2\}} \right] = \sum_{n_1=0}^{\infty} \pi(n_1,n_2) x^{n_1}.
-\end{equation*}
-
-These partial transforms relate to the joint PGF by:
-\begin{equation*}
-    P(x,y) = \sum_{n_1=0}^{\infty} \widetilde{P}(n_1, y) x^{n_1} = \sum_{n_2=0}^{\infty} \widetilde{P}(x, n_2) y^{n_2}.
-\end{equation*}
-
-
 \subsubsection{Equation for PGF in state space \texorpdfstring{$S$}{S}}
 
 \begin{lemma}[Fundamental equation for the PGF on $S$]\label{lem:gen:fundamental_equation}
@@ -273,13 +253,9 @@ exponential service rate $\mu$, jockeying rates $\gamma_1,\gamma_2$ and abandonm
 rates $\theta_1,\theta_2$, where $n_1$ and $n_2$ count the class-$1$ and class-$2$
 customers \emph{waiting} in the queues. Assume the associated CTMC is positive
 recurrent, so that the stationary distribution $\{\pi(n_1,n_2)\}$ exists and the
-joint PGF
-\[
-    P(x,y)=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\pi(n_1,n_2)\,x^{n_1}y^{n_2}
-\]
-is analytic on the closed unit polydisc $|x|\le 1,\ |y|\le 1$. Then $P(x,y)$,
-together with the boundary function $P_y(y)=P(0,y)=\sum_{n_2=0}^{\infty}\pi(0,n_2)y^{n_2}$,
-satisfies the first-order linear partial differential equation
+joint PGF $P(x,y)$ defined above is analytic on the closed unit polydisc
+$|x|\le 1,\ |y|\le 1$. Then $P(x,y)$, together with the boundary function
+$P_y(y)=P(0,y)$, satisfies the first-order linear partial differential equation
 \begin{equation}
 \begin{split}
     & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -291,19 +267,23 @@ satisfies the first-order linear partial differential equation
 \end{equation}
 \end{lemma}
 
-\begin{remark}[Reading the fundamental equation]\label{rem:gen:reading}
-Equation~\eqref{eq:gen:fundamental_equation} repays a moment's mechanical reading, since its structure dictates the entire analysis that follows. The bracketed algebraic coefficient multiplying $P(x,y)$ is exactly the kernel of the baseline Model-$A$: the flux balance between the arrival contributions $\lambda_1 x^2 y$ and $\lambda_2 x y^2$, the service contribution $\mu y$, and the total outflow $(\lambda_1+\lambda_2+\mu)xy$.
+The structure of Equation~\eqref{eq:gen:fundamental_equation} is worth reading term by term, since it dictates the entire analysis that follows. The bracketed algebraic coefficient multiplying $P(x,y)$ is exactly the kernel of the baseline Model-$A$: the flux balance between the arrival contributions $\lambda_1 x^2 y$ and $\lambda_2 x y^2$, the service contribution $\mu y$, and the total outflow $(\lambda_1+\lambda_2+\mu)xy$.
 
-The two convection coefficients carry the added mechanisms. In the $x$-convection coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$, the jockeying factor $(x-y)$ vanishes on the diagonal $x=y$ ---the analytic signature that jockeying merely relocates a customer and so conserves the total count--- while the abandonment factor $(x-1)$ vanishes at $x=1$, the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The $y$-convection coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$.
+The coefficients of the two partial derivatives encode the added mechanisms. Consider the coefficient $xy\,[\gamma_1(x-y)+\theta_1(x-1)]$ of the derivative in $x$. Its jockeying factor $(x-y)$ vanishes on the diagonal $x=y$: the analytic signature that jockeying merely relocates a customer and so conserves the total count. Its abandonment factor $(x-1)$ vanishes at $x=1$: the signature that abandonment respects normalisation ($P(1,1)=1$) yet removes a customer and thereby destroys conservation. The coefficient $xy\,[\gamma_2(y-x)+\theta_2(y-1)]$ of the derivative in $y$ states the symmetric facts for the class-$2$ mechanisms, with $(y-x)$ vanishing on the diagonal and $(y-1)$ at $y=1$.
 
-The right-hand side carries the two boundary unknowns that any solution must pin down: the boundary function $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty.
+The right-hand side involves the two boundary unknowns that any solution must determine: the boundary function $P_y(y)=P(0,y)$, the generating function of the states with an empty priority queue, and the scalar $\pi(0,0)$, the probability that the server is busy with both queues empty.
 
-The position of these vanishing factors fixes, model by model, where the operative singularity sits and hence which technique applies. With both convection terms absent (Model-$A$, \S\ref{sec:model_a}) the equation is algebraic and $P_y(y)$ is recovered from the kernel root $x^*(y)$ inside the unit disc. With one-way jockeying alone (Model-$B_2$, \S\ref{sec:model_b2}) the factor $(x-y)$ places the singularity at the interior point $x=y$ with a negative exponent, and $P_y(y)$ is pinned by analyticity there. With class-$1$ abandonment alone (Model-$C_2$, \S\ref{sec:model_c2}) the factor $(x-1)$ places it on the boundary $x=1$ with a positive exponent, and $P_y(y)$ is pinned by mere boundedness. Restricting a mechanism to the head of the queue removes the derivative outright, collapsing the equation to the algebraic Model-$A$ form (Models~$\BH$ and $\CH$, \S\ref{sec:model_b21}). These four regimes are gathered side by side in Table~\ref{tab:comparison} of \S\ref{sec:comparison}, and are synthesised, together with the two irreducible obstructions, as the obstruction taxonomy of \S\ref{sec:conclusion}.
-\end{remark}
+The position of these vanishing factors fixes, depending on the model, where the operative singularity lies and hence which technique applies. With both derivative terms absent (Model-$A$, \S\ref{sec:model_a}) the equation is algebraic and $P_y(y)$ is recovered from the kernel root $x^*(y)$ inside the unit disc. With one-way jockeying alone (Model-$B_2$, \S\ref{sec:model_b2}) the factor $(x-y)$ places the singularity at the interior point $x=y$ with a negative exponent, and $P_y(y)$ is determined by analyticity there. With class-$1$ abandonment alone (Model-$C_2$, \S\ref{sec:model_c2}) the factor $(x-1)$ places it on the boundary $x=1$ with a positive exponent, and $P_y(y)$ is determined by mere boundedness. Restricting a mechanism to the head of the queue removes the derivative term, reducing the equation to the algebraic Model-$A$ form (Models~$\BH$ and $\CH$, \S\ref{sec:model_b21}). The mirrored variants Model-$B_1$ (jockeying $2\to1$ only) and Model-$C_1$ (class-$2$ abandonment only), not treated in this thesis, place the derivative in $y$ instead; as for Model-$B$, the equation then couples the unknown boundary function $P_y(y)$ to the PGF along the integration path and reduces to a Volterra-type integral equation (\S\ref{sec:model_b}). These regimes are gathered side by side in Table~\ref{tab:comparison} of \S\ref{sec:comparison}, and are synthesised, together with the two irreducible obstructions, as the obstruction taxonomy of \S\ref{sec:conclusion}.
 
-\begin{proof}
+\begin{proof}[Proof of Lemma~\ref{lem:gen:fundamental_equation}]
 
-    We multiply each balance equation by $x^{n_1}y^{n_2}$ and sum over its domain.
+    We multiply each of the balance equations~\eqref{eq:gen:balance_interior}--\eqref{eq:gen:balance_zero} by $x^{n_1}y^{n_2}$ and sum over its domain. Two intermediate transforms arise along the way, describing the boundary dynamics when one queue holds exactly one waiting customer:
+    \begin{equation*}
+        P_y(y \,|\, n_1{=}1) := \sum_{n_2=0}^{\infty} \pi(1,n_2)\, y^{n_2},
+        \qquad
+        P_x(x \,|\, n_2{=}1) := \sum_{n_1=0}^{\infty} \pi(n_1,1)\, x^{n_1}.
+    \end{equation*}
+    Despite the conditional-looking bar, these are joint (unnormalised) transforms of the states with exactly one waiting class-$1$ (respectively class-$2$) customer; the derivation eliminates them in favour of the primary unknowns $P_x(x)$, $P_y(y)$ and $\pi(0,0)$.
 
     From the interior equation~\eqref{eq:gen:balance_interior}:
     \begin{align*}
@@ -326,8 +306,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad = \quad RHS_1 + RHS_2 + RHS_3 + RHS_4 + RHS_5 + RHS_6 + RHS_7
         \end{split}
     \end{align*}
-    
-    Evaluating each summand:
+    where $LHS_i$ and $RHS_j$ denote the $i$-th and $j$-th summands on the left- and right-hand sides of the display above, in the order written. Evaluating each summand:
     \begin{align*}
         \begin{split}
             & LHS_1 \\
@@ -377,29 +356,18 @@ The position of these vanishing factors fixes, model by model, where the operati
         \begin{split}
             & LHS_4 \\
             & \quad = \quad \theta_1 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
-            & \quad = \quad \theta_1 x \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2} \\
-            & \quad = \quad \theta_1 x \left[
-                \sum_{n_1=1}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
-                - \sum_{n_1=1}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-            \right] \\
-            & \quad = \quad \theta_1 x \left[
-                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_1 \pi(n_1,n_2) x^{n_1-1} y^{n_2}
-                - \sum_{n_1=0}^{\infty} n_1 \pi(n_1,0) x^{n_1-1}
-            \right] \\
             & \quad = \quad \theta_1 x \left[
                 \frac{\partial}{\partial x} P(x,y) - \frac{d}{dx} P_x(x)
             \right]
+            \qquad \text{(the computation of $LHS_2$ with $\theta_1$ in place of $\gamma_1$)}
         \end{split} \\
         \begin{split}
             & LHS_5 \\
             & \quad = \quad \theta_2 \sum_{n_1=1}^{\infty} \sum_{n_2=1}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2} \\
             & \quad = \quad \theta_2 y \left[
-                \sum_{n_1=0}^{\infty} \sum_{n_2=0}^{\infty} n_2 \pi(n_1,n_2) x^{n_1} y^{n_2-1}
-                - \sum_{n_2=0}^{\infty} n_2 \pi(0,n_2) y^{n_2-1}
-            \right] \\
-            & \quad = \quad \theta_2 y \left[
                 \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y)
             \right]
+            \qquad \text{(the computation of $LHS_3$ with $\theta_2$ in place of $\gamma_2$)}
         \end{split} \\
         \begin{split}
             & RHS_1 \\
@@ -519,7 +487,7 @@ The position of these vanishing factors fixes, model by model, where the operati
         \end{split}
     \end{align*}
     
-    Collecting and multiplying through by $xy$ to clear the $x^{-1}$ factor:
+    Substituting the evaluated summands back into the transformed balance equation:
     \begin{align}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[
@@ -543,6 +511,7 @@ The position of these vanishing factors fixes, model by model, where the operati
                 \frac{\partial}{\partial y} P(x,y) - \frac{d}{dy} P_y(y) - P_x(x | n_2=1) + \pi(0, 1)
             \right]
         \end{split} \nonumber \\
+        \intertext{Grouping the coefficients of each transform yields}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu) - \mu x^{-1} - \lambda_1 x - \lambda_2 y \right] P(x,y) \\
             & + \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
@@ -558,6 +527,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad \quad + \theta_1 \pi(1,0) \\
             & \quad \quad + \theta_2 \pi(0,1)
         \end{split} \nonumber \\
+        \intertext{and multiplying through by $xy$ to clear the $x^{-1}$ factors:}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
             & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
@@ -584,6 +554,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             + \theta_1 \sum_{n_1=1}^{\infty} (n_1+1) \pi(n_1+1, 0) x^{n_1}
             + \theta_2 \sum_{n_1=1}^{\infty} \pi(n_1, 1) x^{n_1}
         \end{split} \nonumber \\
+        \intertext{Extracting the rate prefactors and shifting the summation indices:}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \sum_{n_1=1}^{\infty} \pi(n_1, 0) x^{n_1}
             + (\gamma_1 + \theta_1) x \sum_{n_1=1}^{\infty} n_1 \pi(n_1, 0) x^{n_1-1} \\
@@ -593,6 +564,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             + \theta_1 \sum_{m=2}^{\infty} m \pi(m, 0) x^{m-1}
             + \theta_2 \sum_{m=1}^{\infty} \pi(m, 1) x^{m}
         \end{split} \nonumber \\
+        \intertext{Completing each sum to start at zero and subtracting the added terms:}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_1=0}^{\infty} \pi(n_1, 0) x^{n_1} - \pi(0,0) \right]
             + (\gamma_1 + \theta_1) x \sum_{n_1=0}^{\infty} n_1 \pi(n_1, 0) x^{n_1-1} \\
@@ -602,6 +574,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad \quad + \theta_1 \left[ \sum_{m=0}^{\infty} m \pi(m, 0) x^{m-1} - \pi(1, 0) \right] \\
             & \quad \quad + \theta_2 \left[ \sum_{m=0}^{\infty} \pi(m, 1) x^{m} - \pi(0, 1) \right]
         \end{split} \nonumber \\
+        \intertext{Recognising the transforms defined in \S\ref{ssec:pgf_derivation}:}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[ P_x(x) - \pi(0,0) \right]
             + (\gamma_1 + \theta_1) x \frac{d}{dx} P_x(x) \\
@@ -611,6 +584,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             + \theta_1 \left[ \frac{d}{dx} P_x(x) - \pi(1, 0) \right]
             + \theta_2 \left[ P_x(x | n_2=1) - \pi(0, 1) \right]
         \end{split} \nonumber \\
+        \intertext{Grouping the coefficients of $P_x(x)$ and of its derivative:}
         \begin{split}
             & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu x^{-1} - \lambda_1 x \right] P_x(x)
             + \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
@@ -619,6 +593,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             - \theta_2 \pi(0, 1) \\
             & \quad \quad + \left[ \gamma_2 x + \theta_2 \right] P_x(x | n_2=1)
         \end{split} \nonumber \\
+        \intertext{and finally multiplying through by $xy$, ready for substitution into Equation~\eqref{eq:gen:transform_interior}:}
         \begin{split}
             & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_1 x^2 y \right] P_x(x)
             + xy \left[ \gamma_1 x + \theta_1(x-1) \right] \frac{d}{dx} P_x(x) \\
@@ -640,6 +615,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad \quad + \theta_1 \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
             & \quad \quad + \theta_2 \sum_{n_2=1}^{\infty} (n_2+1) \pi(0, n_2+1) y^{n_2}
         \end{split} \nonumber \\
+        \intertext{Extracting the rate prefactors and shifting the summation indices:}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \sum_{n_2=1}^{\infty} \pi(0, n_2) y^{n_2} \\
             & + (\gamma_2 + \theta_2) y \sum_{n_2=1}^{\infty} n_2 \pi(0, n_2) y^{n_2-1} \\
@@ -650,6 +626,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad \quad + \theta_1 \sum_{n_2=1}^{\infty} \pi(1, n_2) y^{n_2} \\
             & \quad \quad + \theta_2 \sum_{m=2}^{\infty} m \pi(0, m) y^{m-1}
         \end{split} \nonumber \\
+        \intertext{Completing each sum and subtracting the added terms:}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[ \sum_{n_2=0}^{\infty} \pi(0, n_2) y^{n_2} - \pi(0,0) \right] \\
             & + (\gamma_2 + \theta_2) y \sum_{n_2=0}^{\infty} n_2 \pi(0, n_2) y^{n_2-1} \\
@@ -660,6 +637,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad \quad + \theta_1 \left[ \sum_{n_2=0}^{\infty} \pi(1, n_2) y^{n_2} - \pi(1, 0) \right] \\
             & \quad \quad + \theta_2 \left[ \sum_{m=0}^{\infty} m \pi(0, m) y^{m-1} - \pi(0, 1) \right]
         \end{split} \nonumber \\
+        \intertext{Recognising the transforms:}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[ P_y(y) - \pi(0, 0) \right]
             + (\gamma_2 + \theta_2) y \frac{d}{dy} P_y(y) \\
@@ -670,6 +648,7 @@ The position of these vanishing factors fixes, model by model, where the operati
             & \quad \quad + \theta_1 \left[ P_y(y | n_1=1) - \pi(1, 0) \right]
             + \theta_2 \left[ \frac{d}{dy} P_y(y) - \pi(0, 1) \right]
         \end{split} \nonumber \\
+        \intertext{Grouping the coefficients of $P_y(y)$ and of its derivative:}
         \begin{split}
             & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
             + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
@@ -678,18 +657,21 @@ The position of these vanishing factors fixes, model by model, where the operati
             - (\mu + \theta_2) \pi(0, 1) \\
             & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} \right] \pi(0, 0)
         \end{split} \nonumber \\
+        \intertext{Substituting the empty-queues balance equation~\eqref{eq:gen:balance_zero} for $(\mu+\theta_1)\pi(1,0)+(\mu+\theta_2)\pi(0,1)$:}
         \begin{split}
             & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
             + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
             & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1) \\
             & \quad \quad + \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - (\lambda_1 + \lambda_2) \right] \pi(0, 0)
         \end{split} \nonumber \\
+        \intertext{which simplifies to}
         \begin{split}
             & \left[ (\lambda_1 + \lambda_2 + \mu) - \mu y^{-1} - \lambda_2 y \right] P_y(y)
             + \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
             & \quad = \quad \left[ \mu + \gamma_1 y + \theta_1 \right] P_y(y | n_1=1)
             + \left[ \mu - \mu y^{-1} \right] \pi(0, 0)
         \end{split} \nonumber \\
+        \intertext{and, multiplying through by $xy$:}
         \begin{split}
             & \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y)
             + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
@@ -698,7 +680,7 @@ The position of these vanishing factors fixes, model by model, where the operati
         \end{split} \label{eq:gen:transform_y_boundary}
     \end{align}
     
-    Substituting Equation~\eqref{eq:gen:transform_x_boundary} into Equation~\eqref{eq:gen:transform_interior} eliminates all $P_x$ terms:
+    Substituting Equation~\eqref{eq:gen:transform_x_boundary} into Equation~\eqref{eq:gen:transform_interior} eliminates all $P_x(x)$ terms:
     \begin{align}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
@@ -718,47 +700,60 @@ The position of these vanishing factors fixes, model by model, where the operati
             & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
             & \quad = \quad \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu y - \lambda_2 x y^2 \right] P_y(y) \\
             & \quad \quad + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) \\
-            & \quad \quad - \left\{ \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y) \right. \\
-            & \quad \quad \quad \left. + xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y) + \mu x(1-y) \, \pi(0,0) \right\}
+            & \quad \quad - \left[ (\lambda_1 + \lambda_2 + \mu)xy - \mu x - \lambda_2 x y^2 \right] P_y(y) \\
+            & \quad \quad - xy \left[ \gamma_2 y + \theta_2(y-1) \right] \frac{d}{dy} P_y(y)
+            \;-\; \mu x(1-y) \, \pi(0,0)
         \end{split} \nonumber \\
+        \intertext{The two $\frac{d}{dy}P_y(y)$ terms cancel and the two $P_y(y)$ coefficients combine into $\mu(x-y)$, leaving}
         \begin{split}
             & \left[ (\lambda_1+\lambda_2+\mu)xy - \mu y - \lambda_1 x^2 y - \lambda_2 x y^2 \right] P(x,y) \\
             & + xy \left[ \gamma_1(x-y) + \theta_1(x-1) \right] \frac{\partial}{\partial x} P(x,y) \\
             & + xy \left[ \gamma_2(y-x) + \theta_2(y-1) \right] \frac{\partial}{\partial y} P(x,y) \\
             & \quad = \quad \mu(x-y) P_y(y) - \mu x(1-y) \, \pi(0,0)
-        \end{split}.
+        \end{split}
     \end{align*}
+    This is Equation~\eqref{eq:gen:fundamental_equation}, which completes the proof.
 \end{proof}
 
-The fundamental equation already delivers the first specialisation of Theorem~\ref{thm:gen:boundary}: the case of no abandonment, which covers Models~$A$, $B$, $B_2$ and $\BH$ at once.
+The fundamental equation also delivers a diagonal identity in the no-abandonment case, complementing Corollary~\ref{cor:gen:no_abandon}.
 
-\begin{corollary}[Empty states without abandonment]\label{cor:gen:no_abandon}
-    Suppose $\theta_1=\theta_2=0$ (Models~$A$, $B$, $B_2$ and $\BH$) and $\rho<1$. Then the total number in the system is a birth--death process with birth rate $\lambda$ and death rate $\mu$ ---an $M/M/1$ queue--- for \emph{any} jockeying rates $\gamma_1,\gamma_2$, since jockeying merely relocates a waiting customer and so conserves the total count. Its mean busy period is $\mathbb{E}[B]=(\mu-\lambda)^{-1}$, and Theorem~\ref{thm:gen:boundary} gives
-    \begin{equation}
-        \pi_0 = 1-\rho, \qquad \pi(0,0)=\rho(1-\rho).
-        \label{eq:gen:pi0_noabandon}
-    \end{equation}
-    Moreover, setting $x=y=z$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} annihilates both convection terms (each carries the factor $x-y$), leaving the algebraic relation $-(1-z)\bigl(\mu-\lambda z\bigr)P(z,z)=-\mu(1-z)\,\pi(0,0)$, whence the diagonal of the PGF and the normalisation read
+\begin{corollary}[Diagonal identity without abandonment]\label{cor:gen:diagonal}
+    Suppose $\theta_1=\theta_2=0$ (Models~$A$, $B$, $B_2$ and $\BH$) and $\rho<1$. Setting $x=y=z$ in the fundamental equation~\eqref{eq:gen:fundamental_equation} annihilates both derivative terms (each carries the factor $x-y$), leaving the algebraic relation
+    \begin{equation*}
+        -(1-z)\bigl(\mu-\lambda z\bigr)P(z,z)=-\mu(1-z)\,\pi(0,0),
+    \end{equation*}
+    whence the diagonal of the PGF and the normalisation read
     \begin{equation}
         P(z,z)=\frac{\pi(0,0)}{1-\rho z}, \qquad P(1,1)=1-\pi_0=\rho.
         \label{eq:gen:Pzz_diag}
     \end{equation}
+    Since $\pi(0,0)=\rho(1-\rho)$ by Corollary~\ref{cor:gen:no_abandon}, the diagonal is, up to the busy probability $\rho$, the PGF of a geometric distribution: conditionally on the server being busy, the total number of waiting customers is geometric, $\mathbb{P}(N=n \mid \mathcal{B}=1)=(1-\rho)\rho^{n}$ for $n\ge0$.
 \end{corollary}
 
 
 \subsubsection{Equation for PPGF in state space \texorpdfstring{$\widetilde{S}$}{S~}}
 
+The equation of Lemma~\ref{lem:gen:fundamental_equation} transforms both coordinates at once. An alternative device, notably used by Cohen~\cite{cohen1956delay}, is the \textbf{Partial Probability Generating Function (PPGF)}: transforming only a subset of the random variables while keeping the discrete indices of the rest. For a priority queue this is particularly advantageous: it lets us exploit the well-known properties of the priority class (often a standard $M/M/1$ system) and concentrate the analytical effort on the non-trivial PGF of the non-priority class. Cohen developed this framework for multi-server systems and for the state space $S$; we apply it here to the single-server case, in a modern formulation consistent with the variables defined above, and ---in this subsection--- on the alternative state space $\widetilde{S}$.
+
+On $S$, the PPGF with respect to $N_2$, jointly with the event that the first queue holds exactly $n_1$ waiting customers, is
+\begin{equation}
+    \widetilde{P}(n_1, y) = \mathbb{E} \left[y^{N_2} \mathbf{1}_{\{ N_1=n_1\}} \right] = \sum_{n_2=0}^{\infty} \pi(n_1,n_2) y^{n_2},
+    \label{eq:gen:ppgf_n1}
+\end{equation}
+and these partial transforms recover the joint PGF through $P(x,y) = \sum_{n_1=0}^{\infty} \widetilde{P}(n_1, y)\, x^{n_1}$. Despite the conditional look of the indicator, Equation~\eqref{eq:gen:ppgf_n1} is a joint (unnormalised) transform; this version is used in the Model-$A$ analysis (\S\ref{sec:model_a}). On $\widetilde{S}$, the analogous object transforms $n_2$ and keeps the total count $n$ discrete:
+\begin{equation}
+    \widetilde{P}(y,n)=\sum_{n_2=0}^{n}\tpi(n_2,n)\,y^{n_2},
+    \label{eq:gen:ppgf_Stilde}
+\end{equation}
+a \emph{polynomial} of degree $n$ in $y$, since $n_2\le n$ on $\widetilde{S}$; this finiteness justifies term-by-term differentiation and boundedness arguments without convergence caveats.
+
 \begin{lemma}[Fundamental equation for the PPGF on $\widetilde{S}$]\label{lem:gen:PPGF_dynamics}
-    Consider the same system on the state space
-    $\widetilde{S}=\{(n_2,n):0\le n_2\le n\}$, where $n$ is the total number of customers
+    Consider the same system on the state space $\widetilde{S}$ of
+    Equation~\eqref{eq:gen:state_space_Stilde}, where $n$ is the total number of customers
     \emph{waiting} in the queues and $n_2$ the number of waiting class-$2$ customers.
     Assume positive recurrence, so that the stationary distribution
-    $\{\tpi(n_2,n)\}$ exists, and define the partial PGF (transforming only $n_2$,
-    keeping $n$ discrete)
-    \[
-        \widetilde{P}(y,n)=\sum_{n_2=0}^{n}\tpi(n_2,n)\,y^{n_2},
-    \]
-    a polynomial of degree $n$ in $y$. Then, for every $n\ge 1$, the family
+    $\{\tpi(n_2,n)\}$ exists, and let $\widetilde{P}(y,n)$ be the partial PGF of
+    Equation~\eqref{eq:gen:ppgf_Stilde}. Then, for every $n\ge 1$, the family
     $\{\widetilde{P}(y,n)\}_{n\ge 0}$ satisfies the differential--difference equation
     \begin{equation*}
     \begin{split}
@@ -791,7 +786,7 @@ The fundamental equation already delivers the first specialisation of Theorem~\r
         \end{split}
     \end{align*}
     
-    Adding the diagonal equation~\eqref{eq:gen:tilde_balance_diagonal} multiplied by $y^n$ extends most summation limits to $n$; the $\lambda_1$- and $\gamma_2$-terms on the RHS remain restricted to $n_2\le n-1$, and a spare $\mu\tpi(n+1,n+1)y^n$ survives:
+    Adding the diagonal equation~\eqref{eq:gen:tilde_balance_diagonal} multiplied by $y^n$ extends most summation limits to $n$; the $\lambda_1$- and $\gamma_2$-terms on the RHS remain restricted to $n_2\le n-1$, and an extra term $\mu\tpi(n+1,n+1)y^n$ remains:
     \begin{align*}
         \begin{split}
             & (\lambda_1+\lambda_2+\mu) \sum_{n_2=1}^{n} \tpi(n_2,n) y^{n_2} \\
@@ -801,16 +796,15 @@ The fundamental equation already delivers the first specialisation of Theorem~\r
             & + \theta_2 \sum_{n_2=1}^{n} n_2 \tpi(n_2,n) y^{n_2} \\
             & \quad = \quad \lambda_1 \sum_{n_2=1}^{n-1} \tpi(n_2,n-1) y^{n_2} \\
             & \quad \quad + \lambda_2 \sum_{n_2=1}^{n} \tpi(n_2-1,n-1) y^{n_2} \\
-            & \quad \quad + \mu \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} \\
-            & \quad \quad + \mu \tpi(n+1,n+1) y^n \\
+            & \quad \quad + \mu \sum_{n_2=1}^{n} \tpi(n_2,n+1) y^{n_2} + \mu \tpi(n+1,n+1) y^n \\
             & \quad \quad + \gamma_1 \sum_{n_2=1}^{n} (n-n_2+1) \tpi(n_2-1,n) y^{n_2} \\
             & \quad \quad + \gamma_2 \sum_{n_2=1}^{n-1} (n_2+1) \tpi(n_2+1,n) y^{n_2} \\
             & \quad \quad + \theta_1 \sum_{n_2=1}^{n} (n+1-n_2) \tpi(n_2,n+1) y^{n_2} \\
             & \quad \quad + \theta_2 \sum_{n_2=1}^{n} (n_2+1) \tpi(n_2+1,n+1) y^{n_2}.
         \end{split}
     \end{align*}
-    
-    Evaluating each summand:
+
+    As in the proof of Lemma~\ref{lem:gen:fundamental_equation}, we write $LHS_i$ and $RHS_j$ for the $i$-th and $j$-th summands on the left- and right-hand sides of this display, in the order written (the two $\mu$-terms together forming $RHS_3$). Evaluating each summand:
     \begin{align*}
         \begin{split}
             & LHS_1 \\
@@ -898,7 +892,7 @@ The fundamental equation already delivers the first specialisation of Theorem~\r
         \end{split}
     \end{align*}
     
-    Collecting:
+    Combining all the terms above:
     \begin{align*}
         \begin{split}
             & (\lambda_1 + \lambda_2 + \mu) \left[ \widetilde{P}(y,n) - \tpi(0,n) \right] \\
@@ -915,7 +909,7 @@ The fundamental equation already delivers the first specialisation of Theorem~\r
             & \quad \quad + \theta_2 \left[ \frac{d}{dy} \widetilde{P}(y,n+1) - \tpi(1,n+1) \right]
         \end{split}
     \end{align*}
-    Regrouping:
+    Grouping the common terms yields:
     \begin{align*}
         \begin{split}
             & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
@@ -925,7 +919,7 @@ The fundamental equation already delivers the first specialisation of Theorem~\r
             & \quad \quad - y^n (\lambda_1 + \lambda_2 y) \tpi(n,n-1) + \mu y^n (1-y) \tpi(n+1,n+1)
         \end{split}
     \end{align*}
-    The $y$-boundary equation~\eqref{eq:gen:tilde_balance_y_boundary} makes the bracketed terms vanish; since $\tpi(n,n-1)=0$ (outside $\widetilde{S}$):
+    The $y$-boundary equation~\eqref{eq:gen:tilde_balance_y_boundary} makes the bracketed terms vanish. Moreover, $\tpi(n,n-1)=0$, because the state $(n,n-1)$ lies outside $\widetilde{S}$. Hence
     \begin{align*}
         \begin{split}
             & \left[ -(\gamma_2 + \gamma_1 y)(1-y) + (\theta_2 - \theta_1) y \right] \frac{d}{dy} \widetilde{P}(y,n) + \left[ \lambda_1 + \lambda_2 + \mu + \gamma_1 n(1-y) + \theta_1 n \right] \widetilde{P}(y,n) \\
@@ -933,18 +927,20 @@ The fundamental equation already delivers the first specialisation of Theorem~\r
             & \quad \quad + \mu y^n (1-y) \tpi(n+1,n+1)
         \end{split}
     \end{align*}
+    This is the asserted differential--difference equation, which completes the proof.
 \end{proof}
 
 \begin{remark}[The $\widetilde{S}$ recursion is a failed simplification]\label{rem:gen:Stilde_failed}
-The partial-PGF recurrence of Lemma~\ref{lem:gen:PPGF_dynamics} was introduced in the
-expectation that generating only over the class-$2$ index, while carrying the total count $n$
-as a discrete parameter, would \emph{simplify} the analysis~---~collapsing the
-two-dimensional balance on $S$ to a one-dimensional recurrence in $n$. It does the opposite.
-The forcing term $\mu y^{n}(1-y)\,\tpi(n+1,n+1)$ ties each level $n$ to the unknown diagonal
-sequence $\{\pi(0,n)\}$, so the recurrence does not close on itself: solving it would require
-precisely the boundary probabilities it was meant to deliver. Only for the baseline Model-$A$
-does that forcing decay fast enough to be dropped, and even there the result is an
-\emph{approximation}, accurate only in a restricted parameter region
+The partial-PGF recurrence of Lemma~\ref{lem:gen:PPGF_dynamics} was introduced with the
+aim that taking a generating function over the class-$2$ index only, while carrying the total
+count $n$ as a discrete parameter, would \emph{simplify} the analysis~---~collapsing the
+two-dimensional balance on $S$ to a one-dimensional recurrence in $n$. The opposite turns out
+to be true. The inhomogeneous term $\mu y^{n}(1-y)\,\tpi(n+1,n+1)$ couples each level $n$ of
+the recurrence to the diagonal probability $\tpi(n+1,n+1)=\pi(0,n+1)$, and these diagonal
+probabilities are themselves unknown. The recurrence therefore does not close: solving it
+would require exactly the boundary probabilities it was intended to produce. Only for the
+baseline Model-$A$ does this coupling term decay fast enough to be neglected, and even there
+dropping it yields only an approximate solution, accurate in a restricted parameter region
 (Approximation~\ref{apx:A:PPGF_Stilde}). For every model with an active mechanism the
 $\widetilde{S}$ route is strictly harder than the $S$ analysis it was meant to replace. We
 therefore record it as a deliberate negative result: the $\widetilde{S}$ coordinatisation is
