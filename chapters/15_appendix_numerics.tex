@@ -1,8 +1,8 @@
 \appendix
-\section{Extended numerical validation and comparison}\label{app:numerics}
+\section{Extended numerical verification and comparison}\label{app:numerics}
 
 This appendix collects the full figure-by-figure evidence summarised in
-Section~\ref{sec:results}: the per-result validation maps, the simulation cross-checks, the
+Section~\ref{sec:results}: the per-result verification maps, the simulation cross-checks, the
 extended traffic-intensity and mechanism sweeps, the class-asymmetry study, the convergence
 diagnostics, and the synoptic dashboard. Unless stated otherwise all figures use the base
 parameters of Section~\ref{sec:results} --- $\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1.0$, with
@@ -10,7 +10,7 @@ the mechanism parameter ($\gamma_1$ or $\theta_1$) set to $0.5$ where applicable
 truncated CTMC ($N_{\max}=40$) as ground truth.
 
 % =====================================================================
-\subsection{Validation against the CTMC}\label{app:numerics:validation}
+\subsection{Verification against the CTMC}\label{app:numerics:validation}
 
 These figures provide the visual evidence behind the verdicts of
 Table~\ref{tab:validation_summary}.
@@ -31,7 +31,7 @@ discrete variable.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.90\textwidth]{figures/validation/val_lemmas.pdf}
-    \caption{Lemma validation.  \textit{Left}: max relative residual of the
+    \caption{Lemma verification.  \textit{Left}: max relative residual of the
     fundamental PGF equation (Lemma~\ref{lem:gen:fundamental_equation}) for
     each model variant on a $5\times5$ interior grid.
     \textit{Right}: max relative residual of the PPGF dynamics recurrence
@@ -98,15 +98,16 @@ corollary.  All points lie on the diagonal to within $10^{-4}$.
 
 \subsubsection*{PPGF approximation (Approximation~\ref{apx:A:PPGF_Stilde})}
 
-Unlike every other entry of Table~\ref{tab:validation_summary}, this result is
+Unlike the exact results of Table~\ref{tab:validation_summary}, this result is
 approximate by design: the recursion drops the boundary-diagonal forcing term,
 which decays geometrically in $n$, so the approximation is exact at $y=1$ for
 all parameters but degrades wherever the neglected forcing competes with the
 homogeneous solution. Figure~\ref{fig:val_ppgf} maps the maximum relative error
 $\varepsilon_\infty(\rho_1,\rho_2)$ over the parameter space and confirms the
 validity region characterised in \S\ref{ssec:A:Stilde}: the priority-dominated,
-moderately loaded regime. This is the single conditionally accepted entry of the
-validation table and the one place where the alternative coordinatisation
+moderately loaded regime. This is the single conditionally accepted result of the
+verification exercise ---assessed separately from Table~\ref{tab:validation_summary}---
+and the one place where the alternative coordinatisation
 $\widetilde{S}$ does not yield an exact result.
 
 \begin{figure}[H]
@@ -139,7 +140,7 @@ and $\pi(0,0)$ as the mechanism parameter grows.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/validation/val_experiment.pdf}
-    \caption{Validation of Models $\BH$ and $\CH$.
+    \caption{Verification of Models $\BH$ and $\CH$.
     \textit{Top row, left and centre}: relative error
     $|P_{\rm formula}(x,y)-P_{\rm CTMC}(x,y)|/|P_{\rm CTMC}(x,y)|$
     on the 5$\times$5 test grid.
@@ -174,7 +175,7 @@ and $\pi(0,0)$ as the mechanism parameter grows.
     \label{fig:val_experiment_pi}
 \end{figure}
 
-\subsubsection{Cross-validation: simulation versus the CTMC}
+\subsubsection{Cross-verification: simulation versus the CTMC}
 \label{subsec:results:crossval}
 
 The CTMC solver is the analytical ground truth used throughout this work, but it is
@@ -204,7 +205,7 @@ residual being entirely consistent with the $O(1/\sqrt{n})$ sampling error of a
 $5\times10^6$-event run. The two methods agree on $\pi_0$ to the same order. This closes the
 verification loop: the closed-form expressions match the CTMC (\S\ref{subsec:validation} and
 Table~\ref{tab:validation_summary}), and the CTMC matches an assumption-free simulation,
-so the analytical formulas are validated against a fully independent estimator.
+so the analytical formulas are verified against a fully independent estimator.
 
 The same cross-check is run for the two head-of-line experiment models, whose CTMC carries a
 \emph{constant} class-1 mechanism rate $\gamma_1\mathbf{1}_{\{n_1\ge1\}}$ or
@@ -497,7 +498,7 @@ that same $\lostflowCtwoSeventy$, so carried plus lost returns the offered $\off
 Because the throughput deficit $\mu\rho-\mu(1-\pi_0)$ and the abandonment integral
 $\theta_1\mathbb{E}[N_1]$ are distinct functionals of the stationary law --- one read from the
 idle probability of Corollary~\ref{cor:C2:pi00}, the other from the mean queue length --- their
-agreement is not a restatement of flow balance but an independent validation of both.
+agreement is not a restatement of flow balance but an independent verification of both.
 
 %% BEGIN SIMULATION RESULTS — fig_C2_E_BC_vs_theta1 %%
 \begin{figure}[H]

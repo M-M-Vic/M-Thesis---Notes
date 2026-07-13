@@ -17,12 +17,6 @@ The two mechanisms themselves act in opposite directions. Jockeying \emph{redist
 
 Abandonment instead \emph{reduces} the load: the idle probability rises, every queue shortens, and total waiting times fall.
 
-\subsection{Operational reading and the deterioration-direction caveat}
-
-These results return to the healthcare motivation set out in the Introduction. The original clinical motivation was the $2\to1$ direction of jockeying, rather than the opposite one: a non-priority patient deteriorating and moving into the priority class. That mechanism ---an upgrade driven by clinical urgency--- is precisely what Model-$B$ captures via $\gamma_2>0$. It is also, as the analysis shows, the direction that leads to a Volterra-type integral equation. The mechanism the clinical setting most wants is thus the one the analysis shows as irreducibly hard.
-
-However, the solved models show some valuable results. Model-$B_2$ implements the opposite direction, $1\to2$: a priority patient is reclassified downward, whether by clinical recovery, administrative review, or triage revision. This is less common, but not unrealistic. More immediately useful is Model-$C_2$, which captures class-1 abandonment ---the rate $\theta_1$ at which a waiting high-priority patient exits the list, whether through death or through transfer to another facility. Abandonment of priority patients is a realistic feature of any stretched healthcare system, and having exact closed-form expressions for $\pi_0$, $P(x,y)$, and the idle probability makes these results directly applicable for capacity planning and optimisation. The same can be said about the head-of-line models, where reallocating the customer at the head of the queue is a plausible operational action.
-
 \subsection{Limitations}
 
 Several assumptions are intrinsic to the $M/M/1$ framework itself. All results rest on exponential interarrival, service, jockeying, and abandonment times ---an idealisation that is most restrictive for the service times. Allowing class-dependent rates $\mu_1 \neq \mu_2$ would invalidate the analysis at its foundation, since the state-space construction and the definition of the limiting probabilities both rely on the server being indifferent to the class in service. Relaxing exponentiality entirely to general service times further compounds the difficulty; the intractability that already forces de~Waal's approximate $M/G/1$ treatment illustrates how quickly the problem ceases to admit closed-form solutions.

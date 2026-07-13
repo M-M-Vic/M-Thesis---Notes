@@ -11,10 +11,7 @@ Table~\ref{tab:validation_summary} collects the verdict for every result. All re
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{table}[H]
     \centering
-    \caption{Verification summary.  All mathematical results are accepted.  The final
-    row, separated by a rule, is of a different kind: it does not verify an exact result
-    but assesses the accuracy of the PPGF \emph{approximation}, which is conditionally
-    accepted (accurate only for $\rho_1/\rho\ge0.6$ and $\rho\le0.6$).  Max errors
+    \caption{Verification summary.  All mathematical results are accepted.  Max errors
     reflect CTMC truncation, not formula error.}
     \label{tab:validation_summary}
     \renewcommand{\arraystretch}{1.35}
@@ -33,11 +30,9 @@ Table~\ref{tab:validation_summary} collects the verdict for every result. All re
         E-B  & Theorem~\ref{thm:B21:PGF}                 & $\BH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
         E-C  & Theorem~\ref{thm:C21:PGF}                 & $\CH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
         \hline
-        T-S  & Approximation~\ref{apx:A:PPGF_Stilde}     & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
-        \hline
     \end{tabular}
 \end{table}
-Only the approximation for Model-$A$ in state space $\widetilde{S}$ resolves to a non-satisfactory precision level, only being acceptable in a priority-dominated setup. This was expected, as the approximation only neglected the problematic non-homogeneous term in Lemma~\ref{lem:gen:PPGF_dynamics}, coming from the boundary-diagonal term.
+The PPGF Approximation~\ref{apx:A:PPGF_Stilde} for Model-$A$ on the state space $\widetilde{S}$ is assessed separately, since its check is of a different kind: it does not verify an exact result but measures the accuracy of an \emph{approximation}. Its sup-norm error $\varepsilon_\infty$ over the $(\rho_1,\rho_2)$ plane ranges from $0$ to $100\%$, and the approximation is conditionally accepted, being accurate only in a priority-dominated setup ($\rho_1/\rho\ge0.6$ and $\rho\le0.6$). This was expected, as the approximation only neglected the problematic non-homogeneous term in Lemma~\ref{lem:gen:PPGF_dynamics}, coming from the boundary-diagonal term.
 
 
 Rows C-A and C-C2 combined confirm Theorem~\ref{thm:gen:boundary}: the identity $\pi(0,0)=\rho\,\pi_0$ and the busy-period law $\pi_0=1/(1+\lambda\,\mathbb{E}[BP])$ hold to $<10^{-4}$ across both the no-abandonment regime (Corollary~\ref{cor:gen:no_abandon}, Models~$A$, $B$, $B_2$) and the class-$1$ abandonment regime (Corollary~\ref{cor:C2:pi00}, Model-$C_2$), confirming the single scalar $\mathbb{E}[BP]$ as the only model-dependent input.
