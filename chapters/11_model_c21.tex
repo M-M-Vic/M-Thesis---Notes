@@ -1,53 +1,52 @@
-\section{Analysis of Model-\texorpdfstring{$\CH$}{C2-H} (\texorpdfstring{$\theta_1>0$}{theta1>0} head-of-line, \texorpdfstring{$\gamma_1=\gamma_2=\theta_2=0$}{gamma1=gamma2=theta2=0})}
+\section{Analysis of Model-\texorpdfstring{$\CH$}{C2-H}}
 \label{sec:model_c21}
 
 
 
 Model-$\CH$ is the abandonment counterpart of Model-$\BH$, and the head-of-line
-simplification of the class-$1$ abandonment model Model-$C_2$. Only the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever $n_1\geq1$. As in Model-$\BH$, the flat rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes an \emph{algebraic} term rather than a derivative, and the Kernel Method applies directly. True departure breaks the conservation of the total number of customers that we had in models without abandonment.
+version of the class-$1$ abandonment model Model-$C_2$: the parameter setting is $\theta_1>0$ head-of-line with $\gamma_1=\gamma_2=\theta_2=0$. Only the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever $n_1\geq1$. As in Model-$\BH$, the constant rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes an \emph{algebraic} term to the fundamental equation rather than a derivative term, and the Kernel Method applies directly. Because an abandoning customer leaves the system altogether, the conservation of the total number of customers ---which held in every model without abandonment--- no longer applies.
 
-\textbf{Stability.} Because only the head-of-line from class-$1$ abandons, the aggregate abandonment rate is bounded by $\theta_1$ regardless of queue length as long as we have a queue, so a genuine stability condition is required. As shown in Corollary~\ref{cor:C21:pi0} below, the chain is positive recurrent if and only if $\pi_0>0$, that is
+\textbf{Stability.} Because only the head-of-line customer from class-$1$ abandons, the aggregate abandonment rate is bounded by $\theta_1$ regardless of the queue length ---unlike in Model-$C_2$, where it grows proportionally to $n_1$ and stabilises the priority queue at any load. A non-trivial stability condition is therefore required. As shown in Corollary~\ref{cor:C21:pi0} below, the chain is positive recurrent if and only if $\pi_0>0$, that is
 \begin{equation}
     (\mu+\theta_1)(\mu-\lambda) + \lambda_1\theta_1 \;>\; 0,
     \qquad \lambda=\lambda_1+\lambda_2.
     \label{eq:C21:stability}
 \end{equation}
-This is \emph{weaker} than $\rho<1$: if $\rho<1$ then $\mu-\lambda>0$ and the condition holds trivially, but it can also hold with $\rho\ge1$ provided $\theta_1$ is large enough. Moreover, Equation~\eqref{eq:C21:stability} implies $\rho_C:=\lambda_1/(\mu+\theta_1)<1$. Hence $\mu+\theta_1>\lambda_1$, i.e.\ $\rho_C<1$.
+This is \emph{weaker} than $\rho<1$: if $\rho<1$ then $\mu-\lambda>0$ and the condition holds trivially, but it can also hold with $\rho\ge1$ provided $\theta_1$ is large enough. Moreover, Equation~\eqref{eq:C21:stability} implies $\mu+\theta_1>\lambda_1$, i.e.\ $\rho_C:=\lambda_1/(\mu+\theta_1)<1$.
 
 \subsection{Balance equations}
 
-The abandonment transition $(n_1,n_2)\to(n_1-1,n_2)$ occurs at the fixed rate $\theta_1$ whenever $n_1\ge1$. Since both a service completion and a head abandonment from $(n_1+1,n_2)$ land in $(n_1,n_2)$, the two mechanisms combine into the coefficient $\mu+\theta_1$ on the in-flows. On $S$,
+The abandonment transition $(n_1,n_2)\to(n_1-1,n_2)$ occurs at the fixed rate $\theta_1$ whenever $n_1\ge1$. Since both a service completion and a head-of-line abandonment from $(n_1+1,n_2)$ lead to $(n_1,n_2)$, the two mechanisms enter the balance equations through the common in-flow coefficient $\mu+\theta_1$. On $S$,
 \begin{align}
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu+\theta_1\right]\pi(n_1,n_2) \\
-        &\quad=\quad (\mu+\theta_1)\pi(n_1+1,n_2)
-          +\lambda_1\pi(n_1-1,n_2)
-          +\lambda_2\pi(n_1,n_2-1)
-    \end{split}
+    \left[\lambda_1+\lambda_2+\mu+\theta_1\right]\pi(n_1,n_2)
+    &= (\mu+\theta_1)\pi(n_1+1,n_2)
+      +\lambda_1\pi(n_1-1,n_2) \notag\\
+    &\qquad
+      +\lambda_2\pi(n_1,n_2-1),
     &&n_1\ge1,\;n_2\ge1, \label{eq:C21:interior} \\
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu+\theta_1\right]\pi(n_1,0)
-          \;=\; (\mu+\theta_1)\pi(n_1+1,0)
-          +\lambda_1\pi(n_1-1,0)
-    \end{split}
+    \left[\lambda_1+\lambda_2+\mu+\theta_1\right]\pi(n_1,0)
+    &= (\mu+\theta_1)\pi(n_1+1,0)
+      +\lambda_1\pi(n_1-1,0),
     &&n_1\ge1,\;n_2=0, \nonumber \\
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2) \\
-        &\quad=\quad (\mu+\theta_1)\pi(1,n_2)
-          +\lambda_2\pi(0,n_2-1)
-          +\mu\,\pi(0,n_2+1)
-    \end{split}
+    \left[\lambda_1+\lambda_2+\mu\right]\pi(0,n_2)
+    &= (\mu+\theta_1)\pi(1,n_2)
+      +\lambda_2\pi(0,n_2-1) \notag\\
+    &\qquad
+      +\mu\,\pi(0,n_2+1),
     &&n_1=0,\;n_2\ge1, \nonumber \\
-    \begin{split}
-        &\left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
-          = (\lambda_1+\lambda_2)\pi_0
-          + (\mu+\theta_1)\pi(1,0)
-          + \mu\,\pi(0,1),
-    \end{split} &&\nonumber \\
-    \begin{split}
-        &(\lambda_1+\lambda_2)\pi_0 = \mu\,\pi(0,0).
-    \end{split} &&\label{eq:C21:idle}
+    \left[\lambda_1+\lambda_2+\mu\right]\pi(0,0)
+    &= (\lambda_1+\lambda_2)\pi_0
+      + (\mu+\theta_1)\pi(1,0)
+      + \mu\,\pi(0,1),
+    &&\nonumber \\
+    (\lambda_1+\lambda_2)\pi_0
+    &= \mu\,\pi(0,0).
+    &&\label{eq:C21:idle}
 \end{align}
+
+\begin{remark}[The substitution $\mu\mapsto\mu+\theta_1$]\label{rem:C21:mushift}
+Equations~\eqref{eq:C21:interior}--\eqref{eq:C21:idle} are precisely the Model-$A$ balance equations with the service rate $\mu$ replaced by $\mu+\theta_1$ in every transition out of a state with $n_1\ge1$; transitions out of states with $n_1=0$ keep the rate $\mu$, since no waiting class-$1$ customer is present to abandon. The same substitution acts on the coefficient of $P(x,y)$ in the fundamental equation below, but not on its boundary terms, and it does not carry over to the stability condition~\eqref{eq:C21:stability}, which instead follows from the busy-period identity of Theorem~\ref{thm:gen:boundary} (see the proof of Corollary~\ref{cor:C21:pi0}).
+\end{remark}
 
 \subsection{Fundamental PGF equation}
 We introduce the following result:
@@ -65,28 +64,30 @@ We introduce the following result:
 \end{lemma}
 
 \begin{proof}
-    As in Lemma~\ref{lem:B21:fundamental}, the non-abandonment terms of Equations~\eqref{eq:C21:interior}--\eqref{eq:C21:idle} reproduce the Model-$A$ fundamental equation~\eqref{eq:A:fundamental} after multiplication by $x^{n_1}y^{n_2}$, summation, and multiplication by $xy$. The abandonment \emph{out}-flow appears in every state with $n_1\geq1$,
+    As in Lemma~\ref{lem:B21:fundamental}, deleting every term that contains $\theta_1$ from Equations~\eqref{eq:C21:interior}--\eqref{eq:C21:idle} leaves exactly the Model-$A$ balance equations, which reproduce the Model-$A$ fundamental equation~\eqref{eq:A:fundamental} after multiplication by $x^{n_1}y^{n_2}$, summation, and multiplication by $xy$. It remains to collect the terms containing $\theta_1$. The $\theta_1$-term on the left-hand side appears in every state with $n_1\geq1$,
     \begin{equation*}
         \theta_1\sum_{n_1\ge1}\sum_{n_2\ge0}\pi(n_1,n_2)\,x^{n_1}y^{n_2}
         = \theta_1\bigl[P(x,y)-P_y(y)\bigr],
     \end{equation*}
-    and its \emph{in}-flow enters every state $(n_1,n_2)$ from $(n_1+1,n_2)$,
+    while the $\theta_1$-term on the right-hand side enters every state $(n_1,n_2)$ from $(n_1+1,n_2)$,
     \begin{equation*}
         \theta_1\sum_{n_1\ge0}\sum_{n_2\ge0}\pi(n_1+1,n_2)\,x^{n_1}y^{n_2}
         = \theta_1\,x^{-1}\sum_{m_1\ge1}\sum_{n_2\ge0}\pi(m_1,n_2)\,x^{m_1}y^{n_2}
         = \theta_1\,x^{-1}\bigl[P(x,y)-P_y(y)\bigr],
     \end{equation*}
     with $m_1=n_1+1$. The net contribution is
-    $\theta_1\bigl(1-x^{-1}\bigr)\bigl[P(x,y)-P_y(y)\bigr]$; multiplying by $xy$ gives $\theta_1 y(x-1)\bigl[P(x,y)-P_y(y)\bigr]$. Adding to the Model-$A$ equation and rearranging yields Equation~\eqref{eq:C21:fundamental}.
+    $\theta_1\bigl(1-x^{-1}\bigr)\bigl[P(x,y)-P_y(y)\bigr]$; multiplying by $xy$ gives $\theta_1 y(x-1)\bigl[P(x,y)-P_y(y)\bigr]$. Adding this to the Model-$A$ equation and rearranging yields Equation~\eqref{eq:C21:fundamental}.
 \end{proof}
 
-\subsection{Closed-form solution}
+\subsection{Closed-form solution for the PGF}
 
-\begin{theorem}[Closed-form PGF for Model-$\CH$]\label{thm:C21:PGF}
+The following theorem is the main result of this section; as for Model-$\BH$, its proof applies the Kernel Method of Model-$A$.
+
+\begin{theorem}\label{thm:C21:PGF}
     Consider the two-class non-preemptive priority queue with Poisson arrival rates
     $\lambda_1,\lambda_2$, common exponential service rate $\mu$, and head-of-line class-$1$
     abandonment at rate $\theta_1>0$ (with $\gamma_1=\gamma_2=\theta_2=0$). Under the stability
-    condition~\eqref{eq:C21:stability}, the joint PGF $P(x,y)=\mathbb{E}[x^{N_1}y^{N_2}]$ is the
+    condition~\eqref{eq:C21:stability}, the joint PGF $P(x,y)$ is the
     rational function
     \begin{equation}
         P(x,y) \;=\;
@@ -95,14 +96,13 @@ We introduce the following result:
          \,\bigl[(\mu+\theta_1 y)\,x^*(y)-y(\mu+\theta_1)\bigr]},
         \label{eq:C21:PGF}
     \end{equation}
-    where $x^*(y)$ and $x^+(y)$ are the two roots of the kernel quadratic
+    where $x^*(y)$ and $x^+(y)$ are the two roots of the quadratic equation
     \begin{equation}
         \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\theta_1\bigr]x + (\mu+\theta_1) = 0,
         \label{eq:C21:quad}
     \end{equation}
     with $x^*(y)$ the root inside the unit disc, and $\pi(0,0)$ is given by
-    Corollary~\ref{cor:C21:pi0}. As $\theta_1\to0^+$ the formula recovers Model-$A$
-    (Theorem~\ref{thm:A:PGF}) exactly.
+    Corollary~\ref{cor:C21:pi0}.
 \end{theorem}
 The theorem invokes the following Corollary:
 \begin{corollary}\label{cor:C21:pi0}
@@ -119,12 +119,13 @@ The theorem invokes the following Corollary:
     $\pi(0,0)\to\rho(1-\rho)$, recovering Model-$A$.
 \end{corollary}
 
+As $\theta_1\to0^+$, Equation~\eqref{eq:C21:PGF} likewise recovers the Model-$A$ PGF of Theorem~\ref{thm:A:PGF} exactly. Theorem~\ref{thm:C21:PGF} also parallels Theorem~\ref{thm:B21:PGF} structurally: both PGFs are rational in $x$ with the pole governed by the outer kernel root $x^+(y)$, and the two quadratic kernels differ only in their constant term ---the $y$-dependent $\mu+\gamma_1y$ for jockeying versus the constant $\mu+\theta_1$ for abandonment. The remaining difference is the numerator input: for Model-$\BH$ conservation fixes $\pi(0,0)=\rho(1-\rho)$, whereas here the abandonment-adjusted value of Corollary~\ref{cor:C21:pi0} enters.
+
 \begin{proof}[Proof of Corollary~\ref{cor:C21:pi0}]
-    Two evaluations of the fundamental equation~\eqref{eq:C21:fundamental} suffice. First set $y=1$: the term $\mu x(1-y)\pi(0,0)$ vanishes, the coefficient of $P(x,1)$ factors as $-(x-1)\bigl(\lambda_1 x-(\mu+\theta_1)\bigr)$, and the RHS becomes $(x-1)(\mu+\theta_1)P_y(1)$. Cancelling $(x-1)$ we obtain
+    Two evaluations of the fundamental equation~\eqref{eq:C21:fundamental} suffice. First set $y=1$: the term $\mu x(1-y)\pi(0,0)$ vanishes, the coefficient of $P(x,1)$ factors as $-(x-1)\bigl(\lambda_1 x-(\mu+\theta_1)\bigr)$, and the right-hand side becomes $(x-1)(\mu+\theta_1)P_y(1)$. Cancelling $(x-1)$ we obtain
     \begin{equation}
         P(x,1) \;=\; \frac{(\mu+\theta_1)\,P_y(1)}{\mu+\theta_1-\lambda_1 x}
-                \;=\; \frac{P_y(1)}{1-\rho_C\,x},
-        \qquad \rho_C := \frac{\lambda_1}{\mu+\theta_1}.
+                \;=\; \frac{P_y(1)}{1-\rho_C\,x}.
         \label{eq:C21:Px1}
     \end{equation}
     This geometric marginal shows that the priority queue clears at the effective rate
@@ -140,7 +141,7 @@ The theorem invokes the following Corollary:
         \lambda_2\,y\,P(1,y) \;=\; \mu\bigl[P_y(y)-\pi(0,0)\bigr].
         \label{eq:C21:P1y}
     \end{equation}
-    Letting $y\to1$ and using Equation~\eqref{eq:C21:P11} and the cut identity of Theorem~\ref{thm:gen:boundary} ($\pi(0,0)=\lambda\pi_0/\mu$, Equation~\eqref{eq:C21:idle}), we have
+    Letting $y\to1$, and using Equation~\eqref{eq:C21:P11} together with the idle-boundary balance equation~\eqref{eq:C21:idle} ---$\pi(0,0)=\lambda\pi_0/\mu$, as in Theorem~\ref{thm:gen:boundary}--- we have
     \begin{equation*}
         \lambda_2(1-\pi_0) \;=\; \mu\bigl[P_y(1)-\pi(0,0)\bigr]
         \;=\; \mu(1-\pi_0)(1-\rho_C) - \lambda\pi_0.
@@ -155,39 +156,38 @@ The theorem invokes the following Corollary:
     $\mu(\mu+\theta_1-\lambda_1)-\lambda_2(\mu+\theta_1)=(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1$
     and the denominator $\mu(\mu+\theta_1-\lambda_1)+\lambda_1(\mu+\theta_1)=\mu(\mu+\theta_1)+\lambda_1\theta_1$,
     yielding the first identity in Equation~\eqref{eq:C21:pi0_pi00}; the second follows directly from
-    $\pi(0,0)=\lambda\pi_0/\mu$. The denominator $\mu(\mu+\theta_1)+\lambda_1\theta_1$ is strictly positive, so $\pi_0>0$ is equivalent to the stability condition~\eqref{eq:C21:stability}. In the renewal--reward form $\pi_0=1/\bigl(1+\lambda\,\mathbb{E}[BP]\bigr)$ of Theorem~\ref{thm:gen:boundary}, this is a whole-system mean busy period $\mathbb{E}[BP]=(\mu+\theta_1)/\bigl[(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1\bigr]$, which reduces to the $M/M/1$ value $(\mu-\lambda)^{-1}$ as $\theta_1\to0^+$.
+    $\pi(0,0)=\lambda\pi_0/\mu$. The denominator $\mu(\mu+\theta_1)+\lambda_1\theta_1$ is strictly positive, so $\pi_0>0$ is equivalent to the stability condition~\eqref{eq:C21:stability}. Finally, rewriting the computed $\pi_0$ in the renewal--reward form $\pi_0=1/\bigl(1+\lambda\,\mathbb{E}[BP]\bigr)$ of Theorem~\ref{thm:gen:boundary} identifies the whole-system mean busy period as $\mathbb{E}[BP]=(\mu+\theta_1)/\bigl[(\mu+\theta_1)(\mu-\lambda)+\lambda_1\theta_1\bigr]$ ---a by-product of the computation rather than an independent argument--- which reduces to the $M/M/1$ value $(\mu-\lambda)^{-1}$ as $\theta_1\to0^+$.
 \end{proof}
+
+\begin{remark}[The two evaluations at the singular corner $(1,1)$]\label{rem:C21:order}
+At $(x,y)=(1,1)$ every term of Equation~\eqref{eq:C21:fundamental} vanishes ---$(1,1)$ is a zero of the kernel and of both right-hand-side coefficients--- so evaluating the equation at that point yields only $0=0$. Restricting the equation to the line $y=1$ and to the line $x=1$, and cancelling the vanishing linear factors $(x-1)$, respectively $(1-y)$, extracts instead two \emph{directional} first-order pieces of information at this singular corner, and they are genuinely different: Equation~\eqref{eq:C21:Px1} relates the class-$1$ marginal to $P_y(1)$, while Equation~\eqref{eq:C21:P1y} relates the class-$2$ marginal to the whole boundary function. Together with the balance equation~\eqref{eq:C21:idle} they pin down the two unknown scalars $\pi_0$ and $\pi(0,0)$. The same device applies to the other models: for Model-$A$, the two evaluations combined with $\pi(0,0)=\lambda\pi_0/\mu$ yield $\pi_0=1-\rho$ directly, without invoking Theorem~\ref{thm:A:PGF}.
+\end{remark}
 
 \subsubsection{Analytical approach for Model-\texorpdfstring{$\CH$}{C2-H}}\label{sssec:C21:analytical}
 
 \begin{proof}[Proof of Theorem~\ref{thm:C21:PGF}]
-    We again apply the Kernel Method to Equation~\eqref{eq:C21:fundamental}. Dividing the coefficient of $P(x,y)$ by $y\ne0$ and rearranging gives the kernel quadratic~\eqref{eq:C21:quad},
-    \begin{equation*}
-        \lambda_1 x^2 - \bigl[\lambda_1+\lambda_2(1-y)+\mu+\theta_1\bigr]x + (\mu+\theta_1) = 0,
-    \end{equation*}
-    Its roots are
+    We again apply the Kernel Method to Equation~\eqref{eq:C21:fundamental}. Dividing the coefficient of $P(x,y)$ by $y\ne0$ and rearranging gives the quadratic equation~\eqref{eq:C21:quad}, whose roots are
     \begin{equation}
         x^{\pm}(y) = \frac{A(y) \pm \sqrt{A(y)^2 - 4\lambda_1(\mu+\theta_1)}}{2\lambda_1},
         \qquad A(y):=\lambda_1+\lambda_2(1-y)+\mu+\theta_1,
         \label{eq:C21:xstar}
     \end{equation}
-    with product $x^*(y)\,x^+(y)=(\mu+\theta_1)/\lambda_1$ by Vieta's formulas. Evaluating the quadratic $f(x):=\lambda_1 x^2-A(y)x+(\mu+\theta_1)$ at $x=1$,
+    with product $x^*(y)\,x^+(y)=(\mu+\theta_1)/\lambda_1$ by Vieta's formulas. Evaluating the quadratic polynomial $f(x):=\lambda_1 x^2-A(y)x+(\mu+\theta_1)$ at $x=1$,
     \begin{equation*}
-        f(1) = \lambda_1 - A(y) + (\mu+\theta_1) = -\lambda_2(1-y) < 0
-        \qquad\text{for } y\in[0,1),
+        f(1) = \lambda_1 - A(y) + (\mu+\theta_1) = -\lambda_2(1-y).
     \end{equation*}
-    So $x=1$ lies between the two roots and $x^*(y)<1<x^+(y)$ for $y\in[0,1)$; at $y=1$, $x^*(1)=1$ and $x^+(1)=(\mu+\theta_1)/\lambda_1>1$ (the latter by $\rho_C<1$). Hence $x^*(y)$ is the unique root inside the unit disc. Differentiating Equation~\eqref{eq:C21:xstar} at $y=1$,
+    For $y\in[0,1)$ this is strictly negative, so $x=1$ lies between the two roots and $x^*(y)<1<x^+(y)$; at $y=1$, $x^*(1)=1$ and $x^+(1)=(\mu+\theta_1)/\lambda_1>1$ (the latter by $\rho_C<1$). Hence, $x^*(y)$ is the unique root inside the unit disc. Differentiating Equation~\eqref{eq:C21:xstar} at $y=1$, we obtain
     \begin{equation}
         \frac{d}{dy}x^*(1) = \frac{\lambda_2}{\mu+\theta_1-\lambda_1}.
         \label{eq:C21:xstar_deriv}
     \end{equation}
-    
-    Setting $x=x^*(y)$ in Equation~\eqref{eq:C21:fundamental} forces the RHS to vanish,
+
+    Setting $x=x^*(y)$ in Equation~\eqref{eq:C21:fundamental} makes the coefficient of $P(x,y)$ vanish; since $P$ is bounded on the closed unit polydisc, the right-hand side must vanish as well,
     \begin{equation*}
         \bigl[\mu(x^*(y)-y)+\theta_1 y(x^*(y)-1)\bigr]P_y(y) = \mu x^*(y)(1-y)\,\pi(0,0),
     \end{equation*}
     and, regrouping the bracket as
-    $\mu(x^*-y)+\theta_1 y(x^*-1)=(\mu+\theta_1 y)x^*-y(\mu+\theta_1)$, the boundary function is
+    $\mu(x^*(y)-y)+\theta_1 y(x^*(y)-1)=(\mu+\theta_1 y)\,x^*(y)-y(\mu+\theta_1)$, the boundary function is
     \begin{equation}
         P_y(y) = \frac{\mu\,x^*(y)\,(1-y)\,\pi(0,0)}
                       {(\mu+\theta_1 y)\,x^*(y)-y(\mu+\theta_1)}.
@@ -201,7 +201,7 @@ The theorem invokes the following Corollary:
         = \frac{\mu(1-y)\,\pi(0,0)}{\Delta(y)}\,
           \Bigl\{\bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]x^*(y) - x\,\Delta(y)\Bigr\}.
     \end{equation*}
-    Substituting $\Delta(y)$, it simplifies to $(\mu+\theta_1)\,y\,(x-x^*(y))$. Dividing by the factored kernel cancels $(x-x^*(y))$, yielding
+    Substituting $\Delta(y)$, the braced expression simplifies to $(\mu+\theta_1)\,y\,(x-x^*(y))$. Dividing by the factored kernel cancels $(x-x^*(y))$, yielding
     \begin{equation*}
         P(x,y) = \frac{\mu(\mu+\theta_1)(1-y)\,\pi(0,0)\,y\,(x-x^*(y))/\Delta(y)}
                       {-\lambda_1 y\,(x-x^*(y))(x-x^+(y))}
