@@ -533,14 +533,6 @@ ax[0,1].legend(loc="best"); ax[0,1].grid(alpha=0.3)
 for m,(c,ls,lab) in STYLE.items():
     ax[1,0].plot(rho_arr, sweep[m]["Ew1"], ls, color=c, lw=2, label=lab)
 ax[1,0].axvline(0.70, color="grey", ls=":", lw=1)
-# annotate values near rho=0.90
-i90 = int(np.argmin(np.abs(rho_arr - 0.90)))
-txt = "\n".join(f"{SHORT[m]}: {sweep[m]['Ew1'][i90]:.2f}" for m in STYLE)
-ax[1,0].annotate(rf"$E[W_1]$ at $\rho={rho_arr[i90]:.2f}$:" + "\n" + txt,
-                 xy=(rho_arr[i90], sweep["A"]["Ew1"][i90]),
-                 xytext=(0.12, 0.62), textcoords="axes fraction",
-                 fontsize=8, va="top",
-                 arrowprops=dict(arrowstyle="->", color="grey", lw=0.8))
 ax[1,0].set_xlabel(r"$\rho$"); ax[1,0].set_ylabel(r"$E[W_1]$")
 ax[1,0].set_title(r"Priority waiting time $E[W_1]=E[N_1]/\lambda_1$ (Little's Law)")
 ax[1,0].legend(loc="upper left"); ax[1,0].grid(alpha=0.3)
@@ -550,14 +542,23 @@ for m,(c,ls,lab) in STYLE.items():
 ax[1,1].plot(rho_arr, 1 - rho_arr, ":", color="black", lw=1.2, label=r"$1-\rho$ (Model A law)")
 ax[1,1].annotate("abandonment\nincreases idle\nprobability  ($\\pi_0>1-\\rho$)",
                  xy=(0.85, np.interp(0.85, rho_arr, sweep["C2"]["pi0"])),
-                 xytext=(0.30, 0.55), textcoords="axes fraction", fontsize=8,
+                 xytext=(0.05, 0.16), textcoords="axes fraction", fontsize=10,
                  arrowprops=dict(arrowstyle="->", color=C_C2, lw=0.9), color=C_C2)
 ax[1,1].set_xlabel(r"$\rho$"); ax[1,1].set_ylabel(r"$\pi_0$")
 ax[1,1].set_title(r"Idle probability $\pi_0$ vs $\rho$")
 ax[1,1].legend(loc="best"); ax[1,1].grid(alpha=0.3)
 
+# enlarge all panel text for legibility at print scale
+for a in ax.flat:
+    a.xaxis.label.set_size(13); a.yaxis.label.set_size(13)
+    a.title.set_size(13); a.tick_params(labelsize=11)
+    lg = a.get_legend()
+    if lg is not None:
+        for t in lg.get_texts():
+            t.set_fontsize(10.5)
+
 fig.suptitle(r"Traffic-intensity sweep ($\mu=1$, $\lambda_1{:}\lambda_2=3{:}4$): "
-             r"A, B$_2$, $B_2^{\mathrm{H}}$ (jockeying) vs C$_2$, $C_2^{\mathrm{H}}$ (abandonment)", fontsize=12)
+             r"A, B$_2$, $B_2^{\mathrm{H}}$ (jockeying) vs C$_2$, $C_2^{\mathrm{H}}$ (abandonment)", fontsize=14)
 fig.tight_layout()
 savefig("fig_sweep_EN_vs_rho")
 plt.show()

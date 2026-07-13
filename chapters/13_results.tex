@@ -1,19 +1,21 @@
-\section{Results}\label{sec:results}
+\section{Numerical verification and comparison}\label{sec:results}
 
-Every closed-form expression derived above is first validated against an exact \emph{continuous-time Markov chain} (CTMC), then used to compare the solved models and quantify the effect of the two waiting-room mechanisms.
+Every closed-form expression derived above is first verified against an exact \emph{continuous-time Markov chain} (CTMC), then used to compare the solved models and quantify the effect of the two waiting-room mechanisms.
 
-\subsection{Validation against the CTMC}\label{subsec:validation}
+\subsection{Verification against the CTMC}\label{subsec:validation}
 
 The method employed is a truncated CTMC: it works by solving the linear system $\pi Q=0$ directly, with no further approximation than the finite truncation at $N_{\max}=40$. Each result is therefore verified against the exact limiting distribution at base parameters $\lambda_1=0.3$, $\lambda_2=0.4$, $\mu=1.0$, with the active mechanism parameter $\gamma_1$ or $\theta_1$ set to $0.5$ where applicable.
 
-Table~\ref{tab:validation_summary} collects the verdict for every result. All results are admitted within a machine tolerance level: lemma residuals and closed-form PGF errors fall between $10^{-7}$ and $10^{-15}$, and the corollary errors lie on the diagonal to $10^{-4}$ across $60$ random configurations each.
+Table~\ref{tab:validation_summary} collects the verdict for every result. All results are admitted within a machine tolerance level: lemma residuals and closed-form PGF errors fall between $10^{-7}$ and $10^{-15}$, and the corollary checks ---$\pi_0$ and $\pi(0,0)$ against the CTMC, across $60$ random parameter configurations each--- agree to within $10^{-4}$.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{table}[H]
     \centering
-    \caption{Validation summary.  All mathematical results are accepted; the PPGF
-    approximation is conditionally accepted (accurate only for $\rho_1/\rho\ge0.6$
-    and $\rho\le0.6$).  Max errors reflect CTMC truncation, not formula error.}
+    \caption{Verification summary.  All mathematical results are accepted.  The final
+    row, separated by a rule, is of a different kind: it does not verify an exact result
+    but assesses the accuracy of the PPGF \emph{approximation}, which is conditionally
+    accepted (accurate only for $\rho_1/\rho\ge0.6$ and $\rho\le0.6$).  Max errors
+    reflect CTMC truncation, not formula error.}
     \label{tab:validation_summary}
     \renewcommand{\arraystretch}{1.35}
     \footnotesize
@@ -28,63 +30,69 @@ Table~\ref{tab:validation_summary} collects the verdict for every result. All re
         T-B2 & Theorem~\ref{thm:B2:PGF}                  & B$_2$              & $P(x,y)$ on $5\times5$ grid, $x<y$   & $<3\times10^{-7}$  & Accept \\
         T-C2 & Theorem~\ref{thm:C2:PGF}                  & C$_2$              & $P(x,y)$ on $5\times5$ grid   & $<5\times10^{-12}$ & Accept \\
         C-C2 & Corollary~\ref{cor:C2:pi00}               & C$_2$              & $\pi_0$, $\pi(0,0)$, 60 configurations  & $<10^{-4}$         & Accept \\
-        T-S  & Approximation~\ref{apx:A:PPGF_Stilde}     & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
-        \hline
         E-B  & Theorem~\ref{thm:B21:PGF}                 & $\BH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-7}$  & Accept \\
         E-C  & Theorem~\ref{thm:C21:PGF}                 & $\CH$            & $P(x,y)$ on $5\times5$ grid                 & $<3\times10^{-11}$ & Accept \\
+        \hline
+        T-S  & Approximation~\ref{apx:A:PPGF_Stilde}     & A                  & $\varepsilon_\infty$ over $(\rho_1,\rho_2)$ & $0$--$100\%$ & Conditional \\
         \hline
     \end{tabular}
 \end{table}
 Only the approximation for Model-$A$ in state space $\widetilde{S}$ resolves to a non-satisfactory precision level, only being acceptable in a priority-dominated setup. This was expected, as the approximation only neglected the problematic non-homogeneous term in Lemma~\ref{lem:gen:PPGF_dynamics}, coming from the boundary-diagonal term.
 
 
-Rows C-A and C-C2 combined validate Theorem~\ref{thm:gen:boundary}: the identity $\pi(0,0)=\rho\,\pi_0$ and the busy-period law $\pi_0=1/(1+\lambda\,\mathbb{E}[BP])$ hold to $<10^{-4}$ across both the no-abandonment regime (Corollary~\ref{cor:gen:no_abandon}, Models~$A$, $B$, $B_2$) and the class-$1$ abandonment regime (Corollary~\ref{cor:C2:pi00}, Model-$C_2$), confirming the single scalar $\mathbb{E}[BP]$ as the only model-dependent input.
+Rows C-A and C-C2 combined confirm Theorem~\ref{thm:gen:boundary}: the identity $\pi(0,0)=\rho\,\pi_0$ and the busy-period law $\pi_0=1/(1+\lambda\,\mathbb{E}[BP])$ hold to $<10^{-4}$ across both the no-abandonment regime (Corollary~\ref{cor:gen:no_abandon}, Models~$A$, $B$, $B_2$) and the class-$1$ abandonment regime (Corollary~\ref{cor:C2:pi00}, Model-$C_2$), confirming the single scalar $\mathbb{E}[BP]$ as the only model-dependent input.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Structural comparison of the solved models}
 \label{sec:comparison}
 
-With every closed form validated, we compare the five solved models: Model-$A$ (baseline), Model-$B_2$ (class-$1$ jockeying), Model-$C_2$ (class-$1$ abandonments) and the two head-of-line variants Model-$\BH$ and Model-$\CH$. The first three are more tractable simplifications of Model-$X$, while the head-of-line models are further simplifications of Model-$B_2$ and Model-$C_2$, respectively. Each produces a closed-form or integral-form expression for $P(x,y)$. Table~\ref{tab:comparison} collects the key structural facts across all five solved models.
+With every closed form verified, we compare the five solved models: Model-$A$ (baseline), Model-$B_2$ (class-$1$ jockeying), Model-$C_2$ (class-$1$ abandonments) and the two head-of-line variants Model-$\BH$ and Model-$\CH$. The first three are more tractable specialisations of Model-$X$. The head-of-line models are not special cases of Model-$B_2$ and Model-$C_2$ but companion models with a modified ---head-of-line--- mechanism; it is their governing equations, rather than the models themselves, that are simpler. Each produces a closed-form or integral-form expression for $P(x,y)$. Table~\ref{tab:comparison} collects the key structural facts across all five solved models, alongside the open Model-$B$: although $P(x,y)$ remains undetermined there, its conservation law, empty-state probabilities and stability condition are known exactly (Corollary~\ref{cor:B:pi00}), so the structural comparison can include it.
 
 \begin{table}[H]
     \centering
-    \caption{Structural comparison of the five solved models. Replacing a length-proportional
+    \caption{Structural comparison of the five solved models and the open Model-$B$.
+    Replacing a length-proportional
     mechanism rate ($\gamma_1 n_1$ or $\theta_1 n_1$) by a head-of-line rate
     ($\gamma_1\mathbf{1}_{\{n_1\ge1\}}$ or $\theta_1\mathbf{1}_{\{n_1\ge1\}}$) collapses the
     governing ODE back to the algebraic Model-$A$ form, so $P(x,y)$ becomes rational again.}
     \label{tab:comparison}
     \renewcommand{\arraystretch}{1.4}
     \footnotesize
-    \setlength{\tabcolsep}{4pt}
-    \begin{tabular}{@{}p{0.17\textwidth} *{5}{p{0.135\textwidth}}@{}}
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{@{}p{0.145\textwidth} *{6}{p{0.125\textwidth}}@{}}
         \hline
-         & \textbf{Model-$A$} & \textbf{Model-$B_2$} & \textbf{Model-$\BH$} & \textbf{Model-$C_2$} & \textbf{Model-$\CH$} \\
+         & \textbf{Model-$A$} & \textbf{Model-$B$} (open) & \textbf{Model-$B_2$} & \textbf{Model-$\BH$} & \textbf{Model-$C_2$} & \textbf{Model-$\CH$} \\
         \hline
         Extra mechanism (rate)
          & none
+         & jockey $1\!\leftrightarrow\!2$, $\gamma_1 n_1$, $\gamma_2 n_2$
          & jockey $1\!\to\!2$, $\gamma_1 n_1$
          & jockey $1\!\to\!2$, $\gamma_1\mathbf{1}_{\{n_1\ge1\}}$
          & abandon, $\theta_1 n_1$
          & abandon, $\theta_1\mathbf{1}_{\{n_1\ge1\}}$ \\
         Fundamental equation
          & algebraic
+         & 1st-order PDE
          & 1st-order ODE
          & algebraic
          & 1st-order ODE
          & algebraic \\
         Pinning of $P_y(y)$
          & kernel root $x^*(y)$
+         & open ---Volterra eq.
          & analyticity at $x=y$
          & kernel root $x^*(y)$
          & boundedness at $x=1$
          & kernel root $x^*(y)$ \\
         $P(x,y)$ form
          & rational
+         & integral, unknown $P_y$
          & integral $+\,{}_1F_1$
          & rational
          & integral $+\,{}_1F_1$
          & rational \\
         Conserves total $N$?
+         & yes
          & yes
          & yes
          & yes
@@ -94,15 +102,18 @@ With every closed form validated, we compare the five solved models: Model-$A$ (
          & $\rho(1-\rho)$
          & $\rho(1-\rho)$
          & $\rho(1-\rho)$
+         & $\rho(1-\rho)$
          & \eqref{eq:C2:pi00}
          & \eqref{eq:C21:pi0_pi00} \\
         $\pi_0$
          & $1-\rho$
          & $1-\rho$
          & $1-\rho$
+         & $1-\rho$
          & $>1-\rho$, \eqref{eq:C2:pi0}
          & \eqref{eq:C21:pi0_pi00} \\
         Stability condition
+         & $\rho<1$
          & $\rho<1$
          & $\rho<1$
          & $\rho<1$
@@ -114,35 +125,35 @@ With every closed form validated, we compare the five solved models: Model-$A$ (
 
 \subsubsection*{Model-\texorpdfstring{$A$}{A}: the rational baseline}
 
-Model-$A$ is a classical, well-known model, so it acts as a baseline model to which all the rest should reduce as their active mechanism parameters approach zero. All performance measures have a closed-form representation, and it also shows some structural identities that persist across other models, such as the conservation of the total number of customers for other models without abandonments ---for those with abandonments, it shows how the performance measures change.
+Model-$A$ is classical and well understood, so it acts as the baseline to which every other model should reduce as its active mechanism parameters approach zero. All of the performance measures used in this chapter ---the mean queue lengths $\mathbb{E}[N_1]$, $\mathbb{E}[N_2]$, $\mathbb{E}[N]$, the waiting times $\mathbb{E}[W_1]$, $\mathbb{E}[W_2]$, and the empty-state probabilities $\pi_0$, $\pi(0,0)$--- admit closed forms for Model-$A$. It also exhibits the structural identities that persist across the models without abandonment ---notably conservation of the total number of customers--- and against which the deviations of the abandonment models are measured.
 
 
 \subsubsection*{Effect of jockeying: Model-\texorpdfstring{$A$}{A} \texorpdfstring{$\to$}{->} Model-\texorpdfstring{$B_2$}{B2}}
 
-Adding one-way jockeying ($\gamma_1>0$, $\gamma_2=0$) couples the two queues: a class-1 customer waiting in the queue for class-$2$ may defect to the queue for class-$2$ at rate $\gamma_1$. The consequences are asymmetric.
+Adding one-way jockeying ($\gamma_1>0$, $\gamma_2=0$) couples the two queues: a class-1 customer waiting in Queue~1 may transition to the queue for class-$2$ at rate $\gamma_1$. The effect on the two classes is asymmetric.
 
-\emph{What is preserved.} Jockeying merely reallocates customers, so the total count of customers in the queues is preserved and remains to be that of the standard $M/M/1$ queueing model. Consequently $P(z,z)$, $\pi_0$, $\pi(0,0)$, and $\mathbb{E}[N]$ are identical
+\emph{What is preserved?} Jockeying merely reallocates customers, so the total count of customers in the queues is preserved and remains to be that of the standard $M/M/1$ queueing model. Consequently $P(z,z)$, $\pi_0$, $\pi(0,0)$, and $\mathbb{E}[N]$ are identical
 to Model-$A$ for all $\gamma_1>0$.
 
-\emph{What no longer holds.} Jockeying breaks the Poisson arrival stream. In the case of Model-$B_2$, the arrivals of class-$2$, as they can either arrive by a normal Poisson process or by jockeying from the queue of class-$1$, which adds a state-dependent rate. The Pollaczek-Khinchine route is therefore not available.
+\emph{What no longer holds?} Jockeying breaks the Poisson structure of the class-$2$ input: customers join Queue~2 either by an exogenous Poisson arrival or by jockeying from Queue~1, and the latter occurs at a state-dependent rate. The Pollaczek--Khinchine argument used for Model-$A$ ---which treats Queue~2 as an $M/G/1$ queue whose service times are class-1 busy periods (\S\ref{sssec:A:probabilistic})--- is therefore not available.
 
-\emph{What is new.}
-The PGF satisfies a first-order linear ODE in $x$, for each fixed $y$. The solution is found by means of an integrating factor with a singularity at the point $x=y$; therefore the singularity must vanish since $P$ is a PGF and, hence, analytic. This narrows it down to a ratio of Kummer functions. 
+\emph{What is new?}
+The PGF satisfies a first-order linear ODE in $x$, for each fixed $y$. The solution is found by means of an integrating factor with a singularity at the point $x=y$; therefore the singularity must vanish since $P(x,y)$ is a PGF and, hence, analytic. This narrows it down to a ratio of Kummer functions.
 
 
 \subsubsection*{Effect of abandonment: Model-\texorpdfstring{$A$}{A} \texorpdfstring{$\to$}{->} Model-\texorpdfstring{$C_2$}{C2}}
 
 Adding class-1 abandonment ($\theta_1>0$, $\theta_2=0$, $\gamma_i=0$) allows each waiting class-$1$ customer to leave the system at a per-customer rate $\theta_1$.
 
-\emph{What is preserved.} Class-$2$ customers still see Poisson arrivals, as abandonment in class-$1$ does not alter the stream of arrivals to the queue for class-$2$. Therefore, the PASTA property still appries, and so does the Pollaczek-Khinchine probabilistic approach to derive $P_y(y)$. 
+\emph{What is preserved?} Class-$2$ customers still see Poisson arrivals, as abandonment in class-$1$ does not alter the stream of arrivals to the queue for class-$2$. Therefore, the PASTA property still applies, and so does the Pollaczek--Khinchine probabilistic approach to derive $P_y(y)$.
 
-\emph{What no longer holds.} Since abandonment is a true departure from the system, the total number of customers is no longer preserved, requiring a more mathematically involved analysis compared to Corollary~\ref{cor:A:pi0} to determine the stability conditions, the idle system probability $\pi_0$ and the busy-server-empty-queues probability $\pi(0,0)$.
+\emph{What no longer holds?} Since abandonment removes customers from the system altogether, the total number of customers is no longer preserved, requiring a more mathematically involved analysis compared to Corollary~\ref{cor:A:pi0} to determine the stability conditions, the idle system probability $\pi_0$ and the busy-server-empty-queues probability $\pi(0,0)$.
 
-\emph{What is new.} The PGF satisfies a first-order linear ODE in $x$, for fixed $y$, as in Model-$B$. Here the singularity is found at the boundary $x=1$, with a positive exponent so that the integrating factor $\mu_I$ vanishes there and $\int_0^1 q\,\mu_I\,dt=0$ is imposed by boundedness of the PGF.
+\emph{What is new?} The PGF satisfies a first-order linear ODE in $x$, for fixed $y$, as in Model-$B_2$. Here the singularity is found at the boundary $x=1$, with a positive exponent so that the integrating factor $\mu_I$ vanishes there and $\int_0^1 q\,\mu_I\,dt=0$ is imposed by boundedness of the PGF.
 
-\subsubsection*{Mechanism contrast: Models~\texorpdfstring{$B_2$}{B2} and C\texorpdfstring{$_2$}{2}}
+\subsubsection*{Mechanism contrast: Models~\texorpdfstring{$B_2$}{B2} and \texorpdfstring{$C_2$}{C2}}
 
-Both models reduce the fundamental equation to a first-order linear ODE in $x$ and both close in confluent hypergeometric functions; but the mechanism that determines the boundary function $P_y(y)$ is structurally different.
+Both models reduce the fundamental equation to a first-order linear ODE in $x$ and both solutions are expressed in terms of confluent hypergeometric functions; but the mechanism that determines the boundary function $P_y(y)$ is structurally different. In the table below, $\mu_I$ denotes the integrating factor of the respective ODE and $\beta(y)$ the exponent with which $\mu_I$ vanishes or blows up at the operative singular point, as defined in Equations~\eqref{eq:B2:exponents_thm} and~\eqref{eq:C2:exponents}.
 
 \begin{center}
     \renewcommand{\arraystretch}{1.45}
@@ -150,7 +161,7 @@ Both models reduce the fundamental equation to a first-order linear ODE in $x$ a
         \hline
          & \textbf{Model-$C_2$ ($\theta_1>0$)} & \textbf{Model-$B_2$ ($\gamma_1>0$)} \\
         \hline
-        Convection coefficient
+        Derivative-term coefficient
          & $\theta_1\,x(x-1)$
          & $\gamma_1\,x(x-y)$ \\
         Operative singular point
@@ -164,7 +175,7 @@ Both models reduce the fundamental equation to a first-order linear ODE in $x$ a
          & \emph{analyticity}: branch coefficient $=0$ \\
         $\pi(0,0)$
          & $M/G/1{+}$renewal (conservation broken)
-         & $\rho(1-\rho)$ exactly (conservation holds) \\
+         & $\rho(1-\rho)$ (conservation holds) \\
         Probabilistic backbone
          & class-$2$ is $M/G/1$; P-K with $B_C$
          & class-$1$ is $M/M/1{+}M$ (reneging $=\gamma_1$); no P-K \\
@@ -172,35 +183,35 @@ Both models reduce the fundamental equation to a first-order linear ODE in $x$ a
     \end{tabular}
 \end{center}
 
-In words: for Model-$C_2$ the singularity sits on the boundary $x=1$ with a positive
-exponent, so $\mu_I$ vanishes and $P_y(y)$ is determined by the PGF being bounded; and the arrival stream for class-$2$ remains Poisson, so the Pollaczek-Khinchine and $M/G/1$ renewal argument yield $P_y(y)$ and $\pi(0,0)$. In contrast, for Model-$B_2$ the singularity is found at the interior point $x=y$ with a negative exponent, so $\mu_I$ blows up and only analycity determines $P_y(y)$. Jockeying leaves no room for the Pollaczek-Khinchine identity; the $M/M/1{+}M$ reading of the class-$1$ marginal is the origin of the ${}_1F_1$ factors.
+For Model-$C_2$ the singularity lies on the boundary $x=1$ with a positive
+exponent, so $\mu_I$ vanishes and $P_y(y)$ is determined by the PGF being bounded. The arrival stream for class-$2$ remains Poisson, so the Pollaczek--Khinchine and $M/G/1$ renewal argument yield $P_y(y)$ and $\pi(0,0)$. In contrast, for Model-$B_2$ the singularity is found at the interior point $x=y$ with a negative exponent, so $\mu_I$ blows up and only analyticity determines $P_y(y)$. Jockeying leaves no room for the Pollaczek--Khinchine identity; the $M/M/1{+}M$ reading of the class-$1$ marginal is the origin of the ${}_1F_1$ factors.
 
 \subsubsection*{Common Erlang-A structure}
 
-A common object appears in both Model-$B_2$ and Model-$c_2$:
+A common object appears in the PGF of both Model-$B_2$ and Model-$C_2$:
 \begin{equation}
     {}_1F_1\!\left(1;\,\frac{\mu}{r}+1;\,\frac{\lambda_1}{r}\right),
     \label{eq:comp:1F1}
 \end{equation}
 with $r=\gamma_1$ (Model-$B_2$) or $r=\theta_1$ (Model-$C_2$).
-This comes from the Erlang-A substructure: in C$_2$ it equals $\mu\,\mathbb{E}[B_C]$, while in
-B$_2$ it controls the Kummer ratio in $P_y(y)$ through the exponent $\alpha(y)=\mu/(\gamma_1 y)$. In both cases, the function evaluates a negative argument $(-\lambda_1/r)$ in C$_2$ and $(-\lambda_1 y/\gamma_1)$ in B$_2$, and the ratio ${}_1F_1(\alpha+1;\cdot;\cdot)/{}_1F_1(\alpha;\cdot;\cdot)$ acts as a boundary correction to the algebraic formula found in Model-$A$.
+This comes from the Erlang-A substructure: in Model-$C_2$ this Kummer value equals $\mu\,\mathbb{E}[B_C]$, while in
+Model-$B_2$ the same function ---with exponent $\alpha(y)=\mu/(\gamma_1 y)$--- governs the Kummer ratio in $P_y(y)$. In both cases, the function evaluates a negative argument ($-\lambda_1/r$ in Model-$C_2$ and $-\lambda_1 y/\gamma_1$ in Model-$B_2$), and the ratio ${}_1F_1(\alpha+1;\cdot;\cdot)/{}_1F_1(\alpha;\cdot;\cdot)$ acts as a boundary correction to the algebraic formula found in Model-$A$.
 
-Model-$B_2$ reduces to Model-$A$ only when $\gamma_1\to0^+$, in which the exponents $\alpha,\beta\to\infty$ and the Kummer ratio collapses to the expression $x^*(y)(1-y)/(x^*(y)-y)$ found in Model-$A$. Similarly, Model-$C_2$ degenerates to Model-$A$ uniformly
-as $\theta_1\to0^+$, and all formulas also recover their counterparts from Model-$A$
+Model-$B_2$ reduces to Model-$A$ only in the limit $\gamma_1\to0^+$, in which the exponents $\alpha(y),\beta(y)\to\infty$ and the Kummer ratio collapses to $x^*(y)(1-y)/(x^*(y)-y)$, the Model-$A$ boundary function~\eqref{eq:A:Py} up to the factor $\pi(0,0)$. Similarly, \mbox{Model-$C_2$} degenerates to Model-$A$ uniformly
+as $\theta_1\to0^+$, and all formulas recover their Model-$A$ counterparts.
 
 
 \subsubsection*{Head-of-line simplifications: Models~\texorpdfstring{$\BH$}{BH} and \texorpdfstring{$\CH$}{CH}}
 
 
 
-The head-of-line variants of \S\S\ref{sec:model_b21}--\ref{sec:model_c21} restrict each mechanism to the single customer at the head of the queue for class~$1$, replacing the length-proportional rate ($\gamma_1 n_1$ or $\theta_1 n_1$) by a constant one ($\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$ or $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$). As a consequence, the derivative terms in our fundamental equations disappear, leaving behind an algebraic expression.  For Model-$\BH$ the result is structurally identical to Model-$A$, the only change being $\mu\to\mu+\gamma_1 y$ in the kernel, and conservation is retained ($\pi_0=1-\rho$, $\pi(0,0)=\rho(1-\rho)$). For Model-$\CH$ the broken conservation of the number of total customers introduces the factor $(\mu+\theta_1)$ and the stability boundary shifts to Equation~\eqref{eq:C21:stability}. Each head-of-line model is hence the $k=1$ step of a ladder that connects between Model-$A$ and its full-rate parent ($B_2$ or $C_2$) as the head-of-line restriction is increased to more potential customers.
+The head-of-line variants of \S\S\ref{sec:model_b21}--\ref{sec:model_c21} restrict each mechanism to the single customer at the head of the queue for class~$1$, replacing the length-proportional rate ($\gamma_1 n_1$ or $\theta_1 n_1$) by a constant one ($\gamma_1\,\mathbf{1}_{\{n_1\ge1\}}$ or $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$). As a consequence, the derivative terms in our fundamental equations disappear, leaving behind an algebraic expression.  For Model-$\BH$ the result is structurally identical to Model-$A$, the only change being $\mu\to\mu+\gamma_1 y$ in the kernel, and conservation is retained ($\pi_0=1-\rho$, $\pi(0,0)=\rho(1-\rho)$). For Model-$\CH$ the broken conservation of the number of total customers introduces the factor $(\mu+\theta_1)$ and the stability boundary shifts to Equation~\eqref{eq:C21:stability}. Each head-of-line model may thus be viewed as the $k=1$ member of a family of models indexed by $k$, the number of waiting class-1 customers subject to the mechanism (rate $\gamma_1\min(n_1,k)$ or $\theta_1\min(n_1,k)$): the family starts at Model-$A$ ($k=0$), passes through the head-of-line models ($k=1$), and reaches the full-rate parents Model-$B_2$ and Model-$C_2$ as $k\to\infty$. This family is taken up again in the future work of \S\ref{sec:future_work}.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Quantitative comparison across load}
 \label{subsec:comp:sweep}
 
-Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we sweep the offered load $\rho$ across $[0.10,0.95]$ and compute the exact stationary performance measures of the five solved models with the truncated CTMC. Figure~\ref{fig:comp:sweep_en} plots $\mathbb{E}[N]$,$\mathbb{E}[N_1]$, $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ (Little's Law), and $\pi_0$; Table~\ref{tab:comp:main} reads the entire set of descriptors at three reference loads.
+Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we vary the offered load $\rho$ over $[0.10,0.95]$ and compute the exact stationary performance measures of the five solved models with the truncated CTMC. Figure~\ref{fig:comp:sweep_en} plots $\mathbb{E}[N]$, $\mathbb{E}[N_1]$, $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ (Little's Law), and $\pi_0$; Table~\ref{tab:comp:main} reads the entire set of descriptors at three reference loads.
 %% BEGIN SIMULATION RESULTS --- fig_sweep_EN_vs_rho %%
 \begin{figure}[H]
   \centering
@@ -213,9 +224,9 @@ Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we
   jockeying conserves $N$ (Corollaries~\ref{cor:A:pi0}, \ref{cor:B21:pi0}), while $C_2$ and
   $\CH$ lie strictly below because abandonment removes customers ($\CH$ by less).
   \emph{Top-right:} priority queue $\mathbb{E}[N_1]$ ---the head-of-line variants drain it
-  less than their full-rate cousins. \emph{Bottom-left:} priority waiting time
+  less than their full-rate counterparts. \emph{Bottom-left:} priority waiting time
   $\mathbb{E}[W_1]$. \emph{Bottom-right:} idle probability $\pi_0$, with the $1-\rho$ law
-  (Models~$A$, $B_2$, $\BH$) shown dotted; $C_2$ and $\CH$ sit above it for every $\rho$,
+  (Models~$A$, $B_2$, $\BH$) shown dotted; $C_2$ and $\CH$ lie above it for every $\rho$,
   as predicted by Corollaries~\ref{cor:C2:pi00}, \ref{cor:C21:pi0}.}
   \label{fig:comp:sweep_en}
 \end{figure}
@@ -224,19 +235,19 @@ Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we
 \input{figures/results/tab_comparison_main.tex}
 %% END SIMULATION RESULTS --- tab_comparison_main %%
 
-The two mechanisms differ fundamentally in the way they operate. Jockeying is an internal rearrangement of customers, whereas abandonment is a true departure: class-1 customers renege at rate $\theta_1 n_1$. This distinction has measurable consequences. Abandonment reduces the overall queue length and raises the idle probability, whereas jockeying merely redistributes the load.
+The two mechanisms differ fundamentally in the way they operate. Jockeying is an internal rearrangement of customers, whereas abandonment removes customers from the system. This distinction has direct consequences. Abandonment reduces the overall queue length and raises the idle probability, whereas jockeying merely redistributes the load.
 
-This is why $B_2$ and $A$ are virtually indistinguishable: jockeying alone cannot lighten the system. Their curves for $\mathbb{E}[N]$ and $\pi_0$ overlap across all traffic intensities. Model-$C_2$, by contrast, stands apart. The priority class sheds load before it reaches the server, keeping both the queue shorter and idle time higher.
+This is why $B_2$ and $A$ are virtually indistinguishable: jockeying alone cannot reduce the total number of customers in the system. Their curves for $\mathbb{E}[N]$ and $\pi_0$ overlap across all traffic intensities. Model-$C_2$, by contrast, stands apart. The priority class sheds load before it reaches the server, keeping both the queue shorter and idle time higher.
 
-The numbers back the claim. At $\rho=0.70$ (Table~\ref{tab:comp:main}), Model-$C_2$ achieves $\pi_0=\piZeroCtwoSeventy$ compared to $\piZeroASeventy$ for Model-$A$ and Model-$B_2$, with $\mathbb{E}[N]=\ENCtwoSeventy$ against $\ENASeventy$. At higher loads, the gap widens: $\rho=0.90$ sees the baseline class-2 queue increase to $\mathbb{E}[N_2]=\ENtwoANinety$, while Model-$C_2$ keeps it at $\ENtwoCtwoNinety$. The two head-of-line models set at a middle ground, interpolating between $A$ and their full-rate parents across every metric: Model-$\BH$ does not alter the queue-conservation property of Model-$B_2$ but shifts the class-$1$ share, whereas Model-$\CH$ sheds less load than Model-$C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$).
+The numbers back the claim. At $\rho=0.70$ (Table~\ref{tab:comp:main}), Model-$C_2$ achieves $\pi_0=\piZeroCtwoSeventy$ compared to $\piZeroASeventy$ for Model-$A$ and Model-$B_2$, with $\mathbb{E}[N]=\ENCtwoSeventy$ against $\ENASeventy$. At higher loads, the gap widens: $\rho=0.90$ sees the baseline class-2 queue increase to $\mathbb{E}[N_2]=\ENtwoANinety$, while Model-$C_2$ keeps it at $\ENtwoCtwoNinety$. The two head-of-line models occupy a middle ground, interpolating between $A$ and their full-rate parents across every metric: Model-$\BH$ does not alter the queue-conservation property of Model-$B_2$ but shifts the class-$1$ share, whereas Model-$\CH$ sheds less load than Model-$C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$).
 
-Two more things to be noted. First, $\mathbb{E}[W_1]$ is smallest for Model-$C_2$ at every load, but $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ counts waiting time in queue-$i$, which is shortened by every departure mode. So smaller $\mathbb{E}[W_1]$ does not certify faster service. Second, jockeying actively \emph{penalises} class~2: at $\rho=0.70$, Model-$B_2$ raises $\mathbb{E}[W_2]$ to $\EWtwoBtwoSeventy$ from the baseline $\EWtwoASeventy$
+Two remarks are in order. First, $\mathbb{E}[W_1]$ is smallest for Model-$C_2$ at every load. Here $\mathbb{E}[W_i]=\mathbb{E}[N_i]/\lambda_i$ is obtained from Little's Law applied to queue~$i$ with the full arrival rate $\lambda_i$, so it measures the mean time spent waiting in queue~$i$ per \emph{arriving} class-$i$ customer, where a customer's wait ends when it enters service \emph{or abandons}. Abandoning customers are thus counted with their time until abandonment, and a smaller $\mathbb{E}[W_1]$ reflects every departure mode rather than faster access to service. Second, jockeying actively \emph{penalises} class~2: at $\rho=0.70$, Model-$B_2$ raises $\mathbb{E}[W_2]$ to $\EWtwoBtwoSeventy$ from the baseline $\EWtwoASeventy$
 ($+\EWtwoBtwoInflationSeventy\%$).
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Convergence to the baseline}\label{subsec:results:convergence}
 
-Each of the four simplified models must recover the baseline Model-$A$ as their parameters for the active mechanisms approach zero: Model-$B_2$ and Model-$\BH$ as $\gamma_1\to0^+$, Model-$C_2$ and Model-$\CH$ as $\theta_1\to0^+$. Some of these limits have already been sketched in thos work's derivations, and we recover $\pi_0\to1-\rho$ and $\pi(0,0)\to\rho(1-\rho)$ (Corollary~\ref{cor:C2:pi00}). Here we confirm both limits numerically, on a single
+Each of the four simplified models must recover the baseline Model-$A$ as their parameters for the active mechanisms approach zero: Model-$B_2$ and Model-$\BH$ as $\gamma_1\to0^+$, Model-$C_2$ and Model-$\CH$ as $\theta_1\to0^+$. Some of these limits were already established analytically in the model chapters ---e.g.\ $\pi_0\to1-\rho$ and $\pi(0,0)\to\rho(1-\rho)$ (Corollary~\ref{cor:C2:pi00}). Here we confirm both limits numerically, on a single
 synoptic axis, and quantify the rate of approach.
 
 % fig_conv_combined.pdf is generated by Code/make_fig_convergence_combined.py
@@ -257,14 +268,14 @@ synoptic axis, and quantify the rate of approach.
   \label{fig:results:convergence}
 \end{figure}
 
-To measure how closely each simplified model approaches Model-$A$, we use the $L_1$ distance $\lVert\pi-\pi_A\rVert_1$ between their full joint distributions. As each model's distinguishing parameter decreases to zero (jockeying rate $\gamma$ for Model-$B_2$, abandonment rate $\theta_1$ for Model-$C_2$, and so on), all four variants converge back to the baseline. We capture this convergence by plotting the $L_1$-distance against the parameter on a log–log scale and measuring the slope.
+To measure how closely each simplified model approaches Model-$A$, we use the $L_1$ distance $\lVert\pi-\pi_A\rVert_1$ between their full joint distributions. As each model's distinguishing parameter decreases to zero (jockeying rate $\gamma_1$ for Model-$B_2$, abandonment rate $\theta_1$ for Model-$C_2$, and so on), all four variants converge back to the baseline. We capture this convergence by plotting the $L_1$-distance against the parameter on a log--log scale: on these axes the order of convergence appears directly as the slope of the plotted line, which is what we measure.
 
-Theory expects a slope of exactly $1$. Our results, shown in Figure~\ref{fig:results:convergence}(a), fall between $0.85$ and $0.93$ ---acceptableto validate the theoretical prediction. The small gap below unity seems to be motivated by having truncated the CTMC. When we discretize the state space for numerical computation and then fit a straight line to noisy data on a log–log plot, small numerical errors compound and pull the measured slope down slightly. The underlying convergence rate is indeed linear.
+Theory expects a slope of exactly $1$, i.e.\ first-order convergence. Indeed, the generator of the truncated chain depends affinely on the mechanism parameter $\varepsilon\in\{\gamma_1,\theta_1\}$, and the stationary distribution of a finite irreducible chain is, by Cramer's rule, a rational ---hence differentiable--- function of its transition rates; a first-order expansion $\pi(\varepsilon)=\pi_A+\varepsilon\,\pi'+O(\varepsilon^2)$ with $\pi'\neq0$ then gives $\lVert\pi(\varepsilon)-\pi_A\rVert_1=\Theta(\varepsilon)$. Our measured slopes, shown in Figure~\ref{fig:results:convergence}(a), fall between $0.85$ and $0.93$, which is acceptable to confirm the theoretical prediction. The small gap below unity is attributable to the truncation of the CTMC: fitting a straight line to finitely many, slightly noisy points on a log--log plot pulls the measured slope down. The underlying convergence rate is indeed linear. Equivalently, the figure can be read as a sensitivity analysis: the slopes quantify the first-order impact of the mechanism parameters $\gamma_1$ and $\theta_1$ on the stationary distribution.
 
 The two mechanisms are shown to converge to the baseline along fundamentally different paths, visible in Figure~\ref{fig:results:convergence}(b) by tracking the idle-state probabilities $\pi_0$ and $\pi(0,0)$.
 
-Under jockeying: these probabilities remain frozen at their Model-$A$ values. By Corollaries~\ref{cor:B2:pi00} and~\ref{cor:B21:pi0}, we have $\pi_0 = 1-\rho$ and $\pi(0,0) = \rho(1-\rho)$ identically for every $\gamma_1>0$, due to conservation of the total number of customers. Therefore, both Model-$B_2$ and Model-$\BH$ lie exactly on the Model-$A$ baseline throughout the entire parameter sweep. Their convergence to Model-$A$ is invisible at the level of idle probabilities; instead, it happens entirely in the interior, where mass gradually redistributes between the class-1 and class-2 coordinates.
+Under jockeying: these probabilities remain fixed at their Model-$A$ values. By Corollaries~\ref{cor:B2:pi00} and~\ref{cor:B21:pi0}, we have $\pi_0 = 1-\rho$ and $\pi(0,0) = \rho(1-\rho)$ identically for every $\gamma_1>0$, due to conservation of the total number of customers. Therefore, both Model-$B_2$ and Model-$\BH$ lie exactly on the Model-$A$ baseline throughout the entire parameter sweep. Their convergence to Model-$A$ is invisible at the level of idle probabilities; instead, it happens entirely in the interior, where mass gradually redistributes between the class-1 and class-2 coordinates.
 
-Under abandonment: the idle-state probabilities do change as abandonment is a true departure. They only recover Model-$A$ as $\theta_1\to0^+$. For Model-$C_2$ and Model-$\CH$, convergence is thus driven by both mechanisms: the idle state drifts, and the interior mass redistributes.
+Under abandonment: the idle-state probabilities do change, because abandonment removes customers from the system. They only recover Model-$A$ as $\theta_1\to0^+$. For Model-$C_2$ and Model-$\CH$, convergence is thus driven by both mechanisms: the idle state drifts, and the interior mass redistributes.
 
-This conservation under jockeying versus drift under abandonment is the same conservation dichotomy that distinguishes the two mechanisms throughout the entire comparison (\S\ref{sec:comparison}). Here, it simply appears at the convergence endpoint.
+This conservation under jockeying versus drift under abandonment is the same conservation dichotomy that distinguishes the two mechanisms throughout the entire comparison (\S\ref{sec:comparison}). In the convergence experiment it is visible along the entire parameter range, not merely in the limit: the conserving models remain pinned to the Model-$A$ idle values for every $\gamma_1$, whereas the abandonment models deviate for every $\theta_1>0$ and reach those values only as $\theta_1\to0^+$.
