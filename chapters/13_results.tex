@@ -206,22 +206,25 @@ The head-of-line variants of \S\S\ref{sec:model_b21}--\ref{sec:model_c21} restri
 \subsection{Quantitative comparison across load}
 \label{subsec:comp:sweep}
 
-Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we vary the offered load $\rho$ over $[0.10,0.95]$ and compute the exact stationary performance measures of the five solved models with the truncated CTMC. Figure~\ref{fig:comp:sweep_en} plots $\mathbb{E}[N]$, $\mathbb{E}[N_1]$, $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ (Little's Law), and $\pi_0$; Table~\ref{tab:comp:main} reads the entire set of descriptors at three reference loads.
+Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we vary the offered load $\rho$ over $[0.10,0.95]$ and compute the exact stationary performance measures of the five solved models with the truncated CTMC. The open Model-$B$ ($\gamma_1=0.5$, $\gamma_2=0.3$) joins this comparison on the same footing: every value here is computed from the truncated CTMC, so the missing closed form for its PGF is no obstacle to comparing it quantitatively. Figure~\ref{fig:comp:sweep_en} plots $\mathbb{E}[N]$, $\mathbb{E}[N_1]$, $\mathbb{E}[W_1]=\mathbb{E}[N_1]/\lambda_1$ (Little's Law), and $\pi_0$; Table~\ref{tab:comp:main} reads the entire set of descriptors at three reference loads.
 %% BEGIN SIMULATION RESULTS --- fig_sweep_EN_vs_rho %%
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/results/fig_sweep_EN_vs_rho.pdf}
-  \caption{Performance versus traffic intensity $\rho$ for the five solved models
-  ---the baseline $A$, the jockeying pair $B_2$, $\BH$ ($\gamma_1=0.5$), and the
+  \caption{Performance versus traffic intensity $\rho$ for the five solved models and the
+  open Model-$B$ ---the baseline $A$, the jockeying models $B$ ($\gamma_1=0.5$,
+  $\gamma_2=0.3$), $B_2$ and $\BH$ ($\gamma_1=0.5$), and the
   abandonment pair $C_2$, $\CH$ ($\theta_1=0.5$)--- at $\mu=1$ and
   $\lambda_1{:}\lambda_2=3{:}4$; the vertical line marks the canonical $\rho=0.70$.
-  \emph{Top-left:} total queue $\mathbb{E}[N]$ ---$A$, $B_2$ and $\BH$ coincide because
-  jockeying conserves $N$ (Corollaries~\ref{cor:A:pi0}, \ref{cor:B21:pi0}), while $C_2$ and
+  \emph{Top-left:} total queue $\mathbb{E}[N]$ ---$A$, $B$, $B_2$ and $\BH$ coincide because
+  jockeying conserves $N$ (Corollaries~\ref{cor:A:pi0}, \ref{cor:B:pi00},
+  \ref{cor:B21:pi0}), while $C_2$ and
   $\CH$ lie strictly below because abandonment removes customers ($\CH$ by less).
   \emph{Top-right:} priority queue $\mathbb{E}[N_1]$ ---the head-of-line variants drain it
-  less than their full-rate counterparts. \emph{Bottom-left:} priority waiting time
+  less than their full-rate counterparts, and the two-way Model-$B$ \emph{lengthens} it.
+  \emph{Bottom-left:} priority waiting time
   $\mathbb{E}[W_1]$. \emph{Bottom-right:} idle probability $\pi_0$, with the $1-\rho$ law
-  (Models~$A$, $B_2$, $\BH$) shown dotted; $C_2$ and $\CH$ lie above it for every $\rho$,
+  (Models~$A$, $B$, $B_2$, $\BH$) shown dotted; $C_2$ and $\CH$ lie above it for every $\rho$,
   as predicted by Corollaries~\ref{cor:C2:pi00}, \ref{cor:C21:pi0}.}
   \label{fig:comp:sweep_en}
 \end{figure}
@@ -232,7 +235,7 @@ Keeping $\mu=1$ and the arrival split fixed at $\lambda_1{:}\lambda_2=3{:}4$, we
 
 The two mechanisms differ fundamentally in the way they operate. Jockeying is an internal rearrangement of customers, whereas abandonment removes customers from the system. This distinction has direct consequences. Abandonment reduces the overall queue length and raises the idle probability, whereas jockeying merely redistributes the load.
 
-This is why $B_2$ and $A$ are virtually indistinguishable: jockeying alone cannot reduce the total number of customers in the system. Their curves for $\mathbb{E}[N]$ and $\pi_0$ overlap across all traffic intensities. Model-$C_2$, by contrast, stands apart. The priority class sheds load before it reaches the server, keeping both the queue shorter and idle time higher.
+This is why $B_2$ and $A$ are virtually indistinguishable: jockeying alone cannot reduce the total number of customers in the system. Their curves for $\mathbb{E}[N]$ and $\pi_0$ overlap across all traffic intensities. The same holds for the two-way Model-$B$: its $\mathbb{E}[N]$, $\pi_0$ and $\pi(0,0)$ values coincide with Model-$A$'s at every load, which is a direct numerical confirmation of Corollary~\ref{cor:B:pi00} for the one model whose PGF remains open. Its per-class split, however, moves in the \emph{opposite} direction to $B_2$'s: because the priority discipline keeps Queue~2 long, the return flow $\gamma_2 n_2$ outweighs the drain $\gamma_1 n_1$ even though $\gamma_2<\gamma_1$, and the two-way exchange \emph{lengthens} the priority queue ---at $\rho=0.70$, Table~\ref{tab:comp:main} shows $\mathbb{E}[N_1]$ rising to $0.51$, against $\ENoneASeventy$ for $A$ and $\ENoneBtwoSeventy$ for $B_2$. Model-$C_2$, by contrast, stands apart. The priority class sheds load before it reaches the server, keeping both the queue shorter and idle time higher.
 
 The numbers back the claim. At $\rho=0.70$ (Table~\ref{tab:comp:main}), Model-$C_2$ achieves $\pi_0=\piZeroCtwoSeventy$ compared to $\piZeroASeventy$ for Model-$A$ and Model-$B_2$, with $\mathbb{E}[N]=\ENCtwoSeventy$ against $\ENASeventy$. At higher loads, the gap widens: $\rho=0.90$ sees the baseline class-2 queue increase to $\mathbb{E}[N_2]=\ENtwoANinety$, while Model-$C_2$ keeps it at $\ENtwoCtwoNinety$. The two head-of-line models occupy a middle ground, interpolating between $A$ and their full-rate parents across every metric: Model-$\BH$ does not alter the queue-conservation property of Model-$B_2$ but shifts the class-$1$ share, whereas Model-$\CH$ sheds less load than Model-$C_2$ ($\pi_0=\piZeroCHSeventy$, $\mathbb{E}[N]=\ENCHSeventy$ at $\rho=0.70$).
 
@@ -255,19 +258,22 @@ synoptic axis, and quantify the rate of approach.
   $L_1$ distance $\lVert\pi-\pi_A\rVert_1$ between the full joint distributions against the
   distinguishing mechanism parameter ($\gamma_1$ for the jockeying pair $B_2,\BH$; $\theta_1$
   for the abandonment pair $C_2,\CH$); all four collapse onto the baseline at first order,
-  with the fitted log--log slopes shown in the legend. \emph{(b)}~The empty-state descriptors
-  $\pi_0$ and $\pi(0,0)$: the conserving models $B_2$ and $\BH$ remain pinned to the
-  Model-$A$ values $1-\rho$ and $\rho(1-\rho)$ (dashed) for every $\gamma_1$, so they converge
-  by interior redistribution alone, whereas $C_2$ and $\CH$ drift above both lines and relax
-  back onto them only as $\theta_1\to0^+$.}
+  with the fitted log--log slopes shown in the legend. \emph{(b)}~The same distances on
+  linear axes over the fitted range: the response grows linearly through the origin
+  ---the first-order behaviour read off directly, without logarithmic compression--- and
+  bends only as the mechanism saturates. \emph{(c)}~The idle probability $\pi_0$: the
+  conserving models $B_2$ and $\BH$ remain pinned to the Model-$A$ value $1-\rho$ (dotted)
+  for every $\gamma_1$, so they converge by interior redistribution alone, whereas $C_2$
+  and $\CH$ drift above and relax back only as $\theta_1\to0^+$. \emph{(d)}~The same
+  contrast for the busy-but-empty probability $\pi(0,0)$ against $\rho(1-\rho)$.}
   \label{fig:results:convergence}
 \end{figure}
 
-To measure how closely each simplified model approaches Model-$A$, we use the $L_1$ distance $\lVert\pi-\pi_A\rVert_1$ between their full joint distributions. As each model's distinguishing parameter decreases to zero (jockeying rate $\gamma_1$ for Model-$B_2$, abandonment rate $\theta_1$ for Model-$C_2$, and so on), all four variants converge back to the baseline. We capture this convergence by plotting the $L_1$-distance against the parameter on a log--log scale: on these axes the order of convergence appears directly as the slope of the plotted line, which is what we measure.
+To measure how closely each simplified model approaches Model-$A$, we use the $L_1$ distance $\lVert\pi-\pi_A\rVert_1$ between their full joint distributions. As each model's distinguishing parameter decreases to zero (jockeying rate $\gamma_1$ for Model-$B_2$, abandonment rate $\theta_1$ for Model-$C_2$, and so on), all four variants converge back to the baseline. We capture this convergence by plotting the $L_1$-distance against the parameter on a log--log scale: on these axes the order of convergence appears directly as the slope of the plotted line, which is what we measure. Panel~(b) of Figure~\ref{fig:results:convergence} shows the same distances on linear axes as a complementary view: the linear growth through the origin exhibits the first-order response directly.
 
 Theory expects a slope of exactly $1$, i.e.\ first-order convergence. Indeed, the generator of the truncated chain depends affinely on the mechanism parameter $\varepsilon\in\{\gamma_1,\theta_1\}$, and the stationary distribution of a finite irreducible chain is, by Cramer's rule, a rational ---hence differentiable--- function of its transition rates; a first-order expansion $\pi(\varepsilon)=\pi_A+\varepsilon\,\pi'+O(\varepsilon^2)$ with $\pi'\neq0$ then gives $\lVert\pi(\varepsilon)-\pi_A\rVert_1=\Theta(\varepsilon)$. Our measured slopes, shown in Figure~\ref{fig:results:convergence}(a), fall between $0.85$ and $0.93$, which is acceptable to confirm the theoretical prediction. The small gap below unity is attributable to the truncation of the CTMC: fitting a straight line to finitely many, slightly noisy points on a log--log plot pulls the measured slope down. The underlying convergence rate is indeed linear. Equivalently, the figure can be read as a sensitivity analysis: the slopes quantify the first-order impact of the mechanism parameters $\gamma_1$ and $\theta_1$ on the stationary distribution.
 
-The two mechanisms are shown to converge to the baseline along fundamentally different paths, visible in Figure~\ref{fig:results:convergence}(b) by tracking the idle-state probabilities $\pi_0$ and $\pi(0,0)$.
+The two mechanisms are shown to converge to the baseline along fundamentally different paths, visible in Figure~\ref{fig:results:convergence}(c) and~(d) by tracking the idle-state probabilities $\pi_0$ and $\pi(0,0)$.
 
 Under jockeying: these probabilities remain fixed at their Model-$A$ values. By Corollaries~\ref{cor:B2:pi00} and~\ref{cor:B21:pi0}, we have $\pi_0 = 1-\rho$ and $\pi(0,0) = \rho(1-\rho)$ identically for every $\gamma_1>0$, due to conservation of the total number of customers. Therefore, both Model-$B_2$ and Model-$\BH$ lie exactly on the Model-$A$ baseline throughout the entire parameter sweep. Their convergence to Model-$A$ is invisible at the level of idle probabilities; instead, it happens entirely in the interior, where mass gradually redistributes between the class-1 and class-2 coordinates.
 

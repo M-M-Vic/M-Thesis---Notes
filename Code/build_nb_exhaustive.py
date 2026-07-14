@@ -129,6 +129,7 @@ plt.rcParams.update({
 
 # ── Consistent cross-notebook colour scheme ───────────────────────────────────
 C_A,   LS_A   = "black",     "-"          # Model A    = black solid (reference baseline)
+C_B,   LS_B   = "darkorange","--"         # Model B    = orange dashed (two-way jockeying, CTMC only)
 C_B2,  LS_B2  = "steelblue", "--"         # Model B2   = steelblue dashed (full-rate jockeying)
 C_C2,  LS_C2  = "crimson",   "-."         # Model C2   = crimson dash-dot (full-rate abandonment)
 C_B21, LS_B21 = "teal",      ":"          # Model B2^1 = teal dotted  (head-of-line jockeying)
@@ -154,6 +155,7 @@ LAM1_SYM, LAM2_SYM = 0.35, 0.35     # symmetric:  rho = 0.70
 LAM1_ASYM, LAM2_ASYM = 0.50, 0.20   # asymmetric: heavy prio class, rho = 0.70
 LAM1_STD, LAM2_STD = 0.30, 0.40     # standard (matches existing notebooks), rho = 0.70
 GAMMA1_CANON  = 0.50
+GAMMA2_CANON  = 0.30   # full Model-B second direction (2->1); matches build_notebook.py
 THETA1_CANON  = 0.50
 N_MAX_DEFAULT = 50
 RHO_SWEEP     = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.75,
@@ -357,7 +359,8 @@ throughput $+$ abandonment $=$ offered load) are additionally asserted against t
 md(r"""### [Sanity suite — baseline identities]
 **Validation method:** CTMC exact solver + `pgf_series`.
 **Parameters:** $\mu=1$; three sets each with $\rho=0.70$ (standard $\lambda=(0.3,0.4)$,
-symmetric $(0.35,0.35)$, asymmetric $(0.5,0.2)$); B₂ uses $\gamma_1=0.5$, C₂ uses $\theta_1=0.5$.""")
+symmetric $(0.35,0.35)$, asymmetric $(0.5,0.2)$); B uses $\gamma_1=0.5$, $\gamma_2=0.3$;
+B₂ uses $\gamma_1=0.5$, C₂ uses $\theta_1=0.5$.""")
 
 code(r'''
 CANON_SETS = [
@@ -371,6 +374,8 @@ def build_models(lam1, lam2):
     # (name, Params, mm1_identities_hold, closed_form_or_None)
     return [
         ("A",    Params(lam1, lam2, MU),                       True,  None),
+        ("B",    Params(lam1, lam2, MU, gamma1=GAMMA1_CANON,
+                        gamma2=GAMMA2_CANON),                  True,  None),  # open model: CTMC only
         ("B2",   Params(lam1, lam2, MU, gamma1=GAMMA1_CANON),  True,  None),
         ("B2^1", model_B21(lam1, lam2, MU, GAMMA1_CANON),      True,
                  b21_closed(lam1, lam2, MU, GAMMA1_CANON)),    # head-of-line jockeying: conserves N
@@ -416,7 +421,7 @@ for setname, lam1, lam2 in CANON_SETS:
         assert abs(little - d["E_n"]) < 1e-4, "Little's Law"
         rows.append((setname, mname, "E[N]=λ₁E[W₁]+λ₂E[W₂]", little, d["E_n"], "PASS"))
 
-        # --- Model-A identities (A, B2 only) ---
+        # --- Model-A identities (conserving models A, B, B2, B2^1 only) ---
         if mm1:
             assert abs(pi0 - (1-rho)) < 1e-5, f"pi0 {setname}/{mname}"
             assert abs(pi00 - rho*(1-rho)) < 1e-5, f"pi00 {setname}/{mname}"
@@ -461,10 +466,14 @@ md(r"""### [Comparative Analysis — traffic-intensity sweep]
 **Purpose:** how mean queue/wait, idle probability, and throughput respond to load under
 each mechanism, contrasting full-rate ($\gamma_1 n_1$, $\theta_1 n_1$) and head-of-line
 ($\gamma_1\mathbf{1}_{\{n_1\geq1\}}$, $\theta_1\mathbf{1}_{\{n_1\geq1\}}$) versions.
-**Models contrasted:** A, B₂, $B_2^{\mathrm{H}}$, C₂, $C_2^{\mathrm{H}}$. **Expected behaviour:** all metrics
+**Models contrasted:** A, B (two-way jockeying, CTMC only ---no closed form exists), B₂,
+$B_2^{\mathrm{H}}$, C₂, $C_2^{\mathrm{H}}$. **Expected behaviour:** all metrics
 rise with $\rho$; both abandonment models keep $\pi_0>1-\rho$ (C₂ more than $C_2^{\mathrm{H}}$) and
-bound $E[N_1]$; both jockeying models match A in $E[N]$ and $\pi_0$ (conservation of $N$).
-**Parameters:** $\mu=1$, $\lambda_1{:}\lambda_2=3{:}4$, $\gamma_1=0.5$, $\theta_1=0.5$.""")
+bound $E[N_1]$; all jockeying models (B, B₂, $B_2^{\mathrm{H}}$) match A in $E[N]$ and $\pi_0$
+(conservation of $N$) ---for the open Model-B this overlap is itself a verification of
+Corollary cor:B:pi00.
+**Parameters:** $\mu=1$, $\lambda_1{:}\lambda_2=3{:}4$, $\gamma_1=0.5$ ($\gamma_2=0.3$ for B),
+$\theta_1=0.5$.""")
 
 code(r'''
 def split_lams(rho):
@@ -472,7 +481,7 @@ def split_lams(rho):
     frac1 = LAM1_STD / (LAM1_STD + LAM2_STD)
     return rho * frac1 * MU, rho * (1 - frac1) * MU
 
-SWEEP_MODELS = ("A", "B2", "B2^1", "C2", "C2^1")
+SWEEP_MODELS = ("A", "B", "B2", "B2^1", "C2", "C2^1")
 sweep = {m: {k: [] for k in ("En1","En2","En","Ew1","Ew2","pi0","pi00","thr","tail")}
          for m in SWEEP_MODELS}
 
@@ -481,6 +490,7 @@ for rho in RHO_SWEEP:
     cap = 100 if rho <= 0.90 else 120
     tol = 1e-8 if rho <= 0.85 else 1e-6
     cfgs = {"A":    Params(lam1, lam2, MU),
+            "B":    Params(lam1, lam2, MU, gamma1=GAMMA1_CANON, gamma2=GAMMA2_CANON),
             "B2":   Params(lam1, lam2, MU, gamma1=GAMMA1_CANON),
             "B2^1": model_B21(lam1, lam2, MU, GAMMA1_CANON),
             "C2":   Params(lam1, lam2, MU, theta1=THETA1_CANON),
@@ -512,38 +522,40 @@ STYLE = {"A":    (C_A,   LS_A,   "Model A"),
          "C2":   (C_C2,  LS_C2,  r"Model C$_2$ ($\theta_1=0.5$)"),
          "C2^1": (C_C21, LS_C21, r"Model $C_2^{\mathrm{H}}$ ($\theta_1=0.5$)")}
 
+# The sweep figures additionally show the open Model-B (two-way jockeying, CTMC only);
+# the class-asymmetry and dashboard cells keep the five solved models of STYLE.
+SWEEP_STYLE = {"A": STYLE["A"],
+               "B": (C_B, LS_B, r"Model B ($\gamma_1=0.5$, $\gamma_2=0.3$)"),
+               **{k: v for k, v in STYLE.items() if k != "A"}}
+
 SHORT = {"A": "A", "B2": r"B$_2$", "B2^1": r"$B_2^{\mathrm{H}}$", "C2": r"C$_2$", "C2^1": r"$C_2^{\mathrm{H}}$"}
 
 fig, ax = plt.subplots(2, 2, figsize=(12, 8))
 
-for m,(c,ls,lab) in STYLE.items():
+for m,(c,ls,lab) in SWEEP_STYLE.items():
     ax[0,0].plot(rho_arr, sweep[m]["En"], ls, color=c, lw=2, label=lab)
 ax[0,0].axvline(0.70, color="grey", ls=":", lw=1)
 ax[0,0].set_xlabel(r"$\rho$"); ax[0,0].set_ylabel(r"$E[N]$")
 ax[0,0].set_title(r"Mean queue length $E[N]$ vs traffic intensity $\rho$")
 ax[0,0].legend(loc="best"); ax[0,0].grid(alpha=0.3)
 
-for m,(c,ls,lab) in STYLE.items():
+for m,(c,ls,lab) in SWEEP_STYLE.items():
     ax[0,1].plot(rho_arr, sweep[m]["En1"], ls, color=c, lw=2, label=lab)
 ax[0,1].axvline(0.70, color="grey", ls=":", lw=1)
 ax[0,1].set_xlabel(r"$\rho$"); ax[0,1].set_ylabel(r"$E[N_1]$")
 ax[0,1].set_title(r"Class-1 mean queue $E[N_1]$ vs $\rho$")
 ax[0,1].legend(loc="best"); ax[0,1].grid(alpha=0.3)
 
-for m,(c,ls,lab) in STYLE.items():
+for m,(c,ls,lab) in SWEEP_STYLE.items():
     ax[1,0].plot(rho_arr, sweep[m]["Ew1"], ls, color=c, lw=2, label=lab)
 ax[1,0].axvline(0.70, color="grey", ls=":", lw=1)
 ax[1,0].set_xlabel(r"$\rho$"); ax[1,0].set_ylabel(r"$E[W_1]$")
 ax[1,0].set_title(r"Priority waiting time $E[W_1]=E[N_1]/\lambda_1$ (Little's Law)")
 ax[1,0].legend(loc="upper left"); ax[1,0].grid(alpha=0.3)
 
-for m,(c,ls,lab) in STYLE.items():
+for m,(c,ls,lab) in SWEEP_STYLE.items():
     ax[1,1].plot(rho_arr, sweep[m]["pi0"], ls, color=c, lw=2, label=lab)
 ax[1,1].plot(rho_arr, 1 - rho_arr, ":", color="black", lw=1.2, label=r"$1-\rho$ (Model A law)")
-ax[1,1].annotate("abandonment\nincreases idle\nprobability  ($\\pi_0>1-\\rho$)",
-                 xy=(0.85, np.interp(0.85, rho_arr, sweep["C2"]["pi0"])),
-                 xytext=(0.05, 0.16), textcoords="axes fraction", fontsize=10,
-                 arrowprops=dict(arrowstyle="->", color=C_C2, lw=0.9), color=C_C2)
 ax[1,1].set_xlabel(r"$\rho$"); ax[1,1].set_ylabel(r"$\pi_0$")
 ax[1,1].set_title(r"Idle probability $\pi_0$ vs $\rho$")
 ax[1,1].legend(loc="best"); ax[1,1].grid(alpha=0.3)
@@ -558,7 +570,7 @@ for a in ax.flat:
             t.set_fontsize(10.5)
 
 fig.suptitle(r"Traffic-intensity sweep ($\mu=1$, $\lambda_1{:}\lambda_2=3{:}4$): "
-             r"A, B$_2$, $B_2^{\mathrm{H}}$ (jockeying) vs C$_2$, $C_2^{\mathrm{H}}$ (abandonment)", fontsize=14)
+             r"A; B, B$_2$, $B_2^{\mathrm{H}}$ (jockeying) vs C$_2$, $C_2^{\mathrm{H}}$ (abandonment)", fontsize=14)
 fig.tight_layout()
 savefig("fig_sweep_EN_vs_rho")
 plt.show()
@@ -569,8 +581,8 @@ code(r'''
 fig, ax = plt.subplots(figsize=(8, 5))
 rr = np.linspace(0.05, 0.97, 200)
 ax.plot(rr, rr*(1-rr), ":", color="black", lw=1.5,
-        label=r"$\rho(1-\rho)$ (Models A, B$_2$, $B_2^{\mathrm{H}}$)")
-for m,(c,ls,lab) in STYLE.items():
+        label=r"$\rho(1-\rho)$ (Models A, B, B$_2$, $B_2^{\mathrm{H}}$)")
+for m,(c,ls,lab) in SWEEP_STYLE.items():
     ax.plot(rho_arr, sweep[m]["pi00"], ls, color=c, lw=2, marker="o", ms=4, label=lab)
 ax.annotate("abandonment lifts " r"$\pi(0,0)$ above the parabola:" "\n"
             r"C$_2$ (full) more than $C_2^{\mathrm{H}}$ (head-of-line)",
@@ -579,7 +591,7 @@ ax.annotate("abandonment lifts " r"$\pi(0,0)$ above the parabola:" "\n"
             arrowprops=dict(arrowstyle="->", color=C_C2, lw=0.9))
 ax.text(0.45, 0.245, r"$\pi(0,0)=\rho(1-\rho)$", fontsize=10, color="black")
 ax.set_xlabel(r"$\rho$"); ax.set_ylabel(r"$\pi(0,0)$")
-ax.set_title(r"$\pi(0,0)$ vs $\rho$: A, B$_2$, $B_2^{\mathrm{H}}$ track the parabola; "
+ax.set_title(r"$\pi(0,0)$ vs $\rho$: A, B, B$_2$, $B_2^{\mathrm{H}}$ track the parabola; "
              r"C$_2$, $C_2^{\mathrm{H}}$ rise above")
 ax.legend(loc="best"); ax.grid(alpha=0.3)
 fig.tight_layout()
@@ -1283,24 +1295,30 @@ def metrics_at(p):
                 pi0=r["pi_idle"], pi00=r["pi_joint"][0,0])
 
 lines = [r"\begin{table}[t]\centering",
-         r"\caption{Comparison of Models A, B$_2$ and $\BH$ ($\gamma_1=0.5$), and C$_2$ "
-         r"and $\CH$ ($\theta_1=0.5$) at three traffic intensities with "
-         r"$\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$. The primed models use the head-of-line "
-         r"rate $\mathbf{1}_{\{n_1\geq1\}}$; the unprimed use the full rate $n_1$.}",
+         r"\caption{Comparison of Models $A$, $B$ ($\gamma_1=0.5$, $\gamma_2=0.3$), $B_2$ "
+         r"and $\BH$ ($\gamma_1=0.5$), and $C_2$ and $\CH$ ($\theta_1=0.5$) at three "
+         r"traffic intensities with $\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$. The "
+         r"head-of-line models $\BH$ and $\CH$ use the rate "
+         r"$\gamma_1\mathbf{1}_{\{n_1\geq1\}}$, respectively "
+         r"$\theta_1\mathbf{1}_{\{n_1\geq1\}}$; Model-$B_2$ and Model-$C_2$ use the full "
+         r"rates $\gamma_1 n_1$ and $\theta_1 n_1$. Model-$B$, whose PGF remains open, "
+         r"joins through its truncated-CTMC solution ---like every entry of this table--- "
+         r"since no closed form is required for the comparison.}",
          r"\label{tab:comp:main}",
          r"\begin{tabular}{llrrrrrrr}", r"\toprule",
          r"$\rho$ & Model & $E[N_1]$ & $E[N_2]$ & $E[N]$ & $E[W_1]$ & $E[W_2]$ & $\pi_0$ & $\pi(0,0)$ \\",
          r"\midrule"]
 for ri, rho in enumerate((0.50, 0.70, 0.90)):
     l1, l2 = split_lams(rho)
-    mods = [("A", Params(l1,l2,MU)),
-            ("B$_2$", Params(l1,l2,MU,gamma1=0.5)),
+    mods = [("$A$", Params(l1,l2,MU)),
+            ("$B$", Params(l1,l2,MU,gamma1=0.5,gamma2=0.3)),
+            ("$B_2$", Params(l1,l2,MU,gamma1=0.5)),
             (r"$\BH$", model_B21(l1,l2,MU,0.5)),
-            ("C$_2$", Params(l1,l2,MU,theta1=0.5)),
+            ("$C_2$", Params(l1,l2,MU,theta1=0.5)),
             (r"$\CH$", model_C21(l1,l2,MU,0.5))]
     for k,(name,p) in enumerate(mods):
         mm = metrics_at(p)
-        rcell = rf"\multirow{{5}}{{*}}{{{rho:.2f}}}" if k == 0 else ""
+        rcell = rf"\multirow{{6}}{{*}}{{{rho:.2f}}}" if k == 0 else ""
         lines.append(f"{rcell} & {name} & {mm['En1']:.4f} & {mm['En2']:.4f} & {mm['En']:.4f} & "
                      f"{mm['Ew1']:.4f} & {mm['Ew2']:.4f} & {mm['pi0']:.4f} & {mm['pi00']:.4f} \\\\")
     if ri < 2: lines.append(r"\midrule")
@@ -1317,9 +1335,9 @@ def _slp(s):
     return 'n/a' if not np.isfinite(s) else f'{s:.3f}'
 
 lines = [r"\begin{table}[t]\centering",
-         r"\caption{Empirical convergence rates of Models C$_2$, $\CH$, B$_2$ and $\BH$ "
-         r"to Model A, from log-log regression of the deviation against the mechanism "
-         r"parameter (fit over parameter $<1$). The primed (head-of-line) models converge "
+         r"\caption{Empirical convergence rates of Models $C_2$, $\CH$, $B_2$ and $\BH$ "
+         r"to Model-$A$, from log-log regression of the deviation against the mechanism "
+         r"parameter (fit over parameter $<1$). The head-of-line models converge "
          r"at the same first order as their full-rate counterparts.}",
          r"\label{tab:conv:rates}",
          r"\begin{tabular}{llrrrl}", r"\toprule",
@@ -1335,7 +1353,7 @@ lines = [r"\begin{table}[t]\centering",
          rf"$\BH\to$A & $\gamma_1\to0$ & {slope_L1_B21:.3f} & n/a & n/a & "
          rf"$\gamma_1\in[10^{{-3}},1)$ \\",
          r"\bottomrule", r"\end{tabular}",
-         r"\footnotesize\par\vspace{2pt}For the jockeying models B$_2$ and $\BH$, $\pi_0$ "
+         r"\footnotesize\par\vspace{2pt}For the jockeying models $B_2$ and $\BH$, $\pi_0$ "
          r"and $\pi(0,0)$ are $\gamma_1$-invariant (jockeying conserves $N$), so their "
          r"deviations sit at the numerical floor and the slope is not meaningful (n/a).",
          r"\end{table}"]
@@ -1352,8 +1370,8 @@ lines = [r"\begin{table}[t]\centering",
          r"under each model ($\lambda_1{:}\lambda_2=3{:}4$, $\mu=1$, $\gamma_1=\theta_1=0.5$).}",
          r"\label{tab:prio:benefit}",
          r"\begin{tabular}{lrrrrrr}", r"\toprule",
-         r" & \multicolumn{2}{c}{Model A} & \multicolumn{2}{c}{Model B$_2$} & "
-         r"\multicolumn{2}{c}{Model C$_2$} \\",
+         r" & \multicolumn{2}{c}{Model-$A$} & \multicolumn{2}{c}{Model-$B_2$} & "
+         r"\multicolumn{2}{c}{Model-$C_2$} \\",
          r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}",
          r"$\rho$ & $E[W_1]$ & $E[W_2]/E[W_1]$ & $E[W_1]$ & $E[W_2]/E[W_1]$ & "
          r"$E[W_1]$ & $E[W_2]/E[W_1]$ \\",
