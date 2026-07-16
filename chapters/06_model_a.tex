@@ -177,76 +177,34 @@ proofs are given, one analytical and one probabilistic.
                     = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \end{split}
     \end{align*}
-    The identification of $L_2$ with the conditional law of $N_2$ given the event
-    $\{\text{busy},\,N_1=0\}$ deserves a proof, and we give one by \emph{censoring}: watch
-    the chain only while it is in the set $E=\{\text{busy},\,N_1=0\}$, splicing out the
-    excursions away from $E$. The watched process is again a Markov chain, and its
-    stationary law is exactly the conditional stationary law given $E$. While the system
-    is in $E$, the class-$2$ queue grows at rate $\lambda_2$ and, when $N_2\ge1$, shrinks
-    at rate $\mu$: no class-$1$ customer waits, so each service completion admits the head
-    of Queue~2. The set $E$ is left in two ways, and neither disturbs $N_2$ on re-entry.
-    From $(0,0)$ a completion empties the system; no customer waits while the server is
-    idle, and the next arrival of either class enters service directly, so the chain
-    re-enters $E$ with $N_2$ unchanged. From any state of $E$, a class-$1$ arrival (rate
-    $\lambda_1$) opens a \emph{clearing spell}: by \emph{memorylessness} the residual
-    service is $\mathrm{Exp}(\mu)$, so the waiting count $N_1$ performs a first passage
-    from $1$ to $0$ of the birth--death chain with rates $(\lambda_1,\mu)$ ---one class-$1$
-    busy period $B$--- during which the priority rule admits no class-$2$ customer into
-    service and the class-$2$ queue accumulates a batch of $\mathrm{Poisson}(\lambda_2 B)$
-    arrivals. Successive spells are i.i.d.\ by the strong Markov property. Watched on $E$,
-    the class-$2$ queue is therefore a birth--death chain with an additional batch stream:
-    single arrivals at rate $\lambda_2$, single departures at rate $\mu$, and, at rate
-    $\lambda_1$, batches of size $K$ with
-    $\mathbb{E}[y^{K}]=\mathbb{E}[e^{-\lambda_2(1-y)B}]=\widetilde{B}(\lambda_2(1-y))=x^*(y)$.
-    Writing $G(y)$ for the stationary PGF of the watched chain and $p_0=G(0)$, balance of
-    probability flow gives
-    \begin{equation*}
-        \mu\,\frac{1-y}{y}\,\bigl(G(y)-p_0\bigr)
-        \;=\;\bigl[\lambda_2(1-y)+\lambda_1\bigl(1-x^*(y)\bigr)\bigr]\,G(y),
-    \end{equation*}
-    so that
-    \begin{equation*}
-        G(y)\;=\;\frac{\mu(1-y)\,p_0}{\mu(1-y)-\lambda_2\,y(1-y)-\lambda_1\,y\bigl(1-x^*(y)\bigr)}.
-    \end{equation*}
-    Since $x^*(y)$ is a root of the kernel quadratic
-    $\lambda_1x^2-\left[\mu+\lambda_1+\lambda_2(1-y)\right]x+\mu=0$
-    (\S\ref{sssec:A:analytical}), the quadratic rearranged at its root factorises as
-    $\bigl(1-x^*(y)\bigr)\bigl(\mu-\lambda_1x^*(y)\bigr)=\lambda_2\,x^*(y)\,(1-y)$. This
-    identity reduces the denominator above, giving
-    $G(y)=p_0\bigl(\mu-\lambda_1x^*(y)\bigr)\big/\bigl(\mu-\lambda_1x^*(y)-\lambda_2y\bigr)$;
-    the normalisation $G(1)=1$ (with $x^*(1)=1$) fixes $p_0=(1-\rho)/(1-\rho_1)$, and a
-    second application of the same identity turns the expression into
-    \begin{equation*}
-        G(y)\;=\;\frac{1-\rho}{1-\rho_1}\cdot\frac{x^*(y)\,(1-y)}{x^*(y)-y}\;=\;L_2(y),
-    \end{equation*}
-    exactly the Pollaczek--Khinchine law built above. Hence
-    $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$: the clearing spells are where the
-    busy period $B$ enters, and they make the $M/G/1$ reading of the construction precise.
+    That $L_2$ is the conditional law of $N_2$ given $\{\text{busy},\,N_1=0\}$ follows by
+    \emph{censoring}: watch the chain only while it is in the set
+    $E=\{\text{busy},\,N_1=0\}$, splicing out the excursions away from $E$. The watched
+    process is again a Markov chain, with stationary law the conditional law given $E$.
+    While in $E$ the class-$2$ queue receives its Poisson$(\lambda_2)$ arrivals and is
+    served at rate $\mu$, since no class-$1$ customer waits. Each class-$1$ arrival (rate
+    $\lambda_1$) removes the chain from $E$ for one class-$1$ busy period $B$ ---by
+    \emph{memorylessness} the residual service is $\mathrm{Exp}(\mu)$, so $N_1$ makes a
+    first passage from $1$ to $0$ of the birth--death chain with rates
+    $(\lambda_1,\mu)$--- during which the priority rule holds class-$2$ service while
+    $\mathrm{Poisson}(\lambda_2 B)$ class-$2$ arrivals accumulate; on re-entry $N_2$ is
+    undisturbed. The watched class-$2$ queue is therefore exactly the $M/G/1$ system built
+    above, whose stationary PGF is $L_2(y)$, and hence
+    $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
 
     By the law of total expectation,
     \begin{equation*}
         P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0] = \mathbb{P}(\text{busy},N_1=0)\cdot L_2(y).
     \end{equation*}
-    The factor $\mathbb{P}(\text{busy},N_1=0)$ follows from a cut argument that makes
-    precise the sense in which the priority queue operates autonomously. Only two kinds of
-    transition change $N_1$. A class-$1$ arrival while the server is busy raises it by one,
-    at rate $\lambda_1$ (an arrival finding the server idle enters service directly and
-    leaves $N_1=0$); a service completion while $N_1\ge1$ lowers it by one, at rate $\mu$,
-    since by \emph{memorylessness} every service in progress ---of either class--- completes
-    at rate $\mu$, and the freed server then admits the head of Queue~1. Transitions between
-    idle and busy occur only while $N_1=0$ and cross no level. Balance across the cut
-    between $\{N_1\le k\}$ and $\{N_1\ge k+1\}$ therefore reads
-    \begin{equation*}
-        \lambda_1\,\mathbb{P}(\text{busy},\,N_1=k)\;=\;\mu\,\mathbb{P}(N_1=k+1),
-        \qquad k\ge0,
-    \end{equation*}
-    and since $N_1\ge1$ implies a busy server, the recursion is geometric,
-    \begin{equation*}
-        \mathbb{P}(\text{busy},\,N_1=k)\;=\;\rho_1^{\,k}\,\mathbb{P}(\text{busy},\,N_1=0).
-    \end{equation*}
-    Summing over $k\ge0$ gives $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$ ---during busy time the
-    priority queue exhibits exactly the geometric law of the ordinary $M/M/1$ queue with
-    rates $(\lambda_1,\mu)$. Combined with $\mathbb{P}(\text{busy})=\rho$, we have
+    The factor $\mathbb{P}(\text{busy},N_1=0)$ follows from the autonomy of the priority
+    queue. Only two transitions change $N_1$: a class-$1$ arrival while the server is busy
+    (rate $\lambda_1$; an arrival to the idle server enters service directly, leaving
+    $N_1=0$), and a service completion while $N_1\ge1$ (rate $\mu$ by \emph{memorylessness},
+    the freed server then admitting the head of Queue~1). Neither the class-$2$ queue nor
+    the idle/busy switches affect these, so during busy time $N_1$ evolves as the ordinary
+    $M/M/1$ queue with rates $(\lambda_1,\mu)$ and is geometric,
+    $\mathbb{P}(N_1=k\mid\text{busy})=\rho_1^{\,k}(1-\rho_1)$. In particular
+    $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$, and with $\mathbb{P}(\text{busy})=\rho$,
     \begin{equation*}
         \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1);
     \end{equation*}
