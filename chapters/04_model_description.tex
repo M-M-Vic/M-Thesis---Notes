@@ -30,6 +30,7 @@ For the partial-PGF analysis we additionally use an auxiliary state space $\wide
     \widetilde{S} := \{(0)\} \cup \{ (n_2,n) \mid n \geq n_2 \geq 0 \}.
     \label{eq:gen:state_space_Stilde}
 \end{equation}
+The usefulness of $\widetilde{S}$ will turn out to be confined to Model-$A$; the rationale for introducing it, and the reason it fails to simplify any model with an active mechanism, are documented in Remark~\ref{rem:gen:Stilde_failed} at the end of this section.
 
 Assuming positive recurrence, so that the limiting distribution exists, we define the long-run probabilities of finding the system in each state:
 \begin{itemize}
@@ -61,6 +62,8 @@ The simpler variants are recovered from Model-$X$ by setting the appropriate par
     \label{tab:model_family}
     \par\smallskip
 \end{table}
+
+The subscript in the variant names records which rate of a mirrored pair is switched off: Model-$B_2$ sets $\gamma_2=0$, retaining only the $1\to2$ jockeying direction, and Model-$C_2$ sets $\theta_2=0$, retaining only class-$1$ abandonment. The mirrored variants Model-$B_1$ ($\gamma_1=0$) and Model-$C_1$ ($\theta_1=0$), not treated in this thesis, are named symmetrically.
 
 Figure~\ref{fig:models-queue-overview} gives a visual overview of Model-$X$ and each variant we consider. It omits the two head-of-line variants, which are less conventional and for which such a diagram would add little:
 \begin{figure}[H]

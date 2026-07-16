@@ -14,17 +14,19 @@ against the distinguishing mechanism parameter (gamma1 for the jockeying
 pair, theta1 for the abandonment pair), and adds a second panel tracking the
 empty-state descriptors pi0 and pi(0,0).
 
-Why two panels:
+Why four panels (2x2, fonts enlarged to match fig_sweep_EN_vs_rho):
   (a) L1 distance ||pi - pi_A||_1 vs mechanism parameter, log-log, with
       first-order (slope ~ 1) fitted lines over parameter < 1. All four
-      collapse onto Model A at first order.
-  (b) pi0 and pi(0,0) vs mechanism parameter. The conserving jockeying models
-      B2, B2^H sit IDENTICALLY on the Model-A lines pi0 = 1-rho and
-      pi(0,0) = rho(1-rho) for every gamma1 > 0 (jockeying conserves N), so
-      their approach is carried entirely by interior redistribution. The
-      abandonment models C2, C2^H drift above both lines and relax back only
-      as theta1 -> 0, so they approach via BOTH the idle state and interior
-      mass.
+      collapse onto Model A at first order (order = slope on these axes).
+  (b) the same L1 distances on LINEAR axes over parameter <= 1: the
+      near-linear growth through the origin shows the first-order response
+      directly, without logarithmic compression (reviewer N105 companion).
+  (c) pi0 vs mechanism parameter. The conserving jockeying models B2, B2^H
+      sit IDENTICALLY on the Model-A line pi0 = 1-rho for every gamma1 > 0
+      (jockeying conserves N), so their approach is carried entirely by
+      interior redistribution; C2, C2^H drift above and relax back only as
+      theta1 -> 0.
+  (d) pi(0,0) vs mechanism parameter: same story against rho(1-rho).
 
 Exact CTMC ground truth via Code/model_master.solve_exact -- the same solver
 used by the validation and exhaustive notebooks. The L1 convention mirrors
@@ -128,50 +130,81 @@ def main():
     print(f"slopes  B2={s_B2:.3f}  B2H={s_B2H:.3f}  C2={s_C2:.3f}  C2H={s_C2H:.3f}")
 
     # ========================================================================
-    # Figure: 2 panels
+    # Figure: 2x2 panels, fonts enlarged to match fig_sweep_EN_vs_rho
     # ========================================================================
-    fig, ax = plt.subplots(1, 2, figsize=(13.0, 5.0))
+    fig, ax = plt.subplots(2, 2, figsize=(12.0, 8.0))
 
-    # ---- panel (a): combined L1 convergence, log-log ----
     series = [
         (grid, L1_B2,  s_B2,  f_B2,  C_B2,  "o", r"$B_2$"),
         (grid, L1_B2H, s_B2H, f_B2H, C_B2H, "^", r"$B_2^{\mathrm{H}}$"),
         (grid, L1_C2,  s_C2,  f_C2,  C_C2,  "s", r"$C_2$"),
         (grid, L1_C2H, s_C2H, f_C2H, C_C2H, "v", r"$C_2^{\mathrm{H}}$"),
     ]
+
+    # ---- panel (a): combined L1 convergence, log-log ----
     for x, y, s, (ss, bb), col, mk, lab in series:
         m = y > 0
-        ax[0].loglog(x[m], y[m], mk, color=col, ms=5, alpha=0.9,
-                     label=rf"{lab}  (slope $\approx{s:.2f}$)")
+        ax[0, 0].loglog(x[m], y[m], mk, color=col, ms=5, alpha=0.9,
+                        label=rf"{lab}  (slope $\approx{s:.2f}$)")
         xs = x[(x < 1) & m]
-        ax[0].loglog(xs, 10 ** bb * xs ** ss, "-", color=col, lw=1.2, alpha=0.7)
-    ax[0].set_xlabel(r"mechanism parameter $\gamma_1$ (jockeying) or $\theta_1$ (abandonment)")
-    ax[0].set_ylabel(r"$\|\pi-\pi_A\|_1$")
-    ax[0].set_title(r"(a) First-order $L_1$ convergence to Model $A$")
-    ax[0].legend(loc="lower right", fontsize=9, framealpha=0.95)
-    ax[0].grid(alpha=0.3, which="both")
+        ax[0, 0].loglog(xs, 10 ** bb * xs ** ss, "-", color=col, lw=1.2, alpha=0.7)
+    ax[0, 0].set_xlabel(r"mechanism parameter $\gamma_1$ or $\theta_1$")
+    ax[0, 0].set_ylabel(r"$\|\pi-\pi_A\|_1$")
+    ax[0, 0].set_title(r"(a) $L_1$ convergence, log--log (order $=$ slope)")
+    ax[0, 0].legend(loc="lower right", framealpha=0.95)
+    ax[0, 0].grid(alpha=0.3, which="both")
 
-    # ---- panel (b): empty-state descriptors pi0, pi(0,0) ----
-    ax[1].axhline(PI0_A, color="black", ls="--", lw=1.1,
-                  label=rf"$1-\rho={PI0_A:.2f}$  ($B_2,B_2^{{\mathrm{{H}}}}$)")
-    ax[1].axhline(PI00_A, color="grey", ls="--", lw=1.1,
-                  label=rf"$\rho(1-\rho)={PI00_A:.2f}$  ($B_2,B_2^{{\mathrm{{H}}}}$)")
-    ax[1].semilogx(grid, pi0_C2,  "-",  color=C_C2,  lw=2.0, label=r"$\pi_0$:  $C_2$")
-    ax[1].semilogx(grid, pi0_C2H, "--", color=C_C2H, lw=2.0, label=r"$\pi_0$:  $C_2^{\mathrm{H}}$")
-    ax[1].semilogx(grid, pi00_C2,  "-",  color="#7b1f1f", lw=2.0, label=r"$\pi(0,0)$:  $C_2$")
-    ax[1].semilogx(grid, pi00_C2H, "--", color="#5a005a", lw=2.0, label=r"$\pi(0,0)$:  $C_2^{\mathrm{H}}$")
-    ax[1].set_xlabel(r"mechanism parameter $\gamma_1$ or $\theta_1$")
-    ax[1].set_ylabel("probability")
-    ax[1].set_title(r"(b) Empty-state descriptors $\pi_0,\ \pi(0,0)$")
-    ax[1].legend(loc="upper left", fontsize=8, framealpha=0.95, ncol=1)
-    ax[1].grid(alpha=0.3, which="both")
-    ax[1].annotate(r"jockeying conserves $N$:" "\n" r"$\pi_0,\pi(0,0)\equiv$ Model $A$",
-                   xy=(1e-2, PI0_A), xytext=(3e-3, 0.40), fontsize=8.5,
-                   arrowprops=dict(arrowstyle="->", color="black", lw=0.8))
+    # ---- panel (b): the same distances on linear axes over parameter <= 1 ----
+    for x, y, s, _f, col, mk, lab in series:
+        m = (x <= 1.0) & (y > 0)
+        ax[0, 1].plot(x[m], y[m], mk, color=col, ms=5, alpha=0.9, ls="-",
+                      lw=1.4, label=lab)
+    ax[0, 1].set_xlabel(r"mechanism parameter $\gamma_1$ or $\theta_1$")
+    ax[0, 1].set_ylabel(r"$\|\pi-\pi_A\|_1$")
+    ax[0, 1].set_title(r"(b) Same distances, linear axes (parameter $\leq1$)")
+    ax[0, 1].legend(loc="upper left", framealpha=0.95)
+    ax[0, 1].grid(alpha=0.3)
+
+    # ---- panel (c): idle probability pi0 ----
+    ax[1, 0].axhline(PI0_A, color="black", ls=":", lw=1.4,
+                     label=rf"$1-\rho={PI0_A:.2f}$ (Model $A$)")
+    ax[1, 0].semilogx(grid, pi0_B2,  "-",  color=C_B2,  lw=2.0, label=r"$B_2$")
+    ax[1, 0].semilogx(grid, pi0_B2H, "--", color=C_B2H, lw=2.0, label=r"$B_2^{\mathrm{H}}$")
+    ax[1, 0].semilogx(grid, pi0_C2,  "-",  color=C_C2,  lw=2.0, label=r"$C_2$")
+    ax[1, 0].semilogx(grid, pi0_C2H, "--", color=C_C2H, lw=2.0, label=r"$C_2^{\mathrm{H}}$")
+    ax[1, 0].set_xlabel(r"mechanism parameter $\gamma_1$ or $\theta_1$")
+    ax[1, 0].set_ylabel(r"$\pi_0$")
+    ax[1, 0].set_title(r"(c) Idle probability $\pi_0$: pinned vs drifting")
+    ax[1, 0].legend(loc="upper left", framealpha=0.95)
+    ax[1, 0].grid(alpha=0.3, which="both")
+
+    # ---- panel (d): busy-but-empty probability pi(0,0) ----
+    ax[1, 1].axhline(PI00_A, color="black", ls=":", lw=1.4,
+                     label=rf"$\rho(1-\rho)={PI00_A:.2f}$ (Model $A$)")
+    ax[1, 1].semilogx(grid, pi00_B2,  "-",  color=C_B2,  lw=2.0, label=r"$B_2$")
+    ax[1, 1].semilogx(grid, pi00_B2H, "--", color=C_B2H, lw=2.0, label=r"$B_2^{\mathrm{H}}$")
+    ax[1, 1].semilogx(grid, pi00_C2,  "-",  color=C_C2,  lw=2.0, label=r"$C_2$")
+    ax[1, 1].semilogx(grid, pi00_C2H, "--", color=C_C2H, lw=2.0, label=r"$C_2^{\mathrm{H}}$")
+    ax[1, 1].set_xlabel(r"mechanism parameter $\gamma_1$ or $\theta_1$")
+    ax[1, 1].set_ylabel(r"$\pi(0,0)$")
+    ax[1, 1].set_title(r"(d) Busy-but-empty probability $\pi(0,0)$")
+    ax[1, 1].legend(loc="upper left", framealpha=0.95)
+    ax[1, 1].grid(alpha=0.3, which="both")
+
+    # enlarge all panel text for legibility at print scale (matches fig_sweep)
+    for a in ax.flat:
+        a.xaxis.label.set_size(13)
+        a.yaxis.label.set_size(13)
+        a.title.set_size(13)
+        a.tick_params(labelsize=11)
+        lg = a.get_legend()
+        if lg is not None:
+            for t in lg.get_texts():
+                t.set_fontsize(10.5)
 
     fig.suptitle(r"Convergence of the four specialisations to Model $A$ "
-                 r"($\lambda_1=0.3,\ \lambda_2=0.4,\ \mu=1,\ \rho=0.70$)", fontsize=12)
-    fig.tight_layout(rect=(0, 0, 1, 0.96))
+                 r"($\lambda_1=0.3,\ \lambda_2=0.4,\ \mu=1,\ \rho=0.70$)", fontsize=14)
+    fig.tight_layout(rect=(0, 0, 1, 0.97))
 
     os.makedirs(SAVE_DIR, exist_ok=True)
     for ext in ("pdf", "png"):

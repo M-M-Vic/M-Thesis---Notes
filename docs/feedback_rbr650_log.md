@@ -1,5 +1,123 @@
 # rbr650 feedback incorporation — disposition log
 
+# Round 3 (2026-07-14) — disposition of the open author items
+
+Every item in the two "Skipped / needs the author" lists below was dispositioned with the
+author (Q&A session, 2026-07-14; conservative rule: keep-or-not decisions default to *not
+keep*). Branch: `feedback-rbr650-dispositions`, commits: pass A (conservative removals +
+small additions), pass B (numeric bibliography + paper verifications), pass C (rigorous
+probabilistic justifications + Volterra intuition), pass D (Model-B quantitative
+comparison + figure restyling). Build after incorporation: 74 pp, 0 errors, 0 undefined
+refs, 6 pre-existing overfull hboxes.
+
+## Round-2 items (18–32)
+
+18. **N1b — DONE (drafted).** Intuition paragraph added in §6 after the post-proof
+    discussion: why the obstruction is *first-kind* ($P_y$ only under the integral, no
+    Picard–Neumann theory), why it is endpoint-singular ($\mathcal{K}\sim(z-t)^{-E_z}$,
+    datum $\sim(z-t)^{-1-E_z}$), and the probabilistic reading ($\gamma_2 n_2$ feeds
+    Queue 1 from every occupied Queue-2 level). **Author: voice pass.** Bonus: fixed a
+    pre-existing exponent swap in the singularity sentence at the end of the Claim-1
+    proof (the $\mathcal{F}$-integrand is the harsher one, cf. `eq:B:exact_linear`).
+19. **N1c — DONE (full).** Model-$B$ ($\gamma_1=0.5$, $\gamma_2=0.3$; CTMC only) wired
+    into `Code/build_nb_exhaustive.py`: sanity suite (its conservation identities
+    $\pi_0=1-\rho$, $\pi(0,0)=\rho(1-\rho)$, diagonal law are now *asserted*), the
+    $\rho$-sweep, both sweep figures, and a `tab:comp:main` row (multirow-6). §11.3
+    prose + Fig-8 caption updated; headline finding: the two-way exchange *lengthens*
+    the priority queue (return flow $\gamma_2 n_2$ outweighs the drain $\gamma_1 n_1$
+    because priority keeps Queue 2 long): $E[N_1]=0.51$ vs $0.30$ ($A$) and $0.15$
+    ($B_2$) at $\rho=0.70$, while $E[N]$, $\pi_0$, $\pi(0,0)$ coincide with Model-$A$
+    exactly (numerical confirmation of Cor. `cor:B:pi00` for the open model). The
+    round-2 hand edits to the *generated* table (math-italic letters, caption) were
+    ported into the generator so rebuilds no longer clobber them.
+20. **N2 — VERIFIED, no change.** Checked against `literature/20` (Devos et al. 2020):
+    discrete-time, Bernoulli arrivals, server randomly allocated per slot (geometric
+    stretches), two unknown boundary functions determined via analytic continuation;
+    not a priority/jockeying model. Both thesis descriptions (§9 opening, §2.4) match.
+21. **N51 — REMOVED (conservative rule).** The optional Thm 5↔Thm 6 comparison
+    sentences were deleted; the $\theta_1\to0^+$ recovery sentence (N50's fix) stays.
+22. **N56 — unchanged**, left open per the reviewer's own caution.
+23. **N67 — alternative APPLIED.** The T-S row moved out of Table 4 into a sentence
+    directly after it (table now contains only exact verifications); caption trimmed;
+    the appendix sentence referencing "every other entry" adjusted to stay coherent.
+24. **N96 — DONE.** `fig_conv_combined` restyled to the Fig-8 treatment (2×2 grid,
+    labels 13 pt / ticks 11 pt / legends 10.5 pt / suptitle 14 pt) via
+    `Code/make_fig_convergence_combined.py`. Other notebook figures are not compiled
+    into the thesis and were left unchanged.
+25. **N105 — DONE.** Linear-axes companion panel (b) added to Figure 9 (same $L_1$
+    distances over the fitted range); $\pi_0$ and $\pi(0,0)$ split into panels (c)/(d).
+    Caption and §11.4 text updated.
+26. **N107 — closed.** The one-sentence sensitivity reading stands; a full reframe was
+    decided against.
+27. **N116 — DELETED (conservative rule).** §12.2 "Operational reading and the
+    deterioration-direction caveat" removed; it carried no labels and no inbound
+    references.
+28. **N120 — APPLIED minimally.** One forward-pointing sentence at the $\widetilde{S}$
+    introduction in §4 to `rem:gen:Stilde_failed` ("usefulness confined to Model-$A$").
+29. **N127 — VERIFIED; attribution corrected.** From `literature/4`: Wang–Baron–
+    Scheller-Wolf 2015 analyse the *preemptive* discipline with class-dependent rates;
+    the exact common-rate *non-preemptive* $M/M/c$ analysis is Kella & Yechiali (1985)
+    — whose PDF is `literature/3` in the author's own collection. The §12 multi-server
+    item now cites both correctly; `kella1985waiting` added to `references.bib`.
+    **Author: confirm you have read literature/3 (citation policy).**
+30. **N128 — VERIFIED; bib corrected.** From `literature/17`: Zenios 1999 appeared in
+    *Queueing Systems* 31:239–251 — the bib entry wrongly said Operations Research
+    47(3); fixed (UNVERIFIED flag removed). A calibration would need: organ-arrival-
+    driven (multiserver) service, more than two patient classes, reneging for *all*
+    classes, and randomised rather than strict-priority allocation; Zenios's results
+    are moreover asymptotic. The conclusion sentence stays deliberately unspecific,
+    as agreed.
+31. **N129 — APPLIED.** `\bibliographystyle{alpha}` → `plain`: references now sort by
+    author (Zeltyn–Mandelbaum precedes Zuk–Kirszenblat) with numeric citation marks.
+32. **§15 appendix — DONE.** Prose validation→verification throughout (21 occurrences;
+    `\label` names and `figures/validation/` paths untouched).
+
+## Round-1 items (1–17)
+
+1. **#2 — closed.** `\maketitle` kept; the Canvas template can be integrated later if
+   the author supplies it.
+2. **#3 — DONE.** Footnote at the first use of "(jockeying)" in §1: classical meaning
+   (moving between *parallel* queues) vs this thesis's class-switching usage, citing
+   de Waal and Hu–Chan–Dong for the *priority change* term.
+3. **#18 — DONE.** Author confirmed the convention: the subscript names the switched-
+   off rate ($B_2$: $\gamma_2=0$; $C_2$: $\theta_2=0$; mirrors $B_1$/$C_1$ symmetric).
+   One sentence added after `tab:model_family`.
+4. **#20 — closed (won't do).** No vetted source; citation policy forbids unread
+   references.
+5. **#21 — closed.** §-symbol convention stands.
+6. **#53 — closed (won't do).** Cohen–Boxma not in the bibliography; needs reading
+   first (policy).
+7. **#79 — closed.** The numbered expression stays as displayed.
+8. **#115 — closed.** Ambiguous typographic nit; unchanged.
+9. **#135 — closed.** Covered by the global defining sentences and `\intertext` lines.
+10. **#169 — closed (KEEP).** Author decision: `cor:A:pi0` stays — the canonical
+    per-model corollary template plus 7 cross-references outweigh the redundancy.
+11. **#171 — closed.** The wording fix stands; the deeper $(0,1]$ vs $[0,1)$ interplay
+    remains an open aside.
+12. **#177/#179/#265/#271 — DONE (the main remaining task).** §5.1.2: the conditional-
+    law identification $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$ is now proved
+    by *censoring* on $E=\{\text{busy},N_1=0\}$ (watched chain = birth–death plus a
+    batch stream; clearing spells = class-1 busy periods with batch PGF
+    $\widetilde{B}(\lambda_2(1-y))=x^*(y)$; balance collapses to the P–K law via the
+    kernel-quadratic identity). The "operates autonomously" parenthetical replaced by
+    an explicit level-cut argument giving the geometric law. §8.4's mis-aimed PASTA
+    sentence replaced by an honest scoping (the C₂ spell law differs from $B_C$
+    because a spell's initiator is waiting, hence abandonable). Every inserted
+    identity CTMC-verified to ~1e-14 across 6 parameter sets. **Author: voice pass;
+    optionally add a textbook citation for the censored/watched-chain principle.**
+13. **#198 — closed.** Reviewer himself: "not really a problem".
+14. **#234 — closed.** Deliberate three-step template kept.
+15. **#260 — closed.** The precise relation (#261) stands; no merge.
+16. **#262 — closed.** Inline restatement stands; the wholesale reorder was not taken.
+17. **#52 — closed.** Verified previously from the paper; current text correct.
+
+**Still with the author after this round:** voice pass on the three drafted passages
+(§5.1.2 censoring + cut arguments, §8.4 scoping, §6 Volterra paragraph); confirm
+`literature/3` (Kella & Yechiali) as read; #20/#53 stay excluded under the citation
+policy.
+
+---
+
 # Round 2 (2026-07-13) — final feedback, §§9–12 + references
 
 Source: `docs/feedback_rbr650_2026-07-13.pdf` (402 annotations total). Diffed against the
