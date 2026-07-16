@@ -177,40 +177,19 @@ proofs are given, one analytical and one probabilistic.
                     = \frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y}.
         \end{split}
     \end{align*}
-    That $L_2$ is the conditional law of $N_2$ given $\{\text{busy},\,N_1=0\}$ follows by
-    \emph{censoring}: watch the chain only while it is in the set
-    $E=\{\text{busy},\,N_1=0\}$, splicing out the excursions away from $E$. The watched
-    process is again a Markov chain, with stationary law the conditional law given $E$.
-    While in $E$ the class-$2$ queue receives its Poisson$(\lambda_2)$ arrivals and is
-    served at rate $\mu$, since no class-$1$ customer waits. Each class-$1$ arrival (rate
-    $\lambda_1$) removes the chain from $E$ for one class-$1$ busy period $B$ ---by
-    \emph{memorylessness} the residual service is $\mathrm{Exp}(\mu)$, so $N_1$ makes a
-    first passage from $1$ to $0$ of the birth--death chain with rates
-    $(\lambda_1,\mu)$--- during which the priority rule holds class-$2$ service while
-    $\mathrm{Poisson}(\lambda_2 B)$ class-$2$ arrivals accumulate; on re-entry $N_2$ is
-    undisturbed. The watched class-$2$ queue is therefore exactly the $M/G/1$ system built
-    above, whose stationary PGF is $L_2(y)$, and hence
-    $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
+    That $L_2$ is the conditional law of $N_2$ given $\{\text{busy},\,N_1=0\}$: watch the chain only while it is in the set $\{\text{busy},\,N_1=0\}$, splicing out the excursions away from it. The watched process is again a Markov chain, with stationary law the conditional law given this set of states. While in it the class-$2$ queue receives its Poisson$(\lambda_2)$ arrivals and is served at rate $\mu$, since no class-$1$ customer is waiting. Each class-$1$ arrival (rate $\lambda_1$) removes the chain from it for one class-$1$ busy period $B$ ---by \emph{memorylessness} the residual service is $\mathrm{Exp}(\mu)$, so $N_1$ makes a first passage from $1$ to $0$ of the birth-death process with rates $(\lambda_1,\mu)$--- during which the priority rule holds class-$2$ service while $\mathrm{Poisson}(\lambda_2 B)$ class-$2$ arrivals accumulate; on re-entry $N_2$ is undisturbed. The watched class-$2$ queue is therefore exactly the $M/G/1$ system built bove, whose stationary PGF is $L_2(y)$, and hence $\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0]=L_2(y)$.
 
     By the law of total expectation,
     \begin{equation*}
         P_y(y)=\mathbb{P}(\text{busy},N_1=0)\cdot\mathbb{E}[y^{N_2}\mid\text{busy},N_1=0] = \mathbb{P}(\text{busy},N_1=0)\cdot L_2(y).
     \end{equation*}
-    The factor $\mathbb{P}(\text{busy},N_1=0)$ follows from the autonomy of the priority
-    queue. Only two transitions change $N_1$: a class-$1$ arrival while the server is busy
-    (rate $\lambda_1$; an arrival to the idle server enters service directly, leaving
-    $N_1=0$), and a service completion while $N_1\ge1$ (rate $\mu$ by \emph{memorylessness},
-    the freed server then admitting the head of Queue~1). Neither the class-$2$ queue nor
-    the idle/busy switches affect these, so during busy time $N_1$ evolves as the ordinary
-    $M/M/1$ queue with rates $(\lambda_1,\mu)$ and is geometric,
-    $\mathbb{P}(N_1=k\mid\text{busy})=\rho_1^{\,k}(1-\rho_1)$. In particular
-    $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$, and with $\mathbb{P}(\text{busy})=\rho$,
+    The factor $\mathbb{P}(\text{busy},N_1=0)$ follows from the autonomy of the priority queue. Only two transitions change $N_1$: a class-$1$ arrival while the server is busy (rate $\lambda_1$; an arrival to the idle server enters service directly, leaving $N_1=0$), and a service completion while $N_1\ge1$ (rate $\mu$ by \emph{memorylessness}, the free server then admitting the head of Queue~1). Neither the class-$2$ queue nor the idle/busy switches affect these, so during busy time $N_1$ evolves as the ordinary $M/M/1$ queue with rates $(\lambda_1,\mu)$ and is geometric, $\mathbb{P}(N_1=k\mid\text{busy})=\rho_1^{\,k}(1-\rho_1)$. In particular $\mathbb{P}(N_1=0\mid\text{busy})=1-\rho_1$, and with $\mathbb{P}(\text{busy})=\rho$,
     \begin{equation*}
         \mathbb{P}(\text{busy},N_1=0)=\rho(1-\rho_1);
     \end{equation*}
-    and therefore
+    so
     \begin{equation}
-        P_y(y) = \rho(1-\rho_1)\cdot L_2(y) = \rho(1-\rho_1)\cdot\frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y} = \frac{x^*(y)(1-y)}{x^*(y) - y} \cdot (1-\rho) \rho
+        P_y(y) = \rho(1-\rho_1)\cdot L_2(y) = \rho(1-\rho_1)\cdot\frac{1-\rho}{1-\rho_1} \cdot \frac{x^*(y)(1-y)}{x^*(y) - y} = \frac{x^*(y)(1-y)}{x^*(y) - y} \cdot (1-\rho) \rho.
         \label{eq:A:Py_prob}
     \end{equation}
 
