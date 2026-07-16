@@ -4,7 +4,7 @@
 
 
 Model-$\CH$ is the abandonment counterpart of Model-$\BH$, and the head-of-line
-version of the class-$1$ abandonment model Model-$C_2$: the parameter setting is $\theta_1>0$ head-of-line with $\gamma_1=\gamma_2=\theta_2=0$. Only the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever $n_1\geq1$. As in Model-$\BH$, the constant rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes an \emph{algebraic} term to the fundamental equation rather than a derivative term, and the Kernel Method applies directly. Because an abandoning customer leaves the system altogether, the conservation of the total number of customers ---which held in every model without abandonment--- no longer applies.
+version of the class-$1$ abandonment model, Model-$C_2$: the parameter setting is $\theta_1>0$ head-of-line with $\gamma_1=\gamma_2=\theta_2=0$. Only the \emph{customer at the head of Queue~1} abandons, at the fixed rate $\theta_1$ whenever $n_1\geq1$. As in Model-$\BH$, the constant rate $\theta_1\,\mathbf{1}_{\{n_1\ge1\}}$ contributes an \emph{algebraic} term to the fundamental equation rather than a derivative term, and the Kernel Method applies directly. Because an abandoning customer leaves the system altogether, the conservation of the total number of customers ---which held in every model without abandonment--- no longer applies.
 
 \textbf{Stability.} Because only the head-of-line customer from class-$1$ abandons, the aggregate abandonment rate is bounded by $\theta_1$ regardless of the queue length ---unlike in Model-$C_2$, where it grows proportionally to $n_1$ and stabilises the priority queue at any load. A non-trivial stability condition is therefore required. As shown in Corollary~\ref{cor:C21:pi0} below, the chain is positive recurrent if and only if $\pi_0>0$, that is
 \begin{equation}
@@ -196,11 +196,11 @@ At $(x,y)=(1,1)$ every term of Equation~\eqref{eq:C21:fundamental} vanishes ---$
     Write $\Delta(y):=(\mu+\theta_1 y)x^*(y)-y(\mu+\theta_1)$ for the denominator of Equation~\eqref{eq:C21:Py}; at $y=0$, $\Delta(0)=\mu\,x^*(0)$ (with $x^*(0)>0$), so $P_y(0)=\pi(0,0)$, exactly as for Model-$\BH$ at Equation~\eqref{eq:B21:Py}.
     
     Substituting Equation~\eqref{eq:C21:Py} into Equation~\eqref{eq:C21:fundamental} and writing the kernel as $-\lambda_1 y\,(x-x^*(y))(x-x^+(y))$, the right-hand side becomes
-    \begin{equation*}
-        \bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]P_y(y) - \mu x(1-y)\,\pi(0,0)
+    \begin{multline*}
+        \bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]P_y(y) - \mu x(1-y)\,\pi(0,0) \\
         = \frac{\mu(1-y)\,\pi(0,0)}{\Delta(y)}\,
           \Bigl\{\bigl[\mu(x-y)+\theta_1 y(x-1)\bigr]x^*(y) - x\,\Delta(y)\Bigr\}.
-    \end{equation*}
+    \end{multline*}
     Substituting $\Delta(y)$, the braced expression simplifies to $(\mu+\theta_1)\,y\,(x-x^*(y))$. Dividing by the factored kernel cancels $(x-x^*(y))$, yielding
     \begin{equation*}
         P(x,y) = \frac{\mu(\mu+\theta_1)(1-y)\,\pi(0,0)\,y\,(x-x^*(y))/\Delta(y)}
